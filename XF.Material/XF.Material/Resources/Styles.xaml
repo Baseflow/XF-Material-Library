@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary x:Class="XF.Material.Resources.Styles"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:res="clr-namespace:XF.Material.Resources">
+    <ResourceDictionary.MergedDictionaries>
+        <res:Sizes />
+    </ResourceDictionary.MergedDictionaries>
+
+    <!--#region CHIP-->
+    <Style x:Key="Chip" TargetType="Frame">
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="CornerRadius" Value="16" />
+        <Setter Property="HasShadow" Value="False" />
+        <Setter Property="HeightRequest" Value="{StaticResource Chip.Height}" />
+        <Setter Property="OutlineColor" Value="Transparent" />
+    </Style>
+
+    <Style x:Key="Chip.Container" TargetType="StackLayout">
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="HeightRequest" Value="{StaticResource Chip.Height}" />
+        <Setter Property="Spacing" Value="0" />
+        <Setter Property="Orientation" Value="Horizontal" />
+    </Style>
+
+    <Style x:Key="Chip.ActionImage" TargetType="Image">
+        <Setter Property="Margin" Value="{StaticResource Chip.ActionImage.Margin}" />
+        <Setter Property="WidthRequest" Value="16" />
+        <Setter Property="HeightRequest" Value="16" />
+    </Style>
+
+    <Style x:Key="Chip.Label" TargetType="Label">
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="LineBreakMode" Value="NoWrap" />
+        <Setter Property="VerticalTextAlignment" Value="Center" />
+    </Style>
+
+    <!--#endregion-->
+
+</ResourceDictionary>

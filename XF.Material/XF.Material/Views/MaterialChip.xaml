@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Frame x:Class="XF.Material.Views.MaterialChip"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:res="clr-namespace:XF.Material.Resources"
+    HorizontalOptions="Start"
+    Style="{StaticResource Chip}"
+    VerticalOptions="Start">
+    <Frame.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <res:Styles />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Frame.Resources>
+    <StackLayout x:Name="Container"
+        HorizontalOptions="Start"
+        Style="{StaticResource Chip.Container}"
+        VerticalOptions="Center">
+        <Label x:Name="ChipLabel"
+            HorizontalOptions="Start"
+            Style="{StaticResource Chip.Label}"
+            VerticalOptions="Center">
+            <Label.Triggers>
+                <DataTrigger Binding="{Binding Source={x:Reference ChipImage}, Path=IsVisible}"
+                    TargetType="Label"
+                    Value="True">
+                    <Setter Property="Margin" Value="{StaticResource Chip.Label.Margin.WithActionImage}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Source={x:Reference ChipImage}, Path=IsVisible}"
+                    TargetType="Label"
+                    Value="False">
+                    <Setter Property="Margin" Value="{StaticResource Chip.Label.Margin.NoActionImage}" />
+                </DataTrigger>
+            </Label.Triggers>
+        </Label>
+        <Image x:Name="ChipImage"
+            IsVisible="False"
+            Style="{StaticResource Chip.ActionImage}"
+            VerticalOptions="Center" />
+    </StackLayout>
+</Frame>

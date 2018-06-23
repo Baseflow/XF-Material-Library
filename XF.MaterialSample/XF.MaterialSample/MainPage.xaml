@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="XF.MaterialSample.MainPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:material="clr-namespace:XF.Material.Views;assembly=XF.Material"
+    Title="Xamarin.Forms Material"
+    BackgroundColor="White">
+    <ScrollView>
+        <StackLayout Padding="16"
+            HorizontalOptions="FillAndExpand"
+            Spacing="16"
+            VerticalOptions="FillAndExpand">
+
+            <Label Font="18, Bold" Text="CARDS" />
+            <StackLayout HorizontalOptions="FillAndExpand"
+                Orientation="Vertical"
+                Spacing="8">
+                <material:MaterialCard BackgroundColor="#FAFAFA"
+                    CornerRadius="2"
+                    Elevation="1"
+                    HeightRequest="80"
+                    HorizontalOptions="FillAndExpand">
+                    <Label HorizontalOptions="Center"
+                        Text="Elevation 1"
+                        VerticalOptions="Center" />
+                </material:MaterialCard>
+                <material:MaterialCard BackgroundColor="#FAFAFA"
+                    CornerRadius="2"
+                    Elevation="2"
+                    HeightRequest="80"
+                    HorizontalOptions="FillAndExpand">
+                    <Label HorizontalOptions="Center"
+                        Text="Elevation 2"
+                        VerticalOptions="Center" />
+                </material:MaterialCard>
+                <material:MaterialCard BackgroundColor="#FAFAFA"
+                    CornerRadius="2"
+                    Elevation="4"
+                    HeightRequest="80"
+                    HorizontalOptions="FillAndExpand">
+                    <Label HorizontalOptions="Center"
+                        Text="Elevation 4"
+                        VerticalOptions="Center" />
+                </material:MaterialCard>
+                <material:MaterialCard BackgroundColor="#FAFAFA"
+                    CornerRadius="2"
+                    Elevation="6"
+                    HeightRequest="80"
+                    HorizontalOptions="FillAndExpand">
+                    <Label HorizontalOptions="Center"
+                        Text="Elevation 6"
+                        VerticalOptions="Center" />
+                </material:MaterialCard>
+                <material:MaterialCard BackgroundColor="#FAFAFA"
+                    CornerRadius="2"
+                    Elevation="8"
+                    HeightRequest="80"
+                    HorizontalOptions="FillAndExpand">
+                    <Label HorizontalOptions="Center"
+                        Text="Elevation 8"
+                        VerticalOptions="Center" />
+                </material:MaterialCard>
+            </StackLayout>
+
+            <Label Font="18, Bold" Text="BUTTONS" />
+            <StackLayout Padding="8"
+                HorizontalOptions="CenterAndExpand"
+                Orientation="Horizontal"
+                Spacing="16">
+                <material:MaterialButton BackgroundColor="Red"
+                    FontSize="14"
+                    Text="Ok"
+                    TextColor="White"
+                    VerticalOptions="Center" />
+                <material:MaterialButton BackgroundColor="Green"
+                    FontSize="14"
+                    Text="Save"
+                    TextColor="White"
+                    VerticalOptions="Center" />
+                <material:MaterialButton BackgroundColor="#6200EE"
+                    FontSize="14"
+                    Text="Discard Changes"
+                    TextColor="White"
+                    VerticalOptions="Center" />
+            </StackLayout>
+            <Label Font="18, Bold" Text="CHIPS" />
+            <StackLayout Padding="8"
+                HeightRequest="56"
+                HorizontalOptions="FillAndExpand"
+                Orientation="Horizontal"
+                Spacing="4">
+                <material:MaterialChip BackgroundColor="Red"
+                    HorizontalOptions="Start"
+                    Text="Chip 1"
+                    TextColor="White" />
+                <material:MaterialChip ActionImage="ic_close"
+                    BackgroundColor="Green"
+                    HorizontalOptions="Center"
+                    Text="Chip 2"
+                    TextColor="White" />
+                <material:MaterialChip BackgroundColor="Blue"
+                    HorizontalOptions="End"
+                    Text="Chip 3"
+                    TextColor="White" />
+            </StackLayout>
+
+            <Label Font="18, Bold" Text="DIALOGS" />
+            <StackLayout Padding="8"
+                HorizontalOptions="FillAndExpand"
+                Orientation="Horizontal"
+                Spacing="4">
+                <material:MaterialButton Clicked="MaterialButton_ShowDialog"
+                    FontSize="14"
+                    Text="Show Dialog" />
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

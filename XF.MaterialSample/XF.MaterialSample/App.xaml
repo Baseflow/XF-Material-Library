@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application x:Class="XF.MaterialSample.App"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:material="clr-namespace:XF.Material.Resources;assembly=XF.Material">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!--<material:Styles />-->
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+
+
+        <OnPlatform x:Key="FontFamily.Exo2Regular"
+            x:TypeArguments="x:String"
+            Android="Fonts/Exo2-Regular.ttf#Exo2-Regular"
+            iOS="Exo2-Regular" />
+        <OnPlatform x:Key="FontFamily.Exo2Bold"
+            x:TypeArguments="x:String"
+            Android="Fonts/Exo2-Bold.ttf#Exo2-Bold"
+            iOS="Exo2-Bold" />
+        <OnPlatform x:Key="FontFamily.Exo2Medium"
+            x:TypeArguments="x:String"
+            Android="Fonts/Exo2-Medium.ttf#Exo2-Medium"
+            iOS="Exo2-Medium" />
+
+        <OnPlatform x:Key="FontFamily.RobotoRegular"
+            x:TypeArguments="x:String"
+            Android="Fonts/Roboto-Regular.ttf#Roboto-Regular"
+            iOS="Roboto-Regular" />
+        <OnPlatform x:Key="FontFamily.RobotoBold"
+            x:TypeArguments="x:String"
+            Android="Fonts/Roboto-Bold.ttf#Roboto-Bold"
+            iOS="Roboto-Bold" />
+        <OnPlatform x:Key="FontFamily.RobotoMedium"
+            x:TypeArguments="x:String"
+            Android="Fonts/Roboto-Medium.ttf#Roboto-Medium"
+            iOS="Roboto-Medium" />
+
+
+        <material:MaterialFontFamily x:Key="Material.FontFamily"
+            Bold="{StaticResource FontFamily.RobotoBold}"
+            Medium="{StaticResource FontFamily.RobotoMedium}"
+            Regular="{StaticResource FontFamily.RobotoRegular}" />
+
+        <material:MaterialColor x:Key="Material.Color"
+            OnPrimary="#FFFFFF"
+            OnSecondary="#FFFFFF"
+            Primary="#6200EE"
+            Secondary="#0000B9" />
+
+        <material:MaterialStyle x:Key="Material.Style"
+            FontFamily="{StaticResource Material.FontFamily}"
+            Color="{StaticResource Material.Color}" />
+
+    </Application.Resources>
+</Application>
