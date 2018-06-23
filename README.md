@@ -11,4 +11,6 @@ The aim of this library is to give Xamarin Forms developers tool for creating be
 </ul>
 
 <h3>Theming</h3>
+<p>
 Uses Fonts and Colors defined in the Resource Dictionary that can be accessed through out the application.
+</p>
