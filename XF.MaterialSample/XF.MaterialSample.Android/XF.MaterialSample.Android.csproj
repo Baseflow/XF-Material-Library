@@ -131,10 +131,6 @@
     <Folder Include="Resources\drawable-xxxhdpi\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\XF.Material.Droid\XF.Material.Droid.csproj">
-      <Project>{f085c3e8-bb5e-48fa-a8dc-cc9e69bb041d}</Project>
-      <Name>XF.Material.Droid</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\XF.Material\XF.Material\XF.Material.csproj">
       <Project>{b0c6b498-6ec2-4e2b-812b-a04a30827e7f}</Project>
       <Name>XF.Material</Name>

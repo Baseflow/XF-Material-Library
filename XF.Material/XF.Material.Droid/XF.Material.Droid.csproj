@@ -114,7 +114,7 @@
     <Folder Include="Resources\animator\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\XF.Material\XF.Material\XF.Material.csproj">
+    <ProjectReference Include="..\XF.Material\XF.Material.csproj">
       <Project>{B0C6B498-6EC2-4E2B-812B-A04A30827E7F}</Project>
       <Name>XF.Material</Name>
     </ProjectReference>
