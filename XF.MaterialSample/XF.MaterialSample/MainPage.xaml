@@ -63,25 +63,21 @@
             </StackLayout>
 
             <Label Font="18, Bold" Text="BUTTONS" />
-            <StackLayout Padding="8"
-                HorizontalOptions="CenterAndExpand"
+            <StackLayout HorizontalOptions="FillAndExpand"
                 Orientation="Horizontal"
-                Spacing="16">
-                <material:MaterialButton BackgroundColor="Red"
+                Spacing="8">
+                <material:MaterialButton BackgroundColor="#FAFAFA"
                     FontSize="14"
                     Text="Ok"
-                    TextColor="White"
-                    VerticalOptions="Center" />
+                    TextColor="Black" />
                 <material:MaterialButton BackgroundColor="Green"
                     FontSize="14"
                     Text="Save"
-                    TextColor="White"
-                    VerticalOptions="Center" />
+                    TextColor="White" />
                 <material:MaterialButton BackgroundColor="#6200EE"
                     FontSize="14"
                     Text="Discard Changes"
-                    TextColor="White"
-                    VerticalOptions="Center" />
+                    TextColor="White" />
             </StackLayout>
             <Label Font="18, Bold" Text="CHIPS" />
             <StackLayout Padding="8"

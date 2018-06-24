@@ -112,6 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\animator\" />
+    <Folder Include="Resources\drawable\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\XF.Material\XF.Material.csproj">
@@ -125,12 +126,7 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-v21\ripple.xml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\drawable_button.xml">
+    <AndroidResource Include="Resources\drawable-v21\drawable_ripple.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

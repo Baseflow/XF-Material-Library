@@ -7,12 +7,12 @@ This library is influenced by Google's <a href="https://material.io/design">Mate
 
 <h3>Controls</h3>
 <ul>
-  <li>Cards</li>
-  <li>Buttons</li>
-  <li>Chips</li>
+    <li>Cards</li>
+    <li>Buttons</li>
+    <li>Chips</li>
 </ul>
 
 <h3>Theming</h3>
 <p>
-Uses Fonts and Colors defined in the Resource Dictionary that can be accessed through out the application.
+    Allows setting dynamic Fonts and Color resources that will automatically be used by controls under the <code>XF.Material.Views</code> namespace.
 </p>

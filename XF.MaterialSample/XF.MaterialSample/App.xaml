@@ -49,7 +49,7 @@
             Primary="#6200EE"
             Secondary="#0000B9" />
 
-        <material:MaterialStyle x:Key="Material.Style"
+        <material:MaterialResource x:Key="Material.Style"
             FontFamily="{StaticResource Material.FontFamily}"
             Color="{StaticResource Material.Color}" />
 

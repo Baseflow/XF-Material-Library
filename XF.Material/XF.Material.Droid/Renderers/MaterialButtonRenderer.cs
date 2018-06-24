@@ -1,13 +1,9 @@
-﻿using Android.Animation;
-using Android.Content;
-using Android.Graphics;
+﻿using Android.Content;
 using Android.Graphics.Drawables;
-using Android.Graphics.Drawables.Shapes;
 using Android.OS;
 using Android.Support.V4.Content;
-using Android.Support.V7.Widget;
-using Android.Views;
 using System;
+using System.ComponentModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using XF.Material.Droid.Renderers;
@@ -17,9 +13,10 @@ using Color = Android.Graphics.Color;
 [assembly: ExportRenderer(typeof(MaterialButton), typeof(MaterialButtonRenderer))]
 namespace XF.Material.Droid.Renderers
 {
-    public class MaterialButtonRenderer : ButtonRenderer
+    public class MaterialButtonRenderer : Xamarin.Forms.Platform.Android.AppCompat.ButtonRenderer
     {
         private MaterialButton _materialButton;
+        private bool _isLollipop;
 
         public MaterialButtonRenderer(Context context) : base(context) { }
 
@@ -30,70 +27,63 @@ namespace XF.Material.Droid.Renderers
             if (e?.NewElement != null)
             {
                 _materialButton = this.Element as MaterialButton;
-                this.CreateDrawable();
+                _isLollipop = Build.VERSION.SdkInt < BuildVersionCodes.Lollipop;
+                this.Element.HeightRequest = this.Element.MinimumHeightRequest = _isLollipop ? 36 : 44;
+                this.Control.Background = _isLollipop ? this.CreateStateListDrawable() : this.CreateRippleDrawable();
                 this.Control.SetAllCaps(true);
             }
         }
 
-        private void CreateDrawable()
+        protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            var normalBackgroundColor = _materialButton.BackgroundColor != null ? _materialButton.BackgroundColor.ToAndroid() : ((Xamarin.Forms.Color)VisualElement.BackgroundColorProperty.DefaultValue).ToAndroid();
-            var pressedBackgroundColor = this.DarkenColor(normalBackgroundColor);
+            base.OnElementPropertyChanged(sender, e);
+
+            if (e?.PropertyName == nameof(Button.BackgroundColor))
+            {
+                this.Control.Background = _isLollipop ? this.CreateStateListDrawable() : this.CreateRippleDrawable();
+            }
+
+            if(e?.PropertyName == nameof(Button.CornerRadius))
+            {
+                this.Control.Background = _isLollipop ? this.CreateStateListDrawable() : this.CreateRippleDrawable();
+            }
+        }
+
+        private Drawable CreateStateListDrawable()
+        {
+            var normalColor = _materialButton.BackgroundColor.ToAndroid();
+            var pressedColor = normalColor.DarkenColor();
             var cornerRadius = MaterialExtensions.ConvertDpToPx(_materialButton.CornerRadius);
+
             var normalStateShapeDrawable = new GradientDrawable();
             normalStateShapeDrawable.SetShape(ShapeType.Rectangle);
             normalStateShapeDrawable.SetCornerRadius(cornerRadius);
-            normalStateShapeDrawable.SetStroke(Convert.ToInt32(_materialButton.BorderWidth), _materialButton.BorderColor.ToAndroid());
-            normalStateShapeDrawable.SetColor(normalBackgroundColor);
+            normalStateShapeDrawable.SetColor(normalColor);
 
-            if (Build.VERSION.SdkInt < BuildVersionCodes.Lollipop)
-            {
-                var drawable = new StateListDrawable();
-                var pressedStateShapeDrawable = new GradientDrawable();
-                pressedStateShapeDrawable.SetShape(ShapeType.Rectangle);
-                pressedStateShapeDrawable.SetCornerRadius(cornerRadius);
-                pressedStateShapeDrawable.SetStroke(Convert.ToInt32(_materialButton.BorderWidth), _materialButton.BorderColor.ToAndroid());
-                pressedStateShapeDrawable.SetColor(pressedBackgroundColor);
-                drawable.AddState(new int[] { -Android.Resource.Attribute.StateEnabled }, normalStateShapeDrawable);
-                drawable.AddState(new int[] { Android.Resource.Attribute.StatePressed }, pressedStateShapeDrawable);
+            var pressedStateShapeDrawable = new GradientDrawable();
+            pressedStateShapeDrawable.SetShape(ShapeType.Rectangle);
+            pressedStateShapeDrawable.SetCornerRadius(cornerRadius);
+            pressedStateShapeDrawable.SetColor(pressedColor);
 
-                this.Control.Background = drawable;
-            }
+            var stateListDrawable = new StateListDrawable();
+            stateListDrawable.AddState(new int[] { -Android.Resource.Attribute.StateEnabled }, normalStateShapeDrawable);
+            stateListDrawable.AddState(new int[] { Android.Resource.Attribute.StatePressed }, pressedStateShapeDrawable);
 
-            else
-            {
-                var ripple = Xamarin.Forms.Color.FromRgba(255, 255, 255, 80).ToAndroid();
-                var colorStateList = new Android.Content.Res.ColorStateList(new int[][] { new int[] { } }, new int[] { pressedBackgroundColor });
-                this.Control.Background = new RippleDrawable(colorStateList, normalStateShapeDrawable, null);
-            }
+            return stateListDrawable;
         }
 
-        private Color DarkenColor(int color)
+        private Drawable CreateRippleDrawable()
         {
-            const float factor = 0.8f;
-            int a = Color.GetAlphaComponent(color);
-            int r = Convert.ToInt32(Math.Round(Color.GetRedComponent(color) * factor));
-            int g = Convert.ToInt32(Math.Round(Color.GetGreenComponent(color) * factor));
-            int b = Convert.ToInt32(Math.Round(Color.GetBlueComponent(color) * factor));
-            return Color.Argb(a,
-                    Math.Min(r, 255),
-                    Math.Min(g, 255),
-                    Math.Min(b, 255));
+            var normalColor = _materialButton.BackgroundColor.ToAndroid();
+            var cornerRadius = MaterialExtensions.ConvertDpToPx(_materialButton.CornerRadius);
+            var rippleDrawable = ContextCompat.GetDrawable(Context, Resource.Drawable.drawable_ripple) as RippleDrawable;
+            var insetDrawable = rippleDrawable.FindDrawableByLayerId(Resource.Id.inset_drawable) as InsetDrawable;
+            var gradientDrawable = insetDrawable.Drawable as GradientDrawable;
+            gradientDrawable.SetCornerRadius(cornerRadius);
+            gradientDrawable.SetColor(normalColor);
+
+            return rippleDrawable;
         }
     }
 
-    public class MaterialButtonOutlineProvider : ViewOutlineProvider
-    {
-        private readonly float _cornerRadius;
-
-        public MaterialButtonOutlineProvider(float cornerRadius)
-        {
-            _cornerRadius = cornerRadius;
-        }
-
-        public override void GetOutline(Android.Views.View view, Outline outline)
-        {
-            outline.SetRoundRect(0, 0, view.Width, view.Height, _cornerRadius);
-        }
-    }
 }
