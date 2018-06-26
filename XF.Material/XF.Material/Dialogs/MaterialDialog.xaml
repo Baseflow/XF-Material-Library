@@ -32,19 +32,18 @@
             VerticalOptions="Center">
             <Grid RowSpacing="0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="64" />
+                    <RowDefinition Height="60" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <Label x:Name="Title"
                     Grid.Row="0"
-                    Margin="24,0,24,0"
+                    Margin="24,20,24,0"
                     BackgroundColor="White"
                     FontFamily="{DynamicResource Material.FontFamily.Bold}"
                     FontSize="20"
-                    HeightRequest="40"
                     Text="Dialog Title"
-                    TextColor="Black"
+                    TextColor="#DE000000"
                     VerticalOptions="Start"
                     VerticalTextAlignment="End" />
                 <Label x:Name="Message"

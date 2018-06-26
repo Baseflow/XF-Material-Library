@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+        android:color="@color/ripple_material_light">
+  <item android:id="@+id/inset_drawable">
+    <inset android:insetLeft="@dimen/mtrl_btn_inset"
+           android:insetTop="@dimen/mtrl_btn_inset"
+           android:insetRight="@dimen/mtrl_btn_inset"
+           android:insetBottom="@dimen/mtrl_btn_inset">
+      <shape android:shape="rectangle">
+        <corners android:radius="@dimen/mtrl_btn_corner_radius" />
+        <solid android:color="#6200EE" />
+        <padding android:left="@dimen/mtrl_btn_padding_left"
+                 android:top="@dimen/mtrl_btn_padding_top"
+                 android:right="@dimen/mtrl_btn_padding_right"
+                 android:bottom="@dimen/mtrl_btn_padding_bottom" />
+      </shape>
+    </inset>
+  </item>
+</ripple>

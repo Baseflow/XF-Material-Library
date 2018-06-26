@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary x:Class="XF.Material.Resources.MaterialSizes"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <OnPlatform x:Key="Material.Chip.Height"
+        x:TypeArguments="x:Double"
+        Default="32" />
+
+    <OnPlatform x:Key="Material.Chip.Image.Margin"
+        x:TypeArguments="Thickness"
+        Default="6, 0, -4, 0" />
+
+    <OnPlatform x:Key="Material.Chip.Label.Margin.NoActionImage"
+        x:TypeArguments="Thickness"
+        Default="12, 0, 12, 0" />
+
+    <OnPlatform x:Key="Material.Chip.Label.Margin.WithActionImage"
+        x:TypeArguments="Thickness"
+        Default="12, 0, 0, 0" />
+
+    <OnPlatform x:Key="Material.Chip.ActionImage.Margin"
+        x:TypeArguments="Thickness"
+        Default="8, 0, 8, 0" />
+
+    <OnPlatform x:Key="Material.Button.Height"
+        x:TypeArguments="x:Double"
+        Default="36" />
+
+</ResourceDictionary>

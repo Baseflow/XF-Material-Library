@@ -7,15 +7,7 @@ namespace XF.Material.Views
     {
         public MaterialButton()
         {
-            this.CornerRadius = 4;
-            this.SetupMaterialDynamicResource();
-        }
-
-        private void SetupMaterialDynamicResource()
-        {
-            this.SetDynamicResource(BackgroundColorProperty, MaterialConstants.MATERIAL_COLOR_SECONDARY);
-            this.SetDynamicResource(TextColorProperty, MaterialConstants.MATERIAL_COLOR_ONSECONDARY);
-            this.SetDynamicResource(FontFamilyProperty, MaterialConstants.MATERIAL_FONTFAMILY_REGULAR);
+            this.Style = Application.Current.Resources[MaterialConstants.MATERIAL_STYLE_BUTTON] as Style;
         }
     }
 }

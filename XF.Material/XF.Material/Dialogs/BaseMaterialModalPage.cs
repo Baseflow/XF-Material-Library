@@ -1,15 +1,20 @@
 ﻿using Rg.Plugins.Popup.Pages;
-using Rg.Plugins.Popup.Services;
+using System;
 
 namespace XF.Material.Dialogs
 {
-    public abstract class BaseMaterialModalPage : PopupPage
+    public abstract class BaseMaterialModalPage : PopupPage, IDisposable
     {
+        public virtual void Dispose()
+        {
+            this.Content = null;
+        }
+
         protected override void OnDisappearingAnimationEnd()
         {
             base.OnDisappearingAnimationEnd();
 
-            this.Content = null;
+            this.Dispose();
         }
     }
 }

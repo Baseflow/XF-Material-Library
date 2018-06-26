@@ -2,41 +2,45 @@
 <Frame x:Class="XF.Material.Views.MaterialChip"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:res="clr-namespace:XF.Material.Resources"
-    HorizontalOptions="Start"
-    Style="{StaticResource Chip}"
-    VerticalOptions="Start">
-    <Frame.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <res:Styles />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Frame.Resources>
+    Style="{StaticResource Material.Chip}">
     <StackLayout x:Name="Container"
         HorizontalOptions="Start"
-        Style="{StaticResource Chip.Container}"
+        Style="{StaticResource Material.Chip.Container}"
         VerticalOptions="Center">
+        <Frame x:Name="ChipImageContainer"
+            Margin="6,0,-4,0"
+            Padding="0"
+            BackgroundColor="White"
+            CornerRadius="12"
+            HasShadow="False"
+            HeightRequest="24"
+            IsVisible="False"
+            VerticalOptions="Center"
+            WidthRequest="24">
+            <Image x:Name="ChipImage"
+                Aspect="AspectFit"
+                HeightRequest="24"
+                WidthRequest="24" />
+        </Frame>
         <Label x:Name="ChipLabel"
             HorizontalOptions="Start"
-            Style="{StaticResource Chip.Label}"
+            Style="{StaticResource Material.Chip.Label}"
             VerticalOptions="Center">
             <Label.Triggers>
-                <DataTrigger Binding="{Binding Source={x:Reference ChipImage}, Path=IsVisible}"
+                <DataTrigger Binding="{Binding Source={x:Reference ChipActionImage}, Path=IsVisible}"
                     TargetType="Label"
                     Value="True">
-                    <Setter Property="Margin" Value="{StaticResource Chip.Label.Margin.WithActionImage}" />
+                    <Setter Property="Margin" Value="{StaticResource Material.Chip.Label.Margin.WithActionImage}" />
                 </DataTrigger>
-                <DataTrigger Binding="{Binding Source={x:Reference ChipImage}, Path=IsVisible}"
+                <DataTrigger Binding="{Binding Source={x:Reference ChipActionImage}, Path=IsVisible}"
                     TargetType="Label"
                     Value="False">
-                    <Setter Property="Margin" Value="{StaticResource Chip.Label.Margin.NoActionImage}" />
+                    <Setter Property="Margin" Value="{StaticResource Material.Chip.Label.Margin.NoActionImage}" />
                 </DataTrigger>
             </Label.Triggers>
         </Label>
-        <Image x:Name="ChipImage"
+        <Image x:Name="ChipActionImage"
             IsVisible="False"
-            Style="{StaticResource Chip.ActionImage}"
-            VerticalOptions="Center" />
+            Style="{StaticResource Material.Chip.ActionImage}" />
     </StackLayout>
 </Frame>

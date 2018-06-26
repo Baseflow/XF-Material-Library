@@ -1,6 +1,6 @@
-﻿using Rg.Plugins.Popup.Pages;
-using Rg.Plugins.Popup.Services;
+﻿using Rg.Plugins.Popup.Services;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
@@ -13,7 +13,7 @@ namespace XF.Material.Dialogs
     {
         private Command _hideCommand => new Command(async () => await this.HideDialog());
 
-        public MaterialDialog()
+        internal MaterialDialog()
         {
             InitializeComponent();
         }
@@ -22,21 +22,21 @@ namespace XF.Material.Dialogs
         {
             var dialog = new MaterialDialog(message, title);
 
-            PopupNavigation.Instance.PushAsync(dialog, true);
+            dialog.Show();
         }
 
         public static async Task AlertAsync(string message, string title = "Alert")
         {
             var dialog = new MaterialDialog(message, title);
 
-            await PopupNavigation.Instance.PushAsync(dialog, true);
+            await dialog.Show();
         }
 
         public static async Task AlertAsync(string message, string title, string positiveButtonText, Action positiveAction, string negativeButtonText = "CANCEL", Action negativeAction = null)
         {
             var dialog = new MaterialDialog(message, title, positiveButtonText, positiveAction, negativeButtonText, negativeAction);
 
-            await PopupNavigation.Instance.PushAsync(dialog, true);
+            await dialog.Show();
         }
 
         public MaterialDialog(string message, string title = "Alert")
@@ -74,12 +74,25 @@ namespace XF.Material.Dialogs
             action?.Invoke();
         }
 
-        protected override void OnDisappearingAnimationEnd()
+        private async Task Show()
+        {
+            if(!PopupNavigation.Instance.PopupStack.ToList().Exists(s => s.GetType() == typeof(MaterialDialog)))
+            {
+                await PopupNavigation.Instance.PushAsync(this, true);
+            }
+
+            else
+            {
+                this.Dispose();
+            }
+        }
+
+        public override void Dispose()
         {
             this.PositiveButton.GestureRecognizers.Clear();
             this.NegativeButton.GestureRecognizers.Clear();
 
-            base.OnDisappearingAnimationEnd();
+            base.Dispose();
         }
     }
 }

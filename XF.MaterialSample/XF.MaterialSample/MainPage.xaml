@@ -3,6 +3,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:material="clr-namespace:XF.Material.Views;assembly=XF.Material"
+    xmlns:mtrlfx="clr-namespace:XF.Material.Effects;assembly=XF.Material"
     Title="Xamarin.Forms Material"
     BackgroundColor="White">
     <ScrollView>
@@ -66,48 +67,42 @@
             <StackLayout HorizontalOptions="FillAndExpand"
                 Orientation="Horizontal"
                 Spacing="8">
-                <material:MaterialButton BackgroundColor="#FAFAFA"
-                    FontSize="14"
+                <material:MaterialButton BackgroundColor="White"
+                    CornerRadius="8"
                     Text="Ok"
                     TextColor="Black" />
                 <material:MaterialButton BackgroundColor="Green"
-                    FontSize="14"
                     Text="Save"
                     TextColor="White" />
                 <material:MaterialButton BackgroundColor="#6200EE"
-                    FontSize="14"
+                    CornerRadius="8"
                     Text="Discard Changes"
                     TextColor="White" />
             </StackLayout>
             <Label Font="18, Bold" Text="CHIPS" />
             <StackLayout Padding="8"
-                HeightRequest="56"
                 HorizontalOptions="FillAndExpand"
                 Orientation="Horizontal"
                 Spacing="4">
-                <material:MaterialChip BackgroundColor="Red"
-                    HorizontalOptions="Start"
-                    Text="Chip 1"
-                    TextColor="White" />
-                <material:MaterialChip ActionImage="ic_close"
-                    BackgroundColor="Green"
-                    HorizontalOptions="Center"
-                    Text="Chip 2"
-                    TextColor="White" />
                 <material:MaterialChip BackgroundColor="Blue"
-                    HorizontalOptions="End"
-                    Text="Chip 3"
+                    Text="I am a Chip"
+                    TextColor="White" />
+                <material:MaterialChip BackgroundColor="#F2F2F2"
+                    Image="im_google"
+                    Text="Google"
+                    TextColor="#DE000000" />
+                <material:MaterialChip ActionImage="ic_close"
+                    ActionImageTapped="MaterialChip_ActionImageTapped"
+                    BackgroundColor="Green"
+                    Text="Close me"
                     TextColor="White" />
             </StackLayout>
-
             <Label Font="18, Bold" Text="DIALOGS" />
             <StackLayout Padding="8"
                 HorizontalOptions="FillAndExpand"
                 Orientation="Horizontal"
                 Spacing="4">
-                <material:MaterialButton Clicked="MaterialButton_ShowDialog"
-                    FontSize="14"
-                    Text="Show Dialog" />
+                <material:MaterialButton Clicked="MaterialButton_ShowDialog" Text="Show Dialog" />
             </StackLayout>
         </StackLayout>
     </ScrollView>

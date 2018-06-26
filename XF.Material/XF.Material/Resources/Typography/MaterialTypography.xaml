@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary x:Class="XF.Material.Resources.Typography.MaterialTypography"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:mtrlfx="clr-namespace:XF.Material.Effects">
+
+    <!--#region FONT SIZES-->
+
+    <x:Double x:Key="Material.FontSize.Button">14</x:Double>
+
+    <!--#endregion-->
+
+    <!--#region LETTER SPACING-->
+
+    <x:Double x:Key="Material.LetterSpacing.Button">0.07</x:Double>
+
+    <!--#endregion-->
+
+    <Style x:Key="Material.Font.Button" TargetType="Button">
+        <Setter Property="mtrlfx:MaterialEffectsUtil.TypeScale" Value="Button" />
+    </Style>
+
+</ResourceDictionary>

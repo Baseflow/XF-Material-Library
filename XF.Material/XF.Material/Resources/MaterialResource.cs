@@ -1,4 +1,5 @@
 ﻿using Xamarin.Forms;
+using XF.Material.Resources.Typography;
 
 namespace XF.Material.Resources
 {

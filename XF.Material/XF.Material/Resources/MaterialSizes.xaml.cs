@@ -4,9 +4,9 @@ using Xamarin.Forms.Xaml;
 namespace XF.Material.Resources
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class Sizes : ResourceDictionary
+	public partial class MaterialSizes : ResourceDictionary
 	{
-		public Sizes ()
+		public MaterialSizes ()
 		{
 			InitializeComponent ();
 		}

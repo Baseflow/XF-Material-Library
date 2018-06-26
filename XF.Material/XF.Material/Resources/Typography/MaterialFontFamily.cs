@@ -1,6 +1,6 @@
 ﻿using Xamarin.Forms;
 
-namespace XF.Material.Resources
+namespace XF.Material.Resources.Typography
 {
     public class MaterialFontFamily : BindableObject
     {

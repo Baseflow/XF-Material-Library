@@ -10,5 +10,14 @@
         public const string MATERIAL_FONTFAMILY_REGULAR = "Material.FontFamily.Regular";
         public const string MATERIAL_FONTFAMILY_MEDIUM = "Material.FontFamily.Medium";
         public const string MATERIAL_FONTFAMILY_BOLD = "Material.FontFamily.Bold";
+
+        public const string MATERIAL_FONTSIZE_BUTTON = "Material.FontSize.Button";
+
+        public const string MATERIAL_FONT_BUTTON = "Material.Font.Button";
+
+        public const string MATERIAL_STYLE_BUTTON = "Material.Style.Button";
+
+        public const string MATERIAL_BUTTON_HEIGHT = "Material.Button.Height";
+
     }
 }
