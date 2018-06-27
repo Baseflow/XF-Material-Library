@@ -24,7 +24,7 @@ namespace XF.Material.Droid.Renderers
             {
                 _materialButton = this.Element as MaterialButton;
 
-                this.Control.SetAllCaps(true);
+                this.Control.SetAllCaps(_materialButton.AllCaps);
 
                 if (Material.IsLollipop)
                 {
