@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using XF.Material;
+using XF.Material.Dialogs;
+using XF.Material.Effects;
 using XF.Material.Views;
 
 namespace XF.MaterialSample
@@ -37,6 +40,14 @@ namespace XF.MaterialSample
             parent.Children.Add(chip);
             await chip.FadeTo(1.0, 250, Easing.SinInOut);
             chip.Opacity = 1.0;
+        }
+
+        private async void MaterialButton_ShowLoadingDialog(object sender, EventArgs e)
+        {
+            using (await MaterialDialogs.Loading("Something is running..."))
+            {
+                await Task.Delay(3000);
+            }
         }
     }
 }

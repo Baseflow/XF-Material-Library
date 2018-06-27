@@ -9,16 +9,16 @@ namespace XF.Material.Effects
 {
     public static class MaterialEffectsUtil
     {
-        public static readonly BindableProperty TypeScaleProperty = BindableProperty.Create("TypeScale", typeof(MaterialTypeScale), typeof(MaterialTypographyEffect), MaterialTypeScale.Body2, propertyChanged: TypeScaleChanged);
+        public static readonly BindableProperty LetterSpacingProperty = BindableProperty.Create("LetterSpacing", typeof(MaterialTypeScale), typeof(MaterialTypographyEffect), MaterialTypeScale.Default, propertyChanged: TypeScaleChanged);
 
-        public static void SetTypeScale(BindableObject view, MaterialTypeScale typeScale)
+        public static void SetLetterSpacing(BindableObject view, MaterialTypeScale typeScale)
         {
-            view.SetValue(TypeScaleProperty, typeScale);
+            view.SetValue(LetterSpacingProperty, typeScale);
         }
 
-        public static MaterialTypeScale GetTypeScale(BindableObject view)
+        public static MaterialTypeScale GetLetterSpacing(BindableObject view)
         {
-            return (MaterialTypeScale)view.GetValue(TypeScaleProperty);
+            return (MaterialTypeScale)view.GetValue(LetterSpacingProperty);
         }
 
         private static void TypeScaleChanged(BindableObject bindable, object oldValue, object newValue)
@@ -39,7 +39,6 @@ namespace XF.Material.Effects
             }
 
             view.Effects.Add(new MaterialTypographyEffect(typeScale));
-
         }
     }
 }

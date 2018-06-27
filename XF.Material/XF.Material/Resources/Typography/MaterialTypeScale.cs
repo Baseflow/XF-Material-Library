@@ -14,6 +14,7 @@
         Body2,
         Button,
         Caption,
-        Overline
+        Overline,
+        Default
     }
 }

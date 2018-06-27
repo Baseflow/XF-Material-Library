@@ -13,7 +13,7 @@
             Spacing="16"
             VerticalOptions="FillAndExpand">
 
-            <Label Font="18, Bold" Text="CARDS" />
+            <Label Style="{StaticResource Material.Font.Subtitle2}" Text="CARDS" />
             <StackLayout HorizontalOptions="FillAndExpand"
                 Orientation="Vertical"
                 Spacing="8">
@@ -64,21 +64,21 @@
                 </material:MaterialCard>
             </StackLayout>
 
-            <Label Font="18, Bold" Text="BUTTONS" />
+            <Label Style="{StaticResource Material.Font.Subtitle2}" Text="BUTTONS" />
             <StackLayout HorizontalOptions="CenterAndExpand"
                 Orientation="Horizontal"
                 Spacing="8">
                 <material:MaterialButton BackgroundColor="White"
                     Text="Ok"
                     TextColor="Black" />
-                <material:MaterialButton BackgroundColor="Green"
+                <material:MaterialButton BackgroundColor="#6200EE"
                     Text="Save"
                     TextColor="White" />
-                <material:MaterialButton BackgroundColor="#6200EE"
+                <material:MaterialButton BackgroundColor="#B00020"
                     Text="Discard"
                     TextColor="White" />
             </StackLayout>
-            <Label Font="18, Bold" Text="CHIPS" />
+            <Label Style="{StaticResource Material.Font.Subtitle2}" Text="CHIPS" />
             <StackLayout Padding="8"
                 HorizontalOptions="CenterAndExpand"
                 Orientation="Horizontal"
@@ -96,12 +96,14 @@
                     Text="Close me"
                     TextColor="White" />
             </StackLayout>
-            <Label Font="18, Bold" Text="DIALOGS" />
-            <StackLayout HorizontalOptions="CenterAndExpand"
-                Orientation="Horizontal"
-                Spacing="4"
-                VerticalOptions="Start">
-                <material:MaterialButton Clicked="MaterialButton_ShowDialog" Text="Show Dialog" />
+            <Label Style="{StaticResource Material.Font.Subtitle2}" Text="DIALOGS AND SNACKBARS" />
+            <StackLayout Orientation="Vertical" Spacing="4">
+                <material:MaterialButton Clicked="MaterialButton_ShowDialog"
+                    HorizontalOptions="Center"
+                    Text="Show Dialog" />
+                <material:MaterialButton Clicked="MaterialButton_ShowLoadingDialog"
+                    HorizontalOptions="Center"
+                    Text="Show Loading Dialog" />
             </StackLayout>
         </StackLayout>
     </ScrollView>

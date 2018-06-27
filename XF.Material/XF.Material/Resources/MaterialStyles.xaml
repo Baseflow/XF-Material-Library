@@ -58,11 +58,16 @@
     <Style x:Key="Material.Style.Button"
         BasedOn="{StaticResource Base.Material.Style.Button}"
         TargetType="Button">
-        <Setter Property="CornerRadius" Value="4" />
+        <Setter Property="CornerRadius" Value="{StaticResource Material.Button.CornerRadius}" />
         <Setter Property="BackgroundColor" Value="{DynamicResource Material.Color.Secondary}" />
         <Setter Property="TextColor" Value="{DynamicResource Material.Color.OnSecondary}" />
         <Setter Property="HeightRequest" Value="{StaticResource Material.Button.Height}" />
     </Style>
+
+    <!--#endregion-->
+
+    <!--#region LABELS-->
+
 
     <!--#endregion-->
 

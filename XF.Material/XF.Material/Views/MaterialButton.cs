@@ -1,5 +1,7 @@
-﻿using Xamarin.Forms;
+﻿using System.Runtime.CompilerServices;
+using Xamarin.Forms;
 using XF.Material.Resources;
+
 namespace XF.Material.Views
 {
     public class MaterialButton : Button

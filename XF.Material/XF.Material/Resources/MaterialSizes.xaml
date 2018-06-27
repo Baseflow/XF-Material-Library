@@ -3,6 +3,8 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
+    <!--#region CHIPS-->
+
     <OnPlatform x:Key="Material.Chip.Height"
         x:TypeArguments="x:Double"
         Default="32" />
@@ -23,8 +25,11 @@
         x:TypeArguments="Thickness"
         Default="8, 0, 8, 0" />
 
-    <OnPlatform x:Key="Material.Button.Height"
-        x:TypeArguments="x:Double"
-        Default="36" />
+    <!--#endregion-->
+
+    <!--#region-->
+
+    <x:Double x:Key="Material.Button.Height">36</x:Double>
+    <x:Int32 x:Key="Material.Button.CornerRadius">4</x:Int32>
 
 </ResourceDictionary>

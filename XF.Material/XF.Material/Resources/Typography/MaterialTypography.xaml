@@ -5,19 +5,54 @@
     xmlns:mtrlfx="clr-namespace:XF.Material.Effects">
 
     <!--#region FONT SIZES-->
-
+    <x:Double x:Key="Material.FontSize.Subtitle1">16</x:Double>
+    <x:Double x:Key="Material.FontSize.Subtitle2">14</x:Double>
+    <x:Double x:Key="Material.FontSize.Body1">16</x:Double>
+    <x:Double x:Key="Material.FontSize.Body2">14</x:Double>
     <x:Double x:Key="Material.FontSize.Button">14</x:Double>
+
 
     <!--#endregion-->
 
     <!--#region LETTER SPACING-->
 
-    <x:Double x:Key="Material.LetterSpacing.Button">0.07</x:Double>
+    <x:Double x:Key="Material.LetterSpacing.Subtitle1">0.015</x:Double>
+    <x:Double x:Key="Material.LetterSpacing.Subtitle2">0.01</x:Double>
+    <x:Double x:Key="Material.LetterSpacing.Body1">0.05</x:Double>
+    <x:Double x:Key="Material.LetterSpacing.Body2">0.025</x:Double>
+    <x:Double x:Key="Material.LetterSpacing.Button">0.075</x:Double>
+
 
     <!--#endregion-->
 
+    <Style x:Key="Material.Font.Subtitle1" TargetType="Label">
+        <Setter Property="mtrlfx:MaterialEffectsUtil.LetterSpacing" Value="Subtitle1" />
+        <Setter Property="FontFamily" Value="{DynamicResource Material.FontFamily.Regular}" />
+        <Setter Property="FontSize" Value="{StaticResource Material.FontSize.Subtitle1}" />
+    </Style>
+
+    <Style x:Key="Material.Font.Subtitle2" TargetType="Label">
+        <Setter Property="mtrlfx:MaterialEffectsUtil.LetterSpacing" Value="Subtitle2" />
+        <Setter Property="FontFamily" Value="{DynamicResource Material.FontFamily.Medium}" />
+        <Setter Property="FontSize" Value="{StaticResource Material.FontSize.Subtitle2}" />
+    </Style>
+
+    <Style x:Key="Material.Font.Body1" TargetType="Label">
+        <Setter Property="mtrlfx:MaterialEffectsUtil.LetterSpacing" Value="Body1" />
+        <Setter Property="FontFamily" Value="{DynamicResource Material.FontFamily.Regular}" />
+        <Setter Property="FontSize" Value="{StaticResource Material.FontSize.Body1}" />
+    </Style>
+
+    <Style x:Key="Material.Font.Body2" TargetType="Label">
+        <Setter Property="mtrlfx:MaterialEffectsUtil.LetterSpacing" Value="Body2" />
+        <Setter Property="FontFamily" Value="{DynamicResource Material.FontFamily.Regular}" />
+        <Setter Property="FontSize" Value="{StaticResource Material.FontSize.Body2}" />
+    </Style>
+
     <Style x:Key="Material.Font.Button" TargetType="Button">
-        <Setter Property="mtrlfx:MaterialEffectsUtil.TypeScale" Value="Button" />
+        <Setter Property="mtrlfx:MaterialEffectsUtil.LetterSpacing" Value="Button" />
+        <Setter Property="FontFamily" Value="{DynamicResource Material.FontFamily.Medium}" />
+        <Setter Property="FontSize" Value="{StaticResource Material.FontSize.Button}" />
     </Style>
 
 </ResourceDictionary>

@@ -2,11 +2,11 @@
 
 namespace XF.Material.Effects
 {
-    public class BaseMaterialEffect : RoutingEffect
+    public abstract class BaseMaterialEffect : RoutingEffect
     {
         public VisualElement MaterialElement { get; set; }
 
-        public BaseMaterialEffect(string effectId) : base(effectId) { }
+        protected BaseMaterialEffect(string effectId) : base(effectId) { }
 
         public virtual void ApplyEffect() { }
     }
