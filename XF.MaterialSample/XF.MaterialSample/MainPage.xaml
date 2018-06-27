@@ -2,6 +2,7 @@
 <ContentPage x:Class="XF.MaterialSample.MainPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:and="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
     xmlns:material="clr-namespace:XF.Material.Views;assembly=XF.Material"
     xmlns:mtrlfx="clr-namespace:XF.Material.Effects;assembly=XF.Material"
     Title="Xamarin.Forms Material"
@@ -64,24 +65,22 @@
             </StackLayout>
 
             <Label Font="18, Bold" Text="BUTTONS" />
-            <StackLayout HorizontalOptions="FillAndExpand"
+            <StackLayout HorizontalOptions="CenterAndExpand"
                 Orientation="Horizontal"
                 Spacing="8">
                 <material:MaterialButton BackgroundColor="White"
-                    CornerRadius="8"
                     Text="Ok"
                     TextColor="Black" />
                 <material:MaterialButton BackgroundColor="Green"
                     Text="Save"
                     TextColor="White" />
                 <material:MaterialButton BackgroundColor="#6200EE"
-                    CornerRadius="8"
-                    Text="Discard Changes"
+                    Text="Discard"
                     TextColor="White" />
             </StackLayout>
             <Label Font="18, Bold" Text="CHIPS" />
             <StackLayout Padding="8"
-                HorizontalOptions="FillAndExpand"
+                HorizontalOptions="CenterAndExpand"
                 Orientation="Horizontal"
                 Spacing="4">
                 <material:MaterialChip BackgroundColor="Blue"
@@ -98,10 +97,10 @@
                     TextColor="White" />
             </StackLayout>
             <Label Font="18, Bold" Text="DIALOGS" />
-            <StackLayout Padding="8"
-                HorizontalOptions="FillAndExpand"
+            <StackLayout HorizontalOptions="CenterAndExpand"
                 Orientation="Horizontal"
-                Spacing="4">
+                Spacing="4"
+                VerticalOptions="Start">
                 <material:MaterialButton Clicked="MaterialButton_ShowDialog" Text="Show Dialog" />
             </StackLayout>
         </StackLayout>

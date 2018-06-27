@@ -1,5 +1,4 @@
 ﻿using Android.Content;
-using Android.Graphics.Drawables;
 using System.ComponentModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
@@ -19,17 +18,10 @@ namespace XF.Material.Droid.Renderers
         {
             base.OnElementChanged(e);
 
-            if(e?.NewElement != null)
+            if (e?.NewElement != null)
             {
                 _materialCard = this.Element as MaterialCard;
                 var cornerRadius = MaterialExtensions.ConvertDpToPx((int)this.Element.CornerRadius);
-                //var drawable = new GradientDrawable();
-                //drawable.SetShape(ShapeType.Rectangle);
-                //drawable.SetCornerRadius(cornerRadius);
-                //drawable.SetColor(this.Element.BackgroundColor.ToAndroid());
-
-                //this.Control.MaxCardElevation = MaterialExtensions.ConvertDpToPx(_materialCard.Elevation);
-                //this.Control.CardElevation = MaterialExtensions.ConvertDpToPx(_materialCard.Elevation);
                 this.Control.Elevate(_materialCard.Elevation);
             }
         }

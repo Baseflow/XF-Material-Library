@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Xamarin.Forms;
 using XF.Material.Resources;
+using XF.Material.Resources.Typography;
 
 namespace XF.Material
 {
@@ -11,22 +10,22 @@ namespace XF.Material
         private readonly Application _app;
         private readonly ResourceDictionary _res;
 
-        internal Material(Application app, MaterialResource materialResource = null)
+        internal Material(Application app, MaterialResource materialResource) : this(app)
+        {
+            this.SetupStyleFromObject(materialResource ?? throw new ArgumentNullException());
+        }
+
+        internal Material(Application app, string key) : this(app)
+        {
+            this.SetupStyleFromResource(key ?? throw new ArgumentNullException());
+        }
+
+        internal Material(Application app)
         {
             _app = app ?? throw new ArgumentNullException();
             _app.PropertyChanged += this.CurrentApp_PropertyChanged;
             _res = app.Resources;
             this.MergeMaterialDictionaries();
-
-            if (materialResource == null)
-            {
-                SetupStyleFromResource();
-            }
-
-            else
-            {
-                SetupStyleFromObject(materialResource);
-            }
         }
 
         /// <summary>
@@ -35,16 +34,27 @@ namespace XF.Material
         /// </summary>
         /// <param name="app">The cross-platform mobile application that is running.</param>
         /// <param name="materialResource">The object that contains the values to be used for resource creation.</param>
-        public static void Init(Application app, MaterialResource materialResource = null)
+        public static void Init(Application app, MaterialResource materialResource)
         {
             var material = new Material(app, materialResource);
         }
 
+        /// <summary>
+        /// Initializes a new <see cref="Material"/> object from which we will get the values defined either from the app's resource dictionary or by using a <see cref="MaterialResource"/> object.
+        /// This will automatically create new resources in the current app.
+        /// </summary>
+        /// <param name="app">The cross-platform mobile application that is running.</param>
+        /// <param name="key">The key of the <see cref="MaterialResource"/> object in the current app's resource dictionary.</param>
+        public static void Init(Application app, string key)
+        {
+            var material = new Material(app, key);
+        }
+
         private void MergeMaterialDictionaries()
         {
-            _res.MergedDictionaries.Add(new XF.Material.Resources.MaterialSizes());
-            _res.MergedDictionaries.Add(new XF.Material.Resources.MaterialStyles());
-            _res.MergedDictionaries.Add(new XF.Material.Resources.Typography.MaterialTypography());
+            _res.MergedDictionaries.Add(new MaterialSizes());
+            _res.MergedDictionaries.Add(new MaterialStyles());
+            _res.MergedDictionaries.Add(new MaterialTypography());
         }
 
         private void CurrentApp_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -93,9 +103,9 @@ namespace XF.Material
             }
         }
 
-        private void SetupStyleFromResource()
+        private void SetupStyleFromResource(string key)
         {
-            _res.TryGetValue("Material.Style", out object value);
+            _res.TryGetValue(key, out object value);
 
             try
             {
