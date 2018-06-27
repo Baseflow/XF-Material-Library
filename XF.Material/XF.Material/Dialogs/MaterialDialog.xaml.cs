@@ -11,32 +11,25 @@ namespace XF.Material.Dialogs
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MaterialDialog : BaseMaterialModalPage
     {
-        private Command _hideCommand => new Command(async () => await this.HideDialog());
+        private Command _hideCommand => new Command(() => this.HideDialog());
 
         internal MaterialDialog()
         {
             InitializeComponent();
         }
 
-        public static void Alert(string message, string title = "Alert")
-        {
-            var dialog = new MaterialDialog(message, title);
-
-            dialog.Show();
-        }
-
         public static async Task AlertAsync(string message, string title = "Alert")
         {
             var dialog = new MaterialDialog(message, title);
 
-            await dialog.Show();
+            await dialog.ShowAsync();
         }
 
         public static async Task AlertAsync(string message, string title, string positiveButtonText, Action positiveAction, string negativeButtonText = "CANCEL", Action negativeAction = null)
         {
             var dialog = new MaterialDialog(message, title, positiveButtonText, positiveAction, negativeButtonText, negativeAction);
 
-            await dialog.Show();
+            await dialog.ShowAsync();
         }
 
         public MaterialDialog(string message, string title = "Alert")
@@ -59,22 +52,22 @@ namespace XF.Material.Dialogs
             this.PositiveButtonLabel.Text = positiveButtonText.ToUpper();
             this.PositiveButton.GestureRecognizers.Add(new TapGestureRecognizer()
             {
-                Command = new Command(async () => await HideDialog(positiveAction))
+                Command = new Command(() => this.HideDialog(positiveAction))
             });
             this.NegativeButtonLabel.Text = negativeButtonText.ToUpper();
             this.NegativeButton.GestureRecognizers.Add(new TapGestureRecognizer()
             {
-                Command = new Command(async () => await HideDialog(negativeAction))
+                Command = new Command(() => this.HideDialog(negativeAction))
             });
         }
 
-        private async Task HideDialog(Action action = null)
+        private void HideDialog(Action action = null)
         {
-            await PopupNavigation.Instance.PopAsync(true);
             action?.Invoke();
+            this.Dispose();
         }
 
-        private async Task Show()
+        private async Task ShowAsync()
         {
             if(!PopupNavigation.Instance.PopupStack.ToList().Exists(s => s.GetType() == typeof(MaterialDialog)))
             {

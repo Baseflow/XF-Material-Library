@@ -1,20 +1,21 @@
 ﻿using Rg.Plugins.Popup.Pages;
+using Rg.Plugins.Popup.Services;
 using System;
 
 namespace XF.Material.Dialogs
 {
     public abstract class BaseMaterialModalPage : PopupPage, IDisposable
     {
-        public virtual void Dispose()
-        {
-            this.Content = null;
-        }
+        private bool _disposed;
 
-        protected override void OnDisappearingAnimationEnd()
+        public virtual async void Dispose()
         {
-            base.OnDisappearingAnimationEnd();
-
-            this.Dispose();
+            if(!_disposed)
+            {
+                this.Content = null;
+                await PopupNavigation.Instance.PopAsync(true);
+                _disposed = true;
+            }
         }
     }
 }

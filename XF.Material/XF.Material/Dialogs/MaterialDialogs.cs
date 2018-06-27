@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rg.Plugins.Popup.Services;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,14 +9,14 @@ namespace XF.Material
 {
     public static class MaterialDialogs
     {
-        public static void Alert(string message, string title = "Alert")
+        public static Task AlertAsync(string message, string title = "Alert")
         {
-            MaterialDialog.Alert(message, title);
+            return MaterialDialog.AlertAsync(message, title);
         }
 
-        public static async Task AlertAsync(string message, string title = "Alert")
+        public static Task<MaterialLoadingDialog> Loading(string message)
         {
-            await MaterialDialog.AlertAsync(message, title);
+            return MaterialLoadingDialog.Loading(message);
         }
     }
 }
