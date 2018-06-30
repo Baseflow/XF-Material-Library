@@ -19,9 +19,8 @@
         public const string MATERIAL_FONT_BODY2 = "Material.Font.Body2";
         public const string MATERIAL_FONT_BUTTON = "Material.Font.Button";
 
-        public const string MATERIAL_STYLE_BUTTON = "Material.Style.Button";
+        public const string MATERIAL_BUTTON_CORNERRADIUS = "Material.Button.CornerRadius";
 
         public const string MATERIAL_BUTTON_HEIGHT = "Material.Button.Height";
-
     }
 }
