@@ -14,7 +14,6 @@ namespace XF.Material.Droid
         {
             Context = context;
             IsLollipop = Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop;
-            //MaterialConstants.MaterialButtonHeight = IsLollipop ? 44 : 36;
 
             AppCompatDelegate.CompatVectorFromResourcesEnabled = true;
             Rg.Plugins.Popup.Popup.Init(context, bundle);

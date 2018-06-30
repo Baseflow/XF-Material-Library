@@ -23,6 +23,8 @@ namespace XF.Material.Droid.Effects
         {
             base.OnAttached();
 
+            if (!Material.IsLollipop) { return; }
+
             if(this.Control is Android.Widget.TextView textView)
             {
                 textView.LetterSpacing = (float)this.MaterialEffect.LetterSpacing;

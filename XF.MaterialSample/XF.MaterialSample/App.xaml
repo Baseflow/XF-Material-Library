@@ -32,6 +32,19 @@
             Android="Fonts/Roboto-Medium.ttf#Roboto-Medium"
             iOS="Roboto-Medium" />
 
+        <OnPlatform x:Key="FontFamily.OpenSansRegular"
+            x:TypeArguments="x:String"
+            Android="Fonts/OpenSans-Regular.ttf#OpenSans-Regular"
+            iOS="OpenSans-Regular" />
+        <OnPlatform x:Key="FontFamily.OpenSansBold"
+            x:TypeArguments="x:String"
+            Android="Fonts/OpenSans-Bold.ttf#OpenSans-Bold"
+            iOS="OpenSans-Bold" />
+        <OnPlatform x:Key="FontFamily.OpenSansSemiBold"
+            x:TypeArguments="x:String"
+            Android="Fonts/OpenSans-SemiBold.ttf#OpenSans-SemiBold"
+            iOS="OpenSans-SemiBold" />
+
 
         <mtrltypo:MaterialFontFamily x:Key="Material.FontFamily"
             Bold="{StaticResource FontFamily.RobotoBold}"
@@ -47,6 +60,10 @@
         <material:MaterialResource x:Key="Material.Style"
             FontFamily="{StaticResource Material.FontFamily}"
             Color="{StaticResource Material.Color}" />
+
+        <Style x:Key="test" TargetType="Button">
+            <Setter Property="CornerRadius" Value="8" />
+        </Style>
 
     </Application.Resources>
 </Application>

@@ -18,7 +18,7 @@ namespace XF.MaterialSample
 
         private async void MaterialButton_ShowDialog(object sender, EventArgs e)
         {
-            await MaterialDialogs.AlertAsync("This is an alert dialog that requires action from the user.");
+            await MaterialDialogs.ShowAlertAsync("Dialogs focus user attention to ensure their content is addressed.", "Alert Dialog", positiveButtonText: "Got it", negativeButtonText: "Cancel");
         }
 
         private async void MaterialChip_ActionImageTapped(object sender, EventArgs e)
@@ -44,7 +44,20 @@ namespace XF.MaterialSample
 
         private async void MaterialButton_ShowLoadingDialog(object sender, EventArgs e)
         {
-            using (await MaterialDialogs.Loading("Something is running..."))
+            using (await MaterialDialogs.LoadingDialog("Something is running..."))
+            {
+                await Task.Delay(3000);
+            }
+        }
+
+        private async void MaterialButton_ShowSnackbar(object sender, EventArgs e)
+        {
+            await MaterialDialogs.ShowSnackbarAsync("This shows brief processes to the user.", "Got it");
+        }
+
+        private async void MaterialButton_ShowLoadingSnackbar(object sender, EventArgs e)
+        {
+            using (await MaterialDialogs.LoadingSnackbar("Something is running..."))
             {
                 await Task.Delay(3000);
             }

@@ -3864,6 +3864,9 @@ namespace XF.MaterialSample.Droid
 			// aapt resource value: 0x7f0f002a
 			public const int material_grey_900 = 2131689514;
 			
+			// aapt resource value: 0x7f0f0065
+			public const int mtrl_btn_ripple_color = 2131689573;
+			
 			// aapt resource value: 0x7f0f0049
 			public const int notification_action_color_filter = 2131689545;
 			
@@ -3921,11 +3924,11 @@ namespace XF.MaterialSample.Droid
 			// aapt resource value: 0x7f0f003a
 			public const int switch_thumb_disabled_material_light = 2131689530;
 			
-			// aapt resource value: 0x7f0f0065
-			public const int switch_thumb_material_dark = 2131689573;
-			
 			// aapt resource value: 0x7f0f0066
-			public const int switch_thumb_material_light = 2131689574;
+			public const int switch_thumb_material_dark = 2131689574;
+			
+			// aapt resource value: 0x7f0f0067
+			public const int switch_thumb_material_light = 2131689575;
 			
 			// aapt resource value: 0x7f0f003b
 			public const int switch_thumb_normal_material_dark = 2131689531;

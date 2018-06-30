@@ -28,7 +28,7 @@ namespace XF.Material.Droid.Renderers
 
                 if (Material.IsLollipop)
                 {
-                    _materialButton.HeightRequest += 12;//add additional height to button to show shadow
+                    _materialButton.MinimumHeightRequest = _materialButton.HeightRequest += 12;
                     this.Control.Background = this.CreateRippleDrawable();
                     this.Control.StateListAnimator = AnimatorInflater.LoadStateListAnimator(this.Context, Resource.Animator.material_button_state_list_anim);
                 }
