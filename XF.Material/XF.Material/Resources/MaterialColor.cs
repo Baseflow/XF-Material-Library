@@ -48,7 +48,15 @@ namespace XF.Material.Resources
             {
                 var color = (Color)GetValue(SecondaryProperty);
 
-                return color.IsDefault ? this.Primary : color;
+                if(color.IsDefault && this.Primary.IsDefault)
+                {
+                    return Color.Accent;
+                }
+
+                else
+                {
+                    return color.IsDefault ? this.Primary : color;
+                }
             }
             set => SetValue(SecondaryProperty, value);
         }
@@ -115,7 +123,7 @@ namespace XF.Material.Resources
         }
 
         /// <summary>
-        /// 	A color that passes accessibility guidelines for text/iconography when drawn on top of <see cref="MaterialColor.Background"/>.
+        /// A color that passes accessibility guidelines for text/iconography when drawn on top of <see cref="MaterialColor.Background"/>.
         /// </summary>
         public Color OnBackground
         {
