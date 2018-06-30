@@ -1,10 +1,13 @@
 ﻿using Rg.Plugins.Popup.Pages;
 using Rg.Plugins.Popup.Services;
-using System;
+using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace XF.Material.Dialogs
 {
-    public abstract class BaseMaterialModalPage : PopupPage, IDisposable
+#pragma warning disable S3881 // "IDisposable" should be implemented correctly
+    public abstract class BaseMaterialModalPage : PopupPage, IMaterialModalPage
+#pragma warning restore S3881 // "IDisposable" should be implemented correctly
     {
         private bool _disposed;
 
@@ -12,10 +15,15 @@ namespace XF.Material.Dialogs
         {
             if(!_disposed)
             {
+                await PopupNavigation.Instance.RemovePageAsync(this, true);
                 this.Content = null;
-                await PopupNavigation.Instance.PopAsync(true);
                 _disposed = true;
             }
+        }
+
+        protected virtual async Task ShowAsync()
+        {
+            await PopupNavigation.Instance.PushAsync(this, true);
         }
     }
 }
