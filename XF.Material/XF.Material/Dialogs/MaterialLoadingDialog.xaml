@@ -6,7 +6,6 @@
     xmlns:material="clr-namespace:XF.Material.Views"
     xmlns:rga="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
     xmlns:rgp="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
-    Padding="24,32,32,32"
     BackgroundColor="#52000000"
     CloseWhenBackgroundIsClicked="False">
     <rgp:PopupPage.Animation>
@@ -21,7 +20,8 @@
             ScaleOut="0.8" />
     </rgp:PopupPage.Animation>
     <ContentPage.Content>
-        <material:MaterialCard Padding="24,24,24,16"
+        <material:MaterialCard Margin="{StaticResource Material.Dialog.Margin}"
+            Padding="24,24,24,16"
             BackgroundColor="White"
             CornerRadius="8"
             Elevation="24"
@@ -35,8 +35,7 @@
                     VerticalOptions="Center"
                     WidthRequest="56" />
                 <Label x:Name="Message"
-                    FontFamily="{StaticResource Material.FontFamily.Regular}"
-                    FontSize="16"
+                    Style="{StaticResource Material.Font.Body1}"
                     Text="Lorem ipsum dolor sit amet."
                     TextColor="#99000000"
                     VerticalOptions="Center" />

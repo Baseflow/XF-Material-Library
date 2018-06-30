@@ -67,11 +67,11 @@ namespace XF.Material.Dialogs
             this.Dispose();
         }
 
-        private async Task ShowAsync()
+        protected override async Task ShowAsync()
         {
-            if(!PopupNavigation.Instance.PopupStack.ToList().Exists(s => s.GetType() == typeof(MaterialDialog)))
+            if (!PopupNavigation.Instance.PopupStack.ToList().Exists(s => s is MaterialDialog))
             {
-                await PopupNavigation.Instance.PushAsync(this, true);
+                await base.ShowAsync();
             }
 
             else
@@ -79,6 +79,7 @@ namespace XF.Material.Dialogs
                 this.Dispose();
             }
         }
+
 
         public override void Dispose()
         {

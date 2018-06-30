@@ -9,7 +9,7 @@ namespace XF.Material.Dialogs
 	{
 		public MaterialLoadingDialog ()
 		{
-			InitializeComponent ();
+            InitializeComponent ();
 		}
 
         public MaterialLoadingDialog(string message)
@@ -29,10 +29,10 @@ namespace XF.Material.Dialogs
             LoadingImage.Play();
         }
 
-        public static async Task<MaterialLoadingDialog> Loading(string message)
+        public static async Task<IMaterialModalPage> Loading(string message)
         {
             var dialog = new MaterialLoadingDialog(message);
-            await PopupNavigation.Instance.PushAsync(dialog);
+            await dialog.ShowAsync();
 
             return dialog;
         }
@@ -41,5 +41,5 @@ namespace XF.Material.Dialogs
         {
             this.Dispose();
         }
-	}
+    }
 }

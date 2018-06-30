@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <!--#region CHIPS-->
+    <!--  TODO: Change to direct type instead of onplatform  -->
 
     <OnPlatform x:Key="Material.Chip.Height"
         x:TypeArguments="x:Double"
@@ -31,5 +32,6 @@
 
     <x:Double x:Key="Material.Button.Height">36</x:Double>
     <x:Int32 x:Key="Material.Button.CornerRadius">4</x:Int32>
+    <Thickness x:Key="Material.Dialog.Margin">40</Thickness>
 
 </ResourceDictionary>
