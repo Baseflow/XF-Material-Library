@@ -23,7 +23,7 @@
         <material:MaterialCard Margin="{StaticResource Material.Dialog.Margin}"
             Padding="24,24,24,16"
             BackgroundColor="White"
-            CornerRadius="8"
+            CornerRadius="4"
             Elevation="24"
             HasShadow="True"
             HorizontalOptions="FillAndExpand"
