@@ -57,6 +57,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
+    <AndroidResource Include="Resources\drawable\drawable_shape.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
     <AndroidResource Include="Resources\raw\loading_animation.json" />
     <AndroidResource Include="Resources\font\Roboto_Bold.ttf" />
     <AndroidResource Include="Resources\font\Roboto_Medium.ttf" />
@@ -114,9 +117,6 @@
     <AndroidResource Include="Resources\values\strings.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\drawable\" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\XF.Material\XF.Material.csproj">
       <Project>{B0C6B498-6EC2-4E2B-812B-A04A30827E7F}</Project>
       <Name>XF.Material</Name>
@@ -145,6 +145,16 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\animator\material_button_state_list_anim.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\drawable_selector.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\drawable_shape_with_icon.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

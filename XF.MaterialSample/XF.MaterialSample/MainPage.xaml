@@ -62,20 +62,46 @@
             </StackLayout>
 
             <Label Style="{StaticResource Material.Font.Subtitle2}" Text="BUTTONS" />
-            <StackLayout HorizontalOptions="CenterAndExpand"
-                Orientation="Horizontal"
-                Spacing="8">
-                <material:MaterialButton BackgroundColor="White"
-                    Text="Ok"
-                    TextColor="Black" />
-                <material:MaterialButton BackgroundColor="#6200EE"
-                    Text="Save"
-                    TextColor="White" />
-                <material:MaterialButton BackgroundColor="#B00020"
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="56" />
+                    <RowDefinition Height="56" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <material:MaterialButton Grid.Row="0"
+                    Grid.Column="0"
+                    BackgroundColor="#E0E0E0"
+                    HorizontalOptions="Center"
+                    Text="Button"
+                    TextColor="Black"
+                    VerticalOptions="Center" />
+                <material:MaterialButton Grid.Row="0"
+                    Grid.Column="1"
+                    BackgroundColor="#6200EE"
+                    HorizontalOptions="Center"
+                    Text="Button"
+                    TextColor="White"
+                    VerticalOptions="Center" />
+                <material:MaterialButton Grid.Row="1"
+                    Grid.Column="0"
+                    BackgroundColor="Green"
+                    HorizontalOptions="Center"
+                    IsEnabled="False"
+                    Text="Button"
+                    TextColor="White"
+                    VerticalOptions="Center" />
+                <material:MaterialButton Grid.Row="1"
+                    Grid.Column="1"
+                    BackgroundColor="#B00020"
+                    HorizontalOptions="Center"
                     Image="ic_close"
-                    Text="Discard"
-                    TextColor="White" />
-            </StackLayout>
+                    Text="Button"
+                    TextColor="White"
+                    VerticalOptions="Center" />
+            </Grid>
             <Label Style="{StaticResource Material.Font.Subtitle2}" Text="CHIPS" />
             <StackLayout Padding="8"
                 HorizontalOptions="CenterAndExpand"
