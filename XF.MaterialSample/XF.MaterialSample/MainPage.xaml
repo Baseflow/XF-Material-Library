@@ -66,13 +66,13 @@
                 Orientation="Horizontal"
                 Spacing="8">
                 <material:MaterialButton BackgroundColor="White"
-                    Style="{StaticResource test}"
                     Text="Ok"
                     TextColor="Black" />
                 <material:MaterialButton BackgroundColor="#6200EE"
                     Text="Save"
                     TextColor="White" />
                 <material:MaterialButton BackgroundColor="#B00020"
+                    Image="ic_close"
                     Text="Discard"
                     TextColor="White" />
             </StackLayout>

@@ -61,9 +61,5 @@
             FontFamily="{StaticResource Material.FontFamily}"
             Color="{StaticResource Material.Color}" />
 
-        <Style x:Key="test" TargetType="Button">
-            <Setter Property="CornerRadius" Value="8" />
-        </Style>
-
     </Application.Resources>
 </Application>

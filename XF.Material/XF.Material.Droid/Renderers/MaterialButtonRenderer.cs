@@ -1,7 +1,10 @@
 ﻿using Android.Animation;
 using Android.Content;
+using Android.Graphics;
 using Android.Graphics.Drawables;
 using Android.Support.V4.Content;
+using Android.Views;
+using System.Linq;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using XF.Material.Droid.Renderers;
@@ -31,6 +34,17 @@ namespace XF.Material.Droid.Renderers
                     _materialButton.MinimumHeightRequest = _materialButton.HeightRequest += 12;
                     this.Control.Background = this.CreateRippleDrawable();
                     this.Control.StateListAnimator = AnimatorInflater.LoadStateListAnimator(this.Context, Resource.Animator.material_button_state_list_anim);
+                }
+
+                if (_materialButton.Image != null)
+                {
+                    string fileName = _materialButton.Image.File.Split('.')[0];
+                    int id = this.Resources.GetIdentifier(fileName, "drawable", Material.Context.PackageName);
+                    var width = (int)MaterialExtensions.ConvertDpToPx(18);
+                    var height = (int)MaterialExtensions.ConvertDpToPx(18);
+                    var drawable = ContextCompat.GetDrawable(Material.Context, id);
+                    drawable.SetBounds(0, 0, width, height);
+                    this.Control.SetCompoundDrawables(drawable, null, null, null);
                 }
             }
         }
