@@ -53,9 +53,24 @@ namespace XF.Material.Views
 
         public enum MaterialButtonType
         {
+            /// <summary>
+            /// This button will cast a shadow.
+            /// </summary>
             Elevated,
+
+            /// <summary>
+            /// This button will not cast a shadow.
+            /// </summary>
             Flat,
+
+            /// <summary>
+            /// This button will have a transparent background with a border.
+            /// </summary>
             Outlined,
+
+            /// <summary>
+            /// This button will have a transparent background and no border.
+            /// </summary>
             Text
         }
     }
