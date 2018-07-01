@@ -97,7 +97,7 @@ namespace XF.Material
             {
                 navigationPage.SetDynamicResource(NavigationPage.BarBackgroundColorProperty, MaterialConstants.MATERIAL_COLOR_PRIMARY);
                 navigationPage.SetDynamicResource(NavigationPage.BarTextColorProperty, MaterialConstants.MATERIAL_COLOR_ONPRIMARY);
-                navigationPage.SetValue(NavigationPage.BackgroundColorProperty, Color.FromHex("#FAFAFA"));
+                navigationPage.SetDynamicResource(NavigationPage.BackgroundColorProperty, MaterialConstants.MATERIAL_COLOR_BACKGROUND);
             }
         }
 
@@ -128,6 +128,7 @@ namespace XF.Material
             this.TryAddColorResource(MaterialConstants.MATERIAL_COLOR_ONPRIMARY, materialResource.Color.OnPrimary);
             this.TryAddColorResource(MaterialConstants.MATERIAL_COLOR_SECONDARY, materialResource.Color.Secondary);
             this.TryAddColorResource(MaterialConstants.MATERIAL_COLOR_ONSECONDARY, materialResource.Color.OnSecondary);
+            this.TryAddColorResource(MaterialConstants.MATERIAL_COLOR_BACKGROUND, materialResource.Color.Background);
         }
 
         private void SetupFonts(MaterialResource materialResource)
