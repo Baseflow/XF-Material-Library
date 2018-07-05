@@ -153,7 +153,7 @@
     <PackageReference Include="Rg.Plugins.Popup">
       <Version>1.1.4.158-pre</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Forms" Version="3.0.0.561731" />
+    <PackageReference Include="Xamarin.Forms" Version="3.1.0.583944" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>

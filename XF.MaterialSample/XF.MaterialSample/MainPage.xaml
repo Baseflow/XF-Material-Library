@@ -9,7 +9,6 @@
             HorizontalOptions="FillAndExpand"
             Spacing="16"
             VerticalOptions="FillAndExpand">
-
             <Label Style="{StaticResource Material.Font.Subtitle2}" Text="CARDS" />
             <StackLayout HorizontalOptions="FillAndExpand"
                 Orientation="Vertical"

@@ -18,7 +18,8 @@ namespace XF.MaterialSample
 
         private async void MaterialButton_ShowDialog(object sender, EventArgs e)
         {
-            await MaterialDialogs.ShowAlertAsync("Dialogs focus user attention to ensure their content is addressed.", "Alert Dialog", positiveButtonText: "Got it", negativeButtonText: "Cancel");
+            //await MaterialDialogs.ShowAlertAsync("Dialogs focus user attention to ensure their content is addressed.", "Alert Dialog", positiveButtonText: "Got it", negativeButtonText: "Cancel");
+            await MaterialDialogs.ShowAlertAsync("Dialogs inform users about a task and can contain critical information, require decisions, or involve multiple tasks.", "Alert Dialog", positiveButtonText: "Got it", negativeButtonText: "Cancel");
         }
 
         private async void MaterialChip_ActionImageTapped(object sender, EventArgs e)

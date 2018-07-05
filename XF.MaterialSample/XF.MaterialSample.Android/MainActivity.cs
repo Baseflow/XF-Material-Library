@@ -1,8 +1,6 @@
-﻿
-using Android.App;
+﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
-using Rg.Plugins.Popup.Services;
 
 namespace XF.MaterialSample.Droid
 {
@@ -20,6 +18,11 @@ namespace XF.MaterialSample.Droid
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
 
             LoadApplication(new App());
+        }
+
+        public override void OnBackPressed()
+        {
+            XF.Material.Droid.Material.HandleBackButton(base.OnBackPressed);
         }
     }
 }
