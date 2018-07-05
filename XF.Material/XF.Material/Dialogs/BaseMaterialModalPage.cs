@@ -2,6 +2,7 @@
 using Rg.Plugins.Popup.Services;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using System.Linq;
 
 namespace XF.Material.Dialogs
 {

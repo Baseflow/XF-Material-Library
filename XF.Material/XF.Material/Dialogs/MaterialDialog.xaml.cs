@@ -1,6 +1,4 @@
-﻿using Rg.Plugins.Popup.Services;
-using System;
-using System.Linq;
+﻿using System;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
@@ -65,19 +63,6 @@ namespace XF.Material.Dialogs
         {
             action?.Invoke();
             this.Dispose();
-        }
-
-        protected override async Task ShowAsync()
-        {
-            if (!PopupNavigation.Instance.PopupStack.ToList().Exists(s => s is MaterialDialog))
-            {
-                await base.ShowAsync();
-            }
-
-            else
-            {
-                this.Dispose();
-            }
         }
 
 

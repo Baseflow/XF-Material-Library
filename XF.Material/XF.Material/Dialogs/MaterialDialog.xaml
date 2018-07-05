@@ -6,7 +6,7 @@
     xmlns:material="clr-namespace:XF.Material.Views"
     xmlns:rga="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
     xmlns:rgp="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
-    BackgroundColor="#52000000"
+    BackgroundColor="#51000000"
     CloseWhenBackgroundIsClicked="False">
     <rgp:PopupPage.Animation>
         <rga:ScaleAnimation DurationIn="150"
