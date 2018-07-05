@@ -19,12 +19,12 @@
     <!--#region LETTER SPACING-->
 
     <x:Double x:Key="Material.LetterSpacing.Default">0</x:Double>
-    <x:Double x:Key="Material.LetterSpacing.H6">0.0125</x:Double>
-    <x:Double x:Key="Material.LetterSpacing.Subtitle1">0.00714285714</x:Double>
-    <x:Double x:Key="Material.LetterSpacing.Subtitle2">0.009375</x:Double>
-    <x:Double x:Key="Material.LetterSpacing.Body1">0.03125</x:Double>
-    <x:Double x:Key="Material.LetterSpacing.Body2">0.0178571429</x:Double>
-    <x:Double x:Key="Material.LetterSpacing.Button">0.0892857143</x:Double>
+    <x:Double x:Key="Material.LetterSpacing.H6">0.15</x:Double>
+    <x:Double x:Key="Material.LetterSpacing.Subtitle1">0.15</x:Double>
+    <x:Double x:Key="Material.LetterSpacing.Subtitle2">0.1</x:Double>
+    <x:Double x:Key="Material.LetterSpacing.Body1">0.5</x:Double>
+    <x:Double x:Key="Material.LetterSpacing.Body2">0.25</x:Double>
+    <x:Double x:Key="Material.LetterSpacing.Button">0.75</x:Double>
 
 
     <!--#endregion-->
@@ -33,6 +33,7 @@
         <Setter Property="mtrlfx:MaterialEffectsUtil.LetterSpacing" Value="H6" />
         <Setter Property="FontFamily" Value="{DynamicResource Material.FontFamily.Medium}" />
         <Setter Property="FontSize" Value="{StaticResource Material.FontSize.H6}" />
+        <Setter Property="FontAttributes" Value="Bold" />
     </Style>
 
     <Style x:Key="Material.Font.Subtitle1" TargetType="Label">
@@ -63,18 +64,7 @@
         <Setter Property="mtrlfx:MaterialEffectsUtil.LetterSpacing" Value="Button" />
         <Setter Property="FontFamily" Value="{DynamicResource Material.FontFamily.Medium}" />
         <Setter Property="FontSize" Value="{StaticResource Material.FontSize.Button}" />
-        <!--<Setter Property="Triggers">
-            <Setter.Value>
-                <Trigger TargetType="Button" Property="FontFamily" Value="{x:Null}">
-                    <Setter Property="FontAttributes" Value="Bold" />
-                </Trigger>
-            </Setter.Value>
-        </Setter>-->
-        <!--<Style.Triggers>
-            <Trigger TargetType="Button" Property="FontFamily" Value="{x:Null}">
-                <Setter Property="FontAttributes" Value="Bold" />
-            </Trigger>
-        </Style.Triggers>-->
+        <Setter Property="FontAttributes" Value="Bold" />
     </Style>
 
 </ResourceDictionary>
