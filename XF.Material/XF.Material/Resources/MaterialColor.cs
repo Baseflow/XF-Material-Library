@@ -5,7 +5,7 @@ namespace XF.Material.Resources
     /// <summary>
     /// Color theme based on https://material.io/design/color
     /// </summary>
-    public class MaterialColor : BindableObject
+    public sealed class MaterialColor : BindableObject
     {
         public static readonly BindableProperty PrimaryProperty = BindableProperty.Create(nameof(Primary), typeof(Color), typeof(Color), default(Color));
         public static readonly BindableProperty PrimaryVariantProperty = BindableProperty.Create(nameof(PrimaryVariant), typeof(Color), typeof(Color), default(Color));
