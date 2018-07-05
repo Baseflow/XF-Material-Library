@@ -1,4 +1,5 @@
 ﻿using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 using XF.Material.Droid.Effects;
 
 [assembly: ResolutionGroupName("Material")]
@@ -16,9 +17,10 @@ namespace XF.Material.Droid.Effects
                 return;
             }
 
-            if(this.Control is Android.Widget.TextView textView)
+            if (this.Control is Android.Widget.TextView textView)
             {
-                textView.LetterSpacing = (float)this.MaterialEffect.LetterSpacing;
+                var rawLetterSpacing = this.MaterialEffect.LetterSpacing / (this.Element as IFontElement).FontSize;
+                textView.LetterSpacing = MaterialUtilities.ConvertToSp(rawLetterSpacing);
             }
         }
     }
