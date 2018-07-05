@@ -21,7 +21,7 @@ namespace XF.Material.Droid.Renderers
             if (e?.NewElement != null)
             {
                 _materialCard = this.Element as MaterialCard;
-                var cornerRadius = MaterialExtensions.ConvertDpToPx((int)this.Element.CornerRadius);
+                _materialCard.BorderColor = Xamarin.Forms.Color.White; /// TODO: Remove this after https://github.com/xamarin/Xamarin.Forms/issues/2423 has been resolved.
                 this.Control.Elevate(_materialCard.Elevation);
             }
         }
