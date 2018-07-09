@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Xamarin.Forms;
 using XF.Material.Resources;
 using XF.Material.Resources.Typography;
+using XF.Material.Utilities;
 
 namespace XF.Material
 {
@@ -21,14 +23,14 @@ namespace XF.Material
         {
             app.Resources.TryGetValue(key, out object value);
 
-            if(value is MaterialResource materialResource)
+            if (value is MaterialResource materialResource)
             {
                 _materialResource = materialResource;
             }
 
-            else if(value != null)
+            else if (value != null)
             {
-                throw new InvalidCastException($"The resource retrieved was not of the type {typeof(MaterialResource)}");
+                throw new InvalidCastException($"The resource retrieved with key {key} was not of the type {typeof(MaterialResource)}");
             }
 
             else
@@ -40,9 +42,14 @@ namespace XF.Material
         internal Material(Application app)
         {
             _app = app;
-            _app.PropertyChanged += this.CurrentApp_PropertyChanged;
             _res = app.Resources;
+            Configuration = DependencyService.Get<IMaterialUtility>();
         }
+
+        /// <summary>
+        /// Gets the object used for changing the underlying Material theme.
+        /// </summary>
+        public static IMaterialUtility Configuration { get; private set; }
 
         /// <summary>
         /// Gets a resource of the specified type from the current ResourceDictionary.
@@ -91,16 +98,6 @@ namespace XF.Material
             material.SetupMaterialResources();
         }
 
-        private void CurrentApp_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(Application.MainPage) && _app.MainPage is NavigationPage navigationPage)
-            {
-                navigationPage.SetDynamicResource(NavigationPage.BarBackgroundColorProperty, MaterialConstants.MATERIAL_COLOR_PRIMARY);
-                navigationPage.SetDynamicResource(NavigationPage.BarTextColorProperty, MaterialConstants.MATERIAL_COLOR_ONPRIMARY);
-                navigationPage.SetDynamicResource(NavigationPage.BackgroundColorProperty, MaterialConstants.MATERIAL_COLOR_BACKGROUND);
-            }
-        }
-
         private void GetMaterialResource()
         {
             try
@@ -125,10 +122,19 @@ namespace XF.Material
         private void SetupColors(MaterialResource materialResource)
         {
             this.TryAddColorResource(MaterialConstants.MATERIAL_COLOR_PRIMARY, materialResource.Color.Primary);
+            this.TryAddColorResource(MaterialConstants.MATERIAL_COLOR_PRIMARY_VARIANT, materialResource.Color.PrimaryVariant);
             this.TryAddColorResource(MaterialConstants.MATERIAL_COLOR_ONPRIMARY, materialResource.Color.OnPrimary);
             this.TryAddColorResource(MaterialConstants.MATERIAL_COLOR_SECONDARY, materialResource.Color.Secondary);
+            this.TryAddColorResource(MaterialConstants.MATERIAL_COLOR_SECONDARY_VARIANT, materialResource.Color.SecondaryVariant);
             this.TryAddColorResource(MaterialConstants.MATERIAL_COLOR_ONSECONDARY, materialResource.Color.OnSecondary);
             this.TryAddColorResource(MaterialConstants.MATERIAL_COLOR_BACKGROUND, materialResource.Color.Background);
+            this.TryAddColorResource(MaterialConstants.MATERIAL_COLOR_ONBACKGROUND, materialResource.Color.OnBackground);
+            this.TryAddColorResource(MaterialConstants.MATERIAL_COLOR_SURFACE, materialResource.Color.Surface);
+            this.TryAddColorResource(MaterialConstants.MATERIAL_COLOR_ONSURFACE, materialResource.Color.OnSurface);
+            this.TryAddColorResource(MaterialConstants.MATERIAL_COLOR_ERROR, materialResource.Color.Error);
+            this.TryAddColorResource(MaterialConstants.MATERIAL_COLOR_ONERROR, materialResource.Color.OnError);
+
+            Configuration.ChangeStatusBarColor(materialResource.Color.PrimaryVariant);
         }
 
         private void SetupFonts(MaterialResource materialResource)
