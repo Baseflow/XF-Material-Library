@@ -53,47 +53,27 @@
                     TextColor="#99000000" />
                 <Grid Grid.Row="2"
                     Margin="0,20,8,0"
-                    ColumnSpacing="8"
-                    HeightRequest="52">
+                    ColumnSpacing="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="52" />
+                    </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <StackLayout x:Name="NegativeButton"
+                    <material:MaterialButton x:Name="NegativeButton"
                         Grid.Column="2"
-                        HeightRequest="36"
-                        HorizontalOptions="End"
-                        MinimumWidthRequest="64"
-                        Orientation="Horizontal"
-                        VerticalOptions="Center">
-                        <Label x:Name="NegativeButtonLabel"
-                            Margin="8,0,8,0"
-                            HorizontalTextAlignment="Center"
-                            MinimumWidthRequest="48"
-                            Style="{StaticResource Material.Font.Button}"
-                            Text="CANCEL"
-                            TextColor="{DynamicResource Material.Color.Secondary}"
-                            VerticalOptions="FillAndExpand"
-                            VerticalTextAlignment="Center" />
-                    </StackLayout>
-                    <StackLayout x:Name="PositiveButton"
+                        Margin="0,0,-8,0"
+                        ButtonType="Text"
+                        Text="Cancel"
+                        VerticalOptions="Center" />
+                    <material:MaterialButton x:Name="PositiveButton"
                         Grid.Column="3"
-                        HeightRequest="36"
-                        HorizontalOptions="End"
-                        Orientation="Horizontal"
-                        VerticalOptions="Center">
-                        <Label x:Name="PositiveButtonLabel"
-                            Margin="8,0,8,0"
-                            HorizontalTextAlignment="Center"
-                            MinimumWidthRequest="48"
-                            Style="{StaticResource Material.Font.Button}"
-                            Text="OK"
-                            TextColor="{DynamicResource Material.Color.Secondary}"
-                            VerticalOptions="FillAndExpand"
-                            VerticalTextAlignment="Center" />
-                    </StackLayout>
+                        ButtonType="Text"
+                        Text="Ok"
+                        VerticalOptions="Center" />
                 </Grid>
             </Grid>
         </material:MaterialCard>

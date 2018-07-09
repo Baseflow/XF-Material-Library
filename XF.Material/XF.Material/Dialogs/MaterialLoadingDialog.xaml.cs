@@ -7,29 +7,18 @@ namespace XF.Material.Dialogs
     [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class MaterialLoadingDialog : BaseMaterialModalPage
 	{
-		public MaterialLoadingDialog ()
+		internal MaterialLoadingDialog ()
 		{
             InitializeComponent ();
 		}
 
-        public MaterialLoadingDialog(string message)
+        internal MaterialLoadingDialog(string message)
         {
             InitializeComponent();
             this.Message.Text = message;
         }
 
-        protected override bool OnBackButtonPressed()
-        {
-            return true;
-        }
-
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-            LoadingImage.Play();
-        }
-
-        public static async Task<IMaterialModalPage> Loading(string message)
+        internal static async Task<IMaterialModalPage> Loading(string message)
         {
             var dialog = new MaterialLoadingDialog(message);
             await dialog.ShowAsync();
@@ -37,9 +26,15 @@ namespace XF.Material.Dialogs
             return dialog;
         }
 
-        public void Hide()
+        internal void Hide()
         {
             this.Dispose();
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            LoadingImage.Play();
         }
     }
 }

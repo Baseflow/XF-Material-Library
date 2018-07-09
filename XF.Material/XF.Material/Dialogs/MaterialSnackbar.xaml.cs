@@ -17,12 +17,12 @@ namespace XF.Material.Dialogs
         private TapGestureRecognizer _primaryActionTap;
         private Command _primaryActionTapCommand;
 
-        public MaterialSnackbar()
+        internal MaterialSnackbar()
         {
             InitializeComponent();
         }
 
-        public MaterialSnackbar(string message, int msDuration)
+        internal MaterialSnackbar(string message, int msDuration)
         {
             InitializeComponent();
             Message.Text = message;
@@ -30,7 +30,7 @@ namespace XF.Material.Dialogs
             ActionButton.IsVisible = false;
         }
 
-        public MaterialSnackbar(string message, int msDuration, Action hideAction)
+        internal MaterialSnackbar(string message, int msDuration, Action hideAction)
         {
             InitializeComponent();
             Message.Text = message;
@@ -39,7 +39,7 @@ namespace XF.Material.Dialogs
             _hideAction = hideAction;
         }
 
-        public MaterialSnackbar(string message, string actionButtonText, Action primaryAction = null, Action hideAction = null, int msDuration = 3000)
+        internal MaterialSnackbar(string message, string actionButtonText, Action primaryAction = null, Action hideAction = null, int msDuration = 3000)
         {
             InitializeComponent();
             Message.Text = message;
@@ -53,7 +53,13 @@ namespace XF.Material.Dialogs
 
         public int Duration { get; set; }
 
-        public static async Task<IMaterialModalPage> Loading(string message)
+        public override void Dispose()
+        {
+            ActionButton.GestureRecognizers.Clear();
+            base.Dispose();
+        }
+
+        internal static async Task<IMaterialModalPage> Loading(string message)
         {
             var snackbar = new MaterialSnackbar(message, DURATION_INDEFINITE);
             await snackbar.ShowAsync();
@@ -61,24 +67,17 @@ namespace XF.Material.Dialogs
             return snackbar;
         }
 
-        public static async Task ShowAsync(string message, int msDuration = 3000)
+        internal static async Task ShowAsync(string message, int msDuration = 3000)
         {
             var snackbar = new MaterialSnackbar(message, msDuration);
             await snackbar.ShowAsync();
         }
 
-        public static async Task ShowAsync(string message, string actionButtonText, Action primaryAction = null, Action hideAction = null, int msDuration = 3000)
+        internal static async Task ShowAsync(string message, string actionButtonText, Action primaryAction = null, Action hideAction = null, int msDuration = 3000)
         {
             var snackbar = new MaterialSnackbar(message, actionButtonText, primaryAction, hideAction, msDuration);
             await snackbar.ShowAsync();
         }
-
-        public override void Dispose()
-        {
-            ActionButton.GestureRecognizers.Clear();
-            base.Dispose();
-        }
-
         protected override async void OnAppearingAnimationEnd()
         {
             base.OnAppearingAnimationEnd();

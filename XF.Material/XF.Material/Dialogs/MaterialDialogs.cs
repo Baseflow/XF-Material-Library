@@ -10,14 +10,29 @@ namespace XF.Material
     {
         private static Task<IMaterialModalPage> _defaultMaterialDialog => Task.FromResult(default(IMaterialModalPage));
 
-        public static async Task ShowAlertAsync(string message)
+        /// <summary>
+        /// Creates an alert dialog with a specified message and title. It only has a single action for acknowledgement.
+        /// </summary>
+        /// <param name="message">The message of the alert dialog.</param>
+        /// <param name="title">The title of the alert dialog.</param>
+        /// <returns></returns>
+        public static async Task ShowAlertAsync(string message, string title = "Alert")
         {
-            if(CanShowPopup<MaterialDialog>())
+            if (CanShowPopup<MaterialDialog>())
             {
-                await MaterialDialog.AlertAsync(message);
+                await MaterialDialog.AlertAsync(message, title);
             }
         }
 
+        // TODO: Change this
+        public static Task<MaterialDialog> AddAction(this Task<MaterialDialog> dialog, DialogAction dialogAction, string actionName, Action action)
+        {
+            dialog.Result.AddAction(dialogAction, actionName, action);
+
+            return dialog;
+        }
+
+        // TODO: Refactor this
         public static async Task ShowAlertAsync(string message, string title, string positiveButtonText = "OK", Action positiveAction = null, string negativeButtonText = "CANCEL", Action negativeAction = null)
         {
             if(CanShowPopup<MaterialDialog>())
