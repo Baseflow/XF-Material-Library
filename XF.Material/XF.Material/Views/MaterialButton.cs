@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using XF.Material.Effects;
@@ -9,8 +10,30 @@ namespace XF.Material.Views
 {
     public class MaterialButton : Button
     {
+        public const string MaterialButtonColorChanged = "BackgroundColorChanged";
+        public static new readonly BindableProperty BackgroundColorProperty = BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(MaterialButton), Material.GetMaterialResource<Color>(MaterialConstants.MATERIAL_COLOR_SECONDARY));
         public static readonly BindableProperty AllCapsProperty = BindableProperty.Create(nameof(AllCaps), typeof(bool), typeof(MaterialButton), true);
-        public static readonly BindableProperty ButtonTypeProperty = BindableProperty.Create(nameof(ButtonType), typeof(MaterialButtonType), typeof(MaterialButton), MaterialButtonType.Elevated);
+        public static readonly BindableProperty ButtonTypeProperty = BindableProperty.Create(nameof(ButtonType), typeof(MaterialButtonType), typeof(MaterialButton), MaterialButtonType.Elevated, propertyChanged: ButtonTypeChanged);
+
+        private static void ButtonTypeChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            if(bindable is MaterialButton materialButton)
+            {
+                switch(materialButton.ButtonType)
+                {
+                    case MaterialButtonType.Text:
+                        materialButton.RemoveDynamicResource(TextColorProperty);
+                        materialButton.SetDynamicResource(TextColorProperty, MaterialConstants.MATERIAL_COLOR_SECONDARY);
+                        break;
+                    case MaterialButtonType.Outlined:
+                        materialButton.RemoveDynamicResource(TextColorProperty);
+                        materialButton.SetDynamicResource(TextColorProperty, MaterialConstants.MATERIAL_COLOR_SECONDARY);
+                        materialButton.SetDynamicResource(BorderColorProperty, MaterialConstants.MATERIAL_COLOR_SECONDARY);
+                        materialButton.SetDynamicResource(BorderWidthProperty, MaterialConstants.MATERIAL_BUTTON_OUTLINED_BORDERWIDTH);
+                        break;
+                }
+            }
+        }
 
         /// <summary>
         /// Gets or sets whether the text of this button should be capitalized.
@@ -30,6 +53,15 @@ namespace XF.Material.Views
             set => SetValue(ButtonTypeProperty, value);
         }
 
+        /// <summary>
+        /// Gets or sets the background color.
+        /// </summary>
+        public new Color BackgroundColor
+        {
+            get => (Color)GetValue(BackgroundColorProperty);
+            set => SetValue(BackgroundColorProperty, value);
+        }
+
         public MaterialButton()
         {
             this.SetValue(MaterialEffectsUtil.LetterSpacingProperty, MaterialTypeScale.Button);
@@ -43,11 +75,19 @@ namespace XF.Material.Views
 
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            base.OnPropertyChanged(propertyName);
-
-            if (propertyName == nameof(this.Style))
+            if (propertyName == nameof(BackgroundColor))
             {
-                this.Style.Setters.ForEach(s => this.SetValue(s.Property, s.Value));
+                base.OnPropertyChanged(MaterialButton.MaterialButtonColorChanged);
+            }
+
+            else
+            {
+                base.OnPropertyChanged(propertyName);
+
+                if (propertyName == nameof(this.Style))
+                {
+                    this.Style.Setters.ForEach(s => this.SetValue(s.Property, s.Value));
+                }
             }
         }
 
