@@ -19,8 +19,8 @@ namespace XF.Material.Droid.Effects
 
             if (this.Control is Android.Widget.TextView textView)
             {
-                var rawLetterSpacing = this.MaterialEffect.LetterSpacing / (this.Element as IFontElement).FontSize;
-                textView.LetterSpacing = MaterialUtilities.ConvertToSp(rawLetterSpacing);
+                var rawLetterSpacing = this.MaterialEffect.LetterSpacing / textView.TextSize;
+                textView.LetterSpacing = MaterialHelper.ConvertToSp(rawLetterSpacing);
             }
         }
     }
