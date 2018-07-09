@@ -1,4 +1,5 @@
 ﻿using Xamarin.Forms;
+using XF.Material.Resources;
 
 namespace XF.Material.Views
 {
@@ -10,6 +11,11 @@ namespace XF.Material.Views
         {
             get => (int)GetValue(ElevationProperty);
             set => SetValue(ElevationProperty, value);
+        }
+
+        public MaterialCard()
+        {
+            this.SetDynamicResource(BackgroundColorProperty, MaterialConstants.MATERIAL_COLOR_SURFACE);
         }
     }
 }
