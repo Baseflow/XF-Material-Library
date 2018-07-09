@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Linq;
 using Xamarin.Forms;
-using System.Linq;
 using XF.Material.Resources.Typography;
 
 namespace XF.Material.Effects
@@ -25,7 +22,7 @@ namespace XF.Material.Effects
         {
             var view = bindable as View;
 
-            if(view == null)
+            if (view == null)
             {
                 return;
             }
@@ -33,7 +30,7 @@ namespace XF.Material.Effects
             var typeScale = (MaterialTypeScale)newValue;
             var oldEffect = view.Effects.FirstOrDefault(e => e is MaterialTypographyEffect);
 
-            if(oldEffect != null)
+            if (oldEffect != null)
             {
                 view.Effects.Remove(oldEffect);
             }

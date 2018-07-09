@@ -1,4 +1,5 @@
 ﻿using Android.Content;
+using Android.OS;
 using System.ComponentModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
@@ -21,7 +22,17 @@ namespace XF.Material.Droid.Renderers
             if (e?.NewElement != null)
             {
                 _materialCard = this.Element as MaterialCard;
-                _materialCard.BorderColor = Xamarin.Forms.Color.White; /// TODO: Remove this after https://github.com/xamarin/Xamarin.Forms/issues/2423 has been resolved.
+
+                #region SHADOW FIX FOR BELOW API 23
+
+                /// TODO: Remove this after https://github.com/xamarin/Xamarin.Forms/issues/2423 has been resolved.
+                if (Build.VERSION.SdkInt < BuildVersionCodes.N)
+                {
+                    _materialCard.BorderColor = _materialCard.BackgroundColor;
+                }
+
+                #endregion
+
                 this.Control.Elevate(_materialCard.Elevation);
             }
         }
