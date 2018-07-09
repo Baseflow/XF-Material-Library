@@ -5,6 +5,7 @@ using Xamarin.Forms;
 using XF.Material;
 using XF.Material.Dialogs;
 using XF.Material.Effects;
+using XF.Material.Resources;
 using XF.Material.Views;
 
 namespace XF.MaterialSample
@@ -19,7 +20,7 @@ namespace XF.MaterialSample
         private async void MaterialButton_ShowDialog(object sender, EventArgs e)
         {
             //await MaterialDialogs.ShowAlertAsync("Dialogs focus user attention to ensure their content is addressed.", "Alert Dialog", positiveButtonText: "Got it", negativeButtonText: "Cancel");
-            await MaterialDialogs.ShowAlertAsync("Dialogs inform users about a task and can contain critical information, require decisions, or involve multiple tasks.", "Alert Dialog", positiveButtonText: "Got it", negativeButtonText: "Cancel");
+            await MaterialDialogs.ShowAlertAsync("Dialogs inform users about a task and can contain critical information, require decisions, or involve multiple tasks.", "Alert Dialog");
         }
 
         private async void MaterialChip_ActionImageTapped(object sender, EventArgs e)
@@ -62,6 +63,11 @@ namespace XF.MaterialSample
             {
                 await Task.Delay(3000);
             }
+        }
+
+        private async void Primary_Tapped(object sender, EventArgs e)
+        {
+            await MaterialDialogs.ShowAlertAsync("A primary color is the color displayed most frequently across your app’s screens and components.", "Primary Color");
         }
     }
 }

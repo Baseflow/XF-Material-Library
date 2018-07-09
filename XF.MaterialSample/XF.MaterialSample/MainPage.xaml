@@ -2,19 +2,261 @@
 <ContentPage x:Class="XF.MaterialSample.MainPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:fx="clr-namespace:XF.Material.Effects;assembly=XF.Material"
+    xmlns:local="clr-namespace:XF.MaterialSample"
     xmlns:material="clr-namespace:XF.Material.Views;assembly=XF.Material"
     Title="Xamarin.Forms Material">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:ColorConverter x:Key="Converter.Color" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ScrollView>
         <StackLayout Padding="16"
             HorizontalOptions="FillAndExpand"
             Spacing="16"
             VerticalOptions="FillAndExpand">
+
+            <Label Style="{StaticResource Material.Font.Subtitle2}" Text="COLOR RESOURCES" />
+            <StackLayout Spacing="16">
+                <Grid ColumnSpacing="0" RowSpacing="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="80" />
+                        <RowDefinition Height="80" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <StackLayout Grid.Row="0"
+                        Grid.Column="0"
+                        BackgroundColor="{DynamicResource Material.Color.Primary}">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="Primary_Tapped" />
+                        </StackLayout.GestureRecognizers>
+                        <Label Margin="8,8,0,0"
+                            Style="{StaticResource Material.Font.Caption}"
+                            Text="Primary"
+                            TextColor="{DynamicResource Material.Color.OnPrimary}"
+                            VerticalOptions="FillAndExpand" />
+                        <Label Margin="8,0,0,8"
+                            BindingContext="{StaticResource Material.Color}"
+                            Style="{StaticResource Material.Font.Caption}"
+                            Text="{Binding Primary, Converter={StaticResource Converter.Color}}"
+                            TextColor="{DynamicResource Material.Color.OnPrimary}" />
+                    </StackLayout>
+                    <StackLayout Grid.Row="0"
+                        Grid.Column="1"
+                        BackgroundColor="{DynamicResource Material.Color.PrimaryVariant}">
+                        <Label Margin="8,8,0,0"
+                            Style="{StaticResource Material.Font.Caption}"
+                            Text="Primary Variant"
+                            TextColor="{DynamicResource Material.Color.OnPrimary}"
+                            VerticalOptions="FillAndExpand" />
+                        <Label Margin="8,0,0,8"
+                            BindingContext="{StaticResource Material.Color}"
+                            Style="{StaticResource Material.Font.Caption}"
+                            Text="{Binding PrimaryVariant, Converter={StaticResource Converter.Color}}"
+                            TextColor="{DynamicResource Material.Color.OnPrimary}" />
+                    </StackLayout>
+                    <StackLayout Grid.Row="1"
+                        Grid.Column="0"
+                        BackgroundColor="{DynamicResource Material.Color.Secondary}">
+                        <Label Margin="8,8,0,0"
+                            Style="{StaticResource Material.Font.Caption}"
+                            Text="Secondary"
+                            TextColor="{DynamicResource Material.Color.OnSecondary}"
+                            VerticalOptions="FillAndExpand" />
+                        <Label Margin="8,0,0,8"
+                            BindingContext="{StaticResource Material.Color}"
+                            Style="{StaticResource Material.Font.Caption}"
+                            Text="{Binding Secondary, Converter={StaticResource Converter.Color}}"
+                            TextColor="{DynamicResource Material.Color.OnSecondary}" />
+                    </StackLayout>
+                    <StackLayout Grid.Row="1"
+                        Grid.Column="1"
+                        BackgroundColor="{DynamicResource Material.Color.SecondaryVariant}">
+                        <Label Margin="8,8,0,0"
+                            Style="{StaticResource Material.Font.Caption}"
+                            Text="Secondary Variant"
+                            TextColor="{DynamicResource Material.Color.OnSecondary}"
+                            VerticalOptions="FillAndExpand" />
+                        <Label Margin="8,0,0,8"
+                            BindingContext="{StaticResource Material.Color}"
+                            Style="{StaticResource Material.Font.Caption}"
+                            Text="{Binding SecondaryVariant, Converter={StaticResource Converter.Color}}"
+                            TextColor="{DynamicResource Material.Color.OnSecondary}" />
+                    </StackLayout>
+                </Grid>
+                <Grid ColumnSpacing="0" RowSpacing="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="80" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="1" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <StackLayout Grid.Row="0"
+                        Grid.Column="0"
+                        BackgroundColor="{DynamicResource Material.Color.Background}">
+                        <Label Margin="8,8,0,0"
+                            Style="{StaticResource Material.Font.Caption}"
+                            Text="Background"
+                            TextColor="Black"
+                            VerticalOptions="FillAndExpand" />
+                        <Label Margin="8,0,0,8"
+                            BindingContext="{StaticResource Material.Color}"
+                            Style="{StaticResource Material.Font.Caption}"
+                            Text="{Binding Background, Converter={StaticResource Converter.Color}}"
+                            TextColor="Black" />
+                    </StackLayout>
+                    <BoxView Grid.Row="0"
+                        Grid.Column="1"
+                        Color="Transparent" />
+                    <StackLayout Grid.Row="0"
+                        Grid.Column="2"
+                        BackgroundColor="{DynamicResource Material.Color.Surface}">
+                        <Label Margin="8,8,0,0"
+                            Style="{StaticResource Material.Font.Caption}"
+                            Text="Surface"
+                            TextColor="Black"
+                            VerticalOptions="FillAndExpand" />
+                        <Label Margin="8,0,0,8"
+                            BindingContext="{StaticResource Material.Color}"
+                            Style="{StaticResource Material.Font.Caption}"
+                            Text="{Binding Surface, Converter={StaticResource Converter.Color}}"
+                            TextColor="Black" />
+                    </StackLayout>
+                    <StackLayout Grid.Row="0"
+                        Grid.Column="3"
+                        BackgroundColor="{DynamicResource Material.Color.Error}">
+                        <Label Margin="8,8,0,0"
+                            Style="{StaticResource Material.Font.Caption}"
+                            Text="Error"
+                            TextColor="White"
+                            VerticalOptions="FillAndExpand" />
+                        <Label Margin="8,0,0,8"
+                            BindingContext="{StaticResource Material.Color}"
+                            Style="{StaticResource Material.Font.Caption}"
+                            Text="{Binding Error, Converter={StaticResource Converter.Color}}"
+                            TextColor="White" />
+                    </StackLayout>
+                </Grid>
+                <Grid ColumnSpacing="0" RowSpacing="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="80" />
+                        <RowDefinition Height="80" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="1" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <StackLayout Grid.Row="0"
+                        Grid.Column="0"
+                        BackgroundColor="{DynamicResource Material.Color.OnPrimary}">
+                        <Label Margin="8,8,0,0"
+                            Style="{StaticResource Material.Font.Caption}"
+                            Text="On Primary"
+                            TextColor="Black"
+                            VerticalOptions="FillAndExpand" />
+                        <Label Margin="8,0,0,8"
+                            BindingContext="{StaticResource Material.Color}"
+                            Style="{StaticResource Material.Font.Caption}"
+                            Text="{Binding OnPrimary, Converter={StaticResource Converter.Color}}"
+                            TextColor="Black" />
+                    </StackLayout>
+                    <BoxView Grid.Row="0"
+                        Grid.Column="1"
+                        Color="Transparent" />
+                    <StackLayout Grid.Row="0"
+                        Grid.Column="2"
+                        BackgroundColor="{DynamicResource Material.Color.OnSecondary}">
+                        <Label Margin="8,8,0,0"
+                            Style="{StaticResource Material.Font.Caption}"
+                            Text="On Secondary"
+                            TextColor="Black"
+                            VerticalOptions="FillAndExpand" />
+                        <Label Margin="8,0,0,8"
+                            BindingContext="{StaticResource Material.Color}"
+                            Style="{StaticResource Material.Font.Caption}"
+                            Text="{Binding OnSecondary, Converter={StaticResource Converter.Color}}"
+                            TextColor="Black" />
+                    </StackLayout>
+                    <Grid Grid.Row="1"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="3"
+                        ColumnSpacing="0"
+                        RowSpacing="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="80" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="1" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <StackLayout Grid.Row="0"
+                            Grid.Column="0"
+                            BackgroundColor="{DynamicResource Material.Color.OnBackground}">
+                            <Label Margin="8,8,0,0"
+                                Style="{StaticResource Material.Font.Caption}"
+                                Text="On Background"
+                                TextColor="White"
+                                VerticalOptions="FillAndExpand" />
+                            <Label Margin="8,0,0,8"
+                                BindingContext="{StaticResource Material.Color}"
+                                Style="{StaticResource Material.Font.Caption}"
+                                Text="{Binding OnBackground, Converter={StaticResource Converter.Color}}"
+                                TextColor="White" />
+                        </StackLayout>
+                        <BoxView Grid.Row="0"
+                            Grid.Column="1"
+                            Color="Transparent" />
+                        <StackLayout Grid.Row="0"
+                            Grid.Column="2"
+                            BackgroundColor="{DynamicResource Material.Color.OnSurface}">
+                            <Label Margin="8,8,0,0"
+                                Style="{StaticResource Material.Font.Caption}"
+                                Text="On Surface"
+                                TextColor="White"
+                                VerticalOptions="FillAndExpand" />
+                            <Label Margin="8,0,0,8"
+                                BindingContext="{StaticResource Material.Color}"
+                                Style="{StaticResource Material.Font.Caption}"
+                                Text="{Binding OnSurface, Converter={StaticResource Converter.Color}}"
+                                TextColor="White" />
+                        </StackLayout>
+                        <StackLayout Grid.Row="0"
+                            Grid.Column="3"
+                            BackgroundColor="{DynamicResource Material.Color.OnError}"
+                            Spacing="0">
+                            <BoxView BackgroundColor="#EAEAEA"
+                                HeightRequest="1"
+                                HorizontalOptions="FillAndExpand" />
+                            <Label Margin="8,7,0,0"
+                                Style="{StaticResource Material.Font.Caption}"
+                                Text="On Error"
+                                TextColor="Black"
+                                VerticalOptions="FillAndExpand" />
+                            <Label Margin="8,0,0,8"
+                                BindingContext="{StaticResource Material.Color}"
+                                Style="{StaticResource Material.Font.Caption}"
+                                Text="{Binding OnError, Converter={StaticResource Converter.Color}}"
+                                TextColor="Black" />
+                        </StackLayout>
+                    </Grid>
+                </Grid>
+            </StackLayout>
+
             <Label Style="{StaticResource Material.Font.Subtitle2}" Text="CARDS" />
             <StackLayout HorizontalOptions="FillAndExpand"
                 Orientation="Vertical"
                 Spacing="8">
-                <material:MaterialCard BackgroundColor="#FAFAFA"
-                    CornerRadius="2"
+                <material:MaterialCard CornerRadius="2"
                     Elevation="1"
                     HeightRequest="80"
                     HorizontalOptions="FillAndExpand">
@@ -22,8 +264,7 @@
                         Text="Elevation 1"
                         VerticalOptions="Center" />
                 </material:MaterialCard>
-                <material:MaterialCard BackgroundColor="#FAFAFA"
-                    CornerRadius="2"
+                <material:MaterialCard CornerRadius="2"
                     Elevation="2"
                     HeightRequest="80"
                     HorizontalOptions="FillAndExpand">
@@ -31,8 +272,7 @@
                         Text="Elevation 2"
                         VerticalOptions="Center" />
                 </material:MaterialCard>
-                <material:MaterialCard BackgroundColor="#FAFAFA"
-                    CornerRadius="2"
+                <material:MaterialCard CornerRadius="2"
                     Elevation="4"
                     HeightRequest="80"
                     HorizontalOptions="FillAndExpand">
@@ -40,8 +280,7 @@
                         Text="Elevation 4"
                         VerticalOptions="Center" />
                 </material:MaterialCard>
-                <material:MaterialCard BackgroundColor="#FAFAFA"
-                    CornerRadius="2"
+                <material:MaterialCard CornerRadius="2"
                     Elevation="6"
                     HeightRequest="80"
                     HorizontalOptions="FillAndExpand">
@@ -49,8 +288,7 @@
                         Text="Elevation 6"
                         VerticalOptions="Center" />
                 </material:MaterialCard>
-                <material:MaterialCard BackgroundColor="#FAFAFA"
-                    CornerRadius="2"
+                <material:MaterialCard CornerRadius="2"
                     Elevation="8"
                     HeightRequest="80"
                     HorizontalOptions="FillAndExpand">
@@ -72,33 +310,27 @@
                 </Grid.ColumnDefinitions>
                 <material:MaterialButton Grid.Row="0"
                     Grid.Column="0"
-                    BackgroundColor="#E0E0E0"
                     HorizontalOptions="Center"
                     Text="Button"
-                    TextColor="Black"
                     VerticalOptions="Center" />
                 <material:MaterialButton Grid.Row="0"
                     Grid.Column="1"
-                    BackgroundColor="#6200EE"
+                    ButtonType="Flat"
                     HorizontalOptions="Center"
                     Text="Button"
-                    TextColor="White"
                     VerticalOptions="Center" />
                 <material:MaterialButton Grid.Row="1"
                     Grid.Column="0"
-                    BackgroundColor="Green"
+                    BackgroundColor="#B00020"
+                    ButtonType="Outlined"
                     HorizontalOptions="Center"
-                    IsEnabled="False"
                     Text="Button"
-                    TextColor="White"
                     VerticalOptions="Center" />
                 <material:MaterialButton Grid.Row="1"
                     Grid.Column="1"
-                    BackgroundColor="#B00020"
+                    ButtonType="Text"
                     HorizontalOptions="Center"
-                    Image="ic_close"
                     Text="Button"
-                    TextColor="White"
                     VerticalOptions="Center" />
             </Grid>
             <Label Style="{StaticResource Material.Font.Subtitle2}" Text="CHIPS" />

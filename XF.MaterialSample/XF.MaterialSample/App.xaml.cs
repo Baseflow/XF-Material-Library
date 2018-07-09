@@ -1,5 +1,6 @@
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using XF.Material.Views;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace XF.MaterialSample
@@ -15,7 +16,7 @@ namespace XF.MaterialSample
 
 		protected override void OnStart ()
 		{
-            MainPage = new NavigationPage(new MainPage());
+            MainPage = new MaterialNavigationPage(new MainPage());
         }
 
 		protected override void OnSleep ()

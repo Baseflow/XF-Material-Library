@@ -6,14 +6,19 @@ using System.Linq;
 using Rg.Plugins.Popup;
 using Rg.Plugins.Popup.Services;
 using System.Threading.Tasks;
+using Xamarin.Forms;
+using XF.Material.Resources;
+using Android.App;
+using Android.Views;
+using Xamarin.Forms.Platform.Android;
 
 namespace XF.Material.Droid
 {
     public static class Material
     {
-        public static Context Context { get; set; }
+        public static Context Context { get; private set; }
 
-        public static bool IsLollipop { get; set; }
+        public static bool IsLollipop { get; private set; }
 
         public static void Init(Context context, Bundle bundle)
         {

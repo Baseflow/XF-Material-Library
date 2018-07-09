@@ -1,6 +1,7 @@
 ﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
+using Android.Views;
 
 namespace XF.MaterialSample.Droid
 {
@@ -14,8 +15,8 @@ namespace XF.MaterialSample.Droid
 
             base.OnCreate(savedInstanceState);
 
-            global::XF.Material.Droid.Material.Init(this, savedInstanceState);
-            global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+            XF.Material.Droid.Material.Init(this, savedInstanceState);
+            Xamarin.Forms.Forms.Init(this, savedInstanceState);
 
             LoadApplication(new App());
         }
