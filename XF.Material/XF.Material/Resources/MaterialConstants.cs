@@ -3,10 +3,17 @@
     public static class MaterialConstants
     {
         public const string MATERIAL_COLOR_PRIMARY = "Material.Color.Primary";
+        public const string MATERIAL_COLOR_PRIMARY_VARIANT = "Material.Color.PrimaryVariant";
         public const string MATERIAL_COLOR_SECONDARY = "Material.Color.Secondary";
+        public const string MATERIAL_COLOR_SECONDARY_VARIANT = "Material.Color.SecondaryVariant";
         public const string MATERIAL_COLOR_ONPRIMARY = "Material.Color.OnPrimary";
         public const string MATERIAL_COLOR_ONSECONDARY = "Material.Color.OnSecondary";
         public const string MATERIAL_COLOR_BACKGROUND = "Material.Color.Background";
+        public const string MATERIAL_COLOR_SURFACE = "Material.Color.Surface";
+        public const string MATERIAL_COLOR_ERROR = "Material.Color.Error";
+        public const string MATERIAL_COLOR_ONBACKGROUND = "Material.Color.OnBackground";
+        public const string MATERIAL_COLOR_ONSURFACE = "Material.Color.OnSurface";
+        public const string MATERIAL_COLOR_ONERROR = "Material.Color.OnError";
 
         public const string MATERIAL_FONTFAMILY_REGULAR = "Material.FontFamily.Regular";
         public const string MATERIAL_FONTFAMILY_MEDIUM = "Material.FontFamily.Medium";
@@ -21,6 +28,7 @@
         public const string MATERIAL_FONT_BUTTON = "Material.Font.Button";
 
         public const string MATERIAL_BUTTON_CORNERRADIUS = "Material.Button.CornerRadius";
+        public const string MATERIAL_BUTTON_OUTLINED_BORDERWIDTH = "Material.Button.Outlined.BorderWidth";
 
         public const string MATERIAL_BUTTON_HEIGHT = "Material.Button.Height";
     }

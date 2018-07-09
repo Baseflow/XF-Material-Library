@@ -12,6 +12,7 @@
     <x:Double x:Key="Material.FontSize.Body1">16</x:Double>
     <x:Double x:Key="Material.FontSize.Body2">14</x:Double>
     <x:Double x:Key="Material.FontSize.Button">14</x:Double>
+    <x:Double x:Key="Material.FontSize.Caption">12</x:Double>
 
 
     <!--#endregion-->
@@ -25,6 +26,7 @@
     <x:Double x:Key="Material.LetterSpacing.Body1">0.5</x:Double>
     <x:Double x:Key="Material.LetterSpacing.Body2">0.25</x:Double>
     <x:Double x:Key="Material.LetterSpacing.Button">0.75</x:Double>
+    <x:Double x:Key="Material.LetterSpacing.Caption">0.4</x:Double>
 
 
     <!--#endregion-->
@@ -65,6 +67,12 @@
         <Setter Property="FontFamily" Value="{DynamicResource Material.FontFamily.Medium}" />
         <Setter Property="FontSize" Value="{StaticResource Material.FontSize.Button}" />
         <Setter Property="FontAttributes" Value="Bold" />
+    </Style>
+
+    <Style x:Key="Material.Font.Caption" TargetType="Label">
+        <Setter Property="mtrlfx:MaterialEffectsUtil.LetterSpacing" Value="Caption" />
+        <Setter Property="FontFamily" Value="{DynamicResource Material.FontFamily.Regular}" />
+        <Setter Property="FontSize" Value="{StaticResource Material.FontSize.Caption}" />
     </Style>
 
 </ResourceDictionary>
