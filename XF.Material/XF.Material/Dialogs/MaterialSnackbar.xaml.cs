@@ -14,7 +14,6 @@ namespace XF.Material.Dialogs
         public const int DURATION_INDEFINITE = -1;
         private Action _hideAction;
         private bool _primaryActionRunning;
-        private TapGestureRecognizer _primaryActionTap;
         private Command _primaryActionTapCommand;
 
         internal MaterialSnackbar()
@@ -44,10 +43,9 @@ namespace XF.Material.Dialogs
             InitializeComponent();
             Message.Text = message;
             this.Duration = msDuration;
-            ActionButtonLabel.Text = actionButtonText.ToUpper();
+            ActionButton.Text = actionButtonText;
             _primaryActionTapCommand = new Command(() => this.RunPrimaryAction(primaryAction), () => !_primaryActionRunning);
-            _primaryActionTap = new TapGestureRecognizer { Command = _primaryActionTapCommand, NumberOfTapsRequired = 1 };
-            ActionButton.GestureRecognizers.Add(_primaryActionTap);
+            ActionButton.Command = _primaryActionTapCommand;
             _hideAction = hideAction;
         }
 

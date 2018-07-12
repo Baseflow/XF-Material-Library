@@ -41,20 +41,14 @@
                     Text="This is a Snackbar"
                     TextColor="#DEFFFFFF"
                     VerticalOptions="Center" />
-                <StackLayout x:Name="ActionButton"
+                <material:MaterialButton x:Name="ActionButton"
                     Grid.Column="1"
                     Margin="0,0,8,0"
-                    Padding="8,0,8,0"
-                    VerticalOptions="Fill">
-                    <Label x:Name="ActionButtonLabel"
-                        FontFamily="{StaticResource Material.FontFamily.Medium}"
-                        FontSize="12"
-                        HorizontalTextAlignment="Center"
-                        Text="ACTION"
-                        TextColor="Yellow"
-                        VerticalOptions="CenterAndExpand"
-                        VerticalTextAlignment="Center" />
-                </StackLayout>
+                    ButtonType="Text"
+                    FontSize="12"
+                    Text="Action"
+                    TextColor="Yellow"
+                    VerticalOptions="Center" />
             </Grid>
         </material:MaterialCard>
     </ContentPage.Content>
