@@ -17,26 +17,36 @@ namespace XF.Material.Views
 
         private static void ButtonTypeChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            if(bindable is MaterialButton materialButton)
+            if (bindable is MaterialButton materialButton)
             {
-                switch(materialButton.ButtonType)
+                switch (materialButton.ButtonType)
                 {
                     case MaterialButtonType.Text:
                         materialButton.RemoveDynamicResource(TextColorProperty);
                         materialButton.SetDynamicResource(TextColorProperty, MaterialConstants.MATERIAL_COLOR_SECONDARY);
                         break;
                     case MaterialButtonType.Outlined:
+
+                        if (materialButton.BorderColor == (Color)BorderColorProperty.DefaultValue)
+                        {
+                            materialButton.SetDynamicResource(BorderColorProperty, MaterialConstants.MATERIAL_COLOR_SECONDARY);
+                        }
+
+                        if (materialButton.BorderWidth == (double)BorderWidthProperty.DefaultValue)
+                        {
+                            materialButton.SetDynamicResource(BorderWidthProperty, MaterialConstants.MATERIAL_BUTTON_OUTLINED_BORDERWIDTH);
+                        }
+
                         materialButton.RemoveDynamicResource(TextColorProperty);
                         materialButton.SetDynamicResource(TextColorProperty, MaterialConstants.MATERIAL_COLOR_SECONDARY);
-                        materialButton.SetDynamicResource(BorderColorProperty, MaterialConstants.MATERIAL_COLOR_SECONDARY);
-                        materialButton.SetDynamicResource(BorderWidthProperty, MaterialConstants.MATERIAL_BUTTON_OUTLINED_BORDERWIDTH);
+
                         break;
                 }
             }
         }
 
         /// <summary>
-        /// Gets or sets whether the text of this button should be capitalized.
+        /// Gets or sets whether the text of this button should be capitalized. The default value is true.
         /// </summary>
         public bool AllCaps
         {
@@ -45,7 +55,7 @@ namespace XF.Material.Views
         }
 
         /// <summary>
-        /// Gets or sets the type of this button.
+        /// Gets or sets the type of this button. The default value is <see cref="MaterialButtonType.Elevated"/>
         /// </summary>
         public MaterialButtonType ButtonType
         {
@@ -54,7 +64,7 @@ namespace XF.Material.Views
         }
 
         /// <summary>
-        /// Gets or sets the background color.
+        /// Gets or sets the background color. The default value is based on the Color value of <see cref="MaterialColor.Secondary"/> if you are using a Material resource, otherwise the default value is <see cref="Color.Accent"/>
         /// </summary>
         public new Color BackgroundColor
         {
