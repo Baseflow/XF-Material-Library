@@ -10,7 +10,6 @@ namespace XF.Material
 {
     public sealed class Material
     {
-        private readonly Application _app;
         private readonly MaterialResource _materialResource;
         private readonly ResourceDictionary _res;
 
@@ -41,15 +40,11 @@ namespace XF.Material
 
         internal Material(Application app)
         {
-            _app = app;
             _res = app.Resources;
-            Configuration = DependencyService.Get<IMaterialUtility>();
+            PlatformConfiguration = DependencyService.Get<IMaterialUtility>();
         }
 
-        /// <summary>
-        /// Gets the object used for changing the underlying Material theme.
-        /// </summary>
-        public static IMaterialUtility Configuration { get; private set; }
+        public static IMaterialUtility PlatformConfiguration { get; private set; }
 
         /// <summary>
         /// Gets a resource of the specified type from the current ResourceDictionary.
@@ -98,17 +93,29 @@ namespace XF.Material
             material.SetupMaterialResources();
         }
 
+        public static void Init(Application app)
+        {
+            var material = new Material(app ?? throw new ArgumentNullException(nameof(app)));
+            material.SetupMaterialResources();
+        }
+
         private void GetMaterialResource()
         {
-            try
+            if (_materialResource?.Color != null)
             {
-                SetupFonts(_materialResource);
-                SetupColors(_materialResource);
+                this.SetupColors();
             }
 
-            catch (Exception ex)
+            if (_materialResource?.FontFamily != null)
             {
-                System.Diagnostics.Debug.WriteLine(ex.Message);
+                this.SetupFonts();
+            }
+
+            if(_materialResource == null)
+            {
+                // Add fallback values to be used by Material.Views
+                _res.Add(MaterialConstants.MATERIAL_COLOR_SECONDARY, Color.Accent);
+                _res.Add(MaterialConstants.MATERIAL_COLOR_ONSURFACE, Color.White);
             }
         }
 
@@ -119,29 +126,29 @@ namespace XF.Material
             _res.MergedDictionaries.Add(new MaterialTypography());
         }
 
-        private void SetupColors(MaterialResource materialResource)
+        private void SetupColors()
         {
-            this.TryAddColorResource(MaterialConstants.MATERIAL_COLOR_PRIMARY, materialResource.Color.Primary);
-            this.TryAddColorResource(MaterialConstants.MATERIAL_COLOR_PRIMARY_VARIANT, materialResource.Color.PrimaryVariant);
-            this.TryAddColorResource(MaterialConstants.MATERIAL_COLOR_ONPRIMARY, materialResource.Color.OnPrimary);
-            this.TryAddColorResource(MaterialConstants.MATERIAL_COLOR_SECONDARY, materialResource.Color.Secondary);
-            this.TryAddColorResource(MaterialConstants.MATERIAL_COLOR_SECONDARY_VARIANT, materialResource.Color.SecondaryVariant);
-            this.TryAddColorResource(MaterialConstants.MATERIAL_COLOR_ONSECONDARY, materialResource.Color.OnSecondary);
-            this.TryAddColorResource(MaterialConstants.MATERIAL_COLOR_BACKGROUND, materialResource.Color.Background);
-            this.TryAddColorResource(MaterialConstants.MATERIAL_COLOR_ONBACKGROUND, materialResource.Color.OnBackground);
-            this.TryAddColorResource(MaterialConstants.MATERIAL_COLOR_SURFACE, materialResource.Color.Surface);
-            this.TryAddColorResource(MaterialConstants.MATERIAL_COLOR_ONSURFACE, materialResource.Color.OnSurface);
-            this.TryAddColorResource(MaterialConstants.MATERIAL_COLOR_ERROR, materialResource.Color.Error);
-            this.TryAddColorResource(MaterialConstants.MATERIAL_COLOR_ONERROR, materialResource.Color.OnError);
+            this.TryAddColorResource(MaterialConstants.MATERIAL_COLOR_PRIMARY, _materialResource.Color.Primary);
+            this.TryAddColorResource(MaterialConstants.MATERIAL_COLOR_PRIMARY_VARIANT, _materialResource.Color.PrimaryVariant);
+            this.TryAddColorResource(MaterialConstants.MATERIAL_COLOR_ONPRIMARY, _materialResource.Color.OnPrimary);
+            this.TryAddColorResource(MaterialConstants.MATERIAL_COLOR_SECONDARY, _materialResource.Color.Secondary);
+            this.TryAddColorResource(MaterialConstants.MATERIAL_COLOR_SECONDARY_VARIANT, _materialResource.Color.SecondaryVariant);
+            this.TryAddColorResource(MaterialConstants.MATERIAL_COLOR_ONSECONDARY, _materialResource.Color.OnSecondary);
+            this.TryAddColorResource(MaterialConstants.MATERIAL_COLOR_BACKGROUND, _materialResource.Color.Background);
+            this.TryAddColorResource(MaterialConstants.MATERIAL_COLOR_ONBACKGROUND, _materialResource.Color.OnBackground);
+            this.TryAddColorResource(MaterialConstants.MATERIAL_COLOR_SURFACE, _materialResource.Color.Surface);
+            this.TryAddColorResource(MaterialConstants.MATERIAL_COLOR_ONSURFACE, _materialResource.Color.OnSurface);
+            this.TryAddColorResource(MaterialConstants.MATERIAL_COLOR_ERROR, _materialResource.Color.Error);
+            this.TryAddColorResource(MaterialConstants.MATERIAL_COLOR_ONERROR, _materialResource.Color.OnError);
 
-            Configuration.ChangeStatusBarColor(materialResource.Color.PrimaryVariant);
+            PlatformConfiguration.ChangeStatusBarColor(_materialResource.Color.PrimaryVariant);
         }
 
-        private void SetupFonts(MaterialResource materialResource)
+        private void SetupFonts()
         {
-            this.TryAddStringResource(MaterialConstants.MATERIAL_FONTFAMILY_REGULAR, materialResource.FontFamily.Regular);
-            this.TryAddStringResource(MaterialConstants.MATERIAL_FONTFAMILY_MEDIUM, materialResource.FontFamily.Medium);
-            this.TryAddStringResource(MaterialConstants.MATERIAL_FONTFAMILY_BOLD, materialResource.FontFamily.Bold);
+            this.TryAddStringResource(MaterialConstants.MATERIAL_FONTFAMILY_REGULAR, _materialResource.FontFamily.Regular);
+            this.TryAddStringResource(MaterialConstants.MATERIAL_FONTFAMILY_MEDIUM, _materialResource.FontFamily.Medium);
+            this.TryAddStringResource(MaterialConstants.MATERIAL_FONTFAMILY_BOLD, _materialResource.FontFamily.Bold);
         }
 
         private void SetupMaterialResources()
