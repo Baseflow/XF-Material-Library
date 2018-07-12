@@ -59,10 +59,10 @@
             OnPrimary="#FFFFFF"
             OnSecondary="#FFFFFF"
             OnSurface="#000000"
-            Primary="#003B46"
-            PrimaryVariant="#00161F"
-            Secondary="#07575B"
-            SecondaryVariant="#002D32"
+            Primary="#011A27"
+            PrimaryVariant="#000000"
+            Secondary="#063852"
+            SecondaryVariant="#001229"
             Surface="#FFFFFF" />
 
         <material:MaterialResource x:Key="Material.Style"

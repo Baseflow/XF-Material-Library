@@ -2,10 +2,11 @@
 <ContentPage x:Class="XF.MaterialSample.MainPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:fx="clr-namespace:XF.Material.Effects;assembly=XF.Material"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
     xmlns:local="clr-namespace:XF.MaterialSample"
     xmlns:material="clr-namespace:XF.Material.Views;assembly=XF.Material"
-    Title="Xamarin.Forms Material">
+    Title="Xamarin.Forms Material"
+    ios:Page.UseSafeArea="True">
     <ContentPage.Resources>
         <ResourceDictionary>
             <local:ColorConverter x:Key="Converter.Color" />
@@ -16,7 +17,6 @@
             HorizontalOptions="FillAndExpand"
             Spacing="16"
             VerticalOptions="FillAndExpand">
-
             <Label Style="{StaticResource Material.Font.Subtitle2}" Text="COLOR RESOURCES" />
             <StackLayout Spacing="16">
                 <Grid ColumnSpacing="0" RowSpacing="0">
@@ -321,7 +321,6 @@
                     VerticalOptions="Center" />
                 <material:MaterialButton Grid.Row="1"
                     Grid.Column="0"
-                    BackgroundColor="#B00020"
                     ButtonType="Outlined"
                     HorizontalOptions="Center"
                     Text="Button"

@@ -22,6 +22,7 @@ namespace XF.MaterialSample.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+            global::XF.Material.iOS.Material.Init();
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
 
