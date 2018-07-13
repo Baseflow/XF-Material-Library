@@ -28,8 +28,9 @@
         public const string MATERIAL_FONT_BUTTON = "Material.Font.Button";
 
         public const string MATERIAL_BUTTON_CORNERRADIUS = "Material.Button.CornerRadius";
-        public const string MATERIAL_BUTTON_OUTLINED_BORDERWIDTH = "Material.Button.Outlined.BorderWidth";
+        internal const string MATERIAL_BUTTON_OUTLINED_BORDERWIDTH = "Material.Button.Outlined.BorderWidth";
 
-        public const string MATERIAL_BUTTON_HEIGHT = "Material.Button.Height";
+        internal const string MATERIAL_BUTTON_HEIGHT = "Material.Button.Height";
+        internal const string MATERIAL_BUTTON_OUTLINED_BORDERCOLOR = "Material.Button.Outlined.BorderColor";
     }
 }

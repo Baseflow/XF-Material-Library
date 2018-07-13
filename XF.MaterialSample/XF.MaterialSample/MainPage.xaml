@@ -310,20 +310,25 @@
                 </Grid.ColumnDefinitions>
                 <material:MaterialButton Grid.Row="0"
                     Grid.Column="0"
+                    BackgroundColor="Blue"
                     HorizontalOptions="Center"
+                    Image="ic_close"
                     Text="Button"
                     VerticalOptions="Center" />
                 <material:MaterialButton Grid.Row="0"
                     Grid.Column="1"
+                    BackgroundColor="Red"
                     ButtonType="Flat"
                     HorizontalOptions="Center"
                     Text="Button"
                     VerticalOptions="Center" />
                 <material:MaterialButton Grid.Row="1"
                     Grid.Column="0"
+                    BackgroundColor="Green"
                     ButtonType="Outlined"
                     HorizontalOptions="Center"
                     Text="Button"
+                    TextColor="Green"
                     VerticalOptions="Center" />
                 <material:MaterialButton Grid.Row="1"
                     Grid.Column="1"

@@ -47,7 +47,7 @@ namespace XF.Material.iOS
         {
             color.GetRGBA(out nfloat red, out nfloat green, out nfloat blue, out nfloat alpha);
 
-            return UIColor.FromRGBA((float)Math.Min(red + 0.25, 1.0), (float)Math.Min(green + 0.25, 1.0), (float)Math.Min(blue + 0.25, 1.0), alpha);
+            return UIColor.FromRGBA((float)Math.Min(red + 0.3, 1.0), (float)Math.Min(green + 0.3, 1.0), (float)Math.Min(blue + 0.3, 1.0), alpha);
         }
 
         public static UIColor DarkenColor(this UIColor color)

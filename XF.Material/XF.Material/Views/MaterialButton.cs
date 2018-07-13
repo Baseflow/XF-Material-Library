@@ -29,7 +29,7 @@ namespace XF.Material.Views
 
                         if (materialButton.BorderColor == (Color)BorderColorProperty.DefaultValue)
                         {
-                            materialButton.SetDynamicResource(BorderColorProperty, MaterialConstants.MATERIAL_COLOR_SECONDARY);
+                            materialButton.SetDynamicResource(BorderColorProperty, MaterialConstants.MATERIAL_BUTTON_OUTLINED_BORDERCOLOR);
                         }
 
                         if (materialButton.BorderWidth == (double)BorderWidthProperty.DefaultValue)

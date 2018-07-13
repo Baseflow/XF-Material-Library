@@ -29,6 +29,7 @@ namespace XF.Material.iOS.Renderers
         private CABasicAnimation _colorResting;
         private UIColor _restingBackgroundColor;
         private UIColor _pressedBackgroundColor;
+        private UIColor _rippleColor;
 
         public override void LayoutSubviews()
         {
@@ -64,6 +65,7 @@ namespace XF.Material.iOS.Renderers
                     _materialButton.Text = _materialButton.Text.ToUpper();
                 }
 
+                this.SetupIcon();
                 this.SetupColors();
                 this.UpdateButtonLayer();
                 this.CreateStateAnimations();
@@ -77,7 +79,22 @@ namespace XF.Material.iOS.Renderers
                 this.Control.TouchCancel += this.Control_Released;
                 this.Control.TouchDragExit += this.Control_Released;
             }
+        }
 
+        private void SetupIcon()
+        {
+            if(_materialButton.Image != null)
+            {
+                var image = UIImage.FromFile(_materialButton.Image.File);
+                UIGraphics.BeginImageContextWithOptions(new CGSize(18, 18), false, 0f);
+                image.Draw(new CGRect(0, 0, 18, 18));
+
+                var newImage = UIGraphics.GetImageFromCurrentImageContext();
+                UIGraphics.EndImageContext();
+
+                this.Control.SetImage(newImage, UIControlState.Normal);
+                this.Control.TintColor = _materialButton.TextColor.ToUIColor();
+            }
         }
 
         private async void Control_Pressed(object sender, EventArgs e)
@@ -128,7 +145,6 @@ namespace XF.Material.iOS.Renderers
         private void CreateContainedButtonLayer(bool elevated)
         {
             this.Control.BackgroundColor = _materialButton.BackgroundColor.ToUIColor();
-            this.Control.ContentEdgeInsets = new UIEdgeInsets(4f, 16f, 4f, 16f);
 
             if (elevated)
             {
@@ -177,8 +193,7 @@ namespace XF.Material.iOS.Renderers
             _colorResting.RemovedOnCompletion = false;
             _colorResting.To = FromObject(_restingBackgroundColor.CGColor);
 
-            this.Control.AddGestureRecognizer(new UITapGestureRecognizer() { Delegate = new MaterialButtonGestureRecognizerDelegate(_pressedBackgroundColor.CGColor) });
-
+            this.Control.AddGestureRecognizer(new UITapGestureRecognizer() { Delegate = new MaterialRippleGestureRecognizerDelegate(_rippleColor.CGColor) });
         }
 
         private void SetupColors()
@@ -187,12 +202,13 @@ namespace XF.Material.iOS.Renderers
             {
                 _restingBackgroundColor = _materialButton.BackgroundColor.ToUIColor();
                 _pressedBackgroundColor = _materialButton.BackgroundColor.ToUIColor().IsColorDark() ? _materialButton.BackgroundColor.ToUIColor().LightenColor() : _materialButton.BackgroundColor.ToUIColor().DarkenColor();
+                _rippleColor = _materialButton.BackgroundColor.ToUIColor().IsColorDark() ? Color.FromHex("#51FFFFFF").ToUIColor() : Color.FromHex("#51000000").ToUIColor();
             }
 
             else
             {
                 _restingBackgroundColor = UIColor.Clear;
-                _pressedBackgroundColor = Color.FromHex("#51000000").ToUIColor();
+                _rippleColor = _pressedBackgroundColor = Color.FromHex("#51000000").ToUIColor();
             }
         }
 
@@ -213,30 +229,45 @@ namespace XF.Material.iOS.Renderers
                     this.CreateTextButtonLayer();
                     break;
             }
+
+            if (_materialButton.ButtonType != MaterialButtonType.Text && _materialButton.Image != null)
+            {
+                this.Control.ContentEdgeInsets = new UIEdgeInsets(4f, 12f, 4f, 16f);
+            }
+
+            else if (_materialButton.ButtonType != MaterialButtonType.Text && _materialButton.Image == null)
+            {
+                this.Control.ContentEdgeInsets = new UIEdgeInsets(4f, 16f, 4f, 16f);
+            }
+
+            else if (_materialButton.ButtonType == MaterialButtonType.Text)
+            {
+                this.Control.ContentEdgeInsets = new UIEdgeInsets(4f, 8f, 4f, 8f);
+            }
+
+            this.Control.TitleEdgeInsets = new UIEdgeInsets(0, 0, 0, 0);
         }
 
         private void CreateOutlinedButtonLayer()
         {
-            this.Control.ContentEdgeInsets = new UIEdgeInsets(4f, 16f, 4f, 16f);
             this.Control.Layer.BorderColor = _materialButton.BorderColor.ToCGColor();
             this.Control.Layer.BorderWidth = (nfloat)_materialButton.BorderWidth;
         }
 
         private void CreateTextButtonLayer()
         {
-            this.Control.ContentEdgeInsets = new UIEdgeInsets(4f, 8f, 4f, 8f);
             this.Control.Layer.BorderColor = UIColor.Clear.CGColor;
             this.Control.Layer.BorderWidth = 0f;
             this.Control.Layer.CornerRadius = _materialButton.CornerRadius;
         }
 
-        private class MaterialButtonGestureRecognizerDelegate : UIGestureRecognizerDelegate
+        private class MaterialRippleGestureRecognizerDelegate : UIGestureRecognizerDelegate
         {
             private readonly CABasicAnimation _rippleAnimation;
             private readonly CABasicAnimation _fadeAnimation;
             private readonly CAShapeLayer _rippleLayer;
 
-            public MaterialButtonGestureRecognizerDelegate(CGColor rippleColor)
+            public MaterialRippleGestureRecognizerDelegate(CGColor rippleColor)
             {
                 _rippleAnimation = CABasicAnimation.FromKeyPath("path");
                 _rippleAnimation.Duration = 0.5;
@@ -247,7 +278,7 @@ namespace XF.Material.iOS.Renderers
                 _fadeAnimation.Duration = 0.5;
                 _fadeAnimation.FillMode = CAFillMode.Forwards;
                 _fadeAnimation.RemovedOnCompletion = true;
-                _fadeAnimation.From = FromObject(0.6f);
+                _fadeAnimation.From = FromObject(1f);
                 _fadeAnimation.To = FromObject(0f);
 
                 _rippleLayer = new CAShapeLayer();
