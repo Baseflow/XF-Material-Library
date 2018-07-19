@@ -3,9 +3,9 @@
 namespace XF.Material.Resources
 {
     /// <summary>
-    /// Color theme based on https://material.io/design/color
+    /// App color theme configuration based on https://material.io/design/color values.
     /// </summary>
-    public sealed class MaterialColor : BindableObject
+    public sealed class MaterialColorConfiguration : BindableObject
     {
         public static readonly BindableProperty PrimaryProperty = BindableProperty.Create(nameof(Primary), typeof(Color), typeof(Color), default(Color));
         public static readonly BindableProperty PrimaryVariantProperty = BindableProperty.Create(nameof(PrimaryVariant), typeof(Color), typeof(Color), default(Color));
@@ -30,7 +30,7 @@ namespace XF.Material.Resources
         }
 
         /// <summary>
-        /// A tonal variation of <see cref="MaterialColor.Primary"/>.
+        /// A tonal variation of <see cref="MaterialColorConfiguration.Primary"/>.
         /// </summary>
         public Color PrimaryVariant
         {
@@ -40,7 +40,7 @@ namespace XF.Material.Resources
 
         /// <summary>
         /// Accents select parts of your UI.
-        /// If not provided, use <see cref="MaterialColor.Primary"/>.
+        /// If not provided, use <see cref="MaterialColorConfiguration.Primary"/>.
         /// </summary>
         public Color Secondary
         {
@@ -62,7 +62,7 @@ namespace XF.Material.Resources
         }
 
         /// <summary>
-        /// A tonal variation of <see cref="MaterialColor.Secondary"/>.
+        /// A tonal variation of <see cref="MaterialColorConfiguration.Secondary"/>.
         /// </summary>
         public Color SecondaryVariant
         {
@@ -99,7 +99,7 @@ namespace XF.Material.Resources
         }
 
         /// <summary>
-        /// A color that passes accessibility guidelines for text/iconography when drawn on top of <see cref="MaterialColor.Primary"/>.
+        /// A color that passes accessibility guidelines for text/iconography when drawn on top of <see cref="MaterialColorConfiguration.Primary"/>.
         /// </summary>
         public Color OnPrimary
         {
@@ -108,7 +108,7 @@ namespace XF.Material.Resources
         }
 
         /// <summary>
-        /// 	A color that passes accessibility guidelines for text/iconography when drawn on top of <see cref="MaterialColor.Secondary"/>.
+        /// 	A color that passes accessibility guidelines for text/iconography when drawn on top of <see cref="MaterialColorConfiguration.Secondary"/>.
         /// </summary>
         public Color OnSecondary
         {
@@ -123,7 +123,7 @@ namespace XF.Material.Resources
         }
 
         /// <summary>
-        /// A color that passes accessibility guidelines for text/iconography when drawn on top of <see cref="MaterialColor.Background"/>.
+        /// A color that passes accessibility guidelines for text/iconography when drawn on top of <see cref="MaterialColorConfiguration.Background"/>.
         /// </summary>
         public Color OnBackground
         {
@@ -132,7 +132,7 @@ namespace XF.Material.Resources
         }
 
         /// <summary>
-        /// A color that passes accessibility guidelines for text/iconography when drawn on top of <see cref="MaterialColor.Error"/>.
+        /// A color that passes accessibility guidelines for text/iconography when drawn on top of <see cref="MaterialColorConfiguration.Error"/>.
         /// </summary>
         public Color OnError
         {
@@ -141,7 +141,7 @@ namespace XF.Material.Resources
         }
 
         /// <summary>
-        /// A color that passes accessibility guidelines for text/iconography when drawn on top of <see cref="MaterialColor.Surface"/>
+        /// A color that passes accessibility guidelines for text/iconography when drawn on top of <see cref="MaterialColorConfiguration.Surface"/>
         /// </summary>
         public Color OnSurface
         {

@@ -2,11 +2,11 @@
 
 namespace XF.Material.Resources.Typography
 {
-    public class MaterialFontFamily : BindableObject
+    public class MaterialFontConfiguration : BindableObject
     {
-        public static readonly BindableProperty RegularProperty = BindableProperty.Create(nameof(Regular), typeof(string), typeof(MaterialFontFamily));
-        public static readonly BindableProperty MediumProperty = BindableProperty.Create(nameof(Medium), typeof(string), typeof(MaterialFontFamily));
-        public static readonly BindableProperty BoldProperty = BindableProperty.Create(nameof(Bold), typeof(string), typeof(MaterialFontFamily));
+        public static readonly BindableProperty RegularProperty = BindableProperty.Create(nameof(Regular), typeof(string), typeof(MaterialFontConfiguration));
+        public static readonly BindableProperty MediumProperty = BindableProperty.Create(nameof(Medium), typeof(string), typeof(MaterialFontConfiguration));
+        public static readonly BindableProperty BoldProperty = BindableProperty.Create(nameof(Bold), typeof(string), typeof(MaterialFontConfiguration));
 
         public string Regular
         {

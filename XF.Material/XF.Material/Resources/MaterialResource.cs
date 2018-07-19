@@ -5,18 +5,18 @@ namespace XF.Material.Resources
 {
     public class MaterialResource : BindableObject
     {
-        public static readonly BindableProperty FontFamilyProperty = BindableProperty.Create(nameof(FontFamily), typeof(MaterialFontFamily), typeof(MaterialFontFamily));
-        public static readonly BindableProperty ColorProperty = BindableProperty.Create(nameof(Color), typeof(MaterialColor), typeof(MaterialColor));
+        public static readonly BindableProperty FontFamilyProperty = BindableProperty.Create(nameof(FontFamily), typeof(MaterialFontConfiguration), typeof(MaterialFontConfiguration));
+        public static readonly BindableProperty ColorProperty = BindableProperty.Create(nameof(Color), typeof(MaterialColorConfiguration), typeof(MaterialColorConfiguration));
 
-        public MaterialFontFamily FontFamily
+        public MaterialFontConfiguration FontFamily
         {
-            get => (MaterialFontFamily)GetValue(FontFamilyProperty);
+            get => (MaterialFontConfiguration)GetValue(FontFamilyProperty);
             set => SetValue(FontFamilyProperty, value);
         }
 
-        public MaterialColor Color
+        public MaterialColorConfiguration Color
         {
-            get => (MaterialColor)GetValue(ColorProperty);
+            get => (MaterialColorConfiguration)GetValue(ColorProperty);
             set => SetValue(ColorProperty, value);
         }
     }

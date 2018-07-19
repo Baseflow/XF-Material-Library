@@ -64,13 +64,6 @@
         <Setter Property="HeightRequest" Value="{StaticResource Material.Button.Height}" />
     </Style>
 
-    <Color x:Key="Material.Button.Outlined.BorderColor">#1E000000</Color>
-
-    <!--#endregion-->
-
-    <!--#region LABELS-->
-
-
     <!--#endregion-->
 
 </ResourceDictionary>

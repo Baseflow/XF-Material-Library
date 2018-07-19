@@ -15,6 +15,6 @@
         Button,
         Caption,
         Overline,
-        Default
+        None
     }
 }
