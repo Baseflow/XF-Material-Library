@@ -65,9 +65,7 @@
     </Reference>
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Compile Include="Effects\BaseMaterialEffect.cs" />
     <Compile Include="Effects\MaterialTypographyEffect.cs" />
@@ -87,7 +85,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="loading_animation.json" />
+    <BundleResource Include="Resources\loading_animation.json" />
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Contents.json">

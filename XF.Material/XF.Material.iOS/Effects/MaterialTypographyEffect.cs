@@ -1,8 +1,7 @@
-﻿using Xamarin.Forms;
-using Xamarin.Forms.Internals;
-using XF.Material.iOS.Effects;
+﻿using Foundation;
 using UIKit;
-using Foundation;
+using Xamarin.Forms;
+using XF.Material.iOS.Effects;
 
 [assembly: ResolutionGroupName("Material")]
 [assembly: ExportEffect(typeof(MaterialTypographyEffect), "TypographyEffect")]
@@ -16,26 +15,15 @@ namespace XF.Material.iOS.Effects
 
             if (this.Control is UILabel label)
             {
-                var text = label.Text;
-                var attributedString = new NSMutableAttributedString(text);
-                var nsKern = new NSString("NSKern");
-                var spacing = NSObject.FromObject(this.MaterialEffect.LetterSpacing);
-                var range = new NSRange(0, text.Length);
-
-                attributedString.AddAttribute(nsKern, spacing, range);
-                label.AttributedText = attributedString;
-
+                label.AttributedText = new NSMutableAttributedString(label.Text, foregroundColor: label.TextColor, kerning: (float)this.MaterialEffect.LetterSpacing);
             }
 
-            else if(this.Control is UIButton button)
+            else if (this.Control is UIButton button)
             {
-                var text = button.Title(UIControlState.Normal);
-                var attributedString = new NSMutableAttributedString(text);
-                var nsKern = new NSString("NSKern");
-                var spacing = NSObject.FromObject(this.MaterialEffect.LetterSpacing);
-                var range = new NSRange(0, text.Length);
+                var attributedString = new NSMutableAttributedString(button.Title(UIControlState.Normal),
+                    foregroundColor: button.TitleColor(UIControlState.Normal),
+                    kerning: (float)this.MaterialEffect.LetterSpacing);
 
-                attributedString.AddAttribute(nsKern, spacing, range);
                 button.SetAttributedTitle(attributedString, UIControlState.Normal);
                 button.SetAttributedTitle(attributedString, UIControlState.Focused);
                 button.SetAttributedTitle(attributedString, UIControlState.Highlighted);

@@ -16,21 +16,32 @@ namespace XF.Material.iOS.Renderers
 {
     public class MaterialCircularLoadingViewRenderer : Lottie.Forms.iOS.Renderers.AnimationViewRenderer
     {
+        private MaterialCircularLoadingView _materialElement;
+        private LOTColorValueCallback _valueCallback;
+
         protected override void OnElementChanged(ElementChangedEventArgs<AnimationView> e)
         {
             base.OnElementChanged(e);
 
             if(e?.NewElement != null)
             {
-                var materialElement = this.Element as MaterialCircularLoadingView;
-                var animation = LOTAnimationView.AnimationNamed("loading_animation");
-                var colorValueCallback = LOTColorValueCallback.WithCGColor(materialElement.Color.ToCGColor());
-                animation.SetValueDelegate(colorValueCallback, LOTKeypath.KeypathWithString("**"));
-                animation.LogHierarchyKeypaths();
-                animation.ContentMode = UIViewContentMode.ScaleAspectFit;
-                animation.LoopAnimation = true;
-                this.SetNativeControl(animation);
-                animation.Play();
+                _materialElement = this.Element as MaterialCircularLoadingView;
+                _materialElement.Animation = "loading_animation.json";
+                this.Control.ContentMode = UIViewContentMode.ScaleAspectFit;
+                this.Control.LoopAnimation = true;
+            }
+        }
+
+        public override void LayoutSubviews()
+        {
+            base.LayoutSubviews();
+
+            if(_valueCallback == null)
+            {
+                _valueCallback = LOTColorValueCallback.WithCGColor(_materialElement.Color.ToCGColor());
+                var keyPath = LOTKeypath.KeypathWithString("Shape Layer 1 Comp 1.Shape Layer 1.Ellipse 1.Stroke 1.Color");
+                this.Control.SetValueDelegate(_valueCallback, keyPath);
+                this.Control.Play();
             }
         }
     }

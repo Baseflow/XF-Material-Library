@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +21,9 @@ namespace XF.Material.iOS.Renderers
     {
         private const int PRESSED_ELEVATION = 8;
         private const int RESTING_ELEVATION = 2;
+        private const float ENABLED_ALPHA = 1f;
+        private const float DISABLED_ALPHA = 0.38f;
+        private bool _withIcon;
         private MaterialButton _materialButton;
         private CABasicAnimation _shadowOffsetPressed;
         private CABasicAnimation _shadowRadiusPressed;
@@ -59,6 +63,7 @@ namespace XF.Material.iOS.Renderers
                 _materialButton = this.Element as MaterialButton;
                 _materialButton.HeightRequest -= 12;
                 _materialButton.Margin = new Thickness(_materialButton.Margin.Left + 6, _materialButton.Margin.Top + 6, _materialButton.Margin.Right + 6, _materialButton.Margin.Bottom + 6);
+                _withIcon = _materialButton.Image != null;
 
                 if (_materialButton.AllCaps)
                 {
@@ -69,6 +74,7 @@ namespace XF.Material.iOS.Renderers
                 this.SetupColors();
                 this.UpdateButtonLayer();
                 this.CreateStateAnimations();
+                this.UpdateState();
                 this.Control.SetAttributedTitle(new NSAttributedString(_materialButton.Text, foregroundColor: _materialButton.TextColor.ToUIColor()), UIControlState.Normal);
                 this.Control.SetAttributedTitle(new NSAttributedString(_materialButton.Text, foregroundColor: _materialButton.TextColor.ToUIColor()), UIControlState.Highlighted);
                 this.Control.SetAttributedTitle(new NSAttributedString(_materialButton.Text, foregroundColor: _materialButton.TextColor.ToUIColor()), UIControlState.Selected);
@@ -81,9 +87,42 @@ namespace XF.Material.iOS.Renderers
             }
         }
 
+        protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            base.OnElementPropertyChanged(sender, e);
+
+            if(e.PropertyName == nameof(Button.IsEnabled) && _materialButton.ButtonType == MaterialButtonType.Elevated)
+            {
+                this.UpdateState();
+            }
+        }
+
+        private void UpdateState()
+        {
+            if(_materialButton.IsEnabled)
+            {
+                this.Control.Alpha = ENABLED_ALPHA;
+
+                if(_materialButton.ButtonType == MaterialButtonType.Elevated)
+                {
+                    this.Control.Elevate(RESTING_ELEVATION);
+                }
+            }
+
+            else
+            {
+                this.Control.Alpha = DISABLED_ALPHA;
+
+                if (_materialButton.ButtonType == MaterialButtonType.Elevated)
+                {
+                    this.Control.Elevate(0);
+                }
+            }
+        }
+
         private void SetupIcon()
         {
-            if(_materialButton.Image != null)
+            if(_withIcon)
             {
                 var image = UIImage.FromFile(_materialButton.Image.File);
                 UIGraphics.BeginImageContextWithOptions(new CGSize(18, 18), false, 0f);
@@ -93,6 +132,9 @@ namespace XF.Material.iOS.Renderers
                 UIGraphics.EndImageContext();
 
                 this.Control.SetImage(newImage, UIControlState.Normal);
+                this.Control.SetImage(newImage, UIControlState.Disabled);
+                this.Control.TitleEdgeInsets = new UIEdgeInsets(0f, 0f, 0f, 0f);
+                this.Control.ImageEdgeInsets = new UIEdgeInsets(0f, -5f, 0f, 0f);
                 this.Control.TintColor = _materialButton.TextColor.ToUIColor();
             }
         }
@@ -125,8 +167,8 @@ namespace XF.Material.iOS.Renderers
                 var shadowOffsetAnim = this.Control.Layer.AnimationForKey("shadowOffsetPressed");
                 _shadowOffsetResting.From = shadowOffsetAnim.ValueForKeyPath(new NSString("shadowOffset"));
 
-                var shadowRadiustAnim = this.Control.Layer.AnimationForKey("shadowRadiusPressed");
-                _shadowRadiusResting.From = shadowRadiustAnim.ValueForKeyPath(new NSString("shadowRadius"));
+                var shadowRadiusAnim = this.Control.Layer.AnimationForKey("shadowRadiusPressed");
+                _shadowRadiusResting.From = shadowRadiusAnim.ValueForKeyPath(new NSString("shadowRadius"));
 
                 await AnimateAsync(0.150, () =>
                 {
@@ -202,7 +244,7 @@ namespace XF.Material.iOS.Renderers
             {
                 _restingBackgroundColor = _materialButton.BackgroundColor.ToUIColor();
                 _pressedBackgroundColor = _materialButton.BackgroundColor.ToUIColor().IsColorDark() ? _materialButton.BackgroundColor.ToUIColor().LightenColor() : _materialButton.BackgroundColor.ToUIColor().DarkenColor();
-                _rippleColor = _materialButton.BackgroundColor.ToUIColor().IsColorDark() ? Color.FromHex("#51FFFFFF").ToUIColor() : Color.FromHex("#51000000").ToUIColor();
+                _rippleColor = _materialButton.BackgroundColor.ToUIColor().IsColorDark() ? Color.FromHex("#52FFFFFF").ToUIColor() : Color.FromHex("#52000000").ToUIColor();
             }
 
             else
@@ -230,12 +272,12 @@ namespace XF.Material.iOS.Renderers
                     break;
             }
 
-            if (_materialButton.ButtonType != MaterialButtonType.Text && _materialButton.Image != null)
+            if (_materialButton.ButtonType != MaterialButtonType.Text && _withIcon)
             {
                 this.Control.ContentEdgeInsets = new UIEdgeInsets(4f, 12f, 4f, 16f);
             }
 
-            else if (_materialButton.ButtonType != MaterialButtonType.Text && _materialButton.Image == null)
+            else if (_materialButton.ButtonType != MaterialButtonType.Text && !_withIcon)
             {
                 this.Control.ContentEdgeInsets = new UIEdgeInsets(4f, 16f, 4f, 16f);
             }
@@ -244,8 +286,6 @@ namespace XF.Material.iOS.Renderers
             {
                 this.Control.ContentEdgeInsets = new UIEdgeInsets(4f, 8f, 4f, 8f);
             }
-
-            this.Control.TitleEdgeInsets = new UIEdgeInsets(0, 0, 0, 0);
         }
 
         private void CreateOutlinedButtonLayer()
@@ -278,7 +318,7 @@ namespace XF.Material.iOS.Renderers
                 _fadeAnimation.Duration = 0.5;
                 _fadeAnimation.FillMode = CAFillMode.Forwards;
                 _fadeAnimation.RemovedOnCompletion = true;
-                _fadeAnimation.From = FromObject(1f);
+                _fadeAnimation.From = FromObject(0.8f);
                 _fadeAnimation.To = FromObject(0f);
 
                 _rippleLayer = new CAShapeLayer();
