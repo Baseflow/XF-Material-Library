@@ -40,9 +40,8 @@
                             TextColor="{DynamicResource Material.Color.OnPrimary}"
                             VerticalOptions="FillAndExpand" />
                         <Label Margin="8,0,0,8"
-                            BindingContext="{StaticResource Material.Color}"
                             Style="{StaticResource Material.Font.Caption}"
-                            Text="{Binding Primary, Converter={StaticResource Converter.Color}}"
+                            Text="{Binding Source={DynamicResource Material.Color.Primary}, Converter={StaticResource Converter.Color}}"
                             TextColor="{DynamicResource Material.Color.OnPrimary}" />
                     </StackLayout>
                     <StackLayout Grid.Row="0"
@@ -54,9 +53,8 @@
                             TextColor="{DynamicResource Material.Color.OnPrimary}"
                             VerticalOptions="FillAndExpand" />
                         <Label Margin="8,0,0,8"
-                            BindingContext="{StaticResource Material.Color}"
                             Style="{StaticResource Material.Font.Caption}"
-                            Text="{Binding PrimaryVariant, Converter={StaticResource Converter.Color}}"
+                            Text="{Binding Source={DynamicResource Material.Color.PrimaryVariant}, Converter={StaticResource Converter.Color}}"
                             TextColor="{DynamicResource Material.Color.OnPrimary}" />
                     </StackLayout>
                     <StackLayout Grid.Row="1"
@@ -68,9 +66,8 @@
                             TextColor="{DynamicResource Material.Color.OnSecondary}"
                             VerticalOptions="FillAndExpand" />
                         <Label Margin="8,0,0,8"
-                            BindingContext="{StaticResource Material.Color}"
                             Style="{StaticResource Material.Font.Caption}"
-                            Text="{Binding Secondary, Converter={StaticResource Converter.Color}}"
+                            Text="{Binding Source={DynamicResource Material.Color.Secondary}, Converter={StaticResource Converter.Color}}"
                             TextColor="{DynamicResource Material.Color.OnSecondary}" />
                     </StackLayout>
                     <StackLayout Grid.Row="1"
@@ -82,9 +79,8 @@
                             TextColor="{DynamicResource Material.Color.OnSecondary}"
                             VerticalOptions="FillAndExpand" />
                         <Label Margin="8,0,0,8"
-                            BindingContext="{StaticResource Material.Color}"
                             Style="{StaticResource Material.Font.Caption}"
-                            Text="{Binding SecondaryVariant, Converter={StaticResource Converter.Color}}"
+                            Text="{Binding Source={DynamicResource Material.Color.SecondaryVariant}, Converter={StaticResource Converter.Color}}"
                             TextColor="{DynamicResource Material.Color.OnSecondary}" />
                     </StackLayout>
                 </Grid>
@@ -310,25 +306,21 @@
                 </Grid.ColumnDefinitions>
                 <material:MaterialButton Grid.Row="0"
                     Grid.Column="0"
-                    BackgroundColor="Blue"
                     HorizontalOptions="Center"
                     Image="ic_close"
                     Text="Button"
                     VerticalOptions="Center" />
                 <material:MaterialButton Grid.Row="0"
                     Grid.Column="1"
-                    BackgroundColor="Red"
                     ButtonType="Flat"
                     HorizontalOptions="Center"
                     Text="Button"
                     VerticalOptions="Center" />
                 <material:MaterialButton Grid.Row="1"
                     Grid.Column="0"
-                    BackgroundColor="Green"
                     ButtonType="Outlined"
                     HorizontalOptions="Center"
                     Text="Button"
-                    TextColor="Green"
                     VerticalOptions="Center" />
                 <material:MaterialButton Grid.Row="1"
                     Grid.Column="1"

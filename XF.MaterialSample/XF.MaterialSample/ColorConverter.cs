@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace XF.MaterialSample
 {
@@ -10,7 +11,18 @@ namespace XF.MaterialSample
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var color = (Color)value;
+            Color color;
+
+            if(value is DynamicResource res)
+            {
+                color = (Color)Application.Current.Resources[res.Key];
+            }
+
+            else
+            {
+                color = (Color)value;
+            }
+
             var red = (int)(color.R * 255);
             var green = (int)(color.G * 255);
             var blue = (int)(color.B * 255);

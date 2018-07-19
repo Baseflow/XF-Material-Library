@@ -6,7 +6,7 @@ namespace XF.Material.Effects
 {
     public static class MaterialEffectsUtil
     {
-        public static readonly BindableProperty LetterSpacingProperty = BindableProperty.Create("LetterSpacing", typeof(MaterialTypeScale), typeof(MaterialTypographyEffect), MaterialTypeScale.Default, propertyChanged: TypeScaleChanged);
+        public static readonly BindableProperty LetterSpacingProperty = BindableProperty.Create("LetterSpacing", typeof(MaterialTypeScale), typeof(MaterialTypographyEffect), MaterialTypeScale.None, propertyChanged: TypeScaleChanged);
 
         public static void SetLetterSpacing(BindableObject view, MaterialTypeScale typeScale)
         {

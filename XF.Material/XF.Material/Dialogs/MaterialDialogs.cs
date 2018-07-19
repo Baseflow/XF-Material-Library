@@ -11,7 +11,7 @@ namespace XF.Material
         private static Task<IMaterialModalPage> _defaultMaterialDialog => Task.FromResult(default(IMaterialModalPage));
 
         /// <summary>
-        /// Creates an alert dialog with a specified message and title. It only has a single action for acknowledgement.
+        /// Creates an alert dialog with a specified message and title. It only has a single, dismissive action used for acknowledgement.
         /// </summary>
         /// <param name="message">The message of the alert dialog.</param>
         /// <param name="title">The title of the alert dialog.</param>

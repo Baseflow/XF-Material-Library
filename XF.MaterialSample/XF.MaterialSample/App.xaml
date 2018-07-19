@@ -2,7 +2,7 @@
 <Application x:Class="XF.MaterialSample.App"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:material="clr-namespace:XF.Material.Resources;assembly=XF.Material"
+    xmlns:mtrl="clr-namespace:XF.Material.Resources;assembly=XF.Material"
     xmlns:mtrltypo="clr-namespace:XF.Material.Resources.Typography;assembly=XF.Material">
     <Application.Resources>
 
@@ -46,12 +46,12 @@
             iOS="OpenSans-SemiBold" />
 
 
-        <mtrltypo:MaterialFontFamily x:Key="Material.FontFamily"
+        <mtrltypo:MaterialFontConfiguration x:Key="Material.FontFamily"
             Bold="{StaticResource FontFamily.RobotoBold}"
             Medium="{StaticResource FontFamily.RobotoMedium}"
             Regular="{StaticResource FontFamily.RobotoRegular}" />
 
-        <material:MaterialColor x:Key="Material.Color"
+        <mtrl:MaterialColorConfiguration x:Key="Material.Color"
             Background="#EAEAEA"
             Error="#B00020"
             OnBackground="#000000"
@@ -59,13 +59,13 @@
             OnPrimary="#FFFFFF"
             OnSecondary="#FFFFFF"
             OnSurface="#000000"
-            Primary="#061283"
-            PrimaryVariant="#000055"
-            Secondary="#fd3c3c"
-            SecondaryVariant="#c20014"
+            Primary="#011A27"
+            PrimaryVariant="#000000"
+            Secondary="#063852"
+            SecondaryVariant="#001229"
             Surface="#FFFFFF" />
 
-        <material:MaterialResource x:Key="Material.Style"
+        <mtrl:MaterialResource x:Key="Material.Style"
             FontFamily="{StaticResource Material.FontFamily}"
             Color="{StaticResource Material.Color}" />
 

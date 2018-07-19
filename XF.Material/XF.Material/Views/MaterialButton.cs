@@ -64,7 +64,7 @@ namespace XF.Material.Views
         }
 
         /// <summary>
-        /// Gets or sets the background color. The default value is based on the Color value of <see cref="MaterialColor.Secondary"/> if you are using a Material resource, otherwise the default value is <see cref="Color.Accent"/>
+        /// Gets or sets the background color. The default value is based on the Color value of <see cref="MaterialColorConfiguration.Secondary"/> if you are using a Material resource, otherwise the default value is <see cref="Color.Accent"/>
         /// </summary>
         public new Color BackgroundColor
         {

@@ -54,7 +54,7 @@ namespace XF.MaterialSample
 
         private async void MaterialButton_ShowSnackbar(object sender, EventArgs e)
         {
-            await MaterialDialogs.ShowSnackbarAsync("This shows brief processes to the user.", "Got it");
+            await MaterialDialogs.ShowSnackbarAsync("This is a snackbar.", "Got it");
         }
 
         private async void MaterialButton_ShowLoadingSnackbar(object sender, EventArgs e)
