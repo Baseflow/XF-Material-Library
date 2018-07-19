@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+  android:shape="rectangle">
+  <corners android:radius="@dimen/mtrl_btn_corner_radius" />
+  <solid android:color="#52000000" />
+  <padding android:left="@dimen/mtrl_btn_text_padding_left"
+           android:top="@dimen/mtrl_btn_padding_top"
+           android:right="@dimen/mtrl_btn_text_padding_right"
+           android:bottom="@dimen/mtrl_btn_padding_bottom" />
+</shape>

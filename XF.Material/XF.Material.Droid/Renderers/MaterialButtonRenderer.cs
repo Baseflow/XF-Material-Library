@@ -1,13 +1,8 @@
 ﻿using Android.Animation;
 using Android.Content;
-using Android.Graphics;
 using Android.Graphics.Drawables;
-using Android.Support.V4.Content;
 using Android.Support.V4.Graphics;
-using Android.Support.V7.Widget;
-using System;
 using System.ComponentModel;
-using System.Globalization;
 using System.Linq;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
@@ -22,18 +17,17 @@ namespace XF.Material.Droid.Renderers
 {
     public sealed class MaterialButtonRenderer : Xamarin.Forms.Platform.Android.AppCompat.ButtonRenderer
     {
-        private Color _borderColor;
         private int _borderWidth;
         private float _cornerRadius;
+        private bool _withIcon;
+        private Color _borderColor;
         private Color _disabledBorderColor;
         private Color _disabledColor;
-        private MaterialButton _materialButton;
         private Color _normalColor;
         private Color _pressedColor;
+        private MaterialButton _materialButton;
 
         public MaterialButtonRenderer(Context context) : base(context) { }
-
-        private bool _withIcon => _materialButton?.Image != null;
 
         protected override void OnElementChanged(ElementChangedEventArgs<Button> e)
         {
@@ -44,6 +38,7 @@ namespace XF.Material.Droid.Renderers
                 _materialButton = this.Element as MaterialButton;
                 _cornerRadius = MaterialHelper.ConvertToDp(_materialButton.CornerRadius);
                 _borderWidth = (int)MaterialHelper.ConvertToDp((int)_materialButton.BorderWidth);
+                _withIcon = _materialButton?.Image != null;
 
                 this.Control.SetMinimumWidth((int)MaterialHelper.ConvertToDp(64));
                 this.Control.SetAllCaps(_materialButton.AllCaps);
@@ -85,17 +80,27 @@ namespace XF.Material.Droid.Renderers
 
             if (Material.IsLollipop)
             {
-                var rippleDrawable = this.GetTemplateDrawable<RippleDrawable>();
+                var rippleColor = _normalColor.IsColorDark() ? Color.ParseColor("#52FFFFFF") : Color.ParseColor("#52000000");
+                var rippleDrawable = _withIcon ? MaterialHelper.GetDrawableCopyFromResource<RippleDrawable>(Resource.Drawable.drawable_ripple_with_icon) : MaterialHelper.GetDrawableCopyFromResource<RippleDrawable>(Resource.Drawable.drawable_ripple);
                 var insetDrawable = rippleDrawable.FindDrawableByLayerId(Resource.Id.inset_drawable) as InsetDrawable;
                 var statelistDrawable = insetDrawable.Drawable as StateListDrawable;
                 this.SetStates(statelistDrawable, normalStateDrawable, normalStateDrawable, disabledStateDrawable);
+
+                rippleDrawable.SetColor(new Android.Content.Res.ColorStateList(new int[][]
+                {
+                    new int[]{}
+                },
+                new int[]
+                {
+                    rippleColor
+                }));
                 this.Control.Background = rippleDrawable;
                 this.Control.StateListAnimator = elevated ? AnimatorInflater.LoadStateListAnimator(this.Context, Resource.Animator.material_button_state_list_anim) : null;
             }
 
             else
             {
-                var insetDrawable = this.GetTemplateDrawable<InsetDrawable>();
+                var insetDrawable = MaterialHelper.GetDrawableCopyFromResource<InsetDrawable>(Resource.Drawable.drawable_selector);
                 var stateListDrawable = insetDrawable.Drawable as StateListDrawable;
                 var pressedStateDrawable = this.CreateShapeDrawable(_cornerRadius, _borderWidth, _pressedColor, _borderColor);
                 this.SetStates(stateListDrawable, normalStateDrawable, pressedStateDrawable, disabledStateDrawable);
@@ -113,7 +118,7 @@ namespace XF.Material.Droid.Renderers
 
             if (Material.IsLollipop)
             {
-                var rippleDrawable = MaterialHelper.GetDrawableCopyFromResource<RippleDrawable>(Resource.Drawable.drawable_ripple_outlined);
+                var rippleDrawable =  _withIcon ? MaterialHelper.GetDrawableCopyFromResource<RippleDrawable>(Resource.Drawable.drawable_ripple_outlined_with_icon) : MaterialHelper.GetDrawableCopyFromResource<RippleDrawable>(Resource.Drawable.drawable_ripple_outlined);
                 var insetDrawable = rippleDrawable.FindDrawableByLayerId(Resource.Id.inset_drawable) as InsetDrawable;
                 var statelistDrawable = insetDrawable.Drawable as StateListDrawable;
                 this.SetStates(statelistDrawable, normalStateDrawable, normalStateDrawable, disabledStateDrawable);
@@ -124,7 +129,7 @@ namespace XF.Material.Droid.Renderers
 
             else
             {
-                var insetDrawable = this.GetTemplateDrawable<InsetDrawable>();
+                var insetDrawable = MaterialHelper.GetDrawableCopyFromResource<InsetDrawable>(Resource.Drawable.drawable_selector);
                 var stateListDrawable = insetDrawable.Drawable as StateListDrawable;
                 var pressedStateDrawable = this.CreateShapeDrawable(_cornerRadius, _borderWidth, _pressedColor, _borderColor);
                 this.SetStates(stateListDrawable, normalStateDrawable, pressedStateDrawable, disabledStateDrawable);
@@ -195,7 +200,12 @@ namespace XF.Material.Droid.Renderers
 
             else
             {
-                // TODO: Drawable for text button
+                var normalStateDrawable = this.CreateShapeDrawable(_cornerRadius, _borderWidth, Color.Transparent, Color.Transparent);
+                var pressedStateDrawable = this.CreateShapeDrawable(_cornerRadius, _borderWidth, Color.ParseColor("#52000000"), Color.Transparent);
+                var insetDrawable = MaterialHelper.GetDrawableCopyFromResource<InsetDrawable>(Resource.Drawable.drawable_selector);
+                var stateListDrawable = insetDrawable.Drawable as StateListDrawable;
+                this.SetStates(stateListDrawable, normalStateDrawable, pressedStateDrawable, normalStateDrawable);
+                this.Control.Background = insetDrawable;
             }
         }
 
@@ -207,26 +217,6 @@ namespace XF.Material.Droid.Renderers
             shapeDrawable.SetStroke(borderWidth, borderColor);
 
             return shapeDrawable;
-        }
-
-        private T GetTemplateDrawable<T>() where T : Drawable
-        {
-            if (Material.IsLollipop)
-            {
-                if (_normalColor.IsColorDark())
-                {
-                    return MaterialHelper.GetDrawableCopyFromResource<T>(Resource.Drawable.drawable_ripple_dark);
-                }
-                else
-                {
-                    return MaterialHelper.GetDrawableCopyFromResource<T>(Resource.Drawable.drawable_ripple_light);
-                }
-            }
-
-            else
-            {
-                return MaterialHelper.GetDrawableCopyFromResource<T>(Resource.Drawable.drawable_selector);
-            }
         }
 
         private void SetButtonIcon()
@@ -242,6 +232,7 @@ namespace XF.Material.Droid.Renderers
                 drawable.SetTint(_materialButton.TextColor.ToAndroid());
 
                 this.Control.SetCompoundDrawables(drawable, null, null, null);
+                this.Control.CompoundDrawablePadding = 8;
             }
         }
 
@@ -256,8 +247,6 @@ namespace XF.Material.Droid.Renderers
 
         private void UpdateDrawable()
         {
-            this.Control.Background.Dispose();
-
             switch (_materialButton.ButtonType)
             {
                 case MaterialButtonType.Elevated:

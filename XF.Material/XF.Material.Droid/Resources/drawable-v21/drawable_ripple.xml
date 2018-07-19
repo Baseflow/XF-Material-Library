@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ripple xmlns:android="http://schemas.android.com/apk/res/android"
-        android:color="#52000000">
+<ripple xmlns:android="http://schemas.android.com/apk/res/android">
   <item android:id="@android:id/mask">
     <inset android:insetLeft="@dimen/mtrl_btn_inset"
            android:insetTop="@dimen/mtrl_btn_inset"
