@@ -9,7 +9,7 @@
     <projectUrl>https://github.com/contrix09/XF-Material-Library</projectUrl>
     <licenseUrl>https://github.com/contrix09/XF-Material-Library/blob/master/LICENSE.md</licenseUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
-    <releaseNotes>Initial release.</releaseNotes>
+    <releaseNotes>Fixed some minor bugs</releaseNotes>
     <description>A Xamarin.Forms library for Xamarin.Android and Xamarin.iOS to implement Google's Material Design.</description>
     <copyright>Copyright © 2018 - Dustin Catap</copyright>
     <tags>Xamarin.Forms Xamarin</tags>
