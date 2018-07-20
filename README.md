@@ -101,16 +101,19 @@ As you can see in the image below, `MaterialButton` has an additional touch padd
 - `Elevated` and `Flat`
 
     <img src="https://imgur.com/9RwKyO2.jpg" alt="contained buttons" width="800" />
+    
     These are high-emphasis buttons that are distinguished by their fill color and/or shadow. The actions bound to them are primary to your app.
 
 - `Outlined`
 
     <img src="https://imgur.com/AGWm9J0.jpg" alt="outlined buttons" width="800" />
+    
     These are medium-emphasis buttons. The actions bound to them are important, but are not the primary action in an app.
 
 - `Text`
 
     <img src="https://imgur.com/mrKZH8c.jpg" alt="outlined buttons" width="800" />
+    
     These buttons are typically used for less-pronounced actions, which are located in modal dialogs or in cards.
 
 Read more about buttons [here](https://material.io/design/components/buttons.html).
