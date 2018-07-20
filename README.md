@@ -5,7 +5,7 @@ A Xamarin.Forms library for Xamarin.Android and Xamarin.iOS to implement [Google
 #### Getting Started
 1. Download it through [NuGet](https://www.nuget.org/packages/XF.Material) and install it to your Xamarin.Forms projects.
 2. Call the `Material.Init()` method in each project:
-<br />
+
 ```c#
 //Xamarin.Forms
 
@@ -42,16 +42,16 @@ public override bool FinishedLaunching(UIApplication app, NSDictionary options)
 }
 
 ```
-<br />
 
 #### Features
 
 ##### Material Views
 
-<b>● Cards</b><br />
+<b>Cards</b>
+
 Use this for content emphasis. Cards are surfaces that display content and actions on a single topic.
 They should be easy to scan for relevant and actionable information. Elements, like text and images, should be placed on them in a way that clearly indicates hierarchy.
 
 | Code | Android  | iOS |
 | ------------- | ------------- | ------------- |
-| ` <material:MaterialCard CornerRadius="2" Elevation="1" HeightRequest="80" HorizontalOptions="FillAndExpand" /> ` |<img src="https://imgur.com/ewedLPj.jpg" alt="Android card" height="600" />|<img src="https://imgur.com/C2dAeI7.jpg" alt="iOS card" height="600"/> |
+| ` <material:MaterialCard CornerRadius="2" Elevation="1" HeightRequest="80" HorizontalOptions="FillAndExpand" /> ` |<img src="https://imgur.com/ewedLPj.jpg" alt="Android card" width="500" />|<img src="https://imgur.com/C2dAeI7.jpg" alt="iOS card" width="550"/> |
