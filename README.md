@@ -45,10 +45,7 @@ public override bool FinishedLaunching(UIApplication app, NSDictionary options)
 
 ## Features
 
-### Material Views
-
-
-#### Cards
+### Cards
 
 Cards contain content and actions about a single subject.
 
@@ -67,7 +64,7 @@ Cards are surfaces that display content and actions on a single topic. They shou
 
 Read more about cards [here](https://material.io/design/components/cards.html).
 
-#### Buttons
+### Buttons
 
 Buttons allow users to take actions, and make choices, with a single tap.
 
