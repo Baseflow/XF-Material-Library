@@ -88,12 +88,7 @@ Buttons allow users to take actions, and make choices, with a single tap.
 
 4. `AllCaps` - Whether the letters in the label of the button should be in upper case or not. By default, this is set to `true`.
 
-
-As you can see in the image below, `MaterialButton` has an additional touch padding of 6 on all sides. This makes them a little taller/wider than the default button. `MaterialButton` also has a default corner radius value of 4.
-
-<img src="https://imgur.com/5X6uVFp.jpg" alt="button bounds" width="500" />
-
-<b>Button Types Usage:</b>
+<b>Usage:</b>
 
 - `Elevated` and `Flat`
 
