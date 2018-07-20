@@ -74,7 +74,8 @@ Buttons allow users to take actions, and make choices, with a single tap.
 
 <b>Properties:</b>
 
-`MaterialButton` inherits the `Button` class
+`MaterialButton` inherits the `Button` class.
+
 1. `ButtonType` - The type of the button. The default value is `Elevated`.
 
     - `Elevated` - This button will cast a shadow.
@@ -110,5 +111,44 @@ Buttons allow users to take actions, and make choices, with a single tap.
 
 Read more about buttons [here](https://material.io/design/components/buttons.html).
 
+### Chips
+Chips are compact elements that represent an input, attribute, or action.
+
+| Code | Android  | iOS |
+| ------------- | ------------- | ------------- |
+| `<material:MaterialChip BackgroundColor="#F2F2F2" Image="im_google" Text="Google" TextColor="#DE000000" /> ` |<img src="https://imgur.com/yZ0QMea.jpg" alt="Android button" width="500" />|<img src="https://imgur.com/HTxum8p.jpg" alt="iOS button" width="550"/> |
+
+<b>Properties</b>
+
+`MaterialChip` inherits the `ContentView` class.
+
+1. `Text` - The chip's label to be displayed.
+
+2. `TextColor` - The color of the chip's label.
+
+3. `FontFamily` - The font family of the chip's label.
+
+4. `BackgroundColor` - The color of the chip's background.
+
+5. `Image` - The chip's image to be displayed.
+
+6. `ActionImage` - The chip's action image to be displayed.
+
+7. `ActionImageTappedCommand` - The bindable command that executes when the `ActionImage` of the chip is tapped.
+
+8. `ActionImageTapped` - The event that is called when the `ActionImage` of the chip is tapped.
+
+<b>Usage</b>
+
+Chips allow users to enter information, make selections, filter content, or trigger actions.
+
+Read more about chips [here](https://material.io/design/components/chips.html).
+
+
+### Adding a shadow to the Navigation Bar
+You can add a shadow to the navigation bar by using the `MaterialNavigationPage` control.
+
+### Changing the Status Bar color
+You can change the color of the status bar by using the `Material.PlatformConfiguration.ChangeStatusBarColor(Color color)` method.
 
 #### README.md still being updated.
