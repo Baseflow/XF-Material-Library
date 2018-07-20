@@ -3,7 +3,7 @@
 A Xamarin.Forms library for Xamarin.Android and Xamarin.iOS to implement [Google's Material Design](https://material.io/design).
 
 #### Getting Started
-1. Download it through [NuGet](https://www.nuget.org/packages/XF.Material) and install it to your Xamarin.Forms projects.
+1. Download it through [NuGet](https://www.nuget.org/packages/XF.Material) and install it in your Xamarin.Forms projects.
 2. Call the `Material.Init()` method in each project:
 
 ```c#
@@ -50,8 +50,7 @@ public override bool FinishedLaunching(UIApplication app, NSDictionary options)
 
 #### Cards
 
-Use this for content emphasis. Cards are surfaces that display content and actions on a single topic.
-They should be easy to scan for relevant and actionable information. Elements, like text and images, should be placed on them in a way that clearly indicates hierarchy.
+Cards contain content and actions about a single subject.
 
 | Code | Android  | iOS |
 | ------------- | ------------- | ------------- |
@@ -61,6 +60,12 @@ They should be easy to scan for relevant and actionable information. Elements, l
 
 `MaterialCard` inherits the `Frame` class.
 - `Elevation` - By default, this property has a value of 1. As you can see in the above images, as you increase the value, the more visible the shadow becomes.
+
+<b>Usage:</b>
+
+Cards are surfaces that display content and actions on a single topic. They should be easy to scan for relevant and actionable information. Elements, like text and images, should be placed on them in a way that clearly indicates hierarchy.
+
+Read more about cards [here](https://material.io/design/components/cards.html).
 
 #### Buttons
 
@@ -73,19 +78,42 @@ Buttons allow users to take actions, and make choices, with a single tap.
 <b>Properties:</b>
 
 `MaterialButton` inherits the `Button` class
-1. `ButtonType` - The type of the button.
+1. `ButtonType` - The type of the button. The default value is `Elevated`.
 
-    - `Elevated` - This button will cast a shadow. The shadow will react to click and focus events on the button.
+    - `Elevated` - This button will cast a shadow.
     - `Flat` - This button will have no shadow.
     - `Outlined` - This button will have no shadow, has a transparent background, and has a border.
-    - `Text` - This button will only show its label. It will not have a shadow, has a transparent background, and no border. *Text buttons has a smaller inner padding as compared to the other button types*
+    - `Text` - This button will only show its label. It will not have a shadow, has a transparent background, and no border. *Text buttons has a smaller inner padding as compared to the other button types.*
 
 2. `BackgroundColor` - The color of the button's background. *Outlined and Text button types will always have a transparent background color.*
 
-3. `AllCaps` - Whether the letters in the label of the button should be in upper case or not. By default, this is set to `true`.
+3. `Image` - The icon to be displayed next to the button's label. The color of the icon will be based on the `TextColor` property value of the button.
 
-<b>Differences compared to the default Xamarin.Forms.Button</b>
+4. `AllCaps` - Whether the letters in the label of the button should be in upper case or not. By default, this is set to `true`.
 
-As you can see in the image below, `MaterialButton` has an additional touch padding of 6 on all sides. This makes them a little taller/wider than the default button.
 
-<img src="https://imgur.com/5X6uVFp.jpg" width="500" />
+As you can see in the image below, `MaterialButton` has an additional touch padding of 6 on all sides. This makes them a little taller/wider than the default button. `MaterialButton` also has a default corner radius value of 4.
+
+<img src="https://imgur.com/5X6uVFp.jpg" alt="button bounds" width="500" />
+
+<b>Button Types Usage:</b>
+
+- `Elevated` and `Flat`
+
+    <img src="https://imgur.com/9RwKyO2.jpg" alt="contained buttons" width="800" />
+    These are high-emphasis buttons that are distinguished by their fill color and/or shadow. The actions bound to them are primary to your app.
+
+- `Outlined`
+
+    <img src="https://imgur.com/AGWm9J0.jpg" alt="outlined buttons" width="800" />
+    These are medium-emphasis buttons. The actions bound to them are important, but are not the primary action in an app.
+
+- `Text`
+
+    <img src="https://imgur.com/mrKZH8c.jpg" alt="outlined buttons" width="800" />
+    These buttons are typically used for less-pronounced actions, which are located in modal dialogs or in cards.
+
+Read more about buttons [here](https://material.io/design/components/buttons.html).
+
+
+#### README.md still being updated.
