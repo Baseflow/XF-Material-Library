@@ -38,7 +38,6 @@ namespace XF.Material.Droid.Renderers
                 _materialButton = this.Element as MaterialButton;
                 _cornerRadius = MaterialHelper.ConvertToDp(_materialButton.CornerRadius);
                 _borderWidth = (int)MaterialHelper.ConvertToDp((int)_materialButton.BorderWidth);
-                _withIcon = _materialButton?.Image != null;
 
                 this.Control.SetMinimumWidth((int)MaterialHelper.ConvertToDp(64));
                 this.Control.SetAllCaps(_materialButton.AllCaps);
@@ -221,6 +220,8 @@ namespace XF.Material.Droid.Renderers
 
         private void SetButtonIcon()
         {
+            _withIcon = _materialButton?.Image != null;
+
             if (_withIcon)
             {
                 var fileName = _materialButton.Image.File.Split('.').First();

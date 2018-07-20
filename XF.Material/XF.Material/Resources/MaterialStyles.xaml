@@ -4,11 +4,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:res="clr-namespace:XF.Material.Resources"
     xmlns:typ="clr-namespace:XF.Material.Resources.Typography">
-    <ResourceDictionary.MergedDictionaries>
-        <res:MaterialSizes />
-        <typ:MaterialTypography />
-    </ResourceDictionary.MergedDictionaries>
-
     <!--#region CHIP-->
     <Style x:Key="Material.Chip" TargetType="Frame">
         <Setter Property="Padding" Value="0" />
@@ -45,23 +40,6 @@
         <Setter Property="FontSize" Value="14" />
         <Setter Property="LineBreakMode" Value="NoWrap" />
         <Setter Property="VerticalTextAlignment" Value="Center" />
-    </Style>
-
-    <!--#endregion-->
-
-    <!--#region BUTTON-->
-
-    <Style x:Key="Base.Material.Style.Button"
-        BasedOn="{StaticResource Material.Font.Button}"
-        TargetType="Button" />
-
-    <Style x:Key="Material.Style.Button"
-        BasedOn="{StaticResource Base.Material.Style.Button}"
-        TargetType="Button">
-        <Setter Property="CornerRadius" Value="{StaticResource Material.Button.CornerRadius}" />
-        <Setter Property="BackgroundColor" Value="{DynamicResource Material.Color.Secondary}" />
-        <Setter Property="TextColor" Value="{DynamicResource Material.Color.OnSecondary}" />
-        <Setter Property="HeightRequest" Value="{StaticResource Material.Button.Height}" />
     </Style>
 
     <!--#endregion-->

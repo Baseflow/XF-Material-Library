@@ -12,7 +12,7 @@ namespace XF.Material
     {
         private readonly ResourceDictionary _res;
 
-        internal Material(Application app, MaterialResource materialResource) : this(app)
+        internal Material(Application app, MaterialConfiguration materialResource) : this(app)
         {
             Resource = materialResource;
         }
@@ -21,19 +21,19 @@ namespace XF.Material
         {
             app.Resources.TryGetValue(key, out object value);
 
-            if (value is MaterialResource materialResource)
+            if (value is MaterialConfiguration materialResource)
             {
                 Resource = materialResource;
             }
 
             else if (value != null)
             {
-                throw new InvalidCastException($"The resource retrieved with key {key} was not of the type {typeof(MaterialResource)}");
+                throw new InvalidCastException($"The resource retrieved with key {key} was not of the type {typeof(MaterialConfiguration)}");
             }
 
             else
             {
-                throw new KeyNotFoundException($"The resource with key {key} of the type {typeof(MaterialResource)} was not found");
+                throw new KeyNotFoundException($"The resource with key {key} of the type {typeof(MaterialConfiguration)} was not found");
             }
         }
 
@@ -45,7 +45,7 @@ namespace XF.Material
 
         public static IMaterialUtility PlatformConfiguration { get; private set; }
 
-        public static MaterialResource Resource { get; private set; }
+        public static MaterialConfiguration Resource { get; private set; }
 
         /// <summary>
         /// Gets a resource of the specified type from the current ResourceDictionary.
@@ -76,7 +76,7 @@ namespace XF.Material
         /// </summary>
         /// <param name="app">The cross-platform mobile application that is running.</param>
         /// <param name="materialResource">The object that contains the values to be used for resource creation.</param>
-        public static void Init(Application app, MaterialResource materialResource)
+        public static void Init(Application app, MaterialConfiguration materialResource)
         {
             var material = new Material(app ?? throw new ArgumentNullException(nameof(app)), materialResource ?? throw new ArgumentNullException(nameof(materialResource)));
             material.MergeMaterialDictionaries();
@@ -102,8 +102,8 @@ namespace XF.Material
 
         private void MergeMaterialDictionaries()
         {
-            _res.MergedDictionaries.Add(new MaterialColors(Resource.Color));
-            _res.MergedDictionaries.Add(new MaterialTypography(Resource.FontFamily));
+            _res.MergedDictionaries.Add(new MaterialColors(Resource?.ColorConfiguration));
+            _res.MergedDictionaries.Add(new MaterialTypography(Resource?.FontConfiguration));
             _res.MergedDictionaries.Add(new MaterialSizes());
             _res.MergedDictionaries.Add(new MaterialStyles());
         }

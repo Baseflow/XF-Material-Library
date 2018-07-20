@@ -171,7 +171,7 @@
       <IsWatchApp>false</IsWatchApp>
     </ProjectReference>
     <ProjectReference Include="..\..\XF.Material\XF.Material\XF.Material.csproj">
-      <Project>{B0C6B498-6EC2-4E2B-812B-A04A30827E7F}</Project>
+      <Project>{b0c6b498-6ec2-4e2b-812b-a04a30827e7f}</Project>
       <Name>XF.Material</Name>
     </ProjectReference>
     <ProjectReference Include="..\XF.MaterialSample\XF.MaterialSample.csproj">

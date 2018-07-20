@@ -75,10 +75,6 @@ namespace XF.Material.iOS.Renderers
                 this.UpdateButtonLayer();
                 this.CreateStateAnimations();
                 this.UpdateState();
-                this.Control.SetAttributedTitle(new NSAttributedString(_materialButton.Text, foregroundColor: _materialButton.TextColor.ToUIColor()), UIControlState.Normal);
-                this.Control.SetAttributedTitle(new NSAttributedString(_materialButton.Text, foregroundColor: _materialButton.TextColor.ToUIColor()), UIControlState.Highlighted);
-                this.Control.SetAttributedTitle(new NSAttributedString(_materialButton.Text, foregroundColor: _materialButton.TextColor.ToUIColor()), UIControlState.Selected);
-                this.Control.SetAttributedTitle(new NSAttributedString(_materialButton.Text, foregroundColor: _materialButton.TextColor.ToUIColor()), UIControlState.Focused);
                 this.Control.TouchDown += this.Control_Pressed;
                 this.Control.TouchDragEnter += this.Control_Pressed;
                 this.Control.TouchUpInside += this.Control_Released;

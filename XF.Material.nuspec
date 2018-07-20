@@ -1,18 +1,20 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <package >
   <metadata>
     <id>XF.Material</id>
-    <title>Xamarin.Forms Material Library</title>
-    <version>1.0.0</version>
+    <title>XF.Material Library</title>
+    <version>1.0.1</version>
     <authors>Dustin Catap</authors>
     <owners>Dustin Catap</owners>
     <projectUrl>https://github.com/contrix09/XF-Material-Library</projectUrl>
     <licenseUrl>https://github.com/contrix09/XF-Material-Library/blob/master/LICENSE.md</licenseUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
-    <description>Xamarin Forms library for Material Design.</description>
-    <copyright>Copyright © Dustin Catap</copyright>
-    <tags>Xamarin.Forms Xamarin Material Design</tags>
+    <releaseNotes>Initial release.</releaseNotes>
+    <description>A Xamarin.Forms library for Xamarin.Android and Xamarin.iOS to implement Google's Material Design.</description>
+    <copyright>Copyright © 2018 - Dustin Catap</copyright>
+    <tags>Xamarin.Forms Xamarin</tags>
     <dependencies>
+      
       <group targetFramework="netstandard2.0">
         <dependency id="Com.Airbnb.Xamarin.Forms.Lottie"
                     version="2.5.4" />
@@ -22,7 +24,7 @@
                     version="3.1.0.583944" />
       </group>
 
-      <group targetFramework="MonoAndroid">
+      <group targetFramework="MonoAndroid81">
         <dependency id="Com.Airbnb.Xamarin.Forms.Lottie"
                     version="2.5.4" />
         <dependency id="Rg.Plugins.Popup"
@@ -57,7 +59,7 @@
                     version="3.1.0.583944" />
       </group>
 
-      <group targetFramework="Xamarin.iOS">
+      <group targetFramework="Xamarin.iOS10">
         <dependency id="Com.Airbnb.Xamarin.Forms.Lottie"
                     version="2.5.4" />
         <dependency id="Rg.Plugins.Popup"
@@ -65,48 +67,32 @@
         <dependency id="Xamarin.Forms"
                     version="3.1.0.583944" />
       </group>
-
-      <group targetFramework="MonoTouch">
-        <dependency id="Com.Airbnb.Xamarin.Forms.Lottie"
-                    version="2.5.4" />
-        <dependency id="Rg.Plugins.Popup"
-                    version="1.1.4.158-pre" />
-        <dependency id="Xamarin.Forms"
-                    version="3.1.0.583944" />
-      </group>
+      
     </dependencies>
   </metadata>
   <files>
+    
     <file src="..\src\..\src\XF.Material\XF.Material\bin\Release\netstandard2.0\XF.Material.dll"
           target="lib\netstandard2.0" />
     <file src="..\src\XF.Material\XF.Material\bin\Release\netstandard2.0\XF.Material.pdb"
           target="lib\netstandard2.0" />
 
     <file src="..\src\XF.Material\XF.Material.Droid\bin\Release\XF.Material.dll"
-          target="lib\MonoAndroid" />
+          target="lib\MonoAndroid81" />
     <file src="..\src\XF.Material\XF.Material.Droid\bin\Release\XF.Material.pdb"
-          target="lib\MonoAndroid" />
+          target="lib\MonoAndroid81" />
     <file src="..\src\XF.Material\XF.Material.Droid\bin\Release\XF.Material.Droid.dll"
-          target="lib\MonoAndroid" />
+          target="lib\MonoAndroid81" />
     <file src="..\src\XF.Material\XF.Material.Droid\bin\Release\XF.Material.Droid.pdb"
-          target="lib\MonoAndroid" />
+          target="lib\MonoAndroid81" />
 
     <file src="..\src\XF.Material\XF.Material.iOS\bin\Release\XF.Material.dll"
-          target="lib\Xamarin.iOS" />
+          target="lib\Xamarin.iOS10" />
     <file src="..\src\XF.Material\XF.Material.iOS\bin\Release\XF.Material.pdb"
-          target="lib\Xamarin.iOS" />
+          target="lib\Xamarin.iOS10" />
     <file src="..\src\XF.Material\XF.Material.iOS\bin\Release\XF.Material.iOS.dll"
-          target="lib\Xamarin.iOS" />
+          target="lib\Xamarin.iOS10" />
     <file src="..\src\XF.Material\XF.Material.iOS\bin\Release\XF.Material.iOS.pdb"
-          target="lib\Xamarin.iOS" />
-
-    <file src="..\src\XF.Material\XF.Material.iOS\bin\Release\XF.Material.dll"
-          target="lib\MonoTouch" />
-    <file src="..\src\XF.Material\XF.Material.iOS\bin\Release\XF.Material.pdb"
-          target="lib\MonoTouch" />
-    <file src="..\src\XF.Material\XF.Material.iOS\bin\Release\XF.Material.iOS.dll"
-          target="lib\MonoTouch" />
-    <file src="..\src\XF.Material\XF.Material.iOS\bin\Release\XF.Material.iOS.pdb"
-          target="lib\MonoTouch" />
+          target="lib\Xamarin.iOS10" />
   </files>
 </package>

@@ -65,8 +65,8 @@
     <Style x:Key="Material.Font.Button" TargetType="Button">
         <Setter Property="mtrlfx:MaterialEffectsUtil.LetterSpacing" Value="Button" />
         <Setter Property="FontFamily" Value="{DynamicResource Material.FontFamily.Medium}" />
-        <Setter Property="FontSize" Value="{StaticResource Material.FontSize.Button}" />
-        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="FontSize" Value="{DynamicResource Material.FontSize.Button}" />
+        <Setter Property="FontAttributes" Value="{DynamicResource Material.FontAttribute.Bold}" />
     </Style>
 
     <Style x:Key="Material.Font.Caption" TargetType="Label">
@@ -74,5 +74,9 @@
         <Setter Property="FontFamily" Value="{DynamicResource Material.FontFamily.Regular}" />
         <Setter Property="FontSize" Value="{StaticResource Material.FontSize.Caption}" />
     </Style>
+
+    <OnPlatform x:Key="Material.FontAttribute.Bold"
+        x:TypeArguments="FontAttributes"
+        Default="Bold" />
 
 </ResourceDictionary>

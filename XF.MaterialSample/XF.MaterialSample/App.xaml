@@ -65,9 +65,7 @@
             SecondaryVariant="#001229"
             Surface="#FFFFFF" />
 
-        <mtrl:MaterialResource x:Key="Material.Style"
-            FontFamily="{StaticResource Material.FontFamily}"
-            Color="{StaticResource Material.Color}" />
+        <mtrl:MaterialConfiguration x:Key="Material.Style" FontConfiguration="{StaticResource Material.FontFamily}" />
 
     </Application.Resources>
 </Application>

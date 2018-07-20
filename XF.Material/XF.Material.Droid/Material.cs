@@ -1,16 +1,10 @@
 ﻿using Android.Content;
 using Android.OS;
 using Android.Support.V7.App;
-using System;
-using System.Linq;
 using Rg.Plugins.Popup;
 using Rg.Plugins.Popup.Services;
-using System.Threading.Tasks;
-using Xamarin.Forms;
-using XF.Material.Resources;
-using Android.App;
-using Android.Views;
-using Xamarin.Forms.Platform.Android;
+using System;
+using System.Linq;
 
 namespace XF.Material.Droid
 {

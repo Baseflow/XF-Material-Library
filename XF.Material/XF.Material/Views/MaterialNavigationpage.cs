@@ -18,12 +18,16 @@ namespace XF.Material.Views
             this.SetDynamicResource(BarBackgroundColorProperty, MaterialConstants.MATERIAL_COLOR_PRIMARY);
             this.SetDynamicResource(BarTextColorProperty, MaterialConstants.MATERIAL_COLOR_ONPRIMARY);
             this.Pushed += this.MaterialNavigationPage_Pushed;
-            rootPage.SetDynamicResource(BackgroundColorProperty, MaterialConstants.MATERIAL_COLOR_BACKGROUND);
+
+            if(rootPage.BackgroundColor.IsDefault)
+            {
+                rootPage.SetDynamicResource(BackgroundColorProperty, MaterialConstants.MATERIAL_COLOR_BACKGROUND);
+            }
         }
 
         private void MaterialNavigationPage_Pushed(object sender, NavigationEventArgs e)
         {
-            if(e?.Page != null)
+            if (e?.Page != null && e.Page.BackgroundColor.IsDefault)
             {
                 e.Page.SetDynamicResource(BackgroundColorProperty, MaterialConstants.MATERIAL_COLOR_BACKGROUND);
             }

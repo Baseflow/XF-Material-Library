@@ -15,14 +15,14 @@ namespace XF.Material.iOS.Effects
 
             if (this.Control is UILabel label)
             {
-                label.AttributedText = new NSMutableAttributedString(label.Text, foregroundColor: label.TextColor, kerning: (float)this.MaterialEffect.LetterSpacing);
+                label.AttributedText = new NSMutableAttributedString(label.Text, font: label.Font, foregroundColor: label.TextColor, kerning: (float)this.MaterialEffect.LetterSpacing);
             }
 
             else if (this.Control is UIButton button)
             {
                 var attributedString = new NSMutableAttributedString(button.Title(UIControlState.Normal),
                     foregroundColor: button.TitleColor(UIControlState.Normal),
-                    kerning: (float)this.MaterialEffect.LetterSpacing);
+                    kerning: (float)this.MaterialEffect.LetterSpacing, font: button.Font);
 
                 button.SetAttributedTitle(attributedString, UIControlState.Normal);
                 button.SetAttributedTitle(attributedString, UIControlState.Focused);
