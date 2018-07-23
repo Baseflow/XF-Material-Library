@@ -43,7 +43,7 @@
                     VerticalOptions="Center" />
                 <material:MaterialButton x:Name="ActionButton"
                     Grid.Column="1"
-                    Margin="0,0,8,0"
+                    Margin="0,0,2,0"
                     ButtonType="Text"
                     FontSize="12"
                     Text="Action"
