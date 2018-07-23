@@ -16,6 +16,7 @@ namespace XF.Material.Views
         public MaterialCircularLoadingView()
         {
             this.SetDynamicResource(ColorProperty, MaterialConstants.MATERIAL_COLOR_SECONDARY);
+            this.Loop = true;
         }
     }
 }

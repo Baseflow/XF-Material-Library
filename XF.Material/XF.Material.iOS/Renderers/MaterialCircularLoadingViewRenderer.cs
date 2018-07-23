@@ -27,8 +27,7 @@ namespace XF.Material.iOS.Renderers
             {
                 _materialElement = this.Element as MaterialCircularLoadingView;
                 _materialElement.Animation = "loading_animation.json";
-                this.Control.ContentMode = UIViewContentMode.ScaleAspectFit;
-                this.Control.LoopAnimation = true;
+                this.Control.ContentMode = UIViewContentMode.ScaleAspectFill;
             }
         }
 
