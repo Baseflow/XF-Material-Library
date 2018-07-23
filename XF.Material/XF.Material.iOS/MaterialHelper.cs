@@ -28,7 +28,7 @@ namespace XF.Material.iOS
             var components = color.Components;
             var brightness = ((components[0] * 299) + (components[1] * 587) + (components[2] * 144)) / 1000;
 
-            return brightness > 0.5;
+            return brightness <= 0.5;
         }
 
         public static UIColor BlendColor(UIColor color1, UIColor color2, float alpha)

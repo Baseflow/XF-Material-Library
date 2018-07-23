@@ -13,6 +13,8 @@ namespace XF.Material.iOS.Utility
     {
         public void ChangeStatusBarColor(Color color)
         {
+            var isColorDark = color.ToCGColor().IsColorDark();
+            UIApplication.SharedApplication.StatusBarStyle = isColorDark ? UIStatusBarStyle.LightContent : UIStatusBarStyle.Default;
             var statusBar = UIApplication.SharedApplication.ValueForKey(new NSString("statusBar")) as UIView;
             statusBar.BackgroundColor = color.ToUIColor();
         }
