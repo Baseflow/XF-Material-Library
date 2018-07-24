@@ -60,7 +60,7 @@ Cards contain content and actions about a single subject.
 
 | Code | Android  | iOS |
 | ------------- | ------------- | ------------- |
-| ` <material:MaterialCard CornerRadius="2" Elevation="1" HeightRequest="80" HorizontalOptions="FillAndExpand" /> ` |<img src="images\card_android.jpg" alt="Android card" width="500" />|<img src="images\card_ios.jpg" alt="iOS card" width="550"/> |
+| ` <material:MaterialCard CornerRadius="2" Elevation="1" HeightRequest="80" HorizontalOptions="FillAndExpand" /> ` |<img src="images/card_android.jpg" alt="Android card" width="500" />|<img src="images/card_ios.jpg" alt="iOS card" width="573"/> |
 
 #### Properties
 
@@ -79,7 +79,7 @@ Buttons allow users to take actions, and make choices, with a single tap.
 
 | Code | Android  | iOS |
 | ------------- | ------------- | ------------- |
-| `<material:MaterialButton BackgroundColor="#EAEAEA" HorizontalOptions="Center" Text="Elevated Button" TextColor="Black" VerticalOptions="Center" /> ` |<img src="images\button_android.jpg" alt="Android button" width="500" />|<img src="images\button_ios.jpg" alt="iOS button" width="550"/> |
+| `<material:MaterialButton BackgroundColor="#EAEAEA" HorizontalOptions="Center" Text="Elevated Button" TextColor="Black" VerticalOptions="Center" /> ` |<img src="images/button_android.jpg" alt="Android button" width="500" />|<img src="images/button_ios.jpg" alt="iOS button" width="573"/> |
 
 #### Properties
 
@@ -128,7 +128,7 @@ Chips are compact elements that represent an input, attribute, or action.
 
 | Code | Android  | iOS |
 | ------------- | ------------- | ------------- |
-| `<material:MaterialChip BackgroundColor="#F2F2F2" Image="im_google" Text="Google" TextColor="#DE000000" /> ` |<img src="images\chip_android.jpg" alt="Android button" width="500" />|<img src="images\chip_ios.jpg" alt="iOS button" width="550"/> |
+| `<material:MaterialChip BackgroundColor="#F2F2F2" Image="im_google" Text="Google" TextColor="#DE000000" /> ` |<img src="images/chip_android.jpg" alt="Android button" width="500" />|<img src="images/chip_ios.jpg" alt="iOS button" width="573"/> |
 
 #### Properties
 
@@ -186,7 +186,7 @@ Alert dialogs interrupt users with urgent information, details, or actions.
 
 | Code | Android  | iOS |
 | ------------- | ------------- | ------------- |
-| <code>MaterialDialogs.ShowAlertAsync(string message, string title = "Alert");</code><br /><br /><code>MaterialDialogs.ShowAlertAsync(string message, string title, string positiveButtonText = "Ok", Action positiveAction = null, string negativeButtonText = "CANCEL");</code> |<img src="images\dialog_android.jpg" alt="Android button" width="500" />|<img src="images\dialog_ios.jpg" alt="iOS button" width="550"/> |
+| <code>MaterialDialogs.ShowAlertAsync(string message, string title = "Alert");</code><br /><br /><code>MaterialDialogs.ShowAlertAsync(string message, string title, string positiveButtonText = "Ok", Action positiveAction = null, string negativeButtonText = "CANCEL");</code> |<img src="images/dialog_android.jpg" alt="Android button" width="500" />|<img src="images/dialog_ios.jpg" alt="iOS button" width="573"/> |
 
 #### Parameters
 
@@ -226,7 +226,7 @@ A modal dialog that is displayed to inform users about a process that is running
 
 | Code | Android  | iOS |
 | ------------- | ------------- | ------------- |
-| <code>using (await MaterialDialog.LoadingDialog(string message))</code><br /><code>{</code><br /><code>&nbsp;&nbsp;// Perform tasks here</code><br /><code>}</code> |<img src="images\loading_android.jpg" alt="Android button" width="500" />|<img src="images\loading_ios.jpg" alt="iOS button" width="550"/> |
+| <code>using (await MaterialDialog.LoadingDialog(string message))</code><br /><code>{</code><br /><code>&nbsp;&nbsp;// Perform tasks here</code><br /><code>}</code> |<img src="images/loading_android.jpg" alt="Android button" width="500" />|<img src="images/loading_ios.jpg" alt="iOS button" width="573"/> |
 
 #### Parameter
 
@@ -243,7 +243,7 @@ Snackbars provide brief messages about app processes at the bottom of the screen
 
 | Code | Android  | iOS |
 | ------------- | ------------- | ------------- |
-| <code>MaterialDialogs.ShowSnackbarAsync(string message, int msDuration = 3000);</code><br /><br /><code>MaterialDialogs.ShowSnackbarAsync(string message, string actionButtonText, Action primaryAction = null, Action hideAction = null, int msDuration = 3000);</code> |<img src="images\snackbar_android.jpg" alt="Android button" width="500" />|<img src="images\snackbar_ios.jpg" alt="iOS button" width="550"/> |
+| <code>MaterialDialogs.ShowSnackbarAsync(string message, int msDuration = 3000);</code><br /><br /><code>MaterialDialogs.ShowSnackbarAsync(string message, string actionButtonText, Action primaryAction = null, Action hideAction = null, int msDuration = 3000);</code> |<img src="images/snackbar_android.jpg" alt="Android button" width="500" />|<img src="images/snackbar_ios.jpg" alt="iOS button" width="573"/> |
 
 #### Parameters
 
@@ -285,7 +285,7 @@ As stated [here](https://material.io/design/color/the-color-system.html#color-th
 
 Use the [Color Tool](https://material.io/tools/color/) to create your palette. This tool provides a preview of what your UI will look like while keeping accessibility.
 
-<img src="images\color.jpg" width="400" />
+<img src="images/color.jpg" width="400" />
 
 You can define your color theme with the `MaterialColorConfiguration` class. The properties of the class are:
 
@@ -321,7 +321,7 @@ As stated [here](https://material.io/design/typography), you can use typography 
 ##### Type Scale
 The Material Design type scale includes a range of contrasting styles that support the needs of your product and its content. These are resusable categories of text, each with an intended application and meaning.
 
-<img src="images\typescale.jpg" width="400" />
+<img src="images/typescale.jpg" width="400" />
 
 
 | Resource Key | Applicable Control | Font Size | Letter Spacing |
