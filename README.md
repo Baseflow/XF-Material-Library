@@ -313,7 +313,7 @@ You can define your color theme with the `MaterialColorConfiguration` class. The
 
 12. `OnSurface` - A color that passes accessibility guidelines for text/iconography when drawn on top of the `Surface` color.
 
-If you did not set the `ColorConfiguration` property of the `MaterialConfiguration` class in [here](####Adding-the-Material-Resources), it will use a default color theme whose color values are the same as the image above.
+If you did not set the `ColorConfiguration` property of the `MaterialConfiguration` class in [here](#adding-the-material-resources), it will use a default color theme whose color values are the same as the image above.
 
 #### Typography
 As stated [here](https://material.io/design/typography), you can use typography to present your design and content as clearly and efficiently as possible.
