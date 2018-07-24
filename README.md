@@ -103,19 +103,19 @@ Buttons communicate actions that users can take. They are typically placed throu
 
 - `Elevated` and `Flat`
 
-    <img src="images\button_elevated.jpg" alt="contained buttons" width="800" />
+    <img src="images/button_elevated.jpg" alt="contained buttons" width="800" />
     
     These are high-emphasis buttons that are distinguished by their fill color and/or shadow. The actions bound to them are primary to your app.
 
 - `Outlined`
 
-    <img src="images\button_outlined.jpg" alt="outlined buttons" width="800" />
+    <img src="images/button_outlined.jpg" alt="outlined buttons" width="800" />
     
     These are medium-emphasis buttons. The actions bound to them are important, but are not the primary action in an app.
 
 - `Text`
 
-    <img src="images\button_text.jpg" alt="outlined buttons" width="800" />
+    <img src="images/button_text.jpg" alt="outlined buttons" width="800" />
     
     These buttons are typically used for less-pronounced actions, which are located in modal dialogs or in cards.
 
