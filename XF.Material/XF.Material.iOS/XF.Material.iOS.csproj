@@ -68,7 +68,7 @@
   <ItemGroup />
   <ItemGroup>
     <Compile Include="Effects\BaseMaterialEffect.cs" />
-    <Compile Include="Effects\MaterialTypographyEffect.cs" />
+    <Compile Include="Effects\MaterialTypeScaleEffect.cs" />
     <Compile Include="Material.cs" />
     <Compile Include="MaterialHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

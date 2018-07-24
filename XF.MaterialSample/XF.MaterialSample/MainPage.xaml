@@ -5,9 +5,9 @@
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
     xmlns:local="clr-namespace:XF.MaterialSample"
     xmlns:material="clr-namespace:XF.Material.Views;assembly=XF.Material"
+    xmlns:mtrlfx="clr-namespace:XF.Material.Effects;assembly=XF.Material"
     Title="Xamarin.Forms Material"
-    ios:Page.UseSafeArea="True"
-    BackgroundColor="White">
+    ios:Page.UseSafeArea="True">
     <ContentPage.Resources>
         <ResourceDictionary>
             <local:ColorConverter x:Key="Converter.Color" />
@@ -15,22 +15,293 @@
     </ContentPage.Resources>
     <ScrollView>
         <StackLayout Margin="16"
-            HorizontalOptions="Center"
+            HorizontalOptions="FillAndExpand"
             Orientation="Vertical"
-            Spacing="40"
+            Spacing="8"
             VerticalOptions="Center">
-            <material:MaterialChip BackgroundColor="Blue"
-                Text="I am a Chip"
-                TextColor="White" />
-            <material:MaterialChip BackgroundColor="#F2F2F2"
-                Image="im_google"
-                Text="Google"
-                TextColor="#DE000000" />
-            <material:MaterialChip ActionImage="ic_close"
-                ActionImageTapped="MaterialChip_ActionImageTapped"
-                BackgroundColor="Green"
-                Text="Close me"
-                TextColor="White" />
+            <!--<Grid ColumnSpacing="0" RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="80" />
+                    <RowDefinition Height="80" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackLayout Grid.Row="0"
+                    Grid.Column="0"
+                    BackgroundColor="{DynamicResource Material.Color.Primary}">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="Primary_Tapped" />
+                    </StackLayout.GestureRecognizers>
+                    <Label Margin="8,8,0,0"
+                        Style="{StaticResource Material.TypeScale.Caption}"
+                        Text="Primary"
+                        TextColor="{DynamicResource Material.Color.OnPrimary}"
+                        VerticalOptions="FillAndExpand" />
+                    <Label Margin="8,0,0,8"
+                        Style="{StaticResource Material.TypeScale.Caption}"
+                        Text="{Binding Source={DynamicResource Material.Color.Primary}, Converter={StaticResource Converter.Color}}"
+                        TextColor="{DynamicResource Material.Color.OnPrimary}" />
+                </StackLayout>
+                <StackLayout Grid.Row="0"
+                    Grid.Column="1"
+                    BackgroundColor="{DynamicResource Material.Color.PrimaryVariant}">
+                    <Label Margin="8,8,0,0"
+                        Style="{StaticResource Material.TypeScale.Caption}"
+                        Text="Primary Variant"
+                        TextColor="{DynamicResource Material.Color.OnPrimary}"
+                        VerticalOptions="FillAndExpand" />
+                    <Label Margin="8,0,0,8"
+                        Style="{StaticResource Material.TypeScale.Caption}"
+                        Text="{Binding Source={DynamicResource Material.Color.PrimaryVariant}, Converter={StaticResource Converter.Color}}"
+                        TextColor="{DynamicResource Material.Color.OnPrimary}" />
+                </StackLayout>
+                <StackLayout Grid.Row="1"
+                    Grid.Column="0"
+                    BackgroundColor="{DynamicResource Material.Color.Secondary}">
+                    <Label Margin="8,8,0,0"
+                        Style="{StaticResource Material.TypeScale.Caption}"
+                        Text="Secondary"
+                        TextColor="{DynamicResource Material.Color.OnSecondary}"
+                        VerticalOptions="FillAndExpand" />
+                    <Label Margin="8,0,0,8"
+                        Style="{StaticResource Material.TypeScale.Caption}"
+                        Text="{Binding Source={DynamicResource Material.Color.Secondary}, Converter={StaticResource Converter.Color}}"
+                        TextColor="{DynamicResource Material.Color.OnSecondary}" />
+                </StackLayout>
+                <StackLayout Grid.Row="1"
+                    Grid.Column="1"
+                    BackgroundColor="{DynamicResource Material.Color.SecondaryVariant}">
+                    <Label Margin="8,8,0,0"
+                        Style="{StaticResource Material.TypeScale.Caption}"
+                        Text="Secondary Variant"
+                        TextColor="{DynamicResource Material.Color.OnSecondary}"
+                        VerticalOptions="FillAndExpand" />
+                    <Label Margin="8,0,0,8"
+                        Style="{StaticResource Material.TypeScale.Caption}"
+                        Text="{Binding Source={DynamicResource Material.Color.SecondaryVariant}, Converter={StaticResource Converter.Color}}"
+                        TextColor="{DynamicResource Material.Color.OnSecondary}" />
+                </StackLayout>
+            </Grid>
+            <Grid ColumnSpacing="0" RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="80" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="1" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Frame Grid.Row="0"
+                    Grid.Column="0"
+                    Padding="0"
+                    BackgroundColor="Transparent"
+                    HasShadow="False">
+                    <StackLayout BackgroundColor="{DynamicResource Material.Color.Background}">
+                        <Label Margin="8,8,0,0"
+                            Style="{StaticResource Material.TypeScale.Caption}"
+                            Text="Background"
+                            TextColor="Black"
+                            VerticalOptions="FillAndExpand" />
+                        <Label Margin="8,0,0,8"
+                            BindingContext="{StaticResource Material.Color}"
+                            Style="{StaticResource Material.TypeScale.Caption}"
+                            Text="{Binding Background, Converter={StaticResource Converter.Color}}"
+                            TextColor="Black" />
+                    </StackLayout>
+                </Frame>
+                <BoxView Grid.Row="0"
+                    Grid.Column="1"
+                    Color="{DynamicResource Material.Color.Surface}" />
+                <StackLayout Grid.Row="0"
+                    Grid.Column="2"
+                    BackgroundColor="{DynamicResource Material.Color.Surface}">
+                    <Label Margin="8,8,0,0"
+                        Style="{StaticResource Material.TypeScale.Caption}"
+                        Text="Surface"
+                        TextColor="Black"
+                        VerticalOptions="FillAndExpand" />
+                    <Label Margin="8,0,0,8"
+                        BindingContext="{StaticResource Material.Color}"
+                        Style="{StaticResource Material.TypeScale.Caption}"
+                        Text="{Binding Surface, Converter={StaticResource Converter.Color}}"
+                        TextColor="Black" />
+                </StackLayout>
+                <StackLayout Grid.Row="0"
+                    Grid.Column="3"
+                    BackgroundColor="{DynamicResource Material.Color.Error}">
+                    <Label Margin="8,8,0,0"
+                        Style="{StaticResource Material.TypeScale.Caption}"
+                        Text="Error"
+                        TextColor="White"
+                        VerticalOptions="FillAndExpand" />
+                    <Label Margin="8,0,0,8"
+                        BindingContext="{StaticResource Material.Color}"
+                        Style="{StaticResource Material.TypeScale.Caption}"
+                        Text="{Binding Error, Converter={StaticResource Converter.Color}}"
+                        TextColor="White" />
+                </StackLayout>
+            </Grid>
+            <Grid ColumnSpacing="0" RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="80" />
+                    <RowDefinition Height="80" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="1" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackLayout Grid.Row="0"
+                    Grid.Column="0"
+                    BackgroundColor="{DynamicResource Material.Color.OnPrimary}">
+                    <Label Margin="8,8,0,0"
+                        Style="{StaticResource Material.TypeScale.Caption}"
+                        Text="On Primary"
+                        TextColor="Black"
+                        VerticalOptions="FillAndExpand" />
+                    <Label Margin="8,0,0,8"
+                        BindingContext="{StaticResource Material.Color}"
+                        Style="{StaticResource Material.TypeScale.Caption}"
+                        Text="{Binding OnPrimary, Converter={StaticResource Converter.Color}}"
+                        TextColor="Black" />
+                </StackLayout>
+                <BoxView Grid.Row="0"
+                    Grid.Column="1"
+                    Color="Transparent" />
+                <StackLayout Grid.Row="0"
+                    Grid.Column="2"
+                    BackgroundColor="{DynamicResource Material.Color.OnSecondary}">
+                    <Label Margin="8,8,0,0"
+                        Style="{StaticResource Material.TypeScale.Caption}"
+                        Text="On Secondary"
+                        TextColor="Black"
+                        VerticalOptions="FillAndExpand" />
+                    <Label Margin="8,0,0,8"
+                        BindingContext="{StaticResource Material.Color}"
+                        Style="{StaticResource Material.TypeScale.Caption}"
+                        Text="{Binding OnSecondary, Converter={StaticResource Converter.Color}}"
+                        TextColor="Black" />
+                </StackLayout>
+                <Grid Grid.Row="1"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="3"
+                    ColumnSpacing="0"
+                    RowSpacing="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="80" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="1" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <StackLayout Grid.Row="0"
+                        Grid.Column="0"
+                        BackgroundColor="{DynamicResource Material.Color.OnBackground}">
+                        <Label Margin="8,8,0,0"
+                            Style="{StaticResource Material.TypeScale.Caption}"
+                            Text="On Background"
+                            TextColor="White"
+                            VerticalOptions="FillAndExpand" />
+                        <Label Margin="8,0,0,8"
+                            BindingContext="{StaticResource Material.Color}"
+                            Style="{StaticResource Material.TypeScale.Caption}"
+                            Text="{Binding OnBackground, Converter={StaticResource Converter.Color}}"
+                            TextColor="White" />
+                    </StackLayout>
+                    <BoxView Grid.Row="0"
+                        Grid.Column="1"
+                        Color="Transparent" />
+                    <StackLayout Grid.Row="0"
+                        Grid.Column="2"
+                        BackgroundColor="{DynamicResource Material.Color.OnSurface}">
+                        <Label Margin="8,8,0,0"
+                            Style="{StaticResource Material.TypeScale.Caption}"
+                            Text="On Surface"
+                            TextColor="White"
+                            VerticalOptions="FillAndExpand" />
+                        <Label Margin="8,0,0,8"
+                            BindingContext="{StaticResource Material.Color}"
+                            Style="{StaticResource Material.TypeScale.Caption}"
+                            Text="{Binding OnSurface, Converter={StaticResource Converter.Color}}"
+                            TextColor="White" />
+                    </StackLayout>
+                    <StackLayout Grid.Row="0"
+                        Grid.Column="3"
+                        BackgroundColor="{DynamicResource Material.Color.OnError}"
+                        Spacing="0">
+                        <BoxView BackgroundColor="#EAEAEA"
+                            HeightRequest="1"
+                            HorizontalOptions="FillAndExpand" />
+                        <Label Margin="8,7,0,0"
+                            Style="{StaticResource Material.TypeScale.Caption}"
+                            Text="On Error"
+                            TextColor="Black"
+                            VerticalOptions="FillAndExpand" />
+                        <Label Margin="8,0,0,8"
+                            BindingContext="{StaticResource Material.Color}"
+                            Style="{StaticResource Material.TypeScale.Caption}"
+                            Text="{Binding OnError, Converter={StaticResource Converter.Color}}"
+                            TextColor="Black" />
+                    </StackLayout>
+                </Grid>
+            </Grid>-->
+            <Label Style="{DynamicResource Material.TypeScale.H1}"
+                Text="H1"
+                TextColor="#D0000000" />
+            <Label Style="{DynamicResource Material.TypeScale.H2}"
+                Text="H2"
+                TextColor="#D0000000" />
+            <Label Style="{DynamicResource Material.TypeScale.H3}"
+                Text="H3"
+                TextColor="#D0000000" />
+            <Label Style="{DynamicResource Material.TypeScale.H4}"
+                Text="H4"
+                TextColor="#D0000000" />
+            <Label Style="{DynamicResource Material.TypeScale.H5}"
+                Text="H5"
+                TextColor="#D0000000" />
+            <Label Style="{DynamicResource Material.TypeScale.H6}"
+                Text="H6"
+                TextColor="#D0000000" />
+            <Label Style="{DynamicResource Material.TypeScale.Subtitle1}"
+                Text="Subtitle 1"
+                TextColor="#D0000000" />
+            <Label Style="{DynamicResource Material.TypeScale.Subtitle2}" Text="Subtitle 2" />
+            <Label Style="{DynamicResource Material.TypeScale.Body1}"
+                Text="Body 1"
+                TextColor="#D0000000" />
+            <Label Style="{DynamicResource Material.TypeScale.Body2}"
+                Text="Body 2"
+                TextColor="#D0000000" />
+            <Label Style="{DynamicResource Material.TypeScale.Button}"
+                Text="BUTTON"
+                TextColor="#D0000000" />
+            <Label Style="{DynamicResource Material.TypeScale.Caption}"
+                Text="Caption"
+                TextColor="#D0000000" />
+            <Label Style="{DynamicResource Material.TypeScale.Overline}"
+                Text="OVERLINE"
+                TextColor="#D0000000" />
+
+            <!--<Label Style="{DynamicResource Material.TypeScale.H4}"
+                Text="Lorem Ipsum"
+                TextColor="Black" />-->
+            <!--<Label Style="{DynamicResource Material.TypeScale.Body1}"
+                Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vel urna posuere, porta purus eget, facilisis orci. Nunc lacinia leo eu orci ullamcorper, ultricies malesuada tellus sagittis. Duis mattis, ipsum at fringilla gravida, velit magna aliquet nisi, non viverra elit nulla eu lacus. Morbi id diam tincidunt, lobortis augue a, varius est. Proin condimentum metus lacus, ac elementum ante fringilla a. Aliquam accumsan nisi vitae feugiat ultrices. Curabitur tristique, velit nec consequat eleifend, neque arcu ornare justo, at feugiat nisi quam et ex. Phasellus lobortis velit eu porttitor consectetur."
+                TextColor="#D0000000" />-->
+
+            <!--<Label Margin="0,24,0,0"
+                FontSize="34"
+                Text="Lorem Ipsum"
+                TextColor="Black" />
+            <Label FontSize="16"
+                Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vel urna posuere, porta purus eget, facilisis orci. Nunc lacinia leo eu orci ullamcorper, ultricies malesuada tellus sagittis. Duis mattis, ipsum at fringilla gravida, velit magna aliquet nisi, non viverra elit nulla eu lacus. Morbi id diam tincidunt, lobortis augue a, varius est. Proin condimentum metus lacus, ac elementum ante fringilla a. Aliquam accumsan nisi vitae feugiat ultrices. Curabitur tristique, velit nec consequat eleifend, neque arcu ornare justo, at feugiat nisi quam et ex. Phasellus lobortis velit eu porttitor consectetur."
+                TextColor="#D0000000" />-->
         </StackLayout>
     </ScrollView>
 </ContentPage>

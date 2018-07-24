@@ -45,11 +45,20 @@
             Android="Fonts/OpenSans-SemiBold.ttf#OpenSans-SemiBold"
             iOS="OpenSans-SemiBold" />
 
-
-        <mtrltypo:MaterialFontConfiguration x:Key="Material.FontFamily"
-            Bold="{StaticResource FontFamily.RobotoBold}"
-            Medium="{StaticResource FontFamily.RobotoMedium}"
-            Regular="{StaticResource FontFamily.RobotoRegular}" />
+        <mtrltypo:MaterialFontConfiguration x:Key="Material.Font"
+            Body1="{StaticResource FontFamily.RobotoRegular}"
+            Body2="{StaticResource FontFamily.RobotoRegular}"
+            Button="{StaticResource FontFamily.RobotoMedium}"
+            Caption="{StaticResource FontFamily.RobotoRegular}"
+            H1="{StaticResource FontFamily.RobotoRegular}"
+            H2="{StaticResource FontFamily.RobotoRegular}"
+            H3="{StaticResource FontFamily.RobotoRegular}"
+            H4="{StaticResource FontFamily.RobotoRegular}"
+            H5="{StaticResource FontFamily.RobotoRegular}"
+            H6="{StaticResource FontFamily.RobotoMedium}"
+            Overline="{StaticResource FontFamily.RobotoRegular}"
+            Subtitle1="{StaticResource FontFamily.RobotoRegular}"
+            Subtitle2="{StaticResource FontFamily.RobotoMedium}" />
 
         <mtrl:MaterialColorConfiguration x:Key="Material.Color"
             Background="#EAEAEA"
@@ -65,7 +74,7 @@
             SecondaryVariant="#001229"
             Surface="#FFFFFF" />
 
-        <mtrl:MaterialConfiguration x:Key="Material.Style" FontConfiguration="{StaticResource Material.FontFamily}" />
+        <mtrl:MaterialConfiguration x:Key="Material.Style" FontConfiguration="{StaticResource Material.Font}" />
 
     </Application.Resources>
 </Application>

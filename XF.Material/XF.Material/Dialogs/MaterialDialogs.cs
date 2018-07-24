@@ -24,14 +24,6 @@ namespace XF.Material
             }
         }
 
-        // TODO: Change this
-        public static Task<MaterialDialog> AddAction(this Task<MaterialDialog> dialog, DialogAction dialogAction, string actionName, Action action)
-        {
-            dialog.Result.AddAction(dialogAction, actionName, action);
-
-            return dialog;
-        }
-
         // TODO: Refactor this
         public static async Task ShowAlertAsync(string message, string title, string positiveButtonText = "OK", Action positiveAction = null, string negativeButtonText = "CANCEL")
         {

@@ -46,12 +46,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Effects\BaseMaterialEffect.cs" />
-    <Compile Include="Effects\MaterialTypographyEffect.cs" />
+    <Compile Include="Effects\MaterialTypeScaleEffect.cs" />
     <Compile Include="Material.cs" />
     <Compile Include="Renderers\MaterialButtonRenderer.cs" />
     <Compile Include="Renderers\MaterialCardRenderer.cs" />
     <Compile Include="Renderers\MaterialCircularLoadingViewRenderer.cs" />
-    <Compile Include="Renderers\MaterialHelper.cs" />
+    <Compile Include="MaterialHelper.cs" />
     <Compile Include="Renderers\MaterialNavigationPageRenderer.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

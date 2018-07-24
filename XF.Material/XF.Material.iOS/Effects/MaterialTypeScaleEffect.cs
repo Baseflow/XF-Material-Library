@@ -1,13 +1,14 @@
 ﻿using Foundation;
 using UIKit;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 using XF.Material.iOS.Effects;
 
 [assembly: ResolutionGroupName("Material")]
-[assembly: ExportEffect(typeof(MaterialTypographyEffect), "TypographyEffect")]
+[assembly: ExportEffect(typeof(MaterialTypeScaleEffect), "TypeScaleEffect")]
 namespace XF.Material.iOS.Effects
 {
-    public class MaterialTypographyEffect : BaseMaterialEffect<XF.Material.Effects.MaterialTypographyEffect>
+    public class MaterialTypeScaleEffect : BaseMaterialEffect<XF.Material.Effects.MaterialTypeScaleEffect>
     {
         protected override void OnAttached()
         {
@@ -22,7 +23,7 @@ namespace XF.Material.iOS.Effects
             {
                 var attributedString = new NSMutableAttributedString(button.Title(UIControlState.Normal),
                     foregroundColor: button.TitleColor(UIControlState.Normal),
-                    kerning: (float)this.MaterialEffect.LetterSpacing, font: button.Font);
+                    kerning: (float)this.MaterialEffect.LetterSpacing);
 
                 button.SetAttributedTitle(attributedString, UIControlState.Normal);
                 button.SetAttributedTitle(attributedString, UIControlState.Focused);

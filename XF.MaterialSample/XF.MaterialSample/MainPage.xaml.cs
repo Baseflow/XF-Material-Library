@@ -48,13 +48,17 @@ namespace XF.MaterialSample
         {
             using (await MaterialDialogs.LoadingDialog("Something is running..."))
             {
-                await Task.Delay(3000);
+                await Task.Delay(20000);
             }
         }
 
         private async void MaterialButton_ShowSnackbar(object sender, EventArgs e)
         {
-            await MaterialDialogs.ShowSnackbarAsync("This is a snackbar.", "Got it");
+            (sender as VisualElement).IsVisible = false;
+            await MaterialDialogs.ShowSnackbarAsync("This is a snackbar.", "Got it", msDuration: MaterialSnackbar.DURATION_INDEFINITE, primaryAction: () =>
+            {
+                (sender as VisualElement).IsVisible = true;
+            });
         }
 
         private async void MaterialButton_ShowLoadingSnackbar(object sender, EventArgs e)

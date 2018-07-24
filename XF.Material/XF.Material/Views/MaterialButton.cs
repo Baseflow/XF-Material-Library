@@ -74,8 +74,8 @@ namespace XF.Material.Views
 
         public MaterialButton()
         {
-            this.SetValue(MaterialEffectsUtil.LetterSpacingProperty, MaterialTypeScale.Button);
-            this.SetDynamicResource(FontFamilyProperty, MaterialConstants.MATERIAL_FONTFAMILY_MEDIUM);
+            this.SetValue(MaterialEffectsUtil.TypeScaleProperty, MaterialTypeScale.Button);
+            this.SetDynamicResource(FontFamilyProperty, MaterialConstants.MATERIAL_FONTFAMILY_BUTTON);
             this.SetDynamicResource(FontSizeProperty, MaterialConstants.MATERIAL_FONTSIZE_BUTTON);
             this.SetDynamicResource(FontAttributesProperty, MaterialConstants.MATERIAL_FONTATTRIBUTE_BOLD);
             this.SetDynamicResource(CornerRadiusProperty, MaterialConstants.MATERIAL_BUTTON_CORNERRADIUS);

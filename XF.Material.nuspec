@@ -3,13 +3,13 @@
   <metadata>
     <id>XF.Material</id>
     <title>XF.Material Library</title>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <authors>Dustin Catap</authors>
     <owners>Dustin Catap</owners>
     <projectUrl>https://github.com/contrix09/XF-Material-Library</projectUrl>
     <licenseUrl>https://github.com/contrix09/XF-Material-Library/blob/master/LICENSE.md</licenseUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
-    <releaseNotes>Fixed some minor bugs</releaseNotes>
+    <releaseNotes>https://github.com/contrix09/XF-Material-Library/blob/master/RELEASE_NOTES.md</releaseNotes>
     <description>A Xamarin.Forms library for Xamarin.Android and Xamarin.iOS to implement Google's Material Design.</description>
     <copyright>Copyright © 2018 - Dustin Catap</copyright>
     <tags>Xamarin.Forms Xamarin</tags>
