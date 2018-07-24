@@ -40,7 +40,7 @@
                     Grid.Row="0"
                     Margin="24,20,24,0"
                     BackgroundColor="White"
-                    Style="{DynamicResource Material.Font.H6}"
+                    Style="{DynamicResource Material.TypeScale.H6}"
                     Text="Dialog Title"
                     TextColor="#DE000000"
                     VerticalOptions="Start"
@@ -48,7 +48,7 @@
                 <Label x:Name="Message"
                     Grid.Row="1"
                     Margin="24,0,24,0"
-                    Style="{StaticResource Material.Font.Body1}"
+                    Style="{StaticResource Material.TypeScale.Body1}"
                     Text="Lorem ipsum dolor sit amet, conse tetuer adipiscing elit. Aenean commodo ligula eget dolor."
                     TextColor="#99000000" />
                 <Grid Grid.Row="2"

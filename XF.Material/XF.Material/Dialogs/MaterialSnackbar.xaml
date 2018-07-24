@@ -37,7 +37,7 @@
                 <Label x:Name="Message"
                     Grid.Column="0"
                     Margin="16,0,0,0"
-                    Style="{StaticResource Material.Font.Body2}"
+                    Style="{StaticResource Material.TypeScale.Body2}"
                     Text="This is a Snackbar"
                     TextColor="#DEFFFFFF"
                     VerticalOptions="Center" />
