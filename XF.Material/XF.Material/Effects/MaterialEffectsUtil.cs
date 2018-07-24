@@ -6,16 +6,16 @@ namespace XF.Material.Effects
 {
     public static class MaterialEffectsUtil
     {
-        public static readonly BindableProperty LetterSpacingProperty = BindableProperty.Create("LetterSpacing", typeof(MaterialTypeScale), typeof(MaterialTypographyEffect), MaterialTypeScale.None, propertyChanged: TypeScaleChanged);
+        public static readonly BindableProperty TypeScaleProperty = BindableProperty.Create("TypeScale", typeof(MaterialTypeScale), typeof(MaterialTypeScaleEffect), MaterialTypeScale.None, propertyChanged: TypeScaleChanged);
 
-        public static void SetLetterSpacing(BindableObject view, MaterialTypeScale typeScale)
+        public static void SetTypeScale(BindableObject view, MaterialTypeScale typeScale)
         {
-            view.SetValue(LetterSpacingProperty, typeScale);
+            view.SetValue(TypeScaleProperty, typeScale);
         }
 
-        public static MaterialTypeScale GetLetterSpacing(BindableObject view)
+        public static MaterialTypeScale GetTypeScale(BindableObject view)
         {
-            return (MaterialTypeScale)view.GetValue(LetterSpacingProperty);
+            return (MaterialTypeScale)view.GetValue(TypeScaleProperty);
         }
 
         private static void TypeScaleChanged(BindableObject bindable, object oldValue, object newValue)
@@ -28,14 +28,14 @@ namespace XF.Material.Effects
             }
 
             var typeScale = (MaterialTypeScale)newValue;
-            var oldEffect = view.Effects.FirstOrDefault(e => e is MaterialTypographyEffect);
+            var oldEffect = view.Effects.FirstOrDefault(e => e is MaterialTypeScaleEffect);
 
             if (oldEffect != null)
             {
                 view.Effects.Remove(oldEffect);
             }
 
-            view.Effects.Add(new MaterialTypographyEffect(typeScale));
+            view.Effects.Add(new MaterialTypeScaleEffect(typeScale));
         }
     }
 }
