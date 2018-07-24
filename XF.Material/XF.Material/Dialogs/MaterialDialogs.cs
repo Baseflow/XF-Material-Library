@@ -33,11 +33,11 @@ namespace XF.Material
         }
 
         // TODO: Refactor this
-        public static async Task ShowAlertAsync(string message, string title, string positiveButtonText = "OK", Action positiveAction = null, string negativeButtonText = "CANCEL", Action negativeAction = null)
+        public static async Task ShowAlertAsync(string message, string title, string positiveButtonText = "OK", Action positiveAction = null, string negativeButtonText = "CANCEL")
         {
             if(CanShowPopup<MaterialDialog>())
             {
-                await MaterialDialog.AlertAsync(message, title, positiveButtonText, positiveAction, negativeButtonText, negativeAction);
+                await MaterialDialog.AlertAsync(message, title, positiveButtonText, positiveAction, negativeButtonText);
             }
         }
 
