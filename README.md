@@ -186,7 +186,7 @@ Alert dialogs interrupt users with urgent information, details, or actions.
 
 | Code | Android  | iOS |
 | ------------- | ------------- | ------------- |
-| <code>MaterialDialogs.ShowAlertAsync(string message, string title = "Alert");</code><br /><br /><code>MaterialDialogs.ShowAlertAsync(string message, string title, string positiveButtonText = "Ok", Action positiveAction = null, string negativeButtonText = "CANCEL", Action negativeAction = null);</code> |<img src="images\dialog_android.jpg" alt="Android button" width="500" />|<img src="images\dialog_ios.jpg" alt="iOS button" width="550"/> |
+| <code>MaterialDialogs.ShowAlertAsync(string message, string title = "Alert");</code><br /><br /><code>MaterialDialogs.ShowAlertAsync(string message, string title, string positiveButtonText = "Ok", Action positiveAction = null, string negativeButtonText = "CANCEL");</code> |<img src="images\dialog_android.jpg" alt="Android button" width="500" />|<img src="images\dialog_ios.jpg" alt="iOS button" width="550"/> |
 
 #### Parameters
 
