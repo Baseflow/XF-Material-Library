@@ -2,6 +2,26 @@
 # XF.Material Library
 A Xamarin.Forms library for Xamarin.Android and Xamarin.iOS to implement [Google's Material Design](https://material.io/design).
 
+## Contents
+
+- [Getting Started](#getting-started)
+- [Features](#features)
+  - [Cards](#cards)
+  - [Buttons](#buttons)
+  - [Chips](#chips)
+  - [Circular Progress Indicator](#circular-progress-indicator)
+  - [Alert Dialog](#alert-dialog)
+  - [Loading Dialog](#loading-dialog)
+  - [Snackbar](#snackbar)
+  - [Material Resources](#material-resources)
+    - [Color](#color)
+    - [Typography](#typography)
+    - [Adding the Material Resources](#adding-the-material-resources)
+  - [Adding a Shadow to the Navigation Bar](#adding-a-shadow-to-the-navigation-bar)
+  - [Changing the Status Bar Color](#changing-the-status-bar-color)
+- [Examples](#examples)
+- [Libraries Used](#libraries-used)
+
 ## Getting Started
 1. Download the current version through [NuGet](https://www.nuget.org/packages/XF.Material) and install it in your Xamarin.Forms projects.
 2. Call the `Material.Init()` method in each project:
@@ -210,7 +230,7 @@ Alert dialogs may be dismissed by tapping outside of the dialog, tapping the dis
 
 Read more about alert dialogs [here](https://material.io/design/components/dialogs.html#alert-dialog).
 
-<b>Handling the Back Button on Android</b>
+#### Handling the Back Button on Android
 
 In order for the back button to work on Android for dismissing alert dialogs, override the `OnBackPressed` method in your `MainActivity` class and add this:
 
@@ -293,7 +313,7 @@ You can define your color theme with the `MaterialColorConfiguration` class. The
 
 2. `PrimaryVariant` - A tonal variation of the `Primary` color. Used for coloring the status bar.
 
-3. `Secondary` - Accents select parts of your UI. If not defined, it will use the `Primary` color. `MaterialButton` and `MaterialCircularLoadingView` uses this color value as their default accent color.
+3. `Secondary` - Accents select parts of your UI. If not defined, it will use the `Primary` color. `MaterialButton` (including the buttons in [Alert Dialogs](#alert-dialog)) and `MaterialCircularLoadingView` uses this color value as their default accent color.
 
 4. `SecondaryVariant` - A tonal variation of the `Secondary` color.
 
@@ -321,24 +341,25 @@ As stated [here](https://material.io/design/typography), you can use typography 
 ##### Type Scale
 The Material Design type scale includes a range of contrasting styles that support the needs of your product and its content. These are resusable categories of text, each with an intended application and meaning.
 
-<img src="images/typescale.jpg" width="400" />
+This library offers the same type scales, each can be applied and reused in your app.
 
+<img src="images/typescale.jpg" width="400" /><br />
 
-| Resource Key | Applicable Control | Font Size | Letter Spacing |
+| Resource Key | Applicable Control | Font Size | Font Attribute | Letter Spacing |
 |--------------|-------------|-----------|----------------|
-|`Material.TypeScale.H1`| `Label` | 96 | -1.5 |
-|`Material.TypeScale.H2`| `Label` | 60 | -0.5 |
-|`Material.TypeScale.H3`| `Label` | 48 | 0 |
-|`Material.TypeScale.H4`| `Label` | 34 | 0.25|
-|`Material.TypeScale.H5`| `Label` | 24 | 0 |
-|`Material.TypeScale.H6`| `Label` | 20 | 0.15 |
-|`Material.TypeScale.Subtitle1`| `Label` | 16 | 0.15 |
-|`Material.TypeScale.Subtitle2`| `Label` | 14 | 0.1 |
-|`Material.TypeScale.Body1`| `Label` | 16 | 0.5 |
-|`Material.TypeScale.Body2`| `Label` | 14 | 0.25 |
-|`Material.TypeScale.Button`| `Button` | 14 | 0.75 |
-|`Material.TypeScale.Caption`| `Label` | 12 | 0.4 |
-|`Material.TypeScale.Overline`| `Label` | 10 | 1.5 |
+|`Material.TypeScale.H1`| `Label` | 96 |Regular | -1.5 |
+|`Material.TypeScale.H2`| `Label` | 60 |Regular | -0.5 |
+|`Material.TypeScale.H3`| `Label` | 48 |Regular | 0 |
+|`Material.TypeScale.H4`| `Label` | 34 |Regular | 0.25|
+|`Material.TypeScale.H5`| `Label` | 24 |Regular | 0 |
+|`Material.TypeScale.H6`| `Label` | 20 |Bold | 0.15 |
+|`Material.TypeScale.Subtitle1`| `Label` | 16 |Regular | 0.15 |
+|`Material.TypeScale.Subtitle2`| `Label` | 14 |Bold | 0.1 |
+|`Material.TypeScale.Body1`| `Label` | 16 |Regular | 0.5 |
+|`Material.TypeScale.Body2`| `Label` | 14 |Regular | 0.25 |
+|`Material.TypeScale.Button`| `Button` | 14 |Bold | 0.75 |
+|`Material.TypeScale.Caption`| `Label` | 12 |Regular | 0.4 |
+|`Material.TypeScale.Overline`| `Label` | 10 |Regular | 1.5 |
 
 - <b>Headlines</b> - The largest text on the screen, and used for short, important text or numerals.
 
@@ -348,9 +369,11 @@ The Material Design type scale includes a range of contrasting styles that suppo
 
 - <b>Caption and Overline</b> - Smallest font sizes. Used sparingly to annotate imagery or to introduce a headline.
 
-- <b>Button</b> - Used for different types of buttons.
+- <b>Button</b> - Used for different types of buttons. `MaterialButton` automatically applies this style.
 
-##### Applying a Type Scale to an Element
+Read more about applying the type scale [here](https://material.io/design/typography/#applying-the-type-scale).
+
+##### Applying a Type Scale
 You can apply a type scale to a Label or Button by setting its style.
 
 ```xml
@@ -367,11 +390,11 @@ You can also inherit this style and create your own custom style.
 </Style>
 ```
 
-##### Setting a Font to a Type Scale
+##### Setting a Font Family to a Type Scale
 The `MaterialFontConfiguration` class allows you to set a specific font to a type scale.
 
 #### Adding the Material Resources
-The code below shows the a complete example on how to include the `MaterialColorConfiguration` and `MaterialFontConfiguration`.
+The code below shows a complete example on how to include the `MaterialColorConfiguration` and `MaterialFontConfiguration`.
 
 ```xml
 <Application x:Class="XF.MaterialSample.App"
@@ -428,6 +451,7 @@ The code below shows the a complete example on how to include the `MaterialColor
 ```
 
 Then in your `App.xaml.cs`, pass the resource key of the `MaterialConfiguration` object.
+*The resource key is not specific to the given example above.*
 
 ```c#
 // Xamarin.Forms
@@ -466,8 +490,105 @@ public App()
 ### Adding a shadow to the Navigation Bar
 You can add a shadow to the navigation bar by using the `MaterialNavigationPage` control.
 
-### Changing the Status Bar color
+### Changing the Status Bar Color
 You can change the color of the status bar by using the `Material.PlatformConfiguration.ChangeStatusBarColor(Color color)` method.
 
-<br />
-<b>README.md still being updated</b>
+## Examples
+A card showing labels and a button using the Material Type Scale.
+
+<table>
+<tr>
+    <td>
+<img src="images/card_example_android.png" width="300px" />
+    </td>
+    <td>
+<img src="images/card_example_ios.jpg" width="337px" />
+    </td>
+</tr>
+</table>
+
+- The title label uses the `Subtitle2` type scale with a *Roboto Medium* `FontFamily`.
+- The subtitle label  uses the `Caption` type scale, with a *Roboto Regular* `FontFamily`, and a `TextColor` value of `#80000000`.
+- The description label uses the `Body2` type scale, with a *Roboto Regular* `FontFamily`, and a `TextColor` value of `#D0000000`.
+- The button is a `MaterialButton` with `Text` as its `ButtonType`. The button uses the `Button` type scale, with a *Roboto Medium* `FontFamily`, and a `TextColor` value of `#6200EE`.
+
+<!--```xml
+<ContentPage x:Class="XF.MaterialSample.MainPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:local="clr-namespace:XF.MaterialSample"
+    xmlns:material="clr-namespace:XF.Material.Views;assembly=XF.Material"
+    Title="Xamarin.Forms Material"
+    ios:Page.UseSafeArea="True">
+    <material:MaterialCard Padding="0"
+        Margin="16"
+        CornerRadius="4"
+        Elevation="2"
+        VerticalOptions="Center">
+        <Grid RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <StackLayout Padding="16"
+                Orientation="Horizontal"
+                Spacing="16">
+                <Image Aspect="AspectFill"
+                    HeightRequest="40"
+                    Source="im_google"
+                    VerticalOptions="Center"
+                    WidthRequest="40" />
+                <StackLayout Spacing="8">
+                    <Label Style="{DynamicResource Material.TypeScale.H6}"
+                        Text="Google"
+                        TextColor="Black" />
+                    <Label Style="{DynamicResource Material.TypeScale.Caption}"
+                        Text="Technology Company"
+                        TextColor="#80000000" />
+                </StackLayout>
+            </StackLayout>
+            <Image Grid.Row="1"
+                Aspect="AspectFill"
+                HeightRequest="192"
+                Source="wall_google.jpg" />
+            <Label Grid.Row="2"
+                Margin="16"
+                Style="{DynamicResource Material.TypeScale.Body2}"
+                Text="Google LLC is an American multinational technology company that specializes in Internet-related services and products, which include online advertising technologies, search engine, cloud computing, software, and hardware."
+                TextColor="#D0000000" />
+            <StackLayout Grid.Row="3"
+                Margin="4,0,16,12"
+                Orientation="Horizontal"
+                Spacing="0">
+                <material:MaterialButton ButtonType="Text"
+                    HorizontalOptions="Start"
+                    Text="Learn More"
+                    TextColor="#6200EE" />
+                <StackLayout HorizontalOptions="EndAndExpand"
+                    Orientation="Horizontal"
+                    Spacing="32"
+                    VerticalOptions="Center">
+                    <Image HeightRequest="24"
+                        HorizontalOptions="End"
+                        Opacity="0.6"
+                        Source="ic_favorite"
+                        WidthRequest="24" />
+                    <Image HeightRequest="24"
+                        HorizontalOptions="End"
+                        Opacity="0.6"
+                        Source="ic_share"
+                        WidthRequest="24" />
+                </StackLayout>
+            </StackLayout>
+        </Grid>
+    </material:MaterialCard>
+</ContentPage>
+```-->
+
+## Libraries Used
+Special thanks to the following libraries I used for this project:
+- [Rg.Plugins.Popup](https://github.com/rotorgames/Rg.Plugins.Popup)
+- [LottieXamarin](https://github.com/martijn00/LottieXamarin)

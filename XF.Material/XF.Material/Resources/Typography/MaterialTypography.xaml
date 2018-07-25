@@ -88,7 +88,7 @@
         <Setter Property="mtrlfx:MaterialEffectsUtil.TypeScale" Value="Subtitle2" />
         <Setter Property="FontFamily" Value="{DynamicResource Key={x:Static const:MaterialConstants.MATERIAL_FONTFAMILY_SUBTITLE2}}" />
         <Setter Property="FontSize" Value="{StaticResource Material.FontSize.Subtitle2}" />
-        <Setter Property="FontAttributes" Value="{DynamicResource Material.FontAttribute.Bold}" />
+        <Setter Property="FontAttributes" Value="Bold" />
     </Style>
 
     <Style x:Key="Material.TypeScale.Body1" TargetType="Label">

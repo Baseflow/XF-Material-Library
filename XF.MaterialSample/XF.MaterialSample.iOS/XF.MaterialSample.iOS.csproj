@@ -185,4 +185,19 @@
   <ItemGroup>
     <BundleResource Include="Resources\ic_close.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\wall_google.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_favorite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_share.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\im_apple.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\wall_apple.jpg" />
+  </ItemGroup>
 </Project>
