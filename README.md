@@ -346,20 +346,21 @@ This library offers the same type scales, each can be applied and reused in your
 <img src="images/typescale.jpg" width="400" /><br />
 
 | Resource Key | Applicable Control | Font Size | Font Attribute | Letter Spacing |
-|--------------|-------------|-----------|----------------|
-|`Material.TypeScale.H1`| `Label` | 96 |Regular | -1.5 |
-|`Material.TypeScale.H2`| `Label` | 60 |Regular | -0.5 |
-|`Material.TypeScale.H3`| `Label` | 48 |Regular | 0 |
-|`Material.TypeScale.H4`| `Label` | 34 |Regular | 0.25|
-|`Material.TypeScale.H5`| `Label` | 24 |Regular | 0 |
-|`Material.TypeScale.H6`| `Label` | 20 |Bold | 0.15 |
-|`Material.TypeScale.Subtitle1`| `Label` | 16 |Regular | 0.15 |
-|`Material.TypeScale.Subtitle2`| `Label` | 14 |Bold | 0.1 |
-|`Material.TypeScale.Body1`| `Label` | 16 |Regular | 0.5 |
-|`Material.TypeScale.Body2`| `Label` | 14 |Regular | 0.25 |
-|`Material.TypeScale.Button`| `Button` | 14 |Bold | 0.75 |
-|`Material.TypeScale.Caption`| `Label` | 12 |Regular | 0.4 |
-|`Material.TypeScale.Overline`| `Label` | 10 |Regular | 1.5 |
+| -------------- | ------------- | ----------- | ---------------- | --------------|
+|`Material.TypeScale.H1`| `Label` | 96 | Regular | -1.5 |
+|`Material.TypeScale.H2`| `Label` | 60 | Regular | -0.5 |
+|`Material.TypeScale.H3`| `Label` | 48 | Regular | 0 |
+|`Material.TypeScale.H4`| `Label` | 34 | Regular | 0.25|
+|`Material.TypeScale.H5`| `Label` | 24 | Regular | 0 |
+|`Material.TypeScale.H6`| `Label` | 20 | Bold | 0.15 |
+|`Material.TypeScale.Subtitle1`| `Label` | 16 | Regular | 0.15 |
+|`Material.TypeScale.Subtitle2`| `Label` | 14 | Bold | 0.1 |
+|`Material.TypeScale.Body1`| `Label` | 16 | Regular | 0.5 |
+|`Material.TypeScale.Body2`| `Label` | 14 | Regular | 0.25 |
+|`Material.TypeScale.Button`| `Button` | 14 | Bold | 0.75 |
+|`Material.TypeScale.Caption`| `Label` | 12 | Regular | 0.4 |
+|`Material.TypeScale.Overline`| `Label` | 10 | Regular | 1.5 |
+
 
 - <b>Headlines</b> - The largest text on the screen, and used for short, important text or numerals.
 
