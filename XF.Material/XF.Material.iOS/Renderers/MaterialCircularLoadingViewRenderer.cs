@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Airbnb.Lottie;
-using Foundation;
+﻿using Airbnb.Lottie;
 using Lottie.Forms;
 using UIKit;
 using Xamarin.Forms;

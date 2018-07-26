@@ -1,5 +1,4 @@
-﻿using Rg.Plugins.Popup.Services;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Xamarin.Forms.Xaml;
 
 namespace XF.Material.Dialogs

@@ -1,5 +1,4 @@
 ﻿using Xamarin.Forms;
-using Xamarin.Forms.Internals;
 using XF.Material.Droid.Effects;
 
 [assembly: ResolutionGroupName("Material")]

@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using XF.Material;
 using XF.Material.Dialogs;
-using XF.Material.Effects;
-using XF.Material.Resources;
 using XF.Material.Views;
 
 namespace XF.MaterialSample

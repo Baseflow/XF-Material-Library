@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using CoreAnimation;
 using CoreGraphics;
 using Foundation;
@@ -90,6 +86,18 @@ namespace XF.Material.iOS.Renderers
             if(e.PropertyName == nameof(Button.IsEnabled) && _materialButton.ButtonType == MaterialButtonType.Elevated)
             {
                 this.UpdateState();
+            }
+
+            if (e?.PropertyName == MaterialButton.MaterialButtonColorChanged || e?.PropertyName == nameof(MaterialButton.ButtonType))
+            {
+                this.SetupColors();
+                this.UpdateButtonLayer();
+            }
+
+            if (e?.PropertyName == nameof(MaterialButton.Image))
+            {
+                this.SetupIcon();
+                this.UpdateButtonLayer();
             }
         }
 

@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Foundation;
-using Lottie.Forms.iOS.Renderers;
-using UIKit;
+﻿using Lottie.Forms.iOS.Renderers;
 
 namespace XF.Material.iOS
 {

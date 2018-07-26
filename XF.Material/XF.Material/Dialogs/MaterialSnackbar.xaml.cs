@@ -1,6 +1,4 @@
-﻿using Rg.Plugins.Popup.Services;
-using System;
-using System.Linq;
+﻿using System;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
