@@ -48,10 +48,12 @@
     <Compile Include="Effects\BaseMaterialEffect.cs" />
     <Compile Include="Effects\MaterialTypeScaleEffect.cs" />
     <Compile Include="Material.cs" />
+    <Compile Include="Renderers\Internal\MaterialEntryRenderer.cs" />
     <Compile Include="Renderers\MaterialButtonRenderer.cs" />
     <Compile Include="Renderers\MaterialCardRenderer.cs" />
     <Compile Include="Renderers\MaterialCircularLoadingViewRenderer.cs" />
     <Compile Include="MaterialHelper.cs" />
+    <Compile Include="Renderers\MaterialIconRenderer.cs" />
     <Compile Include="Renderers\MaterialNavigationPageRenderer.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -182,6 +184,15 @@
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>
       <SubType>Designer</SubType>
     </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_clear.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_check.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_error.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
