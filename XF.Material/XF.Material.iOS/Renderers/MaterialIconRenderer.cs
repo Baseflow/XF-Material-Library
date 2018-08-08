@@ -1,0 +1,54 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Text;
+
+using Foundation;
+using UIKit;
+using Xamarin.Forms;
+using Xamarin.Forms.Platform.iOS;
+using XF.Material.iOS.Renderers;
+using XF.Material.Views;
+
+[assembly: ExportRenderer(typeof(MaterialIcon), typeof(MaterialIconRenderer))]
+namespace XF.Material.iOS.Renderers
+{
+    public class MaterialIconRenderer : ImageRenderer
+    {
+        private MaterialIcon _materialIcon;
+        private UIImage _image;
+
+        protected override void OnElementChanged(ElementChangedEventArgs<Image> e)
+        {
+            base.OnElementChanged(e);
+
+            if (e?.NewElement != null)
+            {
+                _materialIcon = this.Element as MaterialIcon;
+                _image = this.Control.Image?.ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate);
+                this.ChangeTintColor();
+            }
+        }
+
+        protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            base.OnElementPropertyChanged(sender, e);
+
+            if (e?.PropertyName == nameof(MaterialIcon.TintColor) || e?.PropertyName == nameof(Image.Source))
+            {
+                _image = this.Control.Image?.ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate);
+                this.ChangeTintColor();
+            }
+        }
+
+        private void ChangeTintColor()
+        {
+            if (!_materialIcon.TintColor.IsDefault && _image != null)
+            {
+                this.Control.TintColor = _materialIcon.TintColor.ToUIColor();
+                this.Control.Image = _image;
+            }
+        }
+    }
+}
