@@ -70,11 +70,13 @@
             OnSurface="#000000"
             Primary="#011A27"
             PrimaryVariant="#000000"
-            Secondary="#063852"
+            Secondary="#6200EE"
             SecondaryVariant="#001229"
             Surface="#FFFFFF" />
 
-        <mtrl:MaterialConfiguration x:Key="Material.Style" FontConfiguration="{StaticResource Material.Font}" />
+        <mtrl:MaterialConfiguration x:Key="Material.Style"
+            ColorConfiguration="{StaticResource Material.Color}"
+            FontConfiguration="{StaticResource Material.Font}" />
 
     </Application.Resources>
 </Application>
