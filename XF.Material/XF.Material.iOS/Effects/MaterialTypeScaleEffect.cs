@@ -1,4 +1,5 @@
-﻿using Foundation;
+﻿using System.ComponentModel;
+using Foundation;
 using UIKit;
 using Xamarin.Forms;
 using XF.Material.iOS.Effects;
@@ -7,20 +8,35 @@ using XF.Material.iOS.Effects;
 [assembly: ExportEffect(typeof(MaterialTypeScaleEffect), "TypeScaleEffect")]
 namespace XF.Material.iOS.Effects
 {
-    public class MaterialTypeScaleEffect : BaseMaterialEffect<XF.Material.Effects.MaterialTypeScaleEffect>
+    internal class MaterialTypeScaleEffect : BaseMaterialEffect<XF.Material.Effects.MaterialTypeScaleEffect>
     {
+        protected override void OnElementPropertyChanged(PropertyChangedEventArgs args)
+        {
+            base.OnElementPropertyChanged(args);
+
+            if ((this.Element is Label || this.Element is Button) && args.PropertyName == "Text")
+            {
+                this.SetLetterSpacing();
+            }
+        }
+
         protected override void OnAttached()
         {
             base.OnAttached();
 
+            this.SetLetterSpacing();
+        }
+
+        private void SetLetterSpacing()
+        {
             if (this.Control is UILabel label)
             {
-                label.AttributedText = new NSMutableAttributedString(label.Text, font: label.Font, foregroundColor: label.TextColor, kerning: (float)this.MaterialEffect.LetterSpacing);
+                label.AttributedText = new NSMutableAttributedString(label.Text ?? string.Empty, font: label.Font, foregroundColor: label.TextColor, kerning: (float)this.MaterialEffect.LetterSpacing);
             }
 
             else if (this.Control is UIButton button)
             {
-                var attributedString = new NSMutableAttributedString(button.Title(UIControlState.Normal),
+                var attributedString = new NSMutableAttributedString(button.Title(UIControlState.Normal) ?? string.Empty,
                     foregroundColor: button.TitleColor(UIControlState.Normal),
                     kerning: (float)this.MaterialEffect.LetterSpacing);
 

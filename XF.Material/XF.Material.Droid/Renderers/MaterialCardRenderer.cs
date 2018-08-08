@@ -26,7 +26,7 @@ namespace XF.Material.Droid.Renderers
                 #region SHADOW FIX FOR BELOW API 23
 
                 /// TODO: Remove this after https://github.com/xamarin/Xamarin.Forms/issues/2423 has been resolved.
-                if (Build.VERSION.SdkInt < BuildVersionCodes.N)
+                if (Build.VERSION.SdkInt < BuildVersionCodes.N && _materialCard.Elevation > 0)
                 {
                     _materialCard.BorderColor = _materialCard.BackgroundColor;
                 }

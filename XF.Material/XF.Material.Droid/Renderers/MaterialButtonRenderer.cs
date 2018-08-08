@@ -220,7 +220,7 @@ namespace XF.Material.Droid.Renderers
 
         private void SetButtonIcon()
         {
-            _withIcon = _materialButton?.Image != null;
+            _withIcon = !string.IsNullOrEmpty(_materialButton.Image);
 
             if (_withIcon)
             {
