@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using XF.Material;
@@ -12,6 +13,63 @@ namespace XF.MaterialSample
         public MainPage()
         {
             InitializeComponent();
+            //EmailField.FocusCommand = new Command<bool>((s) =>
+            //{
+            //    if(!s && PasswordField.Text?.Length > 8)
+            //    {
+            //        PasswordField.State = MaterialTextFieldState.Invalid;
+            //    }
+
+            //    else if (!s && PasswordField.Text?.Length <= 8)
+            //    {
+            //        PasswordField.State = MaterialTextFieldState.Enabled;
+            //    }
+            //});
+
+            EmailField.Focused += (s, e) =>
+            {
+                Regex rx = new Regex(@"^[-!#$%&'*+/0-9=?A-Z^_a-z{|}~](\.?[-!#$%&'*+/0-9=?A-Z^_a-z{|}~])*@[a-zA-Z](-?[a-zA-Z0-9])*(\.[a-zA-Z](-?[a-zA-Z0-9])*)+$");
+
+                if (!e.IsFocused && string.IsNullOrEmpty(EmailField.Text))
+                {
+                    EmailField.HasError = false;
+                }
+
+                else if (!e.IsFocused && !string.IsNullOrEmpty(EmailField.Text))
+                {
+                    EmailField.HasError = !rx.IsMatch(EmailField.Text);
+                }
+            };
+
+            EmailField2.Focused += (s, e) =>
+             {
+                 Regex rx = new Regex(@"^[-!#$%&'*+/0-9=?A-Z^_a-z{|}~](\.?[-!#$%&'*+/0-9=?A-Z^_a-z{|}~])*@[a-zA-Z](-?[a-zA-Z0-9])*(\.[a-zA-Z](-?[a-zA-Z0-9])*)+$");
+
+                 if (!e.IsFocused && string.IsNullOrEmpty(EmailField2.Text))
+                 {
+                     EmailField2.HasError = false;
+                 }
+
+                 else if (!e.IsFocused && !string.IsNullOrEmpty(EmailField2.Text))
+                 {
+                     EmailField2.HasError = !rx.IsMatch(EmailField2.Text);
+                 }
+             };
+
+            //PasswordField.Focused += (s, e) =>
+            //{
+            //    if (!e.IsFocused && PasswordField.Text?.Length > 8)
+            //    {
+            //        PasswordField.State = MaterialTextFieldState.Invalid;
+            //    }
+
+            //    else if (!e.IsFocused && PasswordField.Text?.Length <= 8)
+            //    {
+            //        PasswordField.State = MaterialTextFieldState.Enabled;
+            //    }
+            //};
+
+            //EmailField.TextChangeCommand = new Command<string>((s) => System.Diagnostics.Debug.WriteLine(s));
         }
 
         private async void MaterialButton_ShowDialog(object sender, EventArgs e)

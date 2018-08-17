@@ -1,5 +1,8 @@
 # Release Notes
 
+#### 1.0.3
+- Added `MaterialTextField` and `MaterialIcon`.
+
 ##### 1.0.2
 - Added type scale fonts in `MaterialFontConfiguration`.
 

@@ -7,6 +7,9 @@ using XF.Material.Utilities;
 
 namespace XF.Material
 {
+    /// <summary>
+    /// Class for used for configuring Material resources.
+    /// </summary>
     public sealed class Material
     {
         private readonly ResourceDictionary _res;
@@ -18,22 +21,7 @@ namespace XF.Material
 
         internal Material(Application app, string key) : this(app)
         {
-            app.Resources.TryGetValue(key, out object value);
-
-            if (value is MaterialConfiguration materialResource)
-            {
-                Resource = materialResource;
-            }
-
-            else if (value != null)
-            {
-                throw new InvalidCastException($"The resource retrieved with key {key} was not of the type {typeof(MaterialConfiguration)}");
-            }
-
-            else
-            {
-                throw new KeyNotFoundException($"The resource with key {key} of the type {typeof(MaterialConfiguration)} was not found");
-            }
+            Resource = GetMaterialResource<MaterialConfiguration>(key);
         }
 
         internal Material(Application app)
@@ -42,6 +30,9 @@ namespace XF.Material
             PlatformConfiguration = DependencyService.Get<IMaterialUtility>();
         }
 
+        /// <summary>
+        /// Static object for configuring cross-platform UI customizations.
+        /// </summary>
         public static IMaterialUtility PlatformConfiguration { get; private set; }
 
         public static MaterialConfiguration Resource { get; private set; }
@@ -74,7 +65,7 @@ namespace XF.Material
         /// This will automatically create new resources in the current app.
         /// </summary>
         /// <param name="app">The cross-platform mobile application that is running.</param>
-        /// <param name="materialResource">The object that contains the values to be used for resource creation.</param>
+        /// <param name="materialResource">The object containing the <see cref="MaterialColorConfiguration"/> and <see cref="MaterialFontConfiguration"/>.</param>
         public static void Init(Application app, MaterialConfiguration materialResource)
         {
             var material = new Material(app ?? throw new ArgumentNullException(nameof(app)), materialResource ?? throw new ArgumentNullException(nameof(materialResource)));
@@ -82,17 +73,20 @@ namespace XF.Material
         }
 
         /// <summary>
-        /// Initializes a new <see cref="Material"/> object from which we will get the values defined either from the app's resource dictionary or by using a <see cref="Resource"/> object.
-        /// This will automatically create new resources in the current app.
+        /// Configure's the current app's resources by merging pre-defined Material resources and creating new resources based on the <see cref="MaterialConfiguration"/>'s properties.
         /// </summary>
         /// <param name="app">The cross-platform mobile application that is running.</param>
-        /// <param name="key">The key of the <see cref="Resource"/> object in the current app's resource dictionary.</param>
+        /// <param name="key">The key of the <see cref="MaterialConfiguration"/> object in the current app's resource dictionary.</param>
         public static void Init(Application app, string key)
         {
             var material = new Material(app ?? throw new ArgumentNullException(nameof(app)), key ?? throw new ArgumentNullException(nameof(key)));
             material.MergeMaterialDictionaries();
         }
 
+        /// <summary>
+        /// Configure's the current app's resources by merging pre-defined Material resources.
+        /// </summary>
+        /// <param name="app">The cross-platform mobile application that is running.</param>
         public static void Init(Application app)
         {
             var material = new Material(app ?? throw new ArgumentNullException(nameof(app)));

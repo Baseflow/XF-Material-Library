@@ -8,8 +8,10 @@ A Xamarin.Forms library for Xamarin.Android and Xamarin.iOS to implement [Google
 - [Features](#features)
   - [Cards](#cards)
   - [Buttons](#buttons)
+  - [Text Fields](#text-fields)
   - [Chips](#chips)
   - [Circular Progress Indicator](#circular-progress-indicator)
+  - [Tintable Image Icon](#tintable-image-icon)
   - [Alert Dialog](#alert-dialog)
   - [Loading Dialog](#loading-dialog)
   - [Snackbar](#snackbar)
@@ -143,6 +145,75 @@ On press, buttons display touch feedback (ripple effect).
 
 Read more about buttons [here](https://material.io/design/components/buttons.html).
 
+### Text Fields
+Text fields allow users to enter and edit text.
+
+| Code | Android  | iOS |
+| ------------- | ------------- | ------------- |
+| `<material:MaterialTextField Placeholder="Placeholder" HelperText="Helper Text" ErrorText="Error Text" Text="Input Text" InputType="Default" />`|<img src="images/textfield_android.jpg" alt="iOS button" width="573"/>|<img src="images/textfield_ios.jpg" alt="iOS button" width="573"/> |
+
+#### Properties
+
+`MaterialTextField` inherits the `ContentView` class.
+
+1.`AlwaysShowUnderline` - Boolean flag etermines whether the underline accent of this text field should always show or not. The default value is `false`.
+
+2. `BackgroundColor` - The background color of the text field. Default hex color value is `#DCDCDC`.
+
+3. `ErrorColor` - The color to indicate an error in the text field. The default value is based on the color value of `MaterialColorConfiguration.Error`.
+
+4. `ErrorText` - The text that will show to indicate an error in this text field. This will replace `HelperText` when `HasError` is set to `true`.
+
+5. `FocusCommand` - The command that will be executed when this text field receives or loses focus.
+
+6. `HasError` - Boolean flag that indicates whether an error has occurred or not in this text field.
+
+7. `HelperText` - The text that appears below the text field to indicate additional hints for the text field.
+
+8. `HelperTextColor` - The color of the helper text. The default hex color value is `#99000000`.
+
+9. `HelperTextFontFamily` - The font family of the helper text. The `ErrorText` will use this as its font family.
+
+10. `Icon` - The image icon that will show on the left side of this text field.
+
+11. `IconTintColor` - The color to be used to tint the icon image of this text field. The default hex color value is `#99000000`.
+
+12. `InputType` - The keyboard input type to be used for this text field.
+
+13. `MaxLength` - The maximum allowed number of characters in this text field.
+
+14. `Placeholder` - The placeholder text of this text field. This property must never be null or empty.
+
+15. `PlaceholderColor` - The color of the placeholder text. The default hex color value is `#99000000`.
+
+16. `Text` - The input text of this text field.
+
+17. `TextChangeCommand` - The command that executes when there is a change in this text field's input text.
+
+18. `TextColor` - The color of the input text. The default hex color value is `#D0000000`.
+
+19. `TextFontFamily` - The font family of the input text. By default, it uses the `MaterialFontConfiguration.Body2` font family.
+
+20. `TintColor` - The tint color of the underline accent and the placeholder of this text field when focused. The default color is set to the value of `MaterialColorConfiguration.SecondaryColor`.
+
+#### Events
+
+1. `Focused` - Raised when this text field receives or loses focus.
+
+2. `TextChanged` - Raised when the input text of this text field has changed.
+
+#### Usage and Behavior
+
+A text field container, by default, has a fill. You can make the text field's `BackgroundColor` transparent and `AlwaysShowUnderline` to `true`.
+
+The placeholder text should always be visible, because it is used to inform users as to what information is requested for a text field.
+
+Helper text conveys additional guidance about the input field, such as how it will be used. It should only take up a single line, being persistently visible or visible only on focus.
+
+When input text isn’t accepted, an error text can display instructions on how to fix it. Error messages are displayed below the input line, replacing helper text until fixed.
+
+Read more about text fields [here](https://material.io/design/components/text-fields.html#usage).
+
 ### Chips
 Chips are compact elements that represent an input, attribute, or action.
 
@@ -168,7 +239,8 @@ Chips are compact elements that represent an input, attribute, or action.
 
 7. `ActionImageTappedCommand` - The bindable command that executes when the `ActionImage` of the chip is tapped.
 
-8. `ActionImageTapped` - The event that is called when the `ActionImage` of the chip is tapped.
+#### Event
+1. `ActionImageTapped` - The event that is called when the `ActionImage` of the chip is tapped.
 
 #### Usage and Behavior
 
@@ -189,7 +261,7 @@ An indeterminate progress indicator that express an unspecified wait time of a p
 
 #### Properties
 
-`MaterialCircularLoadingView` inherits the `Lottie.Forms.AnimationView`.
+`MaterialCircularLoadingView` inherits the `Lottie.Forms.AnimationView` class.
 
 1. `Color` - The color of the circular progress indicator.
 
@@ -200,6 +272,24 @@ Circular progress indicators display progress by animating an indicator along an
 [Loading Dialog](###Loading-Dialog) uses this to indicate a process running.
 
 Read more about circular progress indicator [here](https://material.io/design/components/progress-indicators.html#circular-progress-indicators).
+
+### Tintable Image Icon
+A tintable image view.
+
+#### Code
+
+```xml
+<material:MaterialIcon WidthRequest="56"
+    HeightRequest="56"
+    Source="ic_save"
+    TintColor="#6200EE" />
+```
+
+#### Properties
+
+`MaterialCircularLoadingView` inherits the `Image` class.
+
+1. `TintColor` - The tint color of the image.
 
 ### Alert Dialog
 Alert dialogs interrupt users with urgent information, details, or actions.
@@ -313,7 +403,7 @@ You can define your color theme with the `MaterialColorConfiguration` class. The
 
 2. `PrimaryVariant` - A tonal variation of the `Primary` color. Used for coloring the status bar.
 
-3. `Secondary` - Accents select parts of your UI. If not defined, it will use the `Primary` color. `MaterialButton` (including the buttons in [Alert Dialogs](#alert-dialog)) and `MaterialCircularLoadingView` uses this color value as their default accent color.
+3. `Secondary` - Accents select parts of your UI. If not defined, it will use the `Primary` color. `MaterialButton` (including the buttons in [Alert Dialogs](#alert-dialog)), `MaterialTextField` and `MaterialCircularLoadingView` uses this color value as their default accent color.
 
 4. `SecondaryVariant` - A tonal variation of the `Secondary` color.
 
@@ -453,6 +543,8 @@ The code below shows a complete example on how to include the `MaterialColorConf
 
 Then in your `App.xaml.cs`, pass the resource key of the `MaterialConfiguration` object.
 *The resource key is not specific to the given example above.*
+
+`MaterialFontConfiguration`'s and `MaterialColorConfiguration`'s properties are optional, they always have a default value. For `MaterialFontConfiguration` the default font is the system font. `MaterialColorConfiguration` is seen [here](#color).
 
 ```c#
 // Xamarin.Forms

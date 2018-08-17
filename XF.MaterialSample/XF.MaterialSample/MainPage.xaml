@@ -2,150 +2,93 @@
 <ContentPage x:Class="XF.MaterialSample.MainPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:internal="clr-namespace:XF.Material.Views.Internal;assembly=XF.Material"
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
     xmlns:local="clr-namespace:XF.MaterialSample"
     xmlns:material="clr-namespace:XF.Material.Views;assembly=XF.Material"
     xmlns:mtrlfx="clr-namespace:XF.Material.Effects;assembly=XF.Material"
     Title="Xamarin.Forms Material"
-    ios:Page.UseSafeArea="True">
+    ios:Page.UseSafeArea="True"
+    BackgroundColor="White">
     <ContentPage.Resources>
         <ResourceDictionary>
             <local:ColorConverter x:Key="Converter.Color" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <ScrollView>
-        <StackLayout Margin="16"
-            HorizontalOptions="FillAndExpand"
-            Orientation="Vertical"
-            Spacing="8"
-            VerticalOptions="FillAndExpand">
-            <material:MaterialCard Padding="0"
-                CornerRadius="4"
-                Elevation="2"
-                VerticalOptions="Center">
-                <OnPlatform x:TypeArguments="View">
-                    <OnPlatform.Android>
-                        <Grid RowSpacing="0">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <StackLayout Padding="16"
-                                Orientation="Horizontal"
-                                Spacing="16">
-                                <Image Aspect="AspectFill"
-                                    HeightRequest="40"
-                                    Source="im_google"
-                                    VerticalOptions="Center"
-                                    WidthRequest="40" />
-                                <StackLayout Spacing="8">
-                                    <Label Style="{DynamicResource Material.TypeScale.H6}"
-                                        Text="Google"
-                                        TextColor="Black" />
-                                    <Label Style="{DynamicResource Material.TypeScale.Caption}"
-                                        Text="Technology Company"
-                                        TextColor="#80000000" />
-                                </StackLayout>
-                            </StackLayout>
-                            <Image Grid.Row="1"
-                                Aspect="AspectFill"
-                                HeightRequest="192"
-                                Source="wall_google.jpg" />
-                            <Label Grid.Row="2"
-                                Margin="16"
-                                Style="{DynamicResource Material.TypeScale.Body2}"
-                                Text="Google LLC is an American multinational technology company that specializes in Internet-related services and products, which include online advertising technologies, search engine, cloud computing, software, and hardware."
-                                TextColor="#D0000000" />
-                            <StackLayout Grid.Row="3"
-                                Margin="4,0,16,12"
-                                Orientation="Horizontal"
-                                Spacing="0">
-                                <material:MaterialButton ButtonType="Text"
-                                    HorizontalOptions="Start"
-                                    Text="Learn More"
-                                    TextColor="#6200EE" />
-                                <StackLayout HorizontalOptions="EndAndExpand"
-                                    Orientation="Horizontal"
-                                    Spacing="32"
-                                    VerticalOptions="Center">
-                                    <Image HeightRequest="24"
-                                        HorizontalOptions="End"
-                                        Opacity="0.6"
-                                        Source="ic_favorite"
-                                        WidthRequest="24" />
-                                    <Image HeightRequest="24"
-                                        HorizontalOptions="End"
-                                        Opacity="0.6"
-                                        Source="ic_share"
-                                        WidthRequest="24" />
-                                </StackLayout>
-                            </StackLayout>
-                        </Grid>
-                    </OnPlatform.Android>
-                    <OnPlatform.iOS>
-                        <Grid RowSpacing="0">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <StackLayout Padding="16"
-                                Orientation="Horizontal"
-                                Spacing="16">
-                                <Image Aspect="AspectFill"
-                                    HeightRequest="40"
-                                    Source="im_apple"
-                                    VerticalOptions="Center"
-                                    WidthRequest="40" />
-                                <StackLayout Spacing="8">
-                                    <Label Style="{DynamicResource Material.TypeScale.H6}"
-                                        Text="Apple"
-                                        TextColor="Black" />
-                                    <Label Style="{DynamicResource Material.TypeScale.Caption}"
-                                        Text="Technology Company"
-                                        TextColor="#80000000" />
-                                </StackLayout>
-                            </StackLayout>
-                            <Image Grid.Row="1"
-                                Aspect="AspectFill"
-                                HeightRequest="192"
-                                Source="wall_apple.jpg" />
-                            <Label Grid.Row="2"
-                                Margin="16"
-                                Style="{DynamicResource Material.TypeScale.Body2}"
-                                Text="Apple Inc. is an American multinational technology company headquartered in Cupertino, California, that designs, develops, and sells consumer electronics, computer software, and online services."
-                                TextColor="#D0000000" />
-                            <StackLayout Grid.Row="3"
-                                Margin="4,0,16,12"
-                                Orientation="Horizontal"
-                                Spacing="0">
-                                <material:MaterialButton ButtonType="Text"
-                                    HorizontalOptions="Start"
-                                    Text="Learn More"
-                                    TextColor="#6200EE" />
-                                <StackLayout HorizontalOptions="EndAndExpand"
-                                    Orientation="Horizontal"
-                                    Spacing="32"
-                                    VerticalOptions="Center">
-                                    <Image HeightRequest="24"
-                                        HorizontalOptions="End"
-                                        Opacity="0.6"
-                                        Source="ic_favorite"
-                                        WidthRequest="24" />
-                                    <Image HeightRequest="24"
-                                        HorizontalOptions="End"
-                                        Opacity="0.6"
-                                        Source="ic_share"
-                                        WidthRequest="24" />
-                                </StackLayout>
-                            </StackLayout>
-                        </Grid>
-                    </OnPlatform.iOS>
-                </OnPlatform>
-            </material:MaterialCard>
+    <ScrollView ios:ScrollView.ShouldDelayContentTouches="True">
+        <StackLayout Margin="16" Spacing="16">
+            <!--<material:MaterialTextField x:Name="EmailField"
+            ErrorColor="#CE0000"
+            ErrorText="Must be a valid email address"
+            HelperText="Required"
+            HelperTextColor="#A4A4A4"
+            Icon="ic_email"
+            IconTintColor="#A4A4A4"
+            InputType="Email"
+            Placeholder="Email Address"
+            PlaceholderColor="#A4A4A4"
+            TextColor="Black" />-->
+
+            <StackLayout Spacing="16" VerticalOptions="CenterAndExpand">
+                <material:MaterialTextField ErrorText="Must be a valid email address"
+                    HelperText="Helper Text"
+                    InputType="Email"
+                    IsEnabled="False"
+                    TextColor="Black" />
+                <material:MaterialTextField AlwaysShowUnderline="True"
+                    BackgroundColor="Transparent"
+                    ErrorText="Must be a valid email address"
+                    HelperText="Helper Text"
+                    InputType="Email"
+                    TextColor="Black" />
+
+                <material:MaterialTextField ErrorText="Must be a valid email address"
+                    HelperText="Helper Text"
+                    InputType="Email"
+                    Text="Input Text"
+                    TextColor="Black" />
+                <material:MaterialTextField AlwaysShowUnderline="True"
+                    BackgroundColor="Transparent"
+                    ErrorText="Must be a valid email address"
+                    HelperText="Helper Text"
+                    InputType="Email"
+                    Text="Input Text"
+                    TextColor="Black" />
+
+                <material:MaterialTextField x:Name="EmailField"
+                    ErrorText="Error Text"
+                    HelperText="Helper Text"
+                    InputType="Email"
+                    TextColor="Black" />
+
+                <material:MaterialTextField x:Name="EmailField2"
+                    AlwaysShowUnderline="True"
+                    BackgroundColor="Transparent"
+                    ErrorText="Error Text"
+                    HelperText="Helper Text"
+                    InputType="Email"
+                    TextColor="Black" />
+
+            </StackLayout>
+            <!--<material:MaterialTextField x:Name="PasswordField"
+
+            HelperText="Required"
+            HelperTextColor="#A4A4A4"
+            Icon="ic_lock"
+            IconTintColor="#A4A4A4"
+            InputType="Password"
+            MaxLength="10"
+            Placeholder="Password"
+            PlaceholderColor="#A4A4A4"
+            TextColor="Black" />-->
+
+            <!--<StackLayout HorizontalOptions="End" Orientation="Horizontal">
+            <material:MaterialButton ButtonType="Text"
+                HorizontalOptions="End"
+                Text="Register" />
+            <material:MaterialButton HorizontalOptions="End" Text="Sign In" />
+        </StackLayout>-->
+
         </StackLayout>
     </ScrollView>
 </ContentPage>

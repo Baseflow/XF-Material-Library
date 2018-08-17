@@ -1,9 +1,13 @@
-﻿using Android.Graphics;
+﻿using Android.App;
+using Android.Content;
+using Android.Graphics;
 using Android.Graphics.Drawables;
 using Android.Support.V4.Content;
 using Android.Support.V4.Graphics;
 using Android.Support.V4.View;
 using Android.Util;
+using Android.Views.InputMethods;
+using Android.Widget;
 using System;
 
 namespace XF.Material.Droid
@@ -46,9 +50,26 @@ namespace XF.Material.Droid
             return ColorUtils.CalculateLuminance(color) < 0.5;
         }
 
+        public static Drawable GetDrawableCopyFromResource(int resId)
+        {
+            return ContextCompat.GetDrawable(Material.Context, resId).GetConstantState().NewDrawable().Mutate();
+        }
+
         public static TDrawable GetDrawableCopyFromResource<TDrawable>(int resId) where TDrawable : Drawable
         {
             return ContextCompat.GetDrawable(Material.Context, resId).GetConstantState().NewDrawable().Mutate() as TDrawable;
+        }
+
+        public static Drawable GetDrawableCopy(this Drawable drawable)
+        {
+            return drawable.GetConstantState().NewDrawable().Mutate();
+        }
+
+        public static void ShowKeyboard(this EditText edittext)
+        {
+            var im = (Material.Context as Activity).GetSystemService(Context.InputMethodService) as InputMethodManager;
+            im.ShowSoftInput(edittext, ShowFlags.Forced);
+            im.ToggleSoftInput(ShowFlags.Forced, HideSoftInputFlags.ImplicitOnly);
         }
     }
 }
