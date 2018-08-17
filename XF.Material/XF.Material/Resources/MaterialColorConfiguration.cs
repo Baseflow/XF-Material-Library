@@ -7,18 +7,88 @@ namespace XF.Material.Resources
     /// </summary>
     public sealed class MaterialColorConfiguration : BindableObject
     {
-        public static readonly BindableProperty PrimaryProperty = BindableProperty.Create(nameof(Primary), typeof(Color), typeof(Color), default(Color));
-        public static readonly BindableProperty PrimaryVariantProperty = BindableProperty.Create(nameof(PrimaryVariant), typeof(Color), typeof(Color), default(Color));
-        public static readonly BindableProperty SecondaryProperty = BindableProperty.Create(nameof(Secondary), typeof(Color), typeof(Color), default(Color));
-        public static readonly BindableProperty SecondaryVariantProperty = BindableProperty.Create(nameof(SecondaryVariant), typeof(Color), typeof(Color), default(Color));
-        public static readonly BindableProperty BackgroundProperty = BindableProperty.Create(nameof(Background), typeof(Color), typeof(Color), Color.White);
-        public static readonly BindableProperty ErrorProperty = BindableProperty.Create(nameof(Error), typeof(Color), typeof(Color), default(Color));
-        public static readonly BindableProperty SurfaceProperty = BindableProperty.Create(nameof(Surface), typeof(Color), typeof(Color), default(Color));
-        public static readonly BindableProperty OnPrimaryProperty = BindableProperty.Create(nameof(OnPrimary), typeof(Color), typeof(Color), default(Color));
-        public static readonly BindableProperty OnSecondaryProperty = BindableProperty.Create(nameof(OnSecondary), typeof(Color), typeof(Color), default(Color));
-        public static readonly BindableProperty OnBackgroundProperty = BindableProperty.Create(nameof(OnBackground), typeof(Color), typeof(Color), default(Color));
-        public static readonly BindableProperty OnErrorProperty = BindableProperty.Create(nameof(OnError), typeof(Color), typeof(Color), default(Color));
-        public static readonly BindableProperty OnSurfaceProperty = BindableProperty.Create(nameof(OnSurface), typeof(Color), typeof(Color), default(Color));
+        public static readonly BindableProperty BackgroundProperty = BindableProperty.Create(nameof(Background), typeof(Color), typeof(Color), Color.FromHex("#EAEAEA"));
+        public static readonly BindableProperty ErrorProperty = BindableProperty.Create(nameof(Error), typeof(Color), typeof(Color), Color.FromHex("#B00020"));
+        public static readonly BindableProperty OnBackgroundProperty = BindableProperty.Create(nameof(OnBackground), typeof(Color), typeof(Color), Color.FromHex("#000000"));
+        public static readonly BindableProperty OnErrorProperty = BindableProperty.Create(nameof(OnError), typeof(Color), typeof(Color), Color.FromHex("#FFFFFF"));
+        public static readonly BindableProperty OnPrimaryProperty = BindableProperty.Create(nameof(OnPrimary), typeof(Color), typeof(Color), Color.FromHex("#FFFFFF"));
+        public static readonly BindableProperty OnSecondaryProperty = BindableProperty.Create(nameof(OnSecondary), typeof(Color), typeof(Color), Color.FromHex("#FFFFFF"));
+        public static readonly BindableProperty OnSurfaceProperty = BindableProperty.Create(nameof(OnSurface), typeof(Color), typeof(Color), Color.FromHex("#000000"));
+        public static readonly BindableProperty PrimaryProperty = BindableProperty.Create(nameof(Primary), typeof(Color), typeof(Color), Color.FromHex("#607D8B"));
+        public static readonly BindableProperty PrimaryVariantProperty = BindableProperty.Create(nameof(PrimaryVariant), typeof(Color), typeof(Color), Color.FromHex("#34515e"));
+        public static readonly BindableProperty SecondaryProperty = BindableProperty.Create(nameof(Secondary), typeof(Color), typeof(Color), Color.FromHex("#37464f"));
+        public static readonly BindableProperty SecondaryVariantProperty = BindableProperty.Create(nameof(SecondaryVariant), typeof(Color), typeof(Color), Color.FromHex("#101f27"));
+        public static readonly BindableProperty SurfaceProperty = BindableProperty.Create(nameof(Surface), typeof(Color), typeof(Color), Color.FromHex("#FFFFFF"));
+       
+        /// <summary>
+        /// The underlying color of an app’s content.
+        /// Typically the background color of scrollable content.
+        /// </summary>
+        public Color Background
+        {
+            get => (Color)GetValue(BackgroundProperty);
+            set => SetValue(BackgroundProperty, value);
+        }
+
+        /// <summary>
+        /// The color used to indicate error status.
+        /// </summary>
+        public Color Error
+        {
+            get => (Color)GetValue(ErrorProperty);
+            set => SetValue(ErrorProperty, value);
+        }
+
+        /// <summary>
+        /// A color that passes accessibility guidelines for text/iconography when drawn on top of <see cref="MaterialColorConfiguration.Background"/>.
+        /// </summary>
+        public Color OnBackground
+        {
+            get => (Color)GetValue(OnBackgroundProperty);
+            set => SetValue(OnBackgroundProperty, value);
+        }
+
+        /// <summary>
+        /// A color that passes accessibility guidelines for text/iconography when drawn on top of <see cref="MaterialColorConfiguration.Error"/>.
+        /// </summary>
+        public Color OnError
+        {
+            get => (Color)GetValue(OnErrorProperty);
+            set => SetValue(OnErrorProperty, value);
+        }
+
+        /// <summary>
+        /// A color that passes accessibility guidelines for text/iconography when drawn on top of <see cref="MaterialColorConfiguration.Primary"/>.
+        /// </summary>
+        public Color OnPrimary
+        {
+            get => (Color)GetValue(OnPrimaryProperty);
+            set => SetValue(OnPrimaryProperty, value);
+        }
+
+        /// <summary>
+        /// 	A color that passes accessibility guidelines for text/iconography when drawn on top of <see cref="MaterialColorConfiguration.Secondary"/>.
+        /// </summary>
+        public Color OnSecondary
+        {
+            get
+            {
+                var color = (Color)GetValue(OnSecondaryProperty);
+
+                return color.IsDefault ? this.OnPrimary : color;
+            }
+
+            set => SetValue(OnSecondaryProperty, value);
+        }
+
+        /// <summary>
+        /// A color that passes accessibility guidelines for text/iconography when drawn on top of <see cref="MaterialColorConfiguration.Surface"/>
+        /// </summary>
+        public Color OnSurface
+        {
+            get => (Color)GetValue(OnSurfaceProperty);
+            set => SetValue(OnSurfaceProperty, value);
+        }
 
         /// <summary>
         /// Displayed most frequently across your app.
@@ -71,82 +141,12 @@ namespace XF.Material.Resources
         }
 
         /// <summary>
-        /// The underlying color of an app’s content.
-        /// Typically the background color of scrollable content.
-        /// </summary>
-        public Color Background
-        {
-            get => (Color)GetValue(BackgroundProperty);
-            set => SetValue(BackgroundProperty, value);
-        }
-
-        /// <summary>
-        /// The color used to indicate error status.
-        /// </summary>
-        public Color Error
-        {
-            get => (Color)GetValue(ErrorProperty);
-            set => SetValue(ErrorProperty, value);
-        }
-
-        /// <summary>
         /// The color of surfaces such as cards, sheets, menus.
         /// </summary>
         public Color Surface
         {
             get => (Color)GetValue(SurfaceProperty);
             set => SetValue(SurfaceProperty, value);
-        }
-
-        /// <summary>
-        /// A color that passes accessibility guidelines for text/iconography when drawn on top of <see cref="MaterialColorConfiguration.Primary"/>.
-        /// </summary>
-        public Color OnPrimary
-        {
-            get => (Color)GetValue(OnPrimaryProperty);
-            set => SetValue(OnPrimaryProperty, value);
-        }
-
-        /// <summary>
-        /// 	A color that passes accessibility guidelines for text/iconography when drawn on top of <see cref="MaterialColorConfiguration.Secondary"/>.
-        /// </summary>
-        public Color OnSecondary
-        {
-            get
-            {
-                var color = (Color)GetValue(OnSecondaryProperty);
-
-                return color.IsDefault ? this.OnPrimary : color;
-            }
-
-            set => SetValue(OnSecondaryProperty, value);
-        }
-
-        /// <summary>
-        /// A color that passes accessibility guidelines for text/iconography when drawn on top of <see cref="MaterialColorConfiguration.Background"/>.
-        /// </summary>
-        public Color OnBackground
-        {
-            get => (Color)GetValue(OnBackgroundProperty);
-            set => SetValue(OnBackgroundProperty, value);
-        }
-
-        /// <summary>
-        /// A color that passes accessibility guidelines for text/iconography when drawn on top of <see cref="MaterialColorConfiguration.Error"/>.
-        /// </summary>
-        public Color OnError
-        {
-            get => (Color)GetValue(OnErrorProperty);
-            set => SetValue(OnErrorProperty, value);
-        }
-
-        /// <summary>
-        /// A color that passes accessibility guidelines for text/iconography when drawn on top of <see cref="MaterialColorConfiguration.Surface"/>
-        /// </summary>
-        public Color OnSurface
-        {
-            get => (Color)GetValue(OnSurfaceProperty);
-            set => SetValue(OnSurfaceProperty, value);
         }
     }
 }

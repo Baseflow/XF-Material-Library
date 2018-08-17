@@ -43,7 +43,7 @@ namespace XF.Material.Views
 
         public static readonly BindableProperty HasErrorProperty = BindableProperty.Create(nameof(HasError), typeof(bool), typeof(MaterialTextField), false);
 
-        public static readonly BindableProperty HelperTextColorProperty = BindableProperty.Create(nameof(HelperTextColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#90000000"));
+        public static readonly BindableProperty HelperTextColorProperty = BindableProperty.Create(nameof(HelperTextColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#99000000"));
 
         public static readonly BindableProperty HelperTextFontFamilyProperty = BindableProperty.Create(nameof(HelperTextFontFamily), typeof(string), typeof(MaterialTextField));
 
@@ -51,13 +51,13 @@ namespace XF.Material.Views
 
         public static readonly BindableProperty IconProperty = BindableProperty.Create(nameof(Icon), typeof(string), typeof(MaterialTextField));
 
-        public static readonly BindableProperty IconTintColorProperty = BindableProperty.Create(nameof(IconTintColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#90000000"));
+        public static readonly BindableProperty IconTintColorProperty = BindableProperty.Create(nameof(IconTintColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#99000000"));
 
         public static readonly BindableProperty InputTypeProperty = BindableProperty.Create(nameof(InputType), typeof(MaterialTextFieldInputType), typeof(MaterialTextField), MaterialTextFieldInputType.Default);
 
         public static readonly BindableProperty MaxLengthProperty = BindableProperty.Create(nameof(MaxLength), typeof(int), typeof(MaterialTextField), 0);
 
-        public static readonly BindableProperty PlaceholderColorProperty = BindableProperty.Create(nameof(PlaceholderColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#90000000"));
+        public static readonly BindableProperty PlaceholderColorProperty = BindableProperty.Create(nameof(PlaceholderColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#99000000"));
 
         public static readonly BindableProperty PlaceholderFontFamilyProperty = BindableProperty.Create(nameof(PlaceholderFontFamily), typeof(string), typeof(MaterialTextField));
 
@@ -65,7 +65,7 @@ namespace XF.Material.Views
 
         public static readonly BindableProperty TextChangeCommandProperty = BindableProperty.Create(nameof(TextChangeCommand), typeof(Command<string>), typeof(MaterialTextField));
 
-        public static readonly BindableProperty TextColorProperty = BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(MaterialTextField), Color.Black);
+        public static readonly BindableProperty TextColorProperty = BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#D0000000"));
 
         public static readonly BindableProperty TextFontFamilyProperty = BindableProperty.Create(nameof(TextFontFamily), typeof(string), typeof(MaterialTextField));
 
@@ -85,6 +85,7 @@ namespace XF.Material.Views
             InitializeComponent();
             entry.PropertyChanged += this.Entry_PropertyChanged;
             errorIcon.TintColor = this.ErrorColor;
+            persistentUnderline.Color = this.PlaceholderColor;
             tapGesture.Command = new Command(() =>
             {
                 if(!entry.IsFocused)
@@ -101,7 +102,7 @@ namespace XF.Material.Views
         public new event EventHandler<FocusEventArgs> Focused;
 
         /// <summary>
-        /// Raeised when the text of this text field has changed.
+        /// Raised when the input text of this text field has changed.
         /// </summary>
         public event EventHandler<TextChangedEventArgs> TextChanged;
 
@@ -229,7 +230,15 @@ namespace XF.Material.Views
         public string Placeholder
         {
             get => (string)GetValue(PlaceholderProperty);
-            set => SetValue(PlaceholderProperty, value);
+            set
+            {
+                if(string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentNullException($"{nameof(this.Placeholder)} must not be null, empty, or a white space.");
+                }
+
+                SetValue(PlaceholderProperty, value);
+            }
         }
 
         /// <summary>
@@ -319,17 +328,7 @@ namespace XF.Material.Views
                         placeholder.TextColor = this.TintColor;
                         entry.Opacity = 1;
                     }));
-
-                    if(this.AlwaysShowUnderline)
-                    {
-                        anim.Add(0.0, ANIM_DURATION, new Animation(v => underline.HeightRequest = v, 1, 2, animationCurve, () => underline.Color = this.TintColor));
-                    }
-
-                    else
-                    {
-                        anim.Add(0.0, ANIM_DURATION, new Animation(v => underline.WidthRequest = v, 0, this.Width, animationCurve, () => underline.HorizontalOptions = LayoutOptions.CenterAndExpand));
-                    }
-
+                    anim.Add(0.0, ANIM_DURATION, new Animation(v => underline.WidthRequest = v, 0, this.Width, animationCurve, () => underline.HorizontalOptions = LayoutOptions.CenterAndExpand));
                     anim.Commit(this, "Anim2", rate: 2, length: (uint)(/*Device.RuntimePlatform == Device.iOS ? 1000 : */ANIM_DURATION * 1000), easing: animationCurve);
                 });
             }
@@ -346,11 +345,7 @@ namespace XF.Material.Views
             if (propertyName == nameof(this.Text))
             {
                 entry.Text = this.Text;
-
-                if(_counterEnabled)
-                {
-                    this.UpdateCounter();
-                }
+                this.UpdateCounter();
             }
 
             else if (propertyName == nameof(this.TextColor))
@@ -375,7 +370,7 @@ namespace XF.Material.Views
 
             else if (propertyName == nameof(this.PlaceholderColor))
             {
-                placeholder.TextColor = this.PlaceholderColor;
+                placeholder.TextColor = persistentUnderline.Color = this.PlaceholderColor;
             }
 
             else if (propertyName == nameof(this.PlaceholderFontFamily))
@@ -425,7 +420,7 @@ namespace XF.Material.Views
 
             else if (propertyName == nameof(this.IsEnabled))
             {
-                this.Opacity = this.IsEnabled ? 1 : 0.35;
+                this.Opacity = this.IsEnabled ? 1 : 0.33;
                 helper.IsVisible = this.IsEnabled;
             }
 
@@ -436,35 +431,13 @@ namespace XF.Material.Views
 
             else if (propertyName == nameof(this.AlwaysShowUnderline))
             {
-                if (this.AlwaysShowUnderline)
-                {
-                    underline.WidthRequest = this.Width;
-                    underline.HorizontalOptions = LayoutOptions.FillAndExpand;
-                    underline.HeightRequest = 1;
-                }
-
-                else
-                {
-                    underline.WidthRequest = 0;
-                    underline.HeightRequest = 0;
-                    underline.Color = this.TintColor;
-                }
+                persistentUnderline.IsVisible = this.AlwaysShowUnderline;
             }
 
             else if(propertyName == nameof(this.MaxLength))
             {
                 _counterEnabled = this.MaxLength > 0;
-
-                if(_counterEnabled)
-                {
-                    entry.MaxLength = this.MaxLength;
-                    this.UpdateCounter();
-                }
-
-                else
-                {
-                    entry.IsVisible = false;
-                }
+                entry.MaxLength = _counterEnabled ? this.MaxLength : (int)Entry.MaxLengthProperty.DefaultValue;
             }
 
             else if(propertyName == nameof(this.Icon))
@@ -501,17 +474,12 @@ namespace XF.Material.Views
                 }
             };
 
-            if (entry.IsFocused && !this.AlwaysShowUnderline)
+            if(entry.IsFocused)
             {
                 anim.Add(0.0, ANIM_DURATION, new Animation(v => underline.WidthRequest = v, 0, this.Width, animationCurve, () => underline.HorizontalOptions = LayoutOptions.FillAndExpand));
             }
 
-            else if (entry.IsFocused && this.AlwaysShowUnderline)
-            {
-                anim.Add(0.0, ANIM_DURATION, new Animation(v => underline.HeightRequest = v, 1, 2, animationCurve, () => underline.Color = this.TintColor));
-            }
-
-            else if (!entry.IsFocused && !this.AlwaysShowUnderline)
+            else
             {
                 anim.Add(0.0, ANIM_DURATION, new Animation(v => underline.HeightRequest = v, underline.HeightRequest, 0, animationCurve, () =>
                 {
@@ -519,11 +487,6 @@ namespace XF.Material.Views
                     underline.HeightRequest = 2;
                     underline.HorizontalOptions = LayoutOptions.Center;
                 }));
-            }
-
-            else if (!entry.IsFocused && this.AlwaysShowUnderline)
-            {
-                anim.Add(0.0, ANIM_DURATION, new Animation(v => underline.HeightRequest = v, underline.HeightRequest, 1, animationCurve, () => underline.HeightRequest = 1));
             }
 
             anim.Commit(this, "FocusAnimation", rate: 2, length: (uint)(Device.RuntimePlatform == Device.iOS ? 500 : ANIM_DURATION * 1000), easing: animationCurve);
@@ -597,6 +560,7 @@ namespace XF.Material.Views
             {
                 this.FocusCommand?.Execute(entry.IsFocused);
                 this.Focused?.Invoke(this, new FocusEventArgs(entry, entry.IsFocused));
+                this.UpdateCounter();
                 counter.IsVisible = entry.IsFocused;
             }
 
@@ -608,11 +572,7 @@ namespace XF.Material.Views
             else if (e.PropertyName == nameof(Entry.Text))
             {
                 this.Text = entry.Text;
-
-                if (_counterEnabled)
-                {
-                    this.UpdateCounter();
-                }
+                this.UpdateCounter();
             }
         }
 
@@ -657,8 +617,11 @@ namespace XF.Material.Views
 
         private void UpdateCounter()
         {
-            var count = entry.Text != null ? entry.Text.Length : 0;
-            counter.Text = $"{count}/{this.MaxLength}";
+            if (_counterEnabled)
+            {
+                var count = entry.Text != null ? entry.Text.Length : 0;
+                counter.Text = $"{count}/{this.MaxLength}";
+            }
         }
     }
 }

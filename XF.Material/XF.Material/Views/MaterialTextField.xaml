@@ -54,6 +54,7 @@
                 FontSize="16"
                 HeightRequest="20"
                 HorizontalOptions="FillAndExpand"
+                TextColor="#D0000000"
                 VerticalOptions="End">
                 <internal:MaterialEntry.Triggers>
                     <DataTrigger Binding="{Binding Source={x:Reference errorIcon}, Path=IsVisible}"
@@ -70,6 +71,14 @@
                 HorizontalOptions="FillAndExpand"
                 VerticalOptions="End"
                 Color="#DCDCDC" />
+            <BoxView x:Name="persistentUnderline"
+                Grid.Row="0"
+                Grid.ColumnSpan="3"
+                HeightRequest="1"
+                HorizontalOptions="FillAndExpand"
+                IsVisible="False"
+                VerticalOptions="End"
+                Color="#000000" />
             <BoxView x:Name="underline"
                 Grid.Row="0"
                 Grid.ColumnSpan="3"

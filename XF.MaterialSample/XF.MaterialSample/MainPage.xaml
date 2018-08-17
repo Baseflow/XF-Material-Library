@@ -15,9 +15,9 @@
             <local:ColorConverter x:Key="Converter.Color" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <StackLayout Margin="16" Spacing="16">
-        <material:MaterialTextField x:Name="EmailField"
-            BackgroundColor="#EAEAEA"
+    <ScrollView ios:ScrollView.ShouldDelayContentTouches="True">
+        <StackLayout Margin="16" Spacing="16">
+            <!--<material:MaterialTextField x:Name="EmailField"
             ErrorColor="#CE0000"
             ErrorText="Must be a valid email address"
             HelperText="Required"
@@ -27,9 +27,51 @@
             InputType="Email"
             Placeholder="Email Address"
             PlaceholderColor="#A4A4A4"
-            TextColor="Black" />
-        <material:MaterialTextField x:Name="PasswordField"
-            BackgroundColor="#EAEAEA"
+            TextColor="Black" />-->
+
+            <StackLayout Spacing="16" VerticalOptions="CenterAndExpand">
+                <material:MaterialTextField ErrorText="Must be a valid email address"
+                    HelperText="Helper Text"
+                    InputType="Email"
+                    IsEnabled="False"
+                    TextColor="Black" />
+                <material:MaterialTextField AlwaysShowUnderline="True"
+                    BackgroundColor="Transparent"
+                    ErrorText="Must be a valid email address"
+                    HelperText="Helper Text"
+                    InputType="Email"
+                    TextColor="Black" />
+
+                <material:MaterialTextField ErrorText="Must be a valid email address"
+                    HelperText="Helper Text"
+                    InputType="Email"
+                    Text="Input Text"
+                    TextColor="Black" />
+                <material:MaterialTextField AlwaysShowUnderline="True"
+                    BackgroundColor="Transparent"
+                    ErrorText="Must be a valid email address"
+                    HelperText="Helper Text"
+                    InputType="Email"
+                    Text="Input Text"
+                    TextColor="Black" />
+
+                <material:MaterialTextField x:Name="EmailField"
+                    ErrorText="Error Text"
+                    HelperText="Helper Text"
+                    InputType="Email"
+                    TextColor="Black" />
+
+                <material:MaterialTextField x:Name="EmailField2"
+                    AlwaysShowUnderline="True"
+                    BackgroundColor="Transparent"
+                    ErrorText="Error Text"
+                    HelperText="Helper Text"
+                    InputType="Email"
+                    TextColor="Black" />
+
+            </StackLayout>
+            <!--<material:MaterialTextField x:Name="PasswordField"
+
             HelperText="Required"
             HelperTextColor="#A4A4A4"
             Icon="ic_lock"
@@ -38,16 +80,17 @@
             MaxLength="10"
             Placeholder="Password"
             PlaceholderColor="#A4A4A4"
-            TextColor="Black" />
+            TextColor="Black" />-->
 
-        <StackLayout HorizontalOptions="End" Orientation="Horizontal">
-            <material:MaterialButton ButtonType="Outlined"
+            <!--<StackLayout HorizontalOptions="End" Orientation="Horizontal">
+            <material:MaterialButton ButtonType="Text"
                 HorizontalOptions="End"
                 Text="Register" />
             <material:MaterialButton HorizontalOptions="End" Text="Sign In" />
-        </StackLayout>
+        </StackLayout>-->
 
-    </StackLayout>
+        </StackLayout>
+    </ScrollView>
 </ContentPage>
 
 <!--<Label Grid.Row="0"

@@ -41,6 +41,21 @@ namespace XF.MaterialSample
                 }
             };
 
+            EmailField2.Focused += (s, e) =>
+             {
+                 Regex rx = new Regex(@"^[-!#$%&'*+/0-9=?A-Z^_a-z{|}~](\.?[-!#$%&'*+/0-9=?A-Z^_a-z{|}~])*@[a-zA-Z](-?[a-zA-Z0-9])*(\.[a-zA-Z](-?[a-zA-Z0-9])*)+$");
+
+                 if (!e.IsFocused && string.IsNullOrEmpty(EmailField2.Text))
+                 {
+                     EmailField2.HasError = false;
+                 }
+
+                 else if (!e.IsFocused && !string.IsNullOrEmpty(EmailField2.Text))
+                 {
+                     EmailField2.HasError = !rx.IsMatch(EmailField2.Text);
+                 }
+             };
+
             //PasswordField.Focused += (s, e) =>
             //{
             //    if (!e.IsFocused && PasswordField.Text?.Length > 8)

@@ -6,7 +6,7 @@ namespace XF.Material.Effects
 {
     public class MaterialTypeScaleEffect : BaseMaterialEffect
     {
-        public MaterialTypeScaleEffect(MaterialTypeScale typeScale) : base("Material.TypeScaleEffect")
+        public MaterialTypeScaleEffect(MaterialTypeScale typeScale) : this()
         {
             var key = $"Material.LetterSpacing.{typeScale.ToString()}";
             var value = Application.Current.Resources[key];
@@ -15,6 +15,8 @@ namespace XF.Material.Effects
             this.TypeScale = typeScale;
             this.LetterSpacing = letterSpacing;
         }
+
+        public MaterialTypeScaleEffect() : base("Material.TypeScaleEffect") { }
 
         public double LetterSpacing { get; }
 

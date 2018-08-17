@@ -11,6 +11,7 @@ A Xamarin.Forms library for Xamarin.Android and Xamarin.iOS to implement [Google
   - [Text Fields](#text-fields)
   - [Chips](#chips)
   - [Circular Progress Indicator](#circular-progress-indicator)
+  - [Tintable Image Icon](#tintable-image-icon)
   - [Alert Dialog](#alert-dialog)
   - [Loading Dialog](#loading-dialog)
   - [Snackbar](#snackbar)
@@ -260,7 +261,7 @@ An indeterminate progress indicator that express an unspecified wait time of a p
 
 #### Properties
 
-`MaterialCircularLoadingView` inherits the `Lottie.Forms.AnimationView`.
+`MaterialCircularLoadingView` inherits the `Lottie.Forms.AnimationView` class.
 
 1. `Color` - The color of the circular progress indicator.
 
@@ -271,6 +272,24 @@ Circular progress indicators display progress by animating an indicator along an
 [Loading Dialog](###Loading-Dialog) uses this to indicate a process running.
 
 Read more about circular progress indicator [here](https://material.io/design/components/progress-indicators.html#circular-progress-indicators).
+
+### Tintable Image Icon
+A tintable image view.
+
+#### Code
+
+```xml
+<material:MaterialIcon WidthRequest="56"
+    HeightRequest="56"
+    Source="ic_save"
+    TintColor="#6200EE" />
+```
+
+#### Properties
+
+`MaterialCircularLoadingView` inherits the `Image` class.
+
+1. `TintColor` - The tint color of the image.
 
 ### Alert Dialog
 Alert dialogs interrupt users with urgent information, details, or actions.
