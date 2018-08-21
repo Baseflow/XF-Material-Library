@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using XF.Material;
 using XF.Material.Dialogs;
+using XF.Material.Dialogs.Configurations;
 using XF.Material.Views;
 
 namespace XF.MaterialSample
@@ -13,18 +14,7 @@ namespace XF.MaterialSample
         public MainPage()
         {
             InitializeComponent();
-            //EmailField.FocusCommand = new Command<bool>((s) =>
-            //{
-            //    if(!s && PasswordField.Text?.Length > 8)
-            //    {
-            //        PasswordField.State = MaterialTextFieldState.Invalid;
-            //    }
 
-            //    else if (!s && PasswordField.Text?.Length <= 8)
-            //    {
-            //        PasswordField.State = MaterialTextFieldState.Enabled;
-            //    }
-            //});
 
             EmailField.Focused += (s, e) =>
             {
@@ -40,42 +30,23 @@ namespace XF.MaterialSample
                     EmailField.HasError = !rx.IsMatch(EmailField.Text);
                 }
             };
-
-            EmailField2.Focused += (s, e) =>
-             {
-                 Regex rx = new Regex(@"^[-!#$%&'*+/0-9=?A-Z^_a-z{|}~](\.?[-!#$%&'*+/0-9=?A-Z^_a-z{|}~])*@[a-zA-Z](-?[a-zA-Z0-9])*(\.[a-zA-Z](-?[a-zA-Z0-9])*)+$");
-
-                 if (!e.IsFocused && string.IsNullOrEmpty(EmailField2.Text))
-                 {
-                     EmailField2.HasError = false;
-                 }
-
-                 else if (!e.IsFocused && !string.IsNullOrEmpty(EmailField2.Text))
-                 {
-                     EmailField2.HasError = !rx.IsMatch(EmailField2.Text);
-                 }
-             };
-
-            //PasswordField.Focused += (s, e) =>
-            //{
-            //    if (!e.IsFocused && PasswordField.Text?.Length > 8)
-            //    {
-            //        PasswordField.State = MaterialTextFieldState.Invalid;
-            //    }
-
-            //    else if (!e.IsFocused && PasswordField.Text?.Length <= 8)
-            //    {
-            //        PasswordField.State = MaterialTextFieldState.Enabled;
-            //    }
-            //};
-
-            //EmailField.TextChangeCommand = new Command<string>((s) => System.Diagnostics.Debug.WriteLine(s));
         }
 
         private async void MaterialButton_ShowDialog(object sender, EventArgs e)
         {
-            //await MaterialDialogs.ShowAlertAsync("Dialogs focus user attention to ensure their content is addressed.", "Alert Dialog", positiveButtonText: "Got it", negativeButtonText: "Cancel");
-            await MaterialDialogs.ShowAlertAsync("Dialogs inform users about a task and can contain critical information, require decisions, or involve multiple tasks.", "Alert Dialog");
+            await MaterialDialogs.ShowAlertAsync("You are not connected to the internet.", "No connection", new MaterialDialogConfiguration
+            {
+                //BackgroundColor = Material.Material.GetMaterialResource<Color>("Material.Color.Primary"),
+                //TitleTextColor = Material.Material.GetMaterialResource<Color>("Material.Color.OnPrimary"),
+                //TitleFontFamily = Material.Material.GetMaterialResource<OnPlatform<string>>("FontFamily.Exo2Bold"),
+                //MessageTextColor = Material.Material.GetMaterialResource<Color>("Material.Color.OnPrimary").MultiplyAlpha(0.8),
+                //MessageFontFamily = Material.Material.GetMaterialResource<OnPlatform<string>>("FontFamily.OpenSansRegular"),
+                //ButtonAccentColor = Material.Material.GetMaterialResource<Color>("Material.Color.OnPrimary"),
+                //ButtonFontFamily = Material.Material.GetMaterialResource<OnPlatform<string>>("FontFamily.OpenSansSemiBold"),
+                //CornerRadius = 8,
+                //ScrimColor = Color.FromHex("#232F34").MultiplyAlpha(0.32),
+                //ButtonAllCaps = false
+            });
         }
 
         private async void MaterialChip_ActionImageTapped(object sender, EventArgs e)
@@ -122,11 +93,6 @@ namespace XF.MaterialSample
             {
                 await Task.Delay(3000);
             }
-        }
-
-        private async void Primary_Tapped(object sender, EventArgs e)
-        {
-            await MaterialDialogs.ShowAlertAsync("A primary color is the color displayed most frequently across your app’s screens and components.", "Primary Color");
         }
     }
 }

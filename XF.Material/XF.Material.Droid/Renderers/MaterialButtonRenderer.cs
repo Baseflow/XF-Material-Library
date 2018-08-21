@@ -57,9 +57,14 @@ namespace XF.Material.Droid.Renderers
                 this.UpdateDrawable();
             }
 
-            if(e?.PropertyName == nameof(MaterialButton.Image))
+            else if(e?.PropertyName == nameof(MaterialButton.Image))
             {
                 this.SetButtonIcon();
+            }
+
+            else if(e?.PropertyName == nameof(MaterialButton.AllCaps))
+            {
+                this.Control.SetAllCaps(_materialButton.AllCaps);
             }
         }
 
