@@ -156,7 +156,7 @@ Text fields allow users to enter and edit text.
 
 `MaterialTextField` inherits the `ContentView` class.
 
-1.`AlwaysShowUnderline` - Boolean flag etermines whether the underline accent of this text field should always show or not. The default value is `false`.
+1. `AlwaysShowUnderline` - Boolean flag etermines whether the underline accent of this text field should always show or not. The default value is `false`.
 
 2. `BackgroundColor` - The background color of the text field. Default hex color value is `#DCDCDC`.
 
@@ -210,7 +210,7 @@ The placeholder text should always be visible, because it is used to inform user
 
 Helper text conveys additional guidance about the input field, such as how it will be used. It should only take up a single line, being persistently visible or visible only on focus.
 
-When input text isn’t accepted, an error text can display instructions on how to fix it. Error messages are displayed below the input line, replacing helper text until fixed.
+When input text isnÂ’t accepted, an error text can display instructions on how to fix it. Error messages are displayed below the input line, replacing helper text until fixed.
 
 Read more about text fields [here](https://material.io/design/components/text-fields.html#usage).
 
@@ -287,7 +287,7 @@ A tintable image view.
 
 #### Properties
 
-`MaterialCircularLoadingView` inherits the `Image` class.
+`MaterialIcon` inherits the `Image` class.
 
 1. `TintColor` - The tint color of the image.
 
