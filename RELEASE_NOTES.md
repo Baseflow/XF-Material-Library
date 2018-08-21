@@ -1,6 +1,10 @@
 # Release Notes
 
-#### 1.0.3
+##### 1.0.4
+- Fixed NuGet Package not including the features from version `1.0.3`.
+- Updated to the latest Xamarin.Forms.
+
+##### 1.0.3
 - Added `MaterialTextField` and `MaterialIcon`.
 
 ##### 1.0.2

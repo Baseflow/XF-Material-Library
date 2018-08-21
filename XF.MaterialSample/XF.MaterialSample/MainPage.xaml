@@ -2,7 +2,6 @@
 <ContentPage x:Class="XF.MaterialSample.MainPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:internal="clr-namespace:XF.Material.Views.Internal;assembly=XF.Material"
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
     xmlns:local="clr-namespace:XF.MaterialSample"
     xmlns:material="clr-namespace:XF.Material.Views;assembly=XF.Material"
