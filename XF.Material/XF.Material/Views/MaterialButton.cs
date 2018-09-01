@@ -10,7 +10,7 @@ namespace XF.Material.Views
     public class MaterialButton : Button
     {
         public const string MaterialButtonColorChanged = "BackgroundColorChanged";
-        public static new readonly BindableProperty BackgroundColorProperty = BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(MaterialButton), Material.GetMaterialResource<Color>(MaterialConstants.MATERIAL_COLOR_SECONDARY));
+        public static new readonly BindableProperty BackgroundColorProperty = BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(MaterialButton), Material.GetMaterialResource<Color>(MaterialConstants.Color.SECONDARY));
         public static readonly BindableProperty AllCapsProperty = BindableProperty.Create(nameof(AllCaps), typeof(bool), typeof(MaterialButton), true);
         public static readonly BindableProperty ButtonTypeProperty = BindableProperty.Create(nameof(ButtonType), typeof(MaterialButtonType), typeof(MaterialButton), MaterialButtonType.Elevated, propertyChanged: ButtonTypeChanged);
 
@@ -22,7 +22,7 @@ namespace XF.Material.Views
                 {
                     case MaterialButtonType.Text:
                         materialButton.RemoveDynamicResource(TextColorProperty);
-                        materialButton.SetDynamicResource(TextColorProperty, MaterialConstants.MATERIAL_COLOR_SECONDARY);
+                        materialButton.SetDynamicResource(TextColorProperty, MaterialConstants.Color.SECONDARY);
                         break;
                     case MaterialButtonType.Outlined:
 
@@ -37,7 +37,7 @@ namespace XF.Material.Views
                         }
 
                         materialButton.RemoveDynamicResource(TextColorProperty);
-                        materialButton.SetDynamicResource(TextColorProperty, MaterialConstants.MATERIAL_COLOR_SECONDARY);
+                        materialButton.SetDynamicResource(TextColorProperty, MaterialConstants.Color.SECONDARY);
 
                         break;
                 }
@@ -74,12 +74,12 @@ namespace XF.Material.Views
         public MaterialButton()
         {
             this.SetValue(MaterialEffectsUtil.TypeScaleProperty, MaterialTypeScale.Button);
-            this.SetDynamicResource(FontFamilyProperty, MaterialConstants.MATERIAL_FONTFAMILY_BUTTON);
+            this.SetDynamicResource(FontFamilyProperty, MaterialConstants.FontFamily.BUTTON);
             this.SetDynamicResource(FontSizeProperty, MaterialConstants.MATERIAL_FONTSIZE_BUTTON);
             this.SetDynamicResource(FontAttributesProperty, MaterialConstants.MATERIAL_FONTATTRIBUTE_BOLD);
             this.SetDynamicResource(CornerRadiusProperty, MaterialConstants.MATERIAL_BUTTON_CORNERRADIUS);
-            this.SetDynamicResource(BackgroundColorProperty, MaterialConstants.MATERIAL_COLOR_SECONDARY);
-            this.SetDynamicResource(TextColorProperty, MaterialConstants.MATERIAL_COLOR_ONSECONDARY);
+            this.SetDynamicResource(BackgroundColorProperty, MaterialConstants.Color.SECONDARY);
+            this.SetDynamicResource(TextColorProperty, MaterialConstants.Color.ONSECONDARY);
             this.SetDynamicResource(HeightRequestProperty, MaterialConstants.MATERIAL_BUTTON_HEIGHT);
         }
 

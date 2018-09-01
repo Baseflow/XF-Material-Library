@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Xamarin.Forms;
 using XF.Material.Resources;
 using XF.Material.Resources.Typography;
@@ -42,7 +41,6 @@ namespace XF.Material
         /// </summary>
         /// <typeparam name="T">The type of the resource object to be retrieved.</typeparam>
         /// <param name="key">The key of the resource object. For a list of Material resource keys, see the <see cref="MaterialConstants"/> class.</param>
-        /// <returns></returns>
         public static T GetMaterialResource<T>(string key)
         {
             Application.Current.Resources.TryGetValue(key ?? throw new ArgumentNullException(nameof(key)), out object value);
@@ -54,10 +52,10 @@ namespace XF.Material
 
             else if (value != null)
             {
-                throw new InvalidCastException($"The resource retrieved was not of the type {typeof(T)}");
+                throw new InvalidCastException($"The resource retrieved was not of the type {typeof(T)}. Use {value.GetType()} instead.");
             }
 
-            throw new KeyNotFoundException($"The resource with key {key} of the type {typeof(T)} was not found");
+            return default(T);
         }
 
         /// <summary>

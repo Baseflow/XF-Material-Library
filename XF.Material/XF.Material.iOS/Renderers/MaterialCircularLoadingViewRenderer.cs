@@ -32,7 +32,7 @@ namespace XF.Material.iOS.Renderers
 
             if(_valueCallback == null)
             {
-                _valueCallback = LOTColorValueCallback.WithCGColor(_materialElement.Color.ToCGColor());
+                _valueCallback = LOTColorValueCallback.WithCGColor(_materialElement.TintColor.ToCGColor());
                 var keyPath = LOTKeypath.KeypathWithString("Shape Layer 1 Comp 1.Shape Layer 1.Ellipse 1.Stroke 1.Color");
                 this.Control.SetValueDelegate(_valueCallback, keyPath);
                 this.Control.Play();

@@ -10,75 +10,62 @@ namespace XF.Material.Dialogs
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MaterialDialog : BaseMaterialModalPage
     {
-        internal MaterialDialog(MaterialDialogConfiguration configuration)
+        internal static MaterialAlertDialogConfiguration GlobalConfiguration { get; set; }
+
+        internal MaterialDialog(string message, string title, string action1Text, string action2Text, Action action, MaterialAlertDialogConfiguration configuration)
         {
             this.InitializeComponent();
+            this.Configure(configuration);
 
-            if (configuration != null)
-            {
-                this.Configure(configuration);
-            }
-        }
-
-        internal MaterialDialog(string message, string title, string positiveButtonText, string negativeButtonText, Action positiveAction, MaterialDialogConfiguration configuration) : this(configuration)
-        {
             Message.Text = message;
-            Title.Text = title;
-            PositiveButton.Text = positiveButtonText;
-            PositiveButton.Command = new Command(() => this.HideDialog(positiveAction));
-            NegativeButton.Text = negativeButtonText;
+            DialogTitle.Text = title;
+            PositiveButton.Text = action1Text;
+            PositiveButton.Command = new Command(() => this.HideDialog(action));
+            NegativeButton.Text = action2Text;
             NegativeButton.Command = new Command(() => this.HideDialog());
         }
 
-        internal static async Task AlertAsync(string message, MaterialDialogConfiguration configuration = null)
+        internal static async Task AlertAsync(string message, string acknowledgementText = "Ok", MaterialAlertDialogConfiguration configuration = null)
         {
-            var dialog = new MaterialDialog(message, null, "Ok", null, null, configuration);
+            var dialog = new MaterialDialog(message, null, acknowledgementText, null, null, configuration);
             await dialog.ShowAsync();
         }
 
-        internal static async Task AlertAsync(string message, string title, MaterialDialogConfiguration configuration = null)
+        internal static async Task AlertAsync(string message, string title, string acknowledgementText = "Ok", MaterialAlertDialogConfiguration configuration = null)
         {
-            var dialog = new MaterialDialog(message, title, "Ok", null, null, configuration);
+            var dialog = new MaterialDialog(message, title, acknowledgementText, null, null, configuration);
             await dialog.ShowAsync();
         }
 
-        //internal static async Task AlertAsync(string message, string title, string positiveButtonText, Action positiveAction, string negativeButtonText = "CANCEL", Action negativeAction = null)
-        //{
-        //    var dialog = new MaterialDialog(message, title, positiveButtonText, positiveAction, negativeButtonText, negativeAction);
-
-        //    await dialog.ShowAsync();
-        //}
-
-        //internal MaterialDialog(string message, string title = "Alert", MaterialDialogConfiguration configuration = null) : this(configuration)
-        //{
-        //    Message.Text = message;
-        //    Title.Text = title;
-        //    PositiveButton.Command = new Command(() => this.HideDialog());
-        //    NegativeButton.IsVisible = false;
-        //}
-
-        //internal MaterialDialog(string message, string title, string positiveButtonText, Action positiveAction, string negativeButtonText = "CANCEL", Action negativeAction = null, MaterialDialogConfiguration configuration = null) : this(configuration)
-        //{
-        //    Message.Text = message;
-        //    Title.Text = title;
-        //    PositiveButton.Text = positiveButtonText.ToUpper();
-        //    PositiveButton.Command = new Command(() => this.HideDialog(positiveAction));
-        //    NegativeButton.Text = negativeButtonText.ToUpper();
-        //    NegativeButton.Command = new Command(() => this.HideDialog(negativeAction));
-        //}
-
-        private void Configure(MaterialDialogConfiguration configuration)
+        internal static async Task AlertAsync(string message, string confirmingText, Action confirmingAction, string dismissiveText = "Cancel", MaterialAlertDialogConfiguration configuration = null)
         {
-            this.BackgroundColor = configuration.ScrimColor;
-            Container.CornerRadius = configuration.CornerRadius;
-            Container.BackgroundColor = configuration.BackgroundColor;
-            Title.TextColor = configuration.TitleTextColor;
-            Title.FontFamily = configuration.TitleFontFamily;
-            Message.TextColor = configuration.MessageTextColor;
-            Message.FontFamily = configuration.MessageFontFamily;
-            PositiveButton.TextColor = NegativeButton.TextColor = configuration.AccentColor;
-            PositiveButton.AllCaps = NegativeButton.AllCaps = configuration.ButtonAllCaps;
-            PositiveButton.FontFamily = NegativeButton.FontFamily = configuration.ButtonFontFamily;
+            var dialog = new MaterialDialog(message, null, confirmingText, dismissiveText, confirmingAction, configuration);
+            await dialog.ShowAsync();
+        }
+
+        internal static async Task AlertAsync(string message, string title, string confirmingText, Action confirmingAction, string dismissiveText = "Cancel", MaterialAlertDialogConfiguration configuration = null)
+        {
+            var dialog = new MaterialDialog(message, title, confirmingText, dismissiveText, confirmingAction, configuration);
+            await dialog.ShowAsync();
+        }
+
+        private void Configure(MaterialAlertDialogConfiguration configuration)
+        {
+            var preferredConfig = configuration ?? GlobalConfiguration;
+
+            if (preferredConfig != null)
+            {
+                this.BackgroundColor = preferredConfig.ScrimColor;
+                Container.CornerRadius = preferredConfig.CornerRadius;
+                Container.BackgroundColor = preferredConfig.BackgroundColor;
+                DialogTitle.TextColor = preferredConfig.TitleTextColor;
+                DialogTitle.FontFamily = preferredConfig.TitleFontFamily;
+                Message.TextColor = preferredConfig.MessageTextColor;
+                Message.FontFamily = preferredConfig.MessageFontFamily;
+                PositiveButton.TextColor = NegativeButton.TextColor = preferredConfig.TintColor;
+                PositiveButton.AllCaps = NegativeButton.AllCaps = preferredConfig.ButtonAllCaps;
+                PositiveButton.FontFamily = NegativeButton.FontFamily = preferredConfig.ButtonFontFamily;
+            }
         }
 
         private void HideDialog(Action action = null)
@@ -86,11 +73,5 @@ namespace XF.Material.Dialogs
             action?.Invoke();
             this.Dispose();
         }
-    }
-
-    public enum DialogAction
-    {
-        Primary,
-        Secondary
     }
 }

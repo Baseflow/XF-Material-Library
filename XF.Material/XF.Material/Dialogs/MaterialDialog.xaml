@@ -6,6 +6,7 @@
     xmlns:material="clr-namespace:XF.Material.Views"
     xmlns:rga="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
     xmlns:rgp="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:sys="clr-namespace:System;assembly=netstandard"
     BackgroundColor="#51000000"
     CloseWhenBackgroundIsClicked="True">
     <rgp:PopupPage.Animation>
@@ -36,7 +37,7 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <Label x:Name="Title"
+                <Label x:Name="DialogTitle"
                     Grid.Row="0"
                     Margin="24,20,24,0"
                     HeightRequest="40"
@@ -45,6 +46,9 @@
                     VerticalOptions="Start">
                     <Label.Triggers>
                         <Trigger TargetType="Label" Property="Text" Value="{x:Null}">
+                            <Setter Property="IsVisible" Value="False" />
+                        </Trigger>
+                        <Trigger TargetType="Label" Property="Text" Value="{x:Static sys:String.Empty}">
                             <Setter Property="IsVisible" Value="False" />
                         </Trigger>
                     </Label.Triggers>
@@ -56,7 +60,7 @@
                     Text="Lorem ipsum dolor sit amet, conse tetuer adipiscing elit. Aenean commodo ligula eget dolor."
                     TextColor="#99000000">
                     <Label.Triggers>
-                        <DataTrigger Binding="{Binding Source={x:Reference Title}, Path=IsVisible}"
+                        <DataTrigger Binding="{Binding Source={x:Reference DialogTitle}, Path=IsVisible}"
                             TargetType="Label"
                             Value="False">
                             <Setter Property="Margin" Value="24, 20, 24, 0" />
@@ -82,6 +86,10 @@
                         VerticalOptions="Center">
                         <material:MaterialButton.Triggers>
                             <Trigger TargetType="Button" Property="Text" Value="{x:Null}">
+                                <Setter Property="IsVisible" Value="False" />
+                                <Setter Property="IsEnabled" Value="False" />
+                            </Trigger>
+                            <Trigger TargetType="Button" Property="Text" Value="{x:Static sys:String.Empty}">
                                 <Setter Property="IsVisible" Value="False" />
                                 <Setter Property="IsEnabled" Value="False" />
                             </Trigger>

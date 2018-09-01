@@ -14,10 +14,13 @@ namespace XF.Material.Droid
 
         public static bool IsLollipop { get; private set; }
 
+        public static bool IsJellyBean { get; private set; }
+
         public static void Init(Context context, Bundle bundle)
         {
             Context = context;
             IsLollipop = Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop;
+            IsJellyBean = Build.VERSION.SdkInt < BuildVersionCodes.Kitkat;
 
             AppCompatDelegate.CompatVectorFromResourcesEnabled = true;
             Rg.Plugins.Popup.Popup.Init(context, bundle);

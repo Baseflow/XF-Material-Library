@@ -15,13 +15,13 @@ namespace XF.Material.Views
 
         public MaterialNavigationPage(Page rootPage) : base(rootPage)
         {
-            this.SetDynamicResource(BarBackgroundColorProperty, MaterialConstants.MATERIAL_COLOR_PRIMARY);
-            this.SetDynamicResource(BarTextColorProperty, MaterialConstants.MATERIAL_COLOR_ONPRIMARY);
+            this.SetDynamicResource(BarBackgroundColorProperty, MaterialConstants.Color.PRIMARY);
+            this.SetDynamicResource(BarTextColorProperty, MaterialConstants.Color.ONPRIMARY);
             this.Pushed += this.MaterialNavigationPage_Pushed;
 
             if(rootPage.BackgroundColor.IsDefault)
             {
-                rootPage.SetDynamicResource(BackgroundColorProperty, MaterialConstants.MATERIAL_COLOR_BACKGROUND);
+                rootPage.SetDynamicResource(BackgroundColorProperty, MaterialConstants.Color.BACKGROUND);
             }
         }
 
@@ -29,7 +29,7 @@ namespace XF.Material.Views
         {
             if (e?.Page != null && e.Page.BackgroundColor.IsDefault)
             {
-                e.Page.SetDynamicResource(BackgroundColorProperty, MaterialConstants.MATERIAL_COLOR_BACKGROUND);
+                e.Page.SetDynamicResource(BackgroundColorProperty, MaterialConstants.Color.BACKGROUND);
             }
         }
     }

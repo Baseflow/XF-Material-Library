@@ -20,7 +20,8 @@
             ScaleOut="0.8" />
     </rgp:PopupPage.Animation>
     <ContentPage.Content>
-        <material:MaterialCard Margin="{StaticResource Material.Dialog.Margin}"
+        <material:MaterialCard x:Name="Container"
+            Margin="{StaticResource Material.Dialog.Margin}"
             Padding="16,24,16,24"
             BackgroundColor="White"
             CornerRadius="4"

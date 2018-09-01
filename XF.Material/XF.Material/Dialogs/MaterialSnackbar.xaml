@@ -27,20 +27,30 @@
             BackgroundColor="#343434"
             CornerRadius="4"
             Elevation="6"
-            HeightRequest="48"
             VerticalOptions="End">
-            <Grid ColumnSpacing="8">
+            <Grid ColumnSpacing="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
                 <Label x:Name="Message"
                     Grid.Column="0"
-                    Margin="16,0,0,0"
+                    Margin="16,14,0,14"
                     Style="{StaticResource Material.TypeScale.Body2}"
                     Text="This is a Snackbar"
                     TextColor="#DEFFFFFF"
-                    VerticalOptions="Center" />
+                    VerticalOptions="Center">
+                    <Label.Triggers>
+                        <DataTrigger Binding="{Binding Source={x:Reference ActionButton}, Path=IsVisible}"
+                            TargetType="Label"
+                            Value="False">
+                            <Setter Property="Margin" Value="16, 14" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
                 <material:MaterialButton x:Name="ActionButton"
                     Grid.Column="1"
                     Margin="0,0,2,0"
@@ -48,7 +58,14 @@
                     FontSize="12"
                     Text="Action"
                     TextColor="Yellow"
-                    VerticalOptions="Center" />
+                    VerticalOptions="Center">
+                    <material:MaterialButton.Triggers>
+                        <Trigger TargetType="Button" Property="Text" Value="{x:Null}">
+                            <Setter Property="IsVisible" Value="False" />
+                            <Setter Property="IsEnabled" Value="False" />
+                        </Trigger>
+                    </material:MaterialButton.Triggers>
+                </material:MaterialButton>
             </Grid>
         </material:MaterialCard>
     </ContentPage.Content>

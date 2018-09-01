@@ -15,7 +15,7 @@ namespace XF.Material.Views
 
         public MaterialCard()
         {
-            this.SetDynamicResource(BackgroundColorProperty, MaterialConstants.MATERIAL_COLOR_SURFACE);
+            this.SetDynamicResource(BackgroundColorProperty, MaterialConstants.Color.SURFACE);
         }
     }
 }

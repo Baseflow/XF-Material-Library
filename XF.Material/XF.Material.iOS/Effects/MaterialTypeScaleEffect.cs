@@ -1,5 +1,5 @@
-﻿using System.ComponentModel;
-using Foundation;
+﻿using Foundation;
+using System.ComponentModel;
 using UIKit;
 using Xamarin.Forms;
 using XF.Material.iOS.Effects;
@@ -31,12 +31,18 @@ namespace XF.Material.iOS.Effects
         {
             if (this.Control is UILabel label)
             {
-                label.AttributedText = new NSMutableAttributedString(label.Text ?? string.Empty, font: label.Font, foregroundColor: label.TextColor, kerning: (float)this.MaterialEffect.LetterSpacing);
+                var xfLabel = this.Element as Label;
+                label.AttributedText = new NSMutableAttributedString(label.Text ?? string.Empty, 
+                    font: UIFont.FromName(xfLabel.FontFamily, (float)xfLabel.FontSize), 
+                    foregroundColor: label.TextColor, 
+                    kerning: (float)this.MaterialEffect.LetterSpacing);
             }
 
             else if (this.Control is UIButton button)
             {
-                var attributedString = new NSMutableAttributedString(button.Title(UIControlState.Normal) ?? string.Empty,
+                var xfButton = this.Element as Button;
+                var attributedString = new NSMutableAttributedString(button.Title(UIControlState.Normal) ?? string.Empty, 
+                    font: UIFont.FromName(xfButton.FontFamily, (float)xfButton.FontSize),
                     foregroundColor: button.TitleColor(UIControlState.Normal),
                     kerning: (float)this.MaterialEffect.LetterSpacing);
 

@@ -35,7 +35,7 @@ namespace XF.Material.Views
 
         public static new readonly BindableProperty BackgroundColorProperty = BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#DCDCDC"));
 
-        public static readonly BindableProperty ErrorColorProperty = BindableProperty.Create(nameof(ErrorColor), typeof(Color), typeof(MaterialTextField), Material.GetMaterialResource<Color>(MaterialConstants.MATERIAL_COLOR_ERROR));
+        public static readonly BindableProperty ErrorColorProperty = BindableProperty.Create(nameof(ErrorColor), typeof(Color), typeof(MaterialTextField), Material.GetMaterialResource<Color>(MaterialConstants.Color.ERROR));
 
         public static readonly BindableProperty ErrorTextProperty = BindableProperty.Create(nameof(ErrorText), typeof(string), typeof(MaterialTextField), string.Empty);
 
@@ -71,7 +71,7 @@ namespace XF.Material.Views
 
         public static readonly BindableProperty TextProperty = BindableProperty.Create(nameof(Text), typeof(string), typeof(MaterialTextField), string.Empty);
 
-        public static readonly BindableProperty TintColorProperty = BindableProperty.Create(nameof(TintColor), typeof(Color), typeof(MaterialTextField), Material.GetMaterialResource<Color>(MaterialConstants.MATERIAL_COLOR_SECONDARY));
+        public static readonly BindableProperty TintColorProperty = BindableProperty.Create(nameof(TintColor), typeof(Color), typeof(MaterialTextField), Material.GetMaterialResource<Color>(MaterialConstants.Color.SECONDARY));
 
         private const double ANIM_DURATION = 0.35;
         private readonly Easing animationCurve = Easing.SinOut;

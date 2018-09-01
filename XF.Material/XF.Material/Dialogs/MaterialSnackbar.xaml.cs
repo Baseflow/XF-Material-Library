@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using XF.Material.Dialogs.Configurations;
 
 namespace XF.Material.Dialogs
 {
@@ -10,75 +11,52 @@ namespace XF.Material.Dialogs
 	public partial class MaterialSnackbar : BaseMaterialModalPage
 	{
         public const int DURATION_INDEFINITE = -1;
+        public const int DURATION_LONG = 2750;
+        public const int DURATION_SHORT = 1500;
+        private int _duration;
         private Action _hideAction;
+        private Command _primaryActionCommand;
         private bool _primaryActionRunning;
-        private Command _primaryActionTapCommand;
 
-        internal MaterialSnackbar()
+        internal MaterialSnackbar(string message, string actionButtonText, Action primaryAction = null, Action hideAction = null, int msDuration = DURATION_LONG, MaterialSnackbarConfiguration configuration = null)
         {
-            InitializeComponent();
-        }
-
-        internal MaterialSnackbar(string message, int msDuration)
-        {
-            InitializeComponent();
+            this.InitializeComponent();
+            this.Configure(configuration);
             Message.Text = message;
-            this.Duration = msDuration;
-            ActionButton.IsVisible = false;
-        }
-
-        internal MaterialSnackbar(string message, int msDuration, Action hideAction)
-        {
-            InitializeComponent();
-            Message.Text = message;
-            this.Duration = msDuration;
-            ActionButton.IsVisible = false;
-            _hideAction = hideAction;
-        }
-
-        internal MaterialSnackbar(string message, string actionButtonText, Action primaryAction = null, Action hideAction = null, int msDuration = 3000)
-        {
-            InitializeComponent();
-            Message.Text = message;
-            this.Duration = msDuration;
+            _duration = msDuration;
             ActionButton.Text = actionButtonText;
-            _primaryActionTapCommand = new Command(() => this.RunPrimaryAction(primaryAction), () => !_primaryActionRunning);
-            ActionButton.Command = _primaryActionTapCommand;
+            _primaryActionCommand = new Command(() => this.RunPrimaryAction(primaryAction), () => !_primaryActionRunning);
+            ActionButton.Command = _primaryActionCommand;
             _hideAction = hideAction;
         }
 
-        public int Duration { get; set; }
+        internal static MaterialSnackbarConfiguration GlobalConfiguration { get; set; }
 
-        public override void Dispose()
+        internal static async Task<MaterialSnackbar> Loading(string message, MaterialSnackbarConfiguration configuration = null)
         {
-            ActionButton.GestureRecognizers.Clear();
-            base.Dispose();
-        }
-
-        internal static async Task<IMaterialModalPage> Loading(string message)
-        {
-            var snackbar = new MaterialSnackbar(message, DURATION_INDEFINITE);
+            var snackbar = new MaterialSnackbar(message, null, null, null, DURATION_INDEFINITE, configuration);
             await snackbar.ShowAsync();
 
             return snackbar;
         }
 
-        internal static async Task ShowAsync(string message, int msDuration = 3000)
+        internal static async Task ShowAsync(string message, int msDuration = 3000, MaterialSnackbarConfiguration configuration = null)
         {
-            var snackbar = new MaterialSnackbar(message, msDuration);
+            var snackbar = new MaterialSnackbar(message, null, null, null, msDuration, configuration);
             await snackbar.ShowAsync();
         }
 
-        internal static async Task ShowAsync(string message, string actionButtonText, Action primaryAction = null, Action hideAction = null, int msDuration = 3000)
+        internal static async Task ShowAsync(string message, string actionButtonText, Action primaryAction = null, Action hideAction = null, int msDuration = DURATION_LONG, MaterialSnackbarConfiguration configuration = null)
         {
-            var snackbar = new MaterialSnackbar(message, actionButtonText, primaryAction, hideAction, msDuration);
+            var snackbar = new MaterialSnackbar(message, actionButtonText, primaryAction, hideAction, msDuration, configuration);
             await snackbar.ShowAsync();
         }
+
         protected override async void OnAppearingAnimationEnd()
         {
             base.OnAppearingAnimationEnd();
 
-            if (this.Duration > 0)
+            if (_duration > 0)
             {
                 await BeginDuration();
             }
@@ -91,12 +69,27 @@ namespace XF.Material.Dialogs
 
         private async Task BeginDuration()
         {
-            await Task.Delay(this.Duration);
+            await Task.Delay(_duration);
 
             if (!_primaryActionRunning)
             {
                 _hideAction?.Invoke();
                 this.Dispose();
+            }
+        }
+
+        private void Configure(MaterialSnackbarConfiguration configuration)
+        {
+            var preferredConfig = configuration ?? GlobalConfiguration;
+
+            if (preferredConfig != null)
+            {
+                Message.FontFamily = preferredConfig.MessageFontFamily;
+                Message.TextColor = preferredConfig.MessageTextColor;
+                Container.BackgroundColor = preferredConfig.BackgroundColor;
+                ActionButton.TextColor = preferredConfig.TintColor;
+                ActionButton.FontFamily = preferredConfig.ButtonFontFamily;
+                ActionButton.AllCaps = preferredConfig.ButtonAllCaps;
             }
         }
 

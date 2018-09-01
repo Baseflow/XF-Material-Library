@@ -10,6 +10,9 @@ namespace XF.Material.Dialogs
     {
         private bool _disposed;
 
+        /// <summary>
+        /// Called to hide this modal view.
+        /// </summary>
         public virtual async void Dispose()
         {
             if(!_disposed)

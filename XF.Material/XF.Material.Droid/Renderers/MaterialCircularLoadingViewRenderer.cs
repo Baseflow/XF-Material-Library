@@ -23,7 +23,7 @@ namespace XF.Material.Droid.Renderers
                 var materialElement = this.Element as MaterialCircularLoadingView;
                 this.Control.SetAnimation(Resource.Raw.loading_animation, CacheStrategy.Strong);
                 this.Control.SetScaleType(scaleType: ScaleType.CenterCrop);
-                this.Control.AddValueCallback(new Com.Airbnb.Lottie.Model.KeyPath("**"), LottieProperty.ColorFilter, new Com.Airbnb.Lottie.Value.LottieValueCallback(new PorterDuffColorFilter(materialElement.Color.ToAndroid(), PorterDuff.Mode.SrcAtop)));
+                this.Control.AddValueCallback(new Com.Airbnb.Lottie.Model.KeyPath("**"), LottieProperty.ColorFilter, new Com.Airbnb.Lottie.Value.LottieValueCallback(new PorterDuffColorFilter(materialElement.TintColor.ToAndroid(), PorterDuff.Mode.SrcAtop)));
                 this.Control.PlayAnimation();
             }
         }
