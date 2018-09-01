@@ -2,19 +2,51 @@
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Xamarin.Forms;
-using XF.Material;
 using XF.Material.Dialogs;
 using XF.Material.Dialogs.Configurations;
+using XF.Material.Resources;
 using XF.Material.Views;
 
 namespace XF.MaterialSample
 {
     public partial class MainPage : ContentPage
     {
+        private int _counter = 0;
+
         public MainPage()
         {
             InitializeComponent();
 
+            MaterialDialogs.SetGlobalStyles(new MaterialAlertDialogConfiguration
+            {
+                BackgroundColor = XF.Material.Material.GetMaterialResource<Color>(MaterialConstants.Color.PRIMARY),
+                TitleTextColor = XF.Material.Material.GetMaterialResource<Color>(MaterialConstants.Color.ONPRIMARY),
+                TitleFontFamily = XF.Material.Material.GetMaterialResource<OnPlatform<string>>("FontFamily.Exo2Bold"),
+                MessageTextColor = XF.Material.Material.GetMaterialResource<Color>(MaterialConstants.Color.ONPRIMARY).MultiplyAlpha(0.8),
+                MessageFontFamily = XF.Material.Material.GetMaterialResource<OnPlatform<string>>("FontFamily.OpenSansRegular"),
+                TintColor = XF.Material.Material.GetMaterialResource<Color>(MaterialConstants.Color.ONPRIMARY),
+                ButtonFontFamily = XF.Material.Material.GetMaterialResource<OnPlatform<string>>("FontFamily.OpenSansSemiBold"),
+                CornerRadius = 8,
+                ScrimColor = Color.FromHex("#232F34").MultiplyAlpha(0.32),
+                ButtonAllCaps = false
+            },
+            new MaterialLoadingDialogConfiguration
+            {
+                BackgroundColor = XF.Material.Material.GetMaterialResource<Color>(MaterialConstants.Color.PRIMARY),
+                MessageTextColor = XF.Material.Material.GetMaterialResource<Color>(MaterialConstants.Color.ONPRIMARY).MultiplyAlpha(0.8),
+                MessageFontFamily = XF.Material.Material.GetMaterialResource<OnPlatform<string>>("FontFamily.OpenSansRegular"),
+                TintColor = XF.Material.Material.GetMaterialResource<Color>(MaterialConstants.Color.ONPRIMARY),
+                CornerRadius = 8,
+                ScrimColor = Color.FromHex("#232F34").MultiplyAlpha(0.32)
+            }, new MaterialSnackbarConfiguration
+            {
+                BackgroundColor = XF.Material.Material.GetMaterialResource<Color>(MaterialConstants.Color.PRIMARY),
+                MessageFontFamily = XF.Material.Material.GetMaterialResource<OnPlatform<string>>("FontFamily.OpenSansRegular"),
+                ButtonAllCaps = false,
+                ButtonFontFamily = XF.Material.Material.GetMaterialResource<OnPlatform<string>>("FontFamily.OpenSansSemiBold"),
+                TintColor = Color.White,
+                MessageTextColor = XF.Material.Material.GetMaterialResource<Color>(MaterialConstants.Color.ONPRIMARY).MultiplyAlpha(0.8)
+            });
 
             EmailField.Focused += (s, e) =>
             {
@@ -34,19 +66,83 @@ namespace XF.MaterialSample
 
         private async void MaterialButton_ShowDialog(object sender, EventArgs e)
         {
-            await MaterialDialogs.ShowAlertAsync("You are not connected to the internet.", "No connection", new MaterialDialogConfiguration
+            //await MaterialDialogs.ShowAlertAsync("You are not connected to the internet.", "No connection", new MaterialDialogConfiguration
+            //{
+            //    BackgroundColor = XF.Material.Material.GetMaterialResource<Color>("Material.Color.Primary"),
+            //    TitleTextColor = XF.Material.Material.GetMaterialResource<Color>("Material.Color.OnPrimary"),
+            //    TitleFontFamily = XF.Material.Material.GetMaterialResource<OnPlatform<string>>("FontFamily.Exo2Bold"),
+            //    MessageTextColor = XF.Material.Material.GetMaterialResource<Color>("Material.Color.OnPrimary").MultiplyAlpha(0.8),
+            //    MessageFontFamily = XF.Material.Material.GetMaterialResource<OnPlatform<string>>("FontFamily.OpenSansRegular"),
+            //    AccentColor = XF.Material.Material.GetMaterialResource<Color>("Material.Color.OnPrimary"),
+            //    ButtonFontFamily = XF.Material.Material.GetMaterialResource<OnPlatform<string>>("FontFamily.OpenSansSemiBold"),
+            //    CornerRadius = 8,
+            //    ScrimColor = Color.FromHex("#232F34").MultiplyAlpha(0.32),
+            //    ButtonAllCaps = false
+            //});
+
+            //await MaterialDialogs.ShowAlertAsync("Do you want to sign in?", "Sign In",confirmingAction: null, configuration: new MaterialDialogConfiguration
+            //{
+            //    BackgroundColor = XF.Material.Material.GetMaterialResource<Color>("Material.Color.Primary"),
+            //    TitleTextColor = XF.Material.Material.GetMaterialResource<Color>("Material.Color.OnPrimary"),
+            //    TitleFontFamily = XF.Material.Material.GetMaterialResource<OnPlatform<string>>("FontFamily.Exo2Bold"),
+            //    MessageTextColor = XF.Material.Material.GetMaterialResource<Color>("Material.Color.OnPrimary").MultiplyAlpha(0.8),
+            //    MessageFontFamily = XF.Material.Material.GetMaterialResource<OnPlatform<string>>("FontFamily.OpenSansRegular"),
+            //    AccentColor = XF.Material.Material.GetMaterialResource<Color>("Material.Color.OnPrimary"),
+            //    ButtonFontFamily = XF.Material.Material.GetMaterialResource<OnPlatform<string>>("FontFamily.OpenSansSemiBold"),
+            //    CornerRadius = 8,
+            //    ScrimColor = Color.FromHex("#232F34").MultiplyAlpha(0.32),
+            //    ButtonAllCaps = false
+            //});
+
+            //await MaterialDialogs.ShowAlertAsync("Not connected to the internet");
+
+            switch (_counter)
             {
-                //BackgroundColor = Material.Material.GetMaterialResource<Color>("Material.Color.Primary"),
-                //TitleTextColor = Material.Material.GetMaterialResource<Color>("Material.Color.OnPrimary"),
-                //TitleFontFamily = Material.Material.GetMaterialResource<OnPlatform<string>>("FontFamily.Exo2Bold"),
-                //MessageTextColor = Material.Material.GetMaterialResource<Color>("Material.Color.OnPrimary").MultiplyAlpha(0.8),
-                //MessageFontFamily = Material.Material.GetMaterialResource<OnPlatform<string>>("FontFamily.OpenSansRegular"),
-                //ButtonAccentColor = Material.Material.GetMaterialResource<Color>("Material.Color.OnPrimary"),
-                //ButtonFontFamily = Material.Material.GetMaterialResource<OnPlatform<string>>("FontFamily.OpenSansSemiBold"),
-                //CornerRadius = 8,
-                //ScrimColor = Color.FromHex("#232F34").MultiplyAlpha(0.32),
-                //ButtonAllCaps = false
-            });
+                case 0:
+                    await MaterialDialogs.ShowAlertAsync(message: "This is an alert dialog");
+                    break;
+                case 1:
+                    await MaterialDialogs.ShowAlertAsync(message: "This is an alert dialog", acknowledgementText: "Got It");
+                    break;
+                case 2:
+                    await MaterialDialogs.ShowAlertAsync(message: "This is an alert dialog", title: "Alert Dialog", acknowledgementText: "Got It");
+                    break;
+                case 3:
+                    await MaterialDialogs.ShowAlertAsync(message: "Is this an alert dialog?", confirmingText: "Yes", confirmingAction: null);
+                    break;
+                case 4:
+                    //await MaterialDialogs.ShowAlertAsync(message: "Is this an alert dialog?", title: "Alert Dialog", confirmingText: "Yes", confirmingAction: null, dismissiveText: "No");
+                    await MaterialDialogs.ShowSnackbarAsync(message:"This is a snackbar.", 
+                                                            actionButtonText: "Got It",
+                                                            msDuration: 5000);
+                    break;
+                case 5:
+                    var a = await MaterialDialogs.ShowLoadingSnackbarAsync("Something is running...");
+                    await Task.Delay(10000);
+                    a.Dispose();
+                    break;
+            }
+
+            _counter = _counter + 1;
+
+            if (_counter == 6)
+            {
+                _counter = 0;
+            }
+
+            //using (await MaterialDialogs.ShowLoadingDialogAsync("Something is running."))
+            //{
+            //    await Task.Delay(3000);
+            //}
+
+            //await MaterialDialogs.ShowSnackbarAsync("This is a snackbar.", "Ok", null, configuration: new MaterialSnackbarConfiguration
+            //{
+            //    BackgroundColor = XF.Material.Material.GetMaterialResource<Color>("Material.Color.Primary"),
+            //    MessageFontFamily = XF.Material.Material.GetMaterialResource<OnPlatform<string>>("FontFamily.OpenSansRegular"),
+            //    ButtonFontFamily = XF.Material.Material.GetMaterialResource<OnPlatform<string>>("FontFamily.OpenSansSemiBold"),
+            //    TintColor = Color.White,
+            //    MessageTextColor = XF.Material.Material.GetMaterialResource<Color>("Material.Color.OnPrimary").MultiplyAlpha(0.8)
+            //});
         }
 
         private async void MaterialChip_ActionImageTapped(object sender, EventArgs e)
@@ -72,24 +168,14 @@ namespace XF.MaterialSample
 
         private async void MaterialButton_ShowLoadingDialog(object sender, EventArgs e)
         {
-            using (await MaterialDialogs.LoadingDialog("Something is running..."))
-            {
-                await Task.Delay(20000);
-            }
-        }
-
-        private async void MaterialButton_ShowSnackbar(object sender, EventArgs e)
-        {
-            (sender as VisualElement).IsVisible = false;
-            await MaterialDialogs.ShowSnackbarAsync("This is a snackbar.", "Got it", msDuration: MaterialSnackbar.DURATION_INDEFINITE, primaryAction: () =>
-            {
-                (sender as VisualElement).IsVisible = true;
-            });
+            var a = await MaterialDialogs.ShowLoadingDialogAsync("Something is running...");
+            await Task.Delay(20000);
+            a.Dispose();
         }
 
         private async void MaterialButton_ShowLoadingSnackbar(object sender, EventArgs e)
         {
-            using (await MaterialDialogs.LoadingSnackbar("Something is running..."))
+            using (await MaterialDialogs.ShowLoadingSnackbarAsync("Something is running..."))
             {
                 await Task.Delay(3000);
             }

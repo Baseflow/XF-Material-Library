@@ -39,6 +39,12 @@
 		<string>Fonts/Roboto-Bold.ttf</string>
 		<string>Fonts/Roboto-Regular.ttf</string>
 		<string>Fonts/Roboto-Medium.ttf</string>
+    <string>Fonts/Exo2-Bold.ttf</string>
+    <string>Fonts/Exo2-Regular.ttf</string>
+    <string>Fonts/Exo2-Medium.ttf</string>
+    <string>Fonts/OpenSans-Bold.ttf</string>
+    <string>Fonts/OpenSans-Regular.ttf</string>
+    <string>Fonts/OpenSans-SemiBold.ttf</string>
 	</array>
   <key>UIStatusBarStyle</key>
   <string>UIStatusBarStyleLightContent</string>

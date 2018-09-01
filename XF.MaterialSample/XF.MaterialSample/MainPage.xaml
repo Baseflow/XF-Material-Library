@@ -5,7 +5,6 @@
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
     xmlns:local="clr-namespace:XF.MaterialSample"
     xmlns:material="clr-namespace:XF.Material.Views;assembly=XF.Material"
-    xmlns:mtrlfx="clr-namespace:XF.Material.Effects;assembly=XF.Material"
     Title="Xamarin.Forms Material"
     ios:Page.UseSafeArea="True"
     BackgroundColor="White">
@@ -39,7 +38,7 @@
                 TextColor="Black" />
 
             <StackLayout HorizontalOptions="End" Orientation="Horizontal">
-                <material:MaterialButton ButtonType="Text"
+                <material:MaterialButton ButtonType="Outlined"
                     HorizontalOptions="End"
                     Text="Register" />
                 <material:MaterialButton Clicked="MaterialButton_ShowDialog"

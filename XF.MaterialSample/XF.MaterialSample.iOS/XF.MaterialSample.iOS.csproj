@@ -101,6 +101,12 @@
     <BundleResource Include="Resources\Fonts\Roboto-Bold.ttf" />
     <BundleResource Include="Resources\Fonts\Roboto-Medium.ttf" />
     <BundleResource Include="Resources\Fonts\Roboto-Regular.ttf" />
+    <BundleResource Include="Resources\Fonts\Exo2-Bold.ttf" />
+    <BundleResource Include="Resources\Fonts\Exo2-Medium.ttf" />
+    <BundleResource Include="Resources\Fonts\Exo2-Regular.ttf" />
+    <BundleResource Include="Resources\Fonts\OpenSans-Bold.ttf" />
+    <BundleResource Include="Resources\Fonts\OpenSans-Regular.ttf" />
+    <BundleResource Include="Resources\Fonts\OpenSans-SemiBold.ttf" />
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon1024.png">

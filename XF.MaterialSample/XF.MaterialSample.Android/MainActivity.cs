@@ -16,7 +16,6 @@ namespace XF.MaterialSample.Droid
 
             XF.Material.Droid.Material.Init(this, savedInstanceState);
             Xamarin.Forms.Forms.Init(this, savedInstanceState);
-
             LoadApplication(new App());
         }
 
