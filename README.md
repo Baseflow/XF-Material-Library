@@ -1,4 +1,6 @@
 
+<img src="images/xf.material_logo.png" width="112" />
+
 # XF.Material Library
 A Xamarin.Forms library for Xamarin.Android and Xamarin.iOS to implement [Google's Material Design](https://material.io/design).
 
