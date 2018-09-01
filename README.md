@@ -856,7 +856,7 @@ It is recommended to use this library for applications targeting Android 5.0 (Lo
 If targeted below Android 5.0, the following issues can be seen:
 
 - Material shadows, like that of `MaterialCard` and `MaterialButton`, will not show.
-- On Android 4.2, `MaterialButton` is larger. Explanation is provided in this [issue](https://github.com/contrix09/XF-Material-Library/issues/2).
+- On Android 4.2, `MaterialButton` is larger. Explanation is provided in this [issue](https://github.com/contrix09/XF-Material-Library/issues/2#issuecomment-417819032).
 
 ## Libraries Used
 Special thanks to the following libraries I used for this project:
