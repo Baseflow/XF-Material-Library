@@ -1,7 +1,7 @@
 # Release Notes
 
 ##### 1.0.5
-- Added `MaterialDialogConfiguration`, `MaterialLoadingConfiguration`, and `MaterialSnackbarConfiguration` for
+- Added `MaterialAlertDialogConfiguration`, `MaterialLoadingConfiguration`, and `MaterialSnackbarConfiguration` for
 styling modals created by `MaterialDialogs`.
 - Added `MaterialConstants`, a static class to provide constant key values of Material Resources.
 - Refactored methods in `MaterialDialogs`.
