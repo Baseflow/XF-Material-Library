@@ -3,7 +3,7 @@ using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 using XF.Material.iOS.Renderers;
-using XF.Material.Views;
+using XF.Material.Forms.Views;
 
 [assembly: ExportRenderer(typeof(MaterialNavigationPage), typeof(MaterialNavigationPageRenderer))]
 namespace XF.Material.iOS.Renderers

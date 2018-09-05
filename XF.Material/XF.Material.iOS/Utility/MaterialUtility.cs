@@ -4,7 +4,7 @@ using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 using XF.Material.iOS.Utility;
-using XF.Material.Utilities;
+using XF.Material.Forms.Utilities;
 
 [assembly: Dependency(typeof(MaterialUtility))]
 namespace XF.Material.iOS.Utility

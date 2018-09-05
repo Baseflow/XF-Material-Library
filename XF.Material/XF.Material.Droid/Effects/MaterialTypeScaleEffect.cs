@@ -5,7 +5,7 @@ using XF.Material.Droid.Effects;
 [assembly: ExportEffect(typeof(MaterialTypeScaleEffect), "TypeScaleEffect")]
 namespace XF.Material.Droid.Effects
 {
-    public class MaterialTypeScaleEffect : BaseMaterialEffect<XF.Material.Effects.MaterialTypeScaleEffect>
+    public class MaterialTypeScaleEffect : BaseMaterialEffect<XF.Material.Forms.Effects.MaterialTypeScaleEffect>
     {
         protected override void OnAttached()
         {

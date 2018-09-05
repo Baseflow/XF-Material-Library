@@ -5,7 +5,7 @@ using Rg.Plugins.Popup;
 using Rg.Plugins.Popup.Services;
 using System;
 using System.Linq;
-using XF.Material.Dialogs;
+using XF.Material.Forms.Dialogs;
 
 namespace XF.Material.Droid
 {

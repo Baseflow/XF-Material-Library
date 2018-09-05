@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-
-using Foundation;
+﻿using System.ComponentModel;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
+using XF.Material.Forms.Views;
 using XF.Material.iOS.Renderers;
-using XF.Material.Views;
 
 [assembly: ExportRenderer(typeof(MaterialIcon), typeof(MaterialIconRenderer))]
 namespace XF.Material.iOS.Renderers

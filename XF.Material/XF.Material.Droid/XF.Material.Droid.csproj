@@ -121,12 +121,6 @@
     <AndroidResource Include="Resources\values\strings.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\XF.Material\XF.Material.csproj">
-      <Project>{B0C6B498-6EC2-4E2B-812B-A04A30827E7F}</Project>
-      <Name>XF.Material</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\layout\button.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
@@ -193,6 +187,12 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_error.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\XF.Material.Forms\XF.Material.Forms.csproj">
+      <Project>{caf232f8-446a-41b1-b837-006ff5de9a60}</Project>
+      <Name>XF.Material.Forms</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

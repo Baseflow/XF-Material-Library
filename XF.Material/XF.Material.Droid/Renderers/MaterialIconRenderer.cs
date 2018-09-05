@@ -1,20 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-using Xamarin.Forms.Platform.Android;
-using Xamarin.Forms;
-using XF.Material.Views;
-using XF.Material.Droid.Renderers;
-using System.ComponentModel;
+﻿using Android.Content;
 using Android.Support.V4.Graphics.Drawable;
+using System.ComponentModel;
+using Xamarin.Forms;
+using Xamarin.Forms.Platform.Android;
+using XF.Material.Droid.Renderers;
+using XF.Material.Forms.Views;
 
 [assembly: ExportRenderer(typeof(MaterialIcon), typeof(MaterialIconRenderer))]
 namespace XF.Material.Droid.Renderers

@@ -83,12 +83,6 @@
     <Compile Include="Utility\MaterialUtility.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\XF.Material\XF.Material.csproj">
-      <Project>{B0C6B498-6EC2-4E2B-812B-A04A30827E7F}</Project>
-      <Name>XF.Material</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\ic_error%402x.png" />
     <BundleResource Include="Resources\ic_error%403x.png" />
     <BundleResource Include="Resources\ic_error.png" />
@@ -113,6 +107,12 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ic_clear%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\XF.Material.Forms\XF.Material.Forms.csproj">
+      <Project>{caf232f8-446a-41b1-b837-006ff5de9a60}</Project>
+      <Name>XF.Material.Forms</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

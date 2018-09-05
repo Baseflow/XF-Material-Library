@@ -4,7 +4,7 @@ using Xamarin.Forms.Platform.Android;
 
 namespace XF.Material.Droid.Effects
 {
-    public class BaseMaterialEffect<T> : PlatformEffect where T : XF.Material.Effects.BaseMaterialEffect
+    public class BaseMaterialEffect<T> : PlatformEffect where T : XF.Material.Forms.Effects.BaseMaterialEffect
     {
         public T MaterialEffect { get; private set; }
 

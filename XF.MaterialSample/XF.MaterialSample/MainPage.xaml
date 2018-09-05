@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
     xmlns:local="clr-namespace:XF.MaterialSample"
-    xmlns:material="clr-namespace:XF.Material.Views;assembly=XF.Material"
+    xmlns:material="clr-namespace:XF.Material.Forms.Views;assembly=XF.Material.Forms"
     Title="Xamarin.Forms Material"
     ios:Page.UseSafeArea="True"
     BackgroundColor="White">
@@ -31,7 +31,7 @@
                 HelperTextColor="#A4A4A4"
                 Icon="ic_lock"
                 IconTintColor="#A4A4A4"
-                InputType="Password"
+                InputType="Default"
                 MaxLength="10"
                 Placeholder="Password"
                 PlaceholderColor="#A4A4A4"

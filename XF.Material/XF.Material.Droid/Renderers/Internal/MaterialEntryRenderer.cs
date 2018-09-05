@@ -3,7 +3,7 @@ using Android.Graphics.Drawables;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using XF.Material.Droid.Renderers.Internal;
-using XF.Material.Views.Internal;
+using XF.Material.Forms.Views.Internal;
 
 [assembly: ExportRenderer(typeof(MaterialEntry), typeof(MaterialEntryRenderer))]
 namespace XF.Material.Droid.Renderers.Internal

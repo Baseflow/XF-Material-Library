@@ -2,10 +2,10 @@
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Xamarin.Forms;
-using XF.Material.Dialogs;
-using XF.Material.Dialogs.Configurations;
-using XF.Material.Resources;
-using XF.Material.Views;
+using XF.Material.Forms.Dialogs;
+using XF.Material.Forms.Dialogs.Configurations;
+using XF.Material.Forms.Resources;
+using XF.Material.Forms.Views;
 
 namespace XF.MaterialSample
 {
@@ -19,33 +19,33 @@ namespace XF.MaterialSample
 
             MaterialDialogs.SetGlobalStyles(new MaterialAlertDialogConfiguration
             {
-                BackgroundColor = XF.Material.Material.GetMaterialResource<Color>(MaterialConstants.Color.PRIMARY),
-                TitleTextColor = XF.Material.Material.GetMaterialResource<Color>(MaterialConstants.Color.ONPRIMARY),
-                TitleFontFamily = XF.Material.Material.GetMaterialResource<OnPlatform<string>>("FontFamily.Exo2Bold"),
-                MessageTextColor = XF.Material.Material.GetMaterialResource<Color>(MaterialConstants.Color.ONPRIMARY).MultiplyAlpha(0.8),
-                MessageFontFamily = XF.Material.Material.GetMaterialResource<OnPlatform<string>>("FontFamily.OpenSansRegular"),
-                TintColor = XF.Material.Material.GetMaterialResource<Color>(MaterialConstants.Color.ONPRIMARY),
-                ButtonFontFamily = XF.Material.Material.GetMaterialResource<OnPlatform<string>>("FontFamily.OpenSansSemiBold"),
+                BackgroundColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.PRIMARY),
+                TitleTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ONPRIMARY),
+                TitleFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.Exo2Bold"),
+                MessageTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ONPRIMARY).MultiplyAlpha(0.8),
+                MessageFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansRegular"),
+                TintColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ONPRIMARY),
+                ButtonFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansSemiBold"),
                 CornerRadius = 8,
                 ScrimColor = Color.FromHex("#232F34").MultiplyAlpha(0.32),
                 ButtonAllCaps = false
             },
             new MaterialLoadingDialogConfiguration
             {
-                BackgroundColor = XF.Material.Material.GetMaterialResource<Color>(MaterialConstants.Color.PRIMARY),
-                MessageTextColor = XF.Material.Material.GetMaterialResource<Color>(MaterialConstants.Color.ONPRIMARY).MultiplyAlpha(0.8),
-                MessageFontFamily = XF.Material.Material.GetMaterialResource<OnPlatform<string>>("FontFamily.OpenSansRegular"),
-                TintColor = XF.Material.Material.GetMaterialResource<Color>(MaterialConstants.Color.ONPRIMARY),
+                BackgroundColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.PRIMARY),
+                MessageTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ONPRIMARY).MultiplyAlpha(0.8),
+                MessageFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansRegular"),
+                TintColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ONPRIMARY),
                 CornerRadius = 8,
                 ScrimColor = Color.FromHex("#232F34").MultiplyAlpha(0.32)
             }, new MaterialSnackbarConfiguration
             {
-                BackgroundColor = XF.Material.Material.GetMaterialResource<Color>(MaterialConstants.Color.PRIMARY),
-                MessageFontFamily = XF.Material.Material.GetMaterialResource<OnPlatform<string>>("FontFamily.OpenSansRegular"),
+                BackgroundColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.PRIMARY),
+                MessageFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansRegular"),
                 ButtonAllCaps = false,
-                ButtonFontFamily = XF.Material.Material.GetMaterialResource<OnPlatform<string>>("FontFamily.OpenSansSemiBold"),
+                ButtonFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansSemiBold"),
                 TintColor = Color.White,
-                MessageTextColor = XF.Material.Material.GetMaterialResource<Color>(MaterialConstants.Color.ONPRIMARY).MultiplyAlpha(0.8)
+                MessageTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ONPRIMARY).MultiplyAlpha(0.8)
             });
 
             EmailField.Focused += (s, e) =>
@@ -68,13 +68,13 @@ namespace XF.MaterialSample
         {
             //await MaterialDialogs.ShowAlertAsync("You are not connected to the internet.", "No connection", new MaterialDialogConfiguration
             //{
-            //    BackgroundColor = XF.Material.Material.GetMaterialResource<Color>("Material.Color.Primary"),
-            //    TitleTextColor = XF.Material.Material.GetMaterialResource<Color>("Material.Color.OnPrimary"),
-            //    TitleFontFamily = XF.Material.Material.GetMaterialResource<OnPlatform<string>>("FontFamily.Exo2Bold"),
-            //    MessageTextColor = XF.Material.Material.GetMaterialResource<Color>("Material.Color.OnPrimary").MultiplyAlpha(0.8),
-            //    MessageFontFamily = XF.Material.Material.GetMaterialResource<OnPlatform<string>>("FontFamily.OpenSansRegular"),
-            //    AccentColor = XF.Material.Material.GetMaterialResource<Color>("Material.Color.OnPrimary"),
-            //    ButtonFontFamily = XF.Material.Material.GetMaterialResource<OnPlatform<string>>("FontFamily.OpenSansSemiBold"),
+            //    BackgroundColor = XF.Material.Forms.Material.GetMaterialResource<Color>("Material.Color.Primary"),
+            //    TitleTextColor = XF.Material.Forms.Material.GetMaterialResource<Color>("Material.Color.OnPrimary"),
+            //    TitleFontFamily = XF.Material.Forms.Material.GetMaterialResource<OnPlatform<string>>("FontFamily.Exo2Bold"),
+            //    MessageTextColor = XF.Material.Forms.Material.GetMaterialResource<Color>("Material.Color.OnPrimary").MultiplyAlpha(0.8),
+            //    MessageFontFamily = XF.Material.Forms.Material.GetMaterialResource<OnPlatform<string>>("FontFamily.OpenSansRegular"),
+            //    AccentColor = XF.Material.Forms.Material.GetMaterialResource<Color>("Material.Color.OnPrimary"),
+            //    ButtonFontFamily = XF.Material.Forms.Material.GetMaterialResource<OnPlatform<string>>("FontFamily.OpenSansSemiBold"),
             //    CornerRadius = 8,
             //    ScrimColor = Color.FromHex("#232F34").MultiplyAlpha(0.32),
             //    ButtonAllCaps = false
@@ -82,21 +82,25 @@ namespace XF.MaterialSample
 
             //await MaterialDialogs.ShowAlertAsync("Do you want to sign in?", "Sign In",confirmingAction: null, configuration: new MaterialDialogConfiguration
             //{
-            //    BackgroundColor = XF.Material.Material.GetMaterialResource<Color>("Material.Color.Primary"),
-            //    TitleTextColor = XF.Material.Material.GetMaterialResource<Color>("Material.Color.OnPrimary"),
-            //    TitleFontFamily = XF.Material.Material.GetMaterialResource<OnPlatform<string>>("FontFamily.Exo2Bold"),
-            //    MessageTextColor = XF.Material.Material.GetMaterialResource<Color>("Material.Color.OnPrimary").MultiplyAlpha(0.8),
-            //    MessageFontFamily = XF.Material.Material.GetMaterialResource<OnPlatform<string>>("FontFamily.OpenSansRegular"),
-            //    AccentColor = XF.Material.Material.GetMaterialResource<Color>("Material.Color.OnPrimary"),
-            //    ButtonFontFamily = XF.Material.Material.GetMaterialResource<OnPlatform<string>>("FontFamily.OpenSansSemiBold"),
+            //    BackgroundColor = XF.Material.Forms.Material.GetMaterialResource<Color>("Material.Color.Primary"),
+            //    TitleTextColor = XF.Material.Forms.Material.GetMaterialResource<Color>("Material.Color.OnPrimary"),
+            //    TitleFontFamily = XF.Material.Forms.Material.GetMaterialResource<OnPlatform<string>>("FontFamily.Exo2Bold"),
+            //    MessageTextColor = XF.Material.Forms.Material.GetMaterialResource<Color>("Material.Color.OnPrimary").MultiplyAlpha(0.8),
+            //    MessageFontFamily = XF.Material.Forms.Material.GetMaterialResource<OnPlatform<string>>("FontFamily.OpenSansRegular"),
+            //    AccentColor = XF.Material.Forms.Material.GetMaterialResource<Color>("Material.Color.OnPrimary"),
+            //    ButtonFontFamily = XF.Material.Forms.Material.GetMaterialResource<OnPlatform<string>>("FontFamily.OpenSansSemiBold"),
             //    CornerRadius = 8,
             //    ScrimColor = Color.FromHex("#232F34").MultiplyAlpha(0.32),
             //    ButtonAllCaps = false
             //});
 
             //await MaterialDialogs.ShowAlertAsync("Not connected to the internet");
-            System.Diagnostics.Debug.WriteLine(await MaterialDialogs.ShowSnackbarAsync("Something is running", "Got it", MaterialSnackbar.DURATION_INDEFINITE));
-            await MaterialDialogs.ShowConfirmAsync("This. is an alert dialog.");
+            var result = await MaterialDialogs.ShowConfirmAsync("This is an alert dialog.");
+
+            if(result)
+            {
+                await MaterialDialogs.ShowSnackbarAsync("Something is running", "Got it", MaterialSnackbar.DURATION_INDEFINITE);
+            }
         }
 
         private async void MaterialChip_ActionImageTapped(object sender, EventArgs e)

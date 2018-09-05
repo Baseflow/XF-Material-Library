@@ -1,6 +1,6 @@
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using XF.Material.Views;
+using XF.Material.Forms.Views;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace XF.MaterialSample
@@ -11,7 +11,7 @@ namespace XF.MaterialSample
 		{
 			InitializeComponent();
 
-            XF.Material.Material.Init(this, "Material.Style");
+            XF.Material.Forms.Material.Init(this, "Material.Style");
         }
 
 		protected override void OnStart ()
