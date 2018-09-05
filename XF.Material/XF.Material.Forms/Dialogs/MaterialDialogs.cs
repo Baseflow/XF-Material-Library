@@ -111,7 +111,7 @@ namespace XF.Material.Forms.Dialogs
         }
 
         /// <summary>
-        /// Shows a snackbar with an action. Returns true if the snackbar's action button was clicked, and false if the snackbar was automatically dismissed.
+        /// Shows a snackbar with an action. Returns true if the snackbar's action button was clicked, or false if the snackbar was automatically dismissed.
         /// </summary>
         /// <param name="message">The message of the snackbar.</param>
         /// <param name="actionButtonText">The label text of the snackbar's button.</param>

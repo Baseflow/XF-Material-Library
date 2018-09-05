@@ -1,7 +1,13 @@
 ﻿namespace XF.Material.Forms.Resources
 {
+    /// <summary>
+    /// Static class that contains constant key values of Material resources.
+    /// </summary>
     public static class MaterialConstants
     {
+        /// <summary>
+        /// The Material color resource.
+        /// </summary>
         public static class Color
         {
             public const string PRIMARY = "Material.Color.Primary";
@@ -18,6 +24,9 @@
             public const string ONERROR = "Material.Color.OnError";
         }
 
+        /// <summary>
+        /// The Material font resource.
+        /// </summary>
         public static class FontFamily
         {
             public const string H1 = "Material.FontFamily.H1";

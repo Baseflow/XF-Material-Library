@@ -9,7 +9,7 @@ namespace XF.Material.Forms
     /// <summary>
     /// Static class that provides methods for configuring Material resources.
     /// </summary>
-    public sealed class Material
+    public class Material
     {
         private readonly ResourceDictionary _res;
 
@@ -52,6 +52,8 @@ namespace XF.Material.Forms
         /// </summary>
         /// <typeparam name="T">The type of the resource object to be retrieved.</typeparam>
         /// <param name="key">The key of the resource object. For a list of Material resource keys, see <see cref="MaterialConstants"/>.</param>
+        /// <exception cref="InvalidCastException" />
+        /// <exception cref="ArgumentNullException" />
         public static T GetResource<T>(string key)
         {
             Application.Current.Resources.TryGetValue(key ?? throw new ArgumentNullException(nameof(key)), out object value);
@@ -74,6 +76,7 @@ namespace XF.Material.Forms
         /// </summary>
         /// <param name="app">The cross-platform mobile application that is running.</param>
         /// <param name="materialResource">The object containing the <see cref="MaterialColorConfiguration"/> and <see cref="MaterialFontConfiguration"/>.</param>
+        /// <exception cref="ArgumentNullException" />
         public static void Init(Application app, MaterialConfiguration materialResource)
         {
             var material = new Material(app ?? throw new ArgumentNullException(nameof(app)), materialResource ?? throw new ArgumentNullException(nameof(materialResource)));
@@ -85,6 +88,7 @@ namespace XF.Material.Forms
         /// </summary>
         /// <param name="app">The cross-platform mobile application that is running.</param>
         /// <param name="key">The key of the <see cref="MaterialConfiguration"/> object in the current app's resource dictionary.</param>
+        /// <exception cref="ArgumentNullException" />
         public static void Init(Application app, string key)
         {
             var material = new Material(app ?? throw new ArgumentNullException(nameof(app)), key ?? throw new ArgumentNullException(nameof(key)));
@@ -95,6 +99,7 @@ namespace XF.Material.Forms
         /// Configure's the current app's resources by merging pre-defined Material resources.
         /// </summary>
         /// <param name="app">The cross-platform mobile application that is running.</param>
+        /// <exception cref="ArgumentNullException" />
         public static void Init(Application app)
         {
             var material = new Material(app ?? throw new ArgumentNullException(nameof(app)));
