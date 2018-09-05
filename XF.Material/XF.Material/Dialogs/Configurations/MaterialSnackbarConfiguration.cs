@@ -1,5 +1,4 @@
 ﻿using Xamarin.Forms;
-using XF.Material.Resources;
 
 namespace XF.Material.Dialogs.Configurations
 {
@@ -21,12 +20,12 @@ namespace XF.Material.Dialogs.Configurations
         /// <summary>
         /// Gets or sets the font family of the snackbar's button label.
         /// </summary>
-        public string ButtonFontFamily { get; set; } = Material.GetMaterialResource<string>(MaterialConstants.FontFamily.BUTTON);
+        public string ButtonFontFamily { get; set; } = Material.FontConfiguration.Button;
 
         /// <summary>
         /// Gets or sets the font family of the snackbar's text message.
         /// </summary>
-        public override string MessageFontFamily { get; set; } = Material.GetMaterialResource<string>(MaterialConstants.FontFamily.BODY2);
+        public override string MessageFontFamily { get; set; } = Material.FontConfiguration.Body2;
 
         /// <summary>
         /// Gets or sets the color of the snackbar's message text.

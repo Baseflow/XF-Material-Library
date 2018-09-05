@@ -4,7 +4,7 @@ using XF.Material.Resources;
 namespace XF.Material.Dialogs.Configurations
 {
     /// <summary>
-    /// A class that provides properties specifically for styling <see cref="MaterialDialog"/>.
+    /// A class that provides properties specifically for styling <see cref="MaterialAlertDialog"/>.
     /// </summary>
     public class MaterialAlertDialogConfiguration : BaseMaterialDialogConfiguration
     {
@@ -16,12 +16,12 @@ namespace XF.Material.Dialogs.Configurations
         /// <summary>
         /// Gets or sets the title font family of the alert dialog.
         /// </summary>
-        public string TitleFontFamily { get; set; } = Material.GetMaterialResource<string>(MaterialConstants.FontFamily.H6);
+        public string TitleFontFamily { get; set; } = Material.FontConfiguration.H6;
 
         /// <summary>
         /// Gets or sets the button font family of the alert dialog.
         /// </summary>
-        public string ButtonFontFamily { get; set; } = Material.GetMaterialResource<string>(MaterialConstants.FontFamily.BUTTON);
+        public string ButtonFontFamily { get; set; } = Material.FontConfiguration.Button;
 
         /// <summary>
         /// Gets or sets whether the button's label text of the alert dialog should all be capitalized or not.

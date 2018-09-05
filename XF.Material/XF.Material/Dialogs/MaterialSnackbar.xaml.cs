@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XF.Material.Dialogs.Configurations;
@@ -46,10 +45,13 @@ namespace XF.Material.Dialogs
             await snackbar.ShowAsync();
         }
 
-        internal static async Task ShowAsync(string message, string actionButtonText, Action primaryAction = null, Action hideAction = null, int msDuration = DURATION_LONG, MaterialSnackbarConfiguration configuration = null)
+        internal static async Task<bool> ShowAsync(string message, string actionButtonText, int msDuration = DURATION_LONG, MaterialSnackbarConfiguration configuration = null)
         {
-            var snackbar = new MaterialSnackbar(message, actionButtonText, primaryAction, hideAction, msDuration, configuration);
+            var tcs = new TaskCompletionSource<bool>();
+            var snackbar = new MaterialSnackbar(message, actionButtonText, () => tcs.SetResult(true), () => tcs.SetResult(false), msDuration, configuration);
             await snackbar.ShowAsync();
+
+            return await tcs.Task;
         }
 
         protected override async void OnAppearingAnimationEnd()
@@ -58,24 +60,19 @@ namespace XF.Material.Dialogs
 
             if (_duration > 0)
             {
-                await BeginDuration();
+                await Task.Delay(_duration);
+
+                if (!_primaryActionRunning)
+                {
+                    _hideAction?.Invoke();
+                    this.Dispose();
+                }
             }
         }
 
         protected override bool OnBackButtonPressed()
         {
             return true;
-        }
-
-        private async Task BeginDuration()
-        {
-            await Task.Delay(_duration);
-
-            if (!_primaryActionRunning)
-            {
-                _hideAction?.Invoke();
-                this.Dispose();
-            }
         }
 
         private void Configure(MaterialSnackbarConfiguration configuration)

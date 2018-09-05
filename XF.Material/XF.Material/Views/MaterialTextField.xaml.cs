@@ -582,27 +582,35 @@ namespace XF.Material.Views
             {
                 case MaterialTextFieldInputType.Chat:
                     entry.Keyboard = Keyboard.Chat;
+                    entry.IsPassword = false;
                     break;
                 case MaterialTextFieldInputType.Default:
                     entry.Keyboard = Keyboard.Default;
+                    entry.IsPassword = false;
                     break;
                 case MaterialTextFieldInputType.Email:
                     entry.Keyboard = Keyboard.Email;
+                    entry.IsPassword = false;
                     break;
                 case MaterialTextFieldInputType.Numeric:
                     entry.Keyboard = Keyboard.Numeric;
+                    entry.IsPassword = false;
                     break;
                 case MaterialTextFieldInputType.Plain:
                     entry.Keyboard = Keyboard.Plain;
+                    entry.IsPassword = false;
                     break;
                 case MaterialTextFieldInputType.Telephone:
                     entry.Keyboard = Keyboard.Telephone;
+                    entry.IsPassword = false;
                     break;
                 case MaterialTextFieldInputType.Text:
+                    entry.IsPassword = false;
                     entry.Keyboard = Keyboard.Text;
                     break;
                 case MaterialTextFieldInputType.Url:
                     entry.Keyboard = Keyboard.Url;
+                    entry.IsPassword = false;
                     break;
                 case MaterialTextFieldInputType.NumericPassword:
                     entry.Keyboard = Keyboard.Numeric;

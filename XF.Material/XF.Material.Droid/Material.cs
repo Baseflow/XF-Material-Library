@@ -5,6 +5,7 @@ using Rg.Plugins.Popup;
 using Rg.Plugins.Popup.Services;
 using System;
 using System.Linq;
+using XF.Material.Dialogs;
 
 namespace XF.Material.Droid
 {
@@ -23,13 +24,13 @@ namespace XF.Material.Droid
             IsJellyBean = Build.VERSION.SdkInt < BuildVersionCodes.Kitkat;
 
             AppCompatDelegate.CompatVectorFromResourcesEnabled = true;
-            Rg.Plugins.Popup.Popup.Init(context, bundle);
+            Popup.Init(context, bundle);
         }
 
         public static void HandleBackButton(Action backAction)
         {
-            var materialDialog = PopupNavigation.Instance.PopupStack.FirstOrDefault(p => p is XF.Material.Dialogs.MaterialDialog);
-            var loadingDialog = PopupNavigation.Instance.PopupStack.FirstOrDefault(p => p is XF.Material.Dialogs.MaterialLoadingDialog);
+            var materialDialog = PopupNavigation.Instance.PopupStack.FirstOrDefault(p => p is MaterialAlertDialog);
+            var loadingDialog = PopupNavigation.Instance.PopupStack.FirstOrDefault(p => p is MaterialLoadingDialog);
 
             if (Popup.SendBackPressed(backAction) && materialDialog != null && loadingDialog == null)
             {

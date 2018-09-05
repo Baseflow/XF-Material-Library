@@ -95,54 +95,8 @@ namespace XF.MaterialSample
             //});
 
             //await MaterialDialogs.ShowAlertAsync("Not connected to the internet");
-
-            switch (_counter)
-            {
-                case 0:
-                    await MaterialDialogs.ShowAlertAsync(message: "This is an alert dialog");
-                    break;
-                case 1:
-                    await MaterialDialogs.ShowAlertAsync(message: "This is an alert dialog", acknowledgementText: "Got It");
-                    break;
-                case 2:
-                    await MaterialDialogs.ShowAlertAsync(message: "This is an alert dialog", title: "Alert Dialog", acknowledgementText: "Got It");
-                    break;
-                case 3:
-                    await MaterialDialogs.ShowAlertAsync(message: "Is this an alert dialog?", confirmingText: "Yes", confirmingAction: null);
-                    break;
-                case 4:
-                    //await MaterialDialogs.ShowAlertAsync(message: "Is this an alert dialog?", title: "Alert Dialog", confirmingText: "Yes", confirmingAction: null, dismissiveText: "No");
-                    await MaterialDialogs.ShowSnackbarAsync(message:"This is a snackbar.", 
-                                                            actionButtonText: "Got It",
-                                                            msDuration: 5000);
-                    break;
-                case 5:
-                    var a = await MaterialDialogs.ShowLoadingSnackbarAsync("Something is running...");
-                    await Task.Delay(10000);
-                    a.Dispose();
-                    break;
-            }
-
-            _counter = _counter + 1;
-
-            if (_counter == 6)
-            {
-                _counter = 0;
-            }
-
-            //using (await MaterialDialogs.ShowLoadingDialogAsync("Something is running."))
-            //{
-            //    await Task.Delay(3000);
-            //}
-
-            //await MaterialDialogs.ShowSnackbarAsync("This is a snackbar.", "Ok", null, configuration: new MaterialSnackbarConfiguration
-            //{
-            //    BackgroundColor = XF.Material.Material.GetMaterialResource<Color>("Material.Color.Primary"),
-            //    MessageFontFamily = XF.Material.Material.GetMaterialResource<OnPlatform<string>>("FontFamily.OpenSansRegular"),
-            //    ButtonFontFamily = XF.Material.Material.GetMaterialResource<OnPlatform<string>>("FontFamily.OpenSansSemiBold"),
-            //    TintColor = Color.White,
-            //    MessageTextColor = XF.Material.Material.GetMaterialResource<Color>("Material.Color.OnPrimary").MultiplyAlpha(0.8)
-            //});
+            System.Diagnostics.Debug.WriteLine(await MaterialDialogs.ShowSnackbarAsync("Something is running", "Got it", MaterialSnackbar.DURATION_INDEFINITE));
+            await MaterialDialogs.ShowConfirmAsync("This. is an alert dialog.");
         }
 
         private async void MaterialChip_ActionImageTapped(object sender, EventArgs e)

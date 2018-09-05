@@ -20,6 +20,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Dialogs\MaterialAlertDialog.xaml.cs">
+      <DependentUpon>MaterialAlertDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Resources\MaterialSizes.xaml.cs">
       <DependentUpon>MaterialSizes.xaml</DependentUpon>
     </Compile>
@@ -29,7 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Dialogs\MaterialDialog.xaml">
+    <EmbeddedResource Update="Dialogs\MaterialAlertDialog.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Dialogs\MaterialLoadingDialog.xaml">
@@ -50,5 +53,38 @@
     <EmbeddedResource Update="Views\MaterialTextField.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Dialogs\MaterialAlertDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Dialogs\MaterialLoadingDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Dialogs\MaterialSnackbar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="MaterialStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Resources\MaterialColors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Resources\MaterialSizes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Resources\MaterialStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Resources\Typography\MaterialTypography.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Views\MaterialChip.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Views\MaterialTextField.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
   </ItemGroup>
 </Project>

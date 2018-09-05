@@ -15,12 +15,15 @@ namespace XF.Material
 
         internal Material(Application app, MaterialConfiguration materialResource) : this(app)
         {
-            Resource = materialResource;
+            ColorConfiguration = materialResource.ColorConfiguration;
+            FontConfiguration = materialResource.FontConfiguration;
         }
 
         internal Material(Application app, string key) : this(app)
         {
-            Resource = GetMaterialResource<MaterialConfiguration>(key);
+            var materialResource = GetMaterialResource<MaterialConfiguration>(key);
+            ColorConfiguration = materialResource.ColorConfiguration;
+            FontConfiguration = materialResource.FontConfiguration;
         }
 
         internal Material(Application app)
@@ -30,11 +33,13 @@ namespace XF.Material
         }
 
         /// <summary>
-        /// Static object for configuring cross-platform UI customizations.
+        /// A dependency service for configuring cross-platform UI customizations.
         /// </summary>
         public static IMaterialUtility PlatformConfiguration { get; private set; }
 
-        public static MaterialConfiguration Resource { get; private set; }
+        public static MaterialColorConfiguration ColorConfiguration { get; private set; }
+
+        public static MaterialFontConfiguration FontConfiguration { get; private set; }
 
         /// <summary>
         /// Gets a resource of the specified type from the current ResourceDictionary.
@@ -59,8 +64,7 @@ namespace XF.Material
         }
 
         /// <summary>
-        /// Initializes a new <see cref="Material"/> object from which we will get the values defined either from the app's resource dictionary or by using a <see cref="Resource"/> object.
-        /// This will automatically create new resources in the current app.
+        /// Configure's the current app's resources by merging pre-defined Material resources and creating new resources based on the <see cref="MaterialConfiguration"/>'s properties.
         /// </summary>
         /// <param name="app">The cross-platform mobile application that is running.</param>
         /// <param name="materialResource">The object containing the <see cref="MaterialColorConfiguration"/> and <see cref="MaterialFontConfiguration"/>.</param>
@@ -93,8 +97,8 @@ namespace XF.Material
 
         private void MergeMaterialDictionaries()
         {
-            _res.MergedDictionaries.Add(new MaterialColors(Resource?.ColorConfiguration));
-            _res.MergedDictionaries.Add(new MaterialTypography(Resource?.FontConfiguration));
+            _res.MergedDictionaries.Add(new MaterialColors(ColorConfiguration));
+            _res.MergedDictionaries.Add(new MaterialTypography(FontConfiguration));
             _res.MergedDictionaries.Add(new MaterialSizes());
             _res.MergedDictionaries.Add(new MaterialStyles());
         }

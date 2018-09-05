@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<local:BaseMaterialModalPage x:Class="XF.Material.Dialogs.MaterialDialog"
+<local:BaseMaterialModalPage x:Class="XF.Material.Dialogs.MaterialAlertDialog"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:XF.Material.Dialogs"
@@ -39,8 +39,7 @@
                 </Grid.RowDefinitions>
                 <Label x:Name="DialogTitle"
                     Grid.Row="0"
-                    Margin="24,20,24,0"
-                    HeightRequest="40"
+                    Margin="24,20,24,12"
                     Style="{DynamicResource Material.TypeScale.H6}"
                     TextColor="#DE000000"
                     VerticalOptions="Start">

@@ -1,10 +1,9 @@
 ﻿using Xamarin.Forms;
-using XF.Material.Resources;
 
 namespace XF.Material.Dialogs.Configurations
 {
     /// <summary>
-    /// Base class that provides properties for styling <see cref="MaterialDialog"/> and <see cref="MaterialLoadingDialog"/>.
+    /// Base class that provides properties for styling <see cref="MaterialAlertDialog"/> and <see cref="MaterialLoadingDialog"/>.
     /// </summary>
     public abstract class BaseMaterialDialogConfiguration
     {
@@ -23,7 +22,7 @@ namespace XF.Material.Dialogs.Configurations
         /// <summary>
         /// Gets or sets the message font family of the dialog.
         /// </summary>
-        public virtual string MessageFontFamily { get; set; } = Material.GetMaterialResource<string>(MaterialConstants.FontFamily.BODY1);
+        public virtual string MessageFontFamily { get; set; } = Material.FontConfiguration.Body1;
 
         /// <summary>
         /// Gets or sets the message text color of the dialog.
@@ -38,6 +37,6 @@ namespace XF.Material.Dialogs.Configurations
         /// <summary>
         /// Gets or sets the tint color of the dialog.
         /// </summary>
-        public virtual Color TintColor { get; set; } = Material.GetMaterialResource<Color>(MaterialConstants.Color.SECONDARY);
+        public virtual Color TintColor { get; set; } = Material.ColorConfiguration.Secondary;
     }
 }
