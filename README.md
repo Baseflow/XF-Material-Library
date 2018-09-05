@@ -40,7 +40,7 @@ A Xamarin.Forms library for Xamarin.Android and Xamarin.iOS to implement [Google
 public App()
 {
     InitializeComponent();
-    XF.Material.Material.Init(this);
+    XF.Material.Forms.Material.Init(this);
 }
 
 //Xamarin.Android
@@ -70,6 +70,8 @@ public override bool FinishedLaunching(UIApplication app, NSDictionary options)
 }
 
 ```
+
+3. You can also set your resources in this stage. Read more about it [here](#material-resources).
 
 ### Additional configuration for iOS
 
@@ -311,7 +313,7 @@ Alert dialogs interrupt users with urgent information, details, or actions.
 |<img src="images/dialog_android.jpg" alt="Android button" width="500" />|<img src="images/dialog_ios.jpg" alt="iOS button" width="573"/> |
 
 ##### Code
-You can show an alert dialog using any of the following overload methods of `MaterialDialogs.ShowAlertAsync()`.
+You can show an alert dialog using any of the following overload methods of `MaterialDialogs.ShowAlertAsync()` or `MaterialDialogs.ShowConfirmAsync()`.
 
 There are two common parameters in this method:
 
@@ -319,7 +321,7 @@ There are two common parameters in this method:
 
 2. `title` - The title of the alert dialog.
 
-- Showing an alert dialog for acknowledgement.
+- Shows an alert dialog for acknowledgement. It only has a single, dismissive action used for acknowledgement.
 
     ```c#
     await MaterialDialogs.ShowAlertAsync(message: "This is an alert dialog.");
@@ -328,37 +330,29 @@ There are two common parameters in this method:
                                         acknowledgementText: "Got It");
     
     await MaterialDialogs.ShowAlertAsync(message: "This is an alert dialog", 
-                                        title: "Alert Dialog");
-    
-    await MaterialDialogs.ShowAlertAsync(message: "This is an alert dialog", 
                                         title: "Alert Dialog", 
                                         acknowledgementText: "Got It");
     ```
     
     - `acknowledgementText` - The text of the alert dialog's acknowledgement button. The default string value is `Ok`.
 
-- Showing an alert dialog for confirmation of action.
+- Showing an alert dialog for confirmation of action. Returns true when the confirm button was clicked, false if the dismiss button was clicked or if the alert dialog was dismissed.
 
     ```c#
-    await MaterialDialogs.ShowAlertAsync(message: "Do you want to sign in?", 
-                                        confirmingText: "Sign In", 
-                                        confirmingAction: () => { /*code to sign in*/ });
+    await MaterialDialogs.ShowConfirmAsync(message: "Do you want to sign in?", 
+                                        confirmingText: "Sign In");
 
-    await MaterialDialogs.ShowAlertAsync(message: "Do you want to sign in?", 
-                                        title: "Sign in to app", 
+    await MaterialDialogs.ShowConfirmAsync(message: "Do you want to sign in?", 
                                         confirmingText: "Sign In", 
-                                        confirmingAction: () => { /*code to sign in*/ });
+                                        dismissiveText: "No");
 
-    await MaterialDialogs.ShowAlertAsync(message: "Discard draft?", 
+    await MaterialDialogs.ShowConfirmAsync(message: "Discard draft?", 
                                         title: "Confirm", 
                                         confirmingText: "Yes", 
-                                        confirmingAction: () => { /*code to discard draft*/ }, 
                                         dismissiveText: "No");
     ```
 
     - `confirmingText` - The text of the alert dialog's confirmation button.
-   
-    - `confirmingAction` - The action that will run when the confirmation button is clicked.
     
     - `dismissiveText` - The text of the alert dialog's dismissive button. The default string value is `Cancel`.
 
@@ -432,11 +426,7 @@ You can show a snackbar by using either of the two overload methods of `Material
 
 Both methods have this default parameter `message`, which is the message that will display on the snackbar.
 
-- Show a snackbar with only a message. The duration of the snackbar before it will disappear is 2.75 seconds.
-    ```C#
-    await MaterialDialogs.ShowSnackbarAsync(message: "This is a snackbar.");
-    ```
-- Show a snackbar with a message and a specified duration.
+- Shows a snackbar with no action. 
     ```c#
     await MaterialDialogs.ShowSnackbarAsync(message: "This is a snackbar.", 
                                             msDuration: MaterialSnackbar.DURATION_LONG);
@@ -448,24 +438,13 @@ Both methods have this default parameter `message`, which is the message that wi
         
         - `MaterialSnackbar.DURATION_INDEFINITE` - Snackbar will show indefinitely.
 
-- Show a snackbar with a message, a specified duration, and actions.
+- Shows a snackbar with an action. Returns true if the snackbar's action button was clicked, or false if the snackbar was automatically dismissed.
     ```c#
     await MaterialDialogs.ShowSnackbarAsync(message: "This is a snackbar.",
                                             actionButtonText: "Got It",
-                                            primaryAction: () => { /*code for action*/ },
-                                            msDuration: 3000,);
-
-    await MaterialDialogs.ShowSnackbarAsync(message: "This is a snackbar.",
-                                            actionButtonText: "Got It",
-                                            primaryAction: () => { /*code to run when snackbar button is clicked*/ },
-                                            hideAction: () => { /*code to run after hiding snackbar*/ },
                                             msDuration: 3000);
     ```
     - `actionButtonText` - The text that will appear on the snackbar's button.
-    
-    - `primaryAction` - The action that will run when the snackbar's button was clicked.
-    
-    - `hideAction` - The action that will run after the snackbar disappeared. Default value is `null`.
 
 You can also use a snackbar to indicate a task/s running without interrupting the user. You can use the `MaterialDialogs.ShowLoadingSnackbarAsync()` method.
 
@@ -532,13 +511,13 @@ The properties of `MaterialAlertDialogConfiguration` class are:
 ```C#
 var alertDialogConfiguration = new MaterialAlertDialogConfiguration
 {
-    BackgroundColor = XF.Material.Material.GetMaterialResource<Color>(MaterialConstants.Color.PRIMARY),
-    TitleTextColor = XF.Material.Material.GetMaterialResource<Color>(MaterialConstants.Color.ONPRIMARY),
-    TitleFontFamily = XF.Material.Material.GetMaterialResource<OnPlatform<string>>("FontFamily.Exo2Bold"),
-    MessageTextColor = XF.Material.Material.GetMaterialResource<Color>(MaterialConstants.Color.ONPRIMARY).MultiplyAlpha(0.8),
-    MessageFontFamily = XF.Material.Material.GetMaterialResource<OnPlatform<string>>("FontFamily.OpenSansRegular"),
-    TintColor = XF.Material.Material.GetMaterialResource<Color>(MaterialConstants.Color.ONPRIMARY),
-    ButtonFontFamily = XF.Material.Material.GetMaterialResource<OnPlatform<string>>("FontFamily.OpenSansSemiBold"),
+    BackgroundColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.PRIMARY),
+    TitleTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ONPRIMARY),
+    TitleFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.Exo2Bold"),
+    MessageTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ONPRIMARY).MultiplyAlpha(0.8),
+    MessageFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansRegular"),
+    TintColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ONPRIMARY),
+    ButtonFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansSemiBold"),
     CornerRadius = 8,
     ScrimColor = Color.FromHex("#232F34").MultiplyAlpha(0.32),
     ButtonAllCaps = false
@@ -559,10 +538,10 @@ await MaterialDialogs.ShowAlertAsync(message: "This is an alert dialog",
 ```c#
 var loadingDialogConfiguration = new MaterialLoadingDialogConfiguration
 {
-    BackgroundColor = XF.Material.Material.GetMaterialResource<Color>(MaterialConstants.Color.PRIMARY),
-    MessageTextColor = XF.Material.Material.GetMaterialResource<Color>(MaterialConstants.Color.ONPRIMARY).MultiplyAlpha(0.8),
-    MessageFontFamily = XF.Material.Material.GetMaterialResource<OnPlatform<string>>("FontFamily.OpenSansRegular"),
-    TintColor = XF.Material.Material.GetMaterialResource<Color>(MaterialConstants.Color.ONPRIMARY),
+    BackgroundColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.PRIMARY),
+    MessageTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ONPRIMARY).MultiplyAlpha(0.8),
+    MessageFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansRegular"),
+    TintColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ONPRIMARY),
     CornerRadius = 8,
     ScrimColor = Color.FromHex("#232F34").MultiplyAlpha(0.32)
 };
@@ -580,12 +559,12 @@ await MaterialDialogs.ShowLoadingDialogAsync(message: "Something is running...",
 ```c#
 var snackbarConfiguration = new MaterialSnackbarConfiguration            
 {
-    BackgroundColor = XF.Material.Material.GetMaterialResource<Color>(MaterialConstants.Color.PRIMARY),
-    MessageFontFamily = XF.Material.Material.GetMaterialResource<OnPlatform<string>>("FontFamily.OpenSansRegular"),
+    BackgroundColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.PRIMARY),
+    MessageFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansRegular"),
     ButtonAllCaps = true,
-    ButtonFontFamily = XF.Material.Material.GetMaterialResource<OnPlatform<string>>("FontFamily.OpenSansSemiBold"),
+    ButtonFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansSemiBold"),
     TintColor = Color.White,
-    MessageTextColor = XF.Material.Material.GetMaterialResource<Color>(MaterialConstants.Color.ONPRIMARY).MultiplyAlpha(0.8)
+    MessageTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ONPRIMARY).MultiplyAlpha(0.8)
 }
 
 await MaterialDialogs.ShowSnackbarAsync(message: "This is a snackbar."
@@ -602,39 +581,39 @@ You can set the global styles of each dialog by using the `MaterialDialogs.SetGl
 ```c#
 MaterialDialogs.SetGlobalStyles(new MaterialAlertDialogConfiguration
 {
-    BackgroundColor = XF.Material.Material.GetMaterialResource<Color>(MaterialConstants.Color.PRIMARY),
-    TitleTextColor = XF.Material.Material.GetMaterialResource<Color>(MaterialConstants.Color.ONPRIMARY),
-    TitleFontFamily = XF.Material.Material.GetMaterialResource<OnPlatform<string>>("FontFamily.Exo2Bold"),
-    MessageTextColor = XF.Material.Material.GetMaterialResource<Color>(MaterialConstants.Color.ONPRIMARY).MultiplyAlpha(0.8),
-    MessageFontFamily = XF.Material.Material.GetMaterialResource<OnPlatform<string>>("FontFamily.OpenSansRegular"),
-    TintColor = XF.Material.Material.GetMaterialResource<Color>(MaterialConstants.Color.ONPRIMARY),
-    ButtonFontFamily = XF.Material.Material.GetMaterialResource<OnPlatform<string>>("FontFamily.OpenSansSemiBold"),
+    BackgroundColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.PRIMARY),
+    TitleTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ONPRIMARY),
+    TitleFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.Exo2Bold"),
+    MessageTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ONPRIMARY).MultiplyAlpha(0.8),
+    MessageFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansRegular"),
+    TintColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ONPRIMARY),
+    ButtonFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansSemiBold"),
     CornerRadius = 8,
     ScrimColor = Color.FromHex("#232F34").MultiplyAlpha(0.32),
     ButtonAllCaps = false
 },
 new MaterialLoadingDialogConfiguration
 {
-    BackgroundColor = XF.Material.Material.GetMaterialResource<Color>(MaterialConstants.Color.PRIMARY),
-    MessageTextColor = XF.Material.Material.GetMaterialResource<Color>(MaterialConstants.Color.ONPRIMARY).MultiplyAlpha(0.8),
-    MessageFontFamily = XF.Material.Material.GetMaterialResource<OnPlatform<string>>("FontFamily.OpenSansRegular"),
-    TintColor = XF.Material.Material.GetMaterialResource<Color>(MaterialConstants.Color.ONPRIMARY),
+    BackgroundColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.PRIMARY),
+    MessageTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ONPRIMARY).MultiplyAlpha(0.8),
+    MessageFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansRegular"),
+    TintColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ONPRIMARY),
     CornerRadius = 8,
     ScrimColor = Color.FromHex("#232F34").MultiplyAlpha(0.32)
 }, new MaterialSnackbarConfiguration
 {
-    BackgroundColor = XF.Material.Material.GetMaterialResource<Color>(MaterialConstants.Color.PRIMARY),
-    MessageFontFamily = XF.Material.Material.GetMaterialResource<OnPlatform<string>>("FontFamily.OpenSansRegular"),
+    BackgroundColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.PRIMARY),
+    MessageFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansRegular"),
     ButtonAllCaps = false,
-    ButtonFontFamily = XF.Material.Material.GetMaterialResource<OnPlatform<string>>("FontFamily.OpenSansSemiBold"),
+    ButtonFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansSemiBold"),
     TintColor = Color.White,
-    MessageTextColor = XF.Material.Material.GetMaterialResource<Color>(MaterialConstants.Color.ONPRIMARY).MultiplyAlpha(0.8)
+    MessageTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ONPRIMARY).MultiplyAlpha(0.8)
 });
 ```
 
 You can still override these styles be passing the configuration object when showing an alert dialog, loading dialog, and snackbar.
 
-### Material Resources
+### Material Resources 
 You can create Material-based resources which will be used by your app. This library strictly follows Google's Material Design, following principles of good design while maintaining a common UI across platforms.
 
 The `MaterialConfiguration` class allow you to define your theme and combine it along with the built in resource dictionary to your app.
@@ -741,8 +720,8 @@ The code below shows a complete example on how to include the `MaterialColorConf
 <Application x:Class="XF.MaterialSample.App"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:mtrl="clr-namespace:XF.Material.Resources;assembly=XF.Material"
-    xmlns:mtrltypo="clr-namespace:XF.Material.Resources.Typography;assembly=XF.Material">
+    xmlns:mtrl="clr-namespace:XF.Material.Forms.Resources;assembly=XF.Material.Forms"
+    xmlns:mtrltypo="clr-namespace:XF.Material.Forms.Resources.Typography;assembly=XF.Material.Forms">
     <Application.Resources>
 
         <OnPlatform x:Key="FontFamily.RobotoRegular"
@@ -792,7 +771,6 @@ The code below shows a complete example on how to include the `MaterialColorConf
 ```
 
 Then in your `App.xaml.cs`, pass the resource key of the `MaterialConfiguration` object.
-*The resource key is not specific to the given example above.*
 
 `MaterialFontConfiguration`'s and `MaterialColorConfiguration`'s properties are optional, they always have a default value. For `MaterialFontConfiguration` the default font is the system font. `MaterialColorConfiguration` is seen [here](#color).
 
@@ -802,7 +780,7 @@ Then in your `App.xaml.cs`, pass the resource key of the `MaterialConfiguration`
 public App()
 {
     InitializeComponent();
-    XF.Material.Material.Init(this, "Material.Configuration");
+    XF.Material.Forms.Material.Init(this, "Material.Configuration");
 }
 
 ```
@@ -815,7 +793,7 @@ You can also instantiate the `MaterialConfiguration` object via C# code.
 public App()
 {
     InitializeComponent();
-    XF.Material.Material.Init(this, new MaterialConfiguration
+    XF.Material.Forms.Material.Init(this, new MaterialConfiguration
     {
         ColorConfiguration = new MaterialColorConfiguration
         {
@@ -832,16 +810,20 @@ public App()
 
 #### Retrieving a Material Resource
 
-`XF.Material.Material.GetMaterialResource<T>(string key)` method allows you to get a resource value of the sepcified type.
+The static properties `ColorConfiguration` and `FontConfiguration` of `Material` class allows you to retrieve the resource values that you have set.
+
+You can also use`XF.Material.Forms.Material.GetResource<T>(string key)` method that allows you to get a resource value of the specified type.
 
 The static `MaterialConstants` class provides a list of constant Material resource keys.
 
 ```c#
-//Get color resource
-Color primaryColor = XF.Material.Material.GetMaterialResource<Color>(MaterialConstants.Color.PRIMARY);
+//Get color resource, use either
+Color primaryColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.PRIMARY);
+Color primaryColor = XF.Material.Forms.Material.ColorConfiguration.Primary;
 
-//Get font family resource
-string body1Font = XF.Material.Material.GetMaterialResource<Color>(MaterialConstants.FontFamily.BODY1);
+//Get font family resource, use either
+string body1Font = XF.Material.Forms.Material.GetResource<string>(MaterialConstants.FontFamily.BODY1);
+string body1Font = XF.Material.Forms.Material.FontConfiguration.Body1;
 ```
 
 ### Adding a shadow to the Navigation Bar
@@ -851,12 +833,13 @@ You can add a shadow to the navigation bar by using the `MaterialNavigationPage`
 You can change the color of the status bar by using the `Material.PlatformConfiguration.ChangeStatusBarColor(Color color)` method.
 
 ## Android Compatibility Issues
-It is recommended to use this library for applications targeting Android 5.0 (Lollipop) or higher.
+It is recommended to use this library for applications targeting Android 5.0 (Lollipop) or higher for better rendering.
 
 If targeted below Android 5.0, the following issues can be seen:
 
 - Material shadows, like that of `MaterialCard` and `MaterialButton`, will not show.
-- On Android 4.2, `MaterialButton` is larger. Explanation is provided in this [issue](https://github.com/contrix09/XF-Material-Library/issues/2#issuecomment-417819032).
+- On Android 4.2 (Jellybean), `MaterialButton` is larger. Explanation is provided in this [issue](https://github.com/contrix09/XF-Material-Library/issues/2#issuecomment-417819032).
+- Letter spacing of typescale effects won't work for devices running below Android 5.0 (Lollipop). The API for setting the letter spacing was added in Android 5.0.
 
 ## Libraries Used
 Special thanks to the following libraries I used for this project:
