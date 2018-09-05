@@ -99,7 +99,10 @@ namespace XF.MaterialSample
 
             if(result)
             {
-                await MaterialDialogs.ShowSnackbarAsync("Something is running", "Got it", MaterialSnackbar.DURATION_INDEFINITE);
+                using (await MaterialDialogs.ShowLoadingDialogAsync("Something is running..."))
+                {
+                    await Task.Delay(5000);
+                }
             }
         }
 
