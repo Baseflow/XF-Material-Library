@@ -1,4 +1,5 @@
-﻿using Rg.Plugins.Popup.Pages;
+﻿using Rg.Plugins.Popup.Animations;
+using Rg.Plugins.Popup.Pages;
 using Rg.Plugins.Popup.Services;
 using System;
 using System.Linq;
@@ -14,7 +15,21 @@ namespace XF.Material.Forms.Dialogs
     {
         private bool _disposed;
 
-        internal BaseMaterialModalPage() { }
+        internal BaseMaterialModalPage()
+        {
+            this.Animation = new ScaleAnimation()
+            {
+                DurationIn = 150,
+                DurationOut = 75,
+                EasingIn = Easing.SinOut,
+                EasingOut = Easing.Linear,
+                HasBackgroundAnimation = true,
+                PositionIn = Rg.Plugins.Popup.Enums.MoveAnimationOptions.Center,
+                PositionOut = Rg.Plugins.Popup.Enums.MoveAnimationOptions.Center,
+                ScaleIn = 0.9,
+                ScaleOut = 1
+            };
+        }
 
         /// <summary>
         /// Disposes this modal dialog.

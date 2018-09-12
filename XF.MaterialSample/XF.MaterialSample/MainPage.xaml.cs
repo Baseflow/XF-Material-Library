@@ -108,7 +108,7 @@ namespace XF.MaterialSample
             //await MaterialDialog.Instance.AlertAsync("Not connected to the internet", "Connection error", "Ok");
             var actions = new List<string> { "Open in new window", "Download to device", "Archive item", "Delete item" };
             var result = await MaterialDialog.Instance.SelectActionAsync("What do you want to do?", actions);
-            await MaterialDialog.Instance.AlertAsync("Selected " + actions[result]);
+            await MaterialDialog.Instance.SnackbarAsync("Selected " + actions[result], "Got It");
             //var result = await MaterialDialog.Instance.ShowConfirmAsync("Do you want to sign in?");
             //System.Diagnostics.Debug.WriteLine(result);
 

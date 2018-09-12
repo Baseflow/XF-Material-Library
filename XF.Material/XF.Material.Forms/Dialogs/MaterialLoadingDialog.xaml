@@ -8,17 +8,6 @@
     xmlns:rgp="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
     BackgroundColor="#51000000"
     CloseWhenBackgroundIsClicked="False">
-    <rgp:PopupPage.Animation>
-        <rga:ScaleAnimation DurationIn="150"
-            DurationOut="150"
-            EasingIn="SinOut"
-            EasingOut="SinIn"
-            HasBackgroundAnimation="True"
-            PositionIn="Center"
-            PositionOut="Center"
-            ScaleIn="1.2"
-            ScaleOut="0.8" />
-    </rgp:PopupPage.Animation>
     <ContentPage.Content>
         <material:MaterialCard x:Name="Container"
             Margin="{StaticResource Material.Dialog.Margin}"
