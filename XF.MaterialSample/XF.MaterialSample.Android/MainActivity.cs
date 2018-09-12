@@ -15,6 +15,7 @@ namespace XF.MaterialSample.Droid
             base.OnCreate(savedInstanceState);
 
             XF.Material.Droid.Material.Init(this, savedInstanceState);
+            Xamarin.Forms.Forms.SetFlags("FastRenderers_Experimental");
             Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
         }

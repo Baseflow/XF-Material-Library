@@ -272,6 +272,7 @@ namespace XF.MaterialSample.Droid
 			global::XF.Material.Droid.Resource.Attribute.lottie_repeatCount = global::XF.MaterialSample.Droid.Resource.Attribute.lottie_repeatCount;
 			global::XF.Material.Droid.Resource.Attribute.lottie_repeatMode = global::XF.MaterialSample.Droid.Resource.Attribute.lottie_repeatMode;
 			global::XF.Material.Droid.Resource.Attribute.lottie_scale = global::XF.MaterialSample.Droid.Resource.Attribute.lottie_scale;
+			global::XF.Material.Droid.Resource.Attribute.lottie_url = global::XF.MaterialSample.Droid.Resource.Attribute.lottie_url;
 			global::XF.Material.Droid.Resource.Attribute.maxActionInlineWidth = global::XF.MaterialSample.Droid.Resource.Attribute.maxActionInlineWidth;
 			global::XF.Material.Droid.Resource.Attribute.maxButtonHeight = global::XF.MaterialSample.Droid.Resource.Attribute.maxButtonHeight;
 			global::XF.Material.Droid.Resource.Attribute.measureWithLargestChild = global::XF.MaterialSample.Droid.Resource.Attribute.measureWithLargestChild;
@@ -2147,6 +2148,7 @@ namespace XF.MaterialSample.Droid
 			global::XF.Material.Droid.Resource.Styleable.LottieAnimationView_lottie_repeatCount = global::XF.MaterialSample.Droid.Resource.Styleable.LottieAnimationView_lottie_repeatCount;
 			global::XF.Material.Droid.Resource.Styleable.LottieAnimationView_lottie_repeatMode = global::XF.MaterialSample.Droid.Resource.Styleable.LottieAnimationView_lottie_repeatMode;
 			global::XF.Material.Droid.Resource.Styleable.LottieAnimationView_lottie_scale = global::XF.MaterialSample.Droid.Resource.Styleable.LottieAnimationView_lottie_scale;
+			global::XF.Material.Droid.Resource.Styleable.LottieAnimationView_lottie_url = global::XF.MaterialSample.Droid.Resource.Styleable.LottieAnimationView_lottie_url;
 			global::XF.Material.Droid.Resource.Styleable.MediaRouteButton = global::XF.MaterialSample.Droid.Resource.Styleable.MediaRouteButton;
 			global::XF.Material.Droid.Resource.Styleable.MediaRouteButton_android_minHeight = global::XF.MaterialSample.Droid.Resource.Styleable.MediaRouteButton_android_minHeight;
 			global::XF.Material.Droid.Resource.Styleable.MediaRouteButton_android_minWidth = global::XF.MaterialSample.Droid.Resource.Styleable.MediaRouteButton_android_minWidth;
@@ -3098,41 +3100,44 @@ namespace XF.MaterialSample.Droid
 			// aapt resource value: 0x7f010110
 			public const int logoDescription = 2130772240;
 			
-			// aapt resource value: 0x7f010175
-			public const int lottie_autoPlay = 2130772341;
-			
-			// aapt resource value: 0x7f01017c
-			public const int lottie_cacheStrategy = 2130772348;
+			// aapt resource value: 0x7f010176
+			public const int lottie_autoPlay = 2130772342;
 			
 			// aapt resource value: 0x7f01017d
-			public const int lottie_colorFilter = 2130772349;
+			public const int lottie_cacheStrategy = 2130772349;
 			
-			// aapt resource value: 0x7f01017b
-			public const int lottie_enableMergePathsForKitKatAndAbove = 2130772347;
+			// aapt resource value: 0x7f01017e
+			public const int lottie_colorFilter = 2130772350;
+			
+			// aapt resource value: 0x7f01017c
+			public const int lottie_enableMergePathsForKitKatAndAbove = 2130772348;
 			
 			// aapt resource value: 0x7f010173
 			public const int lottie_fileName = 2130772339;
 			
-			// aapt resource value: 0x7f010179
-			public const int lottie_imageAssetsFolder = 2130772345;
-			
-			// aapt resource value: 0x7f010176
-			public const int lottie_loop = 2130772342;
-			
 			// aapt resource value: 0x7f01017a
-			public const int lottie_progress = 2130772346;
+			public const int lottie_imageAssetsFolder = 2130772346;
+			
+			// aapt resource value: 0x7f010177
+			public const int lottie_loop = 2130772343;
+			
+			// aapt resource value: 0x7f01017b
+			public const int lottie_progress = 2130772347;
 			
 			// aapt resource value: 0x7f010174
 			public const int lottie_rawRes = 2130772340;
 			
+			// aapt resource value: 0x7f010179
+			public const int lottie_repeatCount = 2130772345;
+			
 			// aapt resource value: 0x7f010178
-			public const int lottie_repeatCount = 2130772344;
+			public const int lottie_repeatMode = 2130772344;
 			
-			// aapt resource value: 0x7f010177
-			public const int lottie_repeatMode = 2130772343;
+			// aapt resource value: 0x7f01017f
+			public const int lottie_scale = 2130772351;
 			
-			// aapt resource value: 0x7f01017e
-			public const int lottie_scale = 2130772350;
+			// aapt resource value: 0x7f010175
+			public const int lottie_url = 2130772341;
 			
 			// aapt resource value: 0x7f01014b
 			public const int maxActionInlineWidth = 2130772299;
@@ -9247,43 +9252,47 @@ namespace XF.MaterialSample.Droid
 					2130772347,
 					2130772348,
 					2130772349,
-					2130772350};
+					2130772350,
+					2130772351};
 			
-			// aapt resource value: 2
-			public const int LottieAnimationView_lottie_autoPlay = 2;
-			
-			// aapt resource value: 9
-			public const int LottieAnimationView_lottie_cacheStrategy = 9;
+			// aapt resource value: 3
+			public const int LottieAnimationView_lottie_autoPlay = 3;
 			
 			// aapt resource value: 10
-			public const int LottieAnimationView_lottie_colorFilter = 10;
+			public const int LottieAnimationView_lottie_cacheStrategy = 10;
 			
-			// aapt resource value: 8
-			public const int LottieAnimationView_lottie_enableMergePathsForKitKatAndAbove = 8;
+			// aapt resource value: 11
+			public const int LottieAnimationView_lottie_colorFilter = 11;
+			
+			// aapt resource value: 9
+			public const int LottieAnimationView_lottie_enableMergePathsForKitKatAndAbove = 9;
 			
 			// aapt resource value: 0
 			public const int LottieAnimationView_lottie_fileName = 0;
 			
-			// aapt resource value: 6
-			public const int LottieAnimationView_lottie_imageAssetsFolder = 6;
-			
-			// aapt resource value: 3
-			public const int LottieAnimationView_lottie_loop = 3;
-			
 			// aapt resource value: 7
-			public const int LottieAnimationView_lottie_progress = 7;
+			public const int LottieAnimationView_lottie_imageAssetsFolder = 7;
+			
+			// aapt resource value: 4
+			public const int LottieAnimationView_lottie_loop = 4;
+			
+			// aapt resource value: 8
+			public const int LottieAnimationView_lottie_progress = 8;
 			
 			// aapt resource value: 1
 			public const int LottieAnimationView_lottie_rawRes = 1;
 			
+			// aapt resource value: 6
+			public const int LottieAnimationView_lottie_repeatCount = 6;
+			
 			// aapt resource value: 5
-			public const int LottieAnimationView_lottie_repeatCount = 5;
+			public const int LottieAnimationView_lottie_repeatMode = 5;
 			
-			// aapt resource value: 4
-			public const int LottieAnimationView_lottie_repeatMode = 4;
+			// aapt resource value: 12
+			public const int LottieAnimationView_lottie_scale = 12;
 			
-			// aapt resource value: 11
-			public const int LottieAnimationView_lottie_scale = 11;
+			// aapt resource value: 2
+			public const int LottieAnimationView_lottie_url = 2;
 			
 			public static int[] MediaRouteButton = new int[] {
 					16843071,

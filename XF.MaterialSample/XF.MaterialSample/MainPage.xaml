@@ -5,6 +5,8 @@
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
     xmlns:local="clr-namespace:XF.MaterialSample"
     xmlns:material="clr-namespace:XF.Material.Forms.Views;assembly=XF.Material.Forms"
+    xmlns:mtrfx="clr-namespace:XF.Material.Forms.Effects;assembly=XF.Material.Forms"
+    x:Name="Root"
     Title="Xamarin.Forms Material"
     ios:Page.UseSafeArea="True"
     BackgroundColor="White">
@@ -13,7 +15,7 @@
             <local:ColorConverter x:Key="Converter.Color" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <ScrollView ios:ScrollView.ShouldDelayContentTouches="True">
+    <ScrollView>
         <StackLayout Margin="16" Spacing="16">
             <material:MaterialTextField x:Name="EmailField"
                 ErrorColor="#CE0000"
@@ -38,7 +40,7 @@
                 TextColor="Black" />
 
             <StackLayout HorizontalOptions="End" Orientation="Horizontal">
-                <material:MaterialButton ButtonType="Outlined"
+                <material:MaterialButton ButtonType="Text"
                     HorizontalOptions="End"
                     Text="Register" />
                 <material:MaterialButton Clicked="MaterialButton_ShowDialog"
