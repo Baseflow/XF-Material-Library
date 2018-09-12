@@ -1,10 +1,12 @@
-﻿using System;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
-namespace XF.Material.Forms.Views.Internal
+namespace XF.Material.Forms.Views.Internals
 {
     /// <summary>
     /// Used for rendering the <see cref="Xamarin.Forms.Entry"/> control in <see cref="XF.Material.Forms.Views.MaterialTextField"/>.
     /// </summary>
-    public sealed class MaterialEntry : Entry { }
+    public class MaterialEntry : Entry
+    {
+        internal MaterialEntry() { }
+    }
 }

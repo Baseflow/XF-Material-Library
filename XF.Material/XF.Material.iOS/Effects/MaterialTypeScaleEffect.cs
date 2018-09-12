@@ -31,18 +31,17 @@ namespace XF.Material.iOS.Effects
         {
             if (this.Control is UILabel label)
             {
-                var xfLabel = this.Element as Label;
+                System.Diagnostics.Debug.WriteLine(label.Font.Name);
                 label.AttributedText = new NSMutableAttributedString(label.Text ?? string.Empty, 
-                    font: UIFont.FromName(xfLabel.FontFamily, (float)xfLabel.FontSize), 
+                    font: label.Font, 
                     foregroundColor: label.TextColor, 
                     kerning: (float)this.MaterialEffect.LetterSpacing);
             }
 
             else if (this.Control is UIButton button)
             {
-                var xfButton = this.Element as Button;
                 var attributedString = new NSMutableAttributedString(button.Title(UIControlState.Normal) ?? string.Empty, 
-                    font: UIFont.FromName(xfButton.FontFamily, (float)xfButton.FontSize),
+                    font: button.Font,
                     foregroundColor: button.TitleColor(UIControlState.Normal),
                     kerning: (float)this.MaterialEffect.LetterSpacing);
 

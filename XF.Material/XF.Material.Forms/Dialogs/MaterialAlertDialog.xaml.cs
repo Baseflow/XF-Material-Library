@@ -7,21 +7,24 @@ using XF.Material.Forms.Dialogs.Configurations;
 namespace XF.Material.Forms.Dialogs
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MaterialAlertDialog : BaseMaterialModalPage
+    public partial class MaterialAlertDialog : BaseMaterialModalPage, IMaterialAwaitableDialog<bool>
     {
-        private EventHandler _backgroundClicked = null;
-        private EventHandler _backButtonPressed = null;
-
-        internal static MaterialAlertDialogConfiguration GlobalConfiguration { get; set; }
-
-        internal MaterialAlertDialog(string message, string title, string action1Text, string action2Text, Action action1, Action action2 = null, MaterialAlertDialogConfiguration configuration = null) : this(configuration)
+        internal MaterialAlertDialog(string message, string title, string action1Text, string action2Text, MaterialAlertDialogConfiguration configuration = null) : this(configuration)
         {
             Message.Text = message;
             DialogTitle.Text = title;
             PositiveButton.Text = action1Text;
-            PositiveButton.Command = new Command(() => this.HideDialog(action1));
+            PositiveButton.Command = new Command(() =>
+            {
+                this.InputTaskCompletionSource?.SetResult(true);
+                this.Dispose();
+            });
             NegativeButton.Text = action2Text;
-            NegativeButton.Command = new Command(() => this.HideDialog(action2));
+            NegativeButton.Command = new Command(() =>
+            {
+                this.InputTaskCompletionSource?.SetResult(false);
+                this.Dispose();
+            });
         }
 
         internal MaterialAlertDialog(MaterialAlertDialogConfiguration configuration)
@@ -30,70 +33,58 @@ namespace XF.Material.Forms.Dialogs
             this.Configure(configuration);
         }
 
+        public TaskCompletionSource<bool> InputTaskCompletionSource { get; set; }
+
+        internal static MaterialAlertDialogConfiguration GlobalConfiguration { get; set; }
+
         internal static async Task AlertAsync(string message, string acknowledgementText = "Ok", MaterialAlertDialogConfiguration configuration = null)
         {
-            var dialog = new MaterialAlertDialog(message, null, acknowledgementText, null, null, configuration: configuration);
+            var dialog = new MaterialAlertDialog(message, null, acknowledgementText, null, configuration: configuration);
             await dialog.ShowAsync();
         }
 
         internal static async Task AlertAsync(string message, string title, string acknowledgementText = "Ok", MaterialAlertDialogConfiguration configuration = null)
         {
-            var dialog = new MaterialAlertDialog(message, title, acknowledgementText, null, null, configuration: configuration);
+            var dialog = new MaterialAlertDialog(message, title, acknowledgementText, null, configuration: configuration);
             await dialog.ShowAsync();
         }
 
         internal static async Task<bool> ConfirmAsync(string message, string confirmingText, string dismissiveText = "Cancel", MaterialAlertDialogConfiguration configuration = null)
         {
-            var tcs = new TaskCompletionSource<bool>();
-            var dialog = new MaterialAlertDialog(message, null, confirmingText, dismissiveText, () => tcs.SetResult(true), () => tcs.SetResult(false), configuration)
+            var dialog = new MaterialAlertDialog(message, null, confirmingText, dismissiveText, configuration)
             {
-                _backgroundClicked = (s, e) =>
-                {
-                    tcs.SetResult(false);
-                },
-                _backButtonPressed = (s, e) =>
-                {
-                    tcs.SetResult(false);
-                }
+                InputTaskCompletionSource = new TaskCompletionSource<bool>()
             };
-
-            dialog.BackgroundClicked += dialog._backgroundClicked;
-            dialog.BackButtonPressed += dialog._backButtonPressed;
 
             await dialog.ShowAsync();
 
-            return await tcs.Task;
+            return await dialog.InputTaskCompletionSource.Task;
         }
 
         internal static async Task<bool> ConfirmAsync(string message, string title, string confirmingText, string dismissiveText = "Cancel", MaterialAlertDialogConfiguration configuration = null)
         {
-            var tcs = new TaskCompletionSource<bool>();
-            var dialog = new MaterialAlertDialog(message, title, confirmingText, dismissiveText, () => tcs.SetResult(true), () => tcs.SetResult(false), configuration)
+            var dialog = new MaterialAlertDialog(message, title, confirmingText, dismissiveText, configuration)
             {
-                _backgroundClicked = (s, e) =>
-                {
-                    tcs.SetResult(false);
-                },
-                _backButtonPressed = (s, e) =>
-                {
-                    tcs.SetResult(false);
-                }
+                InputTaskCompletionSource = new TaskCompletionSource<bool>()
             };
-
-            dialog.BackgroundClicked += dialog._backgroundClicked;
-            dialog.BackButtonPressed += dialog._backButtonPressed;
 
             await dialog.ShowAsync();
 
-            return await tcs.Task;
+            return await dialog.InputTaskCompletionSource.Task;
         }
 
-        protected override void OnDisappearingAnimationEnd()
+        protected override bool OnBackButtonPressed()
         {
-            base.OnDisappearingAnimationEnd();
+            this.InputTaskCompletionSource?.SetResult(false);
 
-            this.BackButtonPressed -= _backButtonPressed;
-            this.BackgroundClicked -= _backgroundClicked;
+            return base.OnBackButtonPressed();
+        }
+
+        protected override bool OnBackgroundClicked()
+        {
+            this.InputTaskCompletionSource?.SetResult(false);
+
+            return base.OnBackgroundClicked();
         }
 
         private void Configure(MaterialAlertDialogConfiguration configuration)
@@ -113,12 +104,6 @@ namespace XF.Material.Forms.Dialogs
                 PositiveButton.AllCaps = NegativeButton.AllCaps = preferredConfig.ButtonAllCaps;
                 PositiveButton.FontFamily = NegativeButton.FontFamily = preferredConfig.ButtonFontFamily;
             }
-        }
-
-        private void HideDialog(Action action = null)
-        {
-            action?.Invoke();
-            this.Dispose();
         }
     }
 }

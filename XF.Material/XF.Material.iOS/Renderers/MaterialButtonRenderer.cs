@@ -9,6 +9,7 @@ using Xamarin.Forms.Platform.iOS;
 using XF.Material.iOS.Renderers;
 using XF.Material.Forms.Views;
 using static XF.Material.Forms.Views.MaterialButton;
+using XF.Material.iOS.Delegates;
 
 [assembly: ExportRenderer(typeof(MaterialButton), typeof(MaterialButtonRenderer))]
 namespace XF.Material.iOS.Renderers
@@ -63,7 +64,7 @@ namespace XF.Material.iOS.Renderers
 
                 if (_materialButton.AllCaps)
                 {
-                    _materialButton.Text = _materialButton.Text.ToUpper();
+                    _materialButton.Text = _materialButton.Text?.ToUpper();
                 }
 
                 this.SetupIcon();
@@ -157,7 +158,7 @@ namespace XF.Material.iOS.Renderers
 
             else
             {
-                await AnimateAsync(0.500, () => this.Control.Layer.AddAnimation(_colorPressed, "backgroundColorPressed"));
+                await AnimateAsync(0.300, () => this.Control.Layer.AddAnimation(_colorPressed, "backgroundColorPressed"));
             }
         }
 
@@ -184,7 +185,7 @@ namespace XF.Material.iOS.Renderers
 
             else
             {
-                await AnimateAsync(0.500, () => this.Control.Layer.AddAnimation(_colorResting, "backgroundColorResting"));
+                await AnimateAsync(0.300, () => this.Control.Layer.AddAnimation(_colorResting, "backgroundColorResting"));
             }
         }
 
@@ -228,13 +229,13 @@ namespace XF.Material.iOS.Renderers
             }
 
             _colorPressed = CABasicAnimation.FromKeyPath("backgroundColor");
-            _colorPressed.Duration = 0.5;
+            _colorPressed.Duration = 0.3;
             _colorPressed.FillMode = CAFillMode.Forwards;
             _colorPressed.RemovedOnCompletion = false;
             _colorPressed.To = FromObject(_pressedBackgroundColor.CGColor);
 
             _colorResting = CABasicAnimation.FromKeyPath("backgroundColor");
-            _colorResting.Duration = 0.5;
+            _colorResting.Duration = 0.3;
             _colorResting.FillMode = CAFillMode.Forwards;
             _colorResting.RemovedOnCompletion = false;
             _colorResting.To = FromObject(_restingBackgroundColor.CGColor);
@@ -303,63 +304,6 @@ namespace XF.Material.iOS.Renderers
             this.Control.Layer.BorderColor = UIColor.Clear.CGColor;
             this.Control.Layer.BorderWidth = 0f;
             this.Control.Layer.CornerRadius = _materialButton.CornerRadius;
-        }
-
-        private class MaterialRippleGestureRecognizerDelegate : UIGestureRecognizerDelegate
-        {
-            private readonly CABasicAnimation _rippleAnimation;
-            private readonly CABasicAnimation _fadeAnimation;
-            private readonly CAShapeLayer _rippleLayer;
-
-            public MaterialRippleGestureRecognizerDelegate(CGColor rippleColor)
-            {
-                _rippleAnimation = CABasicAnimation.FromKeyPath("path");
-                _rippleAnimation.Duration = 0.5;
-                _rippleAnimation.FillMode = CAFillMode.Forwards;
-                _rippleAnimation.RemovedOnCompletion = true;
-
-                _fadeAnimation = CABasicAnimation.FromKeyPath("opacity");
-                _fadeAnimation.Duration = 0.5;
-                _fadeAnimation.FillMode = CAFillMode.Forwards;
-                _fadeAnimation.RemovedOnCompletion = true;
-                _fadeAnimation.From = FromObject(0.8f);
-                _fadeAnimation.To = FromObject(0f);
-
-                _rippleLayer = new CAShapeLayer();
-                _rippleLayer.FillColor = rippleColor;
-                _rippleLayer.MasksToBounds = true;
-            }
-
-            public override bool ShouldReceiveTouch(UIGestureRecognizer recognizer, UITouch touch)
-            {
-                if (touch.View is UIButton button)
-                {
-                    var location = touch.LocationInView(touch.View);
-                    var startPath = UIBezierPath.FromArc(location, 4f, 0, 360f, true);
-                    var endPath = UIBezierPath.FromArc(location, button.Frame.Width, 0, 360f, true);
-
-                    _rippleLayer.Frame = button.Frame;
-                    _rippleLayer.CornerRadius = button.Layer.CornerRadius;
-                    _rippleAnimation.From = FromObject(startPath.CGPath);
-                    _rippleAnimation.To = FromObject(endPath.CGPath);
-                    button.Layer.InsertSublayer(_rippleLayer, 0);
-                    this.AnimateRipple();
-                }
-
-                return !(touch.View is UIButton);
-            }
-
-            private void AnimateRipple()
-            {
-                Animate(0.5, () =>
-                {
-                    _rippleLayer.AddAnimation(_rippleAnimation, "rippleAnimation");
-                    _rippleLayer.AddAnimation(_fadeAnimation, "rippleFadeAnim");
-                }, () =>
-                {
-                    System.Diagnostics.Debug.WriteLine("Animation Completed");
-                });
-            }
         }
     }
 }

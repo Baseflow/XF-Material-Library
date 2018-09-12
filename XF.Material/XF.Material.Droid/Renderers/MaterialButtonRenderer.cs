@@ -160,6 +160,10 @@ namespace XF.Material.Droid.Renderers
 
         private void CreateTextButtonDrawable()
         {
+            var normalStateDrawable = this.CreateShapeDrawable(_cornerRadius, _borderWidth, Color.Transparent, Color.Transparent);
+            var pressedStateDrawable = this.CreateShapeDrawable(_cornerRadius, _borderWidth, Color.ParseColor("#52000000"), Color.Transparent);
+            var disabledStateDrawable = this.CreateShapeDrawable(_cornerRadius, _borderWidth, Color.Transparent, Color.Transparent);
+            disabledStateDrawable.SetColor(Color.Transparent);
 
             #region Recursive logic to get parent with background color
 
@@ -216,13 +220,15 @@ namespace XF.Material.Droid.Renderers
 
             if (Material.IsLollipop)
             {
-                this.Control.Background = MaterialHelper.GetDrawableCopyFromResource<Drawable>(Resource.Drawable.drawable_ripple_text);
+                var rippleDrawable = MaterialHelper.GetDrawableCopyFromResource<RippleDrawable>(Resource.Drawable.drawable_ripple_text);
+                var maskDrawable = rippleDrawable.FindDrawableByLayerId(Android.Resource.Id.Mask) as InsetDrawable;
+                var rippleMaskGradientDrawable = maskDrawable.Drawable as GradientDrawable;
+                rippleMaskGradientDrawable.SetCornerRadius(_cornerRadius);
+                this.Control.Background = rippleDrawable;
             }
 
             else if (Material.IsJellyBean)
             {
-                var normalStateDrawable = this.CreateShapeDrawable(_cornerRadius, _borderWidth, Color.Transparent, Color.Transparent);
-                var pressedStateDrawable = this.CreateShapeDrawable(_cornerRadius, _borderWidth, Color.ParseColor("#52000000"), Color.Transparent);
                 var stateListDrawable = new StateListDrawable();
                 this.SetStates(stateListDrawable, normalStateDrawable, pressedStateDrawable, normalStateDrawable);
                 this.Control.Background = stateListDrawable;
@@ -230,8 +236,6 @@ namespace XF.Material.Droid.Renderers
 
             else
             {
-                var normalStateDrawable = this.CreateShapeDrawable(_cornerRadius, _borderWidth, Color.Transparent, Color.Transparent);
-                var pressedStateDrawable = this.CreateShapeDrawable(_cornerRadius, _borderWidth, Color.ParseColor("#52000000"), Color.Transparent);
                 var insetDrawable = MaterialHelper.GetDrawableCopyFromResource<InsetDrawable>(Resource.Drawable.drawable_selector);
                 var stateListDrawable = insetDrawable.Drawable as StateListDrawable;
                 this.SetStates(stateListDrawable, normalStateDrawable, pressedStateDrawable, normalStateDrawable);

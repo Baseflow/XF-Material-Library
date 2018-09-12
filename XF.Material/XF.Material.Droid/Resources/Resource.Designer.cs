@@ -752,41 +752,44 @@ namespace XF.Material.Droid
 			// aapt resource value: 0x7f010110
 			public static int logoDescription = 2130772240;
 			
-			// aapt resource value: 0x7f010175
-			public static int lottie_autoPlay = 2130772341;
-			
-			// aapt resource value: 0x7f01017c
-			public static int lottie_cacheStrategy = 2130772348;
+			// aapt resource value: 0x7f010176
+			public static int lottie_autoPlay = 2130772342;
 			
 			// aapt resource value: 0x7f01017d
-			public static int lottie_colorFilter = 2130772349;
+			public static int lottie_cacheStrategy = 2130772349;
 			
-			// aapt resource value: 0x7f01017b
-			public static int lottie_enableMergePathsForKitKatAndAbove = 2130772347;
+			// aapt resource value: 0x7f01017e
+			public static int lottie_colorFilter = 2130772350;
+			
+			// aapt resource value: 0x7f01017c
+			public static int lottie_enableMergePathsForKitKatAndAbove = 2130772348;
 			
 			// aapt resource value: 0x7f010173
 			public static int lottie_fileName = 2130772339;
 			
-			// aapt resource value: 0x7f010179
-			public static int lottie_imageAssetsFolder = 2130772345;
-			
-			// aapt resource value: 0x7f010176
-			public static int lottie_loop = 2130772342;
-			
 			// aapt resource value: 0x7f01017a
-			public static int lottie_progress = 2130772346;
+			public static int lottie_imageAssetsFolder = 2130772346;
+			
+			// aapt resource value: 0x7f010177
+			public static int lottie_loop = 2130772343;
+			
+			// aapt resource value: 0x7f01017b
+			public static int lottie_progress = 2130772347;
 			
 			// aapt resource value: 0x7f010174
 			public static int lottie_rawRes = 2130772340;
 			
+			// aapt resource value: 0x7f010179
+			public static int lottie_repeatCount = 2130772345;
+			
 			// aapt resource value: 0x7f010178
-			public static int lottie_repeatCount = 2130772344;
+			public static int lottie_repeatMode = 2130772344;
 			
-			// aapt resource value: 0x7f010177
-			public static int lottie_repeatMode = 2130772343;
+			// aapt resource value: 0x7f01017f
+			public static int lottie_scale = 2130772351;
 			
-			// aapt resource value: 0x7f01017e
-			public static int lottie_scale = 2130772350;
+			// aapt resource value: 0x7f010175
+			public static int lottie_url = 2130772341;
 			
 			// aapt resource value: 0x7f01014b
 			public static int maxActionInlineWidth = 2130772299;
@@ -6822,43 +6825,47 @@ namespace XF.Material.Droid
 					2130772347,
 					2130772348,
 					2130772349,
-					2130772350};
+					2130772350,
+					2130772351};
 			
-			// aapt resource value: 2
-			public static int LottieAnimationView_lottie_autoPlay = 2;
-			
-			// aapt resource value: 9
-			public static int LottieAnimationView_lottie_cacheStrategy = 9;
+			// aapt resource value: 3
+			public static int LottieAnimationView_lottie_autoPlay = 3;
 			
 			// aapt resource value: 10
-			public static int LottieAnimationView_lottie_colorFilter = 10;
+			public static int LottieAnimationView_lottie_cacheStrategy = 10;
 			
-			// aapt resource value: 8
-			public static int LottieAnimationView_lottie_enableMergePathsForKitKatAndAbove = 8;
+			// aapt resource value: 11
+			public static int LottieAnimationView_lottie_colorFilter = 11;
+			
+			// aapt resource value: 9
+			public static int LottieAnimationView_lottie_enableMergePathsForKitKatAndAbove = 9;
 			
 			// aapt resource value: 0
 			public static int LottieAnimationView_lottie_fileName = 0;
 			
-			// aapt resource value: 6
-			public static int LottieAnimationView_lottie_imageAssetsFolder = 6;
-			
-			// aapt resource value: 3
-			public static int LottieAnimationView_lottie_loop = 3;
-			
 			// aapt resource value: 7
-			public static int LottieAnimationView_lottie_progress = 7;
+			public static int LottieAnimationView_lottie_imageAssetsFolder = 7;
+			
+			// aapt resource value: 4
+			public static int LottieAnimationView_lottie_loop = 4;
+			
+			// aapt resource value: 8
+			public static int LottieAnimationView_lottie_progress = 8;
 			
 			// aapt resource value: 1
 			public static int LottieAnimationView_lottie_rawRes = 1;
 			
+			// aapt resource value: 6
+			public static int LottieAnimationView_lottie_repeatCount = 6;
+			
 			// aapt resource value: 5
-			public static int LottieAnimationView_lottie_repeatCount = 5;
+			public static int LottieAnimationView_lottie_repeatMode = 5;
 			
-			// aapt resource value: 4
-			public static int LottieAnimationView_lottie_repeatMode = 4;
+			// aapt resource value: 12
+			public static int LottieAnimationView_lottie_scale = 12;
 			
-			// aapt resource value: 11
-			public static int LottieAnimationView_lottie_scale = 11;
+			// aapt resource value: 2
+			public static int LottieAnimationView_lottie_url = 2;
 			
 			public static int[] MediaRouteButton = new int[] {
 					16843071,

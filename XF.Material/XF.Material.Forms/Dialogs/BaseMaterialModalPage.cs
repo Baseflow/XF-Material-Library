@@ -7,14 +7,14 @@ using Xamarin.Forms;
 
 namespace XF.Material.Forms.Dialogs
 {
+    /// <summary>
+    /// Base class of Material modal dialogs.
+    /// </summary>
     public class BaseMaterialModalPage : PopupPage, IMaterialModalPage
     {
-        /// <summary>
-        /// Raised only on Android when the back button was pressed.
-        /// </summary>
-        public event EventHandler BackButtonPressed;
-
         private bool _disposed;
+
+        internal BaseMaterialModalPage() { }
 
         /// <summary>
         /// Disposes this modal dialog.
@@ -25,10 +25,24 @@ namespace XF.Material.Forms.Dialogs
             GC.SuppressFinalize(this);
         }
 
-        protected override bool OnBackButtonPressed()
+        protected virtual void Dispose(bool disposing)
         {
-            BackButtonPressed?.Invoke(this, new EventArgs());
-            return base.OnBackButtonPressed();
+            if (!_disposed && disposing)
+            {
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    await PopupNavigation.Instance.RemovePageAsync(this, true);
+                    this.Content = null;
+                });
+
+                _disposed = true;
+            }
+        }
+
+        protected override void OnDisappearingAnimationEnd()
+        {
+            base.OnDisappearingAnimationEnd();
+            this.Dispose();
         }
 
         /// <summary>
@@ -46,21 +60,6 @@ namespace XF.Material.Forms.Dialogs
                 this.Dispose();
             }
         }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!_disposed && disposing)
-            {
-                Device.BeginInvokeOnMainThread(async () =>
-                {
-                    await PopupNavigation.Instance.RemovePageAsync(this, true);
-                    this.Content = null;
-                });
-
-                _disposed = true;
-            }
-        }
-
         private bool CanShowPopup()
         {
             return !PopupNavigation.Instance.PopupStack.ToList().Exists(p => p.GetType() == this.GetType());

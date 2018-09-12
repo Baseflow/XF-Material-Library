@@ -1,5 +1,6 @@
 ﻿using System;
 using Xamarin.Forms;
+using XF.Material.Forms.Dialogs;
 using XF.Material.Forms.Resources;
 using XF.Material.Forms.Resources.Typography;
 using XF.Material.Forms.Utilities;
@@ -7,7 +8,7 @@ using XF.Material.Forms.Utilities;
 namespace XF.Material.Forms
 {
     /// <summary>
-    /// Static class that provides methods for configuring Material resources.
+    /// Class that provides static methods and properties for configuring Material resources.
     /// </summary>
     public class Material
     {
@@ -30,6 +31,7 @@ namespace XF.Material.Forms
         {
             _res = app.Resources;
             PlatformConfiguration = DependencyService.Get<IMaterialUtility>();
+            MaterialDialog.Instance = new MaterialDialog();
         }
 
         /// <summary>

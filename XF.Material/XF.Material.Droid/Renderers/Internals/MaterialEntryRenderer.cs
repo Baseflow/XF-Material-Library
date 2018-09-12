@@ -2,11 +2,11 @@
 using Android.Graphics.Drawables;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
-using XF.Material.Droid.Renderers.Internal;
-using XF.Material.Forms.Views.Internal;
+using XF.Material.Droid.Renderers.Internals;
+using XF.Material.Forms.Views.Internals;
 
 [assembly: ExportRenderer(typeof(MaterialEntry), typeof(MaterialEntryRenderer))]
-namespace XF.Material.Droid.Renderers.Internal
+namespace XF.Material.Droid.Renderers.Internals
 {
     internal class MaterialEntryRenderer : EntryRenderer
     {

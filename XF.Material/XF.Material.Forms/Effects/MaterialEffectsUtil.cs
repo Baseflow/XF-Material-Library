@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Xamarin.Forms;
 using XF.Material.Forms.Resources.Typography;
 
@@ -6,23 +7,21 @@ namespace XF.Material.Forms.Effects
 {
     public static class MaterialEffectsUtil
     {
-        public static readonly BindableProperty TypeScaleProperty = BindableProperty.Create("TypeScale", typeof(MaterialTypeScale), typeof(MaterialTypeScaleEffect), MaterialTypeScale.None, propertyChanged: TypeScaleChanged);
-
-        public static void SetTypeScale(BindableObject view, MaterialTypeScale typeScale)
-        {
-            view.SetValue(TypeScaleProperty, typeScale);
-        }
+        public static readonly BindableProperty TypeScaleProperty = BindableProperty.Create("TypeScale", typeof(MaterialTypeScale), typeof(VisualElement), MaterialTypeScale.None, propertyChanged: TypeScaleChanged);
 
         public static MaterialTypeScale GetTypeScale(BindableObject view)
         {
             return (MaterialTypeScale)view.GetValue(TypeScaleProperty);
         }
 
+        public static void SetTypeScale(BindableObject view, MaterialTypeScale typeScale)
+        {
+            view.SetValue(TypeScaleProperty, typeScale);
+        }
+
         private static void TypeScaleChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            var view = bindable as View;
-
-            if (view == null)
+            if (!(bindable is View view))
             {
                 return;
             }

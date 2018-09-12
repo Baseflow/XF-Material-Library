@@ -1,5 +1,6 @@
 ﻿using System;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 using XF.Material.Forms.Resources.Typography;
 
 namespace XF.Material.Forms.Effects
@@ -16,7 +17,7 @@ namespace XF.Material.Forms.Effects
             this.LetterSpacing = letterSpacing;
         }
 
-        public MaterialTypeScaleEffect() : base("Material.TypeScaleEffect") { }
+        internal MaterialTypeScaleEffect() : base("Material.TypeScaleEffect") { }
 
         public double LetterSpacing { get; }
 

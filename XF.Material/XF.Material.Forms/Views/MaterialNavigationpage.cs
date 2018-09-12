@@ -1,4 +1,6 @@
-﻿using Xamarin.Forms;
+﻿using System.Runtime.CompilerServices;
+using Xamarin.Forms;
+using XF.Material.Forms.Effects;
 using XF.Material.Forms.Resources;
 
 namespace XF.Material.Forms.Views

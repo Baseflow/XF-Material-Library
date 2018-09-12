@@ -3,7 +3,7 @@
 namespace XF.Material.Forms.Dialogs.Configurations
 {
     /// <summary>
-    /// Base class that provides properties for styling alert dialogs, loading dialogs, and snackbars.
+    /// Base class that provides properties for styling alert dialogs, loading dialogs, simple dialogs, and snackbars.
     /// </summary>
     public abstract class BaseMaterialDialogConfiguration
     {

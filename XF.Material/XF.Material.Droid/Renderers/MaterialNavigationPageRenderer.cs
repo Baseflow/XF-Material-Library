@@ -1,4 +1,6 @@
-﻿using Android.Content;
+﻿using System.ComponentModel;
+using Android.Content;
+using Android.Graphics;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using XF.Material.Droid.Renderers;

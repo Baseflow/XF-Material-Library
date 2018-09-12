@@ -2,7 +2,7 @@
 <ContentView x:Class="XF.Material.Forms.Views.MaterialTextField"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:internal="clr-namespace:XF.Material.Forms.Views.Internal"
+    xmlns:internal="clr-namespace:XF.Material.Forms.Views.Internals"
     xmlns:material="clr-namespace:XF.Material.Forms.Views"
     xmlns:sys="clr-namespace:System;assembly=netstandard">
     <ContentView.GestureRecognizers>

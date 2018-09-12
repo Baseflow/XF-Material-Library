@@ -7,7 +7,7 @@ using XF.Material.Forms.Dialogs.Configurations;
 namespace XF.Material.Forms.Dialogs
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class MaterialSnackbar : BaseMaterialModalPage
+	public partial class MaterialSnackbar : BaseMaterialModalPage, IMaterialAwaitableDialog<bool>
 	{
         public const int DURATION_INDEFINITE = -1;
         public const int DURATION_LONG = 2750;
@@ -17,23 +17,29 @@ namespace XF.Material.Forms.Dialogs
         private Command _primaryActionCommand;
         private bool _primaryActionRunning;
 
-        internal MaterialSnackbar(string message, string actionButtonText, Action primaryAction = null, Action hideAction = null, int msDuration = DURATION_LONG, MaterialSnackbarConfiguration configuration = null)
+        internal MaterialSnackbar(string message, string actionButtonText, int msDuration = DURATION_LONG, MaterialSnackbarConfiguration configuration = null)
         {
             this.InitializeComponent();
             this.Configure(configuration);
             Message.Text = message;
             _duration = msDuration;
             ActionButton.Text = actionButtonText;
-            _primaryActionCommand = new Command(() => this.RunPrimaryAction(primaryAction), () => !_primaryActionRunning);
+            _primaryActionCommand = new Command(() =>
+            {
+                _primaryActionRunning = true;
+                this.InputTaskCompletionSource?.SetResult(true);
+                this.Dispose();
+            }, () => !_primaryActionRunning);
             ActionButton.Command = _primaryActionCommand;
-            _hideAction = hideAction;
+            _hideAction = () => this.InputTaskCompletionSource.SetResult(false);
         }
 
         internal static MaterialSnackbarConfiguration GlobalConfiguration { get; set; }
+        public TaskCompletionSource<bool> InputTaskCompletionSource { get; set; }
 
         internal static async Task<MaterialSnackbar> Loading(string message, MaterialSnackbarConfiguration configuration = null)
         {
-            var snackbar = new MaterialSnackbar(message, null, null, null, DURATION_INDEFINITE, configuration);
+            var snackbar = new MaterialSnackbar(message, null, DURATION_INDEFINITE, configuration);
             await snackbar.ShowAsync();
 
             return snackbar;
@@ -41,17 +47,19 @@ namespace XF.Material.Forms.Dialogs
 
         internal static async Task ShowAsync(string message, int msDuration = 3000, MaterialSnackbarConfiguration configuration = null)
         {
-            var snackbar = new MaterialSnackbar(message, null, null, null, msDuration, configuration);
+            var snackbar = new MaterialSnackbar(message, null, msDuration, configuration);
             await snackbar.ShowAsync();
         }
 
         internal static async Task<bool> ShowAsync(string message, string actionButtonText, int msDuration = DURATION_LONG, MaterialSnackbarConfiguration configuration = null)
         {
-            var tcs = new TaskCompletionSource<bool>();
-            var snackbar = new MaterialSnackbar(message, actionButtonText, () => tcs.SetResult(true), () => tcs.SetResult(false), msDuration, configuration);
+            var snackbar = new MaterialSnackbar(message, actionButtonText, msDuration, configuration)
+            {
+                InputTaskCompletionSource = new TaskCompletionSource<bool>()
+            };
             await snackbar.ShowAsync();
 
-            return await tcs.Task;
+            return await snackbar.InputTaskCompletionSource.Task;
         }
 
         protected override async void OnAppearingAnimationEnd()
@@ -88,13 +96,6 @@ namespace XF.Material.Forms.Dialogs
                 ActionButton.FontFamily = preferredConfig.ButtonFontFamily;
                 ActionButton.AllCaps = preferredConfig.ButtonAllCaps;
             }
-        }
-
-        private void RunPrimaryAction(Action action = null)
-        {
-            _primaryActionRunning = true;
-            action?.Invoke();
-            this.Dispose();
         }
     }
 }

@@ -1,11 +1,11 @@
 ﻿using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
-using XF.Material.iOS.Renderers.Internal;
-using XF.Material.Forms.Views.Internal;
+using XF.Material.iOS.Renderers.Internals;
+using XF.Material.Forms.Views.Internals;
 
 [assembly: ExportRenderer(typeof(MaterialEntry), typeof(MaterialEntryRenderer))]
-namespace XF.Material.iOS.Renderers.Internal
+namespace XF.Material.iOS.Renderers.Internals
 {
     internal class MaterialEntryRenderer : EntryRenderer
     {
