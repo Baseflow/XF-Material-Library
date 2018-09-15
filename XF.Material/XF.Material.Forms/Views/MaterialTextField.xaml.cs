@@ -381,6 +381,7 @@ namespace XF.Material.Forms.Views
             else if (propertyName == nameof(this.HelperText))
             {
                 helper.Text = this.HelperText;
+                helper.IsVisible = !string.IsNullOrEmpty(this.HelperText);
             }
 
             else if (propertyName == nameof(this.HelperTextFontFamily))
@@ -421,7 +422,7 @@ namespace XF.Material.Forms.Views
             else if (propertyName == nameof(this.IsEnabled))
             {
                 this.Opacity = this.IsEnabled ? 1 : 0.33;
-                helper.IsVisible = this.IsEnabled;
+                helper.IsVisible = this.IsEnabled && !string.IsNullOrEmpty(this.HelperText);
             }
 
             else if (propertyName == nameof(this.BackgroundColor))
@@ -438,6 +439,7 @@ namespace XF.Material.Forms.Views
             {
                 _counterEnabled = this.MaxLength > 0;
                 entry.MaxLength = _counterEnabled ? this.MaxLength : (int)Entry.MaxLengthProperty.DefaultValue;
+                counter.IsVisible = _counterEnabled;
             }
 
             else if(propertyName == nameof(this.Icon))
@@ -561,7 +563,6 @@ namespace XF.Material.Forms.Views
                 this.FocusCommand?.Execute(entry.IsFocused);
                 this.Focused?.Invoke(this, new FocusEventArgs(entry, entry.IsFocused));
                 this.UpdateCounter();
-                counter.IsVisible = entry.IsFocused;
             }
 
             if (e.PropertyName == nameof(Entry.IsFocused) && string.IsNullOrEmpty(entry.Text))
@@ -628,7 +629,7 @@ namespace XF.Material.Forms.Views
             if (_counterEnabled)
             {
                 var count = entry.Text != null ? entry.Text.Length : 0;
-                counter.Text = $"{count}/{this.MaxLength}";
+                counter.Text = entry.IsFocused ? $"{count}/{this.MaxLength}" : string.Empty;
             }
         }
     }

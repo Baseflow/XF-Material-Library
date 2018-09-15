@@ -48,14 +48,11 @@
                 Grid.Row="0"
                 Grid.Column="1"
                 Grid.ColumnSpan="2"
-                Margin="12"
                 BackgroundColor="Transparent"
                 FontFamily="{DynamicResource Material.FontFamily.Body2}"
                 FontSize="16"
-                HeightRequest="20"
                 HorizontalOptions="FillAndExpand"
-                TextColor="#D0000000"
-                VerticalOptions="End">
+                TextColor="#D0000000">
                 <internal:MaterialEntry.Triggers>
                     <DataTrigger Binding="{Binding Source={x:Reference errorIcon}, Path=IsVisible}"
                         TargetType="Entry"
@@ -102,6 +99,7 @@
                 Grid.Column="0"
                 Grid.ColumnSpan="3"
                 Margin="12,2,12,0"
+                IsVisible="False"
                 Style="{DynamicResource Material.TypeScale.Caption}"
                 TextColor="#99000000"
                 VerticalOptions="End"

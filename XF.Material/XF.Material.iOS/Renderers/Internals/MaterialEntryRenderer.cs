@@ -15,6 +15,8 @@ namespace XF.Material.iOS.Renderers.Internals
 
             if(e?.NewElement != null)
             {
+                this.Element.VerticalOptions = LayoutOptions.Center;
+                this.Element.Margin = new Thickness(12);
                 this.Control.BorderStyle = UITextBorderStyle.None;
             }
         }
