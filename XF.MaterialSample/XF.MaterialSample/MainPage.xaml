@@ -15,12 +15,21 @@
             <local:ColorConverter x:Key="Converter.Color" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <ScrollView>
+    <material:MaterialCard Margin="16"
+        Padding="0"
+        CornerRadius="4"
+        Elevation="4"
+        HorizontalOptions="Center"
+        VerticalOptions="Center">
         <StackLayout Margin="16" Spacing="16">
+            <Label Margin="0,0,0,16"
+                Style="{DynamicResource Material.TypeScale.H5}"
+                Text="Sign in your account"
+                TextColor="#DE000000" />
             <material:MaterialTextField x:Name="EmailField"
+                AlwaysShowUnderline="True"
+                BackgroundColor="Transparent"
                 ErrorColor="#CE0000"
-                ErrorText="Must be a valid email address"
-                HelperText="Required"
                 HelperTextColor="#A4A4A4"
                 Icon="ic_email"
                 IconTintColor="#A4A4A4"
@@ -29,38 +38,26 @@
                 PlaceholderColor="#A4A4A4"
                 TextColor="Black" />
             <material:MaterialTextField x:Name="PasswordField"
-                HelperText="Required"
+                AlwaysShowUnderline="True"
+                BackgroundColor="Transparent"
                 HelperTextColor="#A4A4A4"
                 Icon="ic_lock"
                 IconTintColor="#A4A4A4"
-                InputType="Default"
+                InputType="Password"
                 MaxLength="10"
                 Placeholder="Password"
                 PlaceholderColor="#A4A4A4"
                 TextColor="Black" />
-
             <StackLayout HorizontalOptions="End" Orientation="Horizontal">
-                <material:MaterialButton ButtonType="Text"
+                <material:MaterialButton ButtonType="Outlined"
                     HorizontalOptions="End"
                     Text="Register" />
-                <material:MaterialButton Clicked="MaterialButton_ShowDialog"
+                <material:MaterialButton x:Name="button"
+                    ButtonType="Elevated"
+                    Clicked="MaterialButton_ShowDialog"
                     HorizontalOptions="End"
                     Text="Sign In" />
             </StackLayout>
-
         </StackLayout>
-    </ScrollView>
+    </material:MaterialCard>
 </ContentPage>
-
-<!--<Label Grid.Row="0"
-       Style="{DynamicResource Material.TypeScale.H5}"
-       Text="Lorem Ipsum"
-       TextColor="Black" />
-<Label Grid.Row="1"
-       Style="{DynamicResource Material.TypeScale.Body1}"
-       Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vel urna posuere, porta purus eget, facilisis orci. Nunc lacinia leo eu orci ullamcorper, ultricies malesuada tellus sagittis. Duis mattis, ipsum at fringilla gravida, velit magna aliquet nisi, non viverra elit nulla eu lacus. Morbi id diam tincidunt, lobortis augue a, varius est. Proin condimentum metus lacus, ac elementum ante fringilla a. Aliquam accumsan nisi vitae feugiat ultrices. Curabitur tristique, velit nec consequat eleifend, neque arcu ornare justo, at feugiat nisi quam et ex. Phasellus lobortis velit eu porttitor consectetur."
-       TextColor="#D0000000" />
-<material:MaterialButton Grid.Row="2"
-                         Margin="0,16,0,0"
-                         HorizontalOptions="End"
-                         Text="Button" />-->
