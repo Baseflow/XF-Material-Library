@@ -129,5 +129,16 @@ namespace XF.Material.Forms.Views
                 }
             }
         }
+
+        protected override void OnParentSet()
+        {
+            base.OnParentSet();
+
+            if (this.Parent != null && Device.RuntimePlatform == Device.iOS)
+            {
+                this.HeightRequest -= 12;
+                this.Margin = new Thickness(this.Margin.Left + 6, this.Margin.Top + 6, this.Margin.Right + 6, this.Margin.Bottom + 6);
+            }
+        }
     }
 }

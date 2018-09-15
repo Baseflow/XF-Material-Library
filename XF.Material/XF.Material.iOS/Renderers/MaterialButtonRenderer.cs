@@ -58,8 +58,6 @@ namespace XF.Material.iOS.Renderers
             if (e?.NewElement != null)
             {
                 _materialButton = this.Element as MaterialButton;
-                _materialButton.HeightRequest -= 12;
-                _materialButton.Margin = new Thickness(_materialButton.Margin.Left + 6, _materialButton.Margin.Top + 6, _materialButton.Margin.Right + 6, _materialButton.Margin.Bottom + 6);
                 _withIcon = _materialButton.Image != null;
 
                 if (_materialButton.AllCaps)
