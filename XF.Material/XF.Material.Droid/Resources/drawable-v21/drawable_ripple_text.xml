@@ -17,4 +17,24 @@
       </shape>
     </inset>
   </item>
+  <item android:id="@+id/inset_drawable">
+    <inset android:insetLeft="@dimen/mtrl_btn_inset"
+           android:insetTop="@dimen/mtrl_btn_inset"
+           android:insetRight="@dimen/mtrl_btn_inset"
+           android:insetBottom="@dimen/mtrl_btn_inset">
+      <selector>
+        <item android:state_selected="true">
+          <color android:color="@android:color/transparent" />
+        </item>
+
+        <item android:state_activated="true">
+          <color android:color="@android:color/transparent" />
+        </item>
+
+        <item>
+          <color android:color="@android:color/transparent" />
+        </item>
+      </selector>
+    </inset>
+  </item>
 </ripple>
