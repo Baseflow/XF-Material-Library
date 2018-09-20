@@ -20,7 +20,7 @@ namespace XF.Material.Forms.Dialogs
             this.Animation = new ScaleAnimation()
             {
                 DurationIn = 150,
-                DurationOut = 75,
+                DurationOut = 100,
                 EasingIn = Easing.SinOut,
                 EasingOut = Easing.Linear,
                 HasBackgroundAnimation = true,
