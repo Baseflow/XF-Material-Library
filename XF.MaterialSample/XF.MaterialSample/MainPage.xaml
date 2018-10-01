@@ -15,16 +15,19 @@
             <local:ColorConverter x:Key="Converter.Color" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <ScrollView Padding="16">
-        <material:MaterialCard Padding="16"
-            CornerRadius="4"
-            Elevation="4"
+
+    <material:MaterialCard Margin="16,0"
+        Padding="16"
+        CornerRadius="4"
+        Elevation="4"
+        HorizontalOptions="Center"
+        VerticalOptions="Center">
+        <StackLayout x:Name="container"
+            Margin="16"
             HorizontalOptions="Center"
+            Spacing="16"
             VerticalOptions="Center">
-            <StackLayout x:Name="container"
-                Margin="16"
-                Spacing="16">
-                <Label Margin="0,0,0,16"
+            <!--<Label Margin="0,0,0,16"
                     Style="{DynamicResource Material.TypeScale.H5}"
                     Text="Sign in your account"
                     TextColor="#DE000000" />
@@ -54,18 +57,16 @@
                         Placeholder="Password"
                         PlaceholderColor="#A4A4A4"
                         TextColor="Black" />
-                </StackLayout>
-                <Label Style="{DynamicResource Material.TypeScale.Body2}"
-                    Text="Select an account type:"
-                    TextColor="#DE000000" />
-                <material:MaterialCheckboxGroup x:Name="radioButtonGroup"
-                    FontFamily="{StaticResource FontFamily.OpenSansRegular}"
-                    FontSize="14"
-                    SelectedColor="Teal"
-                    TextColor="Black"
-                    UnselectedColor="#DE000000" />
-                <!--<material:MaterialCheckboxGroup x:Name="checkBoxGroup" SelectedIndicesChanged="checkBoxGroup_SelectedIndicesChanged" />-->
-                <StackLayout HorizontalOptions="End" Orientation="Horizontal">
+                </StackLayout>-->
+            <Label Margin="16,0"
+                Style="{DynamicResource Material.TypeScale.Subtitle2}"
+                Text="Select your preferred job:"
+                TextColor="#DE000000" />
+            <material:MaterialRadioButtonGroup x:Name="radioButtonGroup" />
+
+            <material:MaterialButton HorizontalOptions="End" Text="Next" />
+
+            <!--<StackLayout HorizontalOptions="End" Orientation="Horizontal">
                     <material:MaterialButton ButtonType="Text"
                         HorizontalOptions="End"
                         Text="Sign in instead" />
@@ -74,8 +75,11 @@
                         Clicked="MaterialButton_ShowDialog"
                         HorizontalOptions="End"
                         Text="Register" />
-                </StackLayout>
-            </StackLayout>
-        </material:MaterialCard>
-    </ScrollView>
+                </StackLayout>-->
+        </StackLayout>
+    </material:MaterialCard>
+    <!--<StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+            <material:MaterialRadioButtonGroup x:Name="rbg" HorizontalOptions="Center" />
+        </StackLayout>-->
+
 </ContentPage>

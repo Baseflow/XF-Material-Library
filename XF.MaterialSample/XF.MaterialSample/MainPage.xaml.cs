@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 using XF.Material.Forms.Dialogs;
 using XF.Material.Forms.Dialogs.Configurations;
 using XF.Material.Forms.Effects;
@@ -13,6 +14,7 @@ using XF.Material.Forms.Views;
 
 namespace XF.MaterialSample
 {
+    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MainPage : ContentPage
     {
         public MainPage()
@@ -24,13 +26,22 @@ namespace XF.MaterialSample
                 "Mobile Developer (Xamarin)",
                 "Mobile Developer (Native)",
                 "Web Developer (.NET)",
-                "Web Developer (Wordpress/Drupal)",
+                "Web Developer (Laravel)",
                 "Quality Assurance Engineer",
                 "Business Analyst",
                 "Recruitment Officer",
                 "Project Manager",
                 "Scrum Master"
             };
+
+
+            //rbg.Choices = new string[]
+            //{
+            //    "Option 1",
+            //    "Option 2",
+            //    "Option 3",
+            //    "Option 4"
+            //};
 
             //radioButtonGroup.SelectedIndex = 1;
             //radioButtonGroup.SelectedIndexChangedCommand = new Command<int>((s) =>
@@ -41,18 +52,18 @@ namespace XF.MaterialSample
             //    }
             //});
 
-            radioButtonGroup.SelectedIndices = new List<int>(2) { 1, 3 };
+            //radioButtonGroup.SelectedIndices = new List<int>(2) { 1, 3 };
 
-            radioButtonGroup.SelectedIndicesChangedCommand = new Command<int[]>((s) =>
-            {
-                if (s.Any())
-                {
-                    foreach (var index in s)
-                    {
-                        System.Diagnostics.Debug.WriteLine(radioButtonGroup.Choices[index]);
-                    }
-                }
-            });
+            //radioButtonGroup.SelectedIndicesChangedCommand = new Command<int[]>((s) =>
+            //{
+            //    if (s.Any())
+            //    {
+            //        foreach (var index in s)
+            //        {
+            //            System.Diagnostics.Debug.WriteLine(radioButtonGroup.Choices[index]);
+            //        }
+            //    }
+            //});
 
             //radioButtonGroup.SelectedIndexChanged += (s, e) =>
             //{
@@ -105,20 +116,20 @@ namespace XF.MaterialSample
             //    ScrimColor = Color.FromHex("#232F34").MultiplyAlpha(0.32)
             //});
 
-            EmailField.Focused += (s, e) =>
-            {
-                Regex rx = new Regex(@"^[-!#$%&'*+/0-9=?A-Z^_a-z{|}~](\.?[-!#$%&'*+/0-9=?A-Z^_a-z{|}~])*@[a-zA-Z](-?[a-zA-Z0-9])*(\.[a-zA-Z](-?[a-zA-Z0-9])*)+$");
+            //EmailField.Focused += (s, e) =>
+            //{
+            //    Regex rx = new Regex(@"^[-!#$%&'*+/0-9=?A-Z^_a-z{|}~](\.?[-!#$%&'*+/0-9=?A-Z^_a-z{|}~])*@[a-zA-Z](-?[a-zA-Z0-9])*(\.[a-zA-Z](-?[a-zA-Z0-9])*)+$");
 
-                if (!e.IsFocused && string.IsNullOrEmpty(EmailField.Text))
-                {
-                    EmailField.HasError = false;
-                }
+            //    if (!e.IsFocused && string.IsNullOrEmpty(EmailField.Text))
+            //    {
+            //        EmailField.HasError = false;
+            //    }
 
-                else if (!e.IsFocused && !string.IsNullOrEmpty(EmailField.Text))
-                {
-                    EmailField.HasError = !rx.IsMatch(EmailField.Text);
-                }
-            };
+            //    else if (!e.IsFocused && !string.IsNullOrEmpty(EmailField.Text))
+            //    {
+            //        EmailField.HasError = !rx.IsMatch(EmailField.Text);
+            //    }
+            //};
         }
 
         private async void MaterialButton_ShowDialog(object sender, EventArgs e)
@@ -219,16 +230,11 @@ namespace XF.MaterialSample
             }
         }
 
-        private void MaterialCheckbox_SelectedChanged(object sender, SelectedChangedEventArgs e)
-        {
-            System.Diagnostics.Debug.WriteLine(e.IsSelected ? "Selected" : "Unselected");
-        }
-
         private void RadioButtonGroup_SelectedIndexChanged(object sender, SelectedIndexChangedEventArgs e)
         {
             if(e?.Index >= 0)
             {
-                System.Diagnostics.Debug.WriteLine(radioButtonGroup.Choices[e.Index]);
+                //System.Diagnostics.Debug.WriteLine(radioButtonGroup.Choices[e.Index]);
             }
         }
 
