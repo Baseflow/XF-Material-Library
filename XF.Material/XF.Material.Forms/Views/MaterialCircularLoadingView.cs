@@ -5,7 +5,7 @@ namespace XF.Material.Forms.Views
 {
     public class MaterialCircularLoadingView : Lottie.Forms.AnimationView
     {
-        public static readonly BindableProperty TintColorProperty = BindableProperty.Create(nameof(TintColor), typeof(Color), typeof(MaterialCircularLoadingView), Color.Accent);
+        public static readonly BindableProperty TintColorProperty = BindableProperty.Create(nameof(TintColor), typeof(Color), typeof(MaterialCircularLoadingView), Material.Color.Secondary);
 
         /// <summary>
         /// Gets or sets the tint color of the animation. The default value is the value of <see cref="MaterialColorConfiguration.Secondary"/>.
