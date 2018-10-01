@@ -43,7 +43,7 @@ namespace XF.MaterialSample
 
             radioButtonGroup.SelectedIndices = new List<int>(2) { 1, 3 };
 
-            radioButtonGroup.SelectedIndicesChangedCommand = new Command<List<int>>((s) =>
+            radioButtonGroup.SelectedIndicesChangedCommand = new Command<int[]>((s) =>
             {
                 if (s.Any())
                 {
