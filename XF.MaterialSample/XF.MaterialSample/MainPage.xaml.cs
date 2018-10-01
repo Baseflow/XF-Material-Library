@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -15,7 +17,51 @@ namespace XF.MaterialSample
     {
         public MainPage()
         {
-            InitializeComponent();
+            this.InitializeComponent();
+
+            radioButtonGroup.Choices = new string[]
+            {
+                "Mobile Developer (Xamarin)",
+                "Mobile Developer (Native)",
+                "Web Developer (.NET)",
+                "Web Developer (Wordpress/Drupal)",
+                "Quality Assurance Engineer",
+                "Business Analyst",
+                "Recruitment Officer",
+                "Project Manager",
+                "Scrum Master"
+            };
+
+            //radioButtonGroup.SelectedIndex = 1;
+            //radioButtonGroup.SelectedIndexChangedCommand = new Command<int>((s) =>
+            //{
+            //    if (s >= 0)
+            //    {
+            //        System.Diagnostics.Debug.WriteLine(radioButtonGroup.Choices[s]);
+            //    }
+            //});
+
+            radioButtonGroup.SelectedIndices = new List<int>(2) { 1, 3 };
+
+            radioButtonGroup.SelectedIndicesChangedCommand = new Command<List<int>>((s) =>
+            {
+                if (s.Any())
+                {
+                    foreach (var index in s)
+                    {
+                        System.Diagnostics.Debug.WriteLine(radioButtonGroup.Choices[index]);
+                    }
+                }
+            });
+
+            //radioButtonGroup.SelectedIndexChanged += (s, e) =>
+            //{
+            //    if (e.Index >= 0)
+            //    {
+            //        System.Diagnostics.Debug.WriteLine("Selected: " + (radioButtonGroup.Choices as string[])[e.Index]);
+            //    }
+            //};
+
 
             //MaterialDialog.Instance.SetGlobalStyles(new MaterialAlertDialogConfiguration
             //{
@@ -106,9 +152,9 @@ namespace XF.MaterialSample
             //});
 
             //await MaterialDialog.Instance.AlertAsync("Not connected to the internet", "Connection error", "Ok");
-            var actions = new List<string> { "Open in new window", "Download to device", "Archive item", "Delete item" };
-            var result = await MaterialDialog.Instance.SelectActionAsync("What do you want to do?", actions);
-            await MaterialDialog.Instance.SnackbarAsync("Selected " + actions[result], "Got It");
+            //var actions = new List<string> { "Open in new window", "Download to device", "Archive item", "Delete item" };
+            //var result = await MaterialDialog.Instance.SelectActionAsync("What do you want to do?", actions);
+            //await MaterialDialog.Instance.SnackbarAsync("Selected " + actions[result], "Got It");
             //var result = await MaterialDialog.Instance.ShowConfirmAsync("Do you want to sign in?");
             //System.Diagnostics.Debug.WriteLine(result);
 
@@ -120,6 +166,21 @@ namespace XF.MaterialSample
             //    Material.Forms.Material.PlatformConfiguration.ChangeStatusBarColor(Material.Forms.Material.ColorConfiguration.Secondary);
             //};
             //await this.Navigation.PushAsync(page);
+
+            var result = await MaterialDialog.Instance.SelectChoiceAsync("Select a job position that best suits you", new string[]
+            {
+                "Mobile Developer (Xamarin)",
+                "Mobile Developer (Native)",
+                "Web Developer (.NET)",
+                "Web Developer (Wordpress/Drupal)",
+                "Quality Assurance Engineer",
+                "Business Analyst",
+                "Recruitment Officer",
+                "Project Manager",
+                "Scrum Master"
+            });
+
+            System.Diagnostics.Debug.WriteLine(result);
         }
 
         private async void MaterialChip_ActionImageTapped(object sender, EventArgs e)
@@ -155,6 +216,30 @@ namespace XF.MaterialSample
             using (await MaterialDialog.Instance.LoadingSnackbarAsync("Something is running..."))
             {
                 await Task.Delay(3000);
+            }
+        }
+
+        private void MaterialCheckbox_SelectedChanged(object sender, SelectedChangedEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine(e.IsSelected ? "Selected" : "Unselected");
+        }
+
+        private void RadioButtonGroup_SelectedIndexChanged(object sender, SelectedIndexChangedEventArgs e)
+        {
+            if(e?.Index >= 0)
+            {
+                System.Diagnostics.Debug.WriteLine(radioButtonGroup.Choices[e.Index]);
+            }
+        }
+
+        private void checkBoxGroup_SelectedIndicesChanged(object sender, SelectedIndicesChangedEventArgs e)
+        {
+            if(e.Indices.Any())
+            {
+                foreach(var index in e.Indices)
+                {
+                    //System.Diagnostics.Debug.WriteLine(checkBoxGroup.Choices[index]);
+                }
             }
         }
     }
