@@ -1,4 +1,5 @@
 ﻿using Android.Content;
+using Android.Graphics.Drawables;
 using Android.Support.V4.Graphics.Drawable;
 using System.ComponentModel;
 using Xamarin.Forms;
@@ -12,6 +13,7 @@ namespace XF.Material.Droid.Renderers
     public class MaterialIconRenderer : ImageRenderer
     {
         private MaterialIcon _materialIcon;
+        private Drawable _drawable;
 
         public MaterialIconRenderer(Context context) : base(context) { }
 
@@ -22,6 +24,7 @@ namespace XF.Material.Droid.Renderers
             if(e?.NewElement != null)
             {
                 _materialIcon = this.Element as MaterialIcon;
+                _drawable = this.Control.Drawable.GetDrawableCopy();
                 this.ChangeTintColor();
             }
         }
@@ -32,16 +35,19 @@ namespace XF.Material.Droid.Renderers
 
             if(e?.PropertyName == nameof(MaterialIcon.TintColor) || e?.PropertyName == nameof(Image.Source))
             {
+                _drawable = this.Control.Drawable.GetDrawableCopy();
                 this.ChangeTintColor();
             }
         }
 
         private void ChangeTintColor()
         {
-            if(!_materialIcon.TintColor.IsDefault)
+            if(!_materialIcon.TintColor.IsDefault && _drawable != null)
             {
                 var tintColor = _materialIcon.TintColor.ToAndroid();
-                DrawableCompat.SetTint(this.Control.Drawable, tintColor);
+                DrawableCompat.SetTint(_drawable, tintColor);
+                this.Control.Drawable.Dispose();
+                this.Control.SetImageDrawable(_drawable);
             }
         }
     }
