@@ -72,7 +72,7 @@ public override bool FinishedLaunching(UIApplication app, NSDictionary options)
 
 ```
 
-3. You can also set your resources in this stage. Read more about it [here](#material-resources).
+3. Configure your application's color and font resources. Read more about it [here](#material-resources).
 
 ### Additional configuration for iOS
 
