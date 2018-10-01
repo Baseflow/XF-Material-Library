@@ -46,5 +46,5 @@ jobs:
     buildConfiguration: 'Release'
     outputDirectory: '$(build.binariesDirectory)/$(buildConfiguration)'
   steps:
-    - powershell: 'nuget pack'
+    - powershell: **/*.nuspec
       displayName: 'PowerShell Script'
