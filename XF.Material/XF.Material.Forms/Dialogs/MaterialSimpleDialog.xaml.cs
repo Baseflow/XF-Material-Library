@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -23,21 +24,18 @@ namespace XF.Material.Forms.Dialogs
 
         internal static MaterialSimpleDialogConfiguration GlobalConfiguration { get; set; }
 
-        internal static async Task<int> ShowAsync(string title, List<string> actions, MaterialSimpleDialogConfiguration configuration = null)
+        internal static async Task<int> ShowAsync(string title, IList<string> actions, MaterialSimpleDialogConfiguration configuration = null)
         {
             var dialog = new MaterialSimpleDialog(configuration) { InputTaskCompletionSource = new TaskCompletionSource<int>() };
-            var actionModels = CreateActions(actions, configuration, dialog);
             dialog.DialogTitle.Text = title;
-            dialog.DialogActionList.RowHeight = _rowHeight;
-            dialog.DialogActionList.HeightRequest = (_rowHeight * actionModels.Count) + 2;
-            dialog.DialogActionList.ItemsSource = actionModels;
+            dialog.CreateActions(actions.ToList(), configuration);
 
             await dialog.ShowAsync();
 
             return await dialog.InputTaskCompletionSource.Task;
         }
 
-        private static List<ActionModel> CreateActions(List<string> actions, MaterialSimpleDialogConfiguration configuration, MaterialSimpleDialog dialog)
+        private void CreateActions(List<string> actions, MaterialSimpleDialogConfiguration configuration)
         {
             if (actions == null || actions.Count <= 0)
             {
@@ -49,15 +47,15 @@ namespace XF.Material.Forms.Dialogs
             {
                 var preferredConfig = configuration ?? GlobalConfiguration;
                 var actionModel = new ActionModel { Text = a };
-                actionModel.TextColor = preferredConfig != null ? preferredConfig.MessageTextColor : Color.FromHex("#DE000000");
-                actionModel.FontFamily = preferredConfig != null ? preferredConfig.MessageFontFamily : Material.FontConfiguration.Body1;
+                actionModel.TextColor = preferredConfig != null ? preferredConfig.TextColor : Color.FromHex("#DE000000");
+                actionModel.FontFamily = preferredConfig != null ? preferredConfig.TextFontFamily : Material.FontFamily.Body1;
                 actionModel.SelectedCommand = new Command<int>((position) =>
                 {
-                    if(dialog.InputTaskCompletionSource?.Task.Status == TaskStatus.WaitingForActivation)
+                    if(this.InputTaskCompletionSource?.Task.Status == TaskStatus.WaitingForActivation)
                     {
                         actionModel.IsSelected = true;
-                        dialog.InputTaskCompletionSource?.SetResult(position);
-                        dialog.Dispose();
+                        this.InputTaskCompletionSource?.SetResult(position);
+                        this.Dispose();
                     }
                 });
 
@@ -65,7 +63,9 @@ namespace XF.Material.Forms.Dialogs
                 actionModel.Index = actionModels.IndexOf(actionModel);
             });
 
-            return actionModels;
+            DialogActionList.RowHeight = _rowHeight;
+            DialogActionList.HeightRequest = (_rowHeight * actionModels.Count) + 2;
+            DialogActionList.ItemsSource = actionModels;
         }
 
         private void Configure(MaterialSimpleDialogConfiguration configuration)

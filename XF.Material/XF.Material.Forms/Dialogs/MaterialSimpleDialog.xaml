@@ -69,6 +69,7 @@
                                     <Label Grid.Column="1"
                                         Margin="24,0"
                                         HeightRequest="{Binding Source={x:Reference DialogActionList}, Path=RowHeight}"
+                                        LineBreakMode="TailTruncation"
                                         Style="{DynamicResource Material.TypeScale.Body1}"
                                         Text="{Binding Text}"
                                         TextColor="#DE000000"
