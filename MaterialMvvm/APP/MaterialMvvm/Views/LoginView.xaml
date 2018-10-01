@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<local:BaseLoginView x:Class="MaterialMvvm.Views.LoginView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:MaterialMvvm.Views"
+    xmlns:material="clr-namespace:XF.Material.Forms.Views;assembly=XF.Material.Forms"
+    Title="Login Form"
+    Padding="16,32">
+    <ContentPage.Content>
+        <ScrollView VerticalOptions="Fill">
+            <StackLayout Spacing="0">
+                <material:MaterialTextField Margin="0,16,0,0"
+                    ErrorText="{Binding EmailErrorText}"
+                    HasError="{Binding EmailHasError}"
+                    Icon="ic_email"
+                    InputType="Email"
+                    Placeholder="Email Address"
+                    Text="{Binding Email}" />
+                <material:MaterialTextField Margin="0,16,0,0"
+                    ErrorText="{Binding PasswordErrorText}"
+                    HasError="{Binding PasswordHasError}"
+                    Icon="ic_lock"
+                    InputType="Password"
+                    Placeholder="Password"
+                    Text="{Binding Password}" />
+
+                <Label Margin="0,16,0,0"
+                    Style="{DynamicResource Material.TypeScale.Body2}"
+                    Text="Login as:"
+                    TextColor="#DE000000" />
+                <material:MaterialRadioButtonGroup Margin="0,12,0,0"
+                    Choices="{Binding AccountTypes}"
+                    SelectedIndexChangedCommand="{Binding AccountTypeChangedCommand}"
+                    VerticalSpacing="0" />
+                <material:MaterialButton Margin="0,16,0,0"
+                    Command="{Binding LoginCommand}"
+                    HorizontalOptions="End"
+                    Text="Login" />
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</local:BaseLoginView>

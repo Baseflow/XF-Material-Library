@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary x:Class="MaterialMvvm.Resources.Colors"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <Color x:Key="Color.Primary">#0097D4</Color>
+    <Color x:Key="Color.Background">#FAFAFA</Color>
+    <Color x:Key="Color.Text.PrimaryDark">#E0000000</Color>
+
+    <!--  ADD MORE APP COLORS HERE  -->
+
+</ResourceDictionary>

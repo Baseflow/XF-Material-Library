@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <LangVersion>7.2</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <LangVersion>7.2</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="4.8.1" />
+    <PackageReference Include="Autofac.Extras.CommonServiceLocator" Version="5.0.0" />
+    <PackageReference Include="Xamarin.Forms" Version="3.2.0.839982" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\APP\MaterialMvvm\MaterialMvvm.csproj" />
+    <ProjectReference Include="..\..\BLL\MaterialMvvm.Common\MaterialMvvm.Common.csproj" />
+    <ProjectReference Include="..\..\BLL\MaterialMvvm.Managers\MaterialMvvm.Managers.csproj" />
+    <ProjectReference Include="..\..\DLL\MaterialMvvm.Repositories\MaterialMvvm.Repositories.csproj" />
+    <ProjectReference Include="..\..\DLL\MaterialMvvm.WebServices\MaterialMvvm.WebServices.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary x:Class="MaterialMvvm.Resources.Fonts"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <!--#region FONT FAMILIES-->
+
+    <OnPlatform x:Key="FontFamily.RobotoRegular"
+        x:TypeArguments="x:String"
+        Android="Fonts/Roboto-Regular.ttf#Roboto-Regular"
+        iOS="Roboto-Regular" />
+    <OnPlatform x:Key="FontFamily.RobotoBold"
+        x:TypeArguments="x:String"
+        Android="Fonts/Roboto-Bold.ttf#Roboto-Bold"
+        iOS="Roboto-Bold" />
+    <OnPlatform x:Key="FontFamily.RobotoMedium"
+        x:TypeArguments="x:String"
+        Android="Fonts/Roboto-Medium.ttf#Roboto-Medium"
+        iOS="Roboto-Medium" />
+
+    <!--#endregion-->
+
+    <!--#region FONT SIZES-->
+
+    <x:Double x:Key="FontSize.Title">20</x:Double>
+    <x:Double x:Key="FontSize.Body">14</x:Double>
+
+    <!--#endregion-->
+
+    <!--#region FONTS-->
+
+    <Style x:Key="Font.Title" TargetType="Label">
+        <Setter Property="FontFamily" Value="{StaticResource FontFamily.RobotoMedium}" />
+        <Setter Property="FontSize" Value="{StaticResource FontSize.Title}" />
+    </Style>
+
+    <!--#endregion-->
+
+</ResourceDictionary>

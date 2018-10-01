@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary x:Class="MaterialMvvm.Resources.Styles"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:MaterialMvvm.Resources">
+    <ResourceDictionary.MergedDictionaries>
+        <local:Colors />
+        <local:Fonts />
+    </ResourceDictionary.MergedDictionaries>
+
+    <!--#region MAIN VIEW STYLES-->
+
+    <Style x:Key="Style.MainView.Title"
+        BasedOn="{StaticResource Font.Title}"
+        TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource Color.Text.PrimaryDark}" />
+    </Style>
+
+    <!--#endregion-->
+
+</ResourceDictionary>
