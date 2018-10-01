@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Xamarin.Forms;
 using XF.Material.Forms.Resources.Typography;
 

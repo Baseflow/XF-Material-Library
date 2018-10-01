@@ -1,10 +1,9 @@
-﻿using System.ComponentModel;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace XF.Material.Forms.Resources
 {
     /// <summary>
-    /// App color theme configuration based on https://material.io/design/color values.
+    /// App color theme configuration based on https://material.io/design/color.
     /// </summary>
     public sealed class MaterialColorConfiguration : BindableObject
     {
@@ -17,7 +16,7 @@ namespace XF.Material.Forms.Resources
         public static readonly BindableProperty OnSurfaceProperty = BindableProperty.Create(nameof(OnSurface), typeof(Color), typeof(Color), Color.FromHex("#000000"));
         public static readonly BindableProperty PrimaryProperty = BindableProperty.Create(nameof(Primary), typeof(Color), typeof(Color), Color.FromHex("#6200EE"));
         public static readonly BindableProperty PrimaryVariantProperty = BindableProperty.Create(nameof(PrimaryVariant), typeof(Color), typeof(Color), Color.FromHex("#6200EE"));
-        public static readonly BindableProperty SecondaryProperty = BindableProperty.Create(nameof(Secondary), typeof(Color), typeof(Color), Color.FromHex("#6200EE"));
+        public static readonly BindableProperty SecondaryProperty = BindableProperty.Create(nameof(Secondary), typeof(Color), typeof(Color), default(Color));
         public static readonly BindableProperty SecondaryVariantProperty = BindableProperty.Create(nameof(SecondaryVariant), typeof(Color), typeof(Color), Color.FromHex("#0400BA"));
         public static readonly BindableProperty SurfaceProperty = BindableProperty.Create(nameof(Surface), typeof(Color), typeof(Color), Color.FromHex("#FFFFFF"));
        
@@ -27,8 +26,8 @@ namespace XF.Material.Forms.Resources
         /// </summary>
         public Color Background
         {
-            get => (Color)GetValue(BackgroundProperty);
-            set => SetValue(BackgroundProperty, value);
+            get => (Color)this.GetValue(BackgroundProperty);
+            set => this.SetValue(BackgroundProperty, value);
         }
 
         /// <summary>
@@ -36,8 +35,8 @@ namespace XF.Material.Forms.Resources
         /// </summary>
         public Color Error
         {
-            get => (Color)GetValue(ErrorProperty);
-            set => SetValue(ErrorProperty, value);
+            get => (Color)this.GetValue(ErrorProperty);
+            set => this.SetValue(ErrorProperty, value);
         }
 
         /// <summary>
@@ -45,8 +44,8 @@ namespace XF.Material.Forms.Resources
         /// </summary>
         public Color OnBackground
         {
-            get => (Color)GetValue(OnBackgroundProperty);
-            set => SetValue(OnBackgroundProperty, value);
+            get => (Color)this.GetValue(OnBackgroundProperty);
+            set => this.SetValue(OnBackgroundProperty, value);
         }
 
         /// <summary>
@@ -54,8 +53,8 @@ namespace XF.Material.Forms.Resources
         /// </summary>
         public Color OnError
         {
-            get => (Color)GetValue(OnErrorProperty);
-            set => SetValue(OnErrorProperty, value);
+            get => (Color)this.GetValue(OnErrorProperty);
+            set => this.SetValue(OnErrorProperty, value);
         }
 
         /// <summary>
@@ -63,8 +62,8 @@ namespace XF.Material.Forms.Resources
         /// </summary>
         public Color OnPrimary
         {
-            get => (Color)GetValue(OnPrimaryProperty);
-            set => SetValue(OnPrimaryProperty, value);
+            get => (Color)this.GetValue(OnPrimaryProperty);
+            set => this.SetValue(OnPrimaryProperty, value);
         }
 
         /// <summary>
@@ -74,12 +73,12 @@ namespace XF.Material.Forms.Resources
         {
             get
             {
-                var color = (Color)GetValue(OnSecondaryProperty);
+                var color = (Color)this.GetValue(OnSecondaryProperty);
 
                 return color.IsDefault ? this.OnPrimary : color;
             }
 
-            set => SetValue(OnSecondaryProperty, value);
+            set => this.SetValue(OnSecondaryProperty, value);
         }
 
         /// <summary>
@@ -87,8 +86,8 @@ namespace XF.Material.Forms.Resources
         /// </summary>
         public Color OnSurface
         {
-            get => (Color)GetValue(OnSurfaceProperty);
-            set => SetValue(OnSurfaceProperty, value);
+            get => (Color)this.GetValue(OnSurfaceProperty);
+            set => this.SetValue(OnSurfaceProperty, value);
         }
 
         /// <summary>
@@ -96,8 +95,8 @@ namespace XF.Material.Forms.Resources
         /// </summary>
         public Color Primary
         {
-            get => (Color)GetValue(PrimaryProperty);
-            set => SetValue(PrimaryProperty, value);
+            get => (Color)this.GetValue(PrimaryProperty);
+            set => this.SetValue(PrimaryProperty, value);
         }
 
         /// <summary>
@@ -105,8 +104,8 @@ namespace XF.Material.Forms.Resources
         /// </summary>
         public Color PrimaryVariant
         {
-            get => (Color)GetValue(PrimaryVariantProperty);
-            set => SetValue(PrimaryVariantProperty, value);
+            get => (Color)this.GetValue(PrimaryVariantProperty);
+            set => this.SetValue(PrimaryVariantProperty, value);
         }
 
         /// <summary>
@@ -117,7 +116,7 @@ namespace XF.Material.Forms.Resources
         {
             get
             {
-                var color = (Color)GetValue(SecondaryProperty);
+                var color = (Color)this.GetValue(SecondaryProperty);
 
                 if(color.IsDefault && this.Primary.IsDefault)
                 {
@@ -129,7 +128,7 @@ namespace XF.Material.Forms.Resources
                     return color.IsDefault ? this.Primary : color;
                 }
             }
-            set => SetValue(SecondaryProperty, value);
+            set => this.SetValue(SecondaryProperty, value);
         }
 
         /// <summary>
@@ -137,8 +136,8 @@ namespace XF.Material.Forms.Resources
         /// </summary>
         public Color SecondaryVariant
         {
-            get => (Color)GetValue(SecondaryVariantProperty);
-            set => SetValue(SecondaryVariantProperty, value);
+            get => (Color)this.GetValue(SecondaryVariantProperty);
+            set => this.SetValue(SecondaryVariantProperty, value);
         }
 
         /// <summary>
@@ -146,8 +145,8 @@ namespace XF.Material.Forms.Resources
         /// </summary>
         public Color Surface
         {
-            get => (Color)GetValue(SurfaceProperty);
-            set => SetValue(SurfaceProperty, value);
+            get => (Color)this.GetValue(SurfaceProperty);
+            set => this.SetValue(SurfaceProperty, value);
         }
     }
 }

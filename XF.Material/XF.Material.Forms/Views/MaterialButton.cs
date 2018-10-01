@@ -16,7 +16,7 @@ namespace XF.Material.Forms.Views
 
         public static readonly BindableProperty AllCapsProperty = BindableProperty.Create(nameof(AllCaps), typeof(bool), typeof(MaterialButton), true);
 
-        public static new readonly BindableProperty BackgroundColorProperty = BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(MaterialButton), Material.GetResource<Color>(MaterialConstants.Color.SECONDARY));
+        public static new readonly BindableProperty BackgroundColorProperty = BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(MaterialButton), Material.Color.Secondary);
 
         public static readonly BindableProperty ButtonTypeProperty = BindableProperty.Create(nameof(ButtonType), typeof(MaterialButtonType), typeof(MaterialButton), MaterialButtonType.Elevated, propertyChanged: ButtonTypeChanged);
 
@@ -28,7 +28,7 @@ namespace XF.Material.Forms.Views
             this.SetDynamicResource(FontAttributesProperty, MaterialConstants.MATERIAL_FONTATTRIBUTE_BOLD);
             this.SetDynamicResource(CornerRadiusProperty, MaterialConstants.MATERIAL_BUTTON_CORNERRADIUS);
             this.SetDynamicResource(BackgroundColorProperty, MaterialConstants.Color.SECONDARY);
-            this.SetDynamicResource(TextColorProperty, MaterialConstants.Color.ONSECONDARY);
+            this.SetDynamicResource(TextColorProperty, MaterialConstants.Color.ON_SECONDARY);
             this.SetDynamicResource(HeightRequestProperty, MaterialConstants.MATERIAL_BUTTON_HEIGHT);
         }
 
@@ -84,7 +84,7 @@ namespace XF.Material.Forms.Views
 
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            if (propertyName == nameof(BackgroundColor))
+            if (propertyName == nameof(this.BackgroundColor))
             {
                 base.OnPropertyChanged(MaterialButton.MaterialButtonColorChanged);
             }

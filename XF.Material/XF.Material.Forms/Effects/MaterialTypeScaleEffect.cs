@@ -1,6 +1,5 @@
 ﻿using System;
 using Xamarin.Forms;
-using Xamarin.Forms.Internals;
 using XF.Material.Forms.Resources.Typography;
 
 namespace XF.Material.Forms.Effects

@@ -1,6 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using Xamarin.Forms;
-using XF.Material.Forms.Effects;
+﻿using Xamarin.Forms;
 using XF.Material.Forms.Resources;
 
 namespace XF.Material.Forms.Views
@@ -21,7 +19,7 @@ namespace XF.Material.Forms.Views
         public MaterialNavigationPage(Page rootPage) : base(rootPage)
         {
             this.SetDynamicResource(BarBackgroundColorProperty, MaterialConstants.Color.PRIMARY);
-            this.SetDynamicResource(BarTextColorProperty, MaterialConstants.Color.ONPRIMARY);
+            this.SetDynamicResource(BarTextColorProperty, MaterialConstants.Color.ON_PRIMARY);
             this.Pushed += this.MaterialNavigationPage_Pushed;
 
             if(rootPage.BackgroundColor.IsDefault)
