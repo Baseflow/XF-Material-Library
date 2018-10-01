@@ -39,7 +39,7 @@ jobs:
       packageApp: false
       clean: true
 
-- job: NuGet Pack
+- job: NuGetPack
   pool:
     vmImage: 'VS2017-Win2016'
   variables:
