@@ -31,7 +31,6 @@ namespace XF.Material.iOS.Effects
         {
             if (this.Control is UILabel label)
             {
-                System.Diagnostics.Debug.WriteLine(label.Font.Name);
                 label.AttributedText = new NSMutableAttributedString(label.Text ?? string.Empty, 
                     font: label.Font, 
                     foregroundColor: label.TextColor, 
