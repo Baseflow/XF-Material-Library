@@ -31,7 +31,7 @@ namespace XF.Material.Forms.Dialogs
                 this.Dispose();
             }, () => !_primaryActionRunning);
             ActionButton.Command = _primaryActionCommand;
-            _hideAction = () => this.InputTaskCompletionSource.SetResult(false);
+            _hideAction = () => this.InputTaskCompletionSource?.SetResult(false);
         }
 
         internal static MaterialSnackbarConfiguration GlobalConfiguration { get; set; }

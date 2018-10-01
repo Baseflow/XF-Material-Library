@@ -144,5 +144,27 @@ namespace XF.Material.Forms.Dialogs
         {
             return await MaterialSimpleDialog.ShowAsync(title, actions, configuration);
         }
+
+        /// <summary>
+        /// Shows a confirmation dialog that allows the user to select one of the listed choices. Returns the index of the selected choice.
+        /// </summary>
+        /// <param name="title">The title of the confirmation dialog. This parameter must not be null or empty.</param>
+        /// <param name="choices">The list of choices the user will choose from.</param>
+        /// <exception cref="ArgumentNullException" />
+        public static async Task<int> ShowSelectChoiceAsync(string title, IList<string> choices, MaterialConfirmationDialogConfiguration configuration = null)
+        {
+            return (int)await MaterialConfirmationDialog.ShowSelectChoiceAsync(title, choices, configuration);
+        }
+
+        /// <summary>
+        /// Shows a confirmation dialog that allows the user to select any of the listed choices. Returns the indices of the selected choices.
+        /// </summary>
+        /// <param name="title">The title of the confirmation dialog. This parameter must not be null or empty.</param>
+        /// <param name="choices">The list of choices the user will choose from.</param>
+        /// <exception cref="ArgumentNullException" />
+        public static async Task<int[]> ShowSelectChoicesAsync(string title, IList<string> choices, MaterialConfirmationDialogConfiguration configuration = null)
+        {
+            return (int[])await MaterialConfirmationDialog.ShowSelectChoicesAsync(title, choices, configuration);
+        }
     }
 }

@@ -10,12 +10,14 @@ namespace XF.Material.Forms.Dialogs
     public interface IMaterialDialog
     {
         /// <summary>
-        /// Sets the global styles for <see cref="MaterialAlertDialog"/>, <see cref="MaterialLoadingDialog"/>,and <see cref="MaterialSnackbar"/>. Parameters can be null.
+        /// Sets the global styles for <see cref="MaterialAlertDialog"/>, <see cref="MaterialLoadingDialog"/>, <see cref="MaterialSimpleDialog"/>, <see cref="MaterialConfirmationDialog"/>, and <see cref="MaterialSnackbar"/>. Parameters can be null.
         /// </summary>
         /// <param name="dialogConfiguration">Global style for <see cref="MaterialAlertDialog"/>.</param>
         /// <param name="loadingDialogConfiguration">Global style for <see cref="MaterialLoadingDialog"/>.</param>
         /// <param name="snackbarConfiguration">Global style for <see cref="MaterialSnackbar"/>.</param>
-        void SetGlobalStyles(MaterialAlertDialogConfiguration dialogConfiguration, MaterialLoadingDialogConfiguration loadingDialogConfiguration, MaterialSnackbarConfiguration snackbarConfiguration, MaterialSimpleDialogConfiguration simpleDialogConfiguration);
+        /// <param name="simpleDialogConfiguration">Global style for <see cref="MaterialSimpleDialog"/>.</param>
+        /// <param name="confirmationDialogConfiguration">Global style for <see cref="MaterialConfirmationDialog"/>.</param>
+        void SetGlobalStyles(MaterialAlertDialogConfiguration dialogConfiguration, MaterialLoadingDialogConfiguration loadingDialogConfiguration, MaterialSnackbarConfiguration snackbarConfiguration, MaterialSimpleDialogConfiguration simpleDialogConfiguration, MaterialConfirmationDialogConfiguration confirmationDialogConfiguration);
 
         /// <summary>
         /// Shows an alert dialog for acknowledgement. It only has a single, dismissive action used for acknowledgement.
@@ -95,13 +97,29 @@ namespace XF.Material.Forms.Dialogs
         /// Shows a simple dialog that allows the user to select one of listed actions. Returns the index of the selected action.
         /// </summary>
         /// <param name="actions">The list of actions.</param>
-        Task<int> SelectActionAsync(List<string> actions, MaterialSimpleDialogConfiguration configuration = null);
+        Task<int> SelectActionAsync(IList<string> actions, MaterialSimpleDialogConfiguration configuration = null);
 
         /// <summary>
         /// Shows a simple dialog that allows the user to select one of listed actions. Returns the index of the selected action.
         /// </summary>
         /// <param name="title">The title of the dialog.</param>
         /// <param name="actions">The list of actions.</param>
-        Task<int> SelectActionAsync(string title, List<string> actions, MaterialSimpleDialogConfiguration configuration = null);
+        Task<int> SelectActionAsync(string title, IList<string> actions, MaterialSimpleDialogConfiguration configuration = null);
+
+        /// <summary>
+        /// Shows a confirmation dialog that allows the user to select one of the listed choices. Returns the index of the selected choice.
+        /// </summary>
+        /// <param name="title">The title of the confirmation dialog. This parameter must not be null or empty.</param>
+        /// <param name="choices">The list of choices the user will choose from.</param>
+        /// <exception cref="System.ArgumentNullException" />
+        Task<int> SelectChoiceAsync(string title, IList<string> choices, MaterialConfirmationDialogConfiguration configuration = null);
+
+        /// <summary>
+        /// Shows a confirmation dialog that allows the user to select any of the listed choices. Returns the indices of the selected choices.
+        /// </summary>
+        /// <param name="title">The title of the confirmation dialog. This parameter must not be null or empty.</param>
+        /// <param name="choices">The list of choices the user will choose from.</param>
+        /// <exception cref="System.ArgumentNullException" />
+        Task<int[]> SelectChoicesAsync(string title, IList<string> choices, MaterialConfirmationDialogConfiguration configuration = null);
     }
 }

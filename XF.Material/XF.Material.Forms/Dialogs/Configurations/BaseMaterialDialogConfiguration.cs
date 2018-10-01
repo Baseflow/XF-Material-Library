@@ -7,8 +7,6 @@ namespace XF.Material.Forms.Dialogs.Configurations
     /// </summary>
     public abstract class BaseMaterialDialogConfiguration
     {
-        protected BaseMaterialDialogConfiguration() { }
-
         /// <summary>
         /// Gets or sets the background color of the dialog.
         /// </summary>
@@ -22,7 +20,7 @@ namespace XF.Material.Forms.Dialogs.Configurations
         /// <summary>
         /// Gets or sets the message font family of the dialog.
         /// </summary>
-        public virtual string MessageFontFamily { get; set; } = Material.FontConfiguration.Body1;
+        public virtual string MessageFontFamily { get; set; } = Material.FontFamily.Body1;
 
         /// <summary>
         /// Gets or sets the message text color of the dialog.
@@ -37,6 +35,6 @@ namespace XF.Material.Forms.Dialogs.Configurations
         /// <summary>
         /// Gets or sets the tint color of the dialog.
         /// </summary>
-        public virtual Color TintColor { get; set; } = Material.ColorConfiguration.Secondary;
+        public virtual Color TintColor { get; set; } = Material.Color.Secondary;
     }
 }
