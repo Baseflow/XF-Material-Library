@@ -138,6 +138,7 @@ namespace XF.Material.Forms.Views
             {
                 this.HeightRequest -= 12;
                 this.Margin = new Thickness(this.Margin.Left + 6, this.Margin.Top + 6, this.Margin.Right + 6, this.Margin.Bottom + 6);
+                System.Diagnostics.Debug.WriteLine($"{this.HeightRequest}, {this.WidthRequest}");
             }
         }
     }

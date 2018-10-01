@@ -9,7 +9,6 @@
         <internal:MaterialDialogListView x:Name="selectionList"
             BackgroundColor="Transparent"
             HasRipple="False"
-            HasUnevenRows="True"
             HeightRequest="0"
             SeparatorVisibility="None"
             VerticalOptions="Center">

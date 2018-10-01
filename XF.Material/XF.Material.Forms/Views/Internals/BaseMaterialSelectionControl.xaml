@@ -15,13 +15,22 @@
                 <ColumnDefinition Width="48" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="48" />
+            </Grid.RowDefinitions>
             <material:MaterialButton x:Name="selectionButton"
                 Grid.Column="0"
                 ButtonType="Text"
-                HeightRequest="48"
                 HorizontalOptions="Center"
+                Text="{x:Null}"
                 VerticalOptions="Center"
-                WidthRequest="48" />
+                WidthRequest="48">
+                <material:MaterialButton.HeightRequest>
+                    <OnPlatform x:TypeArguments="x:Double"
+                        Android="48"
+                        iOS="60" />
+                </material:MaterialButton.HeightRequest>
+            </material:MaterialButton>
             <material:MaterialIcon x:Name="selectionIcon"
                 Grid.Column="0"
                 HeightRequest="24"

@@ -7,6 +7,9 @@ using XF.Material.Forms.Resources;
 
 namespace XF.Material.Forms.Views.Internals
 {
+    /// <summary>
+    /// Base class of selection control groups. Used by <see cref="MaterialRadioButtonGroup"/> and <see cref="MaterialCheckboxGroup"/>.
+    /// </summary>
     public abstract class BaseMaterialSelectionControlGroup : ContentView
     {
         public static readonly BindableProperty ChoicesProperty = BindableProperty.Create(nameof(Choices), typeof(IList<string>), typeof(BaseMaterialSelectionControlGroup), default(IList<string>));
@@ -25,35 +28,52 @@ namespace XF.Material.Forms.Views.Internals
 
         public static readonly BindableProperty VerticalSpacingProperty = BindableProperty.Create(nameof(VerticalSpacing), typeof(double), typeof(BaseMaterialSelectionControlGroup), 0.0);
 
+
+        /// <summary>
+        /// Gets or sets the list of string which the user will choose from.
+        /// </summary>
         public IList<string> Choices
         {
             get => (IList<string>)this.GetValue(ChoicesProperty);
             set => this.SetValue(ChoicesProperty, value);
         }
 
+        /// <summary>
+        /// Gets or sets the font family of the text of each radio buttons.
+        /// </summary>
         public string FontFamily
         {
             get => (string)this.GetValue(FontFamilyProperty);
             set => this.SetValue(FontFamilyProperty, value);
         }
 
+        /// <summary>
+        /// Gets or sets the font size of the text of each radio buttons.
+        /// </summary>
         public double FontSize
         {
             get => (double)this.GetValue(FontSizeProperty);
             set => this.SetValue(FontSizeProperty, value);
         }
 
+        /// <summary>
+        /// Gets or sets the spacing between the radio button and its text.
+        /// </summary>
         public double HorizontalSpacing
         {
             get => (double)this.GetValue(HorizontalSpacingProperty);
             set => this.SetValue(HorizontalSpacingProperty, value);
         }
 
+        /// <summary>
+        /// Gets or sets the color that will be used to tint this control when it is selected.
+        /// </summary>
         public Color SelectedColor
         {
             get => (Color)this.GetValue(SelectedColorProperty);
             set => this.SetValue(SelectedColorProperty, value);
         }
+
 
         public Color TextColor
         {
