@@ -35,6 +35,6 @@ jobs:
     inputs:
       solutionFile: '**/*.sln'
       configuration: '$(buildConfiguration)'
-      buildForSimulator: false
+      buildForSimulator: true
       packageApp: false
       clean: true
