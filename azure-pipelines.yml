@@ -38,17 +38,3 @@ jobs:
       buildForSimulator: true
       packageApp: false
       clean: true
-
-- job: NuGet_Pack
-  pool:
-    vmImage: 'VS2017-Win2016'
-  variables:
-    buildConfiguration: 'Release'
-    outputDirectory: '$(build.binariesDirectory)/$(buildConfiguration)'
-  steps:
-    - task: NuGetCommand@2
-      inputs:
-        command: 'pack'
-        restoreSolution: '**/*.sln'
-        restoreDirectory:
-        packagesToPack: '**/*.nuspec'
