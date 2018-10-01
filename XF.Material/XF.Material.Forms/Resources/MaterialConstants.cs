@@ -14,14 +14,14 @@
             public const string PRIMARY_VARIANT = "Material.Color.PrimaryVariant";
             public const string SECONDARY = "Material.Color.Secondary";
             public const string SECONDARY_VARIANT = "Material.Color.SecondaryVariant";
-            public const string ONPRIMARY = "Material.Color.OnPrimary";
-            public const string ONSECONDARY = "Material.Color.OnSecondary";
+            public const string ON_PRIMARY = "Material.Color.OnPrimary";
+            public const string ON_SECONDARY = "Material.Color.OnSecondary";
             public const string BACKGROUND = "Material.Color.Background";
             public const string SURFACE = "Material.Color.Surface";
             public const string ERROR = "Material.Color.Error";
-            public const string ONBACKGROUND = "Material.Color.OnBackground";
-            public const string ONSURFACE = "Material.Color.OnSurface";
-            public const string ONERROR = "Material.Color.OnError";
+            public const string ON_BACKGROUND = "Material.Color.OnBackground";
+            public const string ON_SURFACE = "Material.Color.OnSurface";
+            public const string ON_ERROR = "Material.Color.OnError";
         }
 
         /// <summary>
