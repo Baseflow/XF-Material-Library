@@ -1,5 +1,16 @@
 # Release Notes
 
+##### 1.1.0
+- Added selection controls: `MaterialRadioButton`, `MaterialRadioButtonGroup`, `MaterialCheckbox`, and `MaterialCheckboxGroup`.
+- Deprecated `MaterialDialogs`, you should use `MaterialDialog.Instance` for displaying modal dialogs.
+- Added simple dialog and confirmation dialog to `MaterialDialog`.
+- Added `ReturnType`, `ReturnTypeCommand`, and `ReturnTypeCommandParameter` properties to `MaterialTextField`. A feature enhancement stated in this [issue](https://github.com/contrix09/XF-Material-Library/issues/5).
+- Changed the default color values of `MaterialColorConfiguration`.
+- Fixed a bug in Android when using `MaterialIcon`, which causes all other views using the same resource image to change color when one of them was changed.
+- Fixed a bug in Android when using `MaterialButton`, which causes text button type not having a disabled text state.
+- Removed the back button title in iOS when using `MaterialNavigationPage`.
+- Removed `ColorConfiguration` and `FontConfiguration` in `XF.Material.Forms.Material` class. Added static subclasses `Color` and `FontFamily` with static properties that will hold the values of the current color and font configurations.
+
 ##### 1.0.6
 - Refactored `MaterialDialogs`. A feature enhancement stated in this [issue](https://github.com/contrix09/XF-Material-Library/issues/4).
   - Added `MaterialDialogs.ShowConfirmAsync()`. Use this for user confirmation of action. Returns a `boolean` value based on what the user chose.

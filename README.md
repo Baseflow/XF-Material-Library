@@ -1,7 +1,7 @@
 
 <img src="images/xf.material_logo.png" width="112" />
 
-# XF.Material Library [![NuGet](https://img.shields.io/badge/version-1.0.6-%23607D8B.svg?style=plastic)](https://github.com/contrix09/XF-Material-Library/blob/master/RELEASE_NOTES.md)
+# XF.Material Library [![NuGet](https://img.shields.io/badge/version-1.1.0-%23607D8B.svg?style=plastic)](https://github.com/contrix09/XF-Material-Library/blob/master/RELEASE_NOTES.md)
 
 A Xamarin.Forms library for Xamarin.Android and Xamarin.iOS to implement [Google's Material Design](https://material.io/design).
 
@@ -197,15 +197,21 @@ Text fields allow users to enter and edit text.
 
 15. `PlaceholderColor` - The color of the placeholder text. The default hex color value is `#99000000`.
 
-16. `Text` - The input text of this text field.
+16. `ReturnType` -  The appearance of the return button of the keyboard.
 
-17. `TextChangeCommand` - The command that executes when there is a change in this text field's input text.
+17. `ReturnCommand` - The command that will run when the user returns the input.
 
-18. `TextColor` - The color of the input text. The default hex color value is `#D0000000`.
+18. `ReturnCommandParameter` - The parameter to be passed in `ReturnCommand` property when it is executed.
 
-19. `TextFontFamily` - The font family of the input text. By default, it uses the `MaterialFontConfiguration.Body2` font family.
+19. `Text` - The input text of this text field.
 
-20. `TintColor` - The tint color of the underline accent and the placeholder of this text field when focused. The default color is set to the value of `MaterialColorConfiguration.SecondaryColor`.
+20. `TextChangeCommand` - The command that executes when there is a change in this text field's input text.
+
+21. `TextColor` - The color of the input text. The default hex color value is `#D0000000`.
+
+22. `TextFontFamily` - The font family of the input text. By default, it uses the `MaterialFontConfiguration.Body2` font family.
+
+23. `TintColor` - The tint color of the underline accent and the placeholder of this text field when focused. The default color is set to the value of `MaterialColorConfiguration.SecondaryColor`.
 
 ##### Events
 
@@ -301,6 +307,33 @@ A tintable image view.
 `MaterialIcon` inherits the `Image` class.
 
 1. `TintColor` - The tint color of the image.
+
+
+#### Radio Buttons
+Allow users to select one option from a set.
+
+| Code | Android  | iOS |
+| ------------- | ------------- | ------------- |
+| `<material:MaterialRadioButtonGroup x:Name="radioButtonGroup" Choices="{Binding Jobs}" /> ` |<img src="images/radiobuttons_android.jpg" alt="Android button" width="500" />|<img src="images/radiobuttons_ios.jpg" alt="iOS button" width="573"/> |
+
+
+##### Properties
+
+1. `Choices` - The list of string the user will choose from.
+
+2. `FontFamily` - The font family of the text of each radio buttons. The default is the value of `MaterialFontConfiguration.Body1`.
+
+3. `FontSize` - The font size of the text of each radio buttons. The default value is `16`.
+
+4. `HorizontalSpacing` - The spacing between the radio button and its text.
+
+5. `SelectedColor` - The color that will be used to tint this control when it is selected. The default is the value of `MaterialColorConfiguration.Secondary`.
+
+6. `SelectedIndex` - The index of the selected choice.
+
+7. `SelectedIndexChanged` - Raised when there is a change in the control's selected index.
+
+8. `SelectedIndexChangedCommand` - The command that wil run if there is a change in the control's selected index. The parameter is the selected index.
 
 ### Material Dialogs
 
@@ -824,7 +857,7 @@ Color primaryColor = XF.Material.Forms.Material.ColorConfiguration.Primary;
 
 //Get font family resource, use either
 string body1Font = XF.Material.Forms.Material.GetResource<string>(MaterialConstants.FontFamily.BODY1);
-string body1Font = XF.Material.Forms.Material.FontConfiguration.Body1;
+string body1Font = XF.Material.Forms.Material.FontFamily.Body1;
 ```
 
 ### Adding a shadow to the Navigation Bar
