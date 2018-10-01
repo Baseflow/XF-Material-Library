@@ -82,7 +82,7 @@ namespace XF.Material.iOS.Renderers
         {
             base.OnElementPropertyChanged(sender, e);
 
-            if(e.PropertyName == nameof(Button.IsEnabled) && _materialButton.ButtonType == MaterialButtonType.Elevated)
+            if(e.PropertyName == nameof(Button.IsEnabled))
             {
                 this.UpdateState();
             }
