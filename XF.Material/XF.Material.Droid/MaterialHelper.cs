@@ -62,7 +62,7 @@ namespace XF.Material.Droid
 
         public static Drawable GetDrawableCopy(this Drawable drawable)
         {
-            return drawable.GetConstantState().NewDrawable().Mutate();
+            return drawable?.GetConstantState().NewDrawable().Mutate();
         }
 
         public static void ShowKeyboard(this EditText edittext)

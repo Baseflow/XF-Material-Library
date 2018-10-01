@@ -1,4 +1,5 @@
-﻿using Android.Content;
+﻿using Android.App;
+using Android.Content;
 using Android.OS;
 using Android.Support.V7.App;
 using Rg.Plugins.Popup;
@@ -38,21 +39,28 @@ namespace XF.Material.Droid
 
         public static void HandleBackButton(Action backAction)
         {
+            var backPressedResult = Popup.SendBackPressed(backAction);
             var materialDialog = PopupNavigation.Instance.PopupStack.FirstOrDefault(p => p is MaterialAlertDialog);
             var loadingDialog = PopupNavigation.Instance.PopupStack.FirstOrDefault(p => p is MaterialLoadingDialog);
             var simpleDialog = PopupNavigation.Instance.PopupStack.FirstOrDefault(p => p is MaterialSimpleDialog);
+            var confirmationDialog = PopupNavigation.Instance.PopupStack.FirstOrDefault(p => p is MaterialConfirmationDialog);
 
-            if (Popup.SendBackPressed(backAction) && materialDialog != null && loadingDialog == null)
+            if (backPressedResult && materialDialog != null && loadingDialog == null)
             {
-                PopupNavigation.Instance.RemovePageAsync(materialDialog);
+                ((Activity)Context).RunOnUiThread(async() => await PopupNavigation.Instance.RemovePageAsync(materialDialog));
             }
 
-            else if (Popup.SendBackPressed(backAction) && simpleDialog != null && loadingDialog == null)
+            else if (backPressedResult && simpleDialog != null && loadingDialog == null)
             {
-                PopupNavigation.Instance.RemovePageAsync(simpleDialog);
+                ((Activity)Context).RunOnUiThread(async () => await PopupNavigation.Instance.RemovePageAsync(simpleDialog));
             }
 
-            else if (Popup.SendBackPressed(backAction) && materialDialog == null && loadingDialog == null && simpleDialog == null)
+            else if(backPressedResult && confirmationDialog != null && loadingDialog == null)
+            {
+                ((Activity)Context).RunOnUiThread(async () => await PopupNavigation.Instance.RemovePageAsync(confirmationDialog));
+            }
+
+            else if (backPressedResult && materialDialog == null && loadingDialog == null)
             {
                 backAction?.Invoke();
             }

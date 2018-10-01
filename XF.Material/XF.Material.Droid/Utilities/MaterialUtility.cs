@@ -1,5 +1,4 @@
 ﻿using Android.OS;
-using Android.Support.V4.Content;
 using Android.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
@@ -15,13 +14,12 @@ namespace XF.Material.Droid.Utilities
         {
             var activity = (FormsAppCompatActivity)Material.Context;
 
-            activity.SetStatusBarColor(color.ToAndroid());
-
             var isColorDark = color.ToAndroid().IsColorDark();
+            activity.SetStatusBarColor(color.ToAndroid());
 
             if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
             {
-                if(!isColorDark)
+                if (!isColorDark)
                 {
                     activity.Window.DecorView.SystemUiVisibility = (StatusBarVisibility)SystemUiFlags.LightStatusBar;
                 }
