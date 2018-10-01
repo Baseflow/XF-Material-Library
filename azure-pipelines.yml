@@ -39,7 +39,7 @@ jobs:
       packageApp: false
       clean: true
 
-- job: NuGetPack
+- job: NuGet Pack
   pool:
     vmImage: 'VS2017-Win2016'
   variables:
@@ -47,4 +47,3 @@ jobs:
     outputDirectory: '$(build.binariesDirectory)/$(buildConfiguration)'
   steps:
     - powershell 'nuget pack'
-      displayName: 'PowerShell Script'
