@@ -1,5 +1,6 @@
 ﻿using Android.Animation;
 using Android.Content;
+using Android.Content.Res;
 using Android.Graphics.Drawables;
 using Android.Support.V4.Graphics;
 using System.ComponentModel;
@@ -57,14 +58,19 @@ namespace XF.Material.Droid.Renderers
                 this.UpdateDrawable();
             }
 
-            else if(e?.PropertyName == nameof(MaterialButton.Image))
+            else if (e?.PropertyName == nameof(MaterialButton.Image))
             {
                 this.SetButtonIcon();
             }
 
-            else if(e?.PropertyName == nameof(MaterialButton.AllCaps))
+            else if (e?.PropertyName == nameof(MaterialButton.AllCaps))
             {
                 this.Control.SetAllCaps(_materialButton.AllCaps);
+            }
+
+            else if(e?.PropertyName == nameof(Button.TextColor))
+            {
+                this.SetTextColors();
             }
         }
 
@@ -122,10 +128,13 @@ namespace XF.Material.Droid.Renderers
             if (Material.IsLollipop)
             {
                 var rippleDrawable = _withIcon ? MaterialHelper.GetDrawableCopyFromResource<RippleDrawable>(Resource.Drawable.drawable_ripple_outlined_with_icon) : MaterialHelper.GetDrawableCopyFromResource<RippleDrawable>(Resource.Drawable.drawable_ripple_outlined);
+                var maskDrawable = rippleDrawable.FindDrawableByLayerId(Android.Resource.Id.Mask) as InsetDrawable;
+                var rippleMaskGradientDrawable = maskDrawable.Drawable as GradientDrawable;
+                rippleMaskGradientDrawable.SetCornerRadius(_cornerRadius);
                 var insetDrawable = rippleDrawable.FindDrawableByLayerId(Resource.Id.inset_drawable) as InsetDrawable;
                 var statelistDrawable = insetDrawable.Drawable as StateListDrawable;
                 this.SetStates(statelistDrawable, normalStateDrawable, normalStateDrawable, disabledStateDrawable);
-
+                
                 this.Control.Background = rippleDrawable;
                 this.Control.StateListAnimator = null;
             }
@@ -150,7 +159,18 @@ namespace XF.Material.Droid.Renderers
 
         private GradientDrawable CreateShapeDrawable(float cornerRadius, int borderWidth, Color backgroundColor, Color borderColor)
         {
-            var shapeDrawable = _withIcon ? MaterialHelper.GetDrawableCopyFromResource<GradientDrawable>(Resource.Drawable.drawable_shape_with_icon) : MaterialHelper.GetDrawableCopyFromResource<GradientDrawable>(Resource.Drawable.drawable_shape);
+            GradientDrawable shapeDrawable = null;
+
+            if (_materialButton.ButtonType != MaterialButtonType.Text)
+            {
+                shapeDrawable = _withIcon ? MaterialHelper.GetDrawableCopyFromResource<GradientDrawable>(Resource.Drawable.drawable_shape_with_icon) : MaterialHelper.GetDrawableCopyFromResource<GradientDrawable>(Resource.Drawable.drawable_shape);
+            }
+
+            else
+            {
+                shapeDrawable = MaterialHelper.GetDrawableCopyFromResource<GradientDrawable>(Resource.Drawable.drawable_shape_text);
+            }
+
             shapeDrawable.SetCornerRadius(cornerRadius);
             shapeDrawable.SetColor(backgroundColor);
             shapeDrawable.SetStroke(borderWidth, borderColor);
@@ -224,7 +244,9 @@ namespace XF.Material.Droid.Renderers
                 var maskDrawable = rippleDrawable.FindDrawableByLayerId(Android.Resource.Id.Mask) as InsetDrawable;
                 var rippleMaskGradientDrawable = maskDrawable.Drawable as GradientDrawable;
                 rippleMaskGradientDrawable.SetCornerRadius(_cornerRadius);
+
                 this.Control.Background = rippleDrawable;
+                this.Control.StateListAnimator = null;
             }
 
             else if (Material.IsJellyBean)
@@ -271,6 +293,27 @@ namespace XF.Material.Droid.Renderers
             stateListDrawable.AddState(new int[] { }, disabledDrawable);
         }
 
+        private void SetTextColors()
+        {
+            var states = new int[][] {
+                    new int[] { Android.Resource.Attribute.StatePressed },
+                    new int[] { Android.Resource.Attribute.StateFocused, Android.Resource.Attribute.StateEnabled },
+                    new int[] { Android.Resource.Attribute.StateEnabled },
+                    new int[] { Android.Resource.Attribute.StateFocused },
+                    new int[] { }
+                    };
+
+            var colors = new int[] {
+                _materialButton.TextColor.ToAndroid(),
+                _materialButton.TextColor.ToAndroid(),
+                _materialButton.TextColor.ToAndroid(),
+                _materialButton.TextColor.ToAndroid(),
+                _materialButton.TextColor.MultiplyAlpha(0.38).ToAndroid()
+                };
+
+            this.Control.SetTextColor(new ColorStateList(states, colors));
+        }
+
         private void SetupColors()
         {
             _normalColor = _materialButton.BackgroundColor.ToAndroid();
@@ -297,6 +340,8 @@ namespace XF.Material.Droid.Renderers
                     this.CreateOutlinedButtonDrawable();
                     break;
             }
+
+            this.SetTextColors();
         }
     }
 }
