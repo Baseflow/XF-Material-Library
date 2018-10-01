@@ -1,30 +1,13 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-
+using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XF.Material.Forms.Resources;
 
 namespace XF.Material.Forms.Views
 {
-    /// <summary>
-    /// Enumeration used in determining the type of keyboard input to use for <see cref="MaterialTextField"/>
-    /// </summary>
-    public enum MaterialTextFieldInputType
-    {
-        Default,
-        Plain,
-        Chat,
-        Email,
-        Numeric,
-        Telephone,
-        Text,
-        Url,
-        Password,
-        NumericPassword
-    }
-
     /// <summary>
     /// A control that let users enter and edit text.
     /// </summary>
@@ -35,9 +18,9 @@ namespace XF.Material.Forms.Views
 
         public static new readonly BindableProperty BackgroundColorProperty = BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#DCDCDC"));
 
-        public static readonly BindableProperty ErrorColorProperty = BindableProperty.Create(nameof(ErrorColor), typeof(Color), typeof(MaterialTextField), Material.GetResource<Color>(MaterialConstants.Color.ERROR));
+        public static readonly BindableProperty ErrorColorProperty = BindableProperty.Create(nameof(ErrorColor), typeof(Color), typeof(MaterialTextField), Material.Color.Error);
 
-        public static readonly BindableProperty ErrorTextProperty = BindableProperty.Create(nameof(ErrorText), typeof(string), typeof(MaterialTextField), string.Empty);
+        public static readonly BindableProperty ErrorTextProperty = BindableProperty.Create(nameof(ErrorText), typeof(string), typeof(MaterialTextField), "Error");
 
         public static readonly BindableProperty FocusCommandProperty = BindableProperty.Create(nameof(FocusCommand), typeof(Command<bool>), typeof(MaterialTextField));
 
@@ -63,15 +46,23 @@ namespace XF.Material.Forms.Views
 
         public static readonly BindableProperty PlaceholderProperty = BindableProperty.Create(nameof(Placeholder), typeof(string), typeof(MaterialTextField), string.Empty);
 
+        public static readonly BindableProperty ReturnCommandProperty = BindableProperty.Create(nameof(ReturnCommand), typeof(ICommand), typeof(MaterialTextField));
+
+        public static readonly BindableProperty ReturnCommandParameterProperty = BindableProperty.Create(nameof(ReturnCommand), typeof(object), typeof(MaterialTextField));
+
+        public static readonly BindableProperty ReturnTypeProperty = BindableProperty.Create(nameof(ReturnType), typeof(ReturnType), typeof(MaterialTextField), ReturnType.Default);
+
         public static readonly BindableProperty TextChangeCommandProperty = BindableProperty.Create(nameof(TextChangeCommand), typeof(Command<string>), typeof(MaterialTextField));
 
         public static readonly BindableProperty TextColorProperty = BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#D0000000"));
 
         public static readonly BindableProperty TextFontFamilyProperty = BindableProperty.Create(nameof(TextFontFamily), typeof(string), typeof(MaterialTextField));
 
-        public static readonly BindableProperty TextProperty = BindableProperty.Create(nameof(Text), typeof(string), typeof(MaterialTextField), string.Empty);
+        public static readonly BindableProperty TextProperty = BindableProperty.Create(nameof(Text), typeof(string), typeof(MaterialTextField), string.Empty, BindingMode.TwoWay);
 
-        public static readonly BindableProperty TintColorProperty = BindableProperty.Create(nameof(TintColor), typeof(Color), typeof(MaterialTextField), Material.GetResource<Color>(MaterialConstants.Color.SECONDARY));
+        public static readonly BindableProperty TintColorProperty = BindableProperty.Create(nameof(TintColor), typeof(Color), typeof(MaterialTextField), Material.Color.Secondary);
+
+        public static readonly BindableProperty UnderlineColorProperty = BindableProperty.Create(nameof(UnderlineColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#99000000"));
 
         private const double ANIM_DURATION = 0.35;
         private readonly Easing animationCurve = Easing.SinOut;
@@ -85,7 +76,7 @@ namespace XF.Material.Forms.Views
             this.InitializeComponent();
             entry.PropertyChanged += this.Entry_PropertyChanged;
             errorIcon.TintColor = this.ErrorColor;
-            persistentUnderline.Color = this.PlaceholderColor;
+            persistentUnderline.Color = this.UnderlineColor;
             tapGesture.Command = new Command(() =>
             {
                 if(!entry.IsFocused)
@@ -260,6 +251,33 @@ namespace XF.Material.Forms.Views
         }
 
         /// <summary>
+        /// Gets or sets the command that will run when the user returns the input in this textfield.
+        /// </summary>
+        public ICommand ReturnCommand
+        {
+            get => (ICommand)this.GetValue(ReturnCommandProperty);
+            set => this.SetValue(ReturnCommandProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the parameter of <see cref="ReturnCommand"/>.
+        /// </summary>
+        public object ReturnCommandParameter
+        {
+            get => (Command<object>)this.GetValue(ReturnCommandParameterProperty);
+            set => this.SetValue(ReturnCommandParameterProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the return type of this textfield.
+        /// </summary>
+        public ReturnType ReturnType
+        {
+            get => (ReturnType)this.GetValue(ReturnTypeProperty);
+            set => this.SetValue(ReturnTypeProperty, value);
+        }
+
+        /// <summary>
         /// Gets or sets the input text of this text field.
         /// </summary>
         public string Text
@@ -310,28 +328,27 @@ namespace XF.Material.Forms.Views
             set => this.SetValue(TintColorProperty, value);
         }
 
+        /// <summary>
+        /// Gets or sets the color of the underline. This will only work if <see cref="AlwaysShowUnderline"/> is set to true.
+        /// </summary>
+        public Color UnderlineColor
+        {
+            get => (Color)this.GetValue(UnderlineColorProperty);
+            set => this.SetValue(UnderlineColorProperty, value);
+        }
+
         protected override void OnParentSet()
         {
             base.OnParentSet();
 
-            if (this.Parent != null && !string.IsNullOrEmpty(this.Text))
-            {
-                Device.BeginInvokeOnMainThread(async () =>
-                {
-                    entry.Opacity = 0;
-                    await Task.Delay(250);
+            this.AnimatePlaceHolderOnStart(this.Parent);
+        }
 
-                    var anim = new Animation();
-                    anim.Add(0.0, ANIM_DURATION, new Animation(v => placeholder.FontSize = v, 16, 12, animationCurve));
-                    anim.Add(0.0, ANIM_DURATION, new Animation(v => placeholder.TranslationY = v, placeholder.TranslationY, -12, animationCurve, () =>
-                    {
-                        placeholder.TextColor = this.TintColor;
-                        entry.Opacity = 1;
-                    }));
-                    anim.Add(0.0, ANIM_DURATION, new Animation(v => underline.WidthRequest = v, 0, this.Width, animationCurve, () => underline.HorizontalOptions = LayoutOptions.CenterAndExpand));
-                    anim.Commit(this, "Anim2", rate: 2, length: (uint)(/*Device.RuntimePlatform == Device.iOS ? 1000 : */ANIM_DURATION * 1000), easing: animationCurve);
-                });
-            }
+        protected override void OnBindingContextChanged()
+        {
+            base.OnBindingContextChanged();
+
+            this.AnimatePlaceHolderOnStart(this.BindingContext);
         }
 
         /// <summary>
@@ -404,6 +421,11 @@ namespace XF.Material.Forms.Views
                 errorIcon.TintColor = this.ErrorColor;
             }
 
+            else if(propertyName == nameof(this.ErrorText) && this.HasError)
+            {
+                await this.ChangeToErrorState();
+            }
+
             else if (propertyName == nameof(this.HasError))
             {
                 errorIcon.IsVisible = this.HasError;
@@ -433,13 +455,13 @@ namespace XF.Material.Forms.Views
             else if (propertyName == nameof(this.AlwaysShowUnderline))
             {
                 persistentUnderline.IsVisible = this.AlwaysShowUnderline;
+                persistentUnderline.Color = this.UnderlineColor.MultiplyAlpha(0.6);
             }
 
             else if(propertyName == nameof(this.MaxLength))
             {
                 _counterEnabled = this.MaxLength > 0;
                 entry.MaxLength = _counterEnabled ? this.MaxLength : (int)Entry.MaxLengthProperty.DefaultValue;
-                counter.IsVisible = _counterEnabled;
             }
 
             else if(propertyName == nameof(this.Icon))
@@ -453,6 +475,48 @@ namespace XF.Material.Forms.Views
             {
                 icon.TintColor = this.IconTintColor;
             }
+
+            else if(propertyName == nameof(this.ReturnCommand))
+            {
+                entry.ReturnCommand = this.ReturnCommand;
+            }
+
+            else if (propertyName == nameof(this.ReturnCommandParameter))
+            {
+                entry.ReturnCommandParameter = this.ReturnCommandParameter;
+            }
+
+            else if (propertyName == nameof(this.ReturnType))
+            {
+                entry.ReturnType = this.ReturnType;
+            }
+
+            else if(propertyName == nameof(this.UnderlineColor) && this.AlwaysShowUnderline)
+            {
+                persistentUnderline.Color = this.UnderlineColor.MultiplyAlpha(0.6);
+            }
+        }
+
+        private void AnimatePlaceHolderOnStart(object startObject)
+        {
+            if (startObject != null && !string.IsNullOrEmpty(this.Text))
+            {
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    entry.Opacity = 0;
+                    await Task.Delay(250);
+
+                    var anim = new Animation();
+                    anim.Add(0.0, ANIM_DURATION, new Animation(v => placeholder.FontSize = v, 16, 12, animationCurve));
+                    anim.Add(0.0, ANIM_DURATION, new Animation(v => placeholder.TranslationY = v, placeholder.TranslationY, -12, animationCurve, () =>
+                    {
+                        placeholder.TextColor = this.TintColor;
+                        entry.Opacity = 1;
+                    }));
+                    anim.Add(0.0, ANIM_DURATION, new Animation(v => underline.WidthRequest = v, 0, this.Width, animationCurve, () => underline.HorizontalOptions = LayoutOptions.FillAndExpand));
+                    anim.Commit(this, "Anim2", rate: 2, length: (uint)(ANIM_DURATION * 1000), easing: animationCurve);
+                });
+            }
         }
 
         private void AnimatePlaceHolder()
@@ -460,7 +524,7 @@ namespace XF.Material.Forms.Views
             var startFont = entry.IsFocused ? 16 : 12;
             var endFOnt = entry.IsFocused ? 12 : 16;
             var startY = placeholder.TranslationY;
-            var endY = entry.IsFocused ? -12 : 0;
+            var endY = entry.IsFocused ? -14 : 0;
             var color = entry.IsFocused ? this.TintColor : this.PlaceholderColor;
             var anim = new Animation
             {
@@ -497,8 +561,8 @@ namespace XF.Material.Forms.Views
         private async Task ChangeToErrorState()
         {
             const int animDuration = 250;
-            Task shakeAnimTask = null;
-            placeholder.TextColor = this.ErrorColor;
+            var shakeAnimTask = Task.CompletedTask;
+            placeholder.TextColor = string.IsNullOrEmpty(this.Text) ? this.PlaceholderColor : this.ErrorColor;
             counter.TextColor = this.ErrorColor;
             underline.Color = this.ErrorColor;
 
@@ -529,7 +593,7 @@ namespace XF.Material.Forms.Views
                         await Task.WhenAll(helper.FadeTo(1, animDuration / 2, animationCurve), helper.TranslateTo(0, 0, animDuration / 2, animationCurve));
                     });
                 }),
-                shakeAnimTask
+                shakeAnimTask 
             );
         }
 
@@ -583,45 +647,37 @@ namespace XF.Material.Forms.Views
             {
                 case MaterialTextFieldInputType.Chat:
                     entry.Keyboard = Keyboard.Chat;
-                    entry.IsPassword = false;
                     break;
                 case MaterialTextFieldInputType.Default:
                     entry.Keyboard = Keyboard.Default;
-                    entry.IsPassword = false;
                     break;
                 case MaterialTextFieldInputType.Email:
                     entry.Keyboard = Keyboard.Email;
-                    entry.IsPassword = false;
                     break;
                 case MaterialTextFieldInputType.Numeric:
                     entry.Keyboard = Keyboard.Numeric;
-                    entry.IsPassword = false;
                     break;
                 case MaterialTextFieldInputType.Plain:
                     entry.Keyboard = Keyboard.Plain;
-                    entry.IsPassword = false;
                     break;
                 case MaterialTextFieldInputType.Telephone:
                     entry.Keyboard = Keyboard.Telephone;
-                    entry.IsPassword = false;
                     break;
                 case MaterialTextFieldInputType.Text:
-                    entry.IsPassword = false;
                     entry.Keyboard = Keyboard.Text;
                     break;
                 case MaterialTextFieldInputType.Url:
                     entry.Keyboard = Keyboard.Url;
-                    entry.IsPassword = false;
                     break;
                 case MaterialTextFieldInputType.NumericPassword:
                     entry.Keyboard = Keyboard.Numeric;
-                    entry.IsPassword = true;
                     break;
                 case MaterialTextFieldInputType.Password:
                     entry.Keyboard = Keyboard.Text;
-                    entry.IsPassword = true;
                     break;
             }
+
+            entry.IsPassword = this.InputType == MaterialTextFieldInputType.Password || this.InputType == MaterialTextFieldInputType.NumericPassword;
         }
 
         private void UpdateCounter()
