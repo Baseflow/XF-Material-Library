@@ -73,37 +73,37 @@
   </metadata>
   <files>
     
-    <file src="..\src\XF.Material\XF.Material.Forms\bin\Release\netstandard2.0\XF.Material.Forms.dll"
+    <file src="XF.Material\XF.Material.Forms\bin\Release\netstandard2.0\XF.Material.Forms.dll"
           target="lib\netstandard2.0" />
-    <file src="..\src\XF.Material\XF.Material.Forms\bin\Release\netstandard2.0\XF.Material.Forms.pdb"
+    <file src="XF.Material\XF.Material.Forms\bin\Release\netstandard2.0\XF.Material.Forms.pdb"
           target="lib\netstandard2.0" />
-    <file src="..\src\XF.Material\XF.Material.Forms\bin\Release\netstandard2.0\XF.Material.Forms.xml"
+    <file src="XF.Material\XF.Material.Forms\bin\Release\netstandard2.0\XF.Material.Forms.xml"
           target="lib\netstandard2.0" />
 
-    <file src="..\src\XF.Material\XF.Material.Droid\bin\Release\XF.Material.Forms.dll"
+    <file src="XF.Material\XF.Material.Droid\bin\Release\XF.Material.Forms.dll"
           target="lib\MonoAndroid10" />
-    <file src="..\src\XF.Material\XF.Material.Droid\bin\Release\XF.Material.Forms.pdb"
+    <file src="XF.Material\XF.Material.Droid\bin\Release\XF.Material.Forms.pdb"
           target="lib\MonoAndroid10" />
-    <file src="..\src\XF.Material\XF.Material.Droid\bin\Release\XF.Material.Forms.xml"
+    <file src="XF.Material\XF.Material.Droid\bin\Release\XF.Material.Forms.xml"
           target="lib\MonoAndroid10" />
-    <file src="..\src\XF.Material\XF.Material.Droid\bin\Release\XF.Material.Droid.dll"
+    <file src="XF.Material\XF.Material.Droid\bin\Release\XF.Material.Droid.dll"
           target="lib\MonoAndroid10" />
-    <file src="..\src\XF.Material\XF.Material.Droid\bin\Release\XF.Material.Droid.pdb"
+    <file src="XF.Material\XF.Material.Droid\bin\Release\XF.Material.Droid.pdb"
           target="lib\MonoAndroid10" />
-    <file src="..\src\XF.Material\XF.Material.Droid\bin\Release\XF.Material.Droid.xml"
+    <file src="XF.Material\XF.Material.Droid\bin\Release\XF.Material.Droid.xml"
           target="lib\MonoAndroid10" />
 
-    <file src="..\src\XF.Material\XF.Material.iOS\bin\Release\XF.Material.Forms.dll"
+    <file src="XF.Material\XF.Material.iOS\bin\Release\XF.Material.Forms.dll"
           target="lib\Xamarin.iOS10" />
-    <file src="..\src\XF.Material\XF.Material.iOS\bin\Release\XF.Material.Forms.pdb"
+    <file src="XF.Material\XF.Material.iOS\bin\Release\XF.Material.Forms.pdb"
           target="lib\Xamarin.iOS10" />
-    <file src="..\src\XF.Material\XF.Material.iOS\bin\Release\XF.Material.Forms.xml"
+    <file src="XF.Material\XF.Material.iOS\bin\Release\XF.Material.Forms.xml"
           target="lib\Xamarin.iOS10" />
-    <file src="..\src\XF.Material\XF.Material.iOS\bin\Release\XF.Material.iOS.dll"
+    <file src="XF.Material\XF.Material.iOS\bin\Release\XF.Material.iOS.dll"
           target="lib\Xamarin.iOS10" />
-    <file src="..\src\XF.Material\XF.Material.iOS\bin\Release\XF.Material.iOS.pdb"
+    <file src="XF.Material\XF.Material.iOS\bin\Release\XF.Material.iOS.pdb"
           target="lib\Xamarin.iOS10" />
-    <file src="..\src\XF.Material\XF.Material.iOS\bin\Release\XF.Material.iOS.xml"
+    <file src="XF.Material\XF.Material.iOS\bin\Release\XF.Material.iOS.xml"
           target="lib\Xamarin.iOS10" />
   </files>
 </package>
