@@ -17,9 +17,13 @@ jobs:
   - task: XamarinAndroid@1
     inputs:
       projectFile: '**/*droid*.csproj'
-      outputDirectory: '$(outputDirectory)'
+      outputDirectory: '$(build.binariesdirectory)/$(BuildConfiguration)'
       configuration: '$(buildConfiguration)'
       clean: true
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: drop'
+    inputs:
+      PathtoPublish: '$(build.binariesdirectory)/$(BuildConfiguration)'
 
 - job: iOS
   pool:
@@ -33,8 +37,13 @@ jobs:
       restoreSolution: '**/*.sln'
   - task: XamariniOS@2
     inputs:
-      solutionFile: '**/*.sln'
+      projectFile: '**/*iOS*.csproj'
+      outputDirectory: '$(build.binariesdirectory)/$(BuildConfiguration)'
       configuration: '$(buildConfiguration)'
       buildForSimulator: true
       packageApp: false
       clean: true
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: drop'
+    inputs:
+      PathtoPublish: '$(build.binariesdirectory)/$(BuildConfiguration)'
