@@ -3,28 +3,7 @@
 # Build a Xamarin.iOS project.
 
 jobs:
-- job: Android
-  pool:
-    vmImage: 'VS2017-Win2016'
-  variables:
-    buildConfiguration: 'Release'
-    outputDirectory: '$(build.binariesDirectory)/$(buildConfiguration)'
-  steps:
-  - task: NuGetToolInstaller@0
-  - task: NuGetCommand@2
-    inputs:
-      restoreSolution: '**/*.sln'
-  - task: XamarinAndroid@1
-    inputs:
-      projectFile: '**/*droid*.csproj'
-      outputDirectory: '$(outputDirectory)'
-      configuration: '$(buildConfiguration)'
-      clean: true
-  - task: PublishBuildArtifacts@1
-    displayName: 'Publish Artifact: drop'
-    inputs:
-      PathtoPublish: '$(build.artifactstagingdirectory)'
-    
+
 - job: iOS
   pool:
     vmImage: 'macOS-10.13'
@@ -41,7 +20,6 @@ jobs:
       configuration: '$(buildConfiguration)'
       buildForSimulator: true
       packageApp: false
-      clean: true
   - task: PublishBuildArtifacts@1
     displayName: 'Publish Artifact: drop'
     inputs:
