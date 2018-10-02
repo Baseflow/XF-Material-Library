@@ -39,7 +39,7 @@ namespace XF.Material.Forms.Views.Internals
         }
 
         /// <summary>
-        /// Gets or sets the font family of the text of each radio buttons.
+        /// Gets or sets the font family of the text of each selection controls.
         /// </summary>
         public string FontFamily
         {
@@ -48,7 +48,7 @@ namespace XF.Material.Forms.Views.Internals
         }
 
         /// <summary>
-        /// Gets or sets the font size of the text of each radio buttons.
+        /// Gets or sets the font size of the text of each selection controls.
         /// </summary>
         public double FontSize
         {
@@ -57,7 +57,7 @@ namespace XF.Material.Forms.Views.Internals
         }
 
         /// <summary>
-        /// Gets or sets the spacing between the radio button and its text.
+        /// Gets or sets the spacing between the selection control and its text.
         /// </summary>
         public double HorizontalSpacing
         {
@@ -66,7 +66,7 @@ namespace XF.Material.Forms.Views.Internals
         }
 
         /// <summary>
-        /// Gets or sets the color that will be used to tint this control when it is selected.
+        /// Gets or sets the color that will be used to tint this control when selected.
         /// </summary>
         public Color SelectedColor
         {
@@ -74,18 +74,27 @@ namespace XF.Material.Forms.Views.Internals
             set => this.SetValue(SelectedColorProperty, value);
         }
 
-
+        /// <summary>
+        /// Gets or sets the color of the text of each selection control.
+        /// </summary>
         public Color TextColor
         {
             get => (Color)this.GetValue(TextColorProperty);
             set => this.SetValue(TextColorProperty, value);
         }
 
+        /// <summary>
+        /// Gets or sets the color that will be used to tint this control when unselected.
+        /// </summary>
         public Color UnselectedColor
         {
             get => (Color)this.GetValue(UnselectedColorProperty);
             set => this.SetValue(UnselectedColorProperty, value);
         }
+
+        /// <summary>
+        /// Gets or sets the spacing between each selection control.
+        /// </summary>
         public double VerticalSpacing
         {
             get => (double)this.GetValue(VerticalSpacingProperty);

@@ -13,6 +13,9 @@ A Xamarin.Forms library for Xamarin.Android and Xamarin.iOS to implement [Google
     - [Cards](#cards)
     - [Buttons](#buttons)
     - [Text Fields](#text-fields)
+    - [Selection Controls](#selection-controls)
+      - [Radio Buttons](#radio-buttons)
+      - [Checkboxes](#checkboxes)
     - [Chips](#chips)
     - [Circular Progress Indicator](#circular-progress-indicator)
     - [Tintable Image Icon](#tintable-image-icon)
@@ -231,6 +234,86 @@ When input text isnt accepted, an error text can display instructions on how t
 
 Read more about text fields [here](https://material.io/design/components/text-fields.html#usage).
 
+#### Selection Controls
+Selection controls allow users to complete tasks that involve making choices such as selecting 
+options, or switching settings on or off. Selection controls are found on screens that ask 
+users to make decisions or declare preferences such as settings or dialogs.
+
+##### Radio Buttons
+Allow users to select one option from a set.
+
+| Code | Android  | iOS |
+| ------------- | ------------- | ------------- |
+| `<material:MaterialRadioButtonGroup x:Name="radioButtonGroup" Choices="{Binding Jobs}" /> ` |<img src="images/radiobuttons_android.jpg" alt="Android button" width="500" />|<img src="images/radiobuttons_ios.jpg" alt="iOS button" width="573"/> |
+
+###### Properties
+
+1. `Choices` - The list of string the user will choose from.
+
+2. `FontFamily` - The font family of the text of each radio buttons. The default is the value of `MaterialFontConfiguration.Body1`.
+
+3. `FontSize` - The font size of the text of each radio buttons. The default value is `16`.
+
+4. `HorizontalSpacing` - The spacing between the radio button and its text.
+
+5. `SelectedColor` - The color that will be used to tint this control whe selected. The default is the value of `MaterialColorConfiguration.Secondary`.
+
+6. `SelectedIndex` - The index of the selected choice.
+
+7. `SelectedIndexChanged` - Raised when there is a change in the control's selected index.
+
+8. `SelectedIndexChangedCommand` - The command that wil run if there is a change in the control's selected index. The parameter is the selected index.
+
+9. `TextColor` - The color of the text of each radio button. The default value is `#DE000000`.
+
+10. `UnselectedColor` - The color that will be used to tint this control when unselected. The default value is `#84000000`.
+
+11. `VerticalSpacing` - The spacing between each radio buttons.
+
+###### Usage and Behavior
+Use radio buttons when the user needs to see all available options. The orientation of the radio buttons is limited to vertical position, since
+the custom view used to present the radio buttons is a `ListView`, but the scroll bars will not show since the `ListView`'s height is based on the number
+of choices. Each radio button has a fixed height of `48`.
+
+##### Checkboxes
+Checkboxes allow the user to select one or more items from a set.
+
+| Code | Android  | iOS |
+| ------------- | ------------- | ------------- |
+| `<material:MaterialCheckboxGroup x:Name="checkBoxGroup" Choices="{Binding Jobs}" /> ` |<img src="images/checkboxes_android.jpg" alt="Android button" width="500" />|<img src="images/checkboxes_ios.jpg" alt="iOS button" width="573"/> |
+
+###### Properties
+
+1. `Choices` - The list of string the user will choose from.
+
+2. `FontFamily` - The font family of the text of each checkboxes. The default is the value of `MaterialFontConfiguration.Body1`.
+
+3. `FontSize` - The font size of the text of each checkboxes. The default value is `16`.
+
+4. `HorizontalSpacing` - The spacing between the checkbox and its text.
+
+5. `SelectedColor` - The color that will be used to tint this control whe selected. The default is the value of `MaterialColorConfiguration.Secondary`.
+
+6. `SelectedIndices` - The indices of the selected choices.
+
+7. `SelectedIndicesChanged` - Raised when there is a change in the control's selected inices.
+
+8. `SelectedIndicesChangedCommand` - The command that wil run if there is a change in the control's selected indices. The parameter is the list of selected indices.
+
+9. `TextColor` - The color of the text of each radio button. The default value is `#DE000000`.
+
+10. `UnselectedColor` - The color that will be used to tint this control when unselected. The default value is `#84000000`.
+
+11. `VerticalSpacing` - The spacing between each checkboxes.
+
+
+###### Usage and Behavior
+It has the same limitations as `MaterialRadioButtonGroup`.
+
+Checkboxes can be used to turn an option on or off.  If there is only one option, you can use `MaterialCheckbox` instead.
+
+`MaterialCheckbox` has the property `IsSelected`, you can use this to determine whether the option was selected or not.
+
 #### Chips
 Chips are compact elements that represent an input, attribute, or action.
 
@@ -308,36 +391,9 @@ A tintable image view.
 
 1. `TintColor` - The tint color of the image.
 
-
-#### Radio Buttons
-Allow users to select one option from a set.
-
-| Code | Android  | iOS |
-| ------------- | ------------- | ------------- |
-| `<material:MaterialRadioButtonGroup x:Name="radioButtonGroup" Choices="{Binding Jobs}" /> ` |<img src="images/radiobuttons_android.jpg" alt="Android button" width="500" />|<img src="images/radiobuttons_ios.jpg" alt="iOS button" width="573"/> |
-
-
-##### Properties
-
-1. `Choices` - The list of string the user will choose from.
-
-2. `FontFamily` - The font family of the text of each radio buttons. The default is the value of `MaterialFontConfiguration.Body1`.
-
-3. `FontSize` - The font size of the text of each radio buttons. The default value is `16`.
-
-4. `HorizontalSpacing` - The spacing between the radio button and its text.
-
-5. `SelectedColor` - The color that will be used to tint this control when it is selected. The default is the value of `MaterialColorConfiguration.Secondary`.
-
-6. `SelectedIndex` - The index of the selected choice.
-
-7. `SelectedIndexChanged` - Raised when there is a change in the control's selected index.
-
-8. `SelectedIndexChangedCommand` - The command that wil run if there is a change in the control's selected index. The parameter is the selected index.
-
 ### Material Dialogs
 
-You can display modal views to notify users by using the static methods of the class `MaterialDialogs`.
+You can display modal views to notify users by using `MaterialDialog.Instance`.
 
 #### Alert Dialog
 Alert dialogs interrupt users with urgent information, details, or actions.
