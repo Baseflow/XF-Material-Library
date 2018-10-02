@@ -20,7 +20,11 @@ jobs:
       outputDirectory: '$(outputDirectory)'
       configuration: '$(buildConfiguration)'
       clean: true
-
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: drop'
+    inputs:
+    PathtoPublish: '$(build.artifactstagingdirectory)'
+    
 - job: iOS
   pool:
     vmImage: 'macOS-10.13'
@@ -38,3 +42,7 @@ jobs:
       buildForSimulator: true
       packageApp: false
       clean: true
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: drop'
+    inputs:
+    PathtoPublish: '$(build.artifactstagingdirectory)'
