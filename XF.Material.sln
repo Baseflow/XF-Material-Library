@@ -12,6 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Project Files", "Project Fi
 		LICENSE.md = LICENSE.md
 		README.md = README.md
 		RELEASE_NOTES.md = RELEASE_NOTES.md
+		XF.Material-Azure.nuspec = XF.Material-Azure.nuspec
 		XF.Material.nuspec = XF.Material.nuspec
 	EndProjectSection
 EndProject
