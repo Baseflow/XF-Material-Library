@@ -13,10 +13,5 @@ namespace XF.Material.Forms.Views.Internals
         public bool HasRipple { get; set; } = true;
 
         internal MaterialDialogListView() { }
-
-        internal void SetBinding(BindableProperty itemsSourceProperty, object sourceProperty)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
