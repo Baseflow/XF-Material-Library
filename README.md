@@ -21,9 +21,11 @@ A Xamarin.Forms library for Xamarin.Android and Xamarin.iOS to implement [Google
     - [Tintable Image Icon](#tintable-image-icon)
   - [Material Dialogs](#material-dialogs)
     - [Alert Dialog](#alert-dialog)
+    - [Simple Dialog](#simple-dialog)
+    - [Confirmation Dialog](#confirmation-dialog)
     - [Loading Dialog](#loading-dialog)
     - [Snackbar](#snackbar)
-    - [Styling Alert Dialogs, Loading Dialogs, and Snackbars](#styling-alert-dialogs-loading-dialogs-and-snackbars)
+    - [Styling Dialogs](#styling-dialogs)
   - [Material Resources](#material-resources)
     - [Color](#color)
     - [Typography](#typography)
@@ -403,7 +405,7 @@ Alert dialogs interrupt users with urgent information, details, or actions.
 |<img src="images/dialog_android.jpg" alt="Android button" width="500" />|<img src="images/dialog_ios.jpg" alt="iOS button" width="573"/> |
 
 ##### Code
-You can show an alert dialog using any of the following overload methods of `MaterialDialogs.ShowAlertAsync()` or `MaterialDialogs.ShowConfirmAsync()`.
+You can show an alert dialog using any of the following overload methods of `MaterialDialog.Instance.AlertAsync()` or `MaterialDialog.Instance.ConfirmAsync()`.
 
 There are two common parameters in this method:
 
@@ -414,12 +416,12 @@ There are two common parameters in this method:
 - Shows an alert dialog for acknowledgement. It only has a single, dismissive action used for acknowledgement.
 
     ```c#
-    await MaterialDialogs.ShowAlertAsync(message: "This is an alert dialog.");
+    await MaterialDialog.Instance.AlertAsync(message: "This is an alert dialog.");
 
-    await MaterialDialogs.ShowAlertAsync(message: "This is an alert dialog", 
+    await MaterialDialog.Instance.AlertAsync(message: "This is an alert dialog", 
                                         acknowledgementText: "Got It");
     
-    await MaterialDialogs.ShowAlertAsync(message: "This is an alert dialog", 
+    await MaterialDialog.Instance.AlertAsync(message: "This is an alert dialog", 
                                         title: "Alert Dialog", 
                                         acknowledgementText: "Got It");
     ```
@@ -429,14 +431,14 @@ There are two common parameters in this method:
 - Showing an alert dialog for confirmation of action. Returns true when the confirm button was clicked, false if the dismiss button was clicked or if the alert dialog was dismissed.
 
     ```c#
-    await MaterialDialogs.ShowConfirmAsync(message: "Do you want to sign in?", 
+    await MaterialDialog.Instance.ConfirmAsync(message: "Do you want to sign in?", 
                                         confirmingText: "Sign In");
 
-    await MaterialDialogs.ShowConfirmAsync(message: "Do you want to sign in?", 
+    await MaterialDialog.Instance.ConfirmAsync(message: "Do you want to sign in?", 
                                         confirmingText: "Sign In", 
                                         dismissiveText: "No");
 
-    await MaterialDialogs.ShowConfirmAsync(message: "Discard draft?", 
+    await MaterialDialog.Instance.ConfirmAsync(message: "Discard draft?", 
                                         title: "Confirm", 
                                         confirmingText: "Yes", 
                                         dismissiveText: "No");
@@ -449,7 +451,7 @@ There are two common parameters in this method:
 
 ##### Usage & Behavior
 
-An alert dialog is displayed by pushing a modal window. This will appear in front of the content of the app to provide critical information or ask for a decision. *Only one alert dialog may be displayed at a time.*
+An alert dialog is displayed by pushing a modal window. This will appear in front of the content of the app to provide critical information or ask for a decision.
 
 Alert dialogs are interruptive. This means that it disables all app functionality when they appear, and remain on screen until confirmed, dismissed or a required action has been taken.
 
@@ -468,6 +470,76 @@ public override void OnBackPressed()
 }
 ```
 
+#### Simple Dialog
+Simple dialogs can display items that are immediately actionable when selected. They don’t have text buttons.
+
+| Android  | iOS |
+| ------------- | ------------- |
+|<img src="images/simpledialog_android.jpg" alt="Android button" width="500" />|<img src="images/simpledialog_ios.jpg" alt="iOS button" width="573"/> |
+
+##### Code
+You can show a simple dialog by using any of the overload methods of `MaterialDialog.Instance.SelectActionAsync()`.
+
+```c#
+
+//Create actions
+var actions = new string[]{ "Open in new tab", "Open in new window", "Copy link address", "Download link" };
+
+//Show simple dialog
+var result = await MaterialDialog.Instance.SelectActionAsync(actions: actions);
+
+//Show simple dialog with title
+var result = await MaterialDialog.Instance.SelectActionAsync(title: "Select an action", 
+                                                             actions: actions);
+
+```
+
+##### Usage & Behavior
+Simple dialogs are dismissed by tapping an action, or by tapping outside the dialog.
+
+Read more about alert dialogs [here](https://material.io/design/components/dialogs.html#alert-dialog).
+
+#### Confirmation Dialog
+Confirmation dialogs give users the ability to provide final confirmation of a choice before committing to it, 
+so they have a chance to change their minds if necessary.
+
+| Android  | iOS |
+| ------------- | ------------- |
+|<img src="images/confirmdialog_single_android.jpg" alt="Android button" width="500" />|<img src="images/confirmationdialog_multi_ios.jpg" alt="iOS button" width="573"/> |
+
+##### Code
+You can show two types of confirmation dialog: Choose one of listed choices using `MaterialDialog.Instance.SelectChoiceAsync()`, and choose one or more of listed choices using `MaterialDialog.Instance.SelectChoicesAsync()`.
+
+```c#
+//Create choices
+var jobs = new string[]
+{
+    "Mobile Developer (Xamarin)",
+    "Mobile Developer (Native)",
+    "Web Developer (.NET)",
+    "Web Developer (Laravel)",
+    "Quality Assurance Engineer",
+    "Business Analyst",
+    "Recruitment Officer",
+    "Project Manager",
+    "Scrum Master"
+};
+
+//Show confirmation dialog for choosing one.
+var result = await MaterialDialog.Instance.SelectChoiceAsync(title: "Select a job", 
+                                                             choices: jobs);
+
+//Show confirmation dialog for choosing one or more.
+var result = await MaterialDialog.Instance.SelectChoicesAsync(title: "Select a job", 
+                                                              choices: jobs);
+```
+
+##### Usage and Behavior
+Confirmation dialogs provide both confirmation and cancel buttons. After a confirmation button is tapped, a selection is confirmed. 
+If the cancel button is tapped, or the area outside the dialog, the action is cancelled.
+
+The confirmation button will only be enabled when an item is selected.
+
 #### Loading Dialog
 A modal dialog that is displayed to inform users about a process that is running for an unspecified time.
 
@@ -481,7 +553,7 @@ You can show a loading dialog using either of two ways:
 
 - Show in a `using` block. The loading dialog will automatically dispappear when the task/s are done.
 ```c#
-using(await MaterialDialogs.ShowLoadingAsync(message: "Something is running"))
+using(await MaterialDialog.Instance.LoadingDialogAsync(message: "Something is running"))
 {
     await Task.Delay(5000) // Represents a task that is running.
 }
@@ -490,7 +562,7 @@ using(await MaterialDialogs.ShowLoadingAsync(message: "Something is running"))
 - Show by calling the method and assign the return value to a variable, then call the `Dispose` method of the variable to hide the loading dialog after all task/s are done.
 
 ```c#
-var loadingDialog = await MaterialDialogs.ShowLoadingAsync(message: "Something is running");
+var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: "Something is running");
 
 await Task.Delay(5000) // Represents a task that is running.
 
@@ -512,14 +584,14 @@ Snackbars provide brief messages about app processes at the bottom of the screen
 
 ##### Code
 
-You can show a snackbar by using either of the two overload methods of `MaterialDialogs.ShowSnackbarAsync()`.
+You can show a snackbar by using either of the two overload methods of `MaterialDialog.Instance.SnackbarAsync()`.
 
 Both methods have this default parameter `message`, which is the message that will display on the snackbar.
 
 - Shows a snackbar with no action. 
     ```c#
-    await MaterialDialogs.ShowSnackbarAsync(message: "This is a snackbar.", 
-                                            msDuration: MaterialSnackbar.DURATION_LONG);
+    await MaterialDialog.Instance.SnackbarAsync(message: "This is a snackbar.", 
+                                                msDuration: MaterialSnackbar.DURATION_LONG);
     ``` 
     - `msDuration` -  The duration, in milliseconds, before the snackbar will disappear. There are pre-defined constants which you can use  in the `MaterialSnackbar` class.
         - `MaterialSnackbar.DURATION_SHORT` - Snackbar will show for 1500 milliseconds.
@@ -530,19 +602,19 @@ Both methods have this default parameter `message`, which is the message that wi
 
 - Shows a snackbar with an action. Returns true if the snackbar's action button was clicked, or false if the snackbar was automatically dismissed.
     ```c#
-    await MaterialDialogs.ShowSnackbarAsync(message: "This is a snackbar.",
-                                            actionButtonText: "Got It",
-                                            msDuration: 3000);
+    await MaterialDialog.Instance.SnackbarAsync(message: "This is a snackbar.",
+                                                actionButtonText: "Got It",
+                                                msDuration: 3000);
     ```
     - `actionButtonText` - The text that will appear on the snackbar's button.
 
-You can also use a snackbar to indicate a task/s running without interrupting the user. You can use the `MaterialDialogs.ShowLoadingSnackbarAsync()` method.
+You can also use a snackbar to indicate a task/s running without interrupting the user. You can use the `MaterialDialog.Instance.LoadingSnackbarAsync()` method.
 
 There are two ways to display a loading snackbar.
 
 - Show in a `using` block. The loading dialog will automatically dispappear when the task/s are done.
 ```c#
-using(await MaterialDialogs.ShowLoadingSnackbarAsync(message: "Something is running"))
+using(await MaterialDialog.Instance.LoadingSnackbarAsync(message: "Something is running"))
 {
     await Task.Delay(5000) // Represents a task that is running.
 }
@@ -551,7 +623,7 @@ using(await MaterialDialogs.ShowLoadingSnackbarAsync(message: "Something is runn
 - Show by calling the method and assign the return value to a variable, then call the `Dispose` method of the variable to hide the snackbar after all task/s are done.
 
 ```c#
-var snackbar = await MaterialDialogs.ShowLoadingSnackbarAsync(message: "Something is running");
+var snackbar = await MaterialDialog.Instance.LoadingSnackbarAsync(message: "Something is running");
 
 await Task.Delay(5000) // Represents a task that is running.
 
@@ -566,9 +638,9 @@ A snackbar can contain a single action. When setting the duration of how long be
 
 Read more about snackbars [here](https://material.io/design/components/snackbars.html).
 
-#### Styling Alert Dialogs, Loading Dialogs, and Snackbars
+#### Styling Dialogs
 
-You can customize modal views that are shown using the `MaterialDialogs` class. 
+You can customize modal dialogs that are shown using the `MaterialDialogs` class. 
 
 `BaseMaterialDialogConfiguraion`, which the classes `MaterialAlertDialogConfiguration`, `MaterialLoadingDialogConfiguration`, and `MaterialSnackbarConfiguration` inherits, has these properties:
 
@@ -586,7 +658,7 @@ You can customize modal views that are shown using the `MaterialDialogs` class.
 
 ##### Styling Alert Dialogs
 
-`MaterialAlertDialogConfiguration` class provides properties to be used for customizing an alert dialog. You can pass an instance of this class to any overload methods of `MaterialDialogs.ShowAlertAsync()`.
+`MaterialAlertDialogConfiguration` class provides properties to be used for customizing an alert dialog. You can pass an instance of this class to any overload methods of `MaterialDialog.Instance.AlertAsync()`.
 
 The properties of `MaterialAlertDialogConfiguration` class are:
 
@@ -613,17 +685,68 @@ var alertDialogConfiguration = new MaterialAlertDialogConfiguration
     ButtonAllCaps = false
 };
 
-await MaterialDialogs.ShowAlertAsync(message: "This is an alert dialog",
-                                     title: "Alert Dialog",
-                                     acknowledgementText: "Got It",
-                                     configuration: alertDialogConfiguration);
+await MaterialDialog.Instance.AlertAsync(message: "This is an alert dialog",
+                                         title: "Alert Dialog",
+                                         acknowledgementText: "Got It",
+                                         configuration: alertDialogConfiguration);
 ```
 <br />
 <img src="images/alertconfig.png" width="400" />
 
+#### Styling Simple Dialogs
+`MaterialSimpleDialogConfiguration` class provides properties to be used for customizing a simple dialog. You can pass an instance of this class to any overload methods of `MaterialDialog.Instance.SelectActionAsync()`.
+
+```c#
+var simpleDialogConfiguration = new MaterialSimpleDialogConfiguration
+{
+    BackgroundColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.PRIMARY),
+    TitleTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_PRIMARY),
+    TitleFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansSemiBold"),
+    TextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_PRIMARY).MultiplyAlpha(0.8),
+    TextFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansRegular"),
+    CornerRadius = 8,
+    ScrimColor = Color.FromHex("#232F34").MultiplyAlpha(0.32)
+};
+
+var result = await MaterialDialog.Instance.SelectActionAsync(title: "Select an action",
+                                                             actions: new string[] { "Open in new tab", "Open in new window", "Copy link address", "Download link" },
+                                                             configuration: simpleDialogConfiguration);
+```
+
+<br />
+<img src="images/simpledialogconfig.jpg" width="400" />
+
+#### Styling Confirmation Dialogs
+`MaterialConfirmationDialogConfiguration` class provides properties to be used for customizing a confirmation dialog. You can pass an instance of this class to any overload methods of `MaterialDialog.Instance.SelectChoiceAsync()` or `Material.Instance.SelectChoicesAsync()`.
+
+```c#
+var confirmationDialogConfiguration = new MaterialConfirmationDialogConfiguration
+{
+    BackgroundColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.PRIMARY).AddLuminosity(-0.1),
+    TitleTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_PRIMARY),
+    TitleFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansSemiBold"),
+    TextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_PRIMARY).MultiplyAlpha(0.8),
+    TextFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansRegular"),
+    CornerRadius = 8,
+    ButtonAllCaps = false,
+    ButtonFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansSemiBold"),
+    ControlSelectedColor = Color.White,
+    ControlUnselectedColor = Color.White.MultiplyAlpha(0.66),
+    TintColor = Color.White,
+    ScrimColor = Color.FromHex("#232F34").MultiplyAlpha(0.32)
+};
+
+var result = await MaterialDialog.Instance.SelectChoiceAsync(title: "Select a  job",
+                                                             choices: /*choices list*/,
+                                                             configuration: confirmationDialogConfiguration);
+```
+
+<br />
+<img src="images/confirmdialogconfig.jpg" width="400" />
+
 #### Styling Loading Dialogs
 
-`MaterialLoadingDialogConfiguration` class provides properties to be used for customizing a loading dialog. You can pass an instance of this class to any overload methods of `MaterialDialogs.ShowLoadingDialogAsync()`.
+`MaterialLoadingDialogConfiguration` class provides properties to be used for customizing a loading dialog. You can pass an instance of this class to any overload methods of `MaterialDialog.Instance.LoadingDialogAsync()`.
 
 ```c#
 var loadingDialogConfiguration = new MaterialLoadingDialogConfiguration
@@ -636,15 +759,15 @@ var loadingDialogConfiguration = new MaterialLoadingDialogConfiguration
     ScrimColor = Color.FromHex("#232F34").MultiplyAlpha(0.32)
 };
 
-await MaterialDialogs.ShowLoadingDialogAsync(message: "Something is running...",
-                                             configuration: loadingConfiguration);
+await MaterialDialog.Instance.LoadingDialogAsync(message: "Something is running...",
+                                                 configuration: loadingConfiguration);
 ```
 <br />
 <img src="images/loadingconfig.png" width="400" />
 
 #### Styling Snackbars
 
-`MaterialSnackbarConfiguration` class provides properties to be used for customizing a snackbar. You can pass an instance of this class to any overload methods of `MaterialDialogs.ShowSnackbarAsync()` or `MaterialDialogs.ShowLoadingSnackbarAsync()`.
+`MaterialSnackbarConfiguration` class provides properties to be used for customizing a snackbar. You can pass an instance of this class to any overload methods of `MaterialDialog.Instance.SnackbarAsync()` or `MaterialDialog.Instance.LoadingSnackbarAsync()`.
 
 ```c#
 var snackbarConfiguration = new MaterialSnackbarConfiguration            
@@ -657,14 +780,14 @@ var snackbarConfiguration = new MaterialSnackbarConfiguration
     MessageTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ONPRIMARY).MultiplyAlpha(0.8)
 }
 
-await MaterialDialogs.ShowSnackbarAsync(message: "This is a snackbar."
-                                        actionButtonText:  "Got It",
-                                        configuration: snackbarConfiguration);
+await MaterialDialog.Instance.SnackbarAsync(message: "This is a snackbar."
+                                            actionButtonText:  "Got It",
+                                            configuration: snackbarConfiguration);
 ```
 <br />
 <img src="images/snackbarconfig.png" width="400" />
 
-#### Setting a global style for Alert Dialogs, Loading Dialogs, and Snackbars
+#### Setting a global style for each type of dialogs
 
 You can set the global styles of each dialog by using the `MaterialDialogs.SetGlobalStyles()` method.
 
@@ -701,7 +824,7 @@ new MaterialLoadingDialogConfiguration
 });
 ```
 
-You can still override these styles be passing the configuration object when showing an alert dialog, loading dialog, and snackbar.
+You can still override these styles be passing the configuration object when showing an alert dialog, loading dialog, simple dialog, confirmation dialog, and snackbar.
 
 ### Material Resources 
 You can create Material-based resources which will be used by your app. This library strictly follows Google's Material Design, following principles of good design while maintaining a common UI across platforms.
@@ -742,7 +865,7 @@ You can define your color theme with the `MaterialColorConfiguration` class. The
 
 12. `OnSurface` - A color that passes accessibility guidelines for text/iconography when drawn on top of the `Surface` color.
 
-If you did not set the `ColorConfiguration` property of the `MaterialConfiguration` class in [here](#adding-the-material-resources), it will use a default color theme whose color values are the same as the image above.
+If you did not set the `ColorConfiguration` property of the `MaterialConfiguration` class in [here](#adding-the-material-resources), it will use a default color theme.
 
 #### Typography
 As stated [here](https://material.io/design/typography), you can use typography to present your design and content as clearly and efficiently as possible.
@@ -921,6 +1044,8 @@ You can add a shadow to the navigation bar by using the `MaterialNavigationPage`
 
 ### Changing the Status Bar Color
 You can change the color of the status bar by using the `Material.PlatformConfiguration.ChangeStatusBarColor(Color color)` method.
+
+The status bar color is automatically changed depending on the value of `MaterialColorConfiguration.PrimaryVariant`.
 
 ## Android Compatibility Issues
 It is recommended to use this library for applications targeting Android 5.0 (Lollipop) or higher for better rendering.

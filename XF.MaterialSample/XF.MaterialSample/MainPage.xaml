@@ -64,7 +64,9 @@
                 TextColor="#DE000000" />
             <material:MaterialRadioButtonGroup x:Name="radioButtonGroup" />
 
-            <material:MaterialButton HorizontalOptions="End" Text="Next" />
+            <material:MaterialButton Clicked="MaterialButton_Clicked"
+                HorizontalOptions="End"
+                Text="Next" />
 
             <!--<StackLayout HorizontalOptions="End" Orientation="Horizontal">
                     <material:MaterialButton ButtonType="Text"

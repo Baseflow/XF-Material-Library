@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XF.Material.Forms.Dialogs;
 using XF.Material.Forms.Dialogs.Configurations;
-using XF.Material.Forms.Effects;
 using XF.Material.Forms.Resources;
 using XF.Material.Forms.Views;
 
@@ -247,6 +243,55 @@ namespace XF.MaterialSample
                     //System.Diagnostics.Debug.WriteLine(checkBoxGroup.Choices[index]);
                 }
             }
+        }
+
+        private async void MaterialButton_Clicked(object sender, EventArgs e)
+        {
+            var choices = new string[]
+            {
+                "Mobile Developer (Xamarin)",
+                "Mobile Developer (Native)",
+                "Web Developer (.NET)",
+                "Web Developer (Laravel)",
+                "Quality Assurance Engineer",
+                "Business Analyst",
+                "Recruitment Officer",
+                "Project Manager",
+                "Scrum Master"
+            };
+
+            //var result = await MaterialDialog.Instance.SelectChoicesAsync("Select a job", choices);
+
+            //var simpleDialogConfiguration = new MaterialSimpleDialogConfiguration
+            //{
+            //    BackgroundColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.PRIMARY).AddLuminosity(-0.1),
+            //    TitleTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_PRIMARY),
+            //    TitleFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansSemiBold"),
+            //    TextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_PRIMARY).MultiplyAlpha(0.8),
+            //    TextFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansRegular"),
+            //    CornerRadius = 8,
+            //    ScrimColor = Color.FromHex("#232F34").MultiplyAlpha(0.32)
+            //};
+
+            var confirmationDialogConfiguration = new MaterialConfirmationDialogConfiguration
+            {
+                BackgroundColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.PRIMARY).AddLuminosity(-0.1),
+                TitleTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_PRIMARY),
+                TitleFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansSemiBold"),
+                TextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_PRIMARY).MultiplyAlpha(0.8),
+                TextFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansRegular"),
+                CornerRadius = 8,
+                ButtonAllCaps = false,
+                ButtonFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansSemiBold"),
+                ControlSelectedColor = Color.White,
+                ControlUnselectedColor = Color.White.MultiplyAlpha(0.66),
+                TintColor = Color.White,
+                ScrimColor = Color.FromHex("#232F34").MultiplyAlpha(0.32)
+            };
+
+            var result = await MaterialDialog.Instance.SelectChoiceAsync(title: "Select a  job",
+                                                                    choices: choices,
+                                                                    configuration: confirmationDialogConfiguration);
         }
     }
 }
