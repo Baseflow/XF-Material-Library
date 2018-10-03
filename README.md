@@ -640,7 +640,7 @@ Read more about snackbars [here](https://material.io/design/components/snackbars
 
 #### Styling Dialogs
 
-You can customize modal dialogs that are shown using the `MaterialDialogs` class. 
+You can customize modal dialogs that are shown using `MaterialDialog.Instance`. 
 
 `BaseMaterialDialogConfiguraion`, which the classes `MaterialAlertDialogConfiguration`, `MaterialLoadingDialogConfiguration`, and `MaterialSnackbarConfiguration` inherits, has these properties:
 
@@ -789,10 +789,10 @@ await MaterialDialog.Instance.SnackbarAsync(message: "This is a snackbar."
 
 #### Setting a global style for each type of dialogs
 
-You can set the global styles of each dialog by using the `MaterialDialogs.SetGlobalStyles()` method.
+You can set the global styles of each dialog by using the `MaterialDialog.Instance.SetGlobalStyles()` method.
 
 ```c#
-MaterialDialogs.SetGlobalStyles(new MaterialAlertDialogConfiguration
+MaterialDialog.Instance.SetGlobalStyles(new MaterialAlertDialogConfiguration
 {
     BackgroundColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.PRIMARY),
     TitleTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ONPRIMARY),
@@ -813,7 +813,8 @@ new MaterialLoadingDialogConfiguration
     TintColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ONPRIMARY),
     CornerRadius = 8,
     ScrimColor = Color.FromHex("#232F34").MultiplyAlpha(0.32)
-}, new MaterialSnackbarConfiguration
+}, 
+new MaterialSnackbarConfiguration
 {
     BackgroundColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.PRIMARY),
     MessageFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansRegular"),
@@ -821,6 +822,31 @@ new MaterialLoadingDialogConfiguration
     ButtonFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansSemiBold"),
     TintColor = Color.White,
     MessageTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ONPRIMARY).MultiplyAlpha(0.8)
+},
+new MaterialSimpleDialogConfiguration
+{
+    BackgroundColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.PRIMARY),
+    TitleTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_PRIMARY),
+    TitleFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansSemiBold"),
+    TextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_PRIMARY).MultiplyAlpha(0.8),
+    TextFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansRegular"),
+    CornerRadius = 8,
+    ScrimColor = Color.FromHex("#232F34").MultiplyAlpha(0.32)
+},
+new MaterialConfirmationDialogConfiguration
+{
+    BackgroundColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.PRIMARY).AddLuminosity(-0.1),
+    TitleTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_PRIMARY),
+    TitleFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansSemiBold"),
+    TextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_PRIMARY).MultiplyAlpha(0.8),
+    TextFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansRegular"),
+    CornerRadius = 8,
+    ButtonAllCaps = false,
+    ButtonFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansSemiBold"),
+    ControlSelectedColor = Color.White,
+    ControlUnselectedColor = Color.White.MultiplyAlpha(0.66),
+    TintColor = Color.White,
+    ScrimColor = Color.FromHex("#232F34").MultiplyAlpha(0.32)
 });
 ```
 
