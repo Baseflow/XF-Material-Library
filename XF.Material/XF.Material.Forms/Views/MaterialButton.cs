@@ -32,6 +32,9 @@ namespace XF.Material.Forms.Views
             this.SetDynamicResource(HeightRequestProperty, MaterialConstants.MATERIAL_BUTTON_HEIGHT);
         }
 
+        /// <summary>
+        /// Enumeration of the types of <see cref="MaterialButton"/>.
+        /// </summary>
         public enum MaterialButtonType
         {
             /// <summary>
@@ -60,8 +63,8 @@ namespace XF.Material.Forms.Views
         /// </summary>
         public bool AllCaps
         {
-            get => (bool)GetValue(AllCapsProperty);
-            set => SetValue(AllCapsProperty, value);
+            get => (bool)this.GetValue(AllCapsProperty);
+            set => this.SetValue(AllCapsProperty, value);
         }
 
         /// <summary>
@@ -69,8 +72,8 @@ namespace XF.Material.Forms.Views
         /// </summary>
         public new Color BackgroundColor
         {
-            get => (Color)GetValue(BackgroundColorProperty);
-            set => SetValue(BackgroundColorProperty, value);
+            get => (Color)this.GetValue(BackgroundColorProperty);
+            set => this.SetValue(BackgroundColorProperty, value);
         }
 
         /// <summary>
@@ -78,8 +81,8 @@ namespace XF.Material.Forms.Views
         /// </summary>
         public MaterialButtonType ButtonType
         {
-            get => (MaterialButtonType)GetValue(ButtonTypeProperty);
-            set => SetValue(ButtonTypeProperty, value);
+            get => (MaterialButtonType)this.GetValue(ButtonTypeProperty);
+            set => this.SetValue(ButtonTypeProperty, value);
         }
 
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -138,7 +141,6 @@ namespace XF.Material.Forms.Views
             {
                 this.HeightRequest -= 12;
                 this.Margin = new Thickness(this.Margin.Left + 6, this.Margin.Top + 6, this.Margin.Right + 6, this.Margin.Bottom + 6);
-                System.Diagnostics.Debug.WriteLine($"{this.HeightRequest}, {this.WidthRequest}");
             }
         }
     }
