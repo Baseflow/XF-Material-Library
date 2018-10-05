@@ -10,29 +10,12 @@ namespace XF.Material.Forms.Dialogs
     /// </summary>
     public sealed class MaterialDialog : IMaterialDialog
     {
+        internal MaterialDialog() { }
+
         /// <summary>
         /// The current instance to use for showing modal dialogs.
         /// </summary>
         public static IMaterialDialog Instance { get; internal set; }
-
-        internal MaterialDialog() { }
-
-        /// <summary>
-        /// Sets the global styles for <see cref="MaterialAlertDialog"/>, <see cref="MaterialLoadingDialog"/>, <see cref="MaterialSimpleDialog"/>, <see cref="MaterialConfirmationDialog"/>, and <see cref="MaterialSnackbar"/>. Parameters can be null.
-        /// </summary>
-        /// <param name="dialogConfiguration">Global style for <see cref="MaterialAlertDialog"/>.</param>
-        /// <param name="loadingDialogConfiguration">Global style for <see cref="MaterialLoadingDialog"/>.</param>
-        /// <param name="snackbarConfiguration">Global style for <see cref="MaterialSnackbar"/>.</param>
-        /// <param name="simpleDialogConfiguration">Global style for <see cref="MaterialSimpleDialog"/>.</param>
-        /// <param name="confirmationDialogConfiguration">Global style for <see cref="MaterialConfirmationDialog"/>.</param>
-        public void SetGlobalStyles(MaterialAlertDialogConfiguration dialogConfiguration, MaterialLoadingDialogConfiguration loadingDialogConfiguration, MaterialSnackbarConfiguration snackbarConfiguration, MaterialSimpleDialogConfiguration simpleDialogConfiguration, MaterialConfirmationDialogConfiguration confirmationDialogConfiguration)
-        {
-            MaterialAlertDialog.GlobalConfiguration = dialogConfiguration;
-            MaterialLoadingDialog.GlobalConfiguration = loadingDialogConfiguration;
-            MaterialSnackbar.GlobalConfiguration = snackbarConfiguration;
-            MaterialSimpleDialog.GlobalConfiguration = simpleDialogConfiguration;
-            MaterialConfirmationDialog.GlobalConfiguration = confirmationDialogConfiguration;
-        }
 
         /// <summary>
         /// Shows an alert dialog for acknowledgement. It only has a single, dismissive action used for acknowledgement.
@@ -113,6 +96,98 @@ namespace XF.Material.Forms.Dialogs
         }
 
         /// <summary>
+        /// Shows a simple dialog that allows the user to select one of listed actions. Returns the index of the selected action.
+        /// </summary>
+        /// <param name="actions">The list of actions.</param>
+        /// <param name="configuration">The style of the simple dialog.</param>
+        /// <exception cref="ArgumentNullException" />
+        public async Task<int> SelectActionAsync(IList<string> actions, MaterialSimpleDialogConfiguration configuration = null)
+        {
+            return await MaterialSimpleDialog.ShowAsync(null, actions, configuration);
+        }
+
+        /// <summary>
+        /// Shows a simple dialog that allows the user to select one of listed actions. Returns the index of the selected action.
+        /// </summary>
+        /// <param name="title">The title of the dialog.</param>
+        /// <param name="actions">The list of actions.</param>
+        /// <param name="configuration">The style of the simple dialog.</param>
+        /// <exception cref="ArgumentNullException" />
+        public async Task<int> SelectActionAsync(string title, IList<string> actions, MaterialSimpleDialogConfiguration configuration = null)
+        {
+            return await MaterialSimpleDialog.ShowAsync(title, actions, configuration);
+        }
+
+        /// <summary>
+        /// Shows a confirmation dialog that allows the user to select one of the listed choices. Returns the index of the selected choice.
+        /// </summary>
+        /// <param name="title">The title of the confirmation dialog. This parameter must not be null or empty.</param>
+        /// <param name="choices">The list of choices the user will choose from.</param>
+        /// <param name="configuration">The style of the confirmation dialog.</param>
+        /// <exception cref="ArgumentNullException" />
+        public async Task<int> SelectChoiceAsync(string title, IList<string> choices, MaterialConfirmationDialogConfiguration configuration = null)
+        {
+            return (int)await MaterialConfirmationDialog.ShowSelectChoiceAsync(title, choices, configuration);
+        }
+
+        /// <summary>
+        /// Shows a confirmation dialog that allows the user to select one of the listed choices. Returns the index of the selected choice.
+        /// </summary>
+        /// <param name="title">The title of the confirmation dialog. This parameter must not be null or empty.</param>
+        /// <param name="choices">The list of choices the user will choose from.</param>
+        /// <param name="selectedIndex">The currently selected index.</param>
+        /// <param name="configuration">The style of the confirmation dialog.</param>
+        /// <exception cref="ArgumentNullException" />
+        /// <exception cref="IndexOutOfRangeException" />
+        public async Task<int> SelectChoiceAsync(string title, IList<string> choices, int selectedIndex, MaterialConfirmationDialogConfiguration configuration = null)
+        {
+            return (int)await MaterialConfirmationDialog.ShowSelectChoiceAsync(title, choices, selectedIndex, configuration);
+        }
+
+        /// <summary>
+        /// Shows a confirmation dialog that allows the user to select any of the listed choices. Returns the indices of the selected choices.
+        /// </summary>
+        /// <param name="title">The title of the confirmation dialog. This parameter must not be null or empty.</param>
+        /// <param name="choices">The list of choices the user will choose from.</param>
+        /// <param name="configuration">The style of the confirmation dialog.</param>
+        /// <exception cref="ArgumentNullException" />
+        public async Task<int[]> SelectChoicesAsync(string title, IList<string> choices, MaterialConfirmationDialogConfiguration configuration = null)
+        {
+            return (int[])await MaterialConfirmationDialog.ShowSelectChoicesAsync(title, choices, configuration);
+        }
+
+        /// <summary>
+        /// Shows a confirmation dialog that allows the user to select any of the listed choices. Returns the indices of the selected choices.
+        /// </summary>
+        /// <param name="title">The title of the confirmation dialog. This parameter must not be null or empty.</param>
+        /// <param name="choices">The list of choices the user will choose from.</param>
+        /// <param name="selectedIndices">The currently selected indices.</param>
+        /// <param name="configuration">The style of the confirmation dialog.</param>
+        /// <exception cref="ArgumentNullException" />
+        /// <exception cref="IndexOutOfRangeException" />
+        public async Task<int[]> SelectChoicesAsync(string title, IList<string> choices, List<int> selectedIndices, MaterialConfirmationDialogConfiguration configuration = null)
+        {
+            return (int[])await MaterialConfirmationDialog.ShowSelectChoicesAsync(title, choices, selectedIndices, configuration);
+        }
+
+        /// <summary>
+        /// Sets the global styles for <see cref="MaterialAlertDialog"/>, <see cref="MaterialLoadingDialog"/>, <see cref="MaterialSimpleDialog"/>, <see cref="MaterialConfirmationDialog"/>, and <see cref="MaterialSnackbar"/>. Parameters can be null.
+        /// </summary>
+        /// <param name="dialogConfiguration">Global style for <see cref="MaterialAlertDialog"/>.</param>
+        /// <param name="loadingDialogConfiguration">Global style for <see cref="MaterialLoadingDialog"/>.</param>
+        /// <param name="snackbarConfiguration">Global style for <see cref="MaterialSnackbar"/>.</param>
+        /// <param name="simpleDialogConfiguration">Global style for <see cref="MaterialSimpleDialog"/>.</param>
+        /// <param name="confirmationDialogConfiguration">Global style for <see cref="MaterialConfirmationDialog"/>.</param>
+        public void SetGlobalStyles(MaterialAlertDialogConfiguration dialogConfiguration, MaterialLoadingDialogConfiguration loadingDialogConfiguration, MaterialSnackbarConfiguration snackbarConfiguration, MaterialSimpleDialogConfiguration simpleDialogConfiguration, MaterialConfirmationDialogConfiguration confirmationDialogConfiguration)
+        {
+            MaterialAlertDialog.GlobalConfiguration = dialogConfiguration;
+            MaterialLoadingDialog.GlobalConfiguration = loadingDialogConfiguration;
+            MaterialSnackbar.GlobalConfiguration = snackbarConfiguration;
+            MaterialSimpleDialog.GlobalConfiguration = simpleDialogConfiguration;
+            MaterialConfirmationDialog.GlobalConfiguration = confirmationDialogConfiguration;
+        }
+
+        /// <summary>
         /// Shows a snackbar with no action.
         /// </summary>
         /// <param name="message">The message of the snackbar.</param>
@@ -133,47 +208,6 @@ namespace XF.Material.Forms.Dialogs
         public async Task<bool> SnackbarAsync(string message, string actionButtonText, int msDuration = MaterialSnackbar.DURATION_LONG, MaterialSnackbarConfiguration configuration = null)
         {
             return await MaterialSnackbar.ShowAsync(message, actionButtonText, msDuration, configuration);
-        }
-
-        /// <summary>
-        /// Shows a simple dialog that allows the user to select one of listed actions. Returns the index of the selected action.
-        /// </summary>
-        /// <param name="actions">The list of actions.</param>
-        public async Task<int> SelectActionAsync(IList<string> actions, MaterialSimpleDialogConfiguration configuration = null)
-        {
-            return await MaterialSimpleDialog.ShowAsync(null, actions, configuration);
-        }
-
-        /// <summary>
-        /// Shows a simple dialog that allows the user to select one of listed actions. Returns the index of the selected action.
-        /// </summary>
-        /// <param name="title">The title of the dialog.</param>
-        /// <param name="actions">The list of actions.</param>
-        public async Task<int> SelectActionAsync(string title, IList<string> actions, MaterialSimpleDialogConfiguration configuration = null)
-        {
-            return await MaterialSimpleDialog.ShowAsync(title, actions, configuration);
-        }
-
-        /// <summary>
-        /// Shows a confirmation dialog that allows the user to select one of the listed choices. Returns the index of the selected choice.
-        /// </summary>
-        /// <param name="title">The title of the confirmation dialog. This parameter must not be null or empty.</param>
-        /// <param name="choices">The list of choices the user will choose from.</param>
-        /// <exception cref="ArgumentNullException" />
-        public async Task<int> SelectChoiceAsync(string title, IList<string> choices, MaterialConfirmationDialogConfiguration configuration = null)
-        {
-            return (int) await MaterialConfirmationDialog.ShowSelectChoiceAsync(title, choices, configuration);
-        }
-
-        /// <summary>
-        /// Shows a confirmation dialog that allows the user to select any of the listed choices. Returns the indices of the selected choices.
-        /// </summary>
-        /// <param name="title">The title of the confirmation dialog. This parameter must not be null or empty.</param>
-        /// <param name="choices">The list of choices the user will choose from.</param>
-        /// <exception cref="ArgumentNullException" />
-        public async Task<int[]> SelectChoicesAsync(string title, IList<string> choices, MaterialConfirmationDialogConfiguration configuration = null)
-        {
-            return (int[]) await MaterialConfirmationDialog.ShowSelectChoicesAsync(title, choices, configuration);
         }
     }
 }

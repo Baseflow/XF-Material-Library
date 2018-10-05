@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -50,6 +51,32 @@ namespace XF.Material.Forms.Dialogs
             return await dialog.InputTaskCompletionSource.Task;
         }
 
+        public static async Task<object> ShowSelectChoiceAsync(string title, IList<string> choices, int selectedIndex, MaterialConfirmationDialogConfiguration configuration)
+        {
+            var dialog = new MaterialConfirmationDialog(configuration) { InputTaskCompletionSource = new TaskCompletionSource<object>() };
+            dialog._radioButtonGroup = new MaterialRadioButtonGroup
+            {
+                HorizontalSpacing = 20,
+                Choices = choices ?? throw new ArgumentNullException(nameof(choices)),
+                SelectedIndex = selectedIndex
+            };     
+
+            if (dialog._preferredConfig != null)
+            {
+                dialog._radioButtonGroup.SelectedColor = dialog._preferredConfig.ControlSelectedColor;
+                dialog._radioButtonGroup.UnselectedColor = dialog._preferredConfig.ControlUnselectedColor;
+                dialog._radioButtonGroup.FontFamily = dialog._preferredConfig.TextFontFamily;
+                dialog._radioButtonGroup.TextColor = dialog._preferredConfig.TextColor;
+            }
+
+            dialog.DialogTitle.Text = !string.IsNullOrEmpty(title) ? title : throw new ArgumentNullException(nameof(title));
+            dialog.container.Content = dialog._radioButtonGroup;
+            dialog.PositiveButton.IsEnabled = true;
+            await dialog.ShowAsync();
+
+            return await dialog.InputTaskCompletionSource.Task;
+        }
+
         public static async Task<object> ShowSelectChoicesAsync(string title, IList<string> choices, MaterialConfirmationDialogConfiguration configuration)
         {
             var dialog = new MaterialConfirmationDialog(configuration) { InputTaskCompletionSource = new TaskCompletionSource<object>() };
@@ -69,6 +96,32 @@ namespace XF.Material.Forms.Dialogs
 
             dialog.DialogTitle.Text = !string.IsNullOrEmpty(title) ? title : throw new ArgumentNullException(nameof(title));
             dialog.container.Content = dialog._checkboxGroup;
+            await dialog.ShowAsync();
+
+            return await dialog.InputTaskCompletionSource.Task;
+        }
+
+        public static async Task<object> ShowSelectChoicesAsync(string title, IList<string> choices, IList<int> selectedIndices, MaterialConfirmationDialogConfiguration configuration)
+        {
+            var dialog = new MaterialConfirmationDialog(configuration) { InputTaskCompletionSource = new TaskCompletionSource<object>() };
+            dialog._checkboxGroup = new MaterialCheckboxGroup
+            {
+                HorizontalSpacing = 20,
+                Choices = choices ?? throw new ArgumentNullException(nameof(choices)),
+                SelectedIndices = selectedIndices
+            };
+
+            if (dialog._preferredConfig != null)
+            {
+                dialog._checkboxGroup.SelectedColor = dialog._preferredConfig.ControlSelectedColor;
+                dialog._checkboxGroup.UnselectedColor = dialog._preferredConfig.ControlUnselectedColor;
+                dialog._checkboxGroup.FontFamily = dialog._preferredConfig.TextFontFamily;
+                dialog._checkboxGroup.TextColor = dialog._preferredConfig.TextColor;
+            }
+
+            dialog.DialogTitle.Text = !string.IsNullOrEmpty(title) ? title : throw new ArgumentNullException(nameof(title));
+            dialog.container.Content = dialog._checkboxGroup;
+            dialog.PositiveButton.IsEnabled = true;
             await dialog.ShowAsync();
 
             return await dialog.InputTaskCompletionSource.Task;
