@@ -98,6 +98,11 @@ namespace XF.Material.iOS.Renderers
                 this.SetupIcon();
                 this.UpdateButtonLayer();
             }
+
+            if(e?.PropertyName == nameof(MaterialButton.AllCaps))
+            {
+                _materialButton.Text = _materialButton.AllCaps ? _materialButton.Text.ToUpper() : _materialButton.Text.ToLower();
+            }
         }
 
         private void UpdateState()
