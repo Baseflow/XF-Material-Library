@@ -1,5 +1,9 @@
 # Release Notes
 
+##### 1.1.1
+- Added parameters `selectedIndex` and `selectedIndices` to `IMaterialDialog.SelectChoiceAsync` and `IMaterialDialog.SelectChoicesAsync`. A feature enhancement as stated in this [issue](https://github.com/contrix09/XF-Material-Library/issues/9).
+- Fixed `MaterialRadioButtonGroup` and `MaterialCheckboxGroup` having an extra empty row.
+
 ##### 1.1.0
 - Added selection controls: `MaterialRadioButton`, `MaterialRadioButtonGroup`, `MaterialCheckbox`, and `MaterialCheckboxGroup`.
 - Deprecated `MaterialDialogs`, you should use `MaterialDialog.Instance` for displaying modal dialogs.
