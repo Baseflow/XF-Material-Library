@@ -1,7 +1,7 @@
 
 <img src="images/xf.material_logo.png" width="112" />
 
-# XF.Material Library [![NuGet](https://img.shields.io/badge/version-1.1.0-%23607D8B.svg?style=plastic)](https://github.com/contrix09/XF-Material-Library/blob/master/RELEASE_NOTES.md)
+# XF.Material Library [![NuGet](https://img.shields.io/badge/version-1.1.1-%23607D8B.svg?style=plastic)](https://github.com/contrix09/XF-Material-Library/blob/master/RELEASE_NOTES.md)
 
 A Xamarin.Forms library for Xamarin.Android and Xamarin.iOS to implement [Google's Material Design](https://material.io/design).
 
