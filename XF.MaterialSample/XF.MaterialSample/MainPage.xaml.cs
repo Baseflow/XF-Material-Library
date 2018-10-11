@@ -17,18 +17,18 @@ namespace XF.MaterialSample
         {
             this.InitializeComponent();
 
-            radioButtonGroup.Choices = new string[]
-            {
-                "Mobile Developer (Xamarin)",
-                "Mobile Developer (Native)",
-                "Web Developer (.NET)",
-                "Web Developer (Laravel)",
-                "Quality Assurance Engineer",
-                "Business Analyst",
-                "Recruitment Officer",
-                "Project Manager",
-                "Scrum Master"
-            };
+            //radioButtonGroup.Choices = new string[]
+            //{
+            //    "Mobile Developer (Xamarin)",
+            //    "Mobile Developer (Native)",
+            //    "Web Developer (.NET)",
+            //    "Web Developer (Laravel)",
+            //    "Quality Assurance Engineer",
+            //    "Business Analyst",
+            //    "Recruitment Officer",
+            //    "Project Manager",
+            //    "Scrum Master"
+            //};
 
 
             //rbg.Choices = new string[]
@@ -228,7 +228,7 @@ namespace XF.MaterialSample
 
         private void RadioButtonGroup_SelectedIndexChanged(object sender, SelectedIndexChangedEventArgs e)
         {
-            if(e?.Index >= 0)
+            if (e?.Index >= 0)
             {
                 //System.Diagnostics.Debug.WriteLine(radioButtonGroup.Choices[e.Index]);
             }
@@ -236,9 +236,9 @@ namespace XF.MaterialSample
 
         private void checkBoxGroup_SelectedIndicesChanged(object sender, SelectedIndicesChangedEventArgs e)
         {
-            if(e.Indices.Any())
+            if (e.Indices.Any())
             {
-                foreach(var index in e.Indices)
+                foreach (var index in e.Indices)
                 {
                     //System.Diagnostics.Debug.WriteLine(checkBoxGroup.Choices[index]);
                 }
@@ -292,6 +292,21 @@ namespace XF.MaterialSample
             var result = await MaterialDialog.Instance.SelectChoiceAsync(title: "Select a  job",
                                                                     choices: choices,
                                                                     configuration: confirmationDialogConfiguration);
+        }
+
+        private void BlueSlider_ValueChanged(object sender, ValueChangedEventArgs e)
+        {
+            this.BackgroundColor = new Color(RedSlider.Value / 255, GreenSlider.Value / 255, e.NewValue / 255);
+        }
+
+        private void GreenSlider_ValueChanged(object sender, ValueChangedEventArgs e)
+        {
+            this.BackgroundColor = new Color(RedSlider.Value / 255, e.NewValue / 255, BlueSlider.Value / 255);
+        }
+
+        private void RedSlider_ValueChanged(object sender, ValueChangedEventArgs e)
+        {
+            this.BackgroundColor = new Color(e.NewValue / 255, GreenSlider.Value / 255, BlueSlider.Value / 255);
         }
     }
 }

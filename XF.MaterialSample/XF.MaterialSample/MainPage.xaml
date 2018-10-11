@@ -13,6 +13,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <local:ColorConverter x:Key="Converter.Color" />
+            <local:DoubleToIntConverter x:Key="Converter.DoubleToInt" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -20,68 +21,88 @@
         Padding="16"
         CornerRadius="4"
         Elevation="4"
-        HorizontalOptions="Center"
+        HorizontalOptions="FillAndExpand"
         VerticalOptions="Center">
-        <StackLayout x:Name="container"
-            Margin="16"
-            HorizontalOptions="Center"
-            Spacing="16"
-            VerticalOptions="Center">
-            <!--<Label Margin="0,0,0,16"
-                    Style="{DynamicResource Material.TypeScale.H5}"
-                    Text="Sign in your account"
-                    TextColor="#DE000000" />
-                <material:MaterialCheckbox Text="Remember me later" />
-                <StackLayout Spacing="8">
-                    <material:MaterialTextField x:Name="EmailField"
-                        AlwaysShowUnderline="True"
-                        BackgroundColor="Transparent"
-                        ErrorColor="#CE0000"
-                        ErrorText="Invalid email format"
-                        HelperText="*Required"
-                        HelperTextColor="#A4A4A4"
-                        IconTintColor="#A4A4A4"
-                        InputType="Email"
-                        Placeholder="Email Address"
-                        PlaceholderColor="#A4A4A4"
-                        ReturnType="Next"
-                        TextColor="Black" />
-                    <material:MaterialTextField x:Name="PasswordField"
-                        AlwaysShowUnderline="True"
-                        BackgroundColor="Transparent"
-                        HelperText="*Required"
-                        HelperTextColor="#A4A4A4"
-                        IconTintColor="#A4A4A4"
-                        InputType="Password"
-                        MaxLength="10"
-                        Placeholder="Password"
-                        PlaceholderColor="#A4A4A4"
-                        TextColor="Black" />
-                </StackLayout>-->
-            <Label Margin="16,0"
-                Style="{DynamicResource Material.TypeScale.Subtitle2}"
-                Text="Select your preferred job:"
-                TextColor="#DE000000" />
-            <material:MaterialRadioButtonGroup x:Name="radioButtonGroup" />
-
-            <material:MaterialButton Clicked="MaterialButton_Clicked"
-                HorizontalOptions="End"
-                Text="Next" />
-
-            <!--<StackLayout HorizontalOptions="End" Orientation="Horizontal">
-                    <material:MaterialButton ButtonType="Text"
-                        HorizontalOptions="End"
-                        Text="Sign in instead" />
-                    <material:MaterialButton x:Name="button"
-                        ButtonType="Elevated"
-                        Clicked="MaterialButton_ShowDialog"
-                        HorizontalOptions="End"
-                        Text="Register" />
-                </StackLayout>-->
+        <StackLayout>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="56" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="56" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0"
+                    HorizontalTextAlignment="Center"
+                    Text="R"
+                    VerticalOptions="Center" />
+                <material:MaterialSlider x:Name="RedSlider"
+                    Grid.Column="1"
+                    IsEnabled="False"
+                    MaxValue="255"
+                    TintColor="Red"
+                    ValueChanged="RedSlider_ValueChanged"
+                    VerticalOptions="Center"
+                    Value="255" />
+                <Label Grid.Column="2"
+                    HorizontalTextAlignment="Center"
+                    Text="{Binding Source={x:Reference RedSlider}, Path=Value, Converter={StaticResource Converter.DoubleToInt}}"
+                    VerticalOptions="Center" />
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="56" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="56" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0"
+                    HorizontalTextAlignment="Center"
+                    Text="G"
+                    VerticalOptions="Center" />
+                <material:MaterialSlider x:Name="GreenSlider"
+                    Grid.Column="1"
+                    MaxValue="255"
+                    TintColor="Green"
+                    ValueChanged="GreenSlider_ValueChanged"
+                    VerticalOptions="Center"
+                    Value="220" />
+                <Label Grid.Column="2"
+                    HorizontalTextAlignment="Center"
+                    Text="{Binding Source={x:Reference GreenSlider}, Path=Value, Converter={StaticResource Converter.DoubleToInt}}"
+                    VerticalOptions="Center" />
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="56" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="56" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0"
+                    HorizontalTextAlignment="Center"
+                    Text="B"
+                    VerticalOptions="Center" />
+                <material:MaterialSlider x:Name="BlueSlider"
+                    Grid.Column="1"
+                    MaxValue="255"
+                    TintColor="Blue"
+                    ValueChanged="BlueSlider_ValueChanged"
+                    VerticalOptions="Center"
+                    Value="255" />
+                <Label Grid.Column="2"
+                    HorizontalTextAlignment="Center"
+                    Text="{Binding Source={x:Reference BlueSlider}, Path=Value, Converter={StaticResource Converter.DoubleToInt}}"
+                    VerticalOptions="Center" />
+            </Grid>
         </StackLayout>
     </material:MaterialCard>
-    <!--<StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
-            <material:MaterialRadioButtonGroup x:Name="rbg" HorizontalOptions="Center" />
-        </StackLayout>-->
-
 </ContentPage>
