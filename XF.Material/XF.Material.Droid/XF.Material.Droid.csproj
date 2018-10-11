@@ -60,6 +60,7 @@
     <Compile Include="Effects\BaseMaterialEffect.cs" />
     <Compile Include="Effects\MaterialTypeScaleEffect.cs" />
     <Compile Include="Material.cs" />
+    <Compile Include="Renderers\Internals\MaterialBoxViewRenderer.cs" />
     <Compile Include="Renderers\Internals\MaterialDialogListViewRenderer.cs" />
     <Compile Include="Renderers\Internals\MaterialEntryRenderer.cs" />
     <Compile Include="Renderers\MaterialButtonRenderer.cs" />
@@ -127,7 +128,7 @@
       <Version>27.0.2.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms">
-      <Version>3.1.0.697729</Version>
+      <Version>3.2.0.839982</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

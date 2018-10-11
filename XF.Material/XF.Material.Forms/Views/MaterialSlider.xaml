@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView x:Class="XF.Material.Forms.Views.MaterialSlider"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:internal="clr-namespace:XF.Material.Forms.Views.Internals"
+    xmlns:material="clr-namespace:XF.Material.Forms.Views"
+    x:Name="Root">
+    <ContentView.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="12" />
+            </Grid.RowDefinitions>
+            <material:MaterialCard x:Name="Dragger"
+                Padding="0"
+                BackgroundColor="#6200EE"
+                CornerRadius="6"
+                Elevation="2"
+                HeightRequest="12"
+                HorizontalOptions="Start"
+                WidthRequest="12" />
+            <BoxView x:Name="Indicator"
+                Margin="6,0"
+                CornerRadius="1"
+                HeightRequest="2"
+                HorizontalOptions="Start"
+                InputTransparent="True"
+                VerticalOptions="Center"
+                WidthRequest="0"
+                Color="#6200EE" />
+            <internal:MaterialBoxView x:Name="TapContainer"
+                Margin="6,0"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand" />
+            <BoxView x:Name="Placeholder"
+                Margin="6,0"
+                CornerRadius="1"
+                HeightRequest="2"
+                Opacity="0.24"
+                VerticalOptions="Center"
+                Color="#6200EE" />
+        </Grid>
+    </ContentView.Content>
+</ContentView>

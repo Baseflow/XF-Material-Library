@@ -8,7 +8,7 @@ using XF.Material.Forms.Utilities;
 [assembly: Dependency(typeof(MaterialUtility))]
 namespace XF.Material.Droid.Utilities
 {
-    public class MaterialUtility : IMaterialUtility
+    public class MaterialUtility : Java.Lang.Object, IMaterialUtility
     {
         public void ChangeStatusBarColor(Color color)
         {
