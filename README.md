@@ -534,6 +534,23 @@ var result = await MaterialDialog.Instance.SelectChoicesAsync(title: "Select a j
                                                               choices: jobs);
 ```
 
+You can also define pre-selected choice/s by supplying the parameters `selectedIndex` and `selectedIndices` for `MaterialDialog.Instance.SelectChoiceAsync()` and `MaterialDialog.Instance.SelectChoicesAsync()`, respectively.
+
+```c#
+...
+
+//Show confirmation dialog for choosing one, with pre-selected choice.
+var result = await MaterialDialog.Instance.SelectChoiceAsync(title: "Select a job", 
+                                                             selectedIndex: 1,
+                                                             choices: jobs);
+
+//Show confirmation dialog for choosing one or more, with pre-selected choices.
+var result = await MaterialDialog.Instance.SelectChoicesAsync(title: "Select a job", 
+                                                              selectedIndices: new int[] { 1, 0 },
+                                                              choices: jobs);
+
+```
+
 ##### Usage and Behavior
 Confirmation dialogs provide both confirmation and cancel buttons. After a confirmation button is tapped, a selection is confirmed. 
 If the cancel button is tapped, or the area outside the dialog, the action is cancelled.
