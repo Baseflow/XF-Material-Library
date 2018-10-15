@@ -4,12 +4,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:internal="clr-namespace:XF.Material.Forms.Views.Internals"
     xmlns:material="clr-namespace:XF.Material.Forms.Views"
-    x:Name="Root">
+    x:Name="Root"
+    HeightRequest="{DynamicResource Material.Slider.Height}">
     <ContentView.Content>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="12" />
-            </Grid.RowDefinitions>
+        <Grid VerticalOptions="Center">
             <material:MaterialCard x:Name="Dragger"
                 Padding="0"
                 BackgroundColor="#6200EE"
@@ -17,6 +15,7 @@
                 Elevation="2"
                 HeightRequest="12"
                 HorizontalOptions="Start"
+                VerticalOptions="Center"
                 WidthRequest="12" />
             <BoxView x:Name="Indicator"
                 Margin="6,0"

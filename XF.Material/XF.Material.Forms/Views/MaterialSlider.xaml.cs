@@ -15,27 +15,75 @@ namespace XF.Material.Forms.Views
 
         public static readonly BindableProperty MinValueProperty = BindableProperty.Create(nameof(MinValue), typeof(double), typeof(MaterialSlider), 0.0, BindingMode.TwoWay);
 
+        public static readonly BindableProperty ThumbColorProperty = BindableProperty.Create(nameof(ThumbColor), typeof(Color), typeof(MaterialSlider), Material.Color.Secondary, BindingMode.TwoWay);
+
+        public static readonly BindableProperty TrackColorProperty = BindableProperty.Create(nameof(TrackColor), typeof(Color), typeof(MaterialSlider), Material.Color.Secondary, BindingMode.TwoWay);
+
         public static readonly BindableProperty ValueProperty = BindableProperty.Create(nameof(Value), typeof(double), typeof(MaterialSlider), 0.0, BindingMode.TwoWay);
 
-        public static readonly BindableProperty TintColorProperty = BindableProperty.Create(nameof(TintColor), typeof(Color), typeof(MaterialSlider), Material.Color.Secondary, BindingMode.TwoWay);
-
-        private double _x;
         private bool _draggerTranslatedInitially;
-        private double _lastWidth;
         private double _lastHeight;
+        private double _lastWidth;
+        private double _x;
 
-        public double MinValue
+        /// <summary>
+        /// Initializes a new instance of <see cref="MaterialSlider"/>.
+        /// </summary>
+        public MaterialSlider()
         {
-            get => (double)this.GetValue(MinValueProperty);
-            set => this.SetValue(MinValueProperty, value);
+            this.InitializeComponent();
+
+            var pan = new PanGestureRecognizer();
+            pan.PanUpdated += this.Pan_PanUpdated;
+
+            this.GestureRecognizers.Add(pan);
+            TapContainer.Tapped += this.TapContainer_Tapped;
         }
 
+        /// <summary>
+        /// Raised when the <see cref="Value"/> property changes.
+        /// </summary>
+        public event EventHandler<ValueChangedEventArgs> ValueChanged;
+
+        /// <summary>
+        /// Gets or sets the maximum value allowed to select.
+        /// </summary>
         public double MaxValue
         {
             get => (double)this.GetValue(MaxValueProperty);
             set => this.SetValue(MaxValueProperty, value);
         }
 
+        /// <summary>
+        /// Gets or sets the minmimum value allowed to select.
+        /// </summary>
+        public double MinValue
+        {
+            get => (double)this.GetValue(MinValueProperty);
+            set => this.SetValue(MinValueProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the thumb color of the slider.
+        /// </summary>
+        public Color ThumbColor
+        {
+            get => (Color)this.GetValue(ThumbColorProperty);
+            set => this.SetValue(ThumbColorProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the track color of the slider.
+        /// </summary>
+        public Color TrackColor
+        {
+            get => (Color)this.GetValue(TrackColorProperty);
+            set => this.SetValue(TrackColorProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the current value that is selected.
+        /// </summary>
         public double Value
         {
             get => (double)this.GetValue(ValueProperty);
@@ -52,42 +100,73 @@ namespace XF.Material.Forms.Views
             }
         }
 
-        public Color TintColor
+        protected override void LayoutChildren(double x, double y, double width, double height)
         {
-            get => (Color)this.GetValue(TintColorProperty);
-            set => this.SetValue(TintColorProperty, value);
+            base.LayoutChildren(x, y, width, height);
+
+            if (width * height != 0 && this.Value > 0 && !_draggerTranslatedInitially)
+            {
+                this.AnimateDragger();
+                _x = Dragger.TranslationX;
+                _draggerTranslatedInitially = true;
+            }
+        }
+
+        protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            base.OnPropertyChanged(propertyName);
+
+            if (propertyName == nameof(this.Value))
+            {
+                this.AnimateDragger();
+            }
+
+            if (propertyName == nameof(this.ThumbColor))
+            {
+                Dragger.BackgroundColor = this.ThumbColor;
+            }
+
+            if (propertyName == nameof(this.TrackColor))
+            {
+                Indicator.Color = Placeholder.Color = this.TrackColor;
+            }
+
+            if (propertyName == nameof(this.IsEnabled))
+            {
+                this.Opacity = this.IsEnabled ? 1.0 : 0.24;
+            }
+        }
+
+        protected override void OnSizeAllocated(double width, double height)
+        {
+            base.OnSizeAllocated(width, height);
+
+            if (_lastWidth != width || _lastHeight != height)
+            {
+                _lastWidth = width;
+                _lastHeight = height;
+
+                this.AnimateDragger();
+                _x = Dragger.TranslationX;
+            }
         }
 
         /// <summary>
-        /// Initializes a new instance of <see cref="MaterialSlider"/>.
+        /// Called when the <see cref="MaterialSlider.Value"/> property changes.
         /// </summary>
-        public MaterialSlider()
+        /// <param name="oldValue"></param>
+        /// <param name="newValue"></param>
+        protected virtual void OnValueChanged(double oldValue, double newValue)
         {
-            this.InitializeComponent();
-
-            var pan = new PanGestureRecognizer();
-            pan.PanUpdated += this.Pan_PanUpdated;
-
-            this.GestureRecognizers.Add(pan);
-            TapContainer.Tapped += this.TapContainer_Tapped;
+            this.ValueChanged?.Invoke(this, new ValueChangedEventArgs(oldValue, newValue));
         }
 
-        private void TapContainer_Tapped(object sender, Internals.TappedEventArgs e)
+        private void AnimateDragger()
         {
-            if(!this.IsEnabled)
-            {
-                return;
-            }
-
-            var newX = Math.Min(e.X, Placeholder.Width) >= 0 ? Math.Min(e.X, Placeholder.Width) : 0;
-            var percentage = newX / Placeholder.Width;
-            var newVal = percentage * (this.MaxValue - this.MinValue) + this.MinValue;
-
-            this.Value = newVal;
-            _x = Dragger.TranslationX;
+            var percentage = this.Value / (this.MaxValue - this.MinValue);
+            Dragger.TranslationX = percentage * Placeholder.Width;
+            Indicator.WidthRequest = Dragger.TranslationX;
         }
-
-        public event EventHandler<ValueChangedEventArgs> ValueChanged;
 
         private void Pan_PanUpdated(object sender, PanUpdatedEventArgs e)
         {
@@ -106,62 +185,19 @@ namespace XF.Material.Forms.Views
             }
         }
 
-        protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        private void TapContainer_Tapped(object sender, Internals.TappedEventArgs e)
         {
-            base.OnPropertyChanged(propertyName);
-
-            if (propertyName == nameof(this.Value))
+            if(!this.IsEnabled)
             {
-                this.AnimateDragger();
+                return;
             }
 
-            if (propertyName == nameof(this.TintColor))
-            {
-                Dragger.BackgroundColor = Indicator.Color = Placeholder.Color = this.TintColor;
-            }
+            var newX = Math.Min(e.X, Placeholder.Width) >= 0 ? Math.Min(e.X, Placeholder.Width) : 0;
+            var percentage = newX / Placeholder.Width;
+            var newVal = percentage * (this.MaxValue - this.MinValue) + this.MinValue;
 
-            if(propertyName == nameof(this.IsEnabled))
-            {
-                this.Opacity = this.IsEnabled ? 1.0 : 0.24;
-            }
-        }
-
-        protected override void LayoutChildren(double x, double y, double width, double height)
-        {
-            base.LayoutChildren(x, y, width, height);
-
-            if (width * height != 0 && this.Value > 0 && !_draggerTranslatedInitially)
-            {
-                this.AnimateDragger();
-                _x = Dragger.TranslationX;
-                _draggerTranslatedInitially = true;
-            }
-        }
-
-        private void AnimateDragger()
-        {
-            var percentage = this.Value / (this.MaxValue - this.MinValue);
-            Dragger.TranslationX = percentage * Placeholder.Width;
-            Indicator.WidthRequest = Dragger.TranslationX;
-        }
-
-        protected virtual void OnValueChanged(double oldValue, double newValue)
-        {
-            this.ValueChanged?.Invoke(this, new ValueChangedEventArgs(oldValue, newValue));
-        }
-
-        protected override void OnSizeAllocated(double width, double height)
-        {
-            base.OnSizeAllocated(width, height);
-
-            if(_lastWidth != width || _lastHeight != height)
-            {
-                _lastWidth = width;
-                _lastHeight = height;
-
-                this.AnimateDragger();
-                _x = Dragger.TranslationX;
-            }
+            this.Value = newVal;
+            _x = Dragger.TranslationX;
         }
     }
 }

@@ -42,7 +42,7 @@
                     Grid.Column="1"
                     IsEnabled="False"
                     MaxValue="255"
-                    TintColor="Red"
+                    TrackColor="Red"
                     ValueChanged="RedSlider_ValueChanged"
                     VerticalOptions="Center"
                     Value="255" />
@@ -68,7 +68,7 @@
                 <material:MaterialSlider x:Name="GreenSlider"
                     Grid.Column="1"
                     MaxValue="255"
-                    TintColor="Green"
+                    TrackColor="Green"
                     ValueChanged="GreenSlider_ValueChanged"
                     VerticalOptions="Center"
                     Value="220" />
@@ -94,7 +94,7 @@
                 <material:MaterialSlider x:Name="BlueSlider"
                     Grid.Column="1"
                     MaxValue="255"
-                    TintColor="Blue"
+                    TrackColor="Blue"
                     ValueChanged="BlueSlider_ValueChanged"
                     VerticalOptions="Center"
                     Value="255" />
