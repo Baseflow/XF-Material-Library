@@ -10,9 +10,6 @@ namespace XF.Material.Droid.Renderers
 {
     public class MaterialNavigationPageRenderer : Xamarin.Forms.Platform.Android.AppCompat.NavigationPageRenderer
     {
-        private MaterialNavigationPage _navigationPage;
-        private Toolbar _toolbar;
-
         public MaterialNavigationPageRenderer(Context context) : base(context) { }
 
         protected override void OnElementChanged(ElementChangedEventArgs<NavigationPage> e)
@@ -21,12 +18,12 @@ namespace XF.Material.Droid.Renderers
 
             if(e?.NewElement != null)
             {
-                _navigationPage = this.Element as MaterialNavigationPage;
-                _toolbar = this.ViewGroup.GetChildAt(0) as Toolbar;
+                var navigationPage = this.Element as MaterialNavigationPage;
+                var toolbar = this.ViewGroup.GetChildAt(0) as Toolbar;
 
-                if(_navigationPage.HasShadow)
+                if (navigationPage.HasShadow)
                 {
-                    _toolbar.Elevate(8);
+                    toolbar.Elevate(8);
                 }
             }
         }
