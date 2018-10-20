@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<local:BaseMainView x:Class="MaterialMvvmSample.Views.MainView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:MaterialMvvmSample.Views"
+    xmlns:material="clr-namespace:XF.Material.Forms.Views;assembly=XF.Material.Forms"
+    Padding="16">
+
+    <StackLayout>
+        <material:MaterialCard Elevation="4"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand">
+            <material:MaterialButton Command="{Binding ButtonCommand}"
+                HorizontalOptions="Center"
+                Text="BUTTON"
+                VerticalOptions="Center" />
+        </material:MaterialCard>
+    </StackLayout>
+
+</local:BaseMainView>
