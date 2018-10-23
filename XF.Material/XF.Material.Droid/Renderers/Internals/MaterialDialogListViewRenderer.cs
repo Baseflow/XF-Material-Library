@@ -12,11 +12,11 @@ namespace XF.Material.Droid.Renderers.Internals
     {
         public MaterialDialogListViewRenderer(Context context) : base(context) { }
 
-        protected override void OnElementChanged(ElementChangedEventArgs<Xamarin.Forms.ListView> e)
+        protected override void OnElementChanged(ElementChangedEventArgs<ListView> e)
         {
             base.OnElementChanged(e);
 
-            if(e?.OldElement == null)
+            if(e?.OldElement != null)
             {
                 this.Control.ItemClick -= this.Control_ItemClick;
             }

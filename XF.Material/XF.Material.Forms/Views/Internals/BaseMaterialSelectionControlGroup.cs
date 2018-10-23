@@ -101,9 +101,9 @@ namespace XF.Material.Forms.Views.Internals
             set => this.SetValue(VerticalSpacingProperty, value);
         }
 
-        protected virtual void CreateChoices() { }
-
         internal abstract ObservableCollection<MaterialSelectionControlModel> Models { get; }
+
+        protected abstract void CreateChoices();
 
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

@@ -17,7 +17,7 @@ namespace XF.Material.Forms.Views
     {
         public static readonly BindableProperty SelectedIndexChangedCommandProperty = BindableProperty.Create(nameof(SelectedIndexChangedCommand), typeof(Command<int>), typeof(MaterialRadioButtonGroup));
 
-        public static readonly BindableProperty SelectedIndexProperty = BindableProperty.Create(nameof(SelectedIndex), typeof(int), typeof(MaterialRadioButtonGroup), -1);
+        public static readonly BindableProperty SelectedIndexProperty = BindableProperty.Create(nameof(SelectedIndex), typeof(int), typeof(MaterialRadioButtonGroup), -1, BindingMode.TwoWay);
 
         private MaterialSelectionControlModel _selectedModel;
         
@@ -88,6 +88,16 @@ namespace XF.Material.Forms.Views
             selectionList.HeightRequest = (this.Choices.Count * 48) + 2;
         }
 
+        protected override SizeRequest OnMeasure(double widthConstraint, double heightConstraint)
+        {
+            if(widthConstraint * heightConstraint != 0 && this.SelectedIndex >= 0)
+            {
+                _selectedModel = this.Models[this.SelectedIndex];
+            }
+
+            return base.OnMeasure(widthConstraint, heightConstraint);
+        }
+
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             base.OnPropertyChanged(propertyName);
@@ -96,8 +106,8 @@ namespace XF.Material.Forms.Views
             {
                 if (this.SelectedIndex >= 0 && this.Models != null && this.Models.Any())
                 {
-                    _selectedModel = this.Models[this.SelectedIndex];
-                    _selectedModel.IsSelected = true;
+                    var model = this.Models[this.SelectedIndex];
+                    model.IsSelected = true;
                 }
 
                 this.SelectedIndexChangedCommand?.Execute(this.SelectedIndex);
@@ -107,14 +117,14 @@ namespace XF.Material.Forms.Views
 
         private void RadioButtonSelected(bool isSelected, MaterialSelectionControlModel model)
         {
-            if (isSelected)
+            if(isSelected)
             {
-                if (_selectedModel == model)
+                if(_selectedModel == model)
                 {
                     return;
                 }
 
-                if (_selectedModel != null)
+                if(_selectedModel != null)
                 {
                     _selectedModel.IsSelected = false;
                 }
@@ -123,10 +133,9 @@ namespace XF.Material.Forms.Views
                 this.SelectedIndex = _selectedModel.Index;
             }
 
-            else if (_selectedModel == model)
+            else if(_selectedModel == model)
             {
-                _selectedModel = null;
-                this.SelectedIndex = -1;
+                _selectedModel.IsSelected = true;
             }
         }
     }

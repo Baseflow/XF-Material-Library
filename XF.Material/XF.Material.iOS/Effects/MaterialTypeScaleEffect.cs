@@ -8,7 +8,7 @@ using XF.Material.iOS.Effects;
 [assembly: ExportEffect(typeof(MaterialTypeScaleEffect), "TypeScaleEffect")]
 namespace XF.Material.iOS.Effects
 {
-    internal class MaterialTypeScaleEffect : BaseMaterialEffect<XF.Material.Forms.Effects.MaterialTypeScaleEffect>
+    internal class MaterialTypeScaleEffect : BaseMaterialEffect<Forms.Effects.MaterialTypeScaleEffect>
     {
         protected override void OnElementPropertyChanged(PropertyChangedEventArgs args)
         {

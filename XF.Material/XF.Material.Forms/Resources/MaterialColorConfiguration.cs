@@ -40,7 +40,7 @@ namespace XF.Material.Forms.Resources
         }
 
         /// <summary>
-        /// A color that passes accessibility guidelines for text/iconography when drawn on top of <see cref="MaterialColorConfiguration.Background"/>.
+        /// A color that passes accessibility guidelines for text/iconography when drawn on top of <see cref="Background"/>.
         /// </summary>
         public Color OnBackground
         {
@@ -49,7 +49,7 @@ namespace XF.Material.Forms.Resources
         }
 
         /// <summary>
-        /// A color that passes accessibility guidelines for text/iconography when drawn on top of <see cref="MaterialColorConfiguration.Error"/>.
+        /// A color that passes accessibility guidelines for text/iconography when drawn on top of <see cref="Error"/>.
         /// </summary>
         public Color OnError
         {
@@ -58,7 +58,7 @@ namespace XF.Material.Forms.Resources
         }
 
         /// <summary>
-        /// A color that passes accessibility guidelines for text/iconography when drawn on top of <see cref="MaterialColorConfiguration.Primary"/>.
+        /// A color that passes accessibility guidelines for text/iconography when drawn on top of <see cref="Primary"/>.
         /// </summary>
         public Color OnPrimary
         {
@@ -67,7 +67,7 @@ namespace XF.Material.Forms.Resources
         }
 
         /// <summary>
-        /// 	A color that passes accessibility guidelines for text/iconography when drawn on top of <see cref="MaterialColorConfiguration.Secondary"/>.
+        /// 	A color that passes accessibility guidelines for text/iconography when drawn on top of <see cref="Secondary"/>.
         /// </summary>
         public Color OnSecondary
         {
@@ -82,7 +82,7 @@ namespace XF.Material.Forms.Resources
         }
 
         /// <summary>
-        /// A color that passes accessibility guidelines for text/iconography when drawn on top of <see cref="MaterialColorConfiguration.Surface"/>
+        /// A color that passes accessibility guidelines for text/iconography when drawn on top of <see cref="Surface"/>
         /// </summary>
         public Color OnSurface
         {
@@ -100,7 +100,7 @@ namespace XF.Material.Forms.Resources
         }
 
         /// <summary>
-        /// A tonal variation of <see cref="MaterialColorConfiguration.Primary"/>.
+        /// A tonal variation of <see cref="Primary"/>.
         /// </summary>
         public Color PrimaryVariant
         {
@@ -110,7 +110,7 @@ namespace XF.Material.Forms.Resources
 
         /// <summary>
         /// Accents select parts of your UI.
-        /// If not provided, use <see cref="MaterialColorConfiguration.Primary"/>.
+        /// If not provided, use <see cref="Primary"/>.
         /// </summary>
         public Color Secondary
         {
@@ -132,7 +132,7 @@ namespace XF.Material.Forms.Resources
         }
 
         /// <summary>
-        /// A tonal variation of <see cref="MaterialColorConfiguration.Secondary"/>.
+        /// A tonal variation of <see cref="Secondary"/>.
         /// </summary>
         public Color SecondaryVariant
         {

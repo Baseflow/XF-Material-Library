@@ -1,7 +1,7 @@
 
 <img src="images/xf.material_logo.png" width="112" />
 
-# XF.Material Library [![NuGet](https://img.shields.io/badge/version-1.1.1-%23607D8B.svg?style=plastic)](https://github.com/contrix09/XF-Material-Library/blob/master/RELEASE_NOTES.md)
+# XF.Material Library [![NuGet](https://img.shields.io/badge/version-1.1.2-%23607D8B.svg?style=plastic)](https://github.com/contrix09/XF-Material-Library/blob/master/RELEASE_NOTES.md)
 
 A Xamarin.Forms library for Xamarin.Android and Xamarin.iOS to implement [Google's Material Design](https://material.io/design).
 
@@ -81,7 +81,7 @@ public override bool FinishedLaunching(UIApplication app, NSDictionary options)
 
 ### Additional configuration for iOS
 
-In order to be able to change the status bar color using [this](#changing-the-status-bar-color) or by setting your app colors [here](#adding-the-material-resources), add this to your `info.plist` file:
+In order to be able to change the status bar's colors using [this](#changing-the-status-bar-color) or by setting your app colors [here](#adding-the-material-resources), add this to your `info.plist` file:
 
 ```xml
 <key>UIViewControllerBasedStatusBarAppearance</key>

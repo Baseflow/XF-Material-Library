@@ -153,14 +153,26 @@ namespace XF.Material.Forms.Dialogs
         private void NegativeButton_Clicked(object sender, EventArgs e)
         {
             this.Dispose();
+            _checkboxGroup?.SelectedIndices.Clear();
         }
 
         private void PositiveButton_Clicked(object sender, EventArgs e)
         {
+            this.Dispose();
             var result = (_radioButtonGroup?.SelectedIndex) ?? _checkboxGroup?.SelectedIndices.ToArray() as object;
             this.InputTaskCompletionSource.SetResult(result);
-            this.Dispose();
             _checkboxGroup?.SelectedIndices.Clear();
+        }
+
+        protected override void OnDisappearingAnimationEnd()
+        {
+            base.OnDisappearingAnimationEnd();
+
+            if(this.InputTaskCompletionSource.Task.Status == TaskStatus.WaitingForActivation)
+            {
+                var result = (_radioButtonGroup?.SelectedIndex) ?? _checkboxGroup?.SelectedIndices.ToArray() as object;
+                this.InputTaskCompletionSource.SetResult(result);
+            }
         }
 
         protected override void OnDisappearing()
@@ -181,7 +193,7 @@ namespace XF.Material.Forms.Dialogs
             NegativeButton.Clicked -= this.NegativeButton_Clicked;
         }
 
-        private void DialogActionList_SelectedIndexChanged(object sender, Views.SelectedIndexChangedEventArgs e)
+        private void DialogActionList_SelectedIndexChanged(object sender, SelectedIndexChangedEventArgs e)
         {
             PositiveButton.IsEnabled = e.Index >= 0;
         }

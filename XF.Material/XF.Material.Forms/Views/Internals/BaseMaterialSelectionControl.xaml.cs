@@ -34,6 +34,7 @@ namespace XF.Material.Forms.Views.Internals
 
         private string _selectedSource;
         private string _unselectedSource;
+        private readonly MaterialSelectionControlType _controlType;
 
         internal BaseMaterialSelectionControl(MaterialSelectionControlType controlType)
         {
@@ -52,6 +53,7 @@ namespace XF.Material.Forms.Views.Internals
                     break;
             }
 
+            _controlType = controlType;
             selectionIcon.Source = this.IsSelected ? _selectedSource : _unselectedSource;
             selectionIcon.TintColor = this.IsSelected ? this.SelectedColor : this.UnselectedColor;
             selectionButton.CornerRadius = Device.RuntimePlatform == Device.Android ? 22 : 18;

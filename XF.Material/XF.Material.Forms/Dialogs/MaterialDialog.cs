@@ -10,12 +10,14 @@ namespace XF.Material.Forms.Dialogs
     /// </summary>
     public sealed class MaterialDialog : IMaterialDialog
     {
+        private static readonly Lazy<IMaterialDialog> MaterialDialogInstance = new Lazy<IMaterialDialog>(() => new MaterialDialog());
+
         internal MaterialDialog() { }
 
         /// <summary>
         /// The current instance to use for showing modal dialogs.
         /// </summary>
-        public static IMaterialDialog Instance { get; internal set; }
+        public static IMaterialDialog Instance => MaterialDialogInstance.Value;
 
         /// <summary>
         /// Shows an alert dialog for acknowledgement. It only has a single, dismissive action used for acknowledgement.
@@ -119,7 +121,7 @@ namespace XF.Material.Forms.Dialogs
         }
 
         /// <summary>
-        /// Shows a confirmation dialog that allows the user to select one of the listed choices. Returns the index of the selected choice.
+        /// Shows a confirmation dialog that allows the user to select one of the listed choices. Returns the index of the selected choice. If none was selected, returns -1.
         /// </summary>
         /// <param name="title">The title of the confirmation dialog. This parameter must not be null or empty.</param>
         /// <param name="choices">The list of choices the user will choose from.</param>
@@ -131,7 +133,7 @@ namespace XF.Material.Forms.Dialogs
         }
 
         /// <summary>
-        /// Shows a confirmation dialog that allows the user to select one of the listed choices. Returns the index of the selected choice.
+        /// Shows a confirmation dialog that allows the user to select one of the listed choices. Returns the index of the selected choice. If none was selected, returns -1.
         /// </summary>
         /// <param name="title">The title of the confirmation dialog. This parameter must not be null or empty.</param>
         /// <param name="choices">The list of choices the user will choose from.</param>
@@ -145,7 +147,7 @@ namespace XF.Material.Forms.Dialogs
         }
 
         /// <summary>
-        /// Shows a confirmation dialog that allows the user to select any of the listed choices. Returns the indices of the selected choices.
+        /// Shows a confirmation dialog that allows the user to select any of the listed choices. Returns the indices of the selected choices. If none was selected, returns an empty array.
         /// </summary>
         /// <param name="title">The title of the confirmation dialog. This parameter must not be null or empty.</param>
         /// <param name="choices">The list of choices the user will choose from.</param>
@@ -157,7 +159,7 @@ namespace XF.Material.Forms.Dialogs
         }
 
         /// <summary>
-        /// Shows a confirmation dialog that allows the user to select any of the listed choices. Returns the indices of the selected choices.
+        /// Shows a confirmation dialog that allows the user to select any of the listed choices. Returns the indices of the selected choices. If none was selected, returns an empty array.
         /// </summary>
         /// <param name="title">The title of the confirmation dialog. This parameter must not be null or empty.</param>
         /// <param name="choices">The list of choices the user will choose from.</param>

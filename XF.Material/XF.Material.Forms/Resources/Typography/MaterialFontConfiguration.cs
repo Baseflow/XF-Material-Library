@@ -7,19 +7,19 @@ namespace XF.Material.Forms.Resources.Typography
     /// </summary>
     public sealed class MaterialFontConfiguration : BindableObject
     {
-        public static readonly BindableProperty Body1Property = BindableProperty.Create(nameof(Body1), typeof(string), typeof(MaterialFontConfiguration));
-        public static readonly BindableProperty Body2Property = BindableProperty.Create(nameof(Body2), typeof(string), typeof(MaterialFontConfiguration));
-        public static readonly BindableProperty ButtonProperty = BindableProperty.Create(nameof(Button), typeof(string), typeof(MaterialFontConfiguration));
-        public static readonly BindableProperty CaptionProperty = BindableProperty.Create(nameof(Caption), typeof(string), typeof(MaterialFontConfiguration));
-        public static readonly BindableProperty H1Property = BindableProperty.Create(nameof(H1), typeof(string), typeof(MaterialFontConfiguration));
-        public static readonly BindableProperty H2Property = BindableProperty.Create(nameof(H2), typeof(string), typeof(MaterialFontConfiguration));
-        public static readonly BindableProperty H3Property = BindableProperty.Create(nameof(H3), typeof(string), typeof(MaterialFontConfiguration));
-        public static readonly BindableProperty H4Property = BindableProperty.Create(nameof(H4), typeof(string), typeof(MaterialFontConfiguration));
-        public static readonly BindableProperty H5Property = BindableProperty.Create(nameof(H5), typeof(string), typeof(MaterialFontConfiguration));
-        public static readonly BindableProperty H6Property = BindableProperty.Create(nameof(H6), typeof(string), typeof(MaterialFontConfiguration));
-        public static readonly BindableProperty OverlineProperty = BindableProperty.Create(nameof(Overline), typeof(string), typeof(MaterialFontConfiguration));
-        public static readonly BindableProperty Subtitle1Property = BindableProperty.Create(nameof(Subtitle1), typeof(string), typeof(MaterialFontConfiguration));
-        public static readonly BindableProperty Subtitle2Property = BindableProperty.Create(nameof(Subtitle2), typeof(string), typeof(MaterialFontConfiguration));
+        public static readonly BindableProperty Body1Property = BindableProperty.Create(nameof(Body1), typeof(string), typeof(MaterialFontConfiguration), Font.Default.FontFamily);
+        public static readonly BindableProperty Body2Property = BindableProperty.Create(nameof(Body2), typeof(string), typeof(MaterialFontConfiguration), Font.Default.FontFamily);
+        public static readonly BindableProperty ButtonProperty = BindableProperty.Create(nameof(Button), typeof(string), typeof(MaterialFontConfiguration), Font.Default.FontFamily);
+        public static readonly BindableProperty CaptionProperty = BindableProperty.Create(nameof(Caption), typeof(string), typeof(MaterialFontConfiguration), Font.Default.FontFamily);
+        public static readonly BindableProperty H1Property = BindableProperty.Create(nameof(H1), typeof(string), typeof(MaterialFontConfiguration), Font.Default.FontFamily);
+        public static readonly BindableProperty H2Property = BindableProperty.Create(nameof(H2), typeof(string), typeof(MaterialFontConfiguration), Font.Default.FontFamily);
+        public static readonly BindableProperty H3Property = BindableProperty.Create(nameof(H3), typeof(string), typeof(MaterialFontConfiguration), Font.Default.FontFamily);
+        public static readonly BindableProperty H4Property = BindableProperty.Create(nameof(H4), typeof(string), typeof(MaterialFontConfiguration), Font.Default.FontFamily);
+        public static readonly BindableProperty H5Property = BindableProperty.Create(nameof(H5), typeof(string), typeof(MaterialFontConfiguration), Font.Default.FontFamily);
+        public static readonly BindableProperty H6Property = BindableProperty.Create(nameof(H6), typeof(string), typeof(MaterialFontConfiguration), Font.Default.FontFamily);
+        public static readonly BindableProperty OverlineProperty = BindableProperty.Create(nameof(Overline), typeof(string), typeof(MaterialFontConfiguration), Font.Default.FontFamily);
+        public static readonly BindableProperty Subtitle1Property = BindableProperty.Create(nameof(Subtitle1), typeof(string), typeof(MaterialFontConfiguration), Font.Default.FontFamily);
+        public static readonly BindableProperty Subtitle2Property = BindableProperty.Create(nameof(Subtitle2), typeof(string), typeof(MaterialFontConfiguration), Font.Default.FontFamily);
       
         /// <summary>
         /// Body 1 font family, used for long-form writing and small text sizes.
