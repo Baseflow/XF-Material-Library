@@ -10,22 +10,10 @@ namespace MaterialMvvmSample.Views
     {
         protected TViewModel ViewModel { get; }
 
-        private bool _bindContextSet = false;
-
         protected BaseView()
         {
             this.ViewModel = CommonServiceLocator.ServiceLocator.Current.GetInstance<TViewModel>();
-        }
-
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-
-            if (this.BindingContext == null && !_bindContextSet)
-            {
-                this.BindingContext = this.ViewModel;
-                _bindContextSet = true;
-            }
+            this.BindingContext = this.ViewModel;
         }
     }
 }

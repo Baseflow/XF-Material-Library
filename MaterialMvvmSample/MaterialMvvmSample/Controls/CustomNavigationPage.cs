@@ -4,10 +4,11 @@ using System;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using XF.Material.Forms.Views;
 
 namespace MaterialMvvmSample.Controls
 {
-    public sealed class CustomNavigationPage : NavigationPage
+    public sealed class CustomNavigationPage : MaterialNavigationPage
     {
         private object _currentNavigationParameter;
 
@@ -26,6 +27,18 @@ namespace MaterialMvvmSample.Controls
             _currentNavigationParameter = parameter;
             var view = ViewFactory.GetView(rootViewName);
             await this.Navigation.PushAsync(view, true);
+        }
+
+        public async Task PushModalAsync(string rootViewName, object parameter = null)
+        {
+            _currentNavigationParameter = parameter;
+            var view = ViewFactory.GetView(rootViewName);
+            await this.Navigation.PushModalAsync(view, true);
+        }
+
+        public async Task PopModalAsync()
+        {
+            await this.Navigation.PopModalAsync(true);
         }
 
         protected override void OnAppearing()

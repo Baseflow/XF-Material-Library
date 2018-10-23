@@ -44,7 +44,7 @@ namespace MaterialMvvmSample.ViewModels
         {
             var result = await MaterialDialog.Instance.SelectChoicesAsync("Select any", this.Jobs);
 
-            foreach(var ind in result)
+            foreach (var ind in result)
             {
                 System.Diagnostics.Debug.WriteLine(this.Jobs[ind]);
             }

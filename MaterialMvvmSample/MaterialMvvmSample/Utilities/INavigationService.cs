@@ -9,5 +9,9 @@ namespace MaterialMvvmSample.Utilities
         Task PushAsync(string viewName, object parameter = null);
 
         Task PopAsync();
+
+        Task PushModalAsync(string viewName, object parameter = null);
+
+        Task PopModalAsync();
     }
 }
