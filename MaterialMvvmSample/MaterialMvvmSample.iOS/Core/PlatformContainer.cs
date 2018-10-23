@@ -1,9 +1,9 @@
 ﻿using Autofac;
 using MaterialMvvmSample.Core;
 
-namespace MaterialMvvmSample.Droid.Core
+namespace MaterialMvvmSample.iOS.Core
 {
-    public class AndroidAppContainer : AppContainer
+    public class PlatformContainer : AppContainer
     {
         protected override void RegisterServices(ContainerBuilder containerBuilder)
         {

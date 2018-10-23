@@ -5,16 +5,17 @@
     xmlns:local="clr-namespace:MaterialMvvmSample.Views"
     xmlns:material="clr-namespace:XF.Material.Forms.Views;assembly=XF.Material.Forms"
     Padding="16">
-
     <StackLayout>
         <material:MaterialCard Elevation="4"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="FillAndExpand">
-            <material:MaterialButton Command="{Binding ButtonCommand}"
-                HorizontalOptions="Center"
-                Text="BUTTON"
-                VerticalOptions="Center" />
+            <StackLayout>
+                <material:MaterialCheckboxGroup Choices="{Binding Jobs}" SelectedIndices="{Binding SelectedJobs}" />
+                <material:MaterialRadioButtonGroup Choices="{Binding Jobs}" SelectedIndex="{Binding SelectedJobIndex}" />
+                <material:MaterialButton Command="{Binding ButtonCommand}"
+                    HorizontalOptions="End"
+                    Text="Select Jobs" />
+            </StackLayout>
         </material:MaterialCard>
     </StackLayout>
-
 </local:BaseMainView>

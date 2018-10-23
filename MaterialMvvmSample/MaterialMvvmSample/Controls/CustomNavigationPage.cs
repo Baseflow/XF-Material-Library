@@ -67,6 +67,7 @@ namespace MaterialMvvmSample.Controls
             if (e.Page.BindingContext is BaseViewModel viewModel)
             {
                 viewModel?.OnViewPushed(_currentNavigationParameter);
+                System.Diagnostics.Debug.WriteLine("Page pushed");
                 _currentNavigationParameter = null;
             }
         }

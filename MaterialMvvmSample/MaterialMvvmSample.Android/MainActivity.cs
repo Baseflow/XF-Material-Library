@@ -22,7 +22,7 @@ namespace MaterialMvvmSample.Droid
             Xamarin.Forms.Forms.Init(this, savedInstanceState);
             XF.Material.Droid.Material.Init(this, savedInstanceState);
 
-            var appContainer = new AndroidAppContainer();
+            var appContainer = new PlatformContainer();
             appContainer.Setup();
 
             var app = CommonServiceLocator.ServiceLocator.Current.GetInstance<App>();

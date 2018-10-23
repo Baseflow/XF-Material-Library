@@ -6,7 +6,7 @@ using Xamarin.Forms;
 
 namespace MaterialMvvmSample.Views
 {
-    public abstract class BaseView<TViewModel> : ContentPage where TViewModel :BaseViewModel
+    public abstract class BaseView<TViewModel> : ContentPage where TViewModel : BaseViewModel
     {
         protected TViewModel ViewModel { get; }
 
