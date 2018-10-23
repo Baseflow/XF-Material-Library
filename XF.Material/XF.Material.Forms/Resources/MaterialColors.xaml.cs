@@ -27,8 +27,6 @@ namespace XF.Material.Forms.Resources
             this.TryAddColorResource(MaterialConstants.Color.ON_SURFACE, materialColor.OnSurface);
             this.TryAddColorResource(MaterialConstants.Color.ERROR, materialColor.Error);
             this.TryAddColorResource(MaterialConstants.Color.ON_ERROR, materialColor.OnError);
-
-            Material.PlatformConfiguration.ChangeStatusBarColor(materialColor.PrimaryVariant);
         }
 
         private void TryAddColorResource(string key, Color color)

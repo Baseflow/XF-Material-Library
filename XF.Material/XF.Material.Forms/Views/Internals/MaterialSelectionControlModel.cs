@@ -81,5 +81,12 @@ namespace XF.Material.Forms.Views.Internals
             get => _verticalSpacing;
             set => this.Set(ref _verticalSpacing, value);
         }
+
+        private bool _canBeUnselected = true;
+        public bool CanBeUnselected
+        {
+            get => _canBeUnselected;
+            set => this.Set(ref _canBeUnselected, value);
+        }
     }
 }

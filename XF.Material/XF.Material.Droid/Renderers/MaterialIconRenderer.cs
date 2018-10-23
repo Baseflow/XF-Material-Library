@@ -46,7 +46,7 @@ namespace XF.Material.Droid.Renderers
             {
                 var tintColor = _materialIcon.TintColor.ToAndroid();
                 DrawableCompat.SetTint(_drawable, tintColor);
-                this.Control.Drawable.Dispose();
+                this.Control.Drawable?.Dispose();
                 this.Control.SetImageDrawable(_drawable);
             }
         }

@@ -132,18 +132,22 @@ namespace XF.Material.iOS.Renderers
         {
             if(_withIcon)
             {
-                var image = UIImage.FromFile(_materialButton.Image.File);
-                UIGraphics.BeginImageContextWithOptions(new CGSize(18, 18), false, 0f);
-                image.Draw(new CGRect(0, 0, 18, 18));
+                using (var image = UIImage.FromFile(_materialButton.Image.File))
+                {
+                    UIGraphics.BeginImageContextWithOptions(new CGSize(18, 18), false, 0f);
+                    image.Draw(new CGRect(0, 0, 18, 18));
 
-                var newImage = UIGraphics.GetImageFromCurrentImageContext();
-                UIGraphics.EndImageContext();
+                    using (var newImage = UIGraphics.GetImageFromCurrentImageContext())
+                    {
+                        UIGraphics.EndImageContext();
 
-                this.Control.SetImage(newImage, UIControlState.Normal);
-                this.Control.SetImage(newImage, UIControlState.Disabled);
-                this.Control.TitleEdgeInsets = new UIEdgeInsets(0f, 0f, 0f, 0f);
-                this.Control.ImageEdgeInsets = new UIEdgeInsets(0f, -5f, 0f, 0f);
-                this.Control.TintColor = _materialButton.TextColor.ToUIColor();
+                        this.Control.SetImage(newImage, UIControlState.Normal);
+                        this.Control.SetImage(newImage, UIControlState.Disabled);
+                        this.Control.TitleEdgeInsets = new UIEdgeInsets(0f, 0f, 0f, 0f);
+                        this.Control.ImageEdgeInsets = new UIEdgeInsets(0f, -5f, 0f, 0f);
+                        this.Control.TintColor = _materialButton.TextColor.ToUIColor();
+                    }
+                }
             }
         }
 

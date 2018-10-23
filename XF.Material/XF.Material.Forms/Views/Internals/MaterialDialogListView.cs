@@ -4,7 +4,7 @@ using Xamarin.Forms;
 namespace XF.Material.Forms.Views.Internals
 {
     /// <summary>
-    /// Used for rendering the <see cref="Xamarin.Forms.ListView"/> control in <see cref="XF.Material.Forms.Dialogs.MaterialSimpleDialog"/>.
+    /// Used for rendering the <see cref="ListView"/> control in <see cref="Dialogs.MaterialSimpleDialog"/>.
     /// </summary>
     public sealed class MaterialDialogListView : ListView
     {

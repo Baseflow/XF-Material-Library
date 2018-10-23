@@ -1,5 +1,13 @@
 # Release Notes
 
+##### 1.1.2
+- Reworked `MaterialRadioButtonGroup`. Once a choice has been selected, you can no longer unselect a choice. A bug reported in this [issue](https://github.com/contrix09/XF-Material-Library/issues/11).
+- Changed the minimum and target `MonoAndroid` framework version to `8.1`. Fixed also some inconsistencies in the referenced NuGet packages of the library. A bug reported in this [issue](https://github.com/contrix09/XF-Material-Library/issues/13).
+- Removed the `font` directory in the `Resources` folder in `XF.Material.Droid`.
+- Fixed a bug when calling `XF.Material.Forms.Material.Init(Application app)` causing `System.NullException`. A bug reported in this [issue](https://github.com/contrix09/XF-Material-Library/issues/14).
+- Fixed a bug when canceling a confirmation dialog shown using `MaterialDialog.Instance.SelectChoicesAsync()` not clearing the currently selected choices.
+- Fixed a bug in `MaterialRadioButtonGroup` and `MaterialCheckboxGroup` not updating `SelectedIndex` and `SelectedIndices` property, respectively.
+
 ##### 1.1.1
 - Added parameters `selectedIndex` and `selectedIndices` to `IMaterialDialog.SelectChoiceAsync` and `IMaterialDialog.SelectChoicesAsync`. A feature enhancement as stated in this [issue](https://github.com/contrix09/XF-Material-Library/issues/9).
 - Fixed `MaterialRadioButtonGroup` and `MaterialCheckboxGroup` having an extra empty row.

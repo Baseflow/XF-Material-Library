@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using Xamarin.Forms;
-using XF.Material.Forms.Dialogs;
 using XF.Material.Forms.Resources;
 using XF.Material.Forms.Resources.Typography;
 using XF.Material.Forms.Utilities;
@@ -13,6 +11,7 @@ namespace XF.Material.Forms
     /// </summary>
     public class Material
     {
+        private static readonly Lazy<IMaterialUtility> MaterialUtilityInstance = new Lazy<IMaterialUtility>(() => DependencyService.Get<IMaterialUtility>());
         private readonly MaterialConfiguration _config;
         private readonly ResourceDictionary _res;
 
@@ -29,14 +28,17 @@ namespace XF.Material.Forms
         internal Material(Application app)
         {
             _res = app.Resources;
-            PlatformConfiguration = DependencyService.Get<IMaterialUtility>();
-            MaterialDialog.Instance = new MaterialDialog();
+            _config = new MaterialConfiguration
+            {
+                ColorConfiguration = new MaterialColorConfiguration(),
+                FontConfiguration = new MaterialFontConfiguration()
+            };
         }
 
         /// <summary>
         /// A dependency service for configuring cross-platform UI customizations.
         /// </summary>
-        public static IMaterialUtility PlatformConfiguration { get; private set; }
+        public static IMaterialUtility PlatformConfiguration => MaterialUtilityInstance.Value;
 
         /// <summary>
         /// Gets a resource of the specified type from the current <see cref="Application.Resources"/>.
@@ -45,7 +47,6 @@ namespace XF.Material.Forms
         /// <param name="key">The key of the resource object. For a list of Material resource keys, see <see cref="MaterialConstants"/>.</param>
         /// <exception cref="InvalidCastException" />
         /// <exception cref="ArgumentNullException" />
-        /// <exception cref="KeyNotFoundException" />
         public static T GetResource<T>(string key)
         {
             Application.Current.Resources.TryGetValue(key ?? throw new ArgumentNullException(nameof(key)), out object value);
@@ -60,7 +61,7 @@ namespace XF.Material.Forms
                 throw new InvalidCastException($"The resource retrieved was not of the type {typeof(T)}. Use {value.GetType()} instead.");
             }
 
-            throw new KeyNotFoundException($"Cannot find {key} in current resource dictionary.");
+            return default(T);
         }
 
         /// <summary>
@@ -100,7 +101,7 @@ namespace XF.Material.Forms
 
         private void MergeMaterialDictionaries()
         {
-            _res.MergedDictionaries.Add(new MaterialColors(_config.ColorConfiguration ?? new MaterialColorConfiguration()));
+            _res.MergedDictionaries.Add(new MaterialColors(_config.ColorConfiguration));
             _res.MergedDictionaries.Add(new MaterialTypography(_config.FontConfiguration));
             _res.MergedDictionaries.Add(new MaterialSizes());
             _res.MergedDictionaries.Add(new MaterialStyles());

@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0"?>
-<package >
+<package>
   <metadata>
     <id>XF.Material</id>
     <title>XF.Material Library</title>
-    <version>1.1.1</version>
+    <version>1.1.2</version>
     <authors>Dustin Catap</authors>
     <owners>Dustin Catap</owners>
     <projectUrl>https://github.com/contrix09/XF-Material-Library</projectUrl>
@@ -15,84 +15,65 @@
     <copyright>Copyright © 2018 - Dustin Catap</copyright>
     <tags>Xamarin.Forms Xamarin</tags>
     <dependencies>
-      
       <group targetFramework="netstandard2.0">
         <dependency id="Com.Airbnb.Xamarin.Forms.Lottie"
                     version="2.5.4" />
         <dependency id="Rg.Plugins.Popup"
                     version="1.1.4.168" />
         <dependency id="Xamarin.Forms"
-                    version="3.1.0.697729" />
+                    version="3.2.0.839982" />
       </group>
-
-      <group targetFramework="MonoAndroid10">
+      <group targetFramework="MonoAndroid81">
         <dependency id="Com.Airbnb.Xamarin.Forms.Lottie"
+                    version="2.5.4" />
+        <dependency id="Com.Airbnb.Android.Lottie"
                     version="2.5.4" />
         <dependency id="Rg.Plugins.Popup"
                     version="1.1.4.168" />
-        <dependency id="Xamarin.Android.Support.Animated.Vector.Drawable"
-                    version=" 25.4.0.2" />
-        <dependency id="Xamarin.Android.Support.Annotations"
-                    version="25.4.0.2" />
-        <dependency id="Xamarin.Android.Support.Compat"
-                    version="25.4.0.2" />
-        <dependency id="Xamarin.Android.Support.Core.UI"
-                    version="25.4.0.2" />
-        <dependency id="Xamarin.Android.Support.Core.Utils"
-                    version="25.4.0.2" />
         <dependency id="Xamarin.Android.Support.Design"
-                    version="25.4.0.2" />
-        <dependency id="Xamarin.Android.Support.Fragment"
-                    version="25.4.0.2" />
-        <dependency id="Xamarin.Android.Support.Media.Compat"
-                    version="25.4.0.2" />
+                    version="27.0.2.1" />
         <dependency id="Xamarin.Android.Support.v4"
-                    version="25.4.0.2" />
+                    version="27.0.2.1" />
         <dependency id="Xamarin.Android.Support.v7.AppCompat"
-                    version="25.4.0.2" />
+                    version="27.0.2.1" />
         <dependency id="Xamarin.Android.Support.v7.CardView"
-                    version="25.4.0.2" />
+                    version="27.0.2.1" />
         <dependency id="Xamarin.Android.Support.v7.MediaRouter"
-                    version="25.4.0.2" />
-        <dependency id="Xamarin.Android.Support.Vector.Drawable"
-                    version="25.4.0.2" />
+                    version="27.0.2.1" />
         <dependency id="Xamarin.Forms"
-                    version="3.1.0.697729" />
+                    version="3.2.0.839982" />
       </group>
-
       <group targetFramework="Xamarin.iOS10">
         <dependency id="Com.Airbnb.Xamarin.Forms.Lottie"
                     version="2.5.4" />
+        <dependency id="Com.Airbnb.iOS.Lottie"
+                    version="2.5.4" />
         <dependency id="Rg.Plugins.Popup"
                     version="1.1.4.168" />
         <dependency id="Xamarin.Forms"
-                    version="3.1.0.697729" />
+                    version="3.2.0.839982" />
       </group>
-      
     </dependencies>
   </metadata>
   <files>
-    
     <file src="XF.Material.Forms\bin\Release\netstandard2.0\XF.Material.Forms.dll"
           target="lib\netstandard2.0" />
     <file src="XF.Material.Forms\bin\Release\netstandard2.0\XF.Material.Forms.pdb"
           target="lib\netstandard2.0" />
     <file src="XF.Material.Forms\bin\Release\netstandard2.0\XF.Material.Forms.xml"
           target="lib\netstandard2.0" />
-
     <file src="XF.Material.Droid\bin\Release\XF.Material.Forms.dll"
-          target="lib\MonoAndroid10" />
+          target="lib\MonoAndroid81" />
     <file src="XF.Material.Droid\bin\Release\XF.Material.Forms.pdb"
-          target="lib\MonoAndroid10" />
+          target="lib\MonoAndroid81" />
     <file src="XF.Material.Droid\bin\Release\XF.Material.Forms.xml"
-          target="lib\MonoAndroid10" />
+          target="lib\MonoAndroid81" />
     <file src="XF.Material.Droid\bin\Release\XF.Material.Droid.dll"
-          target="lib\MonoAndroid10" />
+          target="lib\MonoAndroid81" />
     <file src="XF.Material.Droid\bin\Release\XF.Material.Droid.pdb"
-          target="lib\MonoAndroid10" />
+          target="lib\MonoAndroid81" />
     <file src="XF.Material.Droid\bin\Release\XF.Material.Droid.xml"
-          target="lib\MonoAndroid10" />
-
+          target="lib\MonoAndroid81" />
     <file src="XF.Material.iOS\bin\Release\XF.Material.Forms.dll"
           target="lib\Xamarin.iOS10" />
     <file src="XF.Material.iOS\bin\Release\XF.Material.Forms.pdb"

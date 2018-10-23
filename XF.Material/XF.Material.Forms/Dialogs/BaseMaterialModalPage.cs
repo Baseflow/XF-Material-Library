@@ -11,11 +11,11 @@ namespace XF.Material.Forms.Dialogs
     /// <summary>
     /// Base class of Material modal dialogs.
     /// </summary>
-    public class BaseMaterialModalPage : PopupPage, IMaterialModalPage
+    public abstract class BaseMaterialModalPage : PopupPage, IMaterialModalPage
     {
         private bool _disposed;
 
-        internal BaseMaterialModalPage()
+        protected BaseMaterialModalPage()
         {
             this.Animation = new ScaleAnimation()
             {
@@ -46,8 +46,15 @@ namespace XF.Material.Forms.Dialogs
             {
                 Device.BeginInvokeOnMainThread(async () =>
                 {
-                    await PopupNavigation.Instance.RemovePageAsync(this, true);
-                    this.Content = null;
+                    try
+                    {
+                        await PopupNavigation.Instance.RemovePageAsync(this, true);
+                        this.Content = null;
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Diagnostics.Debug.WriteLine(ex);
+                    }
                 });
 
                 _disposed = true;

@@ -4,7 +4,7 @@ using XF.Material.Forms.Resources;
 namespace XF.Material.Forms.Views
 {
     /// <summary>
-    /// A <see cref="NavigationPage"/> that adds a shadow to the toolbar. 
+    /// A <see cref="NavigationPage"/> that applies a Material Design to a page. 
     /// </summary>
     public class MaterialNavigationPage : NavigationPage
     {
@@ -20,12 +20,26 @@ namespace XF.Material.Forms.Views
         {
             this.SetDynamicResource(BarBackgroundColorProperty, MaterialConstants.Color.PRIMARY);
             this.SetDynamicResource(BarTextColorProperty, MaterialConstants.Color.ON_PRIMARY);
-            this.Pushed += this.MaterialNavigationPage_Pushed;
 
             if(rootPage.BackgroundColor.IsDefault)
             {
                 rootPage.SetDynamicResource(BackgroundColorProperty, MaterialConstants.Color.BACKGROUND);
+                Material.PlatformConfiguration.ChangeStatusBarColor(Material.Color.PrimaryVariant);
             }
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            this.Pushed += this.MaterialNavigationPage_Pushed;
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+
+            this.Pushed -= this.MaterialNavigationPage_Pushed;
         }
 
         private void MaterialNavigationPage_Pushed(object sender, NavigationEventArgs e)
@@ -33,6 +47,7 @@ namespace XF.Material.Forms.Views
             if (e?.Page != null && e.Page.BackgroundColor.IsDefault)
             {
                 e.Page.SetDynamicResource(BackgroundColorProperty, MaterialConstants.Color.BACKGROUND);
+                Material.PlatformConfiguration.ChangeStatusBarColor(Material.Color.PrimaryVariant);
             }
         }
     }

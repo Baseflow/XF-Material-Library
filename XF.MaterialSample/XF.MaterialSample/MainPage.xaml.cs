@@ -40,13 +40,13 @@ namespace XF.MaterialSample
             //};
 
             //radioButtonGroup.SelectedIndex = 1;
-            //radioButtonGroup.SelectedIndexChangedCommand = new Command<int>((s) =>
-            //{
-            //    if (s >= 0)
-            //    {
-            //        System.Diagnostics.Debug.WriteLine(radioButtonGroup.Choices[s]);
-            //    }
-            //});
+            radioButtonGroup.SelectedIndexChangedCommand = new Command<int>((s) =>
+            {
+                if (s >= 0)
+                {
+                    System.Diagnostics.Debug.WriteLine(radioButtonGroup.Choices[s]);
+                }
+            });
 
             //radioButtonGroup.SelectedIndices = new List<int>(2) { 1, 3 };
 
@@ -292,6 +292,8 @@ namespace XF.MaterialSample
             var result = await MaterialDialog.Instance.SelectChoiceAsync(title: "Select a  job",
                                                                     choices: choices,
                                                                     configuration: confirmationDialogConfiguration);
+
+            System.Diagnostics.Debug.WriteLine(result);
         }
 
         private void BlueSlider_ValueChanged(object sender, ValueChangedEventArgs e)

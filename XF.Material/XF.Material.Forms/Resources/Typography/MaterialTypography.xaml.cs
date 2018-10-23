@@ -31,11 +31,6 @@ namespace XF.Material.Forms.Resources.Typography
 
         private void TryAddStringResource(string key, string value)
         {
-            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
-            {
-                return;
-            }
-
             this.Add(key, value);
         }
     }

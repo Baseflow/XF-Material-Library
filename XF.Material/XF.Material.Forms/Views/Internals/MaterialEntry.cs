@@ -3,7 +3,7 @@
 namespace XF.Material.Forms.Views.Internals
 {
     /// <summary>
-    /// Used for rendering the <see cref="Xamarin.Forms.Entry"/> control in <see cref="XF.Material.Forms.Views.MaterialTextField"/>.
+    /// Used for rendering the <see cref="Entry"/> control in <see cref="MaterialTextField"/>.
     /// </summary>
     public class MaterialEntry : Entry
     {

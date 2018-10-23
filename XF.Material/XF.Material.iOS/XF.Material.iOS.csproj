@@ -48,8 +48,8 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Lottie.Forms, Version=2.6.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Com.Airbnb.Xamarin.Forms.Lottie.2.6.3\lib\xamarinios10\Lottie.Forms.dll</HintPath>
+    <Reference Include="Lottie.Forms, Version=2.5.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Com.Airbnb.Xamarin.Forms.Lottie.2.5.4\lib\xamarinios10\Lottie.Forms.dll</HintPath>
     </Reference>
     <Reference Include="Lottie.iOS, Version=2.5.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Com.Airbnb.iOS.Lottie.2.5.4\lib\xamarinios10\Lottie.iOS.dll</HintPath>
