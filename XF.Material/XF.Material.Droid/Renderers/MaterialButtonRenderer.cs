@@ -282,24 +282,25 @@ namespace XF.Material.Droid.Renderers
             {
                 var fileName = _materialButton.Image.File.Split('.').First();
                 var id = this.Resources.GetIdentifier(fileName, "drawable", Material.Context.PackageName);
-                var width = (int)MaterialHelper.ConvertToDp(18);
+                var width = (int)MaterialHelper.ConvertToDp(18 + 4);
                 var height = (int)MaterialHelper.ConvertToDp(18);
+                var left = (int)MaterialHelper.ConvertToDp(4);
                 var drawable = MaterialHelper.GetDrawableCopyFromResource<Drawable>(id);
-                drawable.SetBounds(0, 0, width, height);
+                drawable.SetBounds(left, 0, width, height);
                 drawable.SetTint(_materialButton.TextColor.ToAndroid());
 
                 var currentDrawables = this.Control.GetCompoundDrawables();
 
                 if(currentDrawables != null)
                 {
-                    foreach (var cDrawable in currentDrawables)
+                    for (int i = 0; i < currentDrawables.Length && currentDrawables[i] != null; i++)
                     {
-                        cDrawable.Dispose();
+                        currentDrawables[i].Dispose();
                     }
                 }
 
                 this.Control.SetCompoundDrawables(drawable, null, null, null);
-                this.Control.CompoundDrawablePadding = 8;
+                this.Control.CompoundDrawablePadding = 0;
             }
         }
 
