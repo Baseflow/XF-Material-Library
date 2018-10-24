@@ -1,5 +1,8 @@
 # Release Notes
 
+##### 1.1.2.1
+- Fixed a bug in Android causing `MaterialButtonRenderer` throwing a `System.NullReferenceException` when `MaterialButton` `Image` property is set. A bug reported in this [issue](https://github.com/contrix09/XF-Material-Library/issues/21).
+
 ##### 1.1.2
 - Reworked `MaterialRadioButtonGroup`. Once a choice has been selected, you can no longer unselect a choice. A bug reported in this [issue](https://github.com/contrix09/XF-Material-Library/issues/11).
 - Changed the minimum and target `MonoAndroid` framework version to `8.1`. Fixed also some inconsistencies in the referenced NuGet packages of the library. A bug reported in this [issue](https://github.com/contrix09/XF-Material-Library/issues/13).
