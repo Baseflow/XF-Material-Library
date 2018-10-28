@@ -63,13 +63,12 @@ namespace MaterialMvvmSample.Controls
 
             if (propertyName == nameof(this.RootPage) && this.RootPage != null)
             {
-                EventHandler appearingHandler = null;
-                appearingHandler = delegate
+                void appearingHandler(object sender, EventArgs e)
                 {
                     var viewModel = this.RootPage.BindingContext as BaseViewModel;
                     viewModel?.OnViewPushed(_currentNavigationParameter);
                     this.RootPage.Appearing -= appearingHandler;
-                };
+                }
 
                 this.RootPage.Appearing += appearingHandler;
             }
