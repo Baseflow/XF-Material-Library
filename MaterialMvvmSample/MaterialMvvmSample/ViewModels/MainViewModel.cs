@@ -9,11 +9,6 @@ namespace MaterialMvvmSample.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
-        public MainViewModel()
-        {
-            this.SelectedJobs.CollectionChanged += this.SelectedJobs_CollectionChanged;
-        }
-
         private void SelectedJobs_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             foreach(var item in this.SelectedJobs)
@@ -58,6 +53,16 @@ namespace MaterialMvvmSample.ViewModels
             {
                 System.Diagnostics.Debug.WriteLine("Selected: " + this.Jobs[this.SelectedJobIndex]);
             }
+        }
+
+        public override void CleanUp()
+        {
+            this.SelectedJobs.CollectionChanged -= this.SelectedJobs_CollectionChanged;
+        }
+
+        public override void OnViewPushed(object navigationParameter = null)
+        {
+            this.SelectedJobs.CollectionChanged += this.SelectedJobs_CollectionChanged;
         }
     }
 }
