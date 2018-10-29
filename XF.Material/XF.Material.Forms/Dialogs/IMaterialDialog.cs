@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 using XF.Material.Forms.Dialogs.Configurations;
 
 namespace XF.Material.Forms.Dialogs
@@ -150,5 +151,7 @@ namespace XF.Material.Forms.Dialogs
         /// <param name="msDuration">The duration, in milliseconds, before the snackbar is automatically dismissed.</param>
         /// <param name="configuration">The style of the snackbar.</param>
         Task<bool> SnackbarAsync(string message, string actionButtonText, int msDuration = MaterialSnackbar.DURATION_LONG, MaterialSnackbarConfiguration configuration = null);
+
+        Task<bool> Show(View content, string title = null, string confirmingText = "Ok", string dismissiveText = "Cancel");
     }
 }

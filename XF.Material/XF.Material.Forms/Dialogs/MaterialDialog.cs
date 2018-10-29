@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 using XF.Material.Forms.Dialogs.Configurations;
 
 namespace XF.Material.Forms.Dialogs
@@ -187,6 +188,11 @@ namespace XF.Material.Forms.Dialogs
             MaterialSnackbar.GlobalConfiguration = snackbarConfiguration;
             MaterialSimpleDialog.GlobalConfiguration = simpleDialogConfiguration;
             MaterialConfirmationDialog.GlobalConfiguration = confirmationDialogConfiguration;
+        }
+
+        public async Task<bool> Show(View content, string title = null, string confirmingText = "Ok", string dismissiveText = "Cancel")
+        {
+            return await MaterialDialogFragment.Show(content, title, confirmingText, dismissiveText);
         }
 
         /// <summary>

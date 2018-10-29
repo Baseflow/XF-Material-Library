@@ -6,7 +6,7 @@ namespace XF.Material.Forms.Dialogs
     /// Interface that provides a <see cref="TaskCompletionSource{TResult}"/> property for dialogs awaiting user input.
     /// </summary>
     /// <typeparam name="T">The return type of the <see cref="TaskCompletionSource{TResult}"/></typeparam>
-    public interface IMaterialAwaitableDialog<T>
+    internal interface IMaterialAwaitableDialog<T>
     {
         /// <summary>
         /// Gets or sets the task completion source.
