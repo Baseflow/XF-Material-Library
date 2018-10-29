@@ -15,16 +15,17 @@ namespace XF.Material.Forms.Views
 
         public static readonly BindableProperty MinValueProperty = BindableProperty.Create(nameof(MinValue), typeof(double), typeof(MaterialSlider), 0.0, BindingMode.TwoWay);
 
-        public static readonly BindableProperty ThumbColorProperty = BindableProperty.Create(nameof(ThumbColor), typeof(Color), typeof(MaterialSlider), Material.Color.Secondary, BindingMode.TwoWay);
+        public static readonly BindableProperty ThumbColorProperty = BindableProperty.Create(nameof(ThumbColor), typeof(Color), typeof(MaterialSlider), Material.Color.Secondary);
 
-        public static readonly BindableProperty TrackColorProperty = BindableProperty.Create(nameof(TrackColor), typeof(Color), typeof(MaterialSlider), Material.Color.Secondary, BindingMode.TwoWay);
+        public static readonly BindableProperty TrackColorProperty = BindableProperty.Create(nameof(TrackColor), typeof(Color), typeof(MaterialSlider), Material.Color.Secondary);
 
         public static readonly BindableProperty ValueProperty = BindableProperty.Create(nameof(Value), typeof(double), typeof(MaterialSlider), 0.0, BindingMode.TwoWay);
 
         private bool _draggerTranslatedInitially;
-        private double _lastHeight;
-        private double _lastWidth;
+        private double _lastHeight = -1;
+        private double _lastWidth = -1;
         private double _x;
+        private PanGestureRecognizer _pan;
 
         /// <summary>
         /// Initializes a new instance of <see cref="MaterialSlider"/>.
@@ -32,12 +33,6 @@ namespace XF.Material.Forms.Views
         public MaterialSlider()
         {
             this.InitializeComponent();
-
-            var pan = new PanGestureRecognizer();
-            pan.PanUpdated += this.Pan_PanUpdated;
-
-            this.GestureRecognizers.Add(pan);
-            TapContainer.Tapped += this.TapContainer_Tapped;
         }
 
         /// <summary>
@@ -97,6 +92,25 @@ namespace XF.Material.Forms.Views
                 }
 
                 this.SetValue(ValueProperty, value);
+            }
+        }
+
+        public void ElementChanged(bool created)
+        {
+            if(created)
+            {
+                _pan = new PanGestureRecognizer();
+                _pan.PanUpdated += this.Pan_PanUpdated;
+
+                this.GestureRecognizers.Add(_pan);
+                TapContainer.Tapped += this.TapContainer_Tapped;
+            }
+
+            else
+            {
+                _pan.PanUpdated -= this.Pan_PanUpdated;
+                this.GestureRecognizers.Clear();
+                TapContainer.Tapped -= this.TapContainer_Tapped;
             }
         }
 
