@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using XF.Material.Forms.Dialogs;
+using XF.Material.Forms.Views;
 
 namespace MaterialMvvmSample.ViewModels
 {
@@ -35,15 +36,32 @@ namespace MaterialMvvmSample.ViewModels
             set => this.Set(ref _selectedJobs, value);
         }
 
+        private string _inputText;
+        public string InputText
+        {
+            get => _inputText;
+            set => this.Set(ref _inputText, value);
+        }
+
         private async Task SelectJobsAsync()
         {
-            var result = await MaterialDialog.Instance.SelectChoicesAsync("Select any", this.Jobs);
+            //var result = await MaterialDialog.Instance.SelectChoicesAsync("Select any", this.Jobs);
 
-            foreach (var ind in result)
+            //foreach (var ind in result)
+            //{
+            //    System.Diagnostics.Debug.WriteLine(this.Jobs[ind]);
+            //}
+            var textField = new MaterialTextField();
+            textField.BindingContext = this;
+            textField.SetBinding(MaterialTextField.TextProperty, "InputText");
+
+            var result = await MaterialDialog.Instance.Show(textField, "Alert");
+
+            if(result)
             {
-                System.Diagnostics.Debug.WriteLine(this.Jobs[ind]);
+                System.Diagnostics.Debug.WriteLine(this.InputText);
             }
-        } 
+        }
 
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

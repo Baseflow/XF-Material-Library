@@ -7,6 +7,7 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using MaterialMvvmSample.Droid.Core;
+using XF.Material.Droid;
 
 namespace MaterialMvvmSample.Droid
 {
@@ -28,6 +29,11 @@ namespace MaterialMvvmSample.Droid
             var app = CommonServiceLocator.ServiceLocator.Current.GetInstance<App>();
 
             this.LoadApplication(app);
+        }
+
+        public override void OnBackPressed()
+        {
+            Material.HandleBackButton(() => base.OnBackPressed());
         }
     }
 }
