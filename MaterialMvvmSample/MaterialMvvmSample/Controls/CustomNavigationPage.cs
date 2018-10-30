@@ -41,42 +41,19 @@ namespace MaterialMvvmSample.Controls
             await this.Navigation.PopModalAsync(true);
         }
 
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-
-            this.Pushed += this.Navigation_Pushed;
-            this.Popped += this.NavigationPage_Popped;
-        }
-
-        protected override void OnDisappearing()
-        {
-            base.OnDisappearing();
-
-            this.Pushed -= this.Navigation_Pushed;
-            this.Popped -= this.NavigationPage_Popped;
-        }
-
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             base.OnPropertyChanged(propertyName);
 
             if (propertyName == nameof(this.RootPage) && this.RootPage != null)
             {
-                void appearingHandler(object sender, EventArgs e)
-                {
-                    var viewModel = this.RootPage.BindingContext as BaseViewModel;
-                    viewModel?.OnViewPushed(_currentNavigationParameter);
-                    this.RootPage.Appearing -= appearingHandler;
-                }
-
-                this.RootPage.Appearing += appearingHandler;
+                this.RootPage.Appearing += this.AppearingHandler;
             }
         }
 
-        private void Navigation_Pushed(object sender, NavigationEventArgs e)
+        protected override void OnPagePushed(Page page)
         {
-            if (e.Page.BindingContext is BaseViewModel viewModel)
+            if (page.BindingContext is BaseViewModel viewModel)
             {
                 viewModel?.OnViewPushed(_currentNavigationParameter);
                 System.Diagnostics.Debug.WriteLine("Page pushed");
@@ -84,12 +61,20 @@ namespace MaterialMvvmSample.Controls
             }
         }
 
-        private void NavigationPage_Popped(object sender, NavigationEventArgs e)
+        protected override void OnPagePopped(Page page)
         {
-            if (e.Page.BindingContext is BaseViewModel viewModel)
+            if (page.BindingContext is BaseViewModel viewModel)
             {
                 viewModel.OnViewPopped();
             }
+        }
+
+        private void AppearingHandler(object sender, EventArgs e)
+        {
+            var viewModel = this.RootPage.BindingContext as BaseViewModel;
+            viewModel?.OnViewPushed(_currentNavigationParameter);
+            _currentNavigationParameter = null;
+            this.RootPage.Appearing -= this.AppearingHandler;
         }
     }
 }
