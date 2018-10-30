@@ -13,7 +13,7 @@ namespace XF.Material.Forms.Views
         public bool HasShadow
         {
             get => (bool)GetValue(HasShadowProperty);
-            set => SetValue(HasShadowProperty, value);
+            set => this.SetValue(HasShadowProperty, value);
         }
 
         public MaterialNavigationPage(Page rootPage) : base(rootPage)
@@ -21,7 +21,7 @@ namespace XF.Material.Forms.Views
             this.SetDynamicResource(BarBackgroundColorProperty, MaterialConstants.Color.PRIMARY);
             this.SetDynamicResource(BarTextColorProperty, MaterialConstants.Color.ON_PRIMARY);
 
-            if(rootPage.BackgroundColor.IsDefault)
+            if (rootPage.BackgroundColor.IsDefault)
             {
                 rootPage.SetDynamicResource(BackgroundColorProperty, MaterialConstants.Color.BACKGROUND);
                 Material.PlatformConfiguration.ChangeStatusBarColor(Material.Color.PrimaryVariant);
@@ -33,6 +33,7 @@ namespace XF.Material.Forms.Views
             base.OnAppearing();
 
             this.Pushed += this.MaterialNavigationPage_Pushed;
+            this.Popped += this.MaterialNavigationPage_Popped;
         }
 
         protected override void OnDisappearing()
@@ -40,15 +41,31 @@ namespace XF.Material.Forms.Views
             base.OnDisappearing();
 
             this.Pushed -= this.MaterialNavigationPage_Pushed;
+            this.Popped -= this.MaterialNavigationPage_Popped;
         }
+
+
+        protected virtual void OnRootPageSet(Page rootPage) { }
+
+        protected virtual void OnPagePushed(Page page)
+        {
+            if (page?.BackgroundColor.IsDefault == true)
+            {
+                page.SetDynamicResource(BackgroundColorProperty, MaterialConstants.Color.BACKGROUND);
+                Material.PlatformConfiguration.ChangeStatusBarColor(Material.Color.PrimaryVariant);
+            }
+        }
+
+        protected virtual void OnPagePopped(Page page) { }
 
         private void MaterialNavigationPage_Pushed(object sender, NavigationEventArgs e)
         {
-            if (e?.Page != null && e.Page.BackgroundColor.IsDefault)
-            {
-                e.Page.SetDynamicResource(BackgroundColorProperty, MaterialConstants.Color.BACKGROUND);
-                Material.PlatformConfiguration.ChangeStatusBarColor(Material.Color.PrimaryVariant);
-            }
+            this.OnPagePushed(e.Page);
+        }
+
+        private void MaterialNavigationPage_Popped(object sender, NavigationEventArgs e)
+        {
+            this.OnPagePopped(e.Page);
         }
     }
 }

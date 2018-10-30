@@ -43,7 +43,7 @@ namespace MaterialMvvmSample.ViewModels
             {
                 System.Diagnostics.Debug.WriteLine(this.Jobs[ind]);
             }
-        } 
+        }
 
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
