@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:MaterialMvvmSample.Views"
     xmlns:material="clr-namespace:XF.Material.Forms.Views;assembly=XF.Material.Forms"
+    xmlns:mtint="clr-namespace:XF.Material.Forms.Views.Internals;assembly=XF.Material.Forms"
     Title="Material MVVM"
     Padding="16">
     <StackLayout>
@@ -11,8 +12,14 @@
             HorizontalOptions="FillAndExpand"
             VerticalOptions="FillAndExpand">
             <StackLayout>
+                <mtint:MaterialInputDialogTextField AlwaysShowUnderline="True"
+                    BackgroundColor="Transparent"
+                    FloatingPlaceholderEnabled="False" />
                 <material:MaterialCheckboxGroup Choices="{Binding Jobs}" SelectedIndices="{Binding SelectedJobs}" />
                 <material:MaterialRadioButtonGroup Choices="{Binding Jobs}" SelectedIndex="{Binding SelectedJobIndex}" />
+                <material:MaterialSlider ThumbColor="Black"
+                    TrackColor="Gray"
+                    ValueChangedCommand="{Binding ValueChangedCommand}" />
                 <material:MaterialButton Command="{Binding ButtonCommand}"
                     HorizontalOptions="End"
                     Text="Select Jobs" />

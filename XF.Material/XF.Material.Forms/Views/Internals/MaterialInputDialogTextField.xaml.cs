@@ -8,79 +8,81 @@ using Xamarin.Forms.Xaml;
 using XF.Material.Forms.Resources;
 using XF.Material.Forms.Views.Internals;
 
-namespace XF.Material.Forms.Views
+namespace XF.Material.Forms.Views.Internals
 {
     /// <summary>
-    /// A control that let users enter and edit text.
+    /// For internal use only.
     /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MaterialTextField : ContentView, IMaterialElementConfiguration
+    public partial class MaterialInputDialogTextField : ContentView, IMaterialElementConfiguration
     {
-        public static readonly BindableProperty AlwaysShowUnderlineProperty = BindableProperty.Create(nameof(AlwaysShowUnderline), typeof(bool), typeof(MaterialTextField), false);
+        public static readonly BindableProperty AlwaysShowUnderlineProperty = BindableProperty.Create(nameof(AlwaysShowUnderline), typeof(bool), typeof(MaterialInputDialogTextField), false);
 
-        public static new readonly BindableProperty BackgroundColorProperty = BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#DCDCDC"));
+        public static readonly BindableProperty FloatingPlaceholderEnabledProperty = BindableProperty.Create(nameof(FloatingPlaceholderEnabled), typeof(bool), typeof(MaterialInputDialogTextField), true);
 
-        public static readonly BindableProperty ErrorColorProperty = BindableProperty.Create(nameof(ErrorColor), typeof(Color), typeof(MaterialTextField), Material.Color.Error);
+        public static new readonly BindableProperty BackgroundColorProperty = BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(MaterialInputDialogTextField), Color.FromHex("#DCDCDC"));
 
-        public static readonly BindableProperty ErrorTextProperty = BindableProperty.Create(nameof(ErrorText), typeof(string), typeof(MaterialTextField), "Error");
+        public static readonly BindableProperty ErrorColorProperty = BindableProperty.Create(nameof(ErrorColor), typeof(Color), typeof(MaterialInputDialogTextField), Material.Color.Error);
 
-        public static readonly BindableProperty FocusCommandProperty = BindableProperty.Create(nameof(FocusCommand), typeof(Command<bool>), typeof(MaterialTextField));
+        public static readonly BindableProperty ErrorTextProperty = BindableProperty.Create(nameof(ErrorText), typeof(string), typeof(MaterialInputDialogTextField), "Error");
 
-        public static readonly BindableProperty HasErrorProperty = BindableProperty.Create(nameof(HasError), typeof(bool), typeof(MaterialTextField), false);
+        public static readonly BindableProperty FocusCommandProperty = BindableProperty.Create(nameof(FocusCommand), typeof(Command<bool>), typeof(MaterialInputDialogTextField));
 
-        public static readonly BindableProperty HelperTextColorProperty = BindableProperty.Create(nameof(HelperTextColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#99000000"));
+        public static readonly BindableProperty HasErrorProperty = BindableProperty.Create(nameof(HasError), typeof(bool), typeof(MaterialInputDialogTextField), false);
 
-        public static readonly BindableProperty HelperTextFontFamilyProperty = BindableProperty.Create(nameof(HelperTextFontFamily), typeof(string), typeof(MaterialTextField));
+        public static readonly BindableProperty HelperTextColorProperty = BindableProperty.Create(nameof(HelperTextColor), typeof(Color), typeof(MaterialInputDialogTextField), Color.FromHex("#99000000"));
 
-        public static readonly BindableProperty HelperTextProperty = BindableProperty.Create(nameof(HelperText), typeof(string), typeof(MaterialTextField), string.Empty);
+        public static readonly BindableProperty HelperTextFontFamilyProperty = BindableProperty.Create(nameof(HelperTextFontFamily), typeof(string), typeof(MaterialInputDialogTextField));
 
-        public static readonly BindableProperty IconProperty = BindableProperty.Create(nameof(Icon), typeof(string), typeof(MaterialTextField));
+        public static readonly BindableProperty HelperTextProperty = BindableProperty.Create(nameof(HelperText), typeof(string), typeof(MaterialInputDialogTextField), string.Empty);
 
-        public static readonly BindableProperty IconTintColorProperty = BindableProperty.Create(nameof(IconTintColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#99000000"));
+        public static readonly BindableProperty IconProperty = BindableProperty.Create(nameof(Icon), typeof(string), typeof(MaterialInputDialogTextField));
 
-        public static readonly BindableProperty InputTypeProperty = BindableProperty.Create(nameof(InputType), typeof(MaterialTextFieldInputType), typeof(MaterialTextField), MaterialTextFieldInputType.Default);
+        public static readonly BindableProperty IconTintColorProperty = BindableProperty.Create(nameof(IconTintColor), typeof(Color), typeof(MaterialInputDialogTextField), Color.FromHex("#99000000"));
 
-        public static readonly BindableProperty MaxLengthProperty = BindableProperty.Create(nameof(MaxLength), typeof(int), typeof(MaterialTextField), 0);
+        public static readonly BindableProperty InputTypeProperty = BindableProperty.Create(nameof(InputType), typeof(MaterialTextFieldInputType), typeof(MaterialInputDialogTextField), MaterialTextFieldInputType.Default);
 
-        public static readonly BindableProperty PlaceholderColorProperty = BindableProperty.Create(nameof(PlaceholderColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#99000000"));
+        public static readonly BindableProperty MaxLengthProperty = BindableProperty.Create(nameof(MaxLength), typeof(int), typeof(MaterialInputDialogTextField), 0);
 
-        public static readonly BindableProperty PlaceholderFontFamilyProperty = BindableProperty.Create(nameof(PlaceholderFontFamily), typeof(string), typeof(MaterialTextField));
+        public static readonly BindableProperty PlaceholderColorProperty = BindableProperty.Create(nameof(PlaceholderColor), typeof(Color), typeof(MaterialInputDialogTextField), Color.FromHex("#99000000"));
 
-        public static readonly BindableProperty PlaceholderProperty = BindableProperty.Create(nameof(Placeholder), typeof(string), typeof(MaterialTextField), string.Empty);
+        public static readonly BindableProperty PlaceholderFontFamilyProperty = BindableProperty.Create(nameof(PlaceholderFontFamily), typeof(string), typeof(MaterialInputDialogTextField));
 
-        public static readonly BindableProperty ReturnCommandProperty = BindableProperty.Create(nameof(ReturnCommand), typeof(ICommand), typeof(MaterialTextField));
+        public static readonly BindableProperty PlaceholderProperty = BindableProperty.Create(nameof(Placeholder), typeof(string), typeof(MaterialInputDialogTextField), string.Empty);
 
-        public static readonly BindableProperty ReturnCommandParameterProperty = BindableProperty.Create(nameof(ReturnCommand), typeof(object), typeof(MaterialTextField));
+        public static readonly BindableProperty ReturnCommandProperty = BindableProperty.Create(nameof(ReturnCommand), typeof(ICommand), typeof(MaterialInputDialogTextField));
 
-        public static readonly BindableProperty ReturnTypeProperty = BindableProperty.Create(nameof(ReturnType), typeof(ReturnType), typeof(MaterialTextField), ReturnType.Default);
+        public static readonly BindableProperty ReturnCommandParameterProperty = BindableProperty.Create(nameof(ReturnCommand), typeof(object), typeof(MaterialInputDialogTextField));
 
-        public static readonly BindableProperty TextChangeCommandProperty = BindableProperty.Create(nameof(TextChangeCommand), typeof(Command<string>), typeof(MaterialTextField));
+        public static readonly BindableProperty ReturnTypeProperty = BindableProperty.Create(nameof(ReturnType), typeof(ReturnType), typeof(MaterialInputDialogTextField), ReturnType.Default);
 
-        public static readonly BindableProperty TextColorProperty = BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#D0000000"));
+        public static readonly BindableProperty TextChangeCommandProperty = BindableProperty.Create(nameof(TextChangeCommand), typeof(Command<string>), typeof(MaterialInputDialogTextField));
 
-        public static readonly BindableProperty TextFontFamilyProperty = BindableProperty.Create(nameof(TextFontFamily), typeof(string), typeof(MaterialTextField));
+        public static readonly BindableProperty TextColorProperty = BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(MaterialInputDialogTextField), Color.FromHex("#D0000000"));
 
-        public static readonly BindableProperty TextProperty = BindableProperty.Create(nameof(Text), typeof(string), typeof(MaterialTextField), string.Empty, BindingMode.TwoWay);
+        public static readonly BindableProperty TextFontFamilyProperty = BindableProperty.Create(nameof(TextFontFamily), typeof(string), typeof(MaterialInputDialogTextField));
 
-        public static readonly BindableProperty TintColorProperty = BindableProperty.Create(nameof(TintColor), typeof(Color), typeof(MaterialTextField), Material.Color.Secondary);
+        public static readonly BindableProperty TextProperty = BindableProperty.Create(nameof(Text), typeof(string), typeof(MaterialInputDialogTextField), string.Empty, BindingMode.TwoWay);
 
-        public static readonly BindableProperty UnderlineColorProperty = BindableProperty.Create(nameof(UnderlineColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#99000000"));
+        public static readonly BindableProperty TintColorProperty = BindableProperty.Create(nameof(TintColor), typeof(Color), typeof(MaterialInputDialogTextField), Material.Color.Secondary);
+
+        public static readonly BindableProperty UnderlineColorProperty = BindableProperty.Create(nameof(UnderlineColor), typeof(Color), typeof(MaterialInputDialogTextField), Color.FromHex("#99000000"));
 
         private const double ANIM_DURATION = 0.35;
         private readonly Easing animationCurve = Easing.SinOut;
         private bool _counterEnabled;
 
         /// <summary>
-        /// Initializes a new instance of <see cref="MaterialTextField"/>.
+        /// Initializes a new instance of <see cref="MaterialInputDialogTextField"/>.
         /// </summary>
-        public MaterialTextField()
+        public MaterialInputDialogTextField()
         {
             this.InitializeComponent();
             errorIcon.TintColor = this.ErrorColor;
             persistentUnderline.Color = this.UnderlineColor;
             tapGesture.Command = new Command(() =>
             {
-                if(!entry.IsFocused)
+                if (!entry.IsFocused)
                 {
                     entry.Focus();
                 }
@@ -105,6 +107,12 @@ namespace XF.Material.Forms.Views
         {
             get => (bool)this.GetValue(AlwaysShowUnderlineProperty);
             set => this.SetValue(AlwaysShowUnderlineProperty, value);
+        }
+
+        public bool FloatingPlaceholderEnabled
+        {
+            get => (bool)this.GetValue(FloatingPlaceholderEnabledProperty);
+            set => this.SetValue(FloatingPlaceholderEnabledProperty, value);
         }
 
         /// <summary>
@@ -224,7 +232,7 @@ namespace XF.Material.Forms.Views
             get => (string)this.GetValue(PlaceholderProperty);
             set
             {
-                if(string.IsNullOrWhiteSpace(value))
+                if (string.IsNullOrWhiteSpace(value))
                 {
                     throw new ArgumentNullException($"{nameof(this.Placeholder)} must not be null, empty, or a white space.");
                 }
@@ -286,6 +294,16 @@ namespace XF.Material.Forms.Views
             get => (string)this.GetValue(TextProperty);
             set
             {
+                if (!string.IsNullOrEmpty(value) && !this.FloatingPlaceholderEnabled)
+                {
+                    placeholder.IsVisible = false;
+                }
+
+                else if (string.IsNullOrEmpty(value) && !this.FloatingPlaceholderEnabled)
+                {
+                    placeholder.IsVisible = true;
+                }
+
                 this.TextChangeCommand?.Execute(value);
                 this.TextChanged?.Invoke(this, new TextChangedEventArgs((string)this.GetValue(TextProperty), value));
                 this.SetValue(TextProperty, value);
@@ -435,12 +453,12 @@ namespace XF.Material.Forms.Views
                 this.SetInputType();
             }
 
-            else if(propertyName == nameof(this.ErrorColor))
+            else if (propertyName == nameof(this.ErrorColor))
             {
                 errorIcon.TintColor = this.ErrorColor;
             }
 
-            else if(propertyName == nameof(this.ErrorText) && this.HasError)
+            else if (propertyName == nameof(this.ErrorText) && this.HasError)
             {
                 await this.ChangeToErrorState();
             }
@@ -477,25 +495,25 @@ namespace XF.Material.Forms.Views
                 persistentUnderline.Color = this.UnderlineColor.MultiplyAlpha(0.6);
             }
 
-            else if(propertyName == nameof(this.MaxLength))
+            else if (propertyName == nameof(this.MaxLength))
             {
                 _counterEnabled = this.MaxLength > 0;
                 entry.MaxLength = _counterEnabled ? this.MaxLength : (int)Entry.MaxLengthProperty.DefaultValue;
             }
 
-            else if(propertyName == nameof(this.Icon))
+            else if (propertyName == nameof(this.Icon))
             {
                 icon.IsVisible = !string.IsNullOrEmpty(this.Icon);
                 icon.Source = this.Icon;
                 icon.TintColor = this.IconTintColor;
             }
 
-            else if(propertyName == nameof(this.IconTintColor))
+            else if (propertyName == nameof(this.IconTintColor))
             {
                 icon.TintColor = this.IconTintColor;
             }
 
-            else if(propertyName == nameof(this.ReturnCommand))
+            else if (propertyName == nameof(this.ReturnCommand))
             {
                 entry.ReturnCommand = this.ReturnCommand;
             }
@@ -510,7 +528,7 @@ namespace XF.Material.Forms.Views
                 entry.ReturnType = this.ReturnType;
             }
 
-            else if(propertyName == nameof(this.UnderlineColor) && this.AlwaysShowUnderline)
+            else if (propertyName == nameof(this.UnderlineColor) && this.AlwaysShowUnderline)
             {
                 persistentUnderline.Color = this.UnderlineColor.MultiplyAlpha(0.6);
             }
@@ -518,7 +536,7 @@ namespace XF.Material.Forms.Views
 
         private void AnimatePlaceHolderOnStart(object startObject)
         {
-            if (startObject != null && !string.IsNullOrEmpty(this.Text))
+            if (startObject != null && !string.IsNullOrEmpty(this.Text) && this.FloatingPlaceholderEnabled)
             {
                 Device.BeginInvokeOnMainThread(async () =>
                 {
@@ -543,23 +561,28 @@ namespace XF.Material.Forms.Views
             var startFont = entry.IsFocused ? 16 : 12;
             var endFOnt = entry.IsFocused ? 12 : 16;
             var startY = placeholder.TranslationY;
-            var endY = entry.IsFocused ? -14 : 0;
+            var endY = entry.IsFocused ? -20 : 0;
             var color = entry.IsFocused ? this.TintColor : this.PlaceholderColor;
-            var anim = new Animation
-            {
-                {
-                    0.0,
-                    ANIM_DURATION,
-                    new Animation(v => placeholder.FontSize = v, startFont, endFOnt, animationCurve)
-                },
-                {
-                    0.0,
-                    ANIM_DURATION,
-                    new Animation(v => placeholder.TranslationY = v, startY, endY, animationCurve, () => placeholder.TextColor = this.HasError && entry.IsFocused ? this.ErrorColor : color)
-                }
-            };
+            Animation anim = new Animation();
 
-            if(entry.IsFocused)
+            if(this.FloatingPlaceholderEnabled)
+            {
+                anim = new Animation
+                {
+                    {
+                        0.0,
+                        ANIM_DURATION,
+                        new Animation(v => placeholder.FontSize = v, startFont, endFOnt, animationCurve)
+                    },
+                    {
+                        0.0,
+                        ANIM_DURATION,
+                        new Animation(v => placeholder.TranslationY = v, startY, endY, animationCurve, () => placeholder.TextColor = this.HasError && entry.IsFocused ? this.ErrorColor : color)
+                    }
+                };
+            }
+
+            if (entry.IsFocused)
             {
                 anim.Add(0.0, ANIM_DURATION, new Animation(v => underline.WidthRequest = v, 0, this.Width, animationCurve, () => underline.HorizontalOptions = LayoutOptions.FillAndExpand));
             }
@@ -612,7 +635,7 @@ namespace XF.Material.Forms.Views
                         await Task.WhenAll(helper.FadeTo(1, animDuration / 2, animationCurve), helper.TranslateTo(0, 0, animDuration / 2, animationCurve));
                     });
                 }),
-                shakeAnimTask 
+                shakeAnimTask
             );
         }
 

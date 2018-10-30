@@ -68,7 +68,7 @@ namespace XF.Material.Droid.Renderers
                 this.Control.SetAllCaps(_materialButton.AllCaps);
             }
 
-            else if(e?.PropertyName == nameof(Button.TextColor))
+            else if (e?.PropertyName == nameof(Button.TextColor))
             {
                 this.SetTextColors();
             }
@@ -291,7 +291,7 @@ namespace XF.Material.Droid.Renderers
 
                 var currentDrawables = this.Control.GetCompoundDrawables();
 
-                if(currentDrawables != null)
+                if (currentDrawables != null)
                 {
                     for (int i = 0; i < currentDrawables.Length && currentDrawables[i] != null; i++)
                     {
@@ -315,21 +315,23 @@ namespace XF.Material.Droid.Renderers
 
         private void SetTextColors()
         {
-            var states = new int[][] {
-                    new int[] { Android.Resource.Attribute.StatePressed },
-                    new int[] { Android.Resource.Attribute.StateFocused, Android.Resource.Attribute.StateEnabled },
-                    new int[] { Android.Resource.Attribute.StateEnabled },
-                    new int[] { Android.Resource.Attribute.StateFocused },
-                    new int[] { }
-                    };
+            var states = new int[][]
+            {
+                new int[] { Android.Resource.Attribute.StatePressed },
+                new int[] { Android.Resource.Attribute.StateFocused, Android.Resource.Attribute.StateEnabled },
+                new int[] { Android.Resource.Attribute.StateEnabled },
+                new int[] { Android.Resource.Attribute.StateFocused },
+                new int[] { }
+            };
 
-            var colors = new int[] {
+            var colors = new int[]
+            {
                 _materialButton.TextColor.ToAndroid(),
                 _materialButton.TextColor.ToAndroid(),
                 _materialButton.TextColor.ToAndroid(),
                 _materialButton.TextColor.ToAndroid(),
                 _materialButton.TextColor.MultiplyAlpha(0.38).ToAndroid()
-                };
+             };
 
             this.Control.SetTextColor(new ColorStateList(states, colors));
         }

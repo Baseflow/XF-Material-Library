@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using XF.Material.Forms;
 using XF.Material.Forms.Dialogs;
 using XF.Material.Forms.Views;
 
@@ -20,7 +21,10 @@ namespace MaterialMvvmSample.ViewModels
 
         public string[] Jobs => new string[] { "Developer", "QA Engineer", "Team Leader" };
 
+
         public ICommand ButtonCommand => new Command(async () => await this.SelectJobsAsync());
+
+        public ICommand ValueChangedCommand => new Command<double>((d) => System.Diagnostics.Debug.WriteLine(d));
 
         private int _selectedJobIndex = 1;
         public int SelectedJobIndex
