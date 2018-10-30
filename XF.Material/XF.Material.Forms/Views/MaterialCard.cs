@@ -6,7 +6,7 @@ namespace XF.Material.Forms.Views
     /// <summary>
     /// A container that display content and actions on a single topic. 
     /// </summary>
-    public class MaterialCard : Frame, IMaterialView
+    public class MaterialCard : Frame
     {
         public static readonly BindableProperty ElevationProperty = BindableProperty.Create(nameof(Elevation), typeof(int), typeof(MaterialCard), 1);
 

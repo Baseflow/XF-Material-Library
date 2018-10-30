@@ -2,6 +2,7 @@
 using System.Runtime.CompilerServices;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using XF.Material.Forms.Views.Internals;
 
 namespace XF.Material.Forms.Views
 {
@@ -9,7 +10,7 @@ namespace XF.Material.Forms.Views
     /// A control that allow users to make selections from a range of values.
     /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MaterialSlider : ContentView
+    public partial class MaterialSlider : ContentView, IMaterialElementConfiguration
     {
         public static readonly BindableProperty MaxValueProperty = BindableProperty.Create(nameof(MaxValue), typeof(double), typeof(MaterialSlider), 0.0, BindingMode.TwoWay);
 
