@@ -10,9 +10,21 @@ namespace XF.Material.Forms.Views
     {
         public static readonly BindableProperty HasShadowProperty = BindableProperty.Create(nameof(HasShadow), typeof(bool), typeof(MaterialNavigationPage), true);
 
+        public static readonly BindableProperty StatusBarColorProperty = BindableProperty.Create("StatusBarColor", typeof(Color), typeof(MaterialNavigationPage), Color.Default);
+
+        public static Color GetStatusBarColor(BindableObject view)
+        {
+            return (Color)view.GetValue(StatusBarColorProperty);
+        }
+
+        public static void SetStatusBarColor(BindableObject view, Color color)
+        {
+            view.SetValue(StatusBarColorProperty, color);
+        }
+
         public bool HasShadow
         {
-            get => (bool)GetValue(HasShadowProperty);
+            get => (bool)this.GetValue(HasShadowProperty);
             set => this.SetValue(HasShadowProperty, value);
         }
 
@@ -24,8 +36,10 @@ namespace XF.Material.Forms.Views
             if (rootPage.BackgroundColor.IsDefault)
             {
                 rootPage.SetDynamicResource(BackgroundColorProperty, MaterialConstants.Color.BACKGROUND);
-                Material.PlatformConfiguration.ChangeStatusBarColor(Material.Color.PrimaryVariant);
             }
+
+            var statusBarColor = (Color)rootPage.GetValue(StatusBarColorProperty);
+            Material.PlatformConfiguration.ChangeStatusBarColor(statusBarColor.IsDefault ? Material.Color.PrimaryVariant : statusBarColor);
         }
 
         protected override void OnAppearing()
@@ -44,19 +58,21 @@ namespace XF.Material.Forms.Views
             this.Popped -= this.MaterialNavigationPage_Popped;
         }
 
-
-        protected virtual void OnRootPageSet(Page rootPage) { }
-
         protected virtual void OnPagePushed(Page page)
         {
             if (page?.BackgroundColor.IsDefault == true)
             {
                 page.SetDynamicResource(BackgroundColorProperty, MaterialConstants.Color.BACKGROUND);
-                Material.PlatformConfiguration.ChangeStatusBarColor(Material.Color.PrimaryVariant);
+                var statusBarColor = (Color)page.GetValue(StatusBarColorProperty);
+                Material.PlatformConfiguration.ChangeStatusBarColor(statusBarColor.IsDefault ? Material.Color.PrimaryVariant : statusBarColor);
             }
         }
 
-        protected virtual void OnPagePopped(Page page) { }
+        protected virtual void OnPagePopped(Page page)
+        {
+            var statusBarColor = (Color)page.GetValue(StatusBarColorProperty);
+            Material.PlatformConfiguration.ChangeStatusBarColor(statusBarColor.IsDefault ? Material.Color.PrimaryVariant : statusBarColor);
+        }
 
         private void MaterialNavigationPage_Pushed(object sender, NavigationEventArgs e)
         {
