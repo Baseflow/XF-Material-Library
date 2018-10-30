@@ -1,10 +1,12 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XF.Material.Forms.Resources;
+using XF.Material.Forms.Views.Internals;
 
 namespace XF.Material.Forms.Views
 {
@@ -12,7 +14,7 @@ namespace XF.Material.Forms.Views
     /// A control that let users enter and edit text.
     /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MaterialTextField : ContentView
+    public partial class MaterialTextField : ContentView, IMaterialElementConfiguration
     {
         public static readonly BindableProperty AlwaysShowUnderlineProperty = BindableProperty.Create(nameof(AlwaysShowUnderline), typeof(bool), typeof(MaterialTextField), false);
 
@@ -74,7 +76,6 @@ namespace XF.Material.Forms.Views
         public MaterialTextField()
         {
             this.InitializeComponent();
-            entry.PropertyChanged += this.Entry_PropertyChanged;
             errorIcon.TintColor = this.ErrorColor;
             persistentUnderline.Color = this.UnderlineColor;
             tapGesture.Command = new Command(() =>
@@ -335,6 +336,24 @@ namespace XF.Material.Forms.Views
         {
             get => (Color)this.GetValue(UnderlineColorProperty);
             set => this.SetValue(UnderlineColorProperty, value);
+        }
+
+        /// <summary>
+        /// For internal use only.
+        /// </summary>
+        /// <param name="created"></param>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public void ElementChanged(bool created)
+        {
+            if (created)
+            {
+                entry.PropertyChanged += this.Entry_PropertyChanged;
+            }
+
+            else
+            {
+                entry.PropertyChanged -= this.Entry_PropertyChanged;
+            }
         }
 
         protected override void OnParentSet()

@@ -62,6 +62,7 @@
     <Compile Include="Material.cs" />
     <Compile Include="Renderers\Internals\MaterialDialogListViewRenderer.cs" />
     <Compile Include="Renderers\Internals\MaterialEntryRenderer.cs" />
+    <Compile Include="Renderers\Internals\MaterialElementRenderer.cs" />
     <Compile Include="Renderers\MaterialButtonRenderer.cs" />
     <Compile Include="Renderers\MaterialCardRenderer.cs" />
     <Compile Include="Renderers\MaterialCircularLoadingViewRenderer.cs" />
