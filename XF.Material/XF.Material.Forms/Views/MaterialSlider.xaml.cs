@@ -23,6 +23,8 @@ namespace XF.Material.Forms.Views
 
         public static readonly BindableProperty ValueProperty = BindableProperty.Create(nameof(Value), typeof(double), typeof(MaterialSlider), 0.0, BindingMode.TwoWay);
 
+        public static readonly BindableProperty ValueChangedCommandProperty = BindableProperty.Create(nameof(ValueChangedCommand), typeof(Command<double>), typeof(MaterialSlider));
+
         private bool _draggerTranslatedInitially;
         private double _lastHeight = -1;
         private double _lastWidth = -1;
@@ -98,6 +100,15 @@ namespace XF.Material.Forms.Views
         }
 
         /// <summary>
+        /// Command that will execute when the <see cref="Value"/> property has changed.
+        /// </summary>
+        public Command<double> ValueChangedCommand
+        {
+            get => (Command<double>)this.GetValue(ValueChangedCommandProperty);
+            set => this.SetValue(ValueChangedCommandProperty, value);
+        }
+
+        /// <summary>
         /// For internal use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -115,7 +126,7 @@ namespace XF.Material.Forms.Views
             else
             {
                 _pan.PanUpdated -= this.Pan_PanUpdated;
-                this.GestureRecognizers.Clear();
+                this.GestureRecognizers.Remove(_pan);
                 TapContainer.Tapped -= this.TapContainer_Tapped;
             }
         }
@@ -179,6 +190,7 @@ namespace XF.Material.Forms.Views
         protected virtual void OnValueChanged(double oldValue, double newValue)
         {
             this.ValueChanged?.Invoke(this, new ValueChangedEventArgs(oldValue, newValue));
+            this.ValueChangedCommand?.Execute(newValue);
         }
 
         private void AnimateDragger()
@@ -194,9 +206,7 @@ namespace XF.Material.Forms.Views
             {
                 var newX = Math.Min(_x + e.TotalX, Placeholder.Width) >= 0 ? Math.Min(_x + e.TotalX, Placeholder.Width) : 0;
                 var percentage = newX / Placeholder.Width;
-                var newVal = percentage * (this.MaxValue - this.MinValue) + this.MinValue;
-
-                this.Value = newVal;
+                this.Value = percentage * (this.MaxValue - this.MinValue) + this.MinValue;
             }
 
             else if (e.StatusType == GestureStatus.Completed)
@@ -214,9 +224,7 @@ namespace XF.Material.Forms.Views
 
             var newX = Math.Min(e.X, Placeholder.Width) >= 0 ? Math.Min(e.X, Placeholder.Width) : 0;
             var percentage = newX / Placeholder.Width;
-            var newVal = percentage * (this.MaxValue - this.MinValue) + this.MinValue;
-
-            this.Value = newVal;
+            this.Value = (percentage * (this.MaxValue - this.MinValue)) + this.MinValue;
             _x = Dragger.TranslationX;
         }
     }
