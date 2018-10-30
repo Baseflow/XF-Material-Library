@@ -8,15 +8,13 @@
     HeightRequest="{DynamicResource Material.Slider.Height}">
     <ContentView.Content>
         <Grid VerticalOptions="Center">
-            <material:MaterialCard x:Name="Dragger"
-                Padding="0"
-                BackgroundColor="#6200EE"
-                CornerRadius="6"
-                Elevation="2"
-                HeightRequest="12"
-                HorizontalOptions="Start"
+            <BoxView x:Name="Placeholder"
+                Margin="6,0"
+                CornerRadius="1"
+                HeightRequest="2"
+                Opacity="0.24"
                 VerticalOptions="Center"
-                WidthRequest="12" />
+                Color="#6200EE" />
             <BoxView x:Name="Indicator"
                 Margin="6,0"
                 CornerRadius="1"
@@ -26,17 +24,19 @@
                 VerticalOptions="Center"
                 WidthRequest="0"
                 Color="#6200EE" />
+            <material:MaterialCard x:Name="Dragger"
+                Padding="0"
+                BackgroundColor="#6200EE"
+                CornerRadius="6"
+                Elevation="2"
+                HeightRequest="12"
+                HorizontalOptions="Start"
+                VerticalOptions="Center"
+                WidthRequest="12" />
             <internal:MaterialBoxView x:Name="TapContainer"
                 Margin="6,0"
                 HorizontalOptions="FillAndExpand"
                 VerticalOptions="FillAndExpand" />
-            <BoxView x:Name="Placeholder"
-                Margin="6,0"
-                CornerRadius="1"
-                HeightRequest="2"
-                Opacity="0.24"
-                VerticalOptions="Center"
-                Color="#6200EE" />
         </Grid>
     </ContentView.Content>
 </ContentView>
