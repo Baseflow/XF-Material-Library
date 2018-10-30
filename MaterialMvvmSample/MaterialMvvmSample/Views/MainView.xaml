@@ -13,6 +13,9 @@
             <StackLayout>
                 <material:MaterialCheckboxGroup Choices="{Binding Jobs}" SelectedIndices="{Binding SelectedJobs}" />
                 <material:MaterialRadioButtonGroup Choices="{Binding Jobs}" SelectedIndex="{Binding SelectedJobIndex}" />
+                <material:MaterialSlider ThumbColor="Black"
+                    TrackColor="Gray"
+                    ValueChangedCommand="{Binding ValueChangedCommand}" />
                 <material:MaterialButton Command="{Binding ButtonCommand}"
                     HorizontalOptions="End"
                     Text="Select Jobs" />

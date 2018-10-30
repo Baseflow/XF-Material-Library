@@ -30,8 +30,10 @@ namespace MaterialMvvmSample.Core
             containerBuilder.RegisterType<NavigationService>().As<INavigationService>().SingleInstance();
 
             containerBuilder.RegisterType<MainView>().Named<Page>(ViewNames.MainView).As<MainView>().InstancePerDependency();
+            containerBuilder.RegisterType<SecondView>().Named<Page>(ViewNames.SecondView).As<SecondView>().InstancePerDependency();
 
             containerBuilder.RegisterType<MainViewModel>().InstancePerDependency();
+            containerBuilder.RegisterType<SecondViewModel>().InstancePerDependency();
         }
     }
 }

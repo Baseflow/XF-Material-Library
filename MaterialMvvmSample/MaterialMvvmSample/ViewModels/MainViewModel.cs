@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using XF.Material.Forms;
 using XF.Material.Forms.Dialogs;
 
 namespace MaterialMvvmSample.ViewModels
@@ -19,7 +20,10 @@ namespace MaterialMvvmSample.ViewModels
 
         public string[] Jobs => new string[] { "Developer", "QA Engineer", "Team Leader" };
 
+
         public ICommand ButtonCommand => new Command(async () => await this.SelectJobsAsync());
+
+        public ICommand ValueChangedCommand => new Command<double>((d) => System.Diagnostics.Debug.WriteLine(d));
 
         private int _selectedJobIndex = 1;
         public int SelectedJobIndex
@@ -37,12 +41,14 @@ namespace MaterialMvvmSample.ViewModels
 
         private async Task SelectJobsAsync()
         {
-            var result = await MaterialDialog.Instance.SelectChoicesAsync("Select any", this.Jobs);
+            //var result = await MaterialDialog.Instance.SelectChoicesAsync("Select any", this.Jobs);
 
-            foreach (var ind in result)
-            {
-                System.Diagnostics.Debug.WriteLine(this.Jobs[ind]);
-            }
+            //foreach (var ind in result)
+            //{
+            //    System.Diagnostics.Debug.WriteLine(this.Jobs[ind]);
+            //}
+
+            await this.Navigation.PushAsync("SecondView");
         }
 
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)

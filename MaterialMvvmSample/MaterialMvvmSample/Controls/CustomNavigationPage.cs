@@ -51,18 +51,21 @@ namespace MaterialMvvmSample.Controls
             }
         }
 
-        protected override void OnPagePushed(Page page)
+        public override void OnPagePush(Page page)
         {
+            base.OnPagePush(page);
+
             if (page.BindingContext is BaseViewModel viewModel)
             {
                 viewModel?.OnViewPushed(_currentNavigationParameter);
-                System.Diagnostics.Debug.WriteLine("Page pushed");
                 _currentNavigationParameter = null;
             }
         }
 
-        protected override void OnPagePopped(Page page)
+        public override void OnPagePop(Page page)
         {
+            base.OnPagePop(page);
+
             if (page.BindingContext is BaseViewModel viewModel)
             {
                 viewModel.OnViewPopped();
