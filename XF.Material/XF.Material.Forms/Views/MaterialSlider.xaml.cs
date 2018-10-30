@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -12,7 +13,7 @@ namespace XF.Material.Forms.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MaterialSlider : ContentView, IMaterialElementConfiguration
     {
-        public static readonly BindableProperty MaxValueProperty = BindableProperty.Create(nameof(MaxValue), typeof(double), typeof(MaterialSlider), 0.0, BindingMode.TwoWay);
+        public static readonly BindableProperty MaxValueProperty = BindableProperty.Create(nameof(MaxValue), typeof(double), typeof(MaterialSlider), 100.0, BindingMode.TwoWay);
 
         public static readonly BindableProperty MinValueProperty = BindableProperty.Create(nameof(MinValue), typeof(double), typeof(MaterialSlider), 0.0, BindingMode.TwoWay);
 
@@ -96,6 +97,10 @@ namespace XF.Material.Forms.Views
             }
         }
 
+        /// <summary>
+        /// For internal use only.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public void ElementChanged(bool created)
         {
             if(created)

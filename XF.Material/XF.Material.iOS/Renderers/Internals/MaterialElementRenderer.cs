@@ -6,7 +6,7 @@ using XF.Material.Forms.Views.Internals;
 using XF.Material.iOS.Renderers.Internals;
 
 [assembly: ExportRenderer(typeof(MaterialTextField), typeof(MaterialElementRenderer))]
-[assembly: ExportRenderer(typeof(MaterialRadioButton), typeof(MaterialElementRenderer))]
+[assembly: ExportRenderer(typeof(MaterialSlider), typeof(MaterialElementRenderer))]
 namespace XF.Material.iOS.Renderers.Internals
 {
     internal class MaterialElementRenderer : ViewRenderer<View, UIView>

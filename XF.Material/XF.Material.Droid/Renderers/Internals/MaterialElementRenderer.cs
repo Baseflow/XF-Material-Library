@@ -6,7 +6,7 @@ using XF.Material.Forms.Views;
 using XF.Material.Forms.Views.Internals;
 
 [assembly: ExportRenderer(typeof(MaterialTextField), typeof(MaterialElementRenderer))]
-[assembly: ExportRenderer(typeof(MaterialRadioButton), typeof(MaterialElementRenderer))]
+[assembly: ExportRenderer(typeof(MaterialSlider), typeof(MaterialElementRenderer))]
 namespace XF.Material.Droid.Renderers.Internals
 {
     internal class MaterialElementRenderer : ViewRenderer<View, Android.Views.View>
