@@ -43,6 +43,9 @@
     <Compile Update="Resources\MaterialStyles.xaml.cs">
       <DependentUpon>MaterialStyles.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\Internals\MaterialInputDialogTextField.xaml.cs">
+      <DependentUpon>MaterialInputDialogTextField.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
