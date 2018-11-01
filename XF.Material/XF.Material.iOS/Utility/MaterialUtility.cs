@@ -8,6 +8,9 @@ using XF.Material.iOS.Utility;
 [assembly: Dependency(typeof(MaterialUtility))]
 namespace XF.Material.iOS.Utility
 {
+    /// <summary>
+    /// Concrete implementation which provides methods that can be used to change platform-specific configurations.
+    /// </summary>
     public class MaterialUtility : IMaterialUtility
     {
         public void ChangeStatusBarColor(Color color)

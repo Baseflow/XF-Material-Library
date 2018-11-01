@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Xamarin.Forms;
 using XF.Material.Forms.Dialogs.Configurations;
 
 namespace XF.Material.Forms.Dialogs
@@ -53,6 +52,18 @@ namespace XF.Material.Forms.Dialogs
         /// <param name="dismissiveText">The text of the dismissive button</param>
         /// <param name="configuration">The style of the alert dialog.</param>
         Task<bool> ConfirmAsync(string message, string title, string confirmingText = "Ok", string dismissiveText = "Cancel", MaterialAlertDialogConfiguration configuration = null);
+
+        /// <summary>
+        /// Shows a confirmation dialog that allow users to input text. If confirmed, returns the text value of the textfield. If canceled or dismissed, returns <see cref="string.Empty"/>.
+        /// </summary>
+        /// <param name="title">The title of the confirmation dialog.</param>
+        /// <param name="message">The message of the confirmation dialog.</param>
+        /// <param name="inputText">The initial text of the textfield.</param>
+        /// <param name="inputPlaceholder">The placeholder of the textfield.</param>
+        /// <param name="confirmingText">The text of the confirmation button.</param>
+        /// <param name="dismissiveText">The text of the dismissive button</param>
+        /// <param name="configuration">The style of the confirmation dialog.</param>
+        Task<string> InputAsync(string title = null, string message = null, string inputText = null, string inputPlaceholder = "Enter input", string confirmingText = "Ok", string dismissiveText = "Cancel", MaterialInputDialogConfiguration configuration = null);
 
         /// <summary>
         /// Shows a dialog indicating a running task.
@@ -133,8 +144,9 @@ namespace XF.Material.Forms.Dialogs
         /// <param name="snackbarConfiguration">Global style for <see cref="MaterialSnackbar"/>.</param>
         /// <param name="simpleDialogConfiguration">Global style for <see cref="MaterialSimpleDialog"/>.</param>
         /// <param name="confirmationDialogConfiguration">Global style for <see cref="MaterialConfirmationDialog"/>.</param>
-        void SetGlobalStyles(MaterialAlertDialogConfiguration dialogConfiguration, MaterialLoadingDialogConfiguration loadingDialogConfiguration, MaterialSnackbarConfiguration snackbarConfiguration, MaterialSimpleDialogConfiguration simpleDialogConfiguration, MaterialConfirmationDialogConfiguration confirmationDialogConfiguration);
-        
+        /// <param name="inputDialogConfiguration">Global style for <see cref="MaterialInputDialog"/>.</param>
+        void SetGlobalStyles(MaterialAlertDialogConfiguration dialogConfiguration, MaterialLoadingDialogConfiguration loadingDialogConfiguration, MaterialSnackbarConfiguration snackbarConfiguration, MaterialSimpleDialogConfiguration simpleDialogConfiguration, MaterialConfirmationDialogConfiguration confirmationDialogConfiguration, MaterialInputDialogConfiguration inputDialogConfiguration);
+
         /// <summary>
         /// Shows a snackbar with no action.
         /// </summary>
@@ -151,7 +163,5 @@ namespace XF.Material.Forms.Dialogs
         /// <param name="msDuration">The duration, in milliseconds, before the snackbar is automatically dismissed.</param>
         /// <param name="configuration">The style of the snackbar.</param>
         Task<bool> SnackbarAsync(string message, string actionButtonText, int msDuration = MaterialSnackbar.DURATION_LONG, MaterialSnackbarConfiguration configuration = null);
-
-        Task<bool> Show(View content, string title = null, string confirmingText = "Ok", string dismissiveText = "Cancel");
     }
 }

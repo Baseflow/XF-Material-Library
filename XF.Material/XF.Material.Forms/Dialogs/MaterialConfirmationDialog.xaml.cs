@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
-using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XF.Material.Forms.Dialogs.Configurations;
 using XF.Material.Forms.Views;
@@ -13,19 +11,19 @@ namespace XF.Material.Forms.Dialogs
     [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class MaterialConfirmationDialog : BaseMaterialModalPage, IMaterialAwaitableDialog<object>
 	{
-        internal static MaterialConfirmationDialogConfiguration GlobalConfiguration { get; set; }
-
-        private MaterialRadioButtonGroup _radioButtonGroup;
         private MaterialCheckboxGroup _checkboxGroup;
         private MaterialConfirmationDialogConfiguration _preferredConfig;
-        
-		internal MaterialConfirmationDialog (MaterialConfirmationDialogConfiguration configuration)
-		{
+        private MaterialRadioButtonGroup _radioButtonGroup;
+
+        internal MaterialConfirmationDialog(MaterialConfirmationDialogConfiguration configuration)
+        {
             this.InitializeComponent();
             this.Configure(configuration);
-		}
+        }
 
         public TaskCompletionSource<object> InputTaskCompletionSource { get; set; }
+
+        internal static MaterialConfirmationDialogConfiguration GlobalConfiguration { get; set; }
 
         public static async Task<object> ShowSelectChoiceAsync(string title, IList<string> choices, MaterialConfirmationDialogConfiguration configuration)
         {
@@ -59,7 +57,7 @@ namespace XF.Material.Forms.Dialogs
                 HorizontalSpacing = 20,
                 Choices = choices ?? throw new ArgumentNullException(nameof(choices)),
                 SelectedIndex = selectedIndex
-            };     
+            };
 
             if (dialog._preferredConfig != null)
             {
@@ -145,36 +143,6 @@ namespace XF.Material.Forms.Dialogs
             NegativeButton.Clicked += this.NegativeButton_Clicked;
         }
 
-        private void CheckboxGroup_SelectedIndicesChanged(object sender, SelectedIndicesChangedEventArgs e)
-        {
-            PositiveButton.IsEnabled = e.Indices.Any();
-        }
-
-        private void NegativeButton_Clicked(object sender, EventArgs e)
-        {
-            this.Dispose();
-            _checkboxGroup?.SelectedIndices.Clear();
-        }
-
-        private void PositiveButton_Clicked(object sender, EventArgs e)
-        {
-            this.Dispose();
-            var result = (_radioButtonGroup?.SelectedIndex) ?? _checkboxGroup?.SelectedIndices.ToArray() as object;
-            this.InputTaskCompletionSource.SetResult(result);
-            _checkboxGroup?.SelectedIndices.Clear();
-        }
-
-        protected override void OnDisappearingAnimationEnd()
-        {
-            base.OnDisappearingAnimationEnd();
-
-            if(this.InputTaskCompletionSource.Task.Status == TaskStatus.WaitingForActivation)
-            {
-                var result = (_radioButtonGroup?.SelectedIndex) ?? _checkboxGroup?.SelectedIndices.ToArray() as object;
-                this.InputTaskCompletionSource.SetResult(result);
-            }
-        }
-
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
@@ -193,16 +161,27 @@ namespace XF.Material.Forms.Dialogs
             NegativeButton.Clicked -= this.NegativeButton_Clicked;
         }
 
-        private void DialogActionList_SelectedIndexChanged(object sender, SelectedIndexChangedEventArgs e)
+        protected override void OnDisappearingAnimationEnd()
         {
-            PositiveButton.IsEnabled = e.Index >= 0;
+            base.OnDisappearingAnimationEnd();
+
+            if (this.InputTaskCompletionSource.Task.Status == TaskStatus.WaitingForActivation)
+            {
+                var result = (_radioButtonGroup?.SelectedIndex) ?? _checkboxGroup?.SelectedIndices.ToArray() as object;
+                this.InputTaskCompletionSource.SetResult(result);
+            }
+        }
+
+        private void CheckboxGroup_SelectedIndicesChanged(object sender, SelectedIndicesChangedEventArgs e)
+        {
+            PositiveButton.IsEnabled = e.Indices.Any();
         }
 
         private void Configure(MaterialConfirmationDialogConfiguration configuration)
         {
             _preferredConfig = configuration ?? GlobalConfiguration;
 
-            if(_preferredConfig != null)
+            if (_preferredConfig != null)
             {
                 this.BackgroundColor = _preferredConfig.ScrimColor;
                 Container.CornerRadius = _preferredConfig.CornerRadius;
@@ -213,6 +192,25 @@ namespace XF.Material.Forms.Dialogs
                 PositiveButton.AllCaps = NegativeButton.AllCaps = _preferredConfig.ButtonAllCaps;
                 PositiveButton.FontFamily = NegativeButton.FontFamily = _preferredConfig.ButtonFontFamily;
             }
+        }
+
+        private void DialogActionList_SelectedIndexChanged(object sender, SelectedIndexChangedEventArgs e)
+        {
+            PositiveButton.IsEnabled = e.Index >= 0;
+        }
+
+        private void NegativeButton_Clicked(object sender, EventArgs e)
+        {
+            this.Dismiss();
+            _checkboxGroup?.SelectedIndices.Clear();
+        }
+
+        private void PositiveButton_Clicked(object sender, EventArgs e)
+        {
+            this.Dismiss();
+            var result = (_radioButtonGroup?.SelectedIndex) ?? _checkboxGroup?.SelectedIndices.ToArray() as object;
+            this.InputTaskCompletionSource.SetResult(result);
+            _checkboxGroup?.SelectedIndices.Clear();
         }
     }
 }

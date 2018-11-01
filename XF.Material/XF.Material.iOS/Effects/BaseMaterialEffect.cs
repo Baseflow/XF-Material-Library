@@ -10,7 +10,6 @@ namespace XF.Material.iOS.Effects
         protected override void OnAttached()
         {
             this.MaterialEffect = this.Element.Effects.FirstOrDefault(e => e is TEffect) as TEffect;
-            this.MaterialEffect.ApplyEffect();
         }
 
         protected override void OnDetached() { }

@@ -4,15 +4,28 @@ using XF.Material.Forms.Resources.Typography;
 
 namespace XF.Material.Forms.Effects
 {
-    public static class MaterialEffectsUtil
+    /// <summary>
+    /// Static class with attached properties to apply Material typography effects.
+    /// </summary>
+    public static class MaterialTypographyEffect
     {
+        /// <summary>
+        /// Attached property for applying type scale effects to <see cref="Label"/> and <see cref="Button"/> views. Adds a <see cref="MaterialTypeScaleEffect"/> to the view.
+        /// </summary>
         public static readonly BindableProperty TypeScaleProperty = BindableProperty.Create("TypeScale", typeof(MaterialTypeScale), typeof(VisualElement), MaterialTypeScale.None, propertyChanged: TypeScaleChanged);
 
+
+        /// <summary>
+        /// For binding use only.
+        /// </summary>
         public static MaterialTypeScale GetTypeScale(BindableObject view)
         {
             return (MaterialTypeScale)view.GetValue(TypeScaleProperty);
         }
 
+        /// <summary>
+        /// For binding use only.
+        /// </summary>
         public static void SetTypeScale(BindableObject view, MaterialTypeScale typeScale)
         {
             view.SetValue(TypeScaleProperty, typeScale);

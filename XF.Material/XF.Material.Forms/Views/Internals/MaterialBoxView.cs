@@ -5,7 +5,7 @@ using Xamarin.Forms;
 namespace XF.Material.Forms.Views.Internals
 {
     /// <summary>
-    /// Used in <see cref="MaterialSlider"/>
+    /// Used in <see cref="MaterialSlider"/> as a a tap container.
     /// </summary>
     [EditorBrowsable(EditorBrowsableState.Never)]
     public class MaterialBoxView : BoxView
@@ -20,6 +20,9 @@ namespace XF.Material.Forms.Views.Internals
         }
     }
 
+    /// <summary>
+    /// Used in <see cref="MaterialBoxView.Tapped"/> as an event argument.
+    /// </summary>
     internal class TappedEventArgs : EventArgs
     {
         internal double X { get; }

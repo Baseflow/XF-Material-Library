@@ -22,7 +22,7 @@ namespace XF.Material.Forms.Views
 
         public MaterialButton()
         {
-            this.SetValue(MaterialEffectsUtil.TypeScaleProperty, MaterialTypeScale.Button);
+            this.SetValue(MaterialTypographyEffect.TypeScaleProperty, MaterialTypeScale.Button);
             this.SetDynamicResource(FontFamilyProperty, MaterialConstants.FontFamily.BUTTON);
             this.SetDynamicResource(FontSizeProperty, MaterialConstants.MATERIAL_FONTSIZE_BUTTON);
             this.SetDynamicResource(FontAttributesProperty, MaterialConstants.MATERIAL_FONTATTRIBUTE_BOLD);

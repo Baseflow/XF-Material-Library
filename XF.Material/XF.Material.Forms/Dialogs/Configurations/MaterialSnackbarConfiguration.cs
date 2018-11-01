@@ -46,5 +46,10 @@ namespace XF.Material.Forms.Dialogs.Configurations
         /// Gets the corner radius of the snackbar.
         /// </summary>
         public override float CornerRadius => 4;
+
+        /// <summary>
+        /// Gets or sets the bottom offset of the snackbar.
+        /// </summary>
+        public double BottomOffset { get; set; } = 16;
     }
 }

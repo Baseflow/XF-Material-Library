@@ -396,7 +396,7 @@ namespace XF.Material.Forms.Views
 
             else if (propertyName == nameof(this.TintColor))
             {
-                underline.Color = this.TintColor;
+                entry.TintColor = underline.Color = this.TintColor;
             }
 
             else if (propertyName == nameof(this.Placeholder))
@@ -612,7 +612,7 @@ namespace XF.Material.Forms.Views
                         await Task.WhenAll(helper.FadeTo(1, animDuration / 2, animationCurve), helper.TranslateTo(0, 0, animDuration / 2, animationCurve));
                     });
                 }),
-                shakeAnimTask 
+                shakeAnimTask
             );
         }
 

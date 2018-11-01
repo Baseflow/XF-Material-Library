@@ -35,6 +35,20 @@ namespace XF.Material.Forms.Dialogs
             return await dialog.InputTaskCompletionSource.Task;
         }
 
+        private void Configure(MaterialSimpleDialogConfiguration configuration)
+        {
+            var preferredConfig = configuration ?? GlobalConfiguration;
+
+            if (preferredConfig != null)
+            {
+                this.BackgroundColor = preferredConfig.ScrimColor;
+                Container.CornerRadius = preferredConfig.CornerRadius;
+                Container.BackgroundColor = preferredConfig.BackgroundColor;
+                DialogTitle.TextColor = preferredConfig.TitleTextColor;
+                DialogTitle.FontFamily = preferredConfig.TitleFontFamily;
+            }
+        }
+
         private void CreateActions(List<string> actions, MaterialSimpleDialogConfiguration configuration)
         {
             if (actions == null || actions.Count <= 0)
@@ -51,11 +65,11 @@ namespace XF.Material.Forms.Dialogs
                 actionModel.FontFamily = preferredConfig != null ? preferredConfig.TextFontFamily : Material.FontFamily.Body1;
                 actionModel.SelectedCommand = new Command<int>((position) =>
                 {
-                    if(this.InputTaskCompletionSource?.Task.Status == TaskStatus.WaitingForActivation)
+                    if (this.InputTaskCompletionSource?.Task.Status == TaskStatus.WaitingForActivation)
                     {
                         actionModel.IsSelected = true;
                         this.InputTaskCompletionSource?.SetResult(position);
-                        this.Dispose();
+                        this.Dismiss();
                     }
                 });
 
@@ -66,20 +80,6 @@ namespace XF.Material.Forms.Dialogs
             DialogActionList.RowHeight = _rowHeight;
             DialogActionList.HeightRequest = (_rowHeight * actionModels.Count) + 2;
             DialogActionList.ItemsSource = actionModels;
-        }
-
-        private void Configure(MaterialSimpleDialogConfiguration configuration)
-        {
-            var preferredConfig = configuration ?? GlobalConfiguration;
-
-            if (preferredConfig != null)
-            {
-                this.BackgroundColor = preferredConfig.ScrimColor;
-                Container.CornerRadius = preferredConfig.CornerRadius;
-                Container.BackgroundColor = preferredConfig.BackgroundColor;
-                DialogTitle.TextColor = preferredConfig.TitleTextColor;
-                DialogTitle.FontFamily = preferredConfig.TitleFontFamily;
-            }
         }
     }
 }

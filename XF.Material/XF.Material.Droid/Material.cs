@@ -27,6 +27,11 @@ namespace XF.Material.Droid
         /// </summary>
         internal static bool IsJellyBean { get; private set; }
 
+        /// <summary>
+        /// Initializes the core Material components for the Android platform.
+        /// </summary>
+        /// <param name="context">The context in which the current App is running.</param>
+        /// <param name="bundle">The string values parameter passed to the <see cref="Activity.OnCreate(Bundle)"/> method.</param>
         public static void Init(Context context, Bundle bundle)
         {
             Context = context;
@@ -37,6 +42,10 @@ namespace XF.Material.Droid
             Popup.Init(context, bundle);
         }
 
+        /// <summary>
+        /// Handles the physical back button event to dismiss specific dialogs shown by <see cref="XF.Material.Forms.Dialogs.MaterialDialog.Instance"/>.
+        /// </summary>
+        /// <param name="backAction">The base <see cref="Activity.OnBackPressed"/> method.</param>
         public static void HandleBackButton(Action backAction)
         {
             var backPressedResult = Popup.SendBackPressed(backAction);
@@ -44,7 +53,7 @@ namespace XF.Material.Droid
             var loadingDialog = PopupNavigation.Instance.PopupStack.FirstOrDefault(p => p is MaterialLoadingDialog);
             var simpleDialog = PopupNavigation.Instance.PopupStack.FirstOrDefault(p => p is MaterialSimpleDialog);
             var confirmationDialog = PopupNavigation.Instance.PopupStack.FirstOrDefault(p => p is MaterialConfirmationDialog);
-            var fragmentDialog = PopupNavigation.Instance.PopupStack.FirstOrDefault(p => p is MaterialDialogFragment);
+            var inputDialog = PopupNavigation.Instance.PopupStack.FirstOrDefault(p => p is MaterialInputDialog);
 
             if (backPressedResult && alertDialog != null && loadingDialog == null)
             {
@@ -61,9 +70,9 @@ namespace XF.Material.Droid
                 ((Activity)Context).RunOnUiThread(async () => await PopupNavigation.Instance.RemovePageAsync(confirmationDialog));
             }
 
-            else if (backPressedResult && fragmentDialog != null && loadingDialog == null)
+            else if (backPressedResult && inputDialog != null && loadingDialog == null)
             {
-                ((Activity)Context).RunOnUiThread(async () => await PopupNavigation.Instance.RemovePageAsync(fragmentDialog));
+                ((Activity)Context).RunOnUiThread(async () => await PopupNavigation.Instance.RemovePageAsync(inputDialog));
             }
 
             else if (backPressedResult && alertDialog == null && loadingDialog == null)

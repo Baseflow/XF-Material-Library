@@ -16,13 +16,13 @@ namespace XF.Material.Forms.Dialogs
             PositiveButton.Command = new Command(() =>
             {
                 this.InputTaskCompletionSource?.SetResult(true);
-                this.Dispose();
+                this.Dismiss();
             });
             NegativeButton.Text = action2Text;
             NegativeButton.Command = new Command(() =>
             {
                 this.InputTaskCompletionSource?.SetResult(false);
-                this.Dispose();
+                this.Dismiss();
             });
         }
 

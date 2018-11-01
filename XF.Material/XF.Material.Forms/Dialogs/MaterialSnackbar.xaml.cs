@@ -7,8 +7,8 @@ using XF.Material.Forms.Dialogs.Configurations;
 namespace XF.Material.Forms.Dialogs
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class MaterialSnackbar : BaseMaterialModalPage, IMaterialAwaitableDialog<bool>
-	{
+    public partial class MaterialSnackbar : BaseMaterialModalPage, IMaterialAwaitableDialog<bool>
+    {
         public const int DURATION_INDEFINITE = -1;
         public const int DURATION_LONG = 2750;
         public const int DURATION_SHORT = 1500;
@@ -28,14 +28,15 @@ namespace XF.Material.Forms.Dialogs
             {
                 _primaryActionRunning = true;
                 this.InputTaskCompletionSource?.SetResult(true);
-                this.Dispose();
+                this.Dismiss();
             }, () => !_primaryActionRunning);
             ActionButton.Command = _primaryActionCommand;
             _hideAction = () => this.InputTaskCompletionSource?.SetResult(false);
         }
 
-        internal static MaterialSnackbarConfiguration GlobalConfiguration { get; set; }
         public TaskCompletionSource<bool> InputTaskCompletionSource { get; set; }
+
+        internal static MaterialSnackbarConfiguration GlobalConfiguration { get; set; }
 
         internal static async Task<MaterialSnackbar> Loading(string message, MaterialSnackbarConfiguration configuration = null)
         {
@@ -73,7 +74,7 @@ namespace XF.Material.Forms.Dialogs
                 if (!_primaryActionRunning)
                 {
                     _hideAction?.Invoke();
-                    this.Dispose();
+                    this.Dismiss();
                 }
             }
         }
@@ -95,6 +96,7 @@ namespace XF.Material.Forms.Dialogs
                 ActionButton.TextColor = preferredConfig.TintColor;
                 ActionButton.FontFamily = preferredConfig.ButtonFontFamily;
                 ActionButton.AllCaps = preferredConfig.ButtonAllCaps;
+                this.Padding = new Thickness(8, 0, 8, preferredConfig.BottomOffset);
             }
         }
     }

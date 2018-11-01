@@ -5,16 +5,16 @@ using XF.Material.Forms.Dialogs.Configurations;
 namespace XF.Material.Forms.Dialogs
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class MaterialLoadingDialog : BaseMaterialModalPage
-	{
-        internal static MaterialLoadingDialogConfiguration GlobalConfiguration { get; set; }
-
+    public partial class MaterialLoadingDialog : BaseMaterialModalPage
+    {
         internal MaterialLoadingDialog(string message, MaterialLoadingDialogConfiguration configuration)
         {
             this.InitializeComponent();
             this.Configure(configuration);
             Message.Text = message;
         }
+
+        internal static MaterialLoadingDialogConfiguration GlobalConfiguration { get; set; }
 
         internal static async Task<MaterialLoadingDialog> Loading(string message, MaterialLoadingDialogConfiguration configuration = null)
         {
@@ -27,6 +27,7 @@ namespace XF.Material.Forms.Dialogs
         protected override void OnAppearing()
         {
             base.OnAppearing();
+
             LoadingImage.Play();
         }
 
@@ -34,7 +35,7 @@ namespace XF.Material.Forms.Dialogs
         {
             var preferredConfig = configuration ?? GlobalConfiguration;
 
-            if(preferredConfig != null)
+            if (preferredConfig != null)
             {
                 this.BackgroundColor = preferredConfig.ScrimColor;
                 Container.CornerRadius = preferredConfig.CornerRadius;

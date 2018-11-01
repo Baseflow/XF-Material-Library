@@ -12,24 +12,54 @@ namespace XF.Material.Forms.Views.Internals
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class BaseMaterialSelectionControl : ContentView
     {
+        /// <summary>
+        /// Backing field for the bindable property <see cref="FontFamily"/>.
+        /// </summary>
         public static readonly BindableProperty FontFamilyProperty = BindableProperty.Create(nameof(FontFamily), typeof(string), typeof(BaseMaterialSelectionControl), string.Empty);
 
+        /// <summary>
+        /// Backing field for the bindable property <see cref="FontSize"/>.
+        /// </summary>
         public static readonly BindableProperty FontSizeProperty = BindableProperty.Create(nameof(FontSize), typeof(double), typeof(BaseMaterialSelectionControl), Material.GetResource<double>(MaterialConstants.MATERIAL_FONTSIZE_BODY1));
 
+        /// <summary>
+        /// Backing field for the bindable property <see cref="HorizontalSpacing"/>.
+        /// </summary>
         public static readonly BindableProperty HorizontalSpacingProperty = BindableProperty.Create(nameof(HorizontalSpacing), typeof(double), typeof(BaseMaterialSelectionControl), 0.0);
 
+        /// <summary>
+        /// Backing field for the bindable property <see cref="IsSelected"/>.
+        /// </summary>
         public static readonly BindableProperty IsSelectedProperty = BindableProperty.Create(nameof(IsSelected), typeof(bool), typeof(BaseMaterialSelectionControl), false, BindingMode.TwoWay);
 
+        /// <summary>
+        /// Backing field for the bindable property <see cref="SelectedChangeCommand"/>.
+        /// </summary>
         public static readonly BindableProperty SelectedChangeCommandProperty = BindableProperty.Create(nameof(SelectedChangeCommand), typeof(Command<bool>), typeof(BaseMaterialSelectionControl));
 
+        /// <summary>
+        /// Backing field for the bindable property <see cref="SelectedColor"/>.
+        /// </summary>
         public static readonly BindableProperty SelectedColorProperty = BindableProperty.Create(nameof(SelectedColor), typeof(Color), typeof(BaseMaterialSelectionControl), Material.Color.Secondary);
 
+        /// <summary>
+        /// Backing field for the bindable property <see cref="TextColor"/>.
+        /// </summary>
         public static readonly BindableProperty TextColorProperty = BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(BaseMaterialSelectionControl), Color.FromHex("#DE000000"));
 
+        /// <summary>
+        /// Backing field for the bindable property <see cref="Text"/>.
+        /// </summary>
         public static readonly BindableProperty TextProperty = BindableProperty.Create(nameof(Text), typeof(string), typeof(BaseMaterialSelectionControl), string.Empty);
 
+        /// <summary>
+        /// Backing field for the bindable property <see cref="UnselectedColor"/>.
+        /// </summary>
         public static readonly BindableProperty UnselectedColorProperty = BindableProperty.Create(nameof(UnselectedColor), typeof(Color), typeof(BaseMaterialSelectionControl), Color.FromHex("#84000000"));
 
+        /// <summary>
+        /// Backing field for the bindable property <see cref="VerticalSpacing"/>.
+        /// </summary>
         public static readonly BindableProperty VerticalSpacingProperty = BindableProperty.Create(nameof(VerticalSpacing), typeof(double), typeof(BaseMaterialSelectionControlGroup), 0.0);
 
         private string _selectedSource;
@@ -70,54 +100,81 @@ namespace XF.Material.Forms.Views.Internals
         /// </summary>
         public event EventHandler<SelectedChangedEventArgs> SelectedChanged;
 
+        /// <summary>
+        /// Gets or sets the font family of the selection control's text.
+        /// </summary>
         public string FontFamily
         {
             get => (string)this.GetValue(FontFamilyProperty);
             set => this.SetValue(FontFamilyProperty, value);
         }
 
+        /// <summary>
+        /// Gets or sets the font size of the selection control's text.
+        /// </summary>
         public double FontSize
         {
             get => (double)this.GetValue(FontSizeProperty);
             set => this.SetValue(FontSizeProperty, value);
         }
 
+        /// <summary>
+        /// Gets or sets the spacing between the selection control's image and text.
+        /// </summary>
         public double HorizontalSpacing
         {
             get => (double)this.GetValue(HorizontalSpacingProperty);
             set => this.SetValue(HorizontalSpacingProperty, value);
         }
 
+        /// <summary>
+        /// Gets or sets the boolean value whether this selection control was selected or not.
+        /// </summary>
         public bool IsSelected
         {
             get => (bool)this.GetValue(IsSelectedProperty);
             set => this.SetValue(IsSelectedProperty, value);
         }
 
+        /// <summary>
+        /// Gets or sets the command that will execute when this selection control was selected or not.
+        /// </summary>
         public Command<bool> SelectedChangeCommand
         {
             get => (Command<bool>)this.GetValue(SelectedChangeCommandProperty);
             set => this.SetValue(SelectedChangeCommandProperty, value);
         }
 
+        /// <summary>
+        /// Gets or sets the color of the selection control image if it was selected.
+        /// </summary>
         public Color SelectedColor
         {
             get => (Color)this.GetValue(SelectedColorProperty);
             set => this.SetValue(SelectedColorProperty, value);
         }
 
+        /// <summary>
+        /// Gets or sets the selection control's text.
+        /// </summary>
         public string Text
         {
             get => (string)this.GetValue(TextProperty);
             set => this.SetValue(TextProperty, value);
         }
 
+        /// <summary>
+        /// Gets or sets the selection control's text color.
+        /// </summary>
         public Color TextColor
         {
             get => (Color)this.GetValue(TextColorProperty);
             set => this.SetValue(TextColorProperty, value);
         }
 
+        /// <summary>
+        /// Gets or sets the color of the selection control image if it was not selected.
+        /// </summary>
         public Color UnselectedColor
         {
             get => (Color)this.GetValue(UnselectedColorProperty);

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Xamarin.Forms;
 using XF.Material.Forms.Dialogs.Configurations;
 
 namespace XF.Material.Forms.Dialogs
@@ -12,8 +11,6 @@ namespace XF.Material.Forms.Dialogs
     public sealed class MaterialDialog : IMaterialDialog
     {
         private static readonly Lazy<IMaterialDialog> MaterialDialogInstance = new Lazy<IMaterialDialog>(() => new MaterialDialog());
-
-        internal MaterialDialog() { }
 
         /// <summary>
         /// The current instance to use for showing modal dialogs.
@@ -76,6 +73,21 @@ namespace XF.Material.Forms.Dialogs
         public async Task<bool> ConfirmAsync(string message, string title, string confirmingText = "Ok", string dismissiveText = "Cancel", MaterialAlertDialogConfiguration configuration = null)
         {
             return await MaterialAlertDialog.ConfirmAsync(message, title, confirmingText, dismissiveText, configuration);
+        }
+
+        /// <summary>
+        /// Shows a confirmation dialog that allow users to input text. If confirmed, returns the text value of the textfield. If canceled or dismissed, returns <see cref="string.Empty"/>.
+        /// </summary>
+        /// <param name="title">The title of the confirmation dialog.</param>
+        /// <param name="message">The message of the confirmation dialog.</param>
+        /// <param name="inputText">The initial text of the textfield.</param>
+        /// <param name="inputPlaceholder">The placeholder of the textfield.</param>
+        /// <param name="confirmingText">The text of the confirmation button.</param>
+        /// <param name="dismissiveText">The text of the dismissive button</param>
+        /// <param name="configuration">The style of the confirmation dialog.</param>
+        public async Task<string> InputAsync(string title = null, string message = null, string inputText = null, string inputPlaceholder = "Enter input", string confirmingText = "Ok", string dismissiveText = "Cancel", MaterialInputDialogConfiguration configuration = null)
+        {
+            return await MaterialInputDialog.Show(title, message, inputText, inputPlaceholder, confirmingText, dismissiveText, configuration);
         }
 
         /// <summary>
@@ -181,18 +193,15 @@ namespace XF.Material.Forms.Dialogs
         /// <param name="snackbarConfiguration">Global style for <see cref="MaterialSnackbar"/>.</param>
         /// <param name="simpleDialogConfiguration">Global style for <see cref="MaterialSimpleDialog"/>.</param>
         /// <param name="confirmationDialogConfiguration">Global style for <see cref="MaterialConfirmationDialog"/>.</param>
-        public void SetGlobalStyles(MaterialAlertDialogConfiguration dialogConfiguration, MaterialLoadingDialogConfiguration loadingDialogConfiguration, MaterialSnackbarConfiguration snackbarConfiguration, MaterialSimpleDialogConfiguration simpleDialogConfiguration, MaterialConfirmationDialogConfiguration confirmationDialogConfiguration)
+        /// <param name="inputDialogConfiguration">Global style for <see cref="MaterialInputDialog"/>.</param>
+        public void SetGlobalStyles(MaterialAlertDialogConfiguration dialogConfiguration, MaterialLoadingDialogConfiguration loadingDialogConfiguration, MaterialSnackbarConfiguration snackbarConfiguration, MaterialSimpleDialogConfiguration simpleDialogConfiguration, MaterialConfirmationDialogConfiguration confirmationDialogConfiguration, MaterialInputDialogConfiguration inputDialogConfiguration)
         {
             MaterialAlertDialog.GlobalConfiguration = dialogConfiguration;
             MaterialLoadingDialog.GlobalConfiguration = loadingDialogConfiguration;
             MaterialSnackbar.GlobalConfiguration = snackbarConfiguration;
             MaterialSimpleDialog.GlobalConfiguration = simpleDialogConfiguration;
             MaterialConfirmationDialog.GlobalConfiguration = confirmationDialogConfiguration;
-        }
-
-        public async Task<bool> Show(View content, string title = null, string confirmingText = "Ok", string dismissiveText = "Cancel")
-        {
-            return await MaterialDialogFragment.Show(content, title, confirmingText, dismissiveText);
+            MaterialInputDialog.GlobalConfiguration = inputDialogConfiguration;
         }
 
         /// <summary>

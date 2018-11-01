@@ -2,6 +2,7 @@
 using Rg.Plugins.Popup.Pages;
 using Rg.Plugins.Popup.Services;
 using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -31,9 +32,16 @@ namespace XF.Material.Forms.Dialogs
             };
         }
 
+
         /// <summary>
-        /// Disposes this modal dialog.
+        /// Dismisses this modal dialog.
         /// </summary>
+        public void Dismiss()
+        {
+            this.Dispose();
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public void Dispose()
         {
             this.Dispose(true);
@@ -64,7 +72,7 @@ namespace XF.Material.Forms.Dialogs
         protected override void OnDisappearingAnimationEnd()
         {
             base.OnDisappearingAnimationEnd();
-            this.Dispose();
+            this.Dismiss();
         }
 
         /// <summary>
@@ -79,9 +87,10 @@ namespace XF.Material.Forms.Dialogs
 
             else
             {
-                this.Dispose();
+                this.Dismiss();
             }
         }
+
         private bool CanShowPopup()
         {
             return !PopupNavigation.Instance.PopupStack.ToList().Exists(p => p.GetType() == this.GetType());

@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<local:BaseMaterialModalPage x:Class="XF.Material.Forms.Dialogs.MaterialDialogFragment"
+<local:BaseMaterialModalPage x:Class="XF.Material.Forms.Dialogs.MaterialInputDialog"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:internal="clr-namespace:XF.Material.Forms.Views.Internals"
     xmlns:local="clr-namespace:XF.Material.Forms.Dialogs"
     xmlns:material="clr-namespace:XF.Material.Forms.Views"
     xmlns:sys="clr-namespace:System;assembly=netstandard"
@@ -23,6 +24,7 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <Label x:Name="DialogTitle"
                     Grid.Row="0"
@@ -39,19 +41,33 @@
                         </Trigger>
                     </Label.Triggers>
                 </Label>
-                <ContentView x:Name="ContentContainer"
+                <Label x:Name="Message"
                     Grid.Row="1"
                     Margin="24,0,24,0"
-                    Padding="0">
-                    <ContentView.Triggers>
+                    Style="{StaticResource Material.TypeScale.Body1}"
+                    Text="Lorem ipsum dolor sit amet, conse tetuer adipiscing elit. Aenean commodo ligula eget dolor."
+                    TextColor="#99000000">
+                    <Label.Triggers>
                         <DataTrigger Binding="{Binding Source={x:Reference DialogTitle}, Path=IsVisible}"
-                            TargetType="ContentView"
+                            TargetType="Label"
                             Value="False">
                             <Setter Property="Margin" Value="24, 20, 24, 0" />
                         </DataTrigger>
-                    </ContentView.Triggers>
-                </ContentView>
-                <Grid Grid.Row="2"
+                        <Trigger TargetType="Label" Property="Text" Value="{x:Null}">
+                            <Setter Property="IsVisible" Value="False" />
+                        </Trigger>
+                        <Trigger TargetType="Label" Property="Text" Value="{x:Static sys:String.Empty}">
+                            <Setter Property="IsVisible" Value="False" />
+                        </Trigger>
+                    </Label.Triggers>
+                </Label>
+                <internal:MaterialInputDialogTextField x:Name="TextField"
+                    Grid.Row="2"
+                    Margin="24,0"
+                    AlwaysShowUnderline="True"
+                    BackgroundColor="Transparent"
+                    FloatingPlaceholderEnabled="False" />
+                <Grid Grid.Row="3"
                     Margin="0,20,8,0"
                     ColumnSpacing="0">
                     <Grid.RowDefinitions>

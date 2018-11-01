@@ -2,6 +2,9 @@
 
 namespace XF.Material.Forms.Utilities
 {
+    /// <summary>
+    /// Interface which provides methods that can be used to change platform-specific configurations.
+    /// </summary>
     public interface IMaterialUtility
     {
         /// <summary>

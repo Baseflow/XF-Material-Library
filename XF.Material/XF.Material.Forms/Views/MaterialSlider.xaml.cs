@@ -13,23 +13,41 @@ namespace XF.Material.Forms.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MaterialSlider : ContentView, IMaterialElementConfiguration
     {
+        /// <summary>
+        /// Backing field for the bindable property <see cref="MaxValue"/>.
+        /// </summary>
         public static readonly BindableProperty MaxValueProperty = BindableProperty.Create(nameof(MaxValue), typeof(double), typeof(MaterialSlider), 100.0, BindingMode.TwoWay);
 
+        /// <summary>
+        /// Backing field for the bindable property <see cref="MinValue"/>.
+        /// </summary>
         public static readonly BindableProperty MinValueProperty = BindableProperty.Create(nameof(MinValue), typeof(double), typeof(MaterialSlider), 0.0, BindingMode.TwoWay);
 
+        /// <summary>
+        /// Backing field for the bindable property <see cref="ThumbColor"/>.
+        /// </summary>
         public static readonly BindableProperty ThumbColorProperty = BindableProperty.Create(nameof(ThumbColor), typeof(Color), typeof(MaterialSlider), Material.Color.Secondary);
 
+        /// <summary>
+        /// Backing field for the bindable property <see cref="TrackColor"/>.
+        /// </summary>
         public static readonly BindableProperty TrackColorProperty = BindableProperty.Create(nameof(TrackColor), typeof(Color), typeof(MaterialSlider), Material.Color.Secondary);
 
-        public static readonly BindableProperty ValueProperty = BindableProperty.Create(nameof(Value), typeof(double), typeof(MaterialSlider), 0.0, BindingMode.TwoWay);
-
+        /// <summary>
+        /// Backing field for the bindable property <see cref="ValueChangedCommand"/>.
+        /// </summary>
         public static readonly BindableProperty ValueChangedCommandProperty = BindableProperty.Create(nameof(ValueChangedCommand), typeof(Command<double>), typeof(MaterialSlider));
+
+        /// <summary>
+        /// Backing field for the bindable property <see cref="Value"/>.
+        /// </summary>
+        public static readonly BindableProperty ValueProperty = BindableProperty.Create(nameof(Value), typeof(double), typeof(MaterialSlider), 0.0, BindingMode.TwoWay);
 
         private bool _draggerTranslatedInitially;
         private double _lastHeight = -1;
         private double _lastWidth = -1;
-        private double _x;
         private PanGestureRecognizer _pan;
+        private double _x;
 
         /// <summary>
         /// Initializes a new instance of <see cref="MaterialSlider"/>.
@@ -90,7 +108,7 @@ namespace XF.Material.Forms.Views
             {
                 var oldVal = (double)this.GetValue(ValueProperty);
 
-                if(oldVal != value)
+                if (oldVal != value)
                 {
                     this.OnValueChanged(oldVal, value);
                 }
@@ -114,7 +132,7 @@ namespace XF.Material.Forms.Views
         [EditorBrowsable(EditorBrowsableState.Never)]
         public void ElementChanged(bool created)
         {
-            if(created)
+            if (created)
             {
                 _pan = new PanGestureRecognizer();
                 _pan.PanUpdated += this.Pan_PanUpdated;
@@ -122,7 +140,6 @@ namespace XF.Material.Forms.Views
                 this.GestureRecognizers.Add(_pan);
                 TapContainer.Tapped += this.TapContainer_Tapped;
             }
-
             else
             {
                 _pan.PanUpdated -= this.Pan_PanUpdated;
@@ -208,7 +225,6 @@ namespace XF.Material.Forms.Views
                 var percentage = newX / Placeholder.Width;
                 this.Value = percentage * (this.MaxValue - this.MinValue) + this.MinValue;
             }
-
             else if (e.StatusType == GestureStatus.Completed)
             {
                 _x = Dragger.TranslationX;
@@ -217,7 +233,7 @@ namespace XF.Material.Forms.Views
 
         private void TapContainer_Tapped(object sender, Internals.TappedEventArgs e)
         {
-            if(!this.IsEnabled)
+            if (!this.IsEnabled)
             {
                 return;
             }

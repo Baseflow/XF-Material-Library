@@ -24,7 +24,7 @@ namespace XF.Material.Droid.Renderers.Internals
             if(e?.NewElement != null)
             {
                 this.Control.ItemClick += this.Control_ItemClick;
-                
+
                 if(!(this.Element as MaterialDialogListView).HasRipple)
                 {
                     this.Control.Selector = new ColorDrawable(Color.Transparent.ToAndroid());

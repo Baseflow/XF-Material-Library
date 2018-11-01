@@ -4,8 +4,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:XF.Material.Forms.Dialogs"
     xmlns:material="clr-namespace:XF.Material.Forms.Views"
-    xmlns:rga="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
-    xmlns:rgp="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
     BackgroundColor="#51000000"
     CloseWhenBackgroundIsClicked="False">
     <ContentPage.Content>

@@ -9,7 +9,7 @@ namespace XF.Material.Forms.Resources
     {
 		public MaterialStyles ()
 		{
-			InitializeComponent ();
+			this.InitializeComponent ();
 		}
 	}
 }

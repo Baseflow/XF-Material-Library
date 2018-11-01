@@ -6,7 +6,6 @@ using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XF.Material.Forms.Resources;
-using XF.Material.Forms.Views.Internals;
 
 namespace XF.Material.Forms.Views.Internals
 {
@@ -71,11 +70,12 @@ namespace XF.Material.Forms.Views.Internals
         private const double ANIM_DURATION = 0.35;
         private readonly Easing animationCurve = Easing.SinOut;
         private bool _counterEnabled;
+        private bool _wasFocused;
 
         /// <summary>
         /// Initializes a new instance of <see cref="MaterialInputDialogTextField"/>.
         /// </summary>
-        public MaterialInputDialogTextField()
+        internal MaterialInputDialogTextField()
         {
             this.InitializeComponent();
             errorIcon.TintColor = this.ErrorColor;
@@ -399,6 +399,7 @@ namespace XF.Material.Forms.Views.Internals
             if (propertyName == nameof(this.Text))
             {
                 entry.Text = this.Text;
+                this.AnimatePlaceHolderOnStart(this);
                 this.UpdateCounter();
             }
 
@@ -414,7 +415,7 @@ namespace XF.Material.Forms.Views.Internals
 
             else if (propertyName == nameof(this.TintColor))
             {
-                underline.Color = this.TintColor;
+                entry.TintColor = underline.Color = this.TintColor;
             }
 
             else if (propertyName == nameof(this.Placeholder))
@@ -536,20 +537,24 @@ namespace XF.Material.Forms.Views.Internals
 
         private void AnimatePlaceHolderOnStart(object startObject)
         {
-            if (startObject != null && !string.IsNullOrEmpty(this.Text) && this.FloatingPlaceholderEnabled)
+            if (startObject != null && !string.IsNullOrEmpty(this.Text) && !_wasFocused)
             {
                 Device.BeginInvokeOnMainThread(async () =>
                 {
-                    entry.Opacity = 0;
                     await Task.Delay(250);
-
                     var anim = new Animation();
-                    anim.Add(0.0, ANIM_DURATION, new Animation(v => placeholder.FontSize = v, 16, 12, animationCurve));
-                    anim.Add(0.0, ANIM_DURATION, new Animation(v => placeholder.TranslationY = v, placeholder.TranslationY, -12, animationCurve, () =>
+
+                    if (this.FloatingPlaceholderEnabled)
                     {
-                        placeholder.TextColor = this.TintColor;
-                        entry.Opacity = 1;
-                    }));
+                        entry.Opacity = 0;
+                        anim.Add(0.0, ANIM_DURATION, new Animation(v => placeholder.FontSize = v, 16, 12, animationCurve));
+                        anim.Add(0.0, ANIM_DURATION, new Animation(v => placeholder.TranslationY = v, placeholder.TranslationY, -12, animationCurve, () =>
+                        {
+                            placeholder.TextColor = this.TintColor;
+                            entry.Opacity = 1;
+                        }));
+                    }
+
                     anim.Add(0.0, ANIM_DURATION, new Animation(v => underline.WidthRequest = v, 0, this.Width, animationCurve, () => underline.HorizontalOptions = LayoutOptions.FillAndExpand));
                     anim.Commit(this, "Anim2", rate: 2, length: (uint)(ANIM_DURATION * 1000), easing: animationCurve);
                 });
@@ -565,7 +570,7 @@ namespace XF.Material.Forms.Views.Internals
             var color = entry.IsFocused ? this.TintColor : this.PlaceholderColor;
             Animation anim = new Animation();
 
-            if(this.FloatingPlaceholderEnabled)
+            if (this.FloatingPlaceholderEnabled)
             {
                 anim = new Animation
                 {
@@ -666,6 +671,7 @@ namespace XF.Material.Forms.Views.Internals
         {
             if (e.PropertyName == nameof(Entry.IsFocused))
             {
+                _wasFocused = true;
                 this.FocusCommand?.Execute(entry.IsFocused);
                 this.Focused?.Invoke(this, new FocusEventArgs(entry, entry.IsFocused));
                 this.UpdateCounter();
