@@ -9,64 +9,73 @@ using XF.Material.Forms.Views.Internals;
 using XF.Material.iOS.Renderers;
 
 [assembly: ExportRenderer(typeof(MaterialNavigationPage), typeof(MaterialNavigationPageRenderer))]
+
 namespace XF.Material.iOS.Renderers
 {
     public class MaterialNavigationPageRenderer : NavigationRenderer
     {
         private MaterialNavigationPage _navigationPage;
 
+        public void ChangeHasShadow(bool hasShadow)
+        {
+            if (hasShadow)
+            {
+                this.NavigationBar.Layer.MasksToBounds = false;
+                this.NavigationBar.Layer.ShadowColor = UIColor.Black.CGColor;
+                this.NavigationBar.Layer.ShadowOffset = new CGSize(0, 3f);
+                this.NavigationBar.Layer.ShadowOpacity = 0.32f;
+                this.NavigationBar.Layer.ShadowRadius = 3f;
+            }
+
+            else
+            {
+                this.NavigationBar.Layer.MasksToBounds = false;
+                this.NavigationBar.Layer.ShadowColor = UIColor.Black.CGColor;
+                this.NavigationBar.Layer.ShadowOffset = new CGSize(0f, 0f);
+                this.NavigationBar.Layer.ShadowOpacity = 0f;
+                this.NavigationBar.Layer.ShadowRadius = 0f;
+            }
+        }
+
         protected override void OnElementChanged(VisualElementChangedEventArgs e)
         {
             base.OnElementChanged(e);
 
-            if (e?.OldElement != null)
-            {
-                (this.Element as IMaterialElementConfiguration)?.ElementChanged(false);
-            }
-
             if (e?.NewElement != null)
             {
                 _navigationPage = this.Element as MaterialNavigationPage;
-                this.NavigationBar.Frame = new CGRect(0, 0, this.View.Frame.Size.Width, 56f);
-
-                if (_navigationPage.HasShadow)
-                {
-                    this.NavigationBar.Layer.MasksToBounds = false;
-                    this.NavigationBar.Layer.ShadowColor = UIColor.Black.CGColor;
-                    this.NavigationBar.Layer.ShadowOffset = new CGSize(0, 3f);
-                    this.NavigationBar.Layer.ShadowOpacity = 0.32f;
-                    this.NavigationBar.Layer.ShadowRadius = 3f;
-                }
-
-                (this.Element as IMaterialElementConfiguration)?.ElementChanged(true);
             }
         }
 
-        public override void PushViewController(UIViewController viewController, bool animated)
+        protected override Task<bool> OnPopViewAsync(Page page, bool animated)
         {
-            base.PushViewController(viewController, animated);
-
-            viewController.NavigationItem.BackBarButtonItem = new UIBarButtonItem(string.Empty, UIBarButtonItemStyle.Plain, null);
-        }
-
-        public override UIViewController PopViewController(bool animated)
-        {
+            var pop = base.OnPopViewAsync(page, animated);
             var navStack = _navigationPage.Navigation.NavigationStack.ToList();
 
             if (navStack.Count - 1 - navStack.IndexOf(_navigationPage.CurrentPage) >= 0)
             {
                 var previousPage = navStack[navStack.IndexOf(_navigationPage.CurrentPage) - 1];
                 _navigationPage.OnPagePop(previousPage);
+                this.ChangeHasShadow(previousPage);
             }
 
-            return base.PopViewController(animated);
+            return pop;
         }
 
         protected override Task<bool> OnPushAsync(Page page, bool animated)
         {
             _navigationPage.OnPagePush(page);
 
+            this.ChangeHasShadow(page);
+
             return base.OnPushAsync(page, animated);
+        }
+
+        private void ChangeHasShadow(Page page)
+        {
+            var hasShadow = (bool)page.GetValue(MaterialNavigationPage.HasShadowProperty);
+
+            this.ChangeHasShadow(hasShadow);
         }
     }
 }
