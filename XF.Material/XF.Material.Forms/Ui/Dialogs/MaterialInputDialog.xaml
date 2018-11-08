@@ -98,6 +98,7 @@
                     <material:MaterialButton x:Name="PositiveButton"
                         Grid.Column="3"
                         ButtonType="Text"
+                        IsEnabled="False"
                         VerticalOptions="Center" />
                 </Grid>
             </Grid>

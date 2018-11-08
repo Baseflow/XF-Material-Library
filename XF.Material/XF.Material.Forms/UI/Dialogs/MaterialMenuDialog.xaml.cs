@@ -106,7 +106,6 @@ namespace XF.Material.Forms.UI.Dialogs
         protected override bool OnBackButtonPressed()
         {
             this.InputTaskCompletionSource.SetResult(-1);
-            this.Dismiss();
 
             return base.OnBackButtonPressed();
         }

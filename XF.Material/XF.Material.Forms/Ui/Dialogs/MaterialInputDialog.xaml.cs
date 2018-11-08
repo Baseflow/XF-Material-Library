@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XF.Material.Forms.UI.Dialogs.Configurations;
@@ -17,7 +16,6 @@ namespace XF.Material.Forms.UI.Dialogs
             TextField.Placeholder = inputPlaceholder;
             TextField.Text = inputText;
             PositiveButton.Text = confirmingText;
-            PositiveButton.IsEnabled = false;
             NegativeButton.Text = dismissiveText;
             PositiveButton.Command = new Command(() =>
             {
@@ -44,6 +42,7 @@ namespace XF.Material.Forms.UI.Dialogs
         public static async Task<string> Show(string title = null, string message = null, string inputText = null, string inputPlaceholder = "Enter input", string confirmingText = "Ok", string dismissiveText = "Cancel", MaterialInputDialogConfiguration configuration = null)
         {
             var dialog = new MaterialInputDialog(title, message, inputText, inputPlaceholder, confirmingText, dismissiveText, configuration);
+            dialog.PositiveButton.IsEnabled = false;
 
             await dialog.ShowAsync();
 
