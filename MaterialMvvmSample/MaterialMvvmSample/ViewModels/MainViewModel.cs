@@ -7,7 +7,6 @@ using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using XF.Material.Forms.Models;
-using XF.Material.Forms.UI.Dialogs;
 
 namespace MaterialMvvmSample.ViewModels
 {
@@ -26,11 +25,11 @@ namespace MaterialMvvmSample.ViewModels
                 {
                     Title = "Mobile Developer (Xamarin)"
                 },
-                                new TestModel
+                new TestModel
                 {
                     Title = "Mobile Developer (Native Android)"
                 },
-                                                new TestModel
+                new TestModel
                 {
                     Title = "Mobile Developer (Native iOS)"
                 }
@@ -136,7 +135,7 @@ namespace MaterialMvvmSample.ViewModels
                 {
                     this.Models.Remove(model);
 
-                    await MaterialDialog.Instance.SnackbarAsync("Job deleted", MaterialSnackbar.DurationShort);
+                    await _dialogService.JobDeleted();
                 }
             }
         }

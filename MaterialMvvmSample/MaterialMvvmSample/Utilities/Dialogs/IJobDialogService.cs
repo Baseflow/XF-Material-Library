@@ -11,5 +11,7 @@ namespace MaterialMvvmSample.Utilities.Dialogs
         Task<bool> DeleteJob(string jobTitle);
 
         Task AlertExistingJob(string jobTitle);
+
+        Task JobDeleted();
     }
 }

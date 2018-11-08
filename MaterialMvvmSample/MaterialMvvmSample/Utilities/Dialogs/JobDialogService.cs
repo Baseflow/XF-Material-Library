@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using XF.Material.Forms.UI.Dialogs;
 
 namespace MaterialMvvmSample.Utilities.Dialogs
 {
@@ -34,6 +35,12 @@ namespace MaterialMvvmSample.Utilities.Dialogs
                     inputText: jobTitle,
                     inputPlaceholder: "Job Title",
                     confirmingText: "Change");
+        }
+
+        public Task JobDeleted()
+        {
+            return this.DialogFacade
+                   .SnackbarAsync("Job deleted", MaterialSnackbar.DurationShort);
         }
     }
 }
