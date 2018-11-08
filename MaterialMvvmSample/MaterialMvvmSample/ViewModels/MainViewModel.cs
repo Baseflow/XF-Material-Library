@@ -7,7 +7,7 @@ using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using XF.Material.Forms.Models;
-using XF.Material.Forms.Ui.Dialogs;
+using XF.Material.Forms.UI.Dialogs;
 
 namespace MaterialMvvmSample.ViewModels
 {

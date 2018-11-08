@@ -4,7 +4,7 @@ using System;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Xamarin.Forms;
-using XF.Material.Forms.Ui;
+using XF.Material.Forms.UI;
 
 namespace MaterialMvvmSample.Controls
 {
