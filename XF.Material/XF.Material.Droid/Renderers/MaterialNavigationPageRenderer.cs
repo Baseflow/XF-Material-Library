@@ -49,7 +49,7 @@ namespace XF.Material.Droid.Renderers
             if (navStack.Count - 1 - navStack.IndexOf(page) >= 0)
             {
                 var previousPage = navStack[navStack.IndexOf(page) - 1];
-                _navigationPage.OnPagePop(previousPage);
+                _navigationPage.InternalPagePop(previousPage);
                 this.ChangeHasShadow(previousPage);
             }
 
@@ -58,7 +58,7 @@ namespace XF.Material.Droid.Renderers
 
         protected override Task<bool> OnPushAsync(Page view, bool animated)
         {
-            _navigationPage.OnPagePush(view);
+            _navigationPage.InternalPagePush(view);
 
             this.ChangeHasShadow(view);
 

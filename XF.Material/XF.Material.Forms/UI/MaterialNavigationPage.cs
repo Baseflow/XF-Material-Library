@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using System.ComponentModel;
+using Xamarin.Forms;
 using XF.Material.Forms.Resources;
 
 namespace XF.Material.Forms.UI
@@ -9,27 +10,27 @@ namespace XF.Material.Forms.UI
     public class MaterialNavigationPage : NavigationPage
     {
         /// <summary>
-        /// Attached property that is used by <see cref="ContentPage"/>s to determine the app bar color.
+        /// Attached property that is used by <see cref="Page"/>s to determine the app bar color.
         /// </summary>
         public static readonly BindableProperty AppBarColorProperty = BindableProperty.Create("AppBarColor", typeof(Color), typeof(MaterialNavigationPage), Color.Default);
 
         /// <summary>
-        /// Attached property that is used by <see cref="ContentPage"/>s to determine whether the app bar text alignment.
+        /// Attached property that is used by <see cref="Page"/>s to determine whether the app bar text alignment.
         /// </summary>
         public static readonly BindableProperty AppBarTextAlignmentProperty = BindableProperty.Create("AppBarTextAlignment", typeof(TextAlignment), typeof(MaterialNavigationPage), TextAlignment.Start);
 
         /// <summary>
-        /// Attached property that is used by <see cref="ContentPage"/>s to determine whether the app bar text color.
+        /// Attached property that is used by <see cref="Page"/>s to determine whether the app bar text color.
         /// </summary>
         public static readonly BindableProperty AppBarTextColorProperty = BindableProperty.Create("AppBarTextColor", typeof(Color), typeof(MaterialNavigationPage), Color.Default);
 
         /// <summary>
-        /// Attached property that is used by <see cref="ContentPage"/>s to determine whether the app bar text font family.
+        /// Attached property that is used by <see cref="Page"/>s to determine whether the app bar text font family.
         /// </summary>
         public static readonly BindableProperty AppBarTextFontFamilyProperty = BindableProperty.Create("AppBarTextFontFamily", typeof(string), typeof(MaterialNavigationPage));
 
         /// <summary>
-        /// Attached property that is used by <see cref="ContentPage"/>s to determine whether the app bar text font family.
+        /// Attached property that is used by <see cref="Page"/>s to determine whether the app bar text font family.
         /// </summary>
         public static readonly BindableProperty AppBarTextFontSizeProperty = BindableProperty.Create("AppBarTextFontSize", typeof(double), typeof(MaterialNavigationPage), 24.0);
 
@@ -39,7 +40,7 @@ namespace XF.Material.Forms.UI
         public static readonly BindableProperty HasShadowProperty = BindableProperty.Create("HasShadow", typeof(bool), typeof(MaterialNavigationPage), true);
 
         /// <summary>
-        /// Attached property that is used by <see cref="ContentPage"/>s to determine the status bar color.
+        /// Attached property that is used by <see cref="Page"/>s to determine the status bar color.
         /// </summary>
         public static readonly BindableProperty StatusBarColorProperty = BindableProperty.Create("StatusBarColor", typeof(Color), typeof(MaterialNavigationPage), Color.Default);
 
@@ -172,10 +173,40 @@ namespace XF.Material.Forms.UI
         }
 
         /// <summary>
+        /// For internal use only.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public void InternalPagePop(Page previousPage)
+        {
+            this.OnPagePop(previousPage);
+        }
+
+        /// <summary>
+        /// For internal use only.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public void InternalPagePush(Page page)
+        {
+            this.OnPagePush(page);
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            if (!_firstLoad)
+            {
+                this.ChangeStatusBarColor(this.RootPage);
+
+                _firstLoad = true;
+            }
+        }
+
+        /// <summary>
         /// Called when a page is being popped.
         /// </summary>
         /// <param name="previousPage">The page that will re-appear.</param>
-        public virtual void OnPagePop(Page previousPage)
+        protected virtual void OnPagePop(Page previousPage)
         {
             if (previousPage.BackgroundColor.IsDefault)
             {
@@ -193,7 +224,7 @@ namespace XF.Material.Forms.UI
         /// Called when a page is being pushed.
         /// </summary>
         /// <param name="page">The page that is being pushed.</param>
-        public virtual void OnPagePush(Page page)
+        protected virtual void OnPagePush(Page page)
         {
             if (page.BackgroundColor.IsDefault)
             {
@@ -206,18 +237,6 @@ namespace XF.Material.Forms.UI
             this.ChangeBarBackgroundColor(page);
 
             page.SetValue(BackButtonTitleProperty, string.Empty);
-        }
-
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-
-            if (!_firstLoad)
-            {
-                this.ChangeStatusBarColor(this.RootPage);
-
-                _firstLoad = true;
-            }
         }
 
         private void ChangeBarBackgroundColor(Page page)

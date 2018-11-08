@@ -55,7 +55,7 @@ namespace XF.Material.iOS.Renderers
             if (navStack.Count - 1 - navStack.IndexOf(_navigationPage.CurrentPage) >= 0)
             {
                 var previousPage = navStack[navStack.IndexOf(_navigationPage.CurrentPage) - 1];
-                _navigationPage.OnPagePop(previousPage);
+                _navigationPage.InternalPagePop(previousPage);
                 this.ChangeHasShadow(previousPage);
             }
 
@@ -64,7 +64,7 @@ namespace XF.Material.iOS.Renderers
 
         protected override Task<bool> OnPushAsync(Page page, bool animated)
         {
-            _navigationPage.OnPagePush(page);
+            _navigationPage.InternalPagePush(page);
 
             this.ChangeHasShadow(page);
 
