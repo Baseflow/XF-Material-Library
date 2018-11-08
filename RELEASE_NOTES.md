@@ -1,5 +1,21 @@
 # Release Notes
 
+##### 1.2.0
+- Upgraded to use `Xamarin.Forms` version `3.3`.
+- Added `IMaterialDialog.InputAsync`, which shows a dialog that allows the user to input text. A feature enhancement stated in this [issue](https://github.com/contrix09/XF-Material-Library/issues/18).
+- Added `MaterialMenu` control, a view container that will show a menu that allows the user to select a choice.
+- Reworked `MaterialNavigatioPage`.
+  - Added an attached property `AppBarColor`. It can be attached to `Pages` to change the `NavigationPage.BarBackgroundColor` property.
+  - Added an attached property `AppBarTextAlignment`. It can be attached to `Pages` to change the `NavigationPage.Title` text alignment.
+  - Added an attached property `AppBarTextColor`. It can be attached to `Pages` to change the `NavigationPage.Title` text color.
+  - Added an attached property `AppBarTextFontFamily`. It can be attached to `Pages` to change the `NavigationPage.Title` text font family.
+  - Added an attached property `AppBarTextFontSize`. It can be attached to `Pages` to change the `NavigationPage.Title` text font size.
+  - Added an attached property `StatusBarColor`. It can be attached to `Pages` to change the status bar color.
+  - Added overrideable methods `OnPagePush` and `OnPagePop`.
+- The status bar color will now be set automatically when `MaterialNavigationPage` is used. You can still use `Material.PlatformConfiguration.SetStatusBarColor` to manually change the status bar color.
+- Added `BottomOffset` property to `MaterialSnackbarConfiguration` that can be used to adjust the bottom margin of the Snackbar. A feature enhancement stated in this [issue](https://github.com/contrix09/XF-Material-Library/issues/23).
+- Fixed a bug where `MaterialCheckboxGroup` does not update the selected items when the property `SelectedIndices` has been changed.
+
 ##### 1.1.2.1
 - Fixed a bug in Android causing `MaterialButtonRenderer` throwing a `System.NullReferenceException` when `MaterialButton` `Image` property is set. A bug reported in this [issue](https://github.com/contrix09/XF-Material-Library/issues/21).
 
