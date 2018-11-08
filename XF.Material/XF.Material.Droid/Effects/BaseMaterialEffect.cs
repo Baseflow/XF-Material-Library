@@ -1,6 +1,8 @@
 ﻿using System.Linq;
+using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
+[assembly: ResolutionGroupName("Material")]
 namespace XF.Material.Droid.Effects
 {
     public class BaseMaterialEffect<TEffect> : PlatformEffect where TEffect : Forms.Effects.BaseMaterialEffect

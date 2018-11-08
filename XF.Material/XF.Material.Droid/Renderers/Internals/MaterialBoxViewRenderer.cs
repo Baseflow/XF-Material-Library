@@ -3,7 +3,7 @@ using Android.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using XF.Material.Droid.Renderers.Internals;
-using XF.Material.Forms.Views.Internals;
+using XF.Material.Forms.UI.Internals;
 using static Android.Views.View;
 
 [assembly: ExportRenderer(typeof(MaterialBoxView), typeof(MaterialBoxViewRenderer))]

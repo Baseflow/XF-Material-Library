@@ -5,7 +5,7 @@ using Android.Support.V4.Content;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using XF.Material.Droid.Renderers.Internals;
-using XF.Material.Forms.Views.Internals;
+using XF.Material.Forms.UI.Internals;
 
 [assembly: ExportRenderer(typeof(MaterialEntry), typeof(MaterialEntryRenderer))]
 namespace XF.Material.Droid.Renderers.Internals

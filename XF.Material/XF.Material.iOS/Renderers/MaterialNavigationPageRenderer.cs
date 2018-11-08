@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
-using XF.Material.Forms.Views;
-using XF.Material.Forms.Views.Internals;
+using XF.Material.Forms.UI;
+using XF.Material.Forms.UI.Internals;
 using XF.Material.iOS.Renderers;
 
 [assembly: ExportRenderer(typeof(MaterialNavigationPage), typeof(MaterialNavigationPageRenderer))]

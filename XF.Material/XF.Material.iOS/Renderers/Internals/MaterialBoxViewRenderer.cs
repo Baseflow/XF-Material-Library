@@ -7,7 +7,7 @@ using Foundation;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
-using XF.Material.Forms.Views.Internals;
+using XF.Material.Forms.UI.Internals;
 using XF.Material.iOS.Renderers.Internals;
 
 [assembly: ExportRenderer(typeof(MaterialBoxView), typeof(MaterialBoxViewRenderer))]

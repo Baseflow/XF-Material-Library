@@ -4,7 +4,7 @@ using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 using XF.Material.iOS.Renderers;
-using XF.Material.Forms.Views;
+using XF.Material.Forms.UI;
 
 [assembly: ExportRenderer(typeof(MaterialCircularLoadingView), typeof(MaterialCircularLoadingViewRenderer))]
 namespace XF.Material.iOS.Renderers

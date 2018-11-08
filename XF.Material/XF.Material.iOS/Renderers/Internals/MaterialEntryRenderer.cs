@@ -2,7 +2,7 @@
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 using XF.Material.iOS.Renderers.Internals;
-using XF.Material.Forms.Views.Internals;
+using XF.Material.Forms.UI.Internals;
 using System.ComponentModel;
 
 [assembly: ExportRenderer(typeof(MaterialEntry), typeof(MaterialEntryRenderer))]

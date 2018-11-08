@@ -6,7 +6,7 @@ using Rg.Plugins.Popup;
 using Rg.Plugins.Popup.Services;
 using System;
 using System.Linq;
-using XF.Material.Forms.Dialogs;
+using XF.Material.Forms.UI.Dialogs;
 
 namespace XF.Material.Droid
 {
@@ -43,7 +43,7 @@ namespace XF.Material.Droid
         }
 
         /// <summary>
-        /// Handles the physical back button event to dismiss specific dialogs shown by <see cref="XF.Material.Forms.Dialogs.MaterialDialog.Instance"/>.
+        /// Handles the physical back button event to dismiss specific dialogs shown by <see cref="XF.Material.Forms.UI.Dialogs.MaterialDialog.Instance"/>.
         /// </summary>
         /// <param name="backAction">The base <see cref="Activity.OnBackPressed"/> method.</param>
         public static void HandleBackButton(Action backAction)
@@ -54,6 +54,7 @@ namespace XF.Material.Droid
             var simpleDialog = PopupNavigation.Instance.PopupStack.FirstOrDefault(p => p is MaterialSimpleDialog);
             var confirmationDialog = PopupNavigation.Instance.PopupStack.FirstOrDefault(p => p is MaterialConfirmationDialog);
             var inputDialog = PopupNavigation.Instance.PopupStack.FirstOrDefault(p => p is MaterialInputDialog);
+            var menuDialog = PopupNavigation.Instance.PopupStack.FirstOrDefault(p => p is MaterialMenuDialog);
 
             if (backPressedResult && alertDialog != null && loadingDialog == null)
             {
@@ -73,6 +74,11 @@ namespace XF.Material.Droid
             else if (backPressedResult && inputDialog != null && loadingDialog == null)
             {
                 ((Activity)Context).RunOnUiThread(async () => await PopupNavigation.Instance.RemovePageAsync(inputDialog));
+            }
+
+            else if (backPressedResult && menuDialog != null && loadingDialog == null)
+            {
+                ((Activity)Context).RunOnUiThread(async () => await PopupNavigation.Instance.RemovePageAsync(menuDialog));
             }
 
             else if (backPressedResult && alertDialog == null && loadingDialog == null)

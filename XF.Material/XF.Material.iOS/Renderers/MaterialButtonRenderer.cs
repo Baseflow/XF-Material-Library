@@ -7,8 +7,8 @@ using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 using XF.Material.iOS.Renderers;
-using XF.Material.Forms.Views;
-using static XF.Material.Forms.Views.MaterialButton;
+using XF.Material.Forms.UI;
+using static XF.Material.Forms.UI.MaterialButton;
 using XF.Material.iOS.Delegates;
 
 [assembly: ExportRenderer(typeof(MaterialButton), typeof(MaterialButtonRenderer))]

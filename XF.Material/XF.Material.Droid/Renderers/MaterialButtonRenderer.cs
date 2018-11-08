@@ -8,8 +8,8 @@ using System.Linq;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using XF.Material.Droid.Renderers;
-using XF.Material.Forms.Views;
-using static XF.Material.Forms.Views.MaterialButton;
+using XF.Material.Forms.UI;
+using static XF.Material.Forms.UI.MaterialButton;
 using Button = Xamarin.Forms.Button;
 using Color = Android.Graphics.Color;
 

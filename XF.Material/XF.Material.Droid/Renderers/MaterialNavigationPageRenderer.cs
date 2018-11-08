@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using XF.Material.Droid.Renderers;
-using XF.Material.Forms.Views;
+using XF.Material.Forms.UI;
 using Toolbar = Android.Support.V7.Widget.Toolbar;
 
 [assembly: ExportRenderer(typeof(MaterialNavigationPage), typeof(MaterialNavigationPageRenderer))]
