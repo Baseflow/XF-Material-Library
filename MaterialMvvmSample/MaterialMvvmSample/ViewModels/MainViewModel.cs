@@ -1,90 +1,169 @@
-﻿using System.Collections.ObjectModel;
-using System.Runtime.CompilerServices;
+﻿using MaterialMvvmSample.Utilities.Dialogs;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
-using XF.Material.Forms;
-using XF.Material.Forms.Dialogs;
-using XF.Material.Forms.Views;
+using Xamarin.Forms.Internals;
+using XF.Material.Forms.Models;
+using XF.Material.Forms.Ui.Dialogs;
 
 namespace MaterialMvvmSample.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
-        private void SelectedJobs_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        private readonly IJobDialogService _dialogService;
+        private ObservableCollection<TestModel> _models;
+
+        public MainViewModel(IJobDialogService dialogService)
         {
-            foreach(var item in this.SelectedJobs)
+            _dialogService = dialogService;
+
+            this.Models = new ObservableCollection<TestModel>()
             {
-                System.Diagnostics.Debug.WriteLine(this.Jobs[item]);
+                new TestModel
+                {
+                    Title = "Mobile Developer (Xamarin)"
+                },
+                                new TestModel
+                {
+                    Title = "Mobile Developer (Native Android)"
+                },
+                                                new TestModel
+                {
+                    Title = "Mobile Developer (Native iOS)"
+                }
+            };
+            this.SelectedFilters = new List<int>();
+        }
+
+        public MaterialMenuItem[] Actions => new MaterialMenuItem[]
+        {
+            new MaterialMenuItem
+            {
+                Text = "Edit",
+                //Image = "ic_error"
+            },
+            new MaterialMenuItem
+            {
+                Text = "Delete",
+                //Image = "ic_clear"
+            },
+        };
+
+        public string[] Filters => new string[] { "None", "Alhpabetical" };
+
+        public string[] ListActions => new string[] { "Add job", "Sort"};
+
+        public ICommand ListMenuCommand => new Command<MaterialMenuResult>(async (s) => await this.ListMenuSelected(s));
+
+        public ICommand MenuCommand => new Command<MaterialMenuResult>(async (s) => await this.MenuSelected(s));
+
+        public ICommand FiltersSelectedCommand => new Command<int[]>((s) =>
+        {
+            foreach(var _ in s)
+            {
+                System.Diagnostics.Debug.WriteLine(this.Filters[_]);
+            }
+        });
+
+        public ObservableCollection<TestModel> Models
+        {
+            get => _models;
+            set => this.Set(ref _models, value);
+        }
+
+        private List<int> _selectedFilters;
+        public List<int> SelectedFilters
+        {
+            get => _selectedFilters;
+            set => this.Set(ref _selectedFilters, value);
+        }
+
+        private async Task ListMenuSelected(MaterialMenuResult s)
+        {
+            if (s.Index == 0)
+            {
+                var result = await _dialogService.AddNewJob();
+
+                if (this.Models.Any(m => m.Title == result))
+                {
+                    await _dialogService.AlertExistingJob(result);
+                }
+                else if (!string.IsNullOrEmpty(result))
+                {
+                    this.Models.Where(m => m.IsNew).ForEach(m => m.IsNew = false);
+
+                    var model = new TestModel
+                    {
+                        Title = result,
+                        IsNew = true
+                    };
+
+                    this.Models.Add(model);
+                }
+            }
+            else if (s.Index == 1)
+            {
+                this.Models = new ObservableCollection<TestModel>(this.Models.OrderBy(m => m.Title));
+            }
+
+            else if(s.Index == 2)
+            {
+                this.SelectedFilters = new List<int>();
             }
         }
 
-        public string[] Jobs => new string[] { "Developer", "QA Engineer", "Team Leader" };
-
-
-        public ICommand ButtonCommand => new Command(async () => await this.SelectJobsAsync());
-
-        public ICommand ValueChangedCommand => new Command<double>((d) => System.Diagnostics.Debug.WriteLine(d));
-
-        private int _selectedJobIndex = 1;
-        public int SelectedJobIndex
+        private async Task MenuSelected(MaterialMenuResult i)
         {
-            get => _selectedJobIndex;
-            set => this.Set(ref _selectedJobIndex, value);
-        }
+            var model = this.Models.FirstOrDefault(m => m.Title == (string)i.Parameter);
 
-        private ObservableCollection<int> _selectedJobs = new ObservableCollection<int>();
-        public ObservableCollection<int> SelectedJobs
-        {
-            get => _selectedJobs;
-            set => this.Set(ref _selectedJobs, value);
-        }
-
-        private string _inputText;
-        public string InputText
-        {
-            get => _inputText;
-            set => this.Set(ref _inputText, value);
-        }
-
-        private async Task SelectJobsAsync()
-        {
-            //var result = await MaterialDialog.Instance.SelectChoicesAsync("Select any", this.Jobs);
-
-            //foreach (var ind in result)
-            //{
-            //    System.Diagnostics.Debug.WriteLine(this.Jobs[ind]);
-            //}
-            var textField = new MaterialTextField();
-            textField.BindingContext = this;
-            textField.SetBinding(MaterialTextField.TextProperty, "InputText");
-
-            var result = await MaterialDialog.Instance.Show(textField, "Alert");
-
-            if(result)
+            if (i.Index == 0)
             {
-                System.Diagnostics.Debug.WriteLine(this.InputText);
+                var result = await _dialogService.EditJob(model.Title);
+
+                if (!string.IsNullOrEmpty(result))
+                {
+                    model.Title = result;
+                }
+            }
+            else if (i.Index == 1)
+            {
+                var confirmed = await _dialogService.DeleteJob(model.Title);
+
+                if (confirmed)
+                {
+                    this.Models.Remove(model);
+
+                    await MaterialDialog.Instance.SnackbarAsync("Job deleted", MaterialSnackbar.DurationShort);
+                }
             }
         }
+    }
 
-        protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    public class TestModel : PropertyChangeAware
+    {
+        private bool _isNew;
+        private int _id;
+        private string _title;
+
+        public int Id
         {
-            base.OnPropertyChanged(propertyName);
-
-            if(propertyName == nameof(this.SelectedJobIndex))
-            {
-                System.Diagnostics.Debug.WriteLine("Selected: " + this.Jobs[this.SelectedJobIndex]);
-            }
+            get => _id;
+            set => this.Set(ref _id, value);
         }
 
-        public override void CleanUp()
+        public string Title
         {
-            this.SelectedJobs.CollectionChanged -= this.SelectedJobs_CollectionChanged;
+            get => _title;
+            set => this.Set(ref _title, value);
         }
 
-        public override void OnViewPushed(object navigationParameter = null)
+        public bool IsNew
         {
-            this.SelectedJobs.CollectionChanged += this.SelectedJobs_CollectionChanged;
+            get => _isNew;
+            set => this.Set(ref _isNew, value);
         }
     }
 }

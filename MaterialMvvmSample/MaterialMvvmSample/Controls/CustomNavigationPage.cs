@@ -4,7 +4,7 @@ using System;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Xamarin.Forms;
-using XF.Material.Forms.Views;
+using XF.Material.Forms.Ui;
 
 namespace MaterialMvvmSample.Controls
 {
@@ -62,11 +62,11 @@ namespace MaterialMvvmSample.Controls
             }
         }
 
-        public override void OnPagePop(Page page)
+        public override void OnPagePop(Page previousPage)
         {
-            base.OnPagePop(page);
+            base.OnPagePop(previousPage);
 
-            if (page.BindingContext is BaseViewModel viewModel)
+            if (previousPage.BindingContext is BaseViewModel viewModel)
             {
                 viewModel.OnViewPopped();
             }
