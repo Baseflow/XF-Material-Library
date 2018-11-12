@@ -13,10 +13,7 @@
     <PackageReference Include="Autofac" Version="4.8.1" />
     <PackageReference Include="Autofac.Extras.CommonServiceLocator" Version="5.0.0" />
     <PackageReference Include="Xamarin.Forms" Version="3.3.0.912540" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\XF.Material\XF.Material.Forms\XF.Material.Forms.csproj" />
+    <PackageReference Include="XF.Material" Version="1.2.0" />
   </ItemGroup>
 
   <ItemGroup>

@@ -61,6 +61,9 @@
     <PackageReference Include="Xamarin.Android.Support.v4" Version="27.0.2.1" />
     <PackageReference Include="Xamarin.Android.Support.v7.CardView" Version="27.0.2.1" />
     <PackageReference Include="Xamarin.Android.Support.v7.MediaRouter" Version="27.0.2.1" />
+    <PackageReference Include="XF.Material">
+      <Version>1.2.0</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\PlatformContainer.cs" />
@@ -101,14 +104,6 @@
     <Folder Include="Resources\drawable-xxxhdpi\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\XF.Material\XF.Material.Droid\XF.Material.Droid.csproj">
-      <Project>{f085c3e8-bb5e-48fa-a8dc-cc9e69bb041d}</Project>
-      <Name>XF.Material.Droid</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\XF.Material\XF.Material.Forms\XF.Material.Forms.csproj">
-      <Project>{caf232f8-446a-41b1-b837-006ff5de9a60}</Project>
-      <Name>XF.Material.Forms</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MaterialMvvmSample.Core\MaterialMvvmSample.Core.csproj">
       <Project>{ab963f27-7d97-4580-bf30-e36e62fc13b4}</Project>
       <Name>MaterialMvvmSample.Core</Name>
