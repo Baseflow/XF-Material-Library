@@ -1,4 +1,7 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using XF.Material.Forms.Resources;
 
@@ -15,24 +18,24 @@ namespace XF.Material.Forms.UI
         public static readonly BindableProperty AppBarColorProperty = BindableProperty.Create("AppBarColor", typeof(Color), typeof(MaterialNavigationPage), Color.Default);
 
         /// <summary>
-        /// Attached property that is used by <see cref="Page"/>s to determine whether the app bar text alignment.
+        /// Attached property that is used by <see cref="Page"/>s to determine the app bar text alignment.
         /// </summary>
-        public static readonly BindableProperty AppBarTextAlignmentProperty = BindableProperty.Create("AppBarTextAlignment", typeof(TextAlignment), typeof(MaterialNavigationPage), TextAlignment.Start);
+        public static readonly BindableProperty AppBarTitleTextAlignmentProperty = BindableProperty.Create("AppBarTitleTextAlignment", typeof(TextAlignment), typeof(MaterialNavigationPage), TextAlignment.Start);
 
         /// <summary>
-        /// Attached property that is used by <see cref="Page"/>s to determine whether the app bar text color.
+        /// Attached property that is used by <see cref="Page"/>s to determine the app bar title text color.
         /// </summary>
-        public static readonly BindableProperty AppBarTextColorProperty = BindableProperty.Create("AppBarTextColor", typeof(Color), typeof(MaterialNavigationPage), Color.Default);
+        public static readonly BindableProperty AppBarTitleTextColorProperty = BindableProperty.Create("AppBarTitleTextColor", typeof(Color), typeof(MaterialNavigationPage), Color.Default);
 
         /// <summary>
-        /// Attached property that is used by <see cref="Page"/>s to determine whether the app bar text font family.
+        /// Attached property that is used by <see cref="Page"/>s to determine the app bar title text font family.
         /// </summary>
-        public static readonly BindableProperty AppBarTextFontFamilyProperty = BindableProperty.Create("AppBarTextFontFamily", typeof(string), typeof(MaterialNavigationPage));
+        public static readonly BindableProperty AppBarTitleTextFontFamilyProperty = BindableProperty.Create("AppBarTitleTextFontFamily", typeof(string), typeof(MaterialNavigationPage));
 
         /// <summary>
-        /// Attached property that is used by <see cref="Page"/>s to determine whether the app bar text font family.
+        /// Attached property that is used by <see cref="Page"/>s to determine the app bar title text font family.
         /// </summary>
-        public static readonly BindableProperty AppBarTextFontSizeProperty = BindableProperty.Create("AppBarTextFontSize", typeof(double), typeof(MaterialNavigationPage), 24.0);
+        public static readonly BindableProperty AppBarTitleTextFontSizeProperty = BindableProperty.Create("AppBarTitleTextFontSize", typeof(double), typeof(MaterialNavigationPage), 24.0);
 
         /// <summary>
         /// Backing field for the bindable property <see cref="HasShadow"/>.
@@ -44,7 +47,7 @@ namespace XF.Material.Forms.UI
         /// </summary>
         public static readonly BindableProperty StatusBarColorProperty = BindableProperty.Create("StatusBarColor", typeof(Color), typeof(MaterialNavigationPage), Color.Default);
 
-        private Label _customTitleView;
+        private TitleLabel _customTitleView;
         private bool _firstLoad;
 
         /// <summary>
@@ -74,30 +77,30 @@ namespace XF.Material.Forms.UI
         /// <summary>
         /// For binding use only.
         /// </summary>
-        public static TextAlignment GetAppBarTextAlignment(BindableObject view)
+        public static TextAlignment GetAppBarTitleTextAlignment(BindableObject view)
         {
-            return (TextAlignment)view.GetValue(AppBarTextAlignmentProperty);
+            return (TextAlignment)view.GetValue(AppBarTitleTextAlignmentProperty);
         }
 
         /// <summary>
         /// For binding use only.
         /// </summary>
-        public static Color GetAppBarTextColor(BindableObject view)
+        public static Color GetAppBarTitleTextColor(BindableObject view)
         {
-            return (Color)view.GetValue(AppBarTextColorProperty);
+            return (Color)view.GetValue(AppBarTitleTextColorProperty);
         }
 
-        public static string GetAppBarTextFontFamily(BindableObject view)
+        public static string GetAppBarTitleTextFontFamily(BindableObject view)
         {
-            return (string)view.GetValue(AppBarTextFontFamilyProperty);
+            return (string)view.GetValue(AppBarTitleTextFontFamilyProperty);
         }
 
         /// <summary>
         /// For binding use only.
         /// </summary>
-        public static double GetAppBarTextFontSize(BindableObject view)
+        public static double GetAppBarTitleTextFontSize(BindableObject view)
         {
-            return (double)view.GetValue(AppBarTextFontSizeProperty);
+            return (double)view.GetValue(AppBarTitleTextFontSizeProperty);
         }
 
         /// <summary>
@@ -127,33 +130,33 @@ namespace XF.Material.Forms.UI
         /// <summary>
         /// For binding use only.
         /// </summary>
-        public static void SetAppBarTextAlignment(BindableObject view, TextAlignment textAlignment)
+        public static void SetAppBarTitleTextAlignment(BindableObject view, TextAlignment textAlignment)
         {
-            view.SetValue(AppBarTextAlignmentProperty, textAlignment);
+            view.SetValue(AppBarTitleTextAlignmentProperty, textAlignment);
         }
 
         /// <summary>
         /// For binding use only.
         /// </summary>
-        public static void SetAppBarTextColor(BindableObject view, Color color)
+        public static void SetAppBarTitleTextColor(BindableObject view, Color color)
         {
-            view.SetValue(AppBarTextColorProperty, color);
+            view.SetValue(AppBarTitleTextColorProperty, color);
         }
 
         /// <summary>
         /// For binding use only.
         /// </summary>
-        public static void SetAppBarTextFontFamily(BindableObject view, string fontFamily)
+        public static void SetAppBarTitleTextFontFamily(BindableObject view, string fontFamily)
         {
-            view.SetValue(AppBarTextFontFamilyProperty, fontFamily);
+            view.SetValue(AppBarTitleTextFontFamilyProperty, fontFamily);
         }
 
         /// <summary>
         /// For binding use only.
         /// </summary>
-        public static void SetAppBarTextFontSize(BindableObject view, double value)
+        public static void SetAppBarTitleTextFontSize(BindableObject view, double value)
         {
-            view.SetValue(AppBarTextFontSizeProperty, value);
+            view.SetValue(AppBarTitleTextFontSizeProperty, value);
         }
 
         /// <summary>
@@ -176,9 +179,9 @@ namespace XF.Material.Forms.UI
         /// For internal use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public void InternalPagePop(Page previousPage)
+        public void InternalPagePop(Page previousPage, Page poppedPage)
         {
-            this.OnPagePop(previousPage);
+            this.OnPagePop(previousPage, poppedPage);
         }
 
         /// <summary>
@@ -188,6 +191,36 @@ namespace XF.Material.Forms.UI
         public void InternalPagePush(Page page)
         {
             this.OnPagePush(page);
+        }
+
+        protected override void OnPropertyChanging([CallerMemberName] string propertyName = null)
+        {
+            base.OnPropertyChanging(propertyName);
+
+            if (propertyName == nameof(this.CurrentPage) && this.CurrentPage != null)
+            {
+                this.CurrentPage.PropertyChanged -= this.Page_PropertyChanged;
+            }
+        }
+
+        protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            base.OnPropertyChanged(propertyName);
+
+            if(propertyName == nameof(this.CurrentPage) && this.CurrentPage != null)
+            {
+                this.CurrentPage.PropertyChanged += this.Page_PropertyChanged;
+            }
+        }
+
+        private void Page_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            var page = sender as Page;
+
+            if (e?.PropertyName == nameof(this.Title) && page.GetValue(TitleViewProperty) is TitleLabel label)
+            {
+                label.Text = page.Title;
+            }
         }
 
         protected override void OnAppearing()
@@ -206,7 +239,8 @@ namespace XF.Material.Forms.UI
         /// Called when a page is being popped.
         /// </summary>
         /// <param name="previousPage">The page that will re-appear.</param>
-        protected virtual void OnPagePop(Page previousPage)
+        /// <param name="poppedPage">The page that will be popped.</param>
+        protected virtual void OnPagePop(Page previousPage, Page poppedPage)
         {
             if (previousPage.BackgroundColor.IsDefault)
             {
@@ -255,15 +289,30 @@ namespace XF.Material.Forms.UI
 
         private void ChangeBarTextColor(Page page)
         {
-            var barTextColor = (Color)page.GetValue(AppBarTextColorProperty);
+            var barTextColor = (Color)page.GetValue(AppBarTitleTextColorProperty);
 
-            if (barTextColor.IsDefault)
+            if (page.GetValue(TitleViewProperty) is TitleLabel customTitleView)
             {
-                this.BarTextColor = _customTitleView.TextColor = Material.Color.OnPrimary;
+                if (barTextColor.IsDefault)
+                {
+                    this.BarTextColor = customTitleView.TextColor = Material.Color.OnPrimary;
+                }
+                else
+                {
+                    this.BarTextColor = customTitleView.TextColor = barTextColor;
+                }
             }
+
             else
             {
-                this.BarTextColor = _customTitleView.TextColor = barTextColor;
+                if (barTextColor.IsDefault)
+                {
+                    this.BarTextColor = Material.Color.OnPrimary;
+                }
+                else
+                {
+                    this.BarTextColor = barTextColor;
+                }
             }
         }
 
@@ -276,16 +325,16 @@ namespace XF.Material.Forms.UI
                 return;
             }
 
-            var textAlignment = (TextAlignment)page.GetValue(AppBarTextAlignmentProperty);
-            var fontFamily = (string)page.GetValue(AppBarTextFontFamilyProperty);
-            var fontSize = (double)page.GetValue(AppBarTextFontSizeProperty);
+            var textAlignment = (TextAlignment)page.GetValue(AppBarTitleTextAlignmentProperty);
+            var fontFamily = (string)page.GetValue(AppBarTitleTextFontFamilyProperty);
+            var fontSize = (double)page.GetValue(AppBarTitleTextFontSizeProperty);
 
             if (string.IsNullOrEmpty(fontFamily))
             {
                 fontFamily = Material.FontFamily.H6;
             }
 
-            _customTitleView = new Label();
+            _customTitleView = new TitleLabel();
 
             if (Device.RuntimePlatform == Device.iOS)
             {
@@ -304,16 +353,16 @@ namespace XF.Material.Forms.UI
                 _customTitleView.Margin = new Thickness(0, 0, 72, 0);
             }
 
+            page.SetValue(TitleViewProperty, _customTitleView);
+
             _customTitleView.VerticalTextAlignment = TextAlignment.Center;
             _customTitleView.VerticalOptions = LayoutOptions.FillAndExpand;
             _customTitleView.HorizontalOptions = LayoutOptions.FillAndExpand;
             _customTitleView.HorizontalTextAlignment = textAlignment;
             _customTitleView.SetDynamicResource(StyleProperty, "Material.TypeScale.H6");
             _customTitleView.FontFamily = fontFamily;
-            _customTitleView.Text = page.Title;
             _customTitleView.FontSize = fontSize;
-
-            page.SetValue(TitleViewProperty, _customTitleView);
+            _customTitleView.Text = page.Title;
         }
 
         private void ChangeStatusBarColor(Page page)
@@ -322,4 +371,6 @@ namespace XF.Material.Forms.UI
             Material.PlatformConfiguration.ChangeStatusBarColor(statusBarColor.IsDefault ? Material.Color.PrimaryVariant : statusBarColor);
         }
     }
+
+    internal class TitleLabel : Label { }
 }

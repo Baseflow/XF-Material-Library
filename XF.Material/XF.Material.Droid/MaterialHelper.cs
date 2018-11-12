@@ -12,27 +12,21 @@ using System;
 
 namespace XF.Material.Droid
 {
-    public static class MaterialHelper
+    internal static class MaterialHelper
     {
         private static DisplayMetrics _displayMetrics => Material.Context.Resources.DisplayMetrics;
 
-        public static float ConvertToDp(double value)
+        internal static float ConvertToDp(double value)
         {
             return TypedValue.ApplyDimension(ComplexUnitType.Dip, (float)value, _displayMetrics);
         }
 
-        public static float ConvertToSp(double value)
+        internal static float ConvertToSp(double value)
         {
             return TypedValue.ApplyDimension(ComplexUnitType.Sp, (float)value, _displayMetrics);
         }
 
-        public static void Elevate(this Android.Views.View view, int elevation)
-        {
-            var elevationInDp = ConvertToDp(elevation);
-            ViewCompat.SetElevation(view, elevationInDp);
-        }
-
-        public static Color DarkenColor(this Color color)
+        internal static Color DarkenColor(this Color color)
         {
             const float factor = 0.75f;
             int a = Color.GetAlphaComponent(color);
@@ -45,27 +39,33 @@ namespace XF.Material.Droid
                     Math.Min(b, 255));
         }
 
-        public static bool IsColorDark(this Color color)
+        internal static void Elevate(this Android.Views.View view, int elevation)
         {
-            return ColorUtils.CalculateLuminance(color) < 0.5;
+            var elevationInDp = ConvertToDp(elevation);
+            ViewCompat.SetElevation(view, elevationInDp);
         }
 
-        public static Drawable GetDrawableCopyFromResource(int resId)
-        {
-            return ContextCompat.GetDrawable(Material.Context, resId).GetConstantState().NewDrawable().Mutate();
-        }
-
-        public static TDrawable GetDrawableCopyFromResource<TDrawable>(int resId) where TDrawable : Drawable
-        {
-            return ContextCompat.GetDrawable(Material.Context, resId).GetConstantState().NewDrawable().Mutate() as TDrawable;
-        }
-
-        public static Drawable GetDrawableCopy(this Drawable drawable)
+        internal static Drawable GetDrawableCopy(this Drawable drawable)
         {
             return drawable?.GetConstantState().NewDrawable().Mutate();
         }
 
-        public static void ShowKeyboard(this EditText edittext)
+        internal static Drawable GetDrawableCopyFromResource(int resId)
+        {
+            return ContextCompat.GetDrawable(Material.Context, resId).GetConstantState().NewDrawable().Mutate();
+        }
+
+        internal static TDrawable GetDrawableCopyFromResource<TDrawable>(int resId) where TDrawable : Drawable
+        {
+            return ContextCompat.GetDrawable(Material.Context, resId).GetConstantState().NewDrawable().Mutate() as TDrawable;
+        }
+
+        internal static bool IsColorDark(this Color color)
+        {
+            return ColorUtils.CalculateLuminance(color) < 0.5;
+        }
+
+        internal static void ShowKeyboard(this EditText edittext)
         {
             var im = (Material.Context as Activity).GetSystemService(Context.InputMethodService) as InputMethodManager;
             im.ShowSoftInput(edittext, ShowFlags.Forced);

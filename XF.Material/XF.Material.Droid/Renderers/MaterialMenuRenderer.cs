@@ -20,10 +20,10 @@ namespace XF.Material.Droid.Renderers
                 var view = this.ViewGroup.GetChildAt(0);
                 int[] position = new int[2];
                 view.GetLocationInWindow(position);
-                this.Element.OnViewTouch((position[0] - view.Width) / displayDensity, (position[1] + view.Height) / displayDensity);
+                this.Element.OnViewTouch(position[0] / displayDensity, position[1] / displayDensity);
             }
 
-            return base.OnTouchEvent(e);
+            return true;
         }
     }
 }

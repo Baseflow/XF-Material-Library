@@ -4,12 +4,19 @@ using UIKit;
 
 namespace XF.Material.iOS.Delegates
 {
+    /// <summary>
+    /// A <see cref="UIGestureRecognizerDelegate"/> that when attached to a <see cref="UIGestureRecognizer"/>, generates a ripple-effect when interacted with.
+    /// </summary>
     public class MaterialRippleGestureRecognizerDelegate : UIGestureRecognizerDelegate
     {
         private readonly CABasicAnimation _rippleAnimation;
         private readonly CABasicAnimation _fadeAnimation;
         private readonly CAShapeLayer _rippleLayer;
 
+        /// <summary>
+        /// Initializes a new instance of <see cref="MaterialRippleGestureRecognizerDelegate"/>.
+        /// </summary>
+        /// <param name="rippleColor">The color of the ripple.</param>
         public MaterialRippleGestureRecognizerDelegate(CGColor rippleColor)
         {
             _rippleAnimation = CABasicAnimation.FromKeyPath("path");

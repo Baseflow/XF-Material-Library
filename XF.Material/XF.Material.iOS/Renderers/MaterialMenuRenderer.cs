@@ -39,7 +39,7 @@ namespace XF.Material.iOS.Renderers
                 var view = touch.View;
                 var globalLocation = view.ConvertPointToView(view.Frame.Location, null);
 
-                _materialMenu.OnViewTouch(globalLocation.X - view.Bounds.Width, globalLocation.Y + view.Bounds.Height);
+                _materialMenu.OnViewTouch(globalLocation.X, globalLocation.Y);
 
                 return false;
             }

@@ -135,7 +135,7 @@ namespace XF.Material.Forms.UI
                 throw new InvalidOperationException("Cannot show menu, property Choices is null or has no items");
             }
 
-            var dimension = new MaterialMenuDimension(x, y);
+            var dimension = new MaterialMenuDimension(x, y, this.Width, this.Height);
 
             Device.BeginInvokeOnMainThread(async () =>
             {

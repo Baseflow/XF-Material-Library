@@ -12,11 +12,17 @@ namespace XF.Material.Forms.UI.Dialogs
 {
     internal struct MaterialMenuDimension
     {
-        public MaterialMenuDimension(double rawX, double rawY)
+        public MaterialMenuDimension(double rawX, double rawY, double width, double height)
         {
             this.RawX = rawX;
             this.RawY = rawY;
+            this.Width = width;
+            this.Height = height;
         }
+
+        public double Width { get; }
+
+        public double Height { get; }
 
         public double RawX { get; }
 
@@ -79,28 +85,28 @@ namespace XF.Material.Forms.UI.Dialogs
         {
             base.OnAppearingAnimationBegin();
 
-            var rawX = _dimension.RawX;
-            var rawY = (_dimension.RawY) - 30;
+            var newX = _dimension.RawX;
+            var newY = (_dimension.RawY);
 
             DialogActionList.WidthRequest = _maxWidth <= 112 ? 112 : _maxWidth;
             DialogActionList.WidthRequest = _maxWidth > 280 ? 280 : DialogActionList.WidthRequest;
 
-            if (rawX + Container.Width >= this.Width)
+            if (newX + Container.Width >= this.Width)
             {
-                rawX -= (rawX + Container.Width - this.Width + 16);
+                newX -= Container.Width;
             }
-            else if (rawX + Container.Width < this.Width)
+            else if (newX + Container.Width < this.Width)
             {
-                rawX += 24;
-            }
-
-            if (rawY + Container.Height + 16 >= this.Height)
-            {
-                rawY -= (rawY + Container.Height - this.Height + 32);
+                newX += _dimension.Width;
             }
 
-            Container.TranslationX = rawX;
-            Container.TranslationY = rawY;
+            if (newY + Container.Height + 16 >= this.Height)
+            {
+                newY -= Container.Height;
+            }
+
+            Container.TranslationX = newX;
+            Container.TranslationY = newY;
         }
 
         protected override bool OnBackButtonPressed()

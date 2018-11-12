@@ -49,7 +49,7 @@ namespace XF.Material.Droid.Renderers
             if (navStack.Count - 1 - navStack.IndexOf(page) >= 0)
             {
                 var previousPage = navStack[navStack.IndexOf(page) - 1];
-                _navigationPage.InternalPagePop(previousPage);
+                _navigationPage.InternalPagePop(previousPage, page);
                 this.ChangeHasShadow(previousPage);
             }
 

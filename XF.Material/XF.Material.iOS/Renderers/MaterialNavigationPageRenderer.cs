@@ -55,7 +55,7 @@ namespace XF.Material.iOS.Renderers
             if (navStack.Count - 1 - navStack.IndexOf(_navigationPage.CurrentPage) >= 0)
             {
                 var previousPage = navStack[navStack.IndexOf(_navigationPage.CurrentPage) - 1];
-                _navigationPage.InternalPagePop(previousPage);
+                _navigationPage.InternalPagePop(previousPage, page);
                 this.ChangeHasShadow(previousPage);
             }
 
