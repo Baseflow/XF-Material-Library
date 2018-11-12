@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<local:BaseMaterialModalPage x:Class="XF.Material.Forms.UI.Dialogs.MaterialInputDialog"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:internal="clr-namespace:XF.Material.Forms.UI.Internals"
+    xmlns:local="clr-namespace:XF.Material.Forms.UI.Dialogs"
+    xmlns:material="clr-namespace:XF.Material.Forms.UI"
+    xmlns:sys="clr-namespace:System;assembly=netstandard"
+    BackgroundColor="#51000000"
+    CloseWhenBackgroundIsClicked="True">
+    <ContentPage.Content>
+        <material:MaterialCard x:Name="Container"
+            Margin="{StaticResource Material.Dialog.Margin}"
+            Padding="0"
+            BackgroundColor="White"
+            CornerRadius="4"
+            Elevation="24"
+            HasShadow="True"
+            HorizontalOptions="FillAndExpand"
+            IsClippedToBounds="True"
+            VerticalOptions="Center">
+            <Grid RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Label x:Name="DialogTitle"
+                    Grid.Row="0"
+                    Margin="24,20,24,12"
+                    Style="{DynamicResource Material.TypeScale.H6}"
+                    TextColor="#DE000000"
+                    VerticalOptions="Start">
+                    <Label.Triggers>
+                        <Trigger TargetType="Label" Property="Text" Value="{x:Null}">
+                            <Setter Property="IsVisible" Value="False" />
+                        </Trigger>
+                        <Trigger TargetType="Label" Property="Text" Value="{x:Static sys:String.Empty}">
+                            <Setter Property="IsVisible" Value="False" />
+                        </Trigger>
+                    </Label.Triggers>
+                </Label>
+                <Label x:Name="Message"
+                    Grid.Row="1"
+                    Margin="24,0,24,0"
+                    Style="{StaticResource Material.TypeScale.Body1}"
+                    Text="Lorem ipsum dolor sit amet, conse tetuer adipiscing elit. Aenean commodo ligula eget dolor."
+                    TextColor="#99000000">
+                    <Label.Triggers>
+                        <DataTrigger Binding="{Binding Source={x:Reference DialogTitle}, Path=IsVisible}"
+                            TargetType="Label"
+                            Value="False">
+                            <Setter Property="Margin" Value="24, 20, 24, 0" />
+                        </DataTrigger>
+                        <Trigger TargetType="Label" Property="Text" Value="{x:Null}">
+                            <Setter Property="IsVisible" Value="False" />
+                        </Trigger>
+                        <Trigger TargetType="Label" Property="Text" Value="{x:Static sys:String.Empty}">
+                            <Setter Property="IsVisible" Value="False" />
+                        </Trigger>
+                    </Label.Triggers>
+                </Label>
+                <internal:MaterialInputDialogTextField x:Name="TextField"
+                    Grid.Row="2"
+                    Margin="24,0"
+                    AlwaysShowUnderline="True"
+                    BackgroundColor="Transparent"
+                    FloatingPlaceholderEnabled="False" />
+                <Grid Grid.Row="3"
+                    Margin="0,20,8,0"
+                    ColumnSpacing="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="52" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <material:MaterialButton x:Name="NegativeButton"
+                        Grid.Column="2"
+                        Margin="0,0,-8,0"
+                        ButtonType="Text"
+                        VerticalOptions="Center">
+                        <material:MaterialButton.Triggers>
+                            <Trigger TargetType="Button" Property="Text" Value="{x:Null}">
+                                <Setter Property="IsVisible" Value="False" />
+                                <Setter Property="IsEnabled" Value="False" />
+                            </Trigger>
+                            <Trigger TargetType="Button" Property="Text" Value="{x:Static sys:String.Empty}">
+                                <Setter Property="IsVisible" Value="False" />
+                                <Setter Property="IsEnabled" Value="False" />
+                            </Trigger>
+                        </material:MaterialButton.Triggers>
+                    </material:MaterialButton>
+                    <material:MaterialButton x:Name="PositiveButton"
+                        Grid.Column="3"
+                        ButtonType="Text"
+                        IsEnabled="False"
+                        VerticalOptions="Center" />
+                </Grid>
+            </Grid>
+        </material:MaterialCard>
+    </ContentPage.Content>
+</local:BaseMaterialModalPage>

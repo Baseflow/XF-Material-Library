@@ -1,6 +1,6 @@
 ﻿using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
-using XF.Material.Forms.Views;
+using XF.Material.Forms.UI;
 using XF.Material.iOS.Renderers;
 using System.ComponentModel;
 

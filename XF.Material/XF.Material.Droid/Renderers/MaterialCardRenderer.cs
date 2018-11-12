@@ -4,7 +4,7 @@ using System.ComponentModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using XF.Material.Droid.Renderers;
-using XF.Material.Forms.Views;
+using XF.Material.Forms.UI;
 
 [assembly: ExportRenderer(typeof(MaterialCard), typeof(MaterialCardRenderer))]
 namespace XF.Material.Droid.Renderers

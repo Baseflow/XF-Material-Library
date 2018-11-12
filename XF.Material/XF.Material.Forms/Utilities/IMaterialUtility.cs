@@ -2,12 +2,15 @@
 
 namespace XF.Material.Forms.Utilities
 {
+    /// <summary>
+    /// Interface which provides methods that can be used to change platform-specific configurations.
+    /// </summary>
     public interface IMaterialUtility
     {
         /// <summary>
-        /// Changes color of the status bar.
+        /// Changes the color of the status bar.
         /// </summary>
-        /// <param name="color">The color to be used.</param>
+        /// <param name="color">The new color of the status bar.</param>
         void ChangeStatusBarColor(Color color);
     }
 }

@@ -3,33 +3,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
-    <!--#region CHIPS-->
-    <!--  TODO: Change to direct type instead of onplatform  -->
-
-    <OnPlatform x:Key="Material.Chip.Height"
-        x:TypeArguments="x:Double"
-        Default="32" />
-
-    <OnPlatform x:Key="Material.Chip.Image.Margin"
-        x:TypeArguments="Thickness"
-        Default="6, 0, -4, 0" />
-
-    <OnPlatform x:Key="Material.Chip.Label.Margin.NoActionImage"
-        x:TypeArguments="Thickness"
-        Default="12, 0, 12, 0" />
-
-    <OnPlatform x:Key="Material.Chip.Label.Margin.WithActionImage"
-        x:TypeArguments="Thickness"
-        Default="12, 0, 0, 0" />
-
-    <OnPlatform x:Key="Material.Chip.ActionImage.Margin"
-        x:TypeArguments="Thickness"
-        Default="8, 0, 8, 0" />
-
-    <!--#endregion-->
-
-    <!--#region-->
-
+    <x:Double x:Key="Material.Slider.Height">27</x:Double>
     <x:Double x:Key="Material.Button.Height">48</x:Double>
     <x:Double x:Key="Material.Button.Outlined.BorderWidth">1</x:Double>
     <x:Int32 x:Key="Material.Button.CornerRadius">4</x:Int32>

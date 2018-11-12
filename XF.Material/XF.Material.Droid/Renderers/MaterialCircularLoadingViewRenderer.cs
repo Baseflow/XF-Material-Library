@@ -5,7 +5,7 @@ using Lottie.Forms.Droid;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using XF.Material.Droid.Renderers;
-using XF.Material.Forms.Views;
+using XF.Material.Forms.UI;
 using static Android.Widget.ImageView;
 using static Com.Airbnb.Lottie.LottieAnimationView;
 

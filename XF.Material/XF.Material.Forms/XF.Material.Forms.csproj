@@ -19,46 +19,59 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="UI\Dialogs\MaterialDialogs.cs" />
     <Compile Remove="Effects\MaterialStatusBarColorEffect.cs" />
     <Compile Remove="MaterialStyles.xaml.cs" />
+    <Compile Remove="UI\MaterialSlider.xaml.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Remove="MaterialStyles.xaml" />
+    <EmbeddedResource Remove="UI\MaterialSlider.xaml" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie" Version="2.5.4" />
     <PackageReference Include="Rg.Plugins.Popup" Version="1.1.4.168" />
-    <PackageReference Include="Xamarin.Forms" Version="3.2.0.839982" />
+    <PackageReference Include="Xamarin.Essentials" Version="0.11.0-preview" />
+    <PackageReference Include="Xamarin.Forms" Version="3.3.0.912540" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Dialogs\MaterialAlertDialog.xaml.cs">
+    <Compile Update="UI\Dialogs\MaterialAlertDialog.xaml.cs">
       <DependentUpon>MaterialAlertDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="UI\Dialogs\MaterialInputDialog.xaml.cs">
+      <DependentUpon>MaterialInputDialog.xaml</DependentUpon>
     </Compile>
     <Compile Update="Resources\MaterialSizes.xaml.cs">
       <DependentUpon>MaterialSizes.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Resources\MaterialStyles.xaml.cs">
-      <DependentUpon>MaterialStyles.xaml</DependentUpon>
+    <Compile Update="UI\Internals\MaterialInputDialogTextField.xaml.cs">
+      <DependentUpon>MaterialInputDialogTextField.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Dialogs\MaterialAlertDialog.xaml">
+    <EmbeddedResource Update="UI\Dialogs\MaterialAlertDialog.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Dialogs\MaterialConfirmationDialog.xaml">
+    <EmbeddedResource Update="UI\Dialogs\MaterialConfirmationDialog.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Dialogs\MaterialLoadingDialog.xaml">
+    <EmbeddedResource Update="UI\Dialogs\MaterialInputDialog.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Dialogs\MaterialSimpleDialog.xaml">
+    <EmbeddedResource Update="UI\Dialogs\MaterialLoadingDialog.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Dialogs\MaterialSnackbar.xaml">
+    <EmbeddedResource Update="UI\Dialogs\MaterialMenuDialog.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="UI\Dialogs\MaterialSimpleDialog.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="UI\Dialogs\MaterialSnackbar.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\MaterialColors.xaml">
@@ -67,39 +80,27 @@
     <EmbeddedResource Update="Resources\Typography\MaterialTypography.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\Internals\BaseMaterialSelectionControl.xaml">
+    <EmbeddedResource Update="UI\Internals\BaseMaterialSelectionControl.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\MaterialCheckboxGroup.xaml">
+    <EmbeddedResource Update="UI\MaterialCheckboxGroup.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\MaterialChip.xaml">
+    <EmbeddedResource Update="UI\MaterialChip.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\MaterialRadioButtonGroup.xaml">
+    <EmbeddedResource Update="UI\MaterialMenu.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\MaterialTextField.xaml">
+    <EmbeddedResource Update="UI\MaterialRadioButtonGroup.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="UI\MaterialTextField.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Dialogs\MaterialAlertDialog.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="Dialogs\MaterialConfirmationDialog.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="Dialogs\MaterialLoadingDialog.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="Dialogs\MaterialSimpleDialog.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="Dialogs\MaterialSnackbar.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
     <None Update="MaterialStyles.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
@@ -118,13 +119,22 @@
     <None Update="Views\Internals\BaseMaterialSelectionControl.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
+    <None Update="Views\Internals\MaterialInputDialogTextField.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
     <None Update="Views\MaterialCheckboxGroup.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
     <None Update="Views\MaterialChip.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
+    <None Update="Views\MaterialMenu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
     <None Update="Views\MaterialRadioButtonGroup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Views\MaterialSlider.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
     <None Update="Views\MaterialTextField.xaml">

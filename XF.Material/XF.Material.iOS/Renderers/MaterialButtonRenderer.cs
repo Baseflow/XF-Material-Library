@@ -7,8 +7,8 @@ using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 using XF.Material.iOS.Renderers;
-using XF.Material.Forms.Views;
-using static XF.Material.Forms.Views.MaterialButton;
+using XF.Material.Forms.UI;
+using static XF.Material.Forms.UI.MaterialButton;
 using XF.Material.iOS.Delegates;
 
 [assembly: ExportRenderer(typeof(MaterialButton), typeof(MaterialButtonRenderer))]
@@ -144,7 +144,7 @@ namespace XF.Material.iOS.Renderers
                         this.Control.SetImage(newImage, UIControlState.Normal);
                         this.Control.SetImage(newImage, UIControlState.Disabled);
                         this.Control.TitleEdgeInsets = new UIEdgeInsets(0f, 0f, 0f, 0f);
-                        this.Control.ImageEdgeInsets = new UIEdgeInsets(0f, -5f, 0f, 0f);
+                        this.Control.ImageEdgeInsets = new UIEdgeInsets(0f, -6f, 0f, 0f);
                         this.Control.TintColor = _materialButton.TextColor.ToUIColor();
                     }
                 }

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\..\packages\Xamarin.Forms.3.2.0.839982\build\netstandard2.0\Xamarin.Forms.props" Condition="Exists('..\..\packages\Xamarin.Forms.3.2.0.839982\build\netstandard2.0\Xamarin.Forms.props')" />
+  <Import Project="..\..\packages\Xamarin.Forms.3.3.0.912540\build\Xamarin.Forms.props" Condition="Exists('..\..\packages\Xamarin.Forms.3.3.0.912540\build\Xamarin.Forms.props')" />
   <Import Project="..\packages\Xamarin.Forms.3.1.0.583944\build\netstandard2.0\Xamarin.Forms.props" Condition="Exists('..\packages\Xamarin.Forms.3.1.0.583944\build\netstandard2.0\Xamarin.Forms.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -63,17 +63,20 @@
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
+    <Reference Include="Xamarin.Essentials, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xamarin.Essentials.0.11.0-preview\lib\xamarinios10\Xamarin.Essentials.dll</HintPath>
+    </Reference>
     <Reference Include="Xamarin.Forms.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xamarin.Forms.3.2.0.839982\lib\Xamarin.iOS10\Xamarin.Forms.Core.dll</HintPath>
+      <HintPath>..\..\packages\Xamarin.Forms.3.3.0.912540\lib\Xamarin.iOS10\Xamarin.Forms.Core.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.Forms.Platform, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xamarin.Forms.3.2.0.839982\lib\Xamarin.iOS10\Xamarin.Forms.Platform.dll</HintPath>
+      <HintPath>..\..\packages\Xamarin.Forms.3.3.0.912540\lib\Xamarin.iOS10\Xamarin.Forms.Platform.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.Forms.Platform.iOS, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xamarin.Forms.3.2.0.839982\lib\Xamarin.iOS10\Xamarin.Forms.Platform.iOS.dll</HintPath>
+      <HintPath>..\..\packages\Xamarin.Forms.3.3.0.912540\lib\Xamarin.iOS10\Xamarin.Forms.Platform.iOS.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.Forms.Xaml, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xamarin.Forms.3.2.0.839982\lib\Xamarin.iOS10\Xamarin.Forms.Xaml.dll</HintPath>
+      <HintPath>..\..\packages\Xamarin.Forms.3.3.0.912540\lib\Xamarin.iOS10\Xamarin.Forms.Xaml.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
@@ -84,13 +87,16 @@
     <Compile Include="MaterialHelper.cs" />
     <Compile Include="Delegates\MaterialRippleGestureRecognizerDelegate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Renderers\Internals\MaterialBoxViewRenderer.cs" />
     <Compile Include="Renderers\Internals\MaterialDialogListViewRenderer.cs" />
+    <Compile Include="Renderers\Internals\MaterialElementRenderer.cs" />
     <Compile Include="Renderers\Internals\MaterialEntryRenderer.cs" />
     <Compile Include="Renderers\Internals\MaterialDialogListViewCellRenderer.cs" />
     <Compile Include="Renderers\MaterialButtonRenderer.cs" />
     <Compile Include="Renderers\MaterialCardRenderer.cs" />
     <Compile Include="Renderers\MaterialCircularLoadingViewRenderer.cs" />
     <Compile Include="Renderers\MaterialIconRenderer.cs" />
+    <Compile Include="Renderers\MaterialMenuRenderer.cs" />
     <Compile Include="Renderers\MaterialNavigationPageRenderer.cs" />
     <Compile Include="Utility\MaterialUtility.cs" />
   </ItemGroup>
@@ -152,8 +158,8 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\Xamarin.Forms.3.2.0.839982\build\netstandard2.0\Xamarin.Forms.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Forms.3.2.0.839982\build\netstandard2.0\Xamarin.Forms.props'))" />
-    <Error Condition="!Exists('..\..\packages\Xamarin.Forms.3.2.0.839982\build\netstandard2.0\Xamarin.Forms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Forms.3.2.0.839982\build\netstandard2.0\Xamarin.Forms.targets'))" />
+    <Error Condition="!Exists('..\..\packages\Xamarin.Forms.3.3.0.912540\build\Xamarin.Forms.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Forms.3.3.0.912540\build\Xamarin.Forms.props'))" />
+    <Error Condition="!Exists('..\..\packages\Xamarin.Forms.3.3.0.912540\build\Xamarin.Forms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Forms.3.3.0.912540\build\Xamarin.Forms.targets'))" />
   </Target>
-  <Import Project="..\..\packages\Xamarin.Forms.3.2.0.839982\build\netstandard2.0\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.3.2.0.839982\build\netstandard2.0\Xamarin.Forms.targets')" />
+  <Import Project="..\..\packages\Xamarin.Forms.3.3.0.912540\build\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.3.3.0.912540\build\Xamarin.Forms.targets')" />
 </Project>

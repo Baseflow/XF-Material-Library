@@ -3,7 +3,7 @@ using MaterialMvvmSample.Utilities;
 
 namespace MaterialMvvmSample.ViewModels
 {
-    public abstract class BaseViewModel : PropertyChangeAware
+    public abstract class BaseViewModel : PropertyChangeAware, ICleanUp
     {
         protected INavigationService Navigation { get; }
 
@@ -24,6 +24,11 @@ namespace MaterialMvvmSample.ViewModels
         /// <summary>
         /// When overriden, allow to add additional logic to this view model when the view where it was attached was popped using <see cref="INavigationService.PopAsync"/>.
         /// </summary>
-        public virtual void OnViewPopped() { }
+        public virtual void OnViewPopped()
+        {
+            this.CleanUp();
+        }
+
+        public virtual void CleanUp() { }
     }
 }

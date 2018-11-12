@@ -3,7 +3,7 @@ using Android.Graphics.Drawables;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using XF.Material.Droid.Renderers.Internals;
-using XF.Material.Forms.Views.Internals;
+using XF.Material.Forms.UI.Internals;
 
 [assembly: ExportRenderer(typeof(MaterialDialogListView), typeof(MaterialDialogListViewRenderer))]
 namespace XF.Material.Droid.Renderers.Internals
@@ -24,11 +24,8 @@ namespace XF.Material.Droid.Renderers.Internals
             if(e?.NewElement != null)
             {
                 this.Control.ItemClick += this.Control_ItemClick;
-                
-                if(!(this.Element as MaterialDialogListView).HasRipple)
-                {
-                    this.Control.Selector = new ColorDrawable(Color.Transparent.ToAndroid());
-                }
+
+                this.Control.Selector = new ColorDrawable(Color.Transparent.ToAndroid());
             }
         }
 
@@ -39,7 +36,7 @@ namespace XF.Material.Droid.Renderers.Internals
             int position = e.Position - 1;
 
             var listView = this.Element as MaterialDialogListView;
-            listView.ItemSelectedCommand?.Execute(position);
+            listView?.ItemSelectedCommand?.Execute(position);
         }
     }
 }

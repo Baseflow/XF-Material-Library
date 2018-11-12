@@ -1,7 +1,6 @@
 ﻿using Xamarin.Forms;
 using XF.Material.Droid.Effects;
 
-[assembly: ResolutionGroupName("Material")]
 [assembly: ExportEffect(typeof(MaterialTypeScaleEffect), "TypeScaleEffect")]
 namespace XF.Material.Droid.Effects
 {

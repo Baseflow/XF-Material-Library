@@ -3,14 +3,14 @@ using Xamarin.Forms;
 
 namespace MaterialMvvmSample.Utilities
 {
-    public static class ViewFactory
+    internal static class ViewFactory
     {
-        public static Page GetView(string viewName)
+        internal static Page GetView(string viewName)
         {
             return ServiceLocator.Current.GetInstance<Page>(viewName);
         }
 
-        public static TView GetView<TView>() where TView : ContentPage
+        internal static TView GetView<TView>() where TView : ContentPage
         {
             return ServiceLocator.Current.GetInstance<TView>();
         }

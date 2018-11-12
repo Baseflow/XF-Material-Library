@@ -38,5 +38,11 @@
     <string>UIStatusBarStyleLightContent</string>
     <key>UIViewControllerBasedStatusBarAppearance</key>
     <false/>
+    <key>UIAppFonts</key>
+    <array>
+      <string>Fonts/Roboto-Bold.ttf</string>
+      <string>Fonts/Roboto-Regular.ttf</string>
+      <string>Fonts/Roboto-Medium.ttf</string>
+    </array>
   </dict>
 </plist>

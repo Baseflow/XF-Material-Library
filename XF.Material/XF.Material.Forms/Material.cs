@@ -101,10 +101,10 @@ namespace XF.Material.Forms
 
         private void MergeMaterialDictionaries()
         {
-            _res.MergedDictionaries.Add(new MaterialColors(_config.ColorConfiguration));
-            _res.MergedDictionaries.Add(new MaterialTypography(_config.FontConfiguration));
+            _res.MergedDictionaries.Add(new MaterialColors(_config.ColorConfiguration ?? new MaterialColorConfiguration()));
+            _res.MergedDictionaries.Add(new MaterialTypography(_config.FontConfiguration ?? new MaterialFontConfiguration()));
             _res.MergedDictionaries.Add(new MaterialSizes());
-            _res.MergedDictionaries.Add(new MaterialStyles());
+
         }
 
         /// <summary>

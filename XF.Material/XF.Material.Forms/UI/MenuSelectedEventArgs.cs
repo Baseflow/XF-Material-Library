@@ -1,0 +1,25 @@
+﻿using System;
+using XF.Material.Forms.Models;
+
+namespace XF.Material.Forms.UI
+{
+    /// <summary>
+    /// Contains event data when <see cref="MaterialMenu.MenuSelected"/> is invoked.
+    /// </summary>
+    public class MenuSelectedEventArgs : EventArgs
+    {
+        /// <summary>
+        /// The result of the selection.
+        /// </summary>
+        public MaterialMenuResult Result { get; }
+
+        /// <summary>
+        /// Initializes a new instance of <see cref="MenuSelectedEventArgs"/>.
+        /// </summary>
+        /// <param name="result">The result of the selection.</param>
+        public MenuSelectedEventArgs(MaterialMenuResult result)
+        {
+            this.Result = result;
+        }
+    }
+}

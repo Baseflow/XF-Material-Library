@@ -3,20 +3,126 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:MaterialMvvmSample.Views"
-    xmlns:material="clr-namespace:XF.Material.Forms.Views;assembly=XF.Material.Forms"
+    xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material.Forms"
+    x:Name="Root"
     Title="Material MVVM"
-    Padding="16">
-    <StackLayout>
+    Padding="16"
+    material:MaterialNavigationPage.AppBarColor="#2c3e50"
+    material:MaterialNavigationPage.AppBarTitleTextAlignment="Start"
+    material:MaterialNavigationPage.AppBarTitleTextFontFamily="{StaticResource FontFamily.RobotoMedium}"
+    material:MaterialNavigationPage.AppBarTitleTextFontSize="14"
+    material:MaterialNavigationPage.StatusBarColor="#1B3147">
+    <!--<ScrollView VerticalOptions="FillAndExpand">
         <material:MaterialCard Elevation="4"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="FillAndExpand">
             <StackLayout>
                 <material:MaterialCheckboxGroup Choices="{Binding Jobs}" SelectedIndices="{Binding SelectedJobs}" />
                 <material:MaterialRadioButtonGroup Choices="{Binding Jobs}" SelectedIndex="{Binding SelectedJobIndex}" />
-                <material:MaterialButton Command="{Binding ButtonCommand}"
+                <material:MaterialCheckboxGroup Choices="{Binding Jobs}" SelectedIndices="{Binding SelectedJobs}" />
+                <material:MaterialRadioButtonGroup Choices="{Binding Jobs}" SelectedIndex="{Binding SelectedJobIndex}" />
+                <material:MaterialCheckboxGroup Choices="{Binding Jobs}" SelectedIndices="{Binding SelectedJobs}" />
+                <material:MaterialRadioButtonGroup Choices="{Binding Jobs}" SelectedIndex="{Binding SelectedJobIndex}" />
+                <material:MaterialMenu Choices="{Binding Jobs}"
                     HorizontalOptions="End"
+                    MenuSelectedCommand="{Binding MenuCommand}"
+                    MenuSelectedCommandParameter="3">
+                    <material:MaterialIcon Source="ic_check" TintColor="#6200EE" />
+                </material:MaterialMenu>
+                <material:MaterialMenu Choices="{Binding Jobs}"
+                    HorizontalOptions="End"
+                    MenuSelectedCommand="{Binding MenuCommand}"
+                    MenuSelectedCommandParameter="3">
+                    <material:MaterialIcon Source="ic_check" TintColor="#6200EE" />
+                </material:MaterialMenu>
+                <material:MaterialMenu Choices="{Binding Jobs}"
+                    HorizontalOptions="End"
+                    MenuSelectedCommand="{Binding MenuCommand}"
+                    MenuSelectedCommandParameter="3">
+                    <material:MaterialIcon Source="ic_check" TintColor="#6200EE" />
+                </material:MaterialMenu>
+                <material:MaterialSlider ThumbColor="Black"
+                    TrackColor="Gray"
+                    ValueChangedCommand="{Binding ValueChangedCommand}" />
+                <material:MaterialTextField />
+                <material:MaterialButton x:Name="button"
+                    Command="{Binding ButtonCommand}"
                     Text="Select Jobs" />
             </StackLayout>
         </material:MaterialCard>
-    </StackLayout>
+    </ScrollView>-->
+    <ListView BackgroundColor="Transparent"
+        HasUnevenRows="True"
+        ItemsSource="{Binding Models}"
+        SelectionMode="None"
+        SeparatorVisibility="None">
+        <ListView.Header>
+            <StackLayout HeightRequest="56"
+                HorizontalOptions="FillAndExpand"
+                Orientation="Horizontal">
+                <material:MaterialMenu Padding="0"
+                    Choices="{Binding ListActions}"
+                    HorizontalOptions="Start"
+                    MenuSelectedCommand="{Binding ListMenuCommand}"
+                    VerticalOptions="Center">
+                    <material:MaterialIcon HeightRequest="24"
+                        Source="ic_overflow"
+                        TintColor="#AE000000"
+                        VerticalOptions="Center"
+                        WidthRequest="24" />
+                </material:MaterialMenu>
+                <Label HorizontalOptions="Center"
+                    Style="{DynamicResource Material.TypeScale.H6}"
+                    Text="Job Positions"
+                    TextColor="Black"
+                    VerticalOptions="FillAndExpand"
+                    VerticalTextAlignment="Center" />
+            </StackLayout>
+        </ListView.Header>
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell>
+                    <material:MaterialCard Margin="0,4" Padding="16,8">
+                        <View.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Source={x:Reference Root}, Path=BindingContext.JobSelectedCommand}"
+                                CommandParameter="{Binding Id}"
+                                NumberOfTapsRequired="1" />
+                        </View.GestureRecognizers>
+                        <StackLayout HeightRequest="56" Orientation="Horizontal">
+                            <StackLayout HorizontalOptions="StartAndExpand" Orientation="Horizontal">
+                                <Label Style="{DynamicResource Material.TypeScale.Body1}"
+                                    Text="{Binding Title}"
+                                    TextColor="Black"
+                                    VerticalOptions="FillAndExpand"
+                                    VerticalTextAlignment="Center" />
+                                <material:MaterialCard Padding="8,2"
+                                    BackgroundColor="#2c3e50"
+                                    CornerRadius="2"
+                                    Elevation="1"
+                                    IsVisible="{Binding IsNew}"
+                                    VerticalOptions="Center">
+                                    <Label Style="{DynamicResource Material.TypeScale.Overline}"
+                                        Text="NEW"
+                                        TextColor="#DEFFFFFF" />
+                                </material:MaterialCard>
+                            </StackLayout>
+                            <material:MaterialMenu Choices="{Binding Source={x:Reference Root}, Path=BindingContext.Actions}"
+                                HeightRequest="24"
+                                HorizontalOptions="End"
+                                MenuSelectedCommand="{Binding Source={x:Reference Root}, Path=BindingContext.MenuCommand}"
+                                MenuSelectedCommandParameter="{Binding Title}"
+                                VerticalOptions="Center"
+                                WidthRequest="24">
+                                <material:MaterialIcon HeightRequest="24"
+                                    Source="ic_overflow"
+                                    TintColor="#AEAEAE"
+                                    WidthRequest="24" />
+                            </material:MaterialMenu>
+                        </StackLayout>
+                    </material:MaterialCard>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+
 </local:BaseMainView>

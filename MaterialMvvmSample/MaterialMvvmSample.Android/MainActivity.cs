@@ -1,16 +1,11 @@
-﻿using System;
-
-using Android.App;
-using Android.Content.PM;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
+﻿using Android.App;
 using Android.OS;
 using MaterialMvvmSample.Droid.Core;
+using XF.Material.Droid;
 
 namespace MaterialMvvmSample.Droid
 {
-    [Activity(Label = "MaterialMvvmSample", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "MaterialMvvmSample", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     public class MainActivity : Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)
@@ -28,6 +23,11 @@ namespace MaterialMvvmSample.Droid
             var app = CommonServiceLocator.ServiceLocator.Current.GetInstance<App>();
 
             this.LoadApplication(app);
+        }
+
+        public override void OnBackPressed()
+        {
+            Material.HandleBackButton(base.OnBackPressed);
         }
     }
 }

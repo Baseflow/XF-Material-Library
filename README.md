@@ -1,7 +1,7 @@
 
 <img src="images/xf.material_logo.png" width="112" />
 
-# XF.Material Library [![NuGet](https://img.shields.io/badge/version-1.1.2.1-%23607D8B.svg?style=plastic)](https://github.com/contrix09/XF-Material-Library/blob/master/RELEASE_NOTES.md) [![Build status](https://dev.azure.com/compiledevops/XF.Material/_apis/build/status/XF.Material-CI%20NuGet)](https://dev.azure.com/compiledevops/XF.Material/_build/latest?definitionId=20)
+# XF.Material Library [![NuGet](https://img.shields.io/badge/release-1.2.0-brightgreen.svg?style=flat)](https://github.com/contrix09/XF-Material-Library/blob/master/RELEASE_NOTES.md) [![Build status](https://dev.azure.com/compiledevops/XF.Material/_apis/build/status/XF.Material-CI%20NuGet)](https://dev.azure.com/compiledevops/XF.Material/_build/latest?definitionId=20) ![Sonarcloud status](https://sonarcloud.io/api/project_badges/measure?project=XF.Material&metric=alert_status)
 
 A Xamarin.Forms library for Xamarin.Android and Xamarin.iOS to implement [Google's Material Design](https://material.io/design).
 
@@ -9,13 +9,15 @@ A Xamarin.Forms library for Xamarin.Android and Xamarin.iOS to implement [Google
 
 - [Getting Started](#getting-started)
 - [Features](#features)
-  - [Material Views](#material-views)
+  - [Material UI](#material-ui)
+    - [App Bar](#app-bar)
     - [Cards](#cards)
     - [Buttons](#buttons)
     - [Text Fields](#text-fields)
     - [Selection Controls](#selection-controls)
       - [Radio Buttons](#radio-buttons)
       - [Checkboxes](#checkboxes)
+    - [Menus](#menus)
     - [Chips](#chips)
     - [Circular Progress Indicator](#circular-progress-indicator)
     - [Tintable Image Icon](#tintable-image-icon)
@@ -23,6 +25,7 @@ A Xamarin.Forms library for Xamarin.Android and Xamarin.iOS to implement [Google
     - [Alert Dialog](#alert-dialog)
     - [Simple Dialog](#simple-dialog)
     - [Confirmation Dialog](#confirmation-dialog)
+    - [Input Dialog](#input-dialog)
     - [Loading Dialog](#loading-dialog)
     - [Snackbar](#snackbar)
     - [Styling Dialogs](#styling-dialogs)
@@ -31,7 +34,6 @@ A Xamarin.Forms library for Xamarin.Android and Xamarin.iOS to implement [Google
     - [Typography](#typography)
     - [Adding the Material Resources](#adding-the-material-resources)
     - [Retrieving a Material Resource](#retrieving-a-material-resource)
-  - [Adding a Shadow to the Navigation Bar](#adding-a-shadow-to-the-navigation-bar)
   - [Changing the Status Bar Color](#changing-the-status-bar-color)
 - [Android Compatibility Issues](#android-compatibility-issues)
 - [Libraries Used](#libraries-used)
@@ -90,7 +92,43 @@ In order to be able to change the status bar's colors using [this](#changing-the
 
 ## Features
 
-### Material Views
+### Material UI
+Under the `XF.Material.Forms.UI` namespace, the library offers a number of controls available.
+
+#### App Bar Customization
+You can customize the appearance of the App Bar by using the `MaterialNavigationPage` control.
+
+| Code | Android  | iOS |
+| ------------- | ------------- | ------------- |
+|`<ContentPage .... xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material.Forms" material:MaterialNavigationPage.AppBarColor="#2c3e50" material:MaterialNavigationPage.AppBarTitleTextFontFamily="Roboto" material:MaterialNavigationPage.AppBarTitleTextFontSize="14" material:MaterialNavigationPage.StatusBarColor="#1B3147" material:MaterialNavigationPage.AppBarTitleTextAlignment="Start" /* Content goes here * </ ContentPage>` |<img src="https://media.giphy.com/media/MU4IeOwCKtssPAmgNB/giphy.gif" alt="Android card" width="500" />|<img src="https://media.giphy.com/media/XJ1bwhVkWKPDU2UmKP/giphy.gif" alt="iOS card" width="500"/> |
+
+
+##### Attached Properties
+These are attached properties that can be used on pages that are navigated through the `MaterialNavigationPage` control.
+
+1. `AppBarColor` - The color of the app bar.
+
+2. `AppBarTitleTextAlignment` - The text alignment of the app bar title. The default value is `TextAlignment.Start`.
+
+3. `AppBarTitleTextColor` - The text color of the app bar title. The default value is `Material.Color.OnPrimary`.
+
+4. `AppBarTitleFontFamily` - The font family of the app bar title. The default value is `Material.FontFamily.H6`.
+
+5. `AppBarTitleFontSize` - The font size of the app bar title. The default value is  `20`.
+
+6. `StatusBarColor` - The color of the status bar.
+
+##### Property
+`MaterialNavigationPage` inherits the `NavigationPage` class.
+
+1. `HasShadow` - The `boolean` value whether the App Bar will draw a shadow or not.
+
+##### Usage and Behavior
+This control uses the new feature of Xamarin 3.3, the `TitleView` property, to be able to change the appearance of the app bar title.
+But when the `TitleView` property is set on a page, the attached properties will not work.
+
+It is also important to note that when the attached properties are used, any change in these properties will only be detected during before pushing and popping of pages.
+
 
 #### Cards
 
@@ -117,7 +155,7 @@ Buttons allow users to take actions, and make choices, with a single tap.
 
 | Code | Android  | iOS |
 | ------------- | ------------- | ------------- |
-| `<material:MaterialButton BackgroundColor="#EAEAEA" HorizontalOptions="Center" Text="Elevated Button" TextColor="Black" VerticalOptions="Center" /> ` |<img src="images/button_android.jpg" alt="Android button" width="500" />|<img src="images/button_ios.jpg" alt="iOS button" width="573"/> |
+| `<material:MaterialButton BackgroundColor="#EAEAEA" HorizontalOptions="Center" Text="Elevated Button" TextColor="Black" VerticalOptions="Center" /> ` |<img src="https://media.giphy.com/media/fegjbOqxJpQ5P8Fly6/giphy.gif" alt="Android button" width="500" />|<img src="https://media.giphy.com/media/1oHpBfcWb2a3ZKv3ul/giphy.gif" alt="iOS button" width="500"/> |
 
 ##### Properties
 
@@ -316,6 +354,43 @@ Checkboxes can be used to turn an option on or off.  If there is only one option
 
 `MaterialCheckbox` has the property `IsSelected`, you can use this to determine whether the option was selected or not.
 
+#### Menus
+Menus display a list of choices on temporary surfaces.
+
+| Code | Android  | iOS |
+| ------------- | ------------- | ------------- |
+| `<material:MaterialMenu Padding="0" Choices="{Binding Actions}" MenuSelectedCommand="{Binding MenuCommand}"> <!-- Add view here --> </material:MaterialMenu>`|<img src="https://media.giphy.com/media/pjPfJ9XWRJx0JyeIhs/giphy.gif" alt="Android button" width="500" />|<img src="https://media.giphy.com/media/2rAIp1FRTY98qjDuJ5/giphy.gif" alt="iOS button" width="500"/> |
+
+##### Properties
+
+`MaterialMenu` inherits the `ContentView` class.
+
+1. `Choices` - The list of items from which the user will choose from. You can either assign a collection of `string` or `MaterialMenuItem`.
+
+2. `MenuBackgroundColor` - The background color of the menu.
+
+3. `MenuCornerRadius` - The corner radius of the menu.
+
+4. `MenuSelectedCommand` - The command that will execute when a menu item was selected. The type is `Command<MaterialMenuResult>`. The result will contain the index of the selected menu and the parameter, if any.
+
+5. `MenuSelectedCommandParameter` -  The parameter to pass in `MenuSelectedCommand`.
+
+6. `MenuTextColor` - The text color of the menu items.
+
+7. `MenuTextFontFamily` - The text font family of the menu items.
+
+
+##### Event
+
+1. `MenuSelected` - Raised when a menu item was selected.
+
+##### Usage and Behavior
+Menus are positioned relative to both the element that generates them and the edges of the screen. They can appear in front of, beside, above, or below the element that generates them.
+
+Menus can be dismissed by tapping outside, when an item was selected, or when the back button was pressed in Android.
+
+Be sure to always match the width and height of the child view to the width and height of the menu.
+
 #### Chips
 Chips are compact elements that represent an input, attribute, or action.
 
@@ -395,7 +470,7 @@ A tintable image view.
 
 ### Material Dialogs
 
-You can display modal views to notify users by using `MaterialDialog.Instance`.
+Under the `XF.Material.Forms.UI.Dialogs` namespace, you can display modal views to notify users by using `MaterialDialog.Instance`.
 
 #### Alert Dialog
 Alert dialogs interrupt users with urgent information, details, or actions.
@@ -557,6 +632,26 @@ If the cancel button is tapped, or the area outside the dialog, the action is ca
 
 The confirmation button will only be enabled when an item is selected.
 
+#### Input Dialog
+A type of confirmation dialog that allow users to input text and confirm it.
+
+| Android  | iOS |
+| ------------- | ------------- |
+|<img src="images/inputdialog_android.png" alt="Android button" width="500" />|<img src="images/inputdialog_ios.jpg" alt="iOS button" width="573"/> |
+
+##### Code
+You can show an input dialog by calling any of the overload methods of `MaterialDialog.Instance.InputAsync()`.
+
+```c#
+
+var input = await MaterialDialog.Instance.InputAsync();
+
+```
+
+##### Usage and Behavior
+Just like confirmation dialogs, input dialogs also provide confirmation and cancel buttons. It will return the string value of the input field if the confirm button was clicked. If the cancel button is tapped, or the area outside the dialog, the action is cancelled.
+
+
 #### Loading Dialog
 A modal dialog that is displayed to inform users about a process that is running for an unspecified time.
 
@@ -608,14 +703,14 @@ Both methods have this default parameter `message`, which is the message that wi
 - Shows a snackbar with no action. 
     ```c#
     await MaterialDialog.Instance.SnackbarAsync(message: "This is a snackbar.", 
-                                                msDuration: MaterialSnackbar.DURATION_LONG);
+                                                msDuration: MaterialSnackbar.DurationLong);
     ``` 
     - `msDuration` -  The duration, in milliseconds, before the snackbar will disappear. There are pre-defined constants which you can use  in the `MaterialSnackbar` class.
-        - `MaterialSnackbar.DURATION_SHORT` - Snackbar will show for 1500 milliseconds.
+        - `MaterialSnackbar.DurationShort` - Snackbar will show for 1500 milliseconds.
         
-        - `MaterialSnackbar.DURATION_LONG` - Snackbar will show for 2750 milliseconds. The default value of `msDuration`.
+        - `MaterialSnackbar.DurationLong` - Snackbar will show for 2750 milliseconds. The default value of `msDuration`.
         
-        - `MaterialSnackbar.DURATION_INDEFINITE` - Snackbar will show indefinitely.
+        - `MaterialSnackbar.DurationIndefinite` - Snackbar will show indefinitely.
 
 - Shows a snackbar with an action. Returns true if the snackbar's action button was clicked, or false if the snackbar was automatically dismissed.
     ```c#
@@ -761,6 +856,35 @@ var result = await MaterialDialog.Instance.SelectChoiceAsync(title: "Select a  j
 <br />
 <img src="images/confirmdialogconfig.jpg" width="400" />
 
+#### Styling Input Dialogs
+`MaterialInputDialogConfiguration` class provides properties to be used for customizing an input dialog.
+You can pass an instance of this class to any overload methods of `MaterialDialog.Instance.InputAsync()`.
+
+The input type of the input field can be set by using this configuration.
+
+```c#
+var config = new MaterialInputDialogConfiguration
+{
+    InputType = MaterialTextFieldInputType.Password,
+    CornerRadius = 8,
+    BackgroundColor = Color.FromHex("#2c3e50"),
+    InputTextColor = Color.White,
+    InputPlaceholderColor = Color.White.MultiplyAlpha(0.6),
+    TintColor = Color.White,
+    TitleTextColor = Color.White,
+    MessageTextColor = Color.FromHex("#DEFFFFFF")
+};
+
+var input = await MaterialDialog.Instance.InputAsync(title: "Deactivate account",
+                                                     message: "To continue, please enter your current password",
+                                                     inputPlaceholder: "Password",
+                                                     confirmingText: "Deactivate",
+                                                     configuration: config);
+```
+
+<br />
+<img src="images/inputdialogconfig.png" width="400" />
+
 #### Styling Loading Dialogs
 
 `MaterialLoadingDialogConfiguration` class provides properties to be used for customizing a loading dialog. You can pass an instance of this class to any overload methods of `MaterialDialog.Instance.LoadingDialogAsync()`.
@@ -811,59 +935,27 @@ You can set the global styles of each dialog by using the `MaterialDialog.Instan
 ```c#
 MaterialDialog.Instance.SetGlobalStyles(new MaterialAlertDialogConfiguration
 {
-    BackgroundColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.PRIMARY),
-    TitleTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ONPRIMARY),
-    TitleFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.Exo2Bold"),
-    MessageTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ONPRIMARY).MultiplyAlpha(0.8),
-    MessageFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansRegular"),
-    TintColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ONPRIMARY),
-    ButtonFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansSemiBold"),
-    CornerRadius = 8,
-    ScrimColor = Color.FromHex("#232F34").MultiplyAlpha(0.32),
-    ButtonAllCaps = false
+    //Configure properties
 },
 new MaterialLoadingDialogConfiguration
 {
-    BackgroundColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.PRIMARY),
-    MessageTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ONPRIMARY).MultiplyAlpha(0.8),
-    MessageFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansRegular"),
-    TintColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ONPRIMARY),
-    CornerRadius = 8,
-    ScrimColor = Color.FromHex("#232F34").MultiplyAlpha(0.32)
+    //Configure properties
 }, 
 new MaterialSnackbarConfiguration
 {
-    BackgroundColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.PRIMARY),
-    MessageFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansRegular"),
-    ButtonAllCaps = false,
-    ButtonFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansSemiBold"),
-    TintColor = Color.White,
-    MessageTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ONPRIMARY).MultiplyAlpha(0.8)
+    //Configure properties
 },
 new MaterialSimpleDialogConfiguration
 {
-    BackgroundColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.PRIMARY),
-    TitleTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_PRIMARY),
-    TitleFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansSemiBold"),
-    TextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_PRIMARY).MultiplyAlpha(0.8),
-    TextFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansRegular"),
-    CornerRadius = 8,
-    ScrimColor = Color.FromHex("#232F34").MultiplyAlpha(0.32)
+    //Configure properties
 },
 new MaterialConfirmationDialogConfiguration
 {
-    BackgroundColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.PRIMARY).AddLuminosity(-0.1),
-    TitleTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_PRIMARY),
-    TitleFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansSemiBold"),
-    TextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_PRIMARY).MultiplyAlpha(0.8),
-    TextFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansRegular"),
-    CornerRadius = 8,
-    ButtonAllCaps = false,
-    ButtonFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansSemiBold"),
-    ControlSelectedColor = Color.White,
-    ControlUnselectedColor = Color.White.MultiplyAlpha(0.66),
-    TintColor = Color.White,
-    ScrimColor = Color.FromHex("#232F34").MultiplyAlpha(0.32)
+    //Configure properties
+},
+new MaterialInputDialogConfiguration
+{
+    //Configure properties
 });
 ```
 
@@ -1028,7 +1120,7 @@ The code below shows a complete example on how to include the `MaterialColorConf
 
 Then in your `App.xaml.cs`, pass the resource key of the `MaterialConfiguration` object.
 
-`MaterialFontConfiguration`'s and `MaterialColorConfiguration`'s properties are optional, they always have a default value. For `MaterialFontConfiguration` the default font is the system font. `MaterialColorConfiguration` is seen [here](#color).
+`MaterialFontConfiguration`'s and `MaterialColorConfiguration`'s properties are optional, they always have a default value. For `MaterialFontConfiguration` the default font is the system font. 
 
 ```c#
 // Xamarin.Forms
@@ -1082,9 +1174,6 @@ string body1Font = XF.Material.Forms.Material.GetResource<string>(MaterialConsta
 string body1Font = XF.Material.Forms.Material.FontFamily.Body1;
 ```
 
-### Adding a shadow to the Navigation Bar
-You can add a shadow to the navigation bar by using the `MaterialNavigationPage` control.
-
 ### Changing the Status Bar Color
 You can change the color of the status bar by using the `Material.PlatformConfiguration.ChangeStatusBarColor(Color color)` method.
 
@@ -1103,3 +1192,4 @@ If targeted below Android 5.0, the following issues can be seen:
 Special thanks to the following libraries I used for this project:
 - [Rg.Plugins.Popup](https://github.com/rotorgames/Rg.Plugins.Popup)
 - [LottieXamarin](https://github.com/martijn00/LottieXamarin)
+- [Xamarin.Essentials](https://github.com/xamarin/Essentials)

@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<local:BaseMaterialModalPage x:Class="XF.Material.Forms.UI.Dialogs.MaterialSimpleDialog"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:internal="clr-namespace:XF.Material.Forms.UI.Internals"
+    xmlns:local="clr-namespace:XF.Material.Forms.UI.Dialogs"
+    xmlns:material="clr-namespace:XF.Material.Forms.UI"
+    xmlns:rga="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+    xmlns:rgp="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:sys="clr-namespace:System;assembly=netstandard"
+    x:Name="Root"
+    BackgroundColor="#51000000"
+    CloseWhenBackgroundIsClicked="True">
+    <ContentPage.Content>
+        <material:MaterialCard x:Name="Container"
+            Margin="{StaticResource Material.Dialog.Margin}"
+            Padding="0"
+            BackgroundColor="White"
+            CornerRadius="4"
+            Elevation="24"
+            HasShadow="True"
+            HorizontalOptions="FillAndExpand"
+            IsClippedToBounds="True"
+            VerticalOptions="Center">
+            <Grid RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Label x:Name="DialogTitle"
+                    Grid.Row="0"
+                    Margin="24,20,24,12"
+                    FontFamily="{DynamicResource Material.FontFamily.H6}"
+                    Style="{DynamicResource Material.TypeScale.H6}"
+                    TextColor="#DE000000"
+                    VerticalOptions="Start">
+                    <Label.Triggers>
+                        <Trigger TargetType="Label" Property="Text" Value="{x:Null}">
+                            <Setter Property="IsVisible" Value="False" />
+                        </Trigger>
+                        <Trigger TargetType="Label" Property="Text" Value="{x:Static sys:String.Empty}">
+                            <Setter Property="IsVisible" Value="False" />
+                        </Trigger>
+                    </Label.Triggers>
+                </Label>
+                <internal:MaterialDialogListView x:Name="DialogActionList"
+                    Grid.Row="1"
+                    Margin="0,0,0,20"
+                    BackgroundColor="Transparent"
+                    HasUnevenRows="True"
+                    SeparatorVisibility="None"
+                    VerticalOptions="Center">
+                    <View.Triggers>
+                        <DataTrigger Binding="{Binding Source={x:Reference DialogTitle}, Path=IsVisible}"
+                            TargetType="View"
+                            Value="False">
+                            <Setter Property="Margin" Value="0, 20, 0, 20" />
+                        </DataTrigger>
+                    </View.Triggers>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <internal:MaterialDialogListViewCell>
+                                <Grid ColumnSpacing="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="1"
+                                        Margin="24,0"
+                                        HeightRequest="{Binding Source={x:Reference DialogActionList}, Path=RowHeight}"
+                                        LineBreakMode="TailTruncation"
+                                        Style="{DynamicResource Material.TypeScale.Body1}"
+                                        Text="{Binding Text}"
+                                        TextColor="#DE000000"
+                                        VerticalTextAlignment="Center">
+                                        <Label.Triggers>
+                                            <DataTrigger Binding="{Binding TextColor.IsDefault}"
+                                                TargetType="Label"
+                                                Value="False">
+                                                <Setter Property="TextColor" Value="{Binding TextColor}" />
+                                            </DataTrigger>
+                                        </Label.Triggers>
+                                    </Label>
+                                    <material:MaterialButton Grid.ColumnSpan="2"
+                                        Margin="-6"
+                                        ButtonType="Text"
+                                        Command="{Binding SelectedCommand}"
+                                        CommandParameter="{Binding Index}"
+                                        CornerRadius="0"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="FillAndExpand" />
+                                </Grid>
+                            </internal:MaterialDialogListViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </internal:MaterialDialogListView>
+            </Grid>
+        </material:MaterialCard>
+    </ContentPage.Content>
+</local:BaseMaterialModalPage>

@@ -1,6 +1,8 @@
 ﻿using System.Linq;
+using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
+[assembly: ResolutionGroupName("Material")]
 namespace XF.Material.Droid.Effects
 {
     public class BaseMaterialEffect<TEffect> : PlatformEffect where TEffect : Forms.Effects.BaseMaterialEffect
@@ -10,7 +12,6 @@ namespace XF.Material.Droid.Effects
         protected override void OnAttached()
         {
             this.MaterialEffect = this.Element.Effects.FirstOrDefault(e => e is TEffect) as TEffect;
-            this.MaterialEffect.ApplyEffect();
         }
 
         protected override void OnDetached() { }
