@@ -35,6 +35,7 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <DocumentationFile>bin\Release\XF.Material.iOS.xml</DocumentationFile>
+    <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'iOS Release|AnyCPU'">
     <OutputPath>bin\iOS Release\</OutputPath>
