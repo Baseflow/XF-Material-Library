@@ -100,7 +100,7 @@ You can customize the appearance of the App Bar by using the `MaterialNavigation
 
 | Code | Android  | iOS |
 | ------------- | ------------- | ------------- |
-|<code><ContentPage .... <br/>xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material.Forms"<br />material:MaterialNavigationPage.AppBarColor="#2c3e50"<br />material:MaterialNavigationPage.AppBarTitleTextFontFamily="Roboto"<br />material:MaterialNavigationPage.AppBarTitleTextFontSize="14"<br />material:MaterialNavigationPage.StatusBarColor="#1B3147"<br/>material:MaterialNavigationPage.AppBarTitleTextAlignment="Start"<br />/* Content goes here */<br /></ ContentPage></code> |<img src="https://media.giphy.com/media/MU4IeOwCKtssPAmgNB/giphy.gif" alt="Android card" width="500" />|<img src="https://media.giphy.com/media/XJ1bwhVkWKPDU2UmKP/giphy.gif" alt="iOS card" width="500"/> |
+|`<ContentPage .... xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material.Forms" material:MaterialNavigationPage.AppBarColor="#2c3e50" material:MaterialNavigationPage.AppBarTitleTextFontFamily="Roboto" material:MaterialNavigationPage.AppBarTitleTextFontSize="14" material:MaterialNavigationPage.StatusBarColor="#1B3147" material:MaterialNavigationPage.AppBarTitleTextAlignment="Start" /* Content goes here * </ ContentPage>` |<img src="https://media.giphy.com/media/MU4IeOwCKtssPAmgNB/giphy.gif" alt="Android card" width="500" />|<img src="https://media.giphy.com/media/XJ1bwhVkWKPDU2UmKP/giphy.gif" alt="iOS card" width="500"/> |
 
 
 ##### Attached Properties
