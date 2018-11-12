@@ -4,21 +4,18 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:MaterialMvvmSample.Views"
     xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material.Forms"
-    Title="Not Found"
+    Title="{Binding JobTitle}"
     material:MaterialNavigationPage.AppBarColor="Black"
-    material:MaterialNavigationPage.AppBarTextAlignment="Center"
-    material:MaterialNavigationPage.AppBarTextColor="White"
+    material:MaterialNavigationPage.AppBarTitleTextAlignment="Center"
+    material:MaterialNavigationPage.AppBarTitleTextColor="White"
+    material:MaterialNavigationPage.AppBarTitleTextFontSize="14"
     material:MaterialNavigationPage.StatusBarColor="Black">
     <ContentPage.Content>
         <StackLayout VerticalOptions="CenterAndExpand">
             <Label HorizontalOptions="Center"
                 Style="{DynamicResource Material.TypeScale.Subtitle1}"
-                Text="Oops, there's nothing here!"
+                Text="Oops, there's nothing here! :("
                 VerticalOptions="Center" />
-            <material:MaterialButton Margin="0,16"
-                BackgroundColor="#404040"
-                HorizontalOptions="Center"
-                Text="Go Back" />
         </StackLayout>
     </ContentPage.Content>
 </local:BaseSecondView>

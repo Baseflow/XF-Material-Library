@@ -8,8 +8,9 @@
     Title="Material MVVM"
     Padding="16"
     material:MaterialNavigationPage.AppBarColor="#2c3e50"
-    material:MaterialNavigationPage.AppBarTextFontFamily="{StaticResource FontFamily.RobotoMedium}"
-    material:MaterialNavigationPage.AppBarTextFontSize="14"
+    material:MaterialNavigationPage.AppBarTitleTextAlignment="Start"
+    material:MaterialNavigationPage.AppBarTitleTextFontFamily="{StaticResource FontFamily.RobotoMedium}"
+    material:MaterialNavigationPage.AppBarTitleTextFontSize="14"
     material:MaterialNavigationPage.StatusBarColor="#1B3147">
     <!--<ScrollView VerticalOptions="FillAndExpand">
         <material:MaterialCard Elevation="4"
@@ -53,20 +54,15 @@
     <ListView BackgroundColor="Transparent"
         HasUnevenRows="True"
         ItemsSource="{Binding Models}"
+        SelectionMode="None"
         SeparatorVisibility="None">
         <ListView.Header>
             <StackLayout HeightRequest="56"
                 HorizontalOptions="FillAndExpand"
                 Orientation="Horizontal">
-                <Label HorizontalOptions="StartAndExpand"
-                    Style="{DynamicResource Material.TypeScale.H6}"
-                    Text="Job Positions"
-                    TextColor="Black"
-                    VerticalOptions="FillAndExpand"
-                    VerticalTextAlignment="Center" />
                 <material:MaterialMenu Padding="0"
                     Choices="{Binding ListActions}"
-                    HorizontalOptions="End"
+                    HorizontalOptions="Start"
                     MenuSelectedCommand="{Binding ListMenuCommand}"
                     VerticalOptions="Center">
                     <material:MaterialIcon HeightRequest="24"
@@ -75,12 +71,23 @@
                         VerticalOptions="Center"
                         WidthRequest="24" />
                 </material:MaterialMenu>
+                <Label HorizontalOptions="Center"
+                    Style="{DynamicResource Material.TypeScale.H6}"
+                    Text="Job Positions"
+                    TextColor="Black"
+                    VerticalOptions="FillAndExpand"
+                    VerticalTextAlignment="Center" />
             </StackLayout>
         </ListView.Header>
         <ListView.ItemTemplate>
             <DataTemplate>
                 <ViewCell>
                     <material:MaterialCard Margin="0,4" Padding="16,8">
+                        <View.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Source={x:Reference Root}, Path=BindingContext.JobSelectedCommand}"
+                                CommandParameter="{Binding Id}"
+                                NumberOfTapsRequired="1" />
+                        </View.GestureRecognizers>
                         <StackLayout HeightRequest="56" Orientation="Horizontal">
                             <StackLayout HorizontalOptions="StartAndExpand" Orientation="Horizontal">
                                 <Label Style="{DynamicResource Material.TypeScale.Body1}"
@@ -117,4 +124,5 @@
             </DataTemplate>
         </ListView.ItemTemplate>
     </ListView>
+
 </local:BaseMainView>

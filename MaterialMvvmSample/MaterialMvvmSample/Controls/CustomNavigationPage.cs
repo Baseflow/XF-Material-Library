@@ -51,7 +51,7 @@ namespace MaterialMvvmSample.Controls
             }
         }
 
-        public override void OnPagePush(Page page)
+        protected override void OnPagePush(Page page)
         {
             base.OnPagePush(page);
 
@@ -62,9 +62,9 @@ namespace MaterialMvvmSample.Controls
             }
         }
 
-        public override void OnPagePop(Page previousPage)
+        protected override void OnPagePop(Page previousPage, Page poppedPage)
         {
-            base.OnPagePop(previousPage);
+            base.OnPagePop(previousPage, poppedPage);
 
             if (previousPage.BindingContext is BaseViewModel viewModel)
             {

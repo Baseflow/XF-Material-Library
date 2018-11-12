@@ -1,4 +1,6 @@
 ﻿using MaterialMvvmSample.Utilities.Dialogs;
+using MaterialMvvmSample.Views;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -13,7 +15,6 @@ namespace MaterialMvvmSample.ViewModels
     public class MainViewModel : BaseViewModel
     {
         private readonly IJobDialogService _dialogService;
-        private ObservableCollection<TestModel> _models;
 
         public MainViewModel(IJobDialogService dialogService)
         {
@@ -23,15 +24,18 @@ namespace MaterialMvvmSample.ViewModels
             {
                 new TestModel
                 {
-                    Title = "Mobile Developer (Xamarin)"
+                    Title = "Mobile Developer (Xamarin)",
+                    Id = Guid.NewGuid().ToString("N"),
                 },
                 new TestModel
                 {
-                    Title = "Mobile Developer (Native Android)"
+                    Title = "Mobile Developer (Native Android)",
+                    Id = Guid.NewGuid().ToString("N")
                 },
                 new TestModel
                 {
-                    Title = "Mobile Developer (Native iOS)"
+                    Title = "Mobile Developer (Native iOS)",
+                    Id = Guid.NewGuid().ToString("N")
                 }
             };
             this.SelectedFilters = new List<int>();
@@ -53,7 +57,7 @@ namespace MaterialMvvmSample.ViewModels
 
         public string[] Filters => new string[] { "None", "Alhpabetical" };
 
-        public string[] ListActions => new string[] { "Add job", "Sort"};
+        public string[] ListActions => new string[] { "Add job", "Sort" };
 
         public ICommand ListMenuCommand => new Command<MaterialMenuResult>(async (s) => await this.ListMenuSelected(s));
 
@@ -61,12 +65,15 @@ namespace MaterialMvvmSample.ViewModels
 
         public ICommand FiltersSelectedCommand => new Command<int[]>((s) =>
         {
-            foreach(var _ in s)
+            foreach (var _ in s)
             {
                 System.Diagnostics.Debug.WriteLine(this.Filters[_]);
             }
         });
 
+        public ICommand JobSelectedCommand => new Command<string>(async (s) => await this.ViewItemSelected(s));
+
+        private ObservableCollection<TestModel> _models;
         public ObservableCollection<TestModel> Models
         {
             get => _models;
@@ -97,6 +104,7 @@ namespace MaterialMvvmSample.ViewModels
                     var model = new TestModel
                     {
                         Title = result,
+                        Id = Guid.NewGuid().ToString("N"),
                         IsNew = true
                     };
 
@@ -108,10 +116,17 @@ namespace MaterialMvvmSample.ViewModels
                 this.Models = new ObservableCollection<TestModel>(this.Models.OrderBy(m => m.Title));
             }
 
-            else if(s.Index == 2)
+            else if (s.Index == 2)
             {
                 this.SelectedFilters = new List<int>();
             }
+        }
+
+        private async Task ViewItemSelected(string id)
+        {
+            var selectedModel = this.Models.FirstOrDefault(m => m.Id == id);
+
+            await this.Navigation.PushAsync(ViewNames.SecondView, selectedModel);
         }
 
         private async Task MenuSelected(MaterialMenuResult i)
@@ -144,10 +159,10 @@ namespace MaterialMvvmSample.ViewModels
     public class TestModel : PropertyChangeAware
     {
         private bool _isNew;
-        private int _id;
+        private string _id;
         private string _title;
 
-        public int Id
+        public string Id
         {
             get => _id;
             set => this.Set(ref _id, value);
