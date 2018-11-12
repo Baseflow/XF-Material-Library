@@ -12,6 +12,8 @@ namespace XF.Material.Forms.UI.Dialogs
     {
         private static readonly Lazy<IMaterialDialog> MaterialDialogInstance = new Lazy<IMaterialDialog>(() => new MaterialDialog());
 
+        internal MaterialDialog() { }
+
         /// <summary>
         /// The current instance to use for showing modal dialogs.
         /// </summary>
