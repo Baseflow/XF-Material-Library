@@ -1,5 +1,4 @@
 ﻿using Xamarin.Forms;
-using XF.Material.Forms.UI;
 
 namespace XF.Material.Forms.UI.Dialogs.Configurations
 {

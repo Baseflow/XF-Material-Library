@@ -191,59 +191,6 @@ namespace XF.Material.Droid.Renderers
             var disabledStateDrawable = this.CreateShapeDrawable(_cornerRadius, _borderWidth, Color.Transparent, Color.Transparent);
             disabledStateDrawable.SetColor(Color.Transparent);
 
-            #region Recursive logic to get parent with background color
-
-            //var parentView = _materialButton.Parent as VisualElement;
-            //var parentColor = parentView.BackgroundColor;
-
-            //while(parentColor.IsDefault)
-            //{
-            //    parentView = parentView.Parent as VisualElement;
-
-            //    if(parentView == null)
-            //    {
-            //        break;
-            //    }
-
-            //    parentColor = parentView.BackgroundColor;
-            //}
-
-            //_normalColor = parentColor.ToAndroid();
-            //_cornerRadius = MaterialHelper.ConvertToDp(4);
-
-            //var normalStateDrawable = this.CreateShapeDrawable(_cornerRadius, 0, _normalColor, Color.Transparent);
-            //var disabledStateDrawable = this.CreateShapeDrawable(_cornerRadius, 0, Color.Transparent, Color.Transparent);
-
-
-            //if (Material.IsLollipop)
-            //{
-            //    if (parentColor.IsDefault)
-            //    {
-            //        this.Control.Background = ContextCompat.GetDrawable(this.Context, Resource.Drawable.drawable_ripple_text);
-            //    }
-
-            //    else
-            //    {
-            //        var rippleDrawable = this.GetTemplateDrawable<RippleDrawable>();
-            //        var insetDrawable = rippleDrawable.FindDrawableByLayerId(Resource.Id.inset_drawable) as InsetDrawable;
-            //        var statelistDrawable = insetDrawable.Drawable as StateListDrawable;
-            //        this.SetStates(statelistDrawable, normalStateDrawable, normalStateDrawable, disabledStateDrawable);
-            //        this.Control.Background = rippleDrawable;
-            //        this.Control.StateListAnimator = null;
-            //    }
-            //}
-
-            //else
-            //{
-            //    var insetDrawable = this.GetTemplateDrawable<InsetDrawable>();
-            //    var stateListDrawable = insetDrawable.Drawable as StateListDrawable;
-            //    var pressedStateDrawable = this.CreateShapeDrawable(_cornerRadius, 0, _pressedColor, Color.Transparent);
-            //    this.SetStates(stateListDrawable, normalStateDrawable, pressedStateDrawable, disabledStateDrawable);
-            //    this.Control.Background = insetDrawable;
-            //}
-
-            #endregion
-
             if (Material.IsLollipop)
             {
                 var rippleDrawable = MaterialHelper.GetDrawableCopyFromResource<RippleDrawable>(Resource.Drawable.drawable_ripple_text);

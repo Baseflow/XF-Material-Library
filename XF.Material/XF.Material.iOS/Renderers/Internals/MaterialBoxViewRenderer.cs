@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Foundation;
-using UIKit;
+﻿using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 using XF.Material.Forms.UI.Internals;
@@ -27,7 +21,7 @@ namespace XF.Material.iOS.Renderers.Internals
 
         private class BoxViewGestureRecognizerDelegate : UIGestureRecognizerDelegate
         {
-            private MaterialBoxView _boxView;
+            private readonly MaterialBoxView _boxView;
 
             public BoxViewGestureRecognizerDelegate(MaterialBoxView boxView)
             {

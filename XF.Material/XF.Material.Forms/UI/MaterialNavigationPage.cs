@@ -1,7 +1,5 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 using XF.Material.Forms.Resources;
 
@@ -38,7 +36,7 @@ namespace XF.Material.Forms.UI
         public static readonly BindableProperty AppBarTitleTextFontSizeProperty = BindableProperty.Create("AppBarTitleTextFontSize", typeof(double), typeof(MaterialNavigationPage), 24.0);
 
         /// <summary>
-        /// Backing field for the bindable property <see cref="HasShadow"/>.
+        /// Attached property that is used by <see cref="Page"/>s to determine whether the app bar will draw a shadow.
         /// </summary>
         public static readonly BindableProperty HasShadowProperty = BindableProperty.Create("HasShadow", typeof(bool), typeof(MaterialNavigationPage), true);
 

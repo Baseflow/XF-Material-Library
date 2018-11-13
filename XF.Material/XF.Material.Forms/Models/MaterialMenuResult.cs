@@ -1,7 +1,7 @@
 ﻿namespace XF.Material.Forms.Models
 {
     /// <summary>
-    /// Contains data of a <see cref="MaterialMenu"/> selection.
+    /// Contains data of a <see cref="UI.MaterialMenu"/> selection.
     /// </summary>
     public class MaterialMenuResult
     {
