@@ -15,35 +15,9 @@
     <!--<ScrollView VerticalOptions="FillAndExpand">
         <material:MaterialCard Elevation="4"
             HorizontalOptions="FillAndExpand"
+            IsClippedToBounds="False"
             VerticalOptions="FillAndExpand">
             <StackLayout>
-                <material:MaterialCheckboxGroup Choices="{Binding Jobs}" SelectedIndices="{Binding SelectedJobs}" />
-                <material:MaterialRadioButtonGroup Choices="{Binding Jobs}" SelectedIndex="{Binding SelectedJobIndex}" />
-                <material:MaterialCheckboxGroup Choices="{Binding Jobs}" SelectedIndices="{Binding SelectedJobs}" />
-                <material:MaterialRadioButtonGroup Choices="{Binding Jobs}" SelectedIndex="{Binding SelectedJobIndex}" />
-                <material:MaterialCheckboxGroup Choices="{Binding Jobs}" SelectedIndices="{Binding SelectedJobs}" />
-                <material:MaterialRadioButtonGroup Choices="{Binding Jobs}" SelectedIndex="{Binding SelectedJobIndex}" />
-                <material:MaterialMenu Choices="{Binding Jobs}"
-                    HorizontalOptions="End"
-                    MenuSelectedCommand="{Binding MenuCommand}"
-                    MenuSelectedCommandParameter="3">
-                    <material:MaterialIcon Source="ic_check" TintColor="#6200EE" />
-                </material:MaterialMenu>
-                <material:MaterialMenu Choices="{Binding Jobs}"
-                    HorizontalOptions="End"
-                    MenuSelectedCommand="{Binding MenuCommand}"
-                    MenuSelectedCommandParameter="3">
-                    <material:MaterialIcon Source="ic_check" TintColor="#6200EE" />
-                </material:MaterialMenu>
-                <material:MaterialMenu Choices="{Binding Jobs}"
-                    HorizontalOptions="End"
-                    MenuSelectedCommand="{Binding MenuCommand}"
-                    MenuSelectedCommandParameter="3">
-                    <material:MaterialIcon Source="ic_check" TintColor="#6200EE" />
-                </material:MaterialMenu>
-                <material:MaterialSlider ThumbColor="Black"
-                    TrackColor="Gray"
-                    ValueChangedCommand="{Binding ValueChangedCommand}" />
                 <material:MaterialTextField />
                 <material:MaterialButton x:Name="button"
                     Command="{Binding ButtonCommand}"
