@@ -378,39 +378,24 @@ namespace XF.Material.Forms.UI
 
         private void AnimatePlaceHolder()
         {
-            var startFont = entry.IsFocused ? 16 : 12;
-            var endFOnt = entry.IsFocused ? 12 : 16;
-            var startY = placeholder.TranslationY;
-            double endY = 0;
+            double startFont = entry.IsFocused ? 16 : 12;
+            double endFOnt = entry.IsFocused ? 12 : 16;
+            double startY = placeholder.TranslationY;
+            double endY = entry.IsFocused ? -14 : 0;
             var color = entry.IsFocused ? this.TintColor : this.PlaceholderColor;
-            Animation anim = new Animation();
-
-            if(entry.IsFocused && !this.FloatingPlaceholderEnabled)
+            Animation anim = new Animation
             {
-                endY = entry.IsFocused ? -20 : 0;
-            }
-
-            else if(entry.IsFocused && this.FloatingPlaceholderEnabled)
-            {
-                endY = entry.IsFocused ? -14 : 0;
-            }
-
-            if (this.FloatingPlaceholderEnabled)
-            {
-                anim = new Animation
                 {
-                    {
-                        0.0,
-                        AnimationDuration,
-                        new Animation(v => placeholder.FontSize = v, startFont, endFOnt, animationCurve)
-                    },
-                    {
-                        0.0,
-                        AnimationDuration,
-                        new Animation(v => placeholder.TranslationY = v, startY, endY, animationCurve, () => placeholder.TextColor = this.HasError && entry.IsFocused ? this.ErrorColor : color)
-                    }
-                };
-            }
+                    0.0,
+                    AnimationDuration,
+                    new Animation(v => placeholder.FontSize = v, startFont, endFOnt, animationCurve)
+                },
+                {
+                    0.0,
+                    AnimationDuration,
+                    new Animation(v => placeholder.TranslationY = v, startY, endY, animationCurve, () => placeholder.TextColor = this.HasError && entry.IsFocused ? this.ErrorColor : color)
+                }
+            };
 
             if (entry.IsFocused)
             {
@@ -528,11 +513,12 @@ namespace XF.Material.Forms.UI
                 this.UpdateCounter();
             }
 
-            if (e.PropertyName == nameof(Entry.IsFocused) && string.IsNullOrEmpty(entry.Text))
+            if (e.PropertyName == nameof(Entry.IsFocused) && string.IsNullOrEmpty(entry.Text) && this.FloatingPlaceholderEnabled)
             {
                 this.AnimatePlaceHolder();
             }
-            else if (e.PropertyName == nameof(Entry.Text))
+
+            if (e.PropertyName == nameof(Entry.Text))
             {
                 this.Text = entry.Text;
                 this.UpdateCounter();
