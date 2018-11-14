@@ -61,7 +61,7 @@
                         </Trigger>
                     </Label.Triggers>
                 </Label>
-                <internal:MaterialInputDialogTextField x:Name="TextField"
+                <material:MaterialTextField x:Name="TextField"
                     Grid.Row="2"
                     Margin="24,0"
                     AlwaysShowUnderline="True"

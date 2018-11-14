@@ -27,11 +27,13 @@
     <Compile Remove="UI\Dialogs\MaterialDialogs.cs" />
     <Compile Remove="Effects\MaterialStatusBarColorEffect.cs" />
     <Compile Remove="MaterialStyles.xaml.cs" />
+    <Compile Remove="UI\Internals\MaterialInputDialogTextField.xaml.cs" />
     <Compile Remove="UI\MaterialSlider.xaml.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Remove="MaterialStyles.xaml" />
+    <EmbeddedResource Remove="UI\Internals\MaterialInputDialogTextField.xaml" />
     <EmbeddedResource Remove="UI\MaterialSlider.xaml" />
   </ItemGroup>
 
@@ -51,9 +53,6 @@
     </Compile>
     <Compile Update="Resources\MaterialSizes.xaml.cs">
       <DependentUpon>MaterialSizes.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="UI\Internals\MaterialInputDialogTextField.xaml.cs">
-      <DependentUpon>MaterialInputDialogTextField.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 
