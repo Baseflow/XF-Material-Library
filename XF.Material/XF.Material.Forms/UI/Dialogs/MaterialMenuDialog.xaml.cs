@@ -157,6 +157,11 @@ namespace XF.Material.Forms.UI.Dialogs
                 actionModel.Index = actionModels.IndexOf(actionModel);
             });
 
+            this.SetList(actionModels);
+        }
+
+        private void SetList(IList<ActionModel> actionModels)
+        {
             DialogActionList.RowHeight = _rowHeight;
             DialogActionList.HeightRequest = (_rowHeight * actionModels.Count) + 2;
             DialogActionList.ItemsSource = actionModels;
