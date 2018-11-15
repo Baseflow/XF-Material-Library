@@ -8,14 +8,14 @@
     CloseWhenBackgroundIsClicked="False">
     <ContentPage.Content>
         <material:MaterialCard x:Name="Container"
-            Margin="{StaticResource Material.Dialog.Margin}"
             Padding="16,24,16,24"
             BackgroundColor="White"
             CornerRadius="4"
             Elevation="24"
             HasShadow="True"
-            HorizontalOptions="FillAndExpand"
-            VerticalOptions="Center">
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            WidthRequest="{StaticResource Material.Dialog.Width}">
             <StackLayout Orientation="Horizontal" Spacing="8">
                 <material:MaterialCircularLoadingView x:Name="LoadingImage"
                     HeightRequest="56"
