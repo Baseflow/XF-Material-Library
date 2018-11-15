@@ -1,5 +1,9 @@
 # Release Notes
 
+##### 1.2.1
+- `MaterialRadiuButton` constructor access modifier changed to public.
+- Added maximum width for modal dialogs.
+
 ##### 1.2.0
 - Upgraded to use `Xamarin.Forms` version `3.3`.
 - Added `IMaterialDialog.InputAsync`, which shows a dialog that allows the user to input text. A feature enhancement stated in this [issue](https://github.com/contrix09/XF-Material-Library/issues/18).
