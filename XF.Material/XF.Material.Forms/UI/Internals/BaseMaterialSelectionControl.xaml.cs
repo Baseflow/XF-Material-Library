@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -62,37 +63,16 @@ namespace XF.Material.Forms.UI.Internals
         /// </summary>
         public static readonly BindableProperty VerticalSpacingProperty = BindableProperty.Create(nameof(VerticalSpacing), typeof(double), typeof(BaseMaterialSelectionControlGroup), 0.0);
 
+        private readonly Dictionary<string, Action> _propertyChangeActions;
         private string _selectedSource;
         private string _unselectedSource;
-        private readonly MaterialSelectionControlType _controlType;
 
         internal BaseMaterialSelectionControl(MaterialSelectionControlType controlType)
         {
             this.InitializeComponent();
-
-            switch (controlType)
-            {
-                case MaterialSelectionControlType.Checkbox:
-                    _selectedSource = "ic_checkbox_selected";
-                    _unselectedSource = "ic_checkbox_unselected";
-                    break;
-                case MaterialSelectionControlType.RadioButton:
-                    _selectedSource = "ic_radio_button_selected";
-                    _unselectedSource = "ic_radio_button_unselected";
-                    selectionIcon.WidthRequest = selectionIcon.HeightRequest = 20;
-                    break;
-            }
-
-            _controlType = controlType;
-            selectionIcon.Source = this.IsSelected ? _selectedSource : _unselectedSource;
-            selectionIcon.TintColor = this.IsSelected ? this.SelectedColor : this.UnselectedColor;
-            selectionButton.CornerRadius = Device.RuntimePlatform == Device.Android ? 22 : 18;
-            selectionButton.Command = new Command(() =>
-            {
-                this.IsSelected = !this.IsSelected;
-            });
-
-            selectionText.Text = this.Text;
+            this.SetPropertyChangeHandler(ref _propertyChangeActions);
+            this.SetControlType(controlType);
+            this.SetControl();
         }
 
         /// <summary>
@@ -191,53 +171,105 @@ namespace XF.Material.Forms.UI.Internals
         {
             base.OnPropertyChanged(propertyName);
 
-            if (propertyName == nameof(this.IsSelected))
+            if (_propertyChangeActions != null && _propertyChangeActions.TryGetValue(propertyName, out Action handlePropertyChange))
             {
-                selectionIcon.Source = this.IsSelected ? _selectedSource : _unselectedSource;
-                selectionIcon.TintColor = this.IsSelected ? this.SelectedColor : this.UnselectedColor;
-                this.SelectedChanged?.Invoke(this, new SelectedChangedEventArgs(this.IsSelected));
-                this.SelectedChangeCommand?.Execute(this.IsSelected);
+                handlePropertyChange();
             }
+        }
 
-            else if (propertyName == nameof(this.SelectedColor) || propertyName == nameof(this.UnselectedColor))
-            {
-                selectionIcon.TintColor = this.IsSelected ? this.SelectedColor : this.UnselectedColor;
-            }
+        private void OnEnableChanged(bool isEnabled)
+        {
+            this.Opacity = isEnabled ? 1.0 : 0.38;
+        }
 
-            else if (propertyName == nameof(this.IsEnabled))
-            {
-                this.Opacity = this.IsEnabled ? 1.0 : 0.38;
-            }
+        private void OnFontFamilyChanged(string fontFamily)
+        {
+            selectionText.FontFamily = fontFamily;
+        }
 
-            else if(propertyName == nameof(this.Text))
-            {
-                selectionText.Text = this.Text;
-            }
+        private void OnFontSizeChanged(double fontSize)
+        {
+            selectionText.FontSize = fontSize;
+        }
 
-            else if(propertyName == nameof(this.FontFamily))
-            {
-                selectionText.FontFamily = this.FontFamily;
-            }
+        private void OnHorizontalSpacingChanged(double value)
+        {
+            selectionText.Margin = new Thickness(value, 0, 0, 0);
+        }
 
-            else if(propertyName == nameof(this.HorizontalSpacing))
-            {
-                selectionText.Margin = new Thickness(this.HorizontalSpacing, 0, 0, 0);
-            }
+        private void OnSelectedChanged(bool isSelected)
+        {
+            selectionIcon.Source = isSelected ? _selectedSource : _unselectedSource;
+            selectionIcon.TintColor = isSelected ? this.SelectedColor : this.UnselectedColor;
+            this.SelectedChanged?.Invoke(this, new SelectedChangedEventArgs(isSelected));
+            this.SelectedChangeCommand?.Execute(isSelected);
+        }
 
-            else if (propertyName == nameof(this.VerticalSpacing))
-            {
-                this.Margin = new Thickness(this.Margin.Left, this.Margin.Top, this.Margin.Right, this.VerticalSpacing);
-            }
+        private void OnStateColorChanged(bool isSelected)
+        {
+            selectionIcon.TintColor = isSelected ? this.SelectedColor : this.UnselectedColor;
+        }
 
-            else if(propertyName == nameof(this.FontSize))
-            {
-                selectionText.FontSize = this.FontSize;
-            }
+        private void OnTextChanged()
+        {
+            selectionText.Text = this.Text;
+        }
 
-            else if(propertyName == nameof(this.TextColor))
+        private void OnTextColorChanged()
+        {
+            selectionText.TextColor = this.TextColor;
+        }
+
+        private void OnVerticalSpacingChanged(double value)
+        {
+            this.Margin = new Thickness(this.Margin.Left, this.Margin.Top, this.Margin.Right, value);
+        }
+
+        private void SetControl()
+        {
+            selectionIcon.Source = this.IsSelected ? _selectedSource : _unselectedSource;
+            selectionIcon.TintColor = this.IsSelected ? this.SelectedColor : this.UnselectedColor;
+            selectionButton.CornerRadius = Device.RuntimePlatform == Device.Android ? 22 : 18;
+            selectionButton.Command = new Command(() =>
             {
-                selectionText.TextColor = this.TextColor;
+                this.IsSelected = !this.IsSelected;
+            });
+
+            selectionText.Text = this.Text;
+        }
+
+        private void SetControlType(MaterialSelectionControlType controlType)
+        {
+            switch (controlType)
+            {
+                case MaterialSelectionControlType.Checkbox:
+                    _selectedSource = "ic_checkbox_selected";
+                    _unselectedSource = "ic_checkbox_unselected";
+                    break;
+
+                case MaterialSelectionControlType.RadioButton:
+                    _selectedSource = "ic_radio_button_selected";
+                    _unselectedSource = "ic_radio_button_unselected";
+                    selectionIcon.WidthRequest = selectionIcon.HeightRequest = 20;
+                    break;
             }
+        }
+
+        private void SetPropertyChangeHandler(ref Dictionary<string, Action> propertyChangeActions)
+        {
+            propertyChangeActions = new Dictionary<string, Action>
+            {
+                { nameof(this.Text), this.OnTextChanged },
+                { nameof(this.TextColor), this.OnTextColorChanged },
+                { nameof(this.IsSelected), () => this.OnSelectedChanged(this.IsSelected) },
+                { nameof(this.SelectedColor), () => this.OnStateColorChanged(this.IsSelected) },
+                { nameof(this.UnselectedColor), () => this.OnStateColorChanged(this.IsSelected) },
+                { nameof(this.IsEnabled), () => this.OnEnableChanged(this.IsEnabled) },
+                { nameof(this.FontFamily), () => this.OnFontFamilyChanged(this.FontFamily) },
+                { nameof(this.HorizontalSpacing), () => this.OnHorizontalSpacingChanged(this.HorizontalSpacing) },
+                { nameof(this.VerticalSpacing), () => this.OnVerticalSpacingChanged(this.VerticalSpacing) },
+                { nameof(this.FontSize), () => this.OnFontSizeChanged(this.FontSize) },
+            };
         }
     }
 }

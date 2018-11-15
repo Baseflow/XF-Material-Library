@@ -1,0 +1,57 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2050
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D83ECCCE-9805-4C47-B44C-33E028417C07}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Forms", "Forms", "{C5B85AD1-C3C2-483D-BB3B-6C8EAE2846B2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Platforms", "Platforms", "{F92345DD-1C6F-4AEB-A751-B72077EF3BA4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XF.Material.Forms", "XF.Material\XF.Material.Forms\XF.Material.Forms.csproj", "{6F94A7BF-456F-4B31-8542-765F4EB7C87C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XF.Material.Droid", "XF.Material\XF.Material.Droid\XF.Material.Droid.csproj", "{F085C3E8-BB5E-48FA-A8DC-CC9E69BB041D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XF.Material.iOS", "XF.Material\XF.Material.iOS\XF.Material.iOS.csproj", "{E71F3053-056C-4381-9638-048ED73BDFF6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		iOS Release|Any CPU = iOS Release|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6F94A7BF-456F-4B31-8542-765F4EB7C87C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F94A7BF-456F-4B31-8542-765F4EB7C87C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F94A7BF-456F-4B31-8542-765F4EB7C87C}.iOS Release|Any CPU.ActiveCfg = iOS Release|Any CPU
+		{6F94A7BF-456F-4B31-8542-765F4EB7C87C}.iOS Release|Any CPU.Build.0 = iOS Release|Any CPU
+		{6F94A7BF-456F-4B31-8542-765F4EB7C87C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F94A7BF-456F-4B31-8542-765F4EB7C87C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F085C3E8-BB5E-48FA-A8DC-CC9E69BB041D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F085C3E8-BB5E-48FA-A8DC-CC9E69BB041D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F085C3E8-BB5E-48FA-A8DC-CC9E69BB041D}.iOS Release|Any CPU.ActiveCfg = iOS Release|Any CPU
+		{F085C3E8-BB5E-48FA-A8DC-CC9E69BB041D}.iOS Release|Any CPU.Build.0 = iOS Release|Any CPU
+		{F085C3E8-BB5E-48FA-A8DC-CC9E69BB041D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F085C3E8-BB5E-48FA-A8DC-CC9E69BB041D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E71F3053-056C-4381-9638-048ED73BDFF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E71F3053-056C-4381-9638-048ED73BDFF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E71F3053-056C-4381-9638-048ED73BDFF6}.iOS Release|Any CPU.ActiveCfg = iOS Release|Any CPU
+		{E71F3053-056C-4381-9638-048ED73BDFF6}.iOS Release|Any CPU.Build.0 = iOS Release|Any CPU
+		{E71F3053-056C-4381-9638-048ED73BDFF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E71F3053-056C-4381-9638-048ED73BDFF6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C5B85AD1-C3C2-483D-BB3B-6C8EAE2846B2} = {D83ECCCE-9805-4C47-B44C-33E028417C07}
+		{F92345DD-1C6F-4AEB-A751-B72077EF3BA4} = {D83ECCCE-9805-4C47-B44C-33E028417C07}
+		{6F94A7BF-456F-4B31-8542-765F4EB7C87C} = {C5B85AD1-C3C2-483D-BB3B-6C8EAE2846B2}
+		{F085C3E8-BB5E-48FA-A8DC-CC9E69BB041D} = {F92345DD-1C6F-4AEB-A751-B72077EF3BA4}
+		{E71F3053-056C-4381-9638-048ED73BDFF6} = {F92345DD-1C6F-4AEB-A751-B72077EF3BA4}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {58AA21F6-C370-4DE7-8853-3794349115AC}
+	EndGlobalSection
+EndGlobal

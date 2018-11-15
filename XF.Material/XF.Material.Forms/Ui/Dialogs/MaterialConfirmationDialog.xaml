@@ -8,15 +8,15 @@
     xmlns:sys="clr-namespace:System;assembly=netstandard">
     <ContentPage.Content>
         <material:MaterialCard x:Name="Container"
-            Margin="{StaticResource Material.Dialog.Margin}"
             Padding="0"
             BackgroundColor="White"
             CornerRadius="4"
             Elevation="24"
             HasShadow="True"
-            HorizontalOptions="FillAndExpand"
+            HorizontalOptions="Center"
             IsClippedToBounds="True"
-            VerticalOptions="Center">
+            VerticalOptions="Center"
+            WidthRequest="{StaticResource Material.Dialog.Width}">
             <Grid RowSpacing="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />

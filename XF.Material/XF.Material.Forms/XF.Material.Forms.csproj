@@ -11,6 +11,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>bin\Release\netstandard2.0\XF.Material.Forms.xml</DocumentationFile>
     <OutputPath></OutputPath>
+    <NoWarn>1701;1702;1591</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='iOS Release|AnyCPU'">
@@ -18,15 +19,21 @@
     <OutputPath />
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>1701;1702</NoWarn>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Remove="UI\Dialogs\MaterialDialogs.cs" />
     <Compile Remove="Effects\MaterialStatusBarColorEffect.cs" />
     <Compile Remove="MaterialStyles.xaml.cs" />
+    <Compile Remove="UI\Internals\MaterialInputDialogTextField.xaml.cs" />
     <Compile Remove="UI\MaterialSlider.xaml.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Remove="MaterialStyles.xaml" />
+    <EmbeddedResource Remove="UI\Internals\MaterialInputDialogTextField.xaml" />
     <EmbeddedResource Remove="UI\MaterialSlider.xaml" />
   </ItemGroup>
 
@@ -46,9 +53,6 @@
     </Compile>
     <Compile Update="Resources\MaterialSizes.xaml.cs">
       <DependentUpon>MaterialSizes.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="UI\Internals\MaterialInputDialogTextField.xaml.cs">
-      <DependentUpon>MaterialInputDialogTextField.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 

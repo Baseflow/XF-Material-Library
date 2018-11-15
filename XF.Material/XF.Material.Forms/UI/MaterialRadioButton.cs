@@ -4,6 +4,6 @@ namespace XF.Material.Forms.UI
 {
     internal class MaterialRadioButton : BaseMaterialSelectionControl
     {
-        internal MaterialRadioButton() : base(MaterialSelectionControlType.RadioButton) { }
+        public MaterialRadioButton() : base(MaterialSelectionControlType.RadioButton) { }
     }
 }

@@ -8,5 +8,9 @@
     <x:Double x:Key="Material.Button.Outlined.BorderWidth">1</x:Double>
     <x:Int32 x:Key="Material.Button.CornerRadius">4</x:Int32>
     <Thickness x:Key="Material.Dialog.Margin">40</Thickness>
+    <OnIdiom x:Key="Material.Dialog.Width" x:TypeArguments="x:Double">
+        <OnIdiom.Tablet>560</OnIdiom.Tablet>
+        <OnIdiom.Phone>280</OnIdiom.Phone>
+    </OnIdiom>
 
 </ResourceDictionary>

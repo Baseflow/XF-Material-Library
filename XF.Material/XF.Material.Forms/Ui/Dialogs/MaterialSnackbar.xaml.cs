@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -97,7 +96,7 @@ namespace XF.Material.Forms.UI.Dialogs
                 ActionButton.TextColor = preferredConfig.TintColor;
                 ActionButton.FontFamily = preferredConfig.ButtonFontFamily;
                 ActionButton.AllCaps = preferredConfig.ButtonAllCaps;
-                this.Padding = new Thickness(8, 0, 8, preferredConfig.BottomOffset);
+                Container.Margin = new Thickness(8, 0, 8, preferredConfig.BottomOffset);
             }
         }
     }

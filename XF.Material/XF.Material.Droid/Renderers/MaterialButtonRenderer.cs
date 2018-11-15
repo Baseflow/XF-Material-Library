@@ -14,6 +14,7 @@ using Button = Xamarin.Forms.Button;
 using Color = Android.Graphics.Color;
 
 [assembly: ExportRenderer(typeof(MaterialButton), typeof(MaterialButtonRenderer))]
+
 namespace XF.Material.Droid.Renderers
 {
     public sealed class MaterialButtonRenderer : Xamarin.Forms.Platform.Android.AppCompat.ButtonRenderer
@@ -28,7 +29,9 @@ namespace XF.Material.Droid.Renderers
         private Color _pressedColor;
         private bool _withIcon;
 
-        public MaterialButtonRenderer(Context context) : base(context) { }
+        public MaterialButtonRenderer(Context context) : base(context)
+        {
+        }
 
         protected override void OnElementChanged(ElementChangedEventArgs<Button> e)
         {
@@ -52,22 +55,19 @@ namespace XF.Material.Droid.Renderers
         {
             base.OnElementPropertyChanged(sender, e);
 
-            if (e?.PropertyName == MaterialButton.MaterialButtonColorChanged || e?.PropertyName == nameof(MaterialButton.ButtonType))
+            if (e?.PropertyName == MaterialButtonColorChanged || e?.PropertyName == nameof(MaterialButton.ButtonType))
             {
                 this.SetupColors();
                 this.UpdateDrawable();
             }
-
             else if (e?.PropertyName == nameof(MaterialButton.Image))
             {
                 this.SetButtonIcon();
             }
-
             else if (e?.PropertyName == nameof(MaterialButton.AllCaps))
             {
                 this.Control.SetAllCaps(_materialButton.AllCaps);
             }
-
             else if (e?.PropertyName == nameof(Button.TextColor))
             {
                 this.SetTextColors();
@@ -99,34 +99,16 @@ namespace XF.Material.Droid.Renderers
                 this.Control.Background = rippleDrawable;
                 this.Control.StateListAnimator = elevated ? AnimatorInflater.LoadStateListAnimator(this.Context, Resource.Animator.material_button_state_list_anim) : null;
             }
-
-            else if (Material.IsJellyBean)
-            {
-                var stateListDrawable = new StateListDrawable();
-                var pressedStateDrawable = this.CreateShapeDrawable(_cornerRadius, _borderWidth, _pressedColor, _borderColor);
-                this.SetStates(stateListDrawable, normalStateDrawable, pressedStateDrawable, disabledStateDrawable);
-                this.Control.Background?.Dispose();
-                this.Control.Background = stateListDrawable;
-            }
-
             else
             {
-                var insetDrawable = MaterialHelper.GetDrawableCopyFromResource<InsetDrawable>(Resource.Drawable.drawable_selector);
-                var stateListDrawable = insetDrawable.Drawable as StateListDrawable;
-                var pressedStateDrawable = this.CreateShapeDrawable(_cornerRadius, _borderWidth, _pressedColor, _borderColor);
-                this.SetStates(stateListDrawable, normalStateDrawable, pressedStateDrawable, disabledStateDrawable);
-                this.Control.Background?.Dispose();
-                this.Control.Background = insetDrawable;
+                this.CreatePrelollipopDrawable(normalStateDrawable, disabledStateDrawable);
             }
         }
 
         private void CreateOutlinedButtonDrawable()
         {
-            var normalStateDrawable = this.CreateShapeDrawable(_cornerRadius, _borderWidth, _normalColor, _borderColor);
-            normalStateDrawable.SetColor(Color.Transparent);
-
-            var disabledStateDrawable = this.CreateShapeDrawable(_cornerRadius, _borderWidth, _disabledColor, _disabledBorderColor);
-            disabledStateDrawable.SetColor(Color.Transparent);
+            var normalStateDrawable = this.CreateShapeDrawable(_cornerRadius, _borderWidth, Color.Transparent, _borderColor);
+            var disabledStateDrawable = this.CreateShapeDrawable(_cornerRadius, _borderWidth, Color.Transparent, _disabledBorderColor);
 
             if (Material.IsLollipop)
             {
@@ -142,8 +124,15 @@ namespace XF.Material.Droid.Renderers
                 this.Control.Background = rippleDrawable;
                 this.Control.StateListAnimator = null;
             }
+            else
+            {
+                this.CreatePrelollipopDrawable(normalStateDrawable, disabledStateDrawable);
+            }
+        }
 
-            else if (Material.IsJellyBean)
+        private void CreatePrelollipopDrawable(Drawable normalStateDrawable, Drawable disabledStateDrawable)
+        {
+            if (Material.IsJellyBean)
             {
                 var stateListDrawable = new StateListDrawable();
                 var pressedStateDrawable = this.CreateShapeDrawable(_cornerRadius, _borderWidth, _pressedColor, _borderColor);
@@ -151,7 +140,6 @@ namespace XF.Material.Droid.Renderers
                 this.Control.Background?.Dispose();
                 this.Control.Background = stateListDrawable;
             }
-
             else
             {
                 var insetDrawable = MaterialHelper.GetDrawableCopyFromResource<InsetDrawable>(Resource.Drawable.drawable_selector);
@@ -171,7 +159,6 @@ namespace XF.Material.Droid.Renderers
             {
                 shapeDrawable = _withIcon ? MaterialHelper.GetDrawableCopyFromResource<GradientDrawable>(Resource.Drawable.drawable_shape_with_icon) : MaterialHelper.GetDrawableCopyFromResource<GradientDrawable>(Resource.Drawable.drawable_shape);
             }
-
             else
             {
                 shapeDrawable = MaterialHelper.GetDrawableCopyFromResource<GradientDrawable>(Resource.Drawable.drawable_shape_text);
@@ -191,59 +178,6 @@ namespace XF.Material.Droid.Renderers
             var disabledStateDrawable = this.CreateShapeDrawable(_cornerRadius, _borderWidth, Color.Transparent, Color.Transparent);
             disabledStateDrawable.SetColor(Color.Transparent);
 
-            #region Recursive logic to get parent with background color
-
-            //var parentView = _materialButton.Parent as VisualElement;
-            //var parentColor = parentView.BackgroundColor;
-
-            //while(parentColor.IsDefault)
-            //{
-            //    parentView = parentView.Parent as VisualElement;
-
-            //    if(parentView == null)
-            //    {
-            //        break;
-            //    }
-
-            //    parentColor = parentView.BackgroundColor;
-            //}
-
-            //_normalColor = parentColor.ToAndroid();
-            //_cornerRadius = MaterialHelper.ConvertToDp(4);
-
-            //var normalStateDrawable = this.CreateShapeDrawable(_cornerRadius, 0, _normalColor, Color.Transparent);
-            //var disabledStateDrawable = this.CreateShapeDrawable(_cornerRadius, 0, Color.Transparent, Color.Transparent);
-
-
-            //if (Material.IsLollipop)
-            //{
-            //    if (parentColor.IsDefault)
-            //    {
-            //        this.Control.Background = ContextCompat.GetDrawable(this.Context, Resource.Drawable.drawable_ripple_text);
-            //    }
-
-            //    else
-            //    {
-            //        var rippleDrawable = this.GetTemplateDrawable<RippleDrawable>();
-            //        var insetDrawable = rippleDrawable.FindDrawableByLayerId(Resource.Id.inset_drawable) as InsetDrawable;
-            //        var statelistDrawable = insetDrawable.Drawable as StateListDrawable;
-            //        this.SetStates(statelistDrawable, normalStateDrawable, normalStateDrawable, disabledStateDrawable);
-            //        this.Control.Background = rippleDrawable;
-            //        this.Control.StateListAnimator = null;
-            //    }
-            //}
-
-            //else
-            //{
-            //    var insetDrawable = this.GetTemplateDrawable<InsetDrawable>();
-            //    var stateListDrawable = insetDrawable.Drawable as StateListDrawable;
-            //    var pressedStateDrawable = this.CreateShapeDrawable(_cornerRadius, 0, _pressedColor, Color.Transparent);
-            //    this.SetStates(stateListDrawable, normalStateDrawable, pressedStateDrawable, disabledStateDrawable);
-            //    this.Control.Background = insetDrawable;
-            //}
-
-            #endregion
-
             if (Material.IsLollipop)
             {
                 var rippleDrawable = MaterialHelper.GetDrawableCopyFromResource<RippleDrawable>(Resource.Drawable.drawable_ripple_text);
@@ -255,7 +189,6 @@ namespace XF.Material.Droid.Renderers
                 this.Control.Background = rippleDrawable;
                 this.Control.StateListAnimator = null;
             }
-
             else if (Material.IsJellyBean)
             {
                 var stateListDrawable = new StateListDrawable();
@@ -263,7 +196,6 @@ namespace XF.Material.Droid.Renderers
                 this.Control.Background?.Dispose();
                 this.Control.Background = stateListDrawable;
             }
-
             else
             {
                 var insetDrawable = MaterialHelper.GetDrawableCopyFromResource<InsetDrawable>(Resource.Drawable.drawable_selector);
@@ -352,12 +284,15 @@ namespace XF.Material.Droid.Renderers
                 case MaterialButtonType.Elevated:
                     this.CreateContainedButtonDrawable(true);
                     break;
+
                 case MaterialButtonType.Flat:
                     this.CreateContainedButtonDrawable(false);
                     break;
+
                 case MaterialButtonType.Text:
                     this.CreateTextButtonDrawable();
                     break;
+
                 case MaterialButtonType.Outlined:
                     this.CreateOutlinedButtonDrawable();
                     break;
