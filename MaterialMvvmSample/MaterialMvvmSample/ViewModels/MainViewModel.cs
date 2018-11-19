@@ -73,6 +73,33 @@ namespace MaterialMvvmSample.ViewModels
 
         public ICommand JobSelectedCommand => new Command<string>(async (s) => await this.ViewItemSelected(s));
 
+        public ICommand EmailFocusCommand => new Command<bool>((s) =>
+        {
+            if(!s && this.Email?.Length > 3)
+            {
+                this.EmailHasError = true;
+            }
+
+            else if(!s && this.Email?.Length <= 3)
+            {
+                this.EmailHasError = false;
+            }
+        });
+
+        private bool _emailHasError;
+        public bool EmailHasError
+        {
+            get => _emailHasError;
+            set => this.Set(ref _emailHasError, value);
+        }
+
+        private string _email;
+        public string Email
+        {
+            get => _email;
+            set => this.Set(ref _email, value);
+        }
+
         private ObservableCollection<TestModel> _models;
         public ObservableCollection<TestModel> Models
         {
