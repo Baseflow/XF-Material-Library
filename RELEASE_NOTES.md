@@ -1,5 +1,9 @@
 # Release Notes
 
+##### 1.2.2
+- Fixed `MaterialTextField` overlaping parent layout's bounds in iOS.
+- Fixed `MaterialButton` causing a crash in Android devices running Android 4.4 or later.
+
 ##### 1.2.1
 - `MaterialRadiuButton` constructor access modifier changed to public.
 - Added maximum width for modal dialogs.
