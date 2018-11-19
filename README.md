@@ -373,7 +373,7 @@ Menus display a list of choices on temporary surfaces.
 
 4. `MenuSelectedCommand` - The command that will execute when a menu item was selected. The type is `Command<MaterialMenuResult>`. The result will contain the index of the selected menu and the parameter, if any.
 
-5. `MenuSelectedCommandParameter` -  The parameter to pass in `MenuSelectedCommand`.
+5. `CommandParameter` -  The parameter to pass in `MenuSelectedCommand`.
 
 6. `MenuTextColor` - The text color of the menu items.
 

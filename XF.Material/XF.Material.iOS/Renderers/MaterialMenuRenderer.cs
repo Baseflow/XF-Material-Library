@@ -7,22 +7,22 @@ using XF.Material.iOS.Renderers;
 [assembly: ExportRenderer(typeof(MaterialMenu), typeof(MaterialMenuRenderer))]
 namespace XF.Material.iOS.Renderers
 {
-    public class MaterialMenuRenderer : VisualElementRenderer<MaterialMenu>
+    public class MaterialMenuRenderer : MaterialIconButtonRenderer
     {
 
-        protected override void OnElementChanged(ElementChangedEventArgs<MaterialMenu> e)
+        protected override void OnElementChanged(ElementChangedEventArgs<MaterialIconButton> e)
         {
             base.OnElementChanged(e);
 
-            if(e?.OldElement != null)
-            {
-                this.GestureRecognizers = null;
-            }
-
             if (e?.NewElement != null)
             {
-                this.AddGestureRecognizer(new UIGestureRecognizer() { Delegate = new MaterialMenuTouchDelegate(this.Element) });
+                this.Control.AddGestureRecognizer(new UIGestureRecognizer() { Delegate = new MaterialMenuTouchDelegate(this.Element as MaterialMenu) });
             }
+        }
+
+        protected override void OnClick()
+        {
+            //Do not handle click
         }
 
         private class MaterialMenuTouchDelegate : UIGestureRecognizerDelegate

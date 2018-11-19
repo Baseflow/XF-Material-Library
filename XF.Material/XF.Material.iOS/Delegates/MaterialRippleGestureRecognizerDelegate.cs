@@ -39,7 +39,6 @@ namespace XF.Material.iOS.Delegates
         public override bool ShouldReceiveTouch(UIGestureRecognizer recognizer, UITouch touch)
         {
             var view = touch.View;
-
             var location = touch.LocationInView(touch.View);
             var startPath = UIBezierPath.FromArc(location, 8f, 0, 360f, true);
             var endPath = UIBezierPath.FromArc(location, 64f, 0, 360f, true);
@@ -49,6 +48,7 @@ namespace XF.Material.iOS.Delegates
             _rippleAnimation.From = FromObject(startPath.CGPath);
             _rippleAnimation.To = FromObject(endPath.CGPath);
             view.Layer.InsertSublayer(_rippleLayer, 0);
+
             this.AnimateRipple();
 
             return false;

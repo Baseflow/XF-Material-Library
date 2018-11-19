@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using XF.Material.Forms.Models;
 using XF.Material.Forms.UI.Dialogs.Configurations;
 using XF.Material.Forms.UI.Dialogs.Internals;
-using XF.Material.Forms.Models;
 
 namespace XF.Material.Forms.UI.Dialogs
 {
@@ -20,13 +20,10 @@ namespace XF.Material.Forms.UI.Dialogs
             this.Height = height;
         }
 
-        public double Width { get; }
-
         public double Height { get; }
-
         public double RawX { get; }
-
         public double RawY { get; }
+        public double Width { get; }
     }
 
     [XamlCompilation(XamlCompilationOptions.Compile)]
@@ -35,21 +32,11 @@ namespace XF.Material.Forms.UI.Dialogs
         internal static readonly BindableProperty ParameterProperty = BindableProperty.CreateAttached("Parameter", typeof(object), typeof(MaterialMenuDialog), null);
 
         private const int _rowHeight = 48;
+        private readonly List<MaterialMenuItem> _choices;
         private readonly MaterialMenuDimension _dimension;
         private int _itemChecker;
         private int _itemCount;
         private double _maxWidth;
-        private List<MaterialMenuItem> _choices;
-
-        internal static void SetPrarameterProperty(BindableObject view, object value)
-        {
-            view.SetValue(ParameterProperty, value);
-        }
-
-        internal static object GetParameterProperty(BindableObject view)
-        {
-            return view.GetValue(ParameterProperty);
-        }
 
         internal MaterialMenuDialog(List<MaterialMenuItem> choices, MaterialMenuDimension dimension, MaterialMenuConfiguration configuration)
         {
@@ -65,10 +52,20 @@ namespace XF.Material.Forms.UI.Dialogs
 
         public TaskCompletionSource<int> InputTaskCompletionSource { get; set; }
 
+        internal static object GetParameterProperty(BindableObject view)
+        {
+            return view.GetValue(ParameterProperty);
+        }
+
+        internal static void SetPrarameterProperty(BindableObject view, object value)
+        {
+            view.SetValue(ParameterProperty, value);
+        }
+
         internal static async Task<int> ShowAsync(List<MaterialMenuItem> choices, MaterialMenuDimension dimension, MaterialMenuConfiguration configuration)
         {
             var dialog = new MaterialMenuDialog(choices, dimension, configuration);
-  
+
             await dialog.ShowAsync();
 
             return await dialog.InputTaskCompletionSource.Task;
@@ -160,14 +157,6 @@ namespace XF.Material.Forms.UI.Dialogs
             this.SetList(actionModels);
         }
 
-        private void SetList(IList<ActionModel> actionModels)
-        {
-            DialogActionList.RowHeight = _rowHeight;
-            DialogActionList.HeightRequest = (_rowHeight * actionModels.Count) + 2;
-            DialogActionList.ItemsSource = actionModels;
-            _itemCount = actionModels.Count;
-        }
-
         private void DeviceDisplay_ScreenMetricsChanged(object sender, ScreenMetricsChangedEventArgs e)
         {
             this.Dismiss();
@@ -178,7 +167,7 @@ namespace XF.Material.Forms.UI.Dialogs
             if (_itemChecker != _itemCount)
             {
                 var view = sender as View;
-                var index = (int) view.GetValue(ParameterProperty);
+                var index = (int)view.GetValue(ParameterProperty);
                 _maxWidth = string.IsNullOrEmpty(_choices[index].Image) ? view.Width : view.Width + 40;
                 _itemChecker++;
 
@@ -187,6 +176,14 @@ namespace XF.Material.Forms.UI.Dialogs
                     _maxWidth += 32;
                 }
             }
+        }
+
+        private void SetList(IList<ActionModel> actionModels)
+        {
+            DialogActionList.RowHeight = _rowHeight;
+            DialogActionList.HeightRequest = (_rowHeight * actionModels.Count) + 2;
+            DialogActionList.ItemsSource = actionModels;
+            _itemCount = actionModels.Count;
         }
     }
 }

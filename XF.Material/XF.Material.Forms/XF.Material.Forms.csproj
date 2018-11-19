@@ -41,7 +41,7 @@
     <PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie" Version="2.5.4" />
     <PackageReference Include="Rg.Plugins.Popup" Version="1.1.4.168" />
     <PackageReference Include="Xamarin.Essentials" Version="0.11.0-preview" />
-    <PackageReference Include="Xamarin.Forms" Version="3.3.0.912540" />
+    <PackageReference Include="Xamarin.Forms" Version="3.4.0.1008975" />
   </ItemGroup>
 
   <ItemGroup>
@@ -93,9 +93,6 @@
     <EmbeddedResource Update="UI\MaterialChip.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="UI\MaterialMenu.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Update="UI\MaterialRadioButtonGroup.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -118,6 +115,48 @@
       <Generator>MSBuild:Compile</Generator>
     </None>
     <None Update="Resources\Typography\MaterialTypography.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="UI\Dialogs\MaterialAlertDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="UI\Dialogs\MaterialConfirmationDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="UI\Dialogs\MaterialInputDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="UI\Dialogs\MaterialLoadingDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="UI\Dialogs\MaterialMenuDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="UI\Dialogs\MaterialSimpleDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="UI\Dialogs\MaterialSnackbar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="UI\Internals\BaseMaterialSelectionControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="UI\Internals\MaterialInputDialogTextField.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="UI\MaterialCheckboxGroup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="UI\MaterialChip.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="UI\MaterialRadioButtonGroup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="UI\MaterialSlider.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="UI\MaterialTextField.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
     <None Update="Views\Internals\BaseMaterialSelectionControl.xaml">

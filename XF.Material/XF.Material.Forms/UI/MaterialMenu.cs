@@ -13,8 +13,7 @@ namespace XF.Material.Forms.UI
     /// <summary>
     /// A control that allow users to select a single choice on a temporary surface.
     /// </summary>
-    [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MaterialMenu : ContentView
+    public class MaterialMenu : MaterialIconButton
     {
         /// <summary>
         /// Backing field for the bindable property <see cref="Choices"/>.
@@ -32,14 +31,14 @@ namespace XF.Material.Forms.UI
         public static readonly BindableProperty MenuCornerRadiusProperty = BindableProperty.Create(nameof(MenuCornerRadius), typeof(float), typeof(MaterialMenu), 4f);
 
         /// <summary>
-        /// Backing field for the bindable property <see cref="MenuSelectedCommandParameter"/>.
+        /// Backing field for the bindable property <see cref="CommandParameter"/>.
         /// </summary>
-        public static readonly BindableProperty MenuSelectedCommandParameterProperty = BindableProperty.Create(nameof(MenuSelectedCommandParameter), typeof(object), typeof(MaterialMenu));
+        public static new readonly BindableProperty CommandParameterProperty = BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(MaterialMenu));
 
         /// <summary>
-        /// Backing field for the bindable property <see cref="MenuSelectedCommand"/>.
+        /// Backing field for the bindable property <see cref="Command"/>.
         /// </summary>
-        public static readonly BindableProperty MenuSelectedCommandProperty = BindableProperty.Create(nameof(MenuSelectedCommand), typeof(Command<MaterialMenuResult>), typeof(MaterialMenu));
+        public static new readonly BindableProperty CommandProperty = BindableProperty.Create(nameof(Command), typeof(Command<MaterialMenuResult>), typeof(MaterialMenu));
 
         /// <summary>
         /// Backing field for the bindable property <see cref="MenuTextColor"/>.
@@ -54,10 +53,7 @@ namespace XF.Material.Forms.UI
         /// <summary>
         /// Initializes a new instance of <see cref="MaterialMenu"/>.
         /// </summary>
-        public MaterialMenu()
-        {
-            this.InitializeComponent();
-        }
+        public MaterialMenu() { }
 
         /// <summary>
         /// Raised when a menu item was selected.
@@ -94,19 +90,19 @@ namespace XF.Material.Forms.UI
         /// <summary>
         /// Gets or sets the command that will execute when a menu item was selected.
         /// </summary>
-        public Command<MaterialMenuResult> MenuSelectedCommand
+        public new Command<MaterialMenuResult> Command
         {
-            get => (Command<MaterialMenuResult>)this.GetValue(MenuSelectedCommandProperty);
-            set => this.SetValue(MenuSelectedCommandProperty, value);
+            get => (Command<MaterialMenuResult>)this.GetValue(CommandProperty);
+            set => this.SetValue(CommandProperty, value);
         }
 
         /// <summary>
-        /// Gets or sets the parameter to pass in <see cref="MenuSelectedCommand"/> when executed.
+        /// Gets or sets the parameter to pass in <see cref="Command"/> when executed.
         /// </summary>
-        public object MenuSelectedCommandParameter
+        public new object CommandParameter
         {
-            get => this.GetValue(MenuSelectedCommandParameterProperty);
-            set => this.SetValue(MenuSelectedCommandParameterProperty, value);
+            get => this.GetValue(CommandParameterProperty);
+            set => this.SetValue(CommandParameterProperty, value);
         }
 
         /// <summary>
@@ -149,7 +145,7 @@ namespace XF.Material.Forms.UI
 
                 if (result >= 0)
                 {
-                    this.OnMenuSelected(new MaterialMenuResult(result, this.MenuSelectedCommandParameter));
+                    this.OnMenuSelected(new MaterialMenuResult(result, this.CommandParameter));
                 }
             });
         }
@@ -160,7 +156,7 @@ namespace XF.Material.Forms.UI
         /// <param name="result">The result of the selection.</param>
         protected virtual void OnMenuSelected(MaterialMenuResult result)
         {
-            this.MenuSelectedCommand?.Execute(result);
+            this.Command?.Execute(result);
             this.MenuSelected?.Invoke(this, new MenuSelectedEventArgs(result));
         }
 

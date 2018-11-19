@@ -70,6 +70,7 @@
     <Compile Include="Renderers\MaterialCircularLoadingViewRenderer.cs" />
     <Compile Include="MaterialHelper.cs" />
     <Compile Include="Renderers\MaterialIconRenderer.cs" />
+    <Compile Include="Renderers\MaterialIconButtonRenderer.cs" />
     <Compile Include="Renderers\MaterialMenuRenderer.cs" />
     <Compile Include="Renderers\MaterialNavigationPageRenderer.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
@@ -110,7 +111,7 @@
       <Version>0.11.0-preview</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms">
-      <Version>3.3.0.912540</Version>
+      <Version>3.4.0.1008975</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -196,6 +197,12 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_radio_button_unselected.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-v21\drawable_ripple_image.xml">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

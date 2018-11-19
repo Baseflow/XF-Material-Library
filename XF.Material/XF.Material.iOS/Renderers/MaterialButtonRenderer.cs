@@ -132,7 +132,7 @@ namespace XF.Material.iOS.Renderers
         {
             if(_withIcon)
             {
-                using (var image = UIImage.FromFile(_materialButton.Image.File))
+                using (var image = new UIImage(this.Element.Image.File).ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate))
                 {
                     UIGraphics.BeginImageContextWithOptions(new CGSize(18, 18), false, 0f);
                     image.Draw(new CGRect(0, 0, 18, 18));
