@@ -383,7 +383,7 @@ namespace XF.Material.Forms.UI
             double startY = placeholder.TranslationY;
             double endY = entry.IsFocused ? -14 : 0;
             var color = entry.IsFocused ? this.TintColor : this.PlaceholderColor;
-            Animation anim = new Animation
+            var anim = this.FloatingPlaceholderEnabled ? new Animation
             {
                 {
                     0.0,
@@ -395,7 +395,7 @@ namespace XF.Material.Forms.UI
                     AnimationDuration,
                     new Animation(v => placeholder.TranslationY = v, startY, endY, animationCurve, () => placeholder.TextColor = this.HasError && entry.IsFocused ? this.ErrorColor : color)
                 }
-            };
+            } : new Animation();
 
             if (entry.IsFocused)
             {
@@ -413,6 +413,16 @@ namespace XF.Material.Forms.UI
  
             anim.Commit(this, "FocusAnimation", rate: 2, length: (uint)(Device.RuntimePlatform == Device.iOS ? 500 : AnimationDuration * 1000), easing: animationCurve);
         }
+
+        //protected override void LayoutChildren(double x, double y, double width, double height)
+        //{
+        //    base.LayoutChildren(x, y, width, height);
+
+        //    if(width * height > 0)
+        //    {
+        //        this.Margin = new Thickness()
+        //    }
+        //}
 
         private void AnimatePlaceHolderOnStart(object startObject)
         {
@@ -435,9 +445,21 @@ namespace XF.Material.Forms.UI
                         }));
                     }
 
+                    System.Diagnostics.Debug.WriteLine(entry.Width);
+
                     anim.Add(0.0, AnimationDuration, new Animation(v => underline.WidthRequest = v, 0, this.Width, animationCurve, () => underline.HorizontalOptions = LayoutOptions.FillAndExpand));
                     anim.Commit(this, "Anim2", rate: 2, length: (uint)(AnimationDuration * 1000), easing: animationCurve);
                 });
+            }
+        }
+
+        protected override void LayoutChildren(double x, double y, double width, double height)
+        {
+            base.LayoutChildren(x, y, width, height);
+
+            if(width + height > 0)
+            {
+                entry.WidthRequest = this.Width - (this.Margin.Left + this.Margin.Right);
             }
         }
 
@@ -513,7 +535,7 @@ namespace XF.Material.Forms.UI
                 this.UpdateCounter();
             }
 
-            if (e.PropertyName == nameof(Entry.IsFocused) && string.IsNullOrEmpty(entry.Text) && this.FloatingPlaceholderEnabled)
+            if (e.PropertyName == nameof(Entry.IsFocused) && string.IsNullOrEmpty(entry.Text))
             {
                 this.AnimatePlaceHolder();
             }

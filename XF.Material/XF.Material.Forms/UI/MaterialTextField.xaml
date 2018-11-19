@@ -12,7 +12,7 @@
         <Grid ColumnSpacing="0" RowSpacing="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="56" />
-                <RowDefinition Height="Auto" />
+                <RowDefinition Height="16" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
