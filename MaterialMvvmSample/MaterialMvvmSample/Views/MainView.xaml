@@ -17,11 +17,48 @@
             HorizontalOptions="FillAndExpand"
             IsClippedToBounds="False"
             VerticalOptions="FillAndExpand">
-            <StackLayout>
-                <material:MaterialTextField />
-                <material:MaterialButton x:Name="button"
-                    Command="{Binding ButtonCommand}"
-                    Text="Select Jobs" />
+            <StackLayout Spacing="8">
+                <Label Margin="0,0,0,16"
+                    Style="{DynamicResource Material.TypeScale.H5}"
+                    Text="Create an account"
+                    TextColor="#DE000000" />
+                <material:MaterialTextField AlwaysShowUnderline="True"
+                    BackgroundColor="Transparent"
+                    HelperText="*Required"
+                    Placeholder="Username"
+                    TintColor="#2c3e50" />
+                <material:MaterialTextField AlwaysShowUnderline="True"
+                    BackgroundColor="Transparent"
+                    FocusCommand="{Binding EmailFocusCommand}"
+                    HasError="{Binding EmailHasError}"
+                    HelperText="*Required"
+                    InputType="Email"
+                    Placeholder="Email Address"
+                    Text="{Binding Email}"
+                    TintColor="#2c3e50" />
+                <material:MaterialTextField AlwaysShowUnderline="True"
+                    BackgroundColor="Transparent"
+                    HelperText="*Required"
+                    InputType="Password"
+                    MaxLength="8"
+                    Placeholder="Password"
+                    TintColor="#2c3e50" />
+                <material:MaterialTextField AlwaysShowUnderline="True"
+                    BackgroundColor="Transparent"
+                    HelperText="*Required"
+                    InputType="Password"
+                    MaxLength="8"
+                    Placeholder="Confirm Password"
+                    TintColor="#2c3e50" />
+                <material:MaterialIconButton HorizontalOptions="Start"
+                    Source="ic_overflow"
+                    TintColor="Gray" />
+                <material:MaterialCheckbox Margin="-8,0,0,0"
+                    SelectedColor="#2c3e50"
+                    Text="I agree with the terms and service." />
+                <material:MaterialButton BackgroundColor="#2c3e50"
+                    HorizontalOptions="End"
+                    Text="Create" />
             </StackLayout>
         </material:MaterialCard>
     </ScrollView>-->
@@ -31,20 +68,13 @@
         SelectionMode="None"
         SeparatorVisibility="None">
         <ListView.Header>
-            <StackLayout HeightRequest="56"
-                HorizontalOptions="FillAndExpand"
-                Orientation="Horizontal">
-                <material:MaterialMenu Padding="0"
-                    Choices="{Binding ListActions}"
+            <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                <material:MaterialMenu Choices="{Binding ListActions}"
+                    Command="{Binding ListMenuCommand}"
                     HorizontalOptions="Start"
-                    MenuSelectedCommand="{Binding ListMenuCommand}"
-                    VerticalOptions="Center">
-                    <material:MaterialIcon HeightRequest="24"
-                        Source="ic_overflow"
-                        TintColor="#AE000000"
-                        VerticalOptions="Center"
-                        WidthRequest="24" />
-                </material:MaterialMenu>
+                    Source="ic_overflow"
+                    TintColor="#AE000000"
+                    VerticalOptions="Center" />
                 <Label HorizontalOptions="Center"
                     Style="{DynamicResource Material.TypeScale.H6}"
                     Text="Job Positions"
@@ -56,13 +86,13 @@
         <ListView.ItemTemplate>
             <DataTemplate>
                 <ViewCell>
-                    <material:MaterialCard Margin="0,4" Padding="16,8">
+                    <material:MaterialCard Margin="0,4" Padding="16,8,0,8">
                         <View.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding Source={x:Reference Root}, Path=BindingContext.JobSelectedCommand}"
                                 CommandParameter="{Binding Id}"
                                 NumberOfTapsRequired="1" />
                         </View.GestureRecognizers>
-                        <StackLayout HeightRequest="56" Orientation="Horizontal">
+                        <StackLayout HeightRequest="80" Orientation="Horizontal">
                             <StackLayout HorizontalOptions="StartAndExpand" Orientation="Horizontal">
                                 <Label Style="{DynamicResource Material.TypeScale.Body1}"
                                     Text="{Binding Title}"
@@ -80,18 +110,14 @@
                                         TextColor="#DEFFFFFF" />
                                 </material:MaterialCard>
                             </StackLayout>
+
                             <material:MaterialMenu Choices="{Binding Source={x:Reference Root}, Path=BindingContext.Actions}"
-                                HeightRequest="24"
+                                Command="{Binding Source={x:Reference Root}, Path=BindingContext.MenuCommand}"
+                                CommandParameter="{Binding Title}"
                                 HorizontalOptions="End"
-                                MenuSelectedCommand="{Binding Source={x:Reference Root}, Path=BindingContext.MenuCommand}"
-                                MenuSelectedCommandParameter="{Binding Title}"
-                                VerticalOptions="Center"
-                                WidthRequest="24">
-                                <material:MaterialIcon HeightRequest="24"
-                                    Source="ic_overflow"
-                                    TintColor="#AEAEAE"
-                                    WidthRequest="24" />
-                            </material:MaterialMenu>
+                                Source="ic_overflow"
+                                TintColor="#AEAEAE"
+                                VerticalOptions="Center" />
                         </StackLayout>
                     </material:MaterialCard>
                 </ViewCell>
