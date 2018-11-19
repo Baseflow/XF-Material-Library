@@ -70,10 +70,8 @@
         <ListView.Header>
             <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
                 <material:MaterialMenu Choices="{Binding ListActions}"
-                    Command="{Binding ListMenuCommand}"
                     HorizontalOptions="Start"
-                    Source="ic_overflow"
-                    TintColor="#AE000000"
+                    MenuSelectedCommand="{Binding ListMenuCommand}"
                     VerticalOptions="Center" />
                 <Label HorizontalOptions="Center"
                     Style="{DynamicResource Material.TypeScale.H6}"
@@ -112,11 +110,9 @@
                             </StackLayout>
 
                             <material:MaterialMenu Choices="{Binding Source={x:Reference Root}, Path=BindingContext.Actions}"
-                                Command="{Binding Source={x:Reference Root}, Path=BindingContext.MenuCommand}"
-                                CommandParameter="{Binding Title}"
                                 HorizontalOptions="End"
-                                Source="ic_overflow"
-                                TintColor="#AEAEAE"
+                                MenuSelectedCommand="{Binding Source={x:Reference Root}, Path=BindingContext.MenuCommand}"
+                                MenuSelectedCommandParameter="{Binding Title}"
                                 VerticalOptions="Center" />
                         </StackLayout>
                     </material:MaterialCard>
