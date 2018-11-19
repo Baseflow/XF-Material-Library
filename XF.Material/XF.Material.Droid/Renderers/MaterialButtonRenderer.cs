@@ -95,7 +95,7 @@ namespace XF.Material.Droid.Renderers
                 {
                     rippleColor
                 }));
-                this.Control.Background?.Dispose();
+                
                 this.Control.Background = rippleDrawable;
                 this.Control.StateListAnimator = elevated ? AnimatorInflater.LoadStateListAnimator(this.Context, Resource.Animator.material_button_state_list_anim) : null;
             }
@@ -120,7 +120,7 @@ namespace XF.Material.Droid.Renderers
                 var statelistDrawable = insetDrawable.Drawable as StateListDrawable;
                 this.SetStates(statelistDrawable, normalStateDrawable, normalStateDrawable, disabledStateDrawable);
 
-                this.Control.Background?.Dispose();
+                
                 this.Control.Background = rippleDrawable;
                 this.Control.StateListAnimator = null;
             }
@@ -137,7 +137,7 @@ namespace XF.Material.Droid.Renderers
                 var stateListDrawable = new StateListDrawable();
                 var pressedStateDrawable = this.CreateShapeDrawable(_cornerRadius, _borderWidth, _pressedColor, _borderColor);
                 this.SetStates(stateListDrawable, normalStateDrawable, pressedStateDrawable, disabledStateDrawable);
-                this.Control.Background?.Dispose();
+                
                 this.Control.Background = stateListDrawable;
             }
             else
@@ -146,7 +146,7 @@ namespace XF.Material.Droid.Renderers
                 var stateListDrawable = insetDrawable.Drawable as StateListDrawable;
                 var pressedStateDrawable = this.CreateShapeDrawable(_cornerRadius, _borderWidth, _pressedColor, _borderColor);
                 this.SetStates(stateListDrawable, normalStateDrawable, pressedStateDrawable, disabledStateDrawable);
-                this.Control.Background?.Dispose();
+                
                 this.Control.Background = insetDrawable;
             }
         }
@@ -185,7 +185,7 @@ namespace XF.Material.Droid.Renderers
                 var rippleMaskGradientDrawable = maskDrawable.Drawable as GradientDrawable;
                 rippleMaskGradientDrawable.SetCornerRadius(_cornerRadius);
 
-                this.Control.Background?.Dispose();
+                
                 this.Control.Background = rippleDrawable;
                 this.Control.StateListAnimator = null;
             }
@@ -193,7 +193,7 @@ namespace XF.Material.Droid.Renderers
             {
                 var stateListDrawable = new StateListDrawable();
                 this.SetStates(stateListDrawable, normalStateDrawable, pressedStateDrawable, normalStateDrawable);
-                this.Control.Background?.Dispose();
+                
                 this.Control.Background = stateListDrawable;
             }
             else
@@ -201,7 +201,7 @@ namespace XF.Material.Droid.Renderers
                 var insetDrawable = MaterialHelper.GetDrawableCopyFromResource<InsetDrawable>(Resource.Drawable.drawable_selector);
                 var stateListDrawable = insetDrawable.Drawable as StateListDrawable;
                 this.SetStates(stateListDrawable, normalStateDrawable, pressedStateDrawable, normalStateDrawable);
-                this.Control.Background?.Dispose();
+                
                 this.Control.Background = insetDrawable;
             }
         }
