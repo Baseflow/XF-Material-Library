@@ -9,8 +9,11 @@
 - Fixed `MaterialButton` causing a crash in Android devices running Android 4.4 or later.
 
 ##### 1.2.1
-- `MaterialRadiuButton` constructor access modifier changed to public.
-- Added maximum width for modal dialogs.
+- `MaterialRadioButton` constructor access modifier changed to public.
+- Added maximum width for modal dialogs. This ensures that modals don't fill the entire screen when shown.
+  - On tablets, dialogs has a maximum width of `560`. 
+  - On phones, dialogs has a maximum width of `280`.
+  - Snackbars has a maximum width of `344`.
 
 ##### 1.2.0
 - Upgraded to use `Xamarin.Forms` version `3.3`.
