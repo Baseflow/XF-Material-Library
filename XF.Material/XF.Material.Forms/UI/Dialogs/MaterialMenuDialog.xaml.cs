@@ -90,11 +90,11 @@ namespace XF.Material.Forms.UI.Dialogs
 
             if (newX + Container.Width >= this.Width)
             {
-                newX -= Container.Width;
+                newX -= (Container.Width - (_dimension.Width / 2));
             }
             else if (newX + Container.Width < this.Width)
             {
-                newX += _dimension.Width;
+                newX += (_dimension.Width - (_dimension.Width / 2));
             }
 
             if (newY + Container.Height + 16 >= this.Height)
