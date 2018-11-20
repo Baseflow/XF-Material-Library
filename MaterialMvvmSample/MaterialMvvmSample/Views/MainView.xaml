@@ -6,7 +6,6 @@
     xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material.Forms"
     x:Name="Root"
     Title="Material MVVM"
-    Padding="16"
     material:MaterialNavigationPage.AppBarColor="#2c3e50"
     material:MaterialNavigationPage.AppBarTitleTextAlignment="Start"
     material:MaterialNavigationPage.AppBarTitleTextFontFamily="{StaticResource FontFamily.RobotoMedium}"
@@ -62,7 +61,8 @@
             </StackLayout>
         </material:MaterialCard>
     </ScrollView>-->
-    <ListView BackgroundColor="Transparent"
+    <ListView Margin="16"
+        BackgroundColor="Transparent"
         HasUnevenRows="True"
         ItemsSource="{Binding Models}"
         SelectionMode="None"
@@ -86,7 +86,10 @@
         <ListView.ItemTemplate>
             <DataTemplate>
                 <ViewCell>
-                    <material:MaterialCard Margin="0,4" Padding="16,8,0,8">
+                    <material:MaterialCard Margin="4"
+                        Padding="16,8,4,8"
+                        Elevation="2"
+                        IsClippedToBounds="False">
                         <View.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding Source={x:Reference Root}, Path=BindingContext.JobSelectedCommand}"
                                 CommandParameter="{Binding Id}"
