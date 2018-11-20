@@ -69,8 +69,6 @@ namespace XF.Material.Forms.UI
 
         public static readonly BindableProperty FloatingPlaceholderEnabledProperty = BindableProperty.Create(nameof(FloatingPlaceholderEnabled), typeof(bool), typeof(MaterialTextField), true);
 
-        public static readonly BindableProperty TextAlignmentProperty = BindableProperty.Create(nameof(TextAlignment), typeof(TextAlignment), typeof(MaterialTextField), TextAlignment.Start);
-
         private const double AnimationDuration = 0.35;
         private readonly Dictionary<string, Action> _propertyChangeActions;
         private readonly Easing animationCurve = Easing.SinOut;
@@ -302,15 +300,6 @@ namespace XF.Material.Forms.UI
         }
 
         /// <summary>
-        /// Gets or sets the horizontal text alignment of the text field.
-        /// </summary>
-        public TextAlignment TextAlignment
-        {
-            get => (TextAlignment)this.GetValue(TextAlignmentProperty);
-            set => this.SetValue(TextAlignmentProperty, value);
-        }
-
-        /// <summary>
         /// Gets or sets the command that will execute if there is a change in this text field's input text.
         /// </summary>
         public Command<string> TextChangeCommand
@@ -354,8 +343,11 @@ namespace XF.Material.Forms.UI
         {
             get => (Color)this.GetValue(UnderlineColorProperty);
             set => this.SetValue(UnderlineColorProperty, value);
-        }     
+        }  
 
+        /// <summary>
+        /// Gets or sets whether the placeholder label will float at top of the text field when focused or when it has text.
+        /// </summary>
         public bool FloatingPlaceholderEnabled
         {
             get => (bool)this.GetValue(FloatingPlaceholderEnabledProperty);
@@ -490,8 +482,10 @@ namespace XF.Material.Forms.UI
 
             if (width + height > 0 && Device.RuntimePlatform == Device.iOS && !_sizeChecked && this.IsInputDialog)
             {
-                entry.WidthRequest = this.Width - 8;
+                entry.WidthRequest = this.Width - 24;
             }
+
+            entry.Margin = placeholder.Margin = new Thickness(this.IsInputDialog ? 0 : 12, 24, 12, 12);
         }
 
         private async Task ChangeToErrorState()
@@ -741,12 +735,6 @@ namespace XF.Material.Forms.UI
             this.UpdateCounter();
         }
 
-        private void OnTextAlignmentChanged(TextAlignment textAlignment)
-        {
-            entry.HorizontalTextAlignment = textAlignment;
-            placeholder.HorizontalTextAlignment = textAlignment;
-        }
-
         private void OnTextColorChanged(Color textColor)
         {
             entry.TextColor = textColor;
@@ -812,7 +800,6 @@ namespace XF.Material.Forms.UI
                 { nameof(this.ErrorText), async () => await this.OnErrorTextChanged() },
                 { nameof(this.HasError), async () => await this.OnHasErrorChanged(this.HasError) },
                 { nameof(this.FloatingPlaceholderEnabled), () => this.OnFloatingPlaceholderEnabledChanged(this.FloatingPlaceholderEnabled) },
-                { nameof(this.TextAlignment), () => this.OnTextAlignmentChanged(this.TextAlignment) }
             };
         }
 
@@ -820,11 +807,10 @@ namespace XF.Material.Forms.UI
         {
             if (!isEnabled)
             {
-                placeholder.Margin = new Thickness(0, 24, 12, 12);
                 placeholder.HeightRequest = 20;
                 placeholder.VerticalOptions = LayoutOptions.End;
                 placeholder.VerticalTextAlignment = TextAlignment.Center;
-                entry.Margin = new Thickness(0, 24, 12, 12);
+                //entry.Margin = new Thickness(0, 24, 12, 12);
             }
         }
 
