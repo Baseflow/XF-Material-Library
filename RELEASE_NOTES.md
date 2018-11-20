@@ -1,5 +1,9 @@
 # Release Notes
 
+##### 1.2.3
+- Fixed `MaterialTextField` overlaping parent layout's bounds in iOS.
+- Added a new `booelan` property `FloatingPlaceholderEnabled` to determine to animate the placeholder of the text field.
+
 ##### 1.2.2
 - Fixed `MaterialTextField` overlaping parent layout's bounds in iOS.
 - Fixed `MaterialButton` causing a crash in Android devices running Android 4.4 or later.
