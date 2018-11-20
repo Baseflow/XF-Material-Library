@@ -1,7 +1,7 @@
 
 <img src="images/xf.material_logo.png" width="112" />
 
-# XF.Material Library [![NuGet](https://img.shields.io/badge/version-1.2.2-orange.svg?style=flat)](https://github.com/contrix09/XF-Material-Library/blob/master/RELEASE_NOTES.md) [![Build status](https://dev.azure.com/compiledevops/XF.Material/_apis/build/status/XF.Material-CI%20NuGet)](https://dev.azure.com/compiledevops/XF.Material/_build/latest?definitionId=20)
+# XF.Material Library [![NuGet](https://img.shields.io/badge/version-1.2.3-orange.svg?style=flat)](https://github.com/contrix09/XF-Material-Library/blob/master/RELEASE_NOTES.md) [![Build status](https://dev.azure.com/compiledevops/XF.Material/_apis/build/status/XF.Material-CI%20NuGet)](https://dev.azure.com/compiledevops/XF.Material/_build/latest?definitionId=20)
 
 A Xamarin.Forms library for Xamarin.Android and Xamarin.iOS to implement [Google's Material Design](https://material.io/design).
 
@@ -15,8 +15,6 @@ A Xamarin.Forms library for Xamarin.Android and Xamarin.iOS to implement [Google
     - [Buttons](#buttons)
     - [Text Fields](#text-fields)
     - [Selection Controls](#selection-controls)
-      - [Radio Buttons](#radio-buttons)
-      - [Checkboxes](#checkboxes)
     - [Menus](#menus)
     - [Chips](#chips)
     - [Circular Progress Indicator](#circular-progress-indicator)
@@ -255,6 +253,8 @@ Text fields allow users to enter and edit text.
 22. `TextFontFamily` - The font family of the input text. By default, it uses the `MaterialFontConfiguration.Body2` font family.
 
 23. `TintColor` - The tint color of the underline accent and the placeholder of this text field when focused. The default color is set to the value of `MaterialColorConfiguration.SecondaryColor`.
+
+24. `FloatingPlaceholderEnabled` - Determines whether the placeholder should be animated.
 
 ##### Events
 

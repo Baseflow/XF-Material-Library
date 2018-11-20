@@ -30,30 +30,51 @@ namespace XF.Material.Forms.UI
         public static readonly BindableProperty HasErrorProperty = BindableProperty.Create(nameof(HasError), typeof(bool), typeof(MaterialTextField), false);
 
         public static readonly BindableProperty HelperTextColorProperty = BindableProperty.Create(nameof(HelperTextColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#99000000"));
+
         public static readonly BindableProperty HelperTextFontFamilyProperty = BindableProperty.Create(nameof(HelperTextFontFamily), typeof(string), typeof(MaterialTextField));
+
         public static readonly BindableProperty HelperTextProperty = BindableProperty.Create(nameof(HelperText), typeof(string), typeof(MaterialTextField), string.Empty);
+
         public static readonly BindableProperty IconProperty = BindableProperty.Create(nameof(Icon), typeof(string), typeof(MaterialTextField));
+
         public static readonly BindableProperty IconTintColorProperty = BindableProperty.Create(nameof(IconTintColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#99000000"));
+
         public static readonly BindableProperty InputTypeProperty = BindableProperty.Create(nameof(InputType), typeof(MaterialTextFieldInputType), typeof(MaterialTextField), MaterialTextFieldInputType.Default);
+
         public static readonly BindableProperty MaxLengthProperty = BindableProperty.Create(nameof(MaxLength), typeof(int), typeof(MaterialTextField), 0);
+
         public static readonly BindableProperty PlaceholderColorProperty = BindableProperty.Create(nameof(PlaceholderColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#99000000"));
+
         public static readonly BindableProperty PlaceholderFontFamilyProperty = BindableProperty.Create(nameof(PlaceholderFontFamily), typeof(string), typeof(MaterialTextField));
+
         public static readonly BindableProperty PlaceholderProperty = BindableProperty.Create(nameof(Placeholder), typeof(string), typeof(MaterialTextField), string.Empty);
+
         public static readonly BindableProperty ReturnCommandParameterProperty = BindableProperty.Create(nameof(ReturnCommand), typeof(object), typeof(MaterialTextField));
+
         public static readonly BindableProperty ReturnCommandProperty = BindableProperty.Create(nameof(ReturnCommand), typeof(ICommand), typeof(MaterialTextField));
+
         public static readonly BindableProperty ReturnTypeProperty = BindableProperty.Create(nameof(ReturnType), typeof(ReturnType), typeof(MaterialTextField), ReturnType.Default);
+
         public static readonly BindableProperty TextChangeCommandProperty = BindableProperty.Create(nameof(TextChangeCommand), typeof(Command<string>), typeof(MaterialTextField));
+
         public static readonly BindableProperty TextColorProperty = BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#D0000000"));
+
         public static readonly BindableProperty TextFontFamilyProperty = BindableProperty.Create(nameof(TextFontFamily), typeof(string), typeof(MaterialTextField));
+
         public static readonly BindableProperty TextProperty = BindableProperty.Create(nameof(Text), typeof(string), typeof(MaterialTextField), string.Empty, BindingMode.TwoWay);
+
         public static readonly BindableProperty TintColorProperty = BindableProperty.Create(nameof(TintColor), typeof(Color), typeof(MaterialTextField), Material.Color.Secondary);
+
         public static readonly BindableProperty UnderlineColorProperty = BindableProperty.Create(nameof(UnderlineColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#99000000"));
+
         public static readonly BindableProperty FloatingPlaceholderEnabledProperty = BindableProperty.Create(nameof(FloatingPlaceholderEnabled), typeof(bool), typeof(MaterialTextField), true);
+
         private const double AnimationDuration = 0.35;
         private readonly Dictionary<string, Action> _propertyChangeActions;
         private readonly Easing animationCurve = Easing.SinOut;
         private bool _counterEnabled;
         private bool _wasFocused;
+        private bool _sizeChecked;
 
         /// <summary>
         /// Initializes a new instance of <see cref="MaterialTextField"/>.
@@ -322,10 +343,11 @@ namespace XF.Material.Forms.UI
         {
             get => (Color)this.GetValue(UnderlineColorProperty);
             set => this.SetValue(UnderlineColorProperty, value);
-        }
+        }  
 
-
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        /// <summary>
+        /// Gets or sets whether the placeholder label will float at top of the text field when focused or when it has text.
+        /// </summary>
         public bool FloatingPlaceholderEnabled
         {
             get => (bool)this.GetValue(FloatingPlaceholderEnabledProperty);
@@ -336,6 +358,11 @@ namespace XF.Material.Forms.UI
         /// For internal use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
+        public bool IsInputDialog { get; set; }
+
+        /// <summary>
+        /// For internal use only.
+        /// </summary>
         public void ElementChanged(bool created)
         {
             if (created)
@@ -393,7 +420,15 @@ namespace XF.Material.Forms.UI
                 {
                     0.0,
                     AnimationDuration,
-                    new Animation(v => placeholder.TranslationY = v, startY, endY, animationCurve, () => placeholder.TextColor = this.HasError && entry.IsFocused ? this.ErrorColor : color)
+                    new Animation(v => placeholder.TranslationY = v, startY, endY, animationCurve, () =>
+                    {
+                        if(this.HasError && entry.IsFocused)
+                        {
+                            placeholder.TextColor = this.ErrorColor;
+                        }
+
+                        placeholder.TextColor = color;
+                    })
                 }
             } : new Animation();
 
@@ -410,19 +445,9 @@ namespace XF.Material.Forms.UI
                     underline.HorizontalOptions = LayoutOptions.Center;
                 }));
             }
- 
+
             anim.Commit(this, "FocusAnimation", rate: 2, length: (uint)(Device.RuntimePlatform == Device.iOS ? 500 : AnimationDuration * 1000), easing: animationCurve);
         }
-
-        //protected override void LayoutChildren(double x, double y, double width, double height)
-        //{
-        //    base.LayoutChildren(x, y, width, height);
-
-        //    if(width * height > 0)
-        //    {
-        //        this.Margin = new Thickness()
-        //    }
-        //}
 
         private void AnimatePlaceHolderOnStart(object startObject)
         {
@@ -445,8 +470,6 @@ namespace XF.Material.Forms.UI
                         }));
                     }
 
-                    System.Diagnostics.Debug.WriteLine(entry.Width);
-
                     anim.Add(0.0, AnimationDuration, new Animation(v => underline.WidthRequest = v, 0, this.Width, animationCurve, () => underline.HorizontalOptions = LayoutOptions.FillAndExpand));
                     anim.Commit(this, "Anim2", rate: 2, length: (uint)(AnimationDuration * 1000), easing: animationCurve);
                 });
@@ -457,10 +480,12 @@ namespace XF.Material.Forms.UI
         {
             base.LayoutChildren(x, y, width, height);
 
-            if(width + height > 0)
+            if (width + height > 0 && Device.RuntimePlatform == Device.iOS && !_sizeChecked && this.IsInputDialog)
             {
-                entry.WidthRequest = this.Width - (this.Margin.Left + this.Margin.Right);
+                entry.WidthRequest = this.Width - 24;
             }
+
+            entry.Margin = placeholder.Margin = new Thickness(this.IsInputDialog ? 0 : 12, 24, 12, 12);
         }
 
         private async Task ChangeToErrorState()
@@ -780,13 +805,12 @@ namespace XF.Material.Forms.UI
 
         private void OnFloatingPlaceholderEnabledChanged(bool isEnabled)
         {
-            if(!isEnabled)
+            if (!isEnabled)
             {
-                placeholder.Margin = new Thickness(0, 24, 12, 12);
                 placeholder.HeightRequest = 20;
                 placeholder.VerticalOptions = LayoutOptions.End;
                 placeholder.VerticalTextAlignment = TextAlignment.Center;
-                entry.Margin = new Thickness(0, 24, 12, 12);
+                //entry.Margin = new Thickness(0, 24, 12, 12);
             }
         }
 
