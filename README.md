@@ -1,7 +1,7 @@
 
 <img src="images/xf.material_logo.png" width="112" />
 
-# XF.Material Library [![NuGet](https://img.shields.io/badge/version-1.2.3-orange.svg?style=flat)](https://github.com/contrix09/XF-Material-Library/blob/master/RELEASE_NOTES.md) [![Build status](https://dev.azure.com/compiledevops/XF.Material/_apis/build/status/XF.Material-CI%20NuGet)](https://dev.azure.com/compiledevops/XF.Material/_build/latest?definitionId=20)
+# XF.Material Library [![NuGet](https://img.shields.io/badge/version-1.2.4-orange.svg?style=flat)](https://github.com/contrix09/XF-Material-Library/blob/master/RELEASE_NOTES.md) [![Build status](https://dev.azure.com/compiledevops/XF.Material/_apis/build/status/XF.Material-CI%20NuGet)](https://dev.azure.com/compiledevops/XF.Material/_build/latest?definitionId=20)
 
 A Xamarin.Forms library for Xamarin.Android and Xamarin.iOS to implement [Google's Material Design](https://material.io/design).
 
@@ -494,7 +494,7 @@ There are two common parameters in this method:
     await MaterialDialog.Instance.AlertAsync(message: "This is an alert dialog.");
 
     await MaterialDialog.Instance.AlertAsync(message: "This is an alert dialog", 
-                                        acknowledgementText: "Got It");
+                                        title: "Alert Dialog");
     
     await MaterialDialog.Instance.AlertAsync(message: "This is an alert dialog", 
                                         title: "Alert Dialog", 
