@@ -33,11 +33,11 @@ namespace XF.Material.Forms.UI.Dialogs
         /// Shows an alert dialog for acknowledgement. It only has a single, dismissive action used for acknowledgement.
         /// </summary>
         /// <param name="message">The message of the alert dialog.</param>
-        /// <param name="acknowledgementText">The text of the acknowledgement button.</param>
+        /// <param name="title">The title of the alert dialog.</param>
         /// <param name="configuration">The style of the alert dialog.</param>
-        public Task AlertAsync(string message, string acknowledgementText, MaterialAlertDialogConfiguration configuration = null)
+        public Task AlertAsync(string message, string title, MaterialAlertDialogConfiguration configuration = null)
         {
-            return MaterialAlertDialog.AlertAsync(message, acknowledgementText, configuration);
+            return MaterialAlertDialog.AlertAsync(message, title, configuration);
         }
 
         /// <summary>

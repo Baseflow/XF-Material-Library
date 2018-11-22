@@ -1,5 +1,9 @@
 # Release Notes
 
+##### 1.2.4
+- Fixed issue [24](https://github.com/contrix09/XF-Material-Library/issues/24).
+- Refactored `IMaterialDialog.AlertAsync()`.
+
 ##### 1.2.3
 - Fixed `MaterialTextField` overlaping parent layout's bounds in iOS.
 - Added a new `booelan` property `FloatingPlaceholderEnabled` to determine to animate the placeholder of the text field.
@@ -26,6 +30,7 @@
   - Added an attached property `AppBarTitleTextFontFamily`. It can be attached to `Pages` to change the `NavigationPage.Title` text font family.
   - Added an attached property `AppBarTitleTextFontSize`. It can be attached to `Pages` to change the `NavigationPage.Title` text font size.
   - Added an attached property `StatusBarColor`. It can be attached to `Pages` to change the status bar color.
+  - Added an attached property `HasShadow`. It can be attached to `Pages` that will determine whether the app bar will draw a shadow.
   - Added overrideable methods `OnPagePush` and `OnPagePop`.
 - The status bar color will now be set automatically when `MaterialNavigationPage` is used. You can still use `Material.PlatformConfiguration.SetStatusBarColor` to manually change the status bar color.
 - Added `BottomOffset` property to `MaterialSnackbarConfiguration` that can be used to adjust the bottom margin of the Snackbar. A feature enhancement stated in this [issue](https://github.com/contrix09/XF-Material-Library/issues/23).
