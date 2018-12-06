@@ -4,10 +4,7 @@ using UIKit;
 
 namespace XF.Material.iOS.Delegates
 {
-    /// <summary>
-    /// A <see cref="UIGestureRecognizerDelegate"/> that when attached to a <see cref="UIGestureRecognizer"/>, generates a ripple-effect when interacted with.
-    /// </summary>
-    public class MaterialRippleGestureRecognizerDelegate : UIGestureRecognizerDelegate
+    internal class MaterialRippleGestureRecognizerDelegate : UIGestureRecognizerDelegate
     {
         private readonly CABasicAnimation _rippleAnimation;
         private readonly CABasicAnimation _fadeAnimation;
@@ -43,11 +40,11 @@ namespace XF.Material.iOS.Delegates
             var startPath = UIBezierPath.FromArc(location, 8f, 0, 360f, true);
             var endPath = UIBezierPath.FromArc(location, 64f, 0, 360f, true);
 
-            _rippleLayer.Frame = view.Frame;
+            _rippleLayer.Frame = new CGRect(6, 6, view.Frame.Width - 12, view.Frame.Height - 12);
             _rippleLayer.CornerRadius = view.Layer.CornerRadius;
             _rippleAnimation.From = FromObject(startPath.CGPath);
             _rippleAnimation.To = FromObject(endPath.CGPath);
-            view.Layer.InsertSublayer(_rippleLayer, 0);
+            view.Layer.InsertSublayer(_rippleLayer, 3);
 
             this.AnimateRipple();
 

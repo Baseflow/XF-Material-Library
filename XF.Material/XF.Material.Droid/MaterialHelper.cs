@@ -1,14 +1,17 @@
 ﻿using Android.App;
 using Android.Content;
+using Android.Content.Res;
 using Android.Graphics;
 using Android.Graphics.Drawables;
 using Android.Support.V4.Content;
 using Android.Support.V4.Graphics;
+using Android.Support.V4.Graphics.Drawable;
 using Android.Support.V4.View;
 using Android.Util;
 using Android.Views.InputMethods;
 using Android.Widget;
 using System;
+using Xamarin.Forms.Platform.Android;
 
 namespace XF.Material.Droid
 {
@@ -39,6 +42,15 @@ namespace XF.Material.Droid
                     Math.Min(b, 255));
         }
 
+        internal static Color GetDisabledColor(this Color color)
+        {
+            const float disabledOpacity = 0.38f;
+            int r = Color.GetRedComponent(color);
+            int g = Color.GetGreenComponent(color);
+            int b = Color.GetBlueComponent(color);
+            return Color.Argb(Convert.ToInt32(Math.Round(Color.GetAlphaComponent(color) * disabledOpacity)), r, g, b);
+        }
+
         internal static void Elevate(this Android.Views.View view, int elevation)
         {
             var elevationInDp = ConvertToDp(elevation);
@@ -65,11 +77,33 @@ namespace XF.Material.Droid
             return ColorUtils.CalculateLuminance(color) < 0.5;
         }
 
-        internal static void ShowKeyboard(this EditText edittext)
+        internal static void TintDrawable(this Drawable drawable, Color tintColor)
         {
-            var im = (Material.Context as Activity).GetSystemService(Context.InputMethodService) as InputMethodManager;
-            im.ShowSoftInput(edittext, ShowFlags.Forced);
-            im.ToggleSoftInput(ShowFlags.Forced, HideSoftInputFlags.ImplicitOnly);
+            DrawableCompat.SetTint(drawable, tintColor);
+            DrawableCompat.SetTintList(drawable, GetColorStates(tintColor));
+        }
+
+        private static ColorStateList GetColorStates(Android.Graphics.Color activeColor)
+        {
+            var states = new int[][]
+            {
+                new int[] { Android.Resource.Attribute.StatePressed },
+                new int[] { Android.Resource.Attribute.StateFocused, Android.Resource.Attribute.StateEnabled },
+                new int[] { Android.Resource.Attribute.StateEnabled },
+                new int[] { Android.Resource.Attribute.StateFocused },
+                new int[] { }
+            };
+
+            var colors = new int[]
+            {
+                activeColor,
+                activeColor,
+                activeColor,
+                activeColor,
+                activeColor.ToColor().MultiplyAlpha(0.38).ToAndroid()
+             };
+
+            return new ColorStateList(states, colors);
         }
     }
 }

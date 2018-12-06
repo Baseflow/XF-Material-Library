@@ -7,53 +7,54 @@ using Xamarin.Forms.Xaml;
 using XF.Material.Forms.Models;
 using XF.Material.Forms.UI.Dialogs;
 using XF.Material.Forms.UI.Dialogs.Configurations;
+using static XF.Material.Forms.UI.MaterialButton;
 
 namespace XF.Material.Forms.UI
 {
     /// <summary>
     /// A control that allow users to select a single choice on a temporary surface.
     /// </summary>
-    public class MaterialMenu : MaterialIconButton
+    public class MaterialMenuButton : MaterialIconButton
     {
         /// <summary>
         /// Backing field for the bindable property <see cref="Choices"/>.
         /// </summary>
-        public static readonly BindableProperty ChoicesProperty = BindableProperty.Create(nameof(Choices), typeof(IList<object>), typeof(MaterialMenu));
+        public static readonly BindableProperty ChoicesProperty = BindableProperty.Create(nameof(Choices), typeof(IList<object>), typeof(MaterialMenuButton));
 
         /// <summary>
         /// Backing field for the bindable property <see cref="MenuBackgroundColor"/>.
         /// </summary>
-        public static readonly BindableProperty MenuBackgroundColorProperty = BindableProperty.Create(nameof(MenuBackgroundColor), typeof(Color), typeof(MaterialMenu), Material.Color.Surface);
+        public static readonly BindableProperty MenuBackgroundColorProperty = BindableProperty.Create(nameof(MenuBackgroundColor), typeof(Color), typeof(MaterialMenuButton), Material.Color.Surface);
 
         /// <summary>
         /// Backing field for the bindable property <see cref="MenuCornerRadius"/>.
         /// </summary>
-        public static readonly BindableProperty MenuCornerRadiusProperty = BindableProperty.Create(nameof(MenuCornerRadius), typeof(float), typeof(MaterialMenu), 4f);
+        public static readonly BindableProperty MenuCornerRadiusProperty = BindableProperty.Create(nameof(MenuCornerRadius), typeof(float), typeof(MaterialMenuButton), 4f);
 
         /// <summary>
         /// Backing field for the bindable property <see cref="CommandParameter"/>.
         /// </summary>
-        public static new readonly BindableProperty CommandParameterProperty = BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(MaterialMenu));
+        public static new readonly BindableProperty CommandParameterProperty = BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(MaterialMenuButton));
 
         /// <summary>
         /// Backing field for the bindable property <see cref="Command"/>.
         /// </summary>
-        public static new readonly BindableProperty CommandProperty = BindableProperty.Create(nameof(Command), typeof(Command<MaterialMenuResult>), typeof(MaterialMenu));
+        public static new readonly BindableProperty CommandProperty = BindableProperty.Create(nameof(Command), typeof(Command<MaterialMenuResult>), typeof(MaterialMenuButton));
 
         /// <summary>
         /// Backing field for the bindable property <see cref="MenuTextColor"/>.
         /// </summary>
-        public static readonly BindableProperty MenuTextColorProperty = BindableProperty.Create(nameof(MenuTextColor), typeof(Color), typeof(MaterialMenu), Material.Color.OnSurface);
+        public static readonly BindableProperty MenuTextColorProperty = BindableProperty.Create(nameof(MenuTextColor), typeof(Color), typeof(MaterialMenuButton), Material.Color.OnSurface);
 
         /// <summary>
         /// Backing field for the bindable property <see cref="MenuTextFontFamily"/>.
         /// </summary>
-        public static readonly BindableProperty MenuTextFontFamilyProperty = BindableProperty.Create(nameof(MenuTextFontFamily), typeof(string), typeof(MaterialMenu));
+        public static readonly BindableProperty MenuTextFontFamilyProperty = BindableProperty.Create(nameof(MenuTextFontFamily), typeof(string), typeof(MaterialMenuButton));
 
         /// <summary>
-        /// Initializes a new instance of <see cref="MaterialMenu"/>.
+        /// Initializes a new instance of <see cref="MaterialMenuButton"/>.
         /// </summary>
-        public MaterialMenu() { }
+        public MaterialMenuButton() { }
 
         /// <summary>
         /// Raised when a menu item was selected.

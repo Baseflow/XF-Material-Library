@@ -1,18 +1,15 @@
 ﻿using Android.Content;
-using Android.Content.Res;
-using Android.Graphics.Drawables;
-using Android.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using XF.Material.Droid.Renderers;
 using XF.Material.Forms.UI;
 
-[assembly: ExportRenderer(typeof(MaterialMenu), typeof(MaterialMenuRenderer))]
+[assembly: ExportRenderer(typeof(MaterialMenuButton), typeof(MaterialMenuRenderer))]
 namespace XF.Material.Droid.Renderers
 {
     public class MaterialMenuRenderer : MaterialIconButtonRenderer
     {
-        private MaterialMenu _materialMenu;
+        private MaterialMenuButton _materialMenu;
 
         public MaterialMenuRenderer(Context context) : base(context) { }
 
@@ -22,7 +19,7 @@ namespace XF.Material.Droid.Renderers
 
             if(e?.NewElement != null)
             {
-                _materialMenu = this.Element as MaterialMenu;
+                _materialMenu = this.Element as MaterialMenuButton;
             }
         }
 

@@ -4,7 +4,7 @@ using Xamarin.Forms.Platform.iOS;
 using XF.Material.Forms.UI;
 using XF.Material.iOS.Renderers;
 
-[assembly: ExportRenderer(typeof(MaterialMenu), typeof(MaterialMenuRenderer))]
+[assembly: ExportRenderer(typeof(MaterialMenuButton), typeof(MaterialMenuRenderer))]
 namespace XF.Material.iOS.Renderers
 {
     public class MaterialMenuRenderer : MaterialIconButtonRenderer
@@ -16,7 +16,7 @@ namespace XF.Material.iOS.Renderers
 
             if (e?.NewElement != null)
             {
-                this.Control.AddGestureRecognizer(new UIGestureRecognizer() { Delegate = new MaterialMenuTouchDelegate(this.Element as MaterialMenu) });
+                this.Control.AddGestureRecognizer(new UIGestureRecognizer() { Delegate = new MaterialMenuTouchDelegate(this.Element as MaterialMenuButton) });
             }
         }
 
@@ -27,9 +27,9 @@ namespace XF.Material.iOS.Renderers
 
         private class MaterialMenuTouchDelegate : UIGestureRecognizerDelegate
         {
-            private readonly MaterialMenu _materialMenu;
+            private readonly MaterialMenuButton _materialMenu;
 
-            public MaterialMenuTouchDelegate(MaterialMenu materialMenu)
+            public MaterialMenuTouchDelegate(MaterialMenuButton materialMenu)
             {
                 _materialMenu = materialMenu;
             }

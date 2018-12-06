@@ -88,6 +88,8 @@
     <Compile Include="MaterialHelper.cs" />
     <Compile Include="Delegates\MaterialRippleGestureRecognizerDelegate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Renderers\MaterialCALayerAnimationHelper.cs" />
+    <Compile Include="Renderers\MaterialCALayerHelper.cs" />
     <Compile Include="Renderers\Internals\MaterialBoxViewRenderer.cs" />
     <Compile Include="Renderers\Internals\MaterialDialogListViewRenderer.cs" />
     <Compile Include="Renderers\Internals\MaterialElementRenderer.cs" />

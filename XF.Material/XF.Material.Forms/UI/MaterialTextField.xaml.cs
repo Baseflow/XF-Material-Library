@@ -343,7 +343,7 @@ namespace XF.Material.Forms.UI
         {
             get => (Color)this.GetValue(UnderlineColorProperty);
             set => this.SetValue(UnderlineColorProperty, value);
-        }  
+        }
 
         /// <summary>
         /// Gets or sets whether the placeholder label will float at top of the text field when focused or when it has text.
@@ -485,7 +485,11 @@ namespace XF.Material.Forms.UI
                 entry.WidthRequest = this.Width - 24;
             }
 
-            entry.Margin = placeholder.Margin = new Thickness(this.IsInputDialog ? 0 : 12, 24, 12, 12);
+            if(this.IsInputDialog)
+            {
+                entry.Margin = new Thickness(0, 12, 0, 12);
+                placeholder.Margin = new Thickness(0, 24, 0, 12);
+            }
         }
 
         private async Task ChangeToErrorState()

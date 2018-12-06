@@ -3,9 +3,9 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using XF.Material.Forms.Ui.Internals;
+using XF.Material.Forms.UI.Internals;
 
-namespace XF.Material.Forms.Ui
+namespace XF.Material.Forms.UI
 {
     /// <summary>
     /// A control that allow users to make selections from a range of values.

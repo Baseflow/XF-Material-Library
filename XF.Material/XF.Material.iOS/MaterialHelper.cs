@@ -1,4 +1,5 @@
-﻿using CoreGraphics;
+﻿using CoreAnimation;
+using CoreGraphics;
 using System;
 using UIKit;
 
@@ -55,6 +56,17 @@ namespace XF.Material.iOS
             color.GetRGBA(out nfloat red, out nfloat green, out nfloat blue, out nfloat alpha);
 
             return UIColor.FromRGBA((float)Math.Min(red + 0.3, 1.0), (float)Math.Min(green + 0.3, 1.0), (float)Math.Min(blue + 0.3, 1.0), alpha);
+        }
+
+        internal static CGColor GetDisabledColor(this CGColor color)
+        {
+            const float disabledOpacity = 0.38f;
+            var components = color.Components;
+            var r = components[0];
+            var g = components[1];
+            var b = components[2];
+
+            return new CGColor(r, g, b, disabledOpacity);
         }
     }
 }

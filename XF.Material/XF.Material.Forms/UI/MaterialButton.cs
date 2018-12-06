@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using XF.Material.Forms.Effects;
@@ -10,13 +11,13 @@ namespace XF.Material.Forms.UI
     /// <summary>
     /// A control that allow users to take actions, and make choices, with a single tap.
     /// </summary>
-    public class MaterialButton : Button
+    public class MaterialButton : Button, IMaterialButton
     {
         public const string MaterialButtonColorChanged = "BackgroundColorChanged";
 
         public static readonly BindableProperty AllCapsProperty = BindableProperty.Create(nameof(AllCaps), typeof(bool), typeof(MaterialButton), true);
 
-        public static new readonly BindableProperty BackgroundColorProperty = BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(MaterialButton), Material.Color.Secondary);
+        public static new readonly BindableProperty BackgroundColorProperty = BindableProperty.Create(nameof(BackgroundColor), typeof(MaterialColor), typeof(MaterialButton), MaterialColor.Default);
 
         public static readonly BindableProperty ButtonTypeProperty = BindableProperty.Create(nameof(ButtonType), typeof(MaterialButtonType), typeof(MaterialButton), MaterialButtonType.Elevated, propertyChanged: ButtonTypeChanged);
 
@@ -40,22 +41,22 @@ namespace XF.Material.Forms.UI
             /// <summary>
             /// This button will cast a shadow.
             /// </summary>
-            Elevated,
+            Elevated = 1,
 
             /// <summary>
             /// This button will not cast a shadow.
             /// </summary>
-            Flat,
+            Flat = 2,
 
             /// <summary>
             /// This button will have a transparent background with a border.
             /// </summary>
-            Outlined,
+            Outlined = 3,
 
             /// <summary>
             /// This button will have a transparent background and no border.
             /// </summary>
-            Text
+            Text = 4
         }
 
         /// <summary>
@@ -70,16 +71,16 @@ namespace XF.Material.Forms.UI
         /// <summary>
         /// Gets or sets the background color. The default value is based on the Color value of <see cref="MaterialColorConfiguration.Secondary"/> if you are using a Material resource, otherwise the default value is <see cref="Color.Accent"/>
         /// </summary>
-        public new Color BackgroundColor
+        public new MaterialColor BackgroundColor
         {
-            get => (Color)this.GetValue(BackgroundColorProperty);
+            get => (MaterialColor)this.GetValue(BackgroundColorProperty);
             set => this.SetValue(BackgroundColorProperty, value);
         }
 
         /// <summary>
         /// Gets or sets the type of this button. The default value is <see cref="MaterialButtonType.Elevated"/>
         /// </summary>
-        public MaterialButtonType ButtonType
+        public virtual MaterialButtonType ButtonType
         {
             get => (MaterialButtonType)this.GetValue(ButtonTypeProperty);
             set => this.SetValue(ButtonTypeProperty, value);
@@ -103,7 +104,8 @@ namespace XF.Material.Forms.UI
             }
         }
 
-        private static void ButtonTypeChanged(BindableObject bindable, object oldValue, object newValue)
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static void ButtonTypeChanged(BindableObject bindable, object oldValue, object newValue)
         {
             if (bindable is MaterialButton materialButton)
             {
@@ -130,17 +132,6 @@ namespace XF.Material.Forms.UI
 
                         break;
                 }
-            }
-        }
-
-        protected override void OnParentSet()
-        {
-            base.OnParentSet();
-
-            if (this.Parent != null && Device.RuntimePlatform == Device.iOS)
-            {
-                this.HeightRequest -= 12;
-                this.Margin = new Thickness(this.Margin.Left + 6, this.Margin.Top + 6, this.Margin.Right + 6, this.Margin.Bottom + 6);
             }
         }
     }

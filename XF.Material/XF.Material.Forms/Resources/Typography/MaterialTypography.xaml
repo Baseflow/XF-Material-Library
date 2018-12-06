@@ -33,7 +33,7 @@
     <x:Double x:Key="Material.LetterSpacing.Subtitle2">0.1</x:Double>
     <x:Double x:Key="Material.LetterSpacing.Body1">0.5</x:Double>
     <x:Double x:Key="Material.LetterSpacing.Body2">0.25</x:Double>
-    <x:Double x:Key="Material.LetterSpacing.Button">0.75</x:Double>
+    <x:Double x:Key="Material.LetterSpacing.Button">1.25</x:Double>
     <x:Double x:Key="Material.LetterSpacing.Caption">0.4</x:Double>
     <x:Double x:Key="Material.LetterSpacing.Overline">1.5</x:Double>
     <x:Double x:Key="Material.LetterSpacing.None">0</x:Double>
