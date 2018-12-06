@@ -22,7 +22,6 @@
                     Text="Create an account"
                     TextColor="#DE000000" />
                 <material:MaterialTextField AlwaysShowUnderline="True"
-                    BackgroundColor="Transparent"
                     HelperText="*Required"
                     Placeholder="Username"
                     TintColor="#2c3e50" />
@@ -68,19 +67,71 @@
         SelectionMode="None"
         SeparatorVisibility="None">
         <ListView.Header>
-            <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
-                <material:MaterialMenu Choices="{Binding ListActions}"
-                    Command="{Binding ListMenuCommand}"
-                    HorizontalOptions="Start"
-                    Source="ic_overflow"
-                    TintColor="#AE000000"
-                    VerticalOptions="Center" />
+            <StackLayout HorizontalOptions="FillAndExpand" Orientation="Vertical">
                 <Label HorizontalOptions="Center"
                     Style="{DynamicResource Material.TypeScale.H6}"
                     Text="Job Positions"
                     TextColor="Black"
                     VerticalOptions="FillAndExpand"
                     VerticalTextAlignment="Center" />
+
+                <material:MaterialButton ButtonType="Elevated"
+                    Clicked="MaterialButton_Clicked"
+                    HorizontalOptions="Center"
+                    Image="ic_overflow"
+                    Text="Button"
+                    TextColor="#DE000000">
+                    <material:MaterialButton.BackgroundColor>
+                        <material:MaterialColor DisabledColor="Gray"
+                            EnabledColor="Gray"
+                            PressedColor="#526200EE" />
+                    </material:MaterialButton.BackgroundColor>
+                </material:MaterialButton>
+                <material:MaterialButton x:Name="b"
+                    ButtonType="Outlined"
+                    HorizontalOptions="Center"
+                    Image="ic_overflow"
+                    IsEnabled="False"
+                    Text="Button"
+                    TextColor="#DE000000">
+                    <material:MaterialButton.BackgroundColor>
+                        <material:MaterialColor DisabledColor="Gray"
+                            EnabledColor="Gray"
+                            PressedColor="#526200EE" />
+                    </material:MaterialButton.BackgroundColor>
+                </material:MaterialButton>
+                <material:MaterialButton ButtonType="Flat"
+                    HorizontalOptions="Center"
+                    Image="ic_overflow"
+                    Text="Button"
+                    TextColor="#DE000000">
+                    <material:MaterialButton.BackgroundColor>
+                        <material:MaterialColor DisabledColor="Gray"
+                            EnabledColor="Gray"
+                            PressedColor="#526200EE" />
+                    </material:MaterialButton.BackgroundColor>
+                </material:MaterialButton>
+                <material:MaterialIconButton ButtonType="Elevated"
+                    HorizontalOptions="Center"
+                    IsEnabled="False"
+                    Source="ic_overflow"
+                    TintColor="#DE000000">
+                    <material:MaterialIconButton.BackgroundColor>
+                        <material:MaterialColor DisabledColor="Gray"
+                            EnabledColor="White"
+                            PressedColor="#52000000" />
+                    </material:MaterialIconButton.BackgroundColor>
+                </material:MaterialIconButton>
+                <material:MaterialIconButton ButtonType="Flat"
+                    HorizontalOptions="Center"
+                    Source="ic_overflow"
+                    TintColor="#DE000000">
+                    <material:MaterialIconButton.BackgroundColor>
+                        <material:MaterialColor DisabledColor="Gray"
+                            EnabledColor="White"
+                            PressedColor="#52000000" />
+                    </material:MaterialIconButton.BackgroundColor>
+                </material:MaterialIconButton>
             </StackLayout>
         </ListView.Header>
         <ListView.ItemTemplate>
@@ -114,13 +165,19 @@
                                 </material:MaterialCard>
                             </StackLayout>
 
-                            <material:MaterialMenu Choices="{Binding Source={x:Reference Root}, Path=BindingContext.Actions}"
+                            <material:MaterialMenuButton ButtonType="Outlined"
+                                Choices="{Binding Source={x:Reference Root}, Path=BindingContext.Actions}"
                                 Command="{Binding Source={x:Reference Root}, Path=BindingContext.MenuCommand}"
                                 CommandParameter="{Binding Title}"
+                                CornerRadius="28"
                                 HorizontalOptions="End"
                                 Source="ic_overflow"
                                 TintColor="#AEAEAE"
-                                VerticalOptions="Center" />
+                                VerticalOptions="Center">
+                                <material:MaterialIconButton.BackgroundColor>
+                                    <material:MaterialColor EnabledColor="Gray" PressedColor="#526200EE" />
+                                </material:MaterialIconButton.BackgroundColor>
+                            </material:MaterialMenuButton>
                         </StackLayout>
                     </material:MaterialCard>
                 </ViewCell>

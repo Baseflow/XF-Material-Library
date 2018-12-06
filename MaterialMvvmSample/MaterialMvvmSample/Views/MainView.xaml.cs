@@ -8,6 +8,11 @@ namespace MaterialMvvmSample.Views
         {
             this.InitializeComponent();
         }
+
+        private void MaterialButton_Clicked(object sender, System.EventArgs e)
+        {
+            //b.IsEnabled = !b.IsEnabled;
+        }
     }
 
     public abstract class BaseMainView : BaseView<MainViewModel> { }
