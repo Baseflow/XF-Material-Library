@@ -11,6 +11,23 @@
     material:MaterialNavigationPage.AppBarTitleTextFontFamily="{StaticResource FontFamily.RobotoMedium}"
     material:MaterialNavigationPage.AppBarTitleTextFontSize="14"
     material:MaterialNavigationPage.StatusBarColor="#1B3147">
+    <ScrollView>
+        <StackLayout>
+            <material:MaterialTextField x:Name="_textField"
+                InputType="Choice"
+                IsInputDialog="True" />
+            <material:MaterialTextField x:Name="_textField2" IsInputDialog="True" />
+            <material:MaterialTextField Choices="{Binding Filters}"
+                InputType="Choice"
+                TextColor="#52000000" />
+            <material:MaterialTextField />
+
+            <material:MaterialButton ButtonType="Text"
+                Clicked="MaterialButton_Clicked"
+                CornerRadius="0"
+                Text="Clear" />
+        </StackLayout>
+    </ScrollView>
     <!--<ScrollView VerticalOptions="FillAndExpand">
         <material:MaterialCard Elevation="4"
             HorizontalOptions="FillAndExpand"
@@ -60,14 +77,16 @@
             </StackLayout>
         </material:MaterialCard>
     </ScrollView>-->
-    <ListView Margin="16"
+    <!--<ListView Margin="16"
         BackgroundColor="Transparent"
         HasUnevenRows="True"
         ItemsSource="{Binding Models}"
         SelectionMode="None"
         SeparatorVisibility="None">
         <ListView.Header>
-            <StackLayout HorizontalOptions="FillAndExpand" Orientation="Vertical">
+            <StackLayout BackgroundColor="White"
+                HorizontalOptions="FillAndExpand"
+                Orientation="Vertical">
                 <Label HorizontalOptions="Center"
                     Style="{DynamicResource Material.TypeScale.H6}"
                     Text="Job Positions"
@@ -78,7 +97,6 @@
                 <material:MaterialButton ButtonType="Elevated"
                     Clicked="MaterialButton_Clicked"
                     HorizontalOptions="Center"
-                    Image="ic_overflow"
                     Text="Button"
                     TextColor="#DE000000">
                     <material:MaterialButton.BackgroundColor>
@@ -90,7 +108,6 @@
                 <material:MaterialButton x:Name="b"
                     ButtonType="Outlined"
                     HorizontalOptions="Center"
-                    Image="ic_overflow"
                     IsEnabled="False"
                     Text="Button"
                     TextColor="#DE000000">
@@ -102,7 +119,6 @@
                 </material:MaterialButton>
                 <material:MaterialButton ButtonType="Flat"
                     HorizontalOptions="Center"
-                    Image="ic_overflow"
                     Text="Button"
                     TextColor="#DE000000">
                     <material:MaterialButton.BackgroundColor>
@@ -183,6 +199,6 @@
                 </ViewCell>
             </DataTemplate>
         </ListView.ItemTemplate>
-    </ListView>
+    </ListView>-->
 
 </local:BaseMainView>
