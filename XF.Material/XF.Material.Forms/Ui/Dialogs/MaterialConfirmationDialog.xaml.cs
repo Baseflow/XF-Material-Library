@@ -13,6 +13,7 @@ namespace XF.Material.Forms.UI.Dialogs
         private MaterialCheckboxGroup _checkboxGroup;
         private MaterialConfirmationDialogConfiguration _preferredConfig;
         private MaterialRadioButtonGroup _radioButtonGroup;
+        private bool _isMultiChoice;
 
         internal MaterialConfirmationDialog(MaterialConfirmationDialogConfiguration configuration)
         {
@@ -91,6 +92,7 @@ namespace XF.Material.Forms.UI.Dialogs
                 dialog._checkboxGroup.TextColor = dialog._preferredConfig.TextColor;
             }
 
+            dialog._isMultiChoice = true;
             dialog.DialogTitle.Text = !string.IsNullOrEmpty(title) ? title : throw new ArgumentNullException(nameof(title));
             dialog.container.Content = dialog._checkboxGroup;
             await dialog.ShowAsync();
@@ -116,6 +118,7 @@ namespace XF.Material.Forms.UI.Dialogs
                 dialog._checkboxGroup.TextColor = dialog._preferredConfig.TextColor;
             }
 
+            dialog._isMultiChoice = true;
             dialog.DialogTitle.Text = !string.IsNullOrEmpty(title) ? title : throw new ArgumentNullException(nameof(title));
             dialog.container.Content = dialog._checkboxGroup;
             dialog.PositiveButton.IsEnabled = true;
@@ -171,6 +174,13 @@ namespace XF.Material.Forms.UI.Dialogs
             }
         }
 
+        protected override bool OnBackgroundClicked()
+        {
+            this.InputTaskCompletionSource.SetResult(_isMultiChoice ? null : -1 as object);
+
+            return base.OnBackgroundClicked();
+        }
+
         private void CheckboxGroup_SelectedIndicesChanged(object sender, SelectedIndicesChangedEventArgs e)
         {
             PositiveButton.IsEnabled = e.Indices.Any();
@@ -201,6 +211,7 @@ namespace XF.Material.Forms.UI.Dialogs
         private void NegativeButton_Clicked(object sender, EventArgs e)
         {
             this.Dismiss();
+            this.InputTaskCompletionSource.SetResult(_isMultiChoice ? null : -1 as object);
             _checkboxGroup?.SelectedIndices.Clear();
         }
 

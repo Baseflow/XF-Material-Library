@@ -16,7 +16,7 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="48" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <material:MaterialButton x:Name="selectionButton"
                 Grid.Column="0"
@@ -28,7 +28,7 @@
                 <material:MaterialButton.HeightRequest>
                     <OnPlatform x:TypeArguments="x:Double"
                         Android="48"
-                        iOS="60" />
+                        iOS="48" />
                 </material:MaterialButton.HeightRequest>
             </material:MaterialButton>
             <material:MaterialIcon x:Name="selectionIcon"
@@ -40,7 +40,7 @@
                 WidthRequest="24" />
             <Label x:Name="selectionText"
                 Grid.Column="1"
-                LineBreakMode="TailTruncation"
+                Margin="0,16"
                 Style="{DynamicResource Material.TypeScale.Body1}"
                 TextColor="#DE000000"
                 VerticalOptions="CenterAndExpand"

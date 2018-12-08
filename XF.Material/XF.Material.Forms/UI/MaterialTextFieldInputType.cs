@@ -14,6 +14,7 @@
         Text,
         Url,
         Password,
-        NumericPassword
+        NumericPassword,
+        Choice
     }
 }

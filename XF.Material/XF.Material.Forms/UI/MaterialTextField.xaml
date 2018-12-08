@@ -5,11 +5,16 @@
     xmlns:internal="clr-namespace:XF.Material.Forms.UI.Internals"
     xmlns:material="clr-namespace:XF.Material.Forms.UI"
     xmlns:sys="clr-namespace:System;assembly=netstandard">
-    <ContentView.GestureRecognizers>
-        <TapGestureRecognizer x:Name="tapGesture" NumberOfTapsRequired="1" />
-    </ContentView.GestureRecognizers>
+    <View.GestureRecognizers>
+        <TapGestureRecognizer x:Name="mainTapGesture" NumberOfTapsRequired="1" />
+    </View.GestureRecognizers>
     <ContentView.Content>
-        <Grid ColumnSpacing="0" RowSpacing="0">
+        <Grid x:Name="_gridContainer"
+            ColumnSpacing="0"
+            RowSpacing="0">
+            <View.GestureRecognizers>
+                <TapGestureRecognizer x:Name="tapGesture" NumberOfTapsRequired="1" />
+            </View.GestureRecognizers>
             <Grid.RowDefinitions>
                 <RowDefinition Height="56" />
                 <RowDefinition Height="16" />
@@ -25,15 +30,6 @@
                 BackgroundColor="#DCDCDC"
                 CornerRadius="4"
                 Elevation="0" />
-            <material:MaterialIcon x:Name="icon"
-                Grid.Row="0"
-                Grid.Column="0"
-                Margin="12,0,0,0"
-                HeightRequest="24"
-                HorizontalOptions="Center"
-                IsVisible="False"
-                VerticalOptions="Center"
-                WidthRequest="24" />
             <Label x:Name="placeholder"
                 Grid.Row="0"
                 Grid.Column="1"
@@ -57,7 +53,7 @@
                 TextColor="#D0000000"
                 VerticalOptions="End">
                 <internal:MaterialEntry.Triggers>
-                    <DataTrigger Binding="{Binding Source={x:Reference errorIcon}, Path=IsVisible}"
+                    <DataTrigger Binding="{Binding Source={x:Reference trailingIcon}, Path=IsVisible}"
                         TargetType="Entry"
                         Value="True">
                         <Setter Property="Grid.ColumnSpan" Value="1" />
@@ -87,14 +83,14 @@
                 VerticalOptions="End"
                 WidthRequest="0"
                 Color="{DynamicResource Material.Color.Secondary}" />
-            <material:MaterialIcon x:Name="errorIcon"
+            <material:MaterialIcon x:Name="trailingIcon"
                 Grid.Row="0"
                 Grid.Column="2"
                 Margin="0,0,12,0"
                 HeightRequest="24"
                 HorizontalOptions="Center"
                 IsVisible="False"
-                Source="ic_error"
+                Source="ic_arrow_dropdown"
                 VerticalOptions="Center"
                 WidthRequest="24" />
             <Label x:Name="helper"
