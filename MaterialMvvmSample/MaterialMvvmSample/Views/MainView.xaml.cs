@@ -1,5 +1,6 @@
 ﻿using MaterialMvvmSample.ViewModels;
 using System.Collections.Generic;
+using XF.Material.Forms.UI.Dialogs;
 
 namespace MaterialMvvmSample.Views
 {
@@ -8,21 +9,11 @@ namespace MaterialMvvmSample.Views
         public MainView()
         {
             this.InitializeComponent();
-            _textField.Choices = new List<string>
-            {
-                "Ayala Corporation",
-                "San Miguel Corporation",
-                "YNGEN Holdings Inc.",
-                "ERNI Development Center Philippines, Inc., Bern, Switzerland"
-            };
-            _textField.Text = "Empty";
-            _textField2.Text = "Empty";
         }
 
-        private void MaterialButton_Clicked(object sender, System.EventArgs e)
+        private async void MaterialButton_Clicked(object sender, System.EventArgs e)
         {
-            _textField.Text = string.Empty;
-            _textField2.Text = string.Empty;
+            await MaterialDialog.Instance.InputAsync("Enter password", "Enter your current password to proceed");
         }
     }
 

@@ -55,6 +55,24 @@ namespace MaterialMvvmSample.ViewModels
             },
         };
 
+        private string _selectedChoice;
+        public string SelectedChoice
+        {
+            get => _selectedChoice;
+            set
+            {
+                this.HasError = string.Equals(value, this.Choices[0]);
+                this.Set(ref _selectedChoice, value);
+            }
+        }
+
+        private bool _hasError;
+        public bool HasError
+        {
+            get => _hasError;
+            set => this.Set(ref _hasError, value);
+        }
+
         public string[] Filters => new string[] { "None", "Alhpabetical" };
 
         public string[] ListActions => new string[] { "Add job", "Sort" };
@@ -70,6 +88,14 @@ namespace MaterialMvvmSample.ViewModels
                 System.Diagnostics.Debug.WriteLine(this.Filters[_]);
             }
         });
+
+        public IList<string> Choices => new List<string>
+        {
+            "Ayala Corporation",
+            "San Miguel Corporation",
+            "YNGEN Holdings Inc.",
+            "ERNI Development Center Philippines, Inc., Bern, Switzerland"
+        };
 
         public ICommand JobSelectedCommand => new Command<string>(async (s) => await this.ViewItemSelected(s));
 

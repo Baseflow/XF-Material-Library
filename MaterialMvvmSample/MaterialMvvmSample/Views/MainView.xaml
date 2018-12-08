@@ -12,15 +12,23 @@
     material:MaterialNavigationPage.AppBarTitleTextFontSize="14"
     material:MaterialNavigationPage.StatusBarColor="#1B3147">
     <ScrollView>
-        <StackLayout>
-            <material:MaterialTextField x:Name="_textField"
+        <StackLayout Padding="16">
+            <material:MaterialTextField x:Name="_textField2"
+                AlwaysShowUnderline="True"
+                BackgroundColor="Transparent"
+                HasHorizontalPadding="False" />
+            <material:MaterialTextField AlwaysShowUnderline="True"
+                BackgroundColor="Transparent"
+                Choices="{Binding Choices}"
+                HasError="{Binding HasError}"
+                HasHorizontalPadding="False"
                 InputType="Choice"
-                IsInputDialog="True" />
-            <material:MaterialTextField x:Name="_textField2" IsInputDialog="True" />
-            <material:MaterialTextField Choices="{Binding Filters}"
-                InputType="Choice"
+                Placeholder="Customer or company name"
+                Text="{Binding SelectedChoice}"
                 TextColor="#52000000" />
-            <material:MaterialTextField />
+            <material:MaterialTextField AlwaysShowUnderline="True"
+                BackgroundColor="Transparent"
+                HasHorizontalPadding="False" />
 
             <material:MaterialButton ButtonType="Text"
                 Clicked="MaterialButton_Clicked"
