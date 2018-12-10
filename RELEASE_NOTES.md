@@ -1,5 +1,19 @@
 # Release Notes
 
+##### 1.3.0
+- Added `MaterialIconButton` and `MaterialSlider`.
+- Replaced `MaterialMenu` to `MaterialMenuButton`. The latter inherits from `MaterialIconButton`.
+- Added new properties `PressedBackgroundColor` and `DisabledBackgroundColor` to Material buttons.
+- Refactored `MaterialButtonRenderer` in iOS. Instead of adding negative margin to shrink the view, it now changes the `UIView.Layer.Frame` property by decreasing the width and height by 12.
+- Refactored `MaterialTextField`:
+  - Added new input type `Choice`, along with a new property `Choices`. When the text field is clicked, shows a confirmation dialog from which the user will choose one from a list of choices.
+  - Added new property `HasHorizontalPadding`. When set to `true`, removes the left and right padding of the text field.
+  - `FloatingPlaceholderEnabled` property, when set to `true`, reduces the height of the text field from 72 to 56.
+- Adjusted the bounds some of modal dialogs.
+- Fixed an interaction bug in Android when using `PopupPage` from `Rg.Plugins.Popup` library.
+- Fixed issue [26](https://github.com/contrix09/XF-Material-Library/issues/26).
+- Fixed issue [31](https://github.com/contrix09/XF-Material-Library/issues/31).
+
 ##### 1.2.4
 - Fixed issue [24](https://github.com/contrix09/XF-Material-Library/issues/24).
 - Refactored `IMaterialDialog.AlertAsync()`.

@@ -5,6 +5,8 @@
 
 A Xamarin.Forms library for Xamarin.Android and Xamarin.iOS to implement [Google's Material Design](https://material.io/design).
 
+<font size="1">*README* still being updated.</font>
+
 ## Contents
 
 - [Getting Started](#getting-started)
@@ -116,10 +118,7 @@ These are attached properties that can be used on pages that are navigated throu
 
 6. `StatusBarColor` - The color of the status bar.
 
-##### Property
-`MaterialNavigationPage` inherits the `NavigationPage` class.
-
-1. `HasShadow` - The `boolean` value whether the App Bar will draw a shadow or not.
+7. `HasShadow` - The `boolean` value whether the App Bar will draw a shadow or not.
 
 ##### Usage and Behavior
 This control uses the new feature of Xamarin 3.3, the `TitleView` property, to be able to change the appearance of the app bar title.
@@ -363,11 +362,11 @@ Menus display a list of choices on temporary surfaces.
 
 | Code | Android  | iOS |
 | ------------- | ------------- | ------------- |
-| `<material:MaterialMenu Padding="0" Choices="{Binding Actions}" MenuSelectedCommand="{Binding MenuCommand}"> <!-- Add view here --> </material:MaterialMenu>`|<img src="https://media.giphy.com/media/pjPfJ9XWRJx0JyeIhs/giphy.gif" alt="Android button" width="500" />|<img src="https://media.giphy.com/media/2rAIp1FRTY98qjDuJ5/giphy.gif" alt="iOS button" width="500"/> |
+| `<material:MaterialMenuButton ButtonType="Text" CornerRadius="24" Choices="{Binding Actions}" Command="{Binding MenuCommand}" />`|<img src="https://media.giphy.com/media/pjPfJ9XWRJx0JyeIhs/giphy.gif" alt="Android button" width="500" />|<img src="https://media.giphy.com/media/2rAIp1FRTY98qjDuJ5/giphy.gif" alt="iOS button" width="500"/> |
 
 ##### Properties
 
-`MaterialMenu` inherits the `ContentView` class.
+`MaterialMenuButton` inherits the `XF.Material.Forms.UI.MaterialIconButton` class.
 
 1. `Choices` - The list of items from which the user will choose from. You can either assign a collection of `string` or `MaterialMenuItem`.
 
@@ -375,9 +374,9 @@ Menus display a list of choices on temporary surfaces.
 
 3. `MenuCornerRadius` - The corner radius of the menu.
 
-4. `MenuSelectedCommand` - The command that will execute when a menu item was selected. The type is `Command<MaterialMenuResult>`. The result will contain the index of the selected menu and the parameter, if any.
+4. `Command` - The command that will execute when a menu item was selected. The type is `Command<MaterialMenuResult>`. The result will contain the index of the selected menu and the parameter, if any.
 
-5. `MenuSelectedCommandParameter` -  The parameter to pass in `MenuSelectedCommand`.
+5. `CommandParameter` -  The parameter to pass in `Command` property.
 
 6. `MenuTextColor` - The text color of the menu items.
 
@@ -1051,15 +1050,6 @@ You can apply a type scale to a Label or Button by setting its style.
 ```xml
 <Label Style="{DynamicResource Material.TypeScale.Body1}" 
     Text="This is a Label with a Body1 Type Scale" />
-```
-
-You can also inherit this style and create your own custom style.
-
-```xml
-<Style x:Key="MyCustomH1" TargetType="Label"
-     BasedOn="{DynamicResource Material.TypeScale.H1}">
-    <Setter Property="TextColor" Value="#D0000000" />
-</Style>
 ```
 
 ##### Setting a Font Family to a Type Scale
