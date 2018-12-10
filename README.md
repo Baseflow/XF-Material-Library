@@ -1,7 +1,7 @@
 
 <img src="images/xf.material_logo.png" width="112" />
 
-# XF.Material Library [![NuGet](https://img.shields.io/badge/version-1.2.4-orange.svg?style=flat)](https://github.com/contrix09/XF-Material-Library/blob/master/RELEASE_NOTES.md) [![Build status](https://dev.azure.com/compiledevops/XF.Material/_apis/build/status/XF.Material-CI%20NuGet)](https://dev.azure.com/compiledevops/XF.Material/_build/latest?definitionId=20)
+# XF.Material Library [![NuGet](https://img.shields.io/badge/version-1.3.0-orange.svg?style=flat)](https://github.com/contrix09/XF-Material-Library/blob/master/RELEASE_NOTES.md) [![Build status](https://dev.azure.com/compiledevops/XF.Material/_apis/build/status/XF.Material-CI%20NuGet)](https://dev.azure.com/compiledevops/XF.Material/_build/latest?definitionId=20)
 
 A Xamarin.Forms library for Xamarin.Android and Xamarin.iOS to implement [Google's Material Design](https://material.io/design).
 
@@ -208,7 +208,7 @@ Text fields allow users to enter and edit text.
 
 `MaterialTextField` inherits the `ContentView` class.
 
-1. `AlwaysShowUnderline` - Boolean flag etermines whether the underline accent of this text field should always show or not. The default value is `false`.
+1. `AlwaysShowUnderline` - Boolean flag determines whether the underline accent of this text field should always show or not. The default value is `false`.
 
 2. `BackgroundColor` - The background color of the text field. Default hex color value is `#DCDCDC`.
 
@@ -254,7 +254,11 @@ Text fields allow users to enter and edit text.
 
 23. `TintColor` - The tint color of the underline accent and the placeholder of this text field when focused. The default color is set to the value of `MaterialColorConfiguration.SecondaryColor`.
 
-24. `FloatingPlaceholderEnabled` - Determines whether the placeholder should be animated.
+24. `FloatingPlaceholderEnabled` - Determines whether the placeholder should float above when the text field is focused.
+
+25. `Choices` - When the `InputType` property is set to `MaterialInputType.Choice`, provides the list of choices from which the user will select one.
+
+26. `HasHorizontalPadding` - Boolean flag determines whether the left and right bounds of the text field should be padded or not.
 
 ##### Events
 
