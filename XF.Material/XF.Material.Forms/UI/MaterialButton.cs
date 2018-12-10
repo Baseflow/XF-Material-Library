@@ -11,15 +11,19 @@ namespace XF.Material.Forms.UI
     /// <summary>
     /// A control that allow users to take actions, and make choices, with a single tap.
     /// </summary>
-    public class MaterialButton : Button, IMaterialButton
+    public class MaterialButton : Button, IMaterialButtonControl
     {
         public const string MaterialButtonColorChanged = "BackgroundColorChanged";
 
         public static readonly BindableProperty AllCapsProperty = BindableProperty.Create(nameof(AllCaps), typeof(bool), typeof(MaterialButton), true);
 
-        public static new readonly BindableProperty BackgroundColorProperty = BindableProperty.Create(nameof(BackgroundColor), typeof(MaterialColor), typeof(MaterialButton), MaterialColor.Default);
+        public static new readonly BindableProperty BackgroundColorProperty = BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(MaterialButton), Material.Color.Secondary);
 
         public static readonly BindableProperty ButtonTypeProperty = BindableProperty.Create(nameof(ButtonType), typeof(MaterialButtonType), typeof(MaterialButton), MaterialButtonType.Elevated, propertyChanged: ButtonTypeChanged);
+
+        public static readonly BindableProperty DisabledBackgroundColorProperty = BindableProperty.Create(nameof(DisabledBackgroundColor), typeof(Color), typeof(MaterialButton), default(Color));
+
+        public static readonly BindableProperty PressedBackgroundColorProperty = BindableProperty.Create(nameof(PressedBackgroundColor), typeof(Color), typeof(MaterialButton), default(Color));
 
         public MaterialButton()
         {
@@ -34,32 +38,6 @@ namespace XF.Material.Forms.UI
         }
 
         /// <summary>
-        /// Enumeration of the types of <see cref="MaterialButton"/>.
-        /// </summary>
-        public enum MaterialButtonType
-        {
-            /// <summary>
-            /// This button will cast a shadow.
-            /// </summary>
-            Elevated = 1,
-
-            /// <summary>
-            /// This button will not cast a shadow.
-            /// </summary>
-            Flat = 2,
-
-            /// <summary>
-            /// This button will have a transparent background with a border.
-            /// </summary>
-            Outlined = 3,
-
-            /// <summary>
-            /// This button will have a transparent background and no border.
-            /// </summary>
-            Text = 4
-        }
-
-        /// <summary>
         /// Gets or sets whether the text of this button should be capitalized. The default value is true.
         /// </summary>
         public bool AllCaps
@@ -71,9 +49,9 @@ namespace XF.Material.Forms.UI
         /// <summary>
         /// Gets or sets the background color. The default value is based on the Color value of <see cref="MaterialColorConfiguration.Secondary"/> if you are using a Material resource, otherwise the default value is <see cref="Color.Accent"/>
         /// </summary>
-        public new MaterialColor BackgroundColor
+        public new Color BackgroundColor
         {
-            get => (MaterialColor)this.GetValue(BackgroundColorProperty);
+            get => (Color)this.GetValue(BackgroundColorProperty);
             set => this.SetValue(BackgroundColorProperty, value);
         }
 
@@ -86,22 +64,16 @@ namespace XF.Material.Forms.UI
             set => this.SetValue(ButtonTypeProperty, value);
         }
 
-        protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        public Color DisabledBackgroundColor
         {
-            if (propertyName == nameof(this.BackgroundColor))
-            {
-                base.OnPropertyChanged(MaterialButton.MaterialButtonColorChanged);
-            }
+            get => (Color)this.GetValue(DisabledBackgroundColorProperty);
+            set => this.SetValue(DisabledBackgroundColorProperty, value);
+        }
 
-            else
-            {
-                base.OnPropertyChanged(propertyName);
-
-                if (propertyName == nameof(this.Style))
-                {
-                    this.Style.Setters.ForEach(s => this.SetValue(s.Property, s.Value));
-                }
-            }
+        public Color PressedBackgroundColor
+        {
+            get => (Color)this.GetValue(PressedBackgroundColorProperty);
+            set => this.SetValue(PressedBackgroundColorProperty, value);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -115,6 +87,7 @@ namespace XF.Material.Forms.UI
                         materialButton.RemoveDynamicResource(TextColorProperty);
                         materialButton.SetDynamicResource(TextColorProperty, MaterialConstants.Color.SECONDARY);
                         break;
+
                     case MaterialButtonType.Outlined:
 
                         if (materialButton.BorderColor == (Color)BorderColorProperty.DefaultValue)
@@ -131,6 +104,23 @@ namespace XF.Material.Forms.UI
                         materialButton.SetDynamicResource(TextColorProperty, MaterialConstants.Color.SECONDARY);
 
                         break;
+                }
+            }
+        }
+
+        protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            if (propertyName == nameof(this.BackgroundColor) || propertyName == nameof(this.PressedBackgroundColor) || propertyName == nameof(this.DisabledBackgroundColor))
+            {
+                base.OnPropertyChanged(MaterialButtonColorChanged);
+            }
+            else
+            {
+                base.OnPropertyChanged(propertyName);
+
+                if (propertyName == nameof(this.Style))
+                {
+                    this.Style.Setters.ForEach(s => this.SetValue(s.Property, s.Value));
                 }
             }
         }

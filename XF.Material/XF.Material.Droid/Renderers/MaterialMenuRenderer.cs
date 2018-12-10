@@ -1,4 +1,5 @@
 ﻿using Android.Content;
+using Android.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using XF.Material.Droid.Renderers;
@@ -7,25 +8,26 @@ using XF.Material.Forms.UI;
 [assembly: ExportRenderer(typeof(MaterialMenuButton), typeof(MaterialMenuRenderer))]
 namespace XF.Material.Droid.Renderers
 {
-    public class MaterialMenuRenderer : MaterialIconButtonRenderer
+    public class MaterialMenuRenderer : VisualElementRenderer<MaterialMenuButton>
     {
-        private MaterialMenuButton _materialMenu;
-
         public MaterialMenuRenderer(Context context) : base(context) { }
 
-        protected override void OnElementChanged(ElementChangedEventArgs<MaterialIconButton> e)
+        protected override void OnElementChanged(ElementChangedEventArgs<MaterialMenuButton> e)
         {
             base.OnElementChanged(e);
 
             if(e?.NewElement != null)
             {
-                _materialMenu = this.Element as MaterialMenuButton;
+                this.Element.Clicked += this.Element_Clicked;
             }
         }
 
-        protected override void OnClick(double x, double y)
+        private void Element_Clicked(object sender, System.EventArgs e)
         {
-            _materialMenu.OnViewTouch(x, y);
+            var displayDensity = this.Context.Resources.DisplayMetrics.Density;
+            var position = new int[2];
+            this.ViewGroup.GetChildAt(0).GetLocationInWindow(position);
+            this.Element.OnViewTouch(position[0] / displayDensity, position[1] / displayDensity);
         }
     }
 }

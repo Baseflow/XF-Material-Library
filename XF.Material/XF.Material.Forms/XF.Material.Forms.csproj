@@ -28,6 +28,7 @@
     <Compile Remove="Effects\MaterialStatusBarColorEffect.cs" />
     <Compile Remove="MaterialStyles.xaml.cs" />
     <Compile Remove="UI\Internals\MaterialInputDialogTextField.xaml.cs" />
+    <Compile Remove="UI\MaterialIconButton.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -90,6 +91,9 @@
     </EmbeddedResource>
     <EmbeddedResource Update="UI\MaterialChip.xaml">
       <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="UI\MaterialIconButton.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="UI\MaterialRadioButtonGroup.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>

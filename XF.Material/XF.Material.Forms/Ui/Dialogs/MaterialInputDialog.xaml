@@ -43,7 +43,7 @@
                 </Label>
                 <Label x:Name="Message"
                     Grid.Row="1"
-                    Margin="24,0,24,0"
+                    Margin="24,0,24,16"
                     Style="{StaticResource Material.TypeScale.Body1}"
                     Text="Lorem ipsum dolor sit amet, conse tetuer adipiscing elit. Aenean commodo ligula eget dolor."
                     TextColor="#99000000">
@@ -51,7 +51,7 @@
                         <DataTrigger Binding="{Binding Source={x:Reference DialogTitle}, Path=IsVisible}"
                             TargetType="Label"
                             Value="False">
-                            <Setter Property="Margin" Value="24, 20, 24, 0" />
+                            <Setter Property="Margin" Value="24, 20, 24, 16" />
                         </DataTrigger>
                         <Trigger TargetType="Label" Property="Text" Value="{x:Null}">
                             <Setter Property="IsVisible" Value="False" />

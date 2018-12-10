@@ -36,6 +36,8 @@ namespace XF.Material.Forms.UI.Dialogs
 
         public TaskCompletionSource<bool> InputTaskCompletionSource { get; set; }
 
+        public override bool Dismissable => false;
+
         internal static MaterialSnackbarConfiguration GlobalConfiguration { get; set; }
 
         internal static async Task<IMaterialModalPage> Loading(string message, MaterialSnackbarConfiguration configuration = null)
@@ -77,11 +79,6 @@ namespace XF.Material.Forms.UI.Dialogs
                     this.Dismiss();
                 }
             }
-        }
-
-        protected override bool OnBackButtonPressed()
-        {
-            return true;
         }
 
         private void Configure(MaterialSnackbarConfiguration configuration)

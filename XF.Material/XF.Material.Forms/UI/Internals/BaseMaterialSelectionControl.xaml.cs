@@ -194,7 +194,7 @@ namespace XF.Material.Forms.UI.Internals
 
         private void OnHorizontalSpacingChanged(double value)
         {
-            selectionText.Margin = new Thickness(value, 0, 0, 0);
+            selectionText.Margin = new Thickness(value, 16, 0, 16);
         }
 
         private void OnSelectedChanged(bool isSelected)
@@ -229,8 +229,7 @@ namespace XF.Material.Forms.UI.Internals
         {
             selectionIcon.Source = this.IsSelected ? _selectedSource : _unselectedSource;
             selectionIcon.TintColor = this.IsSelected ? this.SelectedColor : this.UnselectedColor;
-            selectionButton.CornerRadius = Device.RuntimePlatform == Device.Android ? 22 : 18;
-            selectionButton.Command = new Command(() =>
+            iconButton.Command = selectionButton.Command = new Command(() =>
             {
                 this.IsSelected = !this.IsSelected;
             });
@@ -243,13 +242,13 @@ namespace XF.Material.Forms.UI.Internals
             switch (controlType)
             {
                 case MaterialSelectionControlType.Checkbox:
-                    _selectedSource = "ic_checkbox_selected";
-                    _unselectedSource = "ic_checkbox_unselected";
+                    _selectedSource = "xf_checkbox_selected";
+                    _unselectedSource = "xf_checkbox_unselected";
                     break;
 
                 case MaterialSelectionControlType.RadioButton:
-                    _selectedSource = "ic_radio_button_selected";
-                    _unselectedSource = "ic_radio_button_unselected";
+                    _selectedSource = "xf_radio_button_selected";
+                    _unselectedSource = "xf_radio_button_unselected";
                     selectionIcon.WidthRequest = selectionIcon.HeightRequest = 20;
                     break;
             }

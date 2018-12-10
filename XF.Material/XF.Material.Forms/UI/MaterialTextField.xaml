@@ -90,7 +90,7 @@
                 HeightRequest="24"
                 HorizontalOptions="Center"
                 IsVisible="False"
-                Source="ic_arrow_dropdown"
+                Source="xf_arrow_dropdown"
                 VerticalOptions="Center"
                 WidthRequest="24" />
             <Label x:Name="helper"

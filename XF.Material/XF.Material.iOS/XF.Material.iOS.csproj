@@ -88,8 +88,6 @@
     <Compile Include="MaterialHelper.cs" />
     <Compile Include="Delegates\MaterialRippleGestureRecognizerDelegate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Renderers\MaterialCALayerAnimationHelper.cs" />
-    <Compile Include="Renderers\MaterialCALayerHelper.cs" />
     <Compile Include="Renderers\Internals\MaterialBoxViewRenderer.cs" />
     <Compile Include="Renderers\Internals\MaterialDialogListViewRenderer.cs" />
     <Compile Include="Renderers\Internals\MaterialElementRenderer.cs" />
@@ -98,16 +96,15 @@
     <Compile Include="Renderers\MaterialButtonRenderer.cs" />
     <Compile Include="Renderers\MaterialCardRenderer.cs" />
     <Compile Include="Renderers\MaterialCircularLoadingViewRenderer.cs" />
-    <Compile Include="Renderers\MaterialIconButtonRenderer.cs" />
     <Compile Include="Renderers\MaterialIconRenderer.cs" />
     <Compile Include="Renderers\MaterialMenuRenderer.cs" />
     <Compile Include="Renderers\MaterialNavigationPageRenderer.cs" />
     <Compile Include="Utility\MaterialUtility.cs" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\ic_error%402x.png" />
-    <BundleResource Include="Resources\ic_error%403x.png" />
-    <BundleResource Include="Resources\ic_error.png" />
+    <BundleResource Include="Resources\xf_error%402x.png" />
+    <BundleResource Include="Resources\xf_error%403x.png" />
+    <BundleResource Include="Resources\xf_error.png" />
     <BundleResource Include="Resources\loading_animation.json" />
   </ItemGroup>
   <ItemGroup>
@@ -122,49 +119,49 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\ic_checkbox_unselected%403x.png" />
+    <BundleResource Include="Resources\xf_checkbox_unselected%403x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\ic_checkbox_selected.png" />
+    <BundleResource Include="Resources\xf_checkbox_selected.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\ic_checkbox_selected%402x.png" />
+    <BundleResource Include="Resources\xf_checkbox_selected%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\ic_checkbox_selected%403x.png" />
+    <BundleResource Include="Resources\xf_checkbox_selected%403x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\ic_checkbox_unselected.png" />
+    <BundleResource Include="Resources\xf_checkbox_unselected.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\ic_checkbox_unselected%402x.png" />
+    <BundleResource Include="Resources\xf_checkbox_unselected%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\ic_radio_button_unselected%403x.png" />
+    <BundleResource Include="Resources\xf_radio_button_unselected%403x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\ic_radio_button_selected.png" />
+    <BundleResource Include="Resources\xf_radio_button_selected.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\ic_radio_button_selected%402x.png" />
+    <BundleResource Include="Resources\xf_radio_button_selected%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\ic_radio_button_selected%403x.png" />
+    <BundleResource Include="Resources\xf_radio_button_selected%403x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\ic_radio_button_unselected.png" />
+    <BundleResource Include="Resources\xf_radio_button_unselected.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\ic_radio_button_unselected%402x.png" />
+    <BundleResource Include="Resources\xf_radio_button_unselected%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\ic_arrow_dropdown.png" />
+    <BundleResource Include="Resources\xf_arrow_dropdown.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\ic_arrow_dropdown%402x.png" />
+    <BundleResource Include="Resources\xf_arrow_dropdown%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\ic_arrow_dropdown%403x.png" />
+    <BundleResource Include="Resources\xf_arrow_dropdown%403x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

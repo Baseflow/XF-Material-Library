@@ -76,9 +76,9 @@ namespace XF.Material.Droid.Renderers
             {
                 var fileName = _materialButton.Image.File.Split('.').First();
                 var id = this.Resources.GetIdentifier(fileName, "drawable", Material.Context.PackageName);
-                var width = (int)MaterialHelper.ConvertToDp(18 + 4);
+                var width = _materialButton.ButtonType == MaterialButtonType.Text ? (int)MaterialHelper.ConvertToDp(18) : (int)MaterialHelper.ConvertToDp(18 + 4);
                 var height = (int)MaterialHelper.ConvertToDp(18);
-                var left = (int)MaterialHelper.ConvertToDp(4);
+                var left = _materialButton.ButtonType == MaterialButtonType.Text ? 0 : (int)MaterialHelper.ConvertToDp(4);
 
                 using (var drawable = MaterialHelper.GetDrawableCopyFromResource<Drawable>(id))
                 {

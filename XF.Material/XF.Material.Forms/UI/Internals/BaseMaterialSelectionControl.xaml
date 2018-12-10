@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:material="clr-namespace:XF.Material.Forms.UI"
     xmlns:sys="clr-namespace:System;assembly=netstandard"
+    x:Name="_root"
     Padding="0"
     HorizontalOptions="Start"
     VerticalOptions="Start">
@@ -12,27 +13,33 @@
             Padding="0"
             ColumnSpacing="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="48" />
                 <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <material:MaterialButton x:Name="selectionButton"
+                Grid.ColumnSpan="2"
+                Margin="-6"
+                ButtonType="Text"
+                CornerRadius="0"
+                HeightRequest="24"
+                HorizontalOptions="FillAndExpand"
+                IsVisible="{Binding Source={x:Reference selectionText}, Path=IsVisible}"
+                Text="{x:Null}"
+                WidthRequest="24" />
+            <material:MaterialButton x:Name="iconButton"
                 Grid.Column="0"
                 ButtonType="Text"
+                CornerRadius="24"
                 HorizontalOptions="Center"
                 Text="{x:Null}"
                 VerticalOptions="Center"
-                WidthRequest="48">
-                <material:MaterialButton.HeightRequest>
-                    <OnPlatform x:TypeArguments="x:Double"
-                        Android="48"
-                        iOS="48" />
-                </material:MaterialButton.HeightRequest>
-            </material:MaterialButton>
+                WidthRequest="48" />
             <material:MaterialIcon x:Name="selectionIcon"
                 Grid.Column="0"
+                Margin="12"
                 HeightRequest="24"
                 HorizontalOptions="Center"
                 InputTransparent="True"
@@ -41,10 +48,12 @@
             <Label x:Name="selectionText"
                 Grid.Column="1"
                 Margin="0,16"
+                HorizontalOptions="FillAndExpand"
+                InputTransparent="True"
                 Style="{DynamicResource Material.TypeScale.Body1}"
                 TextColor="#DE000000"
-                VerticalOptions="CenterAndExpand"
-                VerticalTextAlignment="Center">
+                VerticalOptions="Center"
+                WidthRequest="500">
                 <Label.Triggers>
                     <Trigger TargetType="Label" Property="Text" Value="{x:Null}">
                         <Setter Property="IsVisible" Value="False" />

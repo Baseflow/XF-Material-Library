@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 using XF.Material.Forms.Models;
 using XF.Material.Forms.UI.Dialogs;
 using XF.Material.Forms.UI.Dialogs.Configurations;
-using static XF.Material.Forms.UI.MaterialButton;
 
 namespace XF.Material.Forms.UI
 {
@@ -119,6 +117,11 @@ namespace XF.Material.Forms.UI
         {
             get => (string)this.GetValue(MenuTextFontFamilyProperty);
             set => this.SetValue(MenuTextFontFamilyProperty, value);
+        }
+
+        protected override void OnButtonClicked(bool handled)
+        {
+            base.OnButtonClicked(false);
         }
 
         /// <summary>

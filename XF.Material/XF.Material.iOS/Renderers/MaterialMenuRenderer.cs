@@ -7,42 +7,34 @@ using XF.Material.iOS.Renderers;
 [assembly: ExportRenderer(typeof(MaterialMenuButton), typeof(MaterialMenuRenderer))]
 namespace XF.Material.iOS.Renderers
 {
-    public class MaterialMenuRenderer : MaterialIconButtonRenderer
+    public class MaterialMenuRenderer : VisualElementRenderer<MaterialMenuButton>
     {
-
-        protected override void OnElementChanged(ElementChangedEventArgs<MaterialIconButton> e)
+        protected override void OnElementChanged(ElementChangedEventArgs<MaterialMenuButton> e)
         {
             base.OnElementChanged(e);
 
+            if(e?.OldElement != null && this.Element != null)
+            {
+                this.Element.Clicked -= this.Element_Clicked;
+            }
+
             if (e?.NewElement != null)
             {
-                this.Control.AddGestureRecognizer(new UIGestureRecognizer() { Delegate = new MaterialMenuTouchDelegate(this.Element as MaterialMenuButton) });
+                this.Element.Clicked += this.Element_Clicked;
             }
         }
 
-        protected override void OnClick()
+        private void Element_Clicked(object sender, System.EventArgs e)
         {
-            //Do not handle click
+
+            var globalLocation = this.ConvertPointToView(this.GetContentRenderer().Frame.Location, null);
+
+            this.Element.OnViewTouch(globalLocation.X, globalLocation.Y);
         }
 
-        private class MaterialMenuTouchDelegate : UIGestureRecognizerDelegate
+        private UIView GetContentRenderer()
         {
-            private readonly MaterialMenuButton _materialMenu;
-
-            public MaterialMenuTouchDelegate(MaterialMenuButton materialMenu)
-            {
-                _materialMenu = materialMenu;
-            }
-
-            public override bool ShouldReceiveTouch(UIGestureRecognizer recognizer, UITouch touch)
-            {
-                var view = touch.View;
-                var globalLocation = view.ConvertPointToView(view.Frame.Location, null);
-
-                _materialMenu.OnViewTouch(globalLocation.X, globalLocation.Y);
-
-                return false;
-            }
+            return Platform.GetRenderer(this.Element?.Content).NativeView;
         }
     }
 }

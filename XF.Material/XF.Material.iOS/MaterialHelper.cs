@@ -68,5 +68,14 @@ namespace XF.Material.iOS
 
             return new CGColor(r, g, b, disabledOpacity);
         }
+
+        internal static UIColor GetDisabledColor(this UIColor color)
+        {
+            color.GetRGBA(out nfloat r, out nfloat g, out nfloat b, out nfloat a);
+
+            a = 0.38f;
+
+            return new UIColor(r, g, b, a);
+        }
     }
 }

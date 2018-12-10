@@ -44,13 +44,13 @@
                 <BoxView Grid.Row="1" BackgroundColor="#E0E0E0" />
                 <ContentView x:Name="container"
                     Grid.Row="2"
-                    Margin="8,0,24,0"
+                    Margin="8,0,8,0"
                     Padding="0">
                     <View.Triggers>
                         <DataTrigger Binding="{Binding Source={x:Reference DialogTitle}, Path=IsVisible}"
                             TargetType="View"
                             Value="False">
-                            <Setter Property="Margin" Value="8,20,24,0" />
+                            <Setter Property="Margin" Value="8,20,8,0" />
                         </DataTrigger>
                     </View.Triggers>
                 </ContentView>

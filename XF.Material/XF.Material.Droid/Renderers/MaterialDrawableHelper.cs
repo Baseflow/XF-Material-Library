@@ -18,7 +18,7 @@ namespace XF.Material.Droid.Renderers
     {
         private readonly Android.Views.View _aView;
         private readonly BindableObject _bindableButton;
-        private readonly IMaterialButton _button;
+        private readonly IMaterialButtonControl _button;
         private readonly Dictionary<string, Action> _propertyChangeActions;
         private int _borderWidth;
         private float _cornerRadius;
@@ -29,7 +29,7 @@ namespace XF.Material.Droid.Renderers
         private Color _pressedColor;
         private bool _withIcon;
 
-        public MaterialDrawableHelper(IMaterialButton button, Android.Views.View aView)
+        public MaterialDrawableHelper(IMaterialButtonControl button, Android.Views.View aView)
         {
             _aView = aView;
             _button = button;
@@ -43,25 +43,25 @@ namespace XF.Material.Droid.Renderers
                         this.UpdateDrawable();
                     }
                 },
-                { nameof(IMaterialButton.ButtonType), () =>
+                { nameof(IMaterialButtonControl.ButtonType), () =>
                     {
                         this.UpdateColors();
                         this.UpdateDrawable();
                     }
                 },
-                { nameof(IMaterialButton.BorderColor), () =>
+                { nameof(IMaterialButtonControl.BorderColor), () =>
                     {
                         this.UpdateBorderColor();
                         this.UpdateDrawable();
                     }
                 },
-                { nameof(IMaterialButton.BorderWidth), () =>
+                { nameof(IMaterialButtonControl.BorderWidth), () =>
                     {
                         this.UpdateBorderWidth();
                         this.UpdateDrawable();
                     }
                 },
-                { nameof(IMaterialButton.CornerRadius), () =>
+                { nameof(IMaterialButtonControl.CornerRadius), () =>
                     {
                         this.UpdateCornerRadius();
                         this.UpdateDrawable();
@@ -237,18 +237,17 @@ namespace XF.Material.Droid.Renderers
 
         private void UpdateColors()
         {
-            var stateColor = _button.BackgroundColor;
-            _normalColor = stateColor.EnabledColor.ToAndroid();
+            _normalColor = _button.BackgroundColor.ToAndroid();
 
-            this.UpdateDisabledColor(stateColor);
-            this.UpdatePressedColor(stateColor);
+            this.UpdateDisabledColor(_button.DisabledBackgroundColor);
+            this.UpdatePressedColor(_button.PressedBackgroundColor);
             this.UpdateBorderColor();
 
             if (_button.ButtonType == MaterialButtonType.Outlined || _button.ButtonType == MaterialButtonType.Text)
             {
                 _normalColor = Color.Transparent;
                 _disabledColor = Color.Transparent;
-                _pressedColor = stateColor.PressedColor.IsDefault ? Color.ParseColor("#52000000") : stateColor.PressedColor.ToAndroid();
+                _pressedColor = _button.PressedBackgroundColor.IsDefault ? Color.ParseColor("#52000000") : _button.PressedBackgroundColor.ToAndroid();
             }
         }
 
@@ -257,15 +256,15 @@ namespace XF.Material.Droid.Renderers
             _cornerRadius = (int)MaterialHelper.ConvertToDp(_button.CornerRadius);
         }
 
-        private void UpdateDisabledColor(MaterialColor stateColor)
+        private void UpdateDisabledColor(Xamarin.Forms.Color disabledColor)
         {
-            if (stateColor.DisabledColor.IsDefault)
+            if (disabledColor.IsDefault)
             {
                 _disabledColor = _normalColor.GetDisabledColor();
             }
             else
             {
-                _disabledColor = stateColor.DisabledColor.ToAndroid();
+                _disabledColor = disabledColor.ToAndroid();
             }
         }
 
@@ -292,15 +291,15 @@ namespace XF.Material.Droid.Renderers
             _aView.StateListAnimator = stateListAnimator;
         }
 
-        private void UpdatePressedColor(MaterialColor stateColor)
+        private void UpdatePressedColor(Xamarin.Forms.Color pressedColor)
         {
-            if (stateColor.PressedColor.IsDefault)
+            if (pressedColor.IsDefault)
             {
                 _pressedColor = _normalColor.IsColorDark() ? Color.ParseColor("#52FFFFFF") : Color.ParseColor("#52000000");
             }
             else
             {
-                _pressedColor = stateColor.PressedColor.ToAndroid();
+                _pressedColor = pressedColor.ToAndroid();
             }
         }
 

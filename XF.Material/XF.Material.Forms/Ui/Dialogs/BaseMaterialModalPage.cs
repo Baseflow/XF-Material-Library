@@ -32,6 +32,8 @@ namespace XF.Material.Forms.UI.Dialogs
             };
         }
 
+        public virtual bool Dismissable => true;
+
 
         /// <summary>
         /// Dismisses this modal dialog.
@@ -97,6 +99,11 @@ namespace XF.Material.Forms.UI.Dialogs
         private bool CanShowPopup()
         {
             return !PopupNavigation.Instance.PopupStack.ToList().Exists(p => p.GetType() == this.GetType());
+        }
+
+        protected override bool OnBackButtonPressed()
+        {
+            return !this.Dismissable;
         }
     }
 }

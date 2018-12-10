@@ -5,7 +5,7 @@ namespace XF.Material.Forms.UI
     /// <summary>
     /// A view that shows an image icon that can be tinted.
     /// </summary>
-    public class MaterialIcon : Image
+    public class MaterialIcon : Image, IMaterialTintableControl
     {
         /// <summary>
         /// Backing field for the bindable property <see cref="TintColor"/>.
