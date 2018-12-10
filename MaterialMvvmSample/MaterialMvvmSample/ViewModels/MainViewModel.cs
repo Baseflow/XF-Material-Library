@@ -41,17 +41,19 @@ namespace MaterialMvvmSample.ViewModels
             this.SelectedFilters = new List<int>();
         }
 
+        public Color PrimaryColor => Color.Red;
+
         public MaterialMenuItem[] Actions => new MaterialMenuItem[]
         {
             new MaterialMenuItem
             {
                 Text = "Edit",
-                //Image = "ic_error"
+                //Image = "xf_error"
             },
             new MaterialMenuItem
             {
                 Text = "Delete",
-                //Image = "ic_clear"
+                //Image = "xf_clear"
             },
         };
 
@@ -101,12 +103,12 @@ namespace MaterialMvvmSample.ViewModels
 
         public ICommand EmailFocusCommand => new Command<bool>((s) =>
         {
-            if(!s && this.Email?.Length > 3)
+            if (!s && this.Email?.Length > 3)
             {
                 this.EmailHasError = true;
             }
 
-            else if(!s && this.Email?.Length <= 3)
+            else if (!s && this.Email?.Length <= 3)
             {
                 this.EmailHasError = false;
             }

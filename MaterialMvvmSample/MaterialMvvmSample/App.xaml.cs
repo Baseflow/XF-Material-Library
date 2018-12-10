@@ -15,6 +15,8 @@ namespace MaterialMvvmSample
 
             XF.Material.Forms.Material.Init(this, "Material.Style");
 
+            this.Resources.MergedDictionaries.Add(new Styles());
+
             navigationService.SetRootView(ViewNames.MainView);
         }
 

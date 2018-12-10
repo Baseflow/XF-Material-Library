@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Xamarin.Forms;
 using XF.Material.Forms.UI.Dialogs;
 
 namespace MaterialMvvmSample.Utilities.Dialogs
@@ -11,7 +12,15 @@ namespace MaterialMvvmSample.Utilities.Dialogs
                    .InputAsync(title: "Add a new job",
                     message: "Enter the job title:",
                     inputPlaceholder: "Job Title",
-                    confirmingText: "Add");
+                    confirmingText: "Add", configuration: new XF.Material.Forms.UI.Dialogs.Configurations.MaterialInputDialogConfiguration
+                    {
+                        BackgroundColor = Color.FromHex("#2c3e50"),
+                        InputTextColor = Color.White,
+                        TintColor = Color.White,
+                        TitleTextColor = Color.White,
+                        MessageTextColor = Color.White,
+                        InputPlaceholderColor = Color.White.MultiplyAlpha(0.6)
+                    });
         }
 
         public Task AlertExistingJob(string jobTitle)

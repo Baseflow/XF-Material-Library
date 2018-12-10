@@ -5,6 +5,7 @@
     xmlns:mtrl="clr-namespace:XF.Material.Forms.Resources;assembly=XF.Material.Forms"
     xmlns:mtrltypo="clr-namespace:XF.Material.Forms.Resources.Typography;assembly=XF.Material.Forms">
     <Application.Resources>
+
         <OnPlatform x:Key="FontFamily.Exo2Regular"
             x:TypeArguments="x:String"
             Android="Fonts/Exo2-Regular.ttf#Exo2-Regular"

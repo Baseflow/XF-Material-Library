@@ -13,27 +13,95 @@
     material:MaterialNavigationPage.StatusBarColor="#1B3147">
     <ScrollView>
         <StackLayout Padding="16">
+            <Label Style="{StaticResource Label.Title}" Text="Registration" />
             <material:MaterialTextField x:Name="_textField2"
-                AlwaysShowUnderline="True"
-                BackgroundColor="Transparent"
-                HasHorizontalPadding="False" />
-            <material:MaterialTextField AlwaysShowUnderline="True"
-                BackgroundColor="Transparent"
-                Choices="{Binding Choices}"
+                HelperText="*Required"
+                MaxLength="12"
+                TintColor="#00377b" />
+            <material:MaterialTextField Choices="{Binding Choices}"
                 HasError="{Binding HasError}"
-                HasHorizontalPadding="False"
+                HelperText="*Required"
                 InputType="Choice"
                 Placeholder="Customer or company name"
                 Text="{Binding SelectedChoice}"
-                TextColor="#52000000" />
-            <material:MaterialTextField AlwaysShowUnderline="True"
-                BackgroundColor="Transparent"
-                HasHorizontalPadding="False" />
+                TintColor="#00377b" />
+            <material:MaterialTextField HasError="True"
+                HelperText="*Required"
+                TextChanged="MaterialTextField_TextChanged"
+                TintColor="#00377b" />
+            <material:MaterialSlider x:Name="_slider"
+                MaxValue="100"
+                MinValue="0" />
+            <Label Style="{DynamicResource Material.TypeScale.Body1}" Text="{Binding Source={x:Reference _slider}, Path=Value}" />
+            <ListView BackgroundColor="Transparent"
+                HasUnevenRows="True"
+                ItemsSource="{Binding Models}"
+                SelectionMode="None"
+                SeparatorVisibility="None">
+                <ListView.Header>
+                    <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                        <material:MaterialMenuButton ButtonType="Text"
+                            Choices="{Binding ListActions}"
+                            Command="{Binding ListMenuCommand}"
+                            CornerRadius="24"
+                            HeightRequest="48"
+                            HorizontalOptions="Start"
+                            Image="ic_overflow"
+                            WidthRequest="48" />
+                        <Label Style="{DynamicResource Material.TypeScale.H6}"
+                            Text="Job Positions"
+                            TextColor="Black"
+                            VerticalOptions="Center" />
+                    </StackLayout>
+                </ListView.Header>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <material:MaterialCard Margin="4"
+                                Padding="16,8,4,8"
+                                Elevation="2"
+                                IsClippedToBounds="False">
+                                <View.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={x:Reference Root}, Path=BindingContext.JobSelectedCommand}"
+                                        CommandParameter="{Binding Id}"
+                                        NumberOfTapsRequired="1" />
+                                </View.GestureRecognizers>
+                                <StackLayout HeightRequest="80" Orientation="Horizontal">
+                                    <StackLayout HorizontalOptions="StartAndExpand" Orientation="Horizontal">
+                                        <Label Style="{DynamicResource Material.TypeScale.Body1}"
+                                            Text="{Binding Title}"
+                                            TextColor="Black"
+                                            VerticalOptions="FillAndExpand"
+                                            VerticalTextAlignment="Center" />
+                                        <material:MaterialCard Padding="8,2"
+                                            BackgroundColor="#2c3e50"
+                                            CornerRadius="2"
+                                            Elevation="1"
+                                            IsVisible="{Binding IsNew}"
+                                            VerticalOptions="Center">
+                                            <Label Style="{DynamicResource Material.TypeScale.Overline}"
+                                                Text="NEW"
+                                                TextColor="#DEFFFFFF" />
+                                        </material:MaterialCard>
+                                    </StackLayout>
 
-            <material:MaterialButton ButtonType="Text"
-                Clicked="MaterialButton_Clicked"
-                CornerRadius="0"
-                Text="Clear" />
+                                    <material:MaterialMenuButton ButtonType="Text"
+                                        Choices="{Binding Source={x:Reference Root}, Path=BindingContext.Actions}"
+                                        Command="{Binding Source={x:Reference Root}, Path=BindingContext.MenuCommand}"
+                                        CommandParameter="{Binding Title}"
+                                        CornerRadius="24"
+                                        HorizontalOptions="End"
+                                        Image="ic_overflow"
+                                        TintColor="#AEAEAE"
+                                        VerticalOptions="Center" />
+                                </StackLayout>
+                            </material:MaterialCard>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <material:MaterialRadioButton />
+            <material:MaterialCheckbox />
         </StackLayout>
     </ScrollView>
     <!--<ScrollView VerticalOptions="FillAndExpand">
@@ -85,128 +153,6 @@
             </StackLayout>
         </material:MaterialCard>
     </ScrollView>-->
-    <!--<ListView Margin="16"
-        BackgroundColor="Transparent"
-        HasUnevenRows="True"
-        ItemsSource="{Binding Models}"
-        SelectionMode="None"
-        SeparatorVisibility="None">
-        <ListView.Header>
-            <StackLayout BackgroundColor="White"
-                HorizontalOptions="FillAndExpand"
-                Orientation="Vertical">
-                <Label HorizontalOptions="Center"
-                    Style="{DynamicResource Material.TypeScale.H6}"
-                    Text="Job Positions"
-                    TextColor="Black"
-                    VerticalOptions="FillAndExpand"
-                    VerticalTextAlignment="Center" />
 
-                <material:MaterialButton ButtonType="Elevated"
-                    Clicked="MaterialButton_Clicked"
-                    HorizontalOptions="Center"
-                    Text="Button"
-                    TextColor="#DE000000">
-                    <material:MaterialButton.BackgroundColor>
-                        <material:MaterialColor DisabledColor="Gray"
-                            EnabledColor="Gray"
-                            PressedColor="#526200EE" />
-                    </material:MaterialButton.BackgroundColor>
-                </material:MaterialButton>
-                <material:MaterialButton x:Name="b"
-                    ButtonType="Outlined"
-                    HorizontalOptions="Center"
-                    IsEnabled="False"
-                    Text="Button"
-                    TextColor="#DE000000">
-                    <material:MaterialButton.BackgroundColor>
-                        <material:MaterialColor DisabledColor="Gray"
-                            EnabledColor="Gray"
-                            PressedColor="#526200EE" />
-                    </material:MaterialButton.BackgroundColor>
-                </material:MaterialButton>
-                <material:MaterialButton ButtonType="Flat"
-                    HorizontalOptions="Center"
-                    Text="Button"
-                    TextColor="#DE000000">
-                    <material:MaterialButton.BackgroundColor>
-                        <material:MaterialColor DisabledColor="Gray"
-                            EnabledColor="Gray"
-                            PressedColor="#526200EE" />
-                    </material:MaterialButton.BackgroundColor>
-                </material:MaterialButton>
-                <material:MaterialIconButton ButtonType="Elevated"
-                    HorizontalOptions="Center"
-                    IsEnabled="False"
-                    Source="ic_overflow"
-                    TintColor="#DE000000">
-                    <material:MaterialIconButton.BackgroundColor>
-                        <material:MaterialColor DisabledColor="Gray"
-                            EnabledColor="White"
-                            PressedColor="#52000000" />
-                    </material:MaterialIconButton.BackgroundColor>
-                </material:MaterialIconButton>
-                <material:MaterialIconButton ButtonType="Flat"
-                    HorizontalOptions="Center"
-                    Source="ic_overflow"
-                    TintColor="#DE000000">
-                    <material:MaterialIconButton.BackgroundColor>
-                        <material:MaterialColor DisabledColor="Gray"
-                            EnabledColor="White"
-                            PressedColor="#52000000" />
-                    </material:MaterialIconButton.BackgroundColor>
-                </material:MaterialIconButton>
-            </StackLayout>
-        </ListView.Header>
-        <ListView.ItemTemplate>
-            <DataTemplate>
-                <ViewCell>
-                    <material:MaterialCard Margin="4"
-                        Padding="16,8,4,8"
-                        Elevation="2"
-                        IsClippedToBounds="False">
-                        <View.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding Source={x:Reference Root}, Path=BindingContext.JobSelectedCommand}"
-                                CommandParameter="{Binding Id}"
-                                NumberOfTapsRequired="1" />
-                        </View.GestureRecognizers>
-                        <StackLayout HeightRequest="80" Orientation="Horizontal">
-                            <StackLayout HorizontalOptions="StartAndExpand" Orientation="Horizontal">
-                                <Label Style="{DynamicResource Material.TypeScale.Body1}"
-                                    Text="{Binding Title}"
-                                    TextColor="Black"
-                                    VerticalOptions="FillAndExpand"
-                                    VerticalTextAlignment="Center" />
-                                <material:MaterialCard Padding="8,2"
-                                    BackgroundColor="#2c3e50"
-                                    CornerRadius="2"
-                                    Elevation="1"
-                                    IsVisible="{Binding IsNew}"
-                                    VerticalOptions="Center">
-                                    <Label Style="{DynamicResource Material.TypeScale.Overline}"
-                                        Text="NEW"
-                                        TextColor="#DEFFFFFF" />
-                                </material:MaterialCard>
-                            </StackLayout>
-
-                            <material:MaterialMenuButton ButtonType="Outlined"
-                                Choices="{Binding Source={x:Reference Root}, Path=BindingContext.Actions}"
-                                Command="{Binding Source={x:Reference Root}, Path=BindingContext.MenuCommand}"
-                                CommandParameter="{Binding Title}"
-                                CornerRadius="28"
-                                HorizontalOptions="End"
-                                Source="ic_overflow"
-                                TintColor="#AEAEAE"
-                                VerticalOptions="Center">
-                                <material:MaterialIconButton.BackgroundColor>
-                                    <material:MaterialColor EnabledColor="Gray" PressedColor="#526200EE" />
-                                </material:MaterialIconButton.BackgroundColor>
-                            </material:MaterialMenuButton>
-                        </StackLayout>
-                    </material:MaterialCard>
-                </ViewCell>
-            </DataTemplate>
-        </ListView.ItemTemplate>
-    </ListView>-->
 
 </local:BaseMainView>
