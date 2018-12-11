@@ -25,7 +25,7 @@ namespace XF.Material.iOS.Delegates
             _fadeAnimation.Duration = 0.3;
             _fadeAnimation.FillMode = CAFillMode.Forwards;
             _fadeAnimation.RemovedOnCompletion = true;
-            _fadeAnimation.From = FromObject(0.8f);
+            _fadeAnimation.From = FromObject(0.32f);
             _fadeAnimation.To = FromObject(0f);
 
             _rippleLayer = new CAShapeLayer();

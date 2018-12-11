@@ -44,7 +44,7 @@
                 Grid.Row="0"
                 Grid.Column="1"
                 Grid.ColumnSpan="2"
-                Margin="12"
+                Margin="12,12,12,10"
                 BackgroundColor="Transparent"
                 FontFamily="{DynamicResource Material.FontFamily.Body2}"
                 FontSize="16"

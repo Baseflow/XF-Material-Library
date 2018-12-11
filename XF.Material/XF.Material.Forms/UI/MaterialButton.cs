@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
@@ -15,15 +16,19 @@ namespace XF.Material.Forms.UI
     {
         public const string MaterialButtonColorChanged = "BackgroundColorChanged";
 
+        private static Color OutlinedBorderColor = Color.FromHex("#1E000000");
+
         public static readonly BindableProperty AllCapsProperty = BindableProperty.Create(nameof(AllCaps), typeof(bool), typeof(MaterialButton), true);
 
         public static new readonly BindableProperty BackgroundColorProperty = BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(MaterialButton), Material.Color.Secondary);
 
-        public static readonly BindableProperty ButtonTypeProperty = BindableProperty.Create(nameof(ButtonType), typeof(MaterialButtonType), typeof(MaterialButton), MaterialButtonType.Elevated, propertyChanged: ButtonTypeChanged);
+        public static readonly BindableProperty ButtonTypeProperty = BindableProperty.Create(nameof(ButtonType), typeof(MaterialButtonType), typeof(MaterialButton), MaterialButtonType.Elevated);
 
         public static readonly BindableProperty DisabledBackgroundColorProperty = BindableProperty.Create(nameof(DisabledBackgroundColor), typeof(Color), typeof(MaterialButton), default(Color));
 
         public static readonly BindableProperty PressedBackgroundColorProperty = BindableProperty.Create(nameof(PressedBackgroundColor), typeof(Color), typeof(MaterialButton), default(Color));
+
+        private readonly string[] _colorPropertyNames = new string[] { nameof(BackgroundColor), nameof(PressedBackgroundColor), nameof(DisabledBackgroundColor) };
 
         public MaterialButton()
         {
@@ -76,41 +81,9 @@ namespace XF.Material.Forms.UI
             set => this.SetValue(PressedBackgroundColorProperty, value);
         }
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static void ButtonTypeChanged(BindableObject bindable, object oldValue, object newValue)
-        {
-            if (bindable is MaterialButton materialButton)
-            {
-                switch (materialButton.ButtonType)
-                {
-                    case MaterialButtonType.Text:
-                        materialButton.RemoveDynamicResource(TextColorProperty);
-                        materialButton.SetDynamicResource(TextColorProperty, MaterialConstants.Color.SECONDARY);
-                        break;
-
-                    case MaterialButtonType.Outlined:
-
-                        if (materialButton.BorderColor == (Color)BorderColorProperty.DefaultValue)
-                        {
-                            materialButton.SetDynamicResource(BorderColorProperty, MaterialConstants.MATERIAL_BUTTON_OUTLINED_BORDERCOLOR);
-                        }
-
-                        if (materialButton.BorderWidth == (double)BorderWidthProperty.DefaultValue)
-                        {
-                            materialButton.SetDynamicResource(BorderWidthProperty, MaterialConstants.MATERIAL_BUTTON_OUTLINED_BORDERWIDTH);
-                        }
-
-                        materialButton.RemoveDynamicResource(TextColorProperty);
-                        materialButton.SetDynamicResource(TextColorProperty, MaterialConstants.Color.SECONDARY);
-
-                        break;
-                }
-            }
-        }
-
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            if (propertyName == nameof(this.BackgroundColor) || propertyName == nameof(this.PressedBackgroundColor) || propertyName == nameof(this.DisabledBackgroundColor))
+            if (_colorPropertyNames.Contains(propertyName))
             {
                 base.OnPropertyChanged(MaterialButtonColorChanged);
             }
@@ -118,10 +91,49 @@ namespace XF.Material.Forms.UI
             {
                 base.OnPropertyChanged(propertyName);
 
+                if(propertyName == nameof(this.ButtonType))
+                {
+                    this.ButtonTypeChanged(this.ButtonType);
+                }
+
                 if (propertyName == nameof(this.Style))
                 {
-                    this.Style.Setters.ForEach(s => this.SetValue(s.Property, s.Value));
+                    this.SetStyleValues(this.Style);
                 }
+            }
+        }
+
+        private void SetStyleValues(Style style)
+        {
+            style?.Setters.ForEach(s =>
+            {
+                if (s.Value is DynamicResource d)
+                {
+                    this.SetDynamicResource(s.Property, d.Key);
+                }
+                else
+                {
+                    this.SetValue(s.Property, s.Value);
+                }
+            });
+        }
+
+        private void ButtonTypeChanged(MaterialButtonType buttonType)
+        {
+            if (buttonType == MaterialButtonType.Outlined && this.BorderColor.IsDefault)
+            {
+                this.BorderColor = OutlinedBorderColor;
+            }
+
+            if (buttonType == MaterialButtonType.Outlined && this.BorderWidth == (double)BorderWidthProperty.DefaultValue)
+            {
+                this.BorderWidth = 1;
+            }
+
+            if (buttonType == MaterialButtonType.Text || buttonType == MaterialButtonType.Outlined)
+            {
+                this.RemoveDynamicResource(TextColorProperty);
+                this.SetDynamicResource(TextColorProperty, MaterialConstants.Color.SECONDARY);
             }
         }
     }

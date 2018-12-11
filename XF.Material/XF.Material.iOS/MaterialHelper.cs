@@ -37,8 +37,8 @@ namespace XF.Material.iOS
 
         internal static bool IsColorDark(this UIColor color)
         {
-            var components = color.CGColor.Components;
-            var brightness = ((components[0] * 299) + (components[1] * 587) + (components[2] * 144)) / 1000;
+            color.GetRGBA(out nfloat red, out nfloat green, out nfloat blue, out nfloat alpha);
+            var brightness = ((red * 299) + (green * 587) + (blue * 144)) / 1000;
 
             return brightness <= 0.5;
         }

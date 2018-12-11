@@ -423,7 +423,7 @@ namespace XF.Material.Forms.UI
             double startFont = entry.IsFocused ? 16 : 12;
             double endFOnt = entry.IsFocused ? 12 : 16;
             double startY = placeholder.TranslationY;
-            double endY = entry.IsFocused ? -14 : 0;
+            double endY = entry.IsFocused ? -12 : 0;
 
             if(this.HasError)
             {
@@ -478,7 +478,7 @@ namespace XF.Material.Forms.UI
         {
             if (startObject != null && !string.IsNullOrEmpty(this.Text) && !_wasFocused)
             {
-                if (placeholder.TranslationY == -14)
+                if (placeholder.TranslationY == -12)
                 {
                     return;
                 }
@@ -491,7 +491,7 @@ namespace XF.Material.Forms.UI
                     if (this.FloatingPlaceholderEnabled)
                     {
                         anim.Add(0.0, AnimationDuration, new Animation(v => placeholder.FontSize = v, 16, 12, animationCurve));
-                        anim.Add(0.0, AnimationDuration, new Animation(v => placeholder.TranslationY = v, placeholder.TranslationY, -14, animationCurve, () =>
+                        anim.Add(0.0, AnimationDuration, new Animation(v => placeholder.TranslationY = v, placeholder.TranslationY, -12, animationCurve, () =>
                         {
                             placeholder.TextColor = this.HasError ? this.ErrorColor : this.TintColor;
                             entry.Opacity = 1;
@@ -507,7 +507,7 @@ namespace XF.Material.Forms.UI
                 return;
             }
 
-            if (startObject != null && string.IsNullOrEmpty(this.Text) && placeholder.TranslationY == -14 || placeholder.TranslationY == -20)
+            if (startObject != null && string.IsNullOrEmpty(this.Text) && placeholder.TranslationY == -12 || placeholder.TranslationY == -20)
             {
                 if (entry.IsFocused)
                 {
@@ -628,19 +628,6 @@ namespace XF.Material.Forms.UI
             backgroundCard.BackgroundColor = cardCut.Color = backgroundColor;
         }
 
-        private void OnChoicesChanged(IList<string> choices)
-        {
-            if (this.InputType != MaterialTextFieldInputType.Choice)
-            {
-                return;
-            }
-
-            if (this.InputType == MaterialTextFieldInputType.Choice && !string.IsNullOrEmpty(this.Text) && choices?.Contains(this.Text) == false)
-            {
-                throw new InvalidOperationException($"The `Text` property value `{this.Text}` was not found in the collection `Choices`.");
-            }
-        }
-
         private void OnEnabledChanged(bool isEnabled)
         {
             this.Opacity = isEnabled ? 1 : 0.33;
@@ -667,9 +654,9 @@ namespace XF.Material.Forms.UI
                 placeholder.HeightRequest = 20;
                 placeholder.VerticalOptions = LayoutOptions.Center;
                 placeholder.VerticalTextAlignment = TextAlignment.Center;
-                entry.VerticalOptions = LayoutOptions.Center;
                 _gridContainer.RowDefinitions[0].Height = 40;
-                entry.Margin = new Thickness(entry.Margin.Left, 8, entry.Margin.Right, 8);
+                entry.Margin = new Thickness(entry.Margin.Left, 2, entry.Margin.Right, 0);
+                entry.VerticalOptions = LayoutOptions.Center;
             }
         }
 
@@ -769,7 +756,7 @@ namespace XF.Material.Forms.UI
 
         private void OnPlaceholderColorChanged(Color placeholderColor)
         {
-            placeholder.TextColor = persistentUnderline.Color = placeholderColor;
+            placeholder.TextColor = placeholderColor;
         }
 
         private void OnPlaceholderFontFamilyChanged(string fontFamily)
@@ -823,7 +810,7 @@ namespace XF.Material.Forms.UI
         {
             if (this.AlwaysShowUnderline)
             {
-                persistentUnderline.Color = underlineColor.MultiplyAlpha(0.6);
+                persistentUnderline.Color = underlineColor;
             }
         }
 
@@ -882,7 +869,6 @@ namespace XF.Material.Forms.UI
                 { nameof(this.ErrorText), async () => await this.OnErrorTextChanged() },
                 { nameof(this.HasError), async () => await this.OnHasErrorChanged() },
                 { nameof(this.FloatingPlaceholderEnabled), () => this.OnFloatingPlaceholderEnabledChanged(this.FloatingPlaceholderEnabled) },
-                { nameof(this.Choices), () => this.OnChoicesChanged(this.Choices) }
             };
         }
 

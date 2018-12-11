@@ -227,23 +227,26 @@ namespace XF.Material.iOS.Renderers
             if (_materialButton.ButtonType == MaterialButtonType.Elevated || _materialButton.ButtonType == MaterialButtonType.Flat)
             {
                 _restingBackgroundColor = _materialButton.BackgroundColor.ToUIColor();
-                _pressedBackgroundColor = _materialButton.PressedBackgroundColor.ToUIColor().IsColorDark() ? _materialButton.BackgroundColor.ToUIColor().LightenColor() : _materialButton.BackgroundColor.ToUIColor().DarkenColor();
                 _disabledBackgroundColor = _materialButton.DisabledBackgroundColor.IsDefault ? _materialButton.BackgroundColor.ToUIColor().GetDisabledColor() : _materialButton.DisabledBackgroundColor.ToUIColor();
 
                 if (_materialButton.PressedBackgroundColor.IsDefault)
                 {
-                    _rippleColor = _materialButton.PressedBackgroundColor.ToUIColor().IsColorDark() ? Color.FromHex("#52FFFFFF").ToUIColor() : Color.FromHex("#52000000").ToUIColor();
+                    _rippleColor = _materialButton.BackgroundColor.ToUIColor().IsColorDark() ? Color.FromHex("#52FFFFFF").ToUIColor() : Color.FromHex("#52000000").ToUIColor();
+                    _pressedBackgroundColor = _restingBackgroundColor.IsColorDark() ? _restingBackgroundColor.LightenColor() : _restingBackgroundColor.DarkenColor();
+
                 }
                 else
                 {
                     _rippleColor = _materialButton.PressedBackgroundColor.ToUIColor();
+                    _pressedBackgroundColor = _materialButton.PressedBackgroundColor.ToUIColor();
                 }
             }
             else
             {
                 _restingBackgroundColor = UIColor.Clear;
-                _rippleColor = _pressedBackgroundColor = Color.FromHex("#51000000").ToUIColor();
                 _disabledBackgroundColor = UIColor.Clear;
+                _rippleColor = _materialButton.PressedBackgroundColor.IsDefault ? Color.FromHex("#52000000").ToUIColor() : _materialButton.PressedBackgroundColor.ToUIColor();
+                _pressedBackgroundColor = _rippleColor;
             }
 
             _borderColor = _materialButton.ButtonType != MaterialButtonType.Text ? _materialButton.BorderColor.ToUIColor() : UIColor.Clear;
