@@ -60,7 +60,7 @@
             Subtitle1="{StaticResource FontFamily.RobotoRegular}"
             Subtitle2="{StaticResource FontFamily.RobotoMedium}" />
 
-        <!--<mtrl:MaterialColorConfiguration x:Key="Material.Color"
+        <mtrl:MaterialColorConfiguration x:Key="Material.Color"
             Background="#EAEAEA"
             Error="#B00020"
             OnBackground="#000000"
@@ -70,8 +70,11 @@
             OnSurface="#000000"
             Primary="#6200EE"
             PrimaryVariant="#6200EE"
-            Surface="#FFFFFF" />-->
+            Secondary="#00377b"
+            Surface="#FFFFFF" />
 
-        <mtrl:MaterialConfiguration x:Key="Material.Style" FontConfiguration="{StaticResource Material.Font}" />
+        <mtrl:MaterialConfiguration x:Key="Material.Style"
+            ColorConfiguration="{StaticResource Material.Color}"
+            FontConfiguration="{StaticResource Material.Font}" />
     </Application.Resources>
 </Application>

@@ -15,17 +15,22 @@
         <StackLayout Padding="16">
             <Label Style="{StaticResource Label.Title}" Text="Registration" />
             <material:MaterialTextField x:Name="_textField2"
+                HasHorizontalPadding="False"
                 HelperText="*Required"
                 MaxLength="12"
-                TintColor="#00377b" />
+                PlaceholderColor="Gray"
+                TintColor="#00377b"
+                UnderlineColor="#00377b" />
             <material:MaterialTextField Choices="{Binding Choices}"
                 HasError="{Binding HasError}"
+                HasHorizontalPadding="False"
                 HelperText="*Required"
                 InputType="Choice"
                 Placeholder="Customer or company name"
                 Text="{Binding SelectedChoice}"
                 TintColor="#00377b" />
             <material:MaterialTextField HasError="True"
+                HasHorizontalPadding="False"
                 HelperText="*Required"
                 TextChanged="MaterialTextField_TextChanged"
                 TintColor="#00377b" />
@@ -100,8 +105,17 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <material:MaterialRadioButton />
-            <material:MaterialCheckbox />
+            <StackLayout Margin="0,8,-6,0"
+                HorizontalOptions="End"
+                Orientation="Horizontal">
+                <material:MaterialButton Command="{Binding SaveCommand}"
+                    Style="{StaticResource Button.Bordered}"
+                    Text="Save" />
+                <material:MaterialButton Command="{Binding PostCommand}"
+                    PressedBackgroundColor="White"
+                    Style="{StaticResource Button}"
+                    Text="Post" />
+            </StackLayout>
         </StackLayout>
     </ScrollView>
     <!--<ScrollView VerticalOptions="FillAndExpand">
