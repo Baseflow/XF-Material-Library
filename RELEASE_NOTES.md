@@ -1,5 +1,9 @@
 # Release Notes
 
+##### 1.3.0.1
+- Fixed a bug in `MaterialButton` where the border color is not updating when the `ButtonType` is `Outlined`.
+- Lowered the input field in `MaterialTextField` by 2;
+
 ##### 1.3.0
 - Added `MaterialIconButton` and `MaterialSlider`.
 - Replaced `MaterialMenu` to `MaterialMenuButton`. The latter inherits from `MaterialIconButton`.
