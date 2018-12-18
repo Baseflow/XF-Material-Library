@@ -3,6 +3,7 @@ using CoreGraphics;
 using Foundation;
 using System;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
@@ -75,6 +76,7 @@ namespace XF.Material.iOS.Renderers
                 this.SetupColors();
                 this.CreateStateAnimations();
                 this.UpdateButtonLayer();
+                this.UpdateCornerRadius();
                 this.UpdateState();
                 this.Control.TouchDown += this.Control_Pressed;
                 this.Control.TouchDragEnter += this.Control_Pressed;
@@ -84,7 +86,7 @@ namespace XF.Material.iOS.Renderers
             }
         }
 
-        protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+        protected override async void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             base.OnElementPropertyChanged(sender, e);
 
@@ -96,7 +98,9 @@ namespace XF.Material.iOS.Renderers
             if (e?.PropertyName == MaterialButton.MaterialButtonColorChanged || e?.PropertyName == nameof(MaterialButton.ButtonType))
             {
                 this.SetupColors();
+                this.CreateStateAnimations();
                 this.UpdateButtonLayer();
+                await this.UpdateBackgroundColor();
             }
 
             if (e?.PropertyName == nameof(MaterialButton.Image))
@@ -108,6 +112,11 @@ namespace XF.Material.iOS.Renderers
             if (e?.PropertyName == nameof(MaterialButton.AllCaps))
             {
                 _materialButton.Text = _materialButton.AllCaps ? _materialButton.Text.ToUpper() : _materialButton.Text.ToLower();
+            }
+
+            if (e?.PropertyName == nameof(MaterialButton.CornerRadius))
+            {
+                this.UpdateCornerRadius();
             }
         }
 
@@ -233,12 +242,11 @@ namespace XF.Material.iOS.Renderers
                 {
                     _rippleColor = _materialButton.BackgroundColor.ToUIColor().IsColorDark() ? Color.FromHex("#52FFFFFF").ToUIColor() : Color.FromHex("#52000000").ToUIColor();
                     _pressedBackgroundColor = _restingBackgroundColor.IsColorDark() ? _restingBackgroundColor.LightenColor() : _restingBackgroundColor.DarkenColor();
-
                 }
                 else
                 {
                     _rippleColor = _materialButton.PressedBackgroundColor.ToUIColor();
-                    _pressedBackgroundColor = _materialButton.PressedBackgroundColor.ToUIColor();
+                    _pressedBackgroundColor = _restingBackgroundColor.MixColor(_rippleColor);
                 }
             }
             else
@@ -276,6 +284,17 @@ namespace XF.Material.iOS.Renderers
                     }
                 }
             }
+        }
+
+        private Task<bool> UpdateBackgroundColor()
+        {
+            var colorAnim = CABasicAnimation.FromKeyPath("backgroundColor");
+            colorAnim.Duration = 0.150;
+            colorAnim.FillMode = CAFillMode.Forwards;
+            colorAnim.RemovedOnCompletion = false;
+            colorAnim.To = FromObject(_restingBackgroundColor.CGColor);
+
+            return AnimateAsync(150, () => _animationLayer.AddAnimation(colorAnim, "colorAnim"));
         }
 
         private void UpdateButtonLayer()
@@ -317,6 +336,12 @@ namespace XF.Material.iOS.Renderers
             {
                 this.Control.ContentEdgeInsets = new UIEdgeInsets(10f, 14f, 10f, 14f);
             }
+        }
+
+        private void UpdateCornerRadius()
+        {
+            _animationLayer.CornerRadius = Convert.ToInt32(_materialButton.CornerRadius - _materialButton.CornerRadius * 0.25);
+            this.Control.Layer.CornerRadius = _animationLayer.CornerRadius;
         }
 
         private void UpdateLayerFrame()

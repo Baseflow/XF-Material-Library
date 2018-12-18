@@ -803,7 +803,7 @@ namespace XF.Material.Forms.UI
 
         private void OnTintColorChanged(Color tintColor)
         {
-            entry.TintColor = underline.Color = tintColor;
+            entry.TintColor = underline.Color = persistentUnderline.Color = tintColor;
         }
 
         private void OnUnderlineColorChanged(Color underlineColor)

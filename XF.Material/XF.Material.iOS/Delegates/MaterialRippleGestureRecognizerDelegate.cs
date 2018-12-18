@@ -4,7 +4,7 @@ using UIKit;
 
 namespace XF.Material.iOS.Delegates
 {
-    internal class MaterialRippleGestureRecognizerDelegate : UIGestureRecognizerDelegate
+    public class MaterialRippleGestureRecognizerDelegate : UIGestureRecognizerDelegate
     {
         private readonly CABasicAnimation _rippleAnimation;
         private readonly CABasicAnimation _fadeAnimation;
@@ -25,8 +25,8 @@ namespace XF.Material.iOS.Delegates
             _fadeAnimation.Duration = 0.3;
             _fadeAnimation.FillMode = CAFillMode.Forwards;
             _fadeAnimation.RemovedOnCompletion = true;
-            _fadeAnimation.From = FromObject(0.32f);
-            _fadeAnimation.To = FromObject(0f);
+            _fadeAnimation.From = FromObject(0.66f);
+            _fadeAnimation.To = FromObject(0.32f);
 
             _rippleLayer = new CAShapeLayer();
             _rippleLayer.FillColor = rippleColor;
@@ -38,7 +38,7 @@ namespace XF.Material.iOS.Delegates
             var view = touch.View;
             var location = touch.LocationInView(touch.View);
             var startPath = UIBezierPath.FromArc(location, 8f, 0, 360f, true);
-            var endPath = UIBezierPath.FromArc(location, 64f, 0, 360f, true);
+            var endPath = UIBezierPath.FromArc(location, view.Frame.Width - 12, 0, 360f, true);
 
             _rippleLayer.Frame = new CGRect(6, 6, view.Frame.Width - 12, view.Frame.Height - 12);
             _rippleLayer.CornerRadius = view.Layer.CornerRadius;

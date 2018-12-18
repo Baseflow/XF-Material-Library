@@ -75,7 +75,7 @@ namespace XF.Material.Forms.UI.Dialogs
         {
             base.OnAppearing();
 
-            DeviceDisplay.ScreenMetricsChanged += this.DeviceDisplay_ScreenMetricsChanged;
+            DeviceDisplay.MainDisplayInfoChanged += this.DeviceDisplay_MainDisplayInfoChanged;
         }
 
         protected override void OnAppearingAnimationBegin()
@@ -124,7 +124,12 @@ namespace XF.Material.Forms.UI.Dialogs
         {
             base.OnDisappearing();
 
-            DeviceDisplay.ScreenMetricsChanged -= this.DeviceDisplay_ScreenMetricsChanged;
+            DeviceDisplay.MainDisplayInfoChanged -= this.DeviceDisplay_MainDisplayInfoChanged;
+        }
+
+        private void DeviceDisplay_MainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
+        {
+            this.Dismiss();
         }
 
         private void CreateActions(MaterialMenuConfiguration configuration)
@@ -157,10 +162,6 @@ namespace XF.Material.Forms.UI.Dialogs
             this.SetList(actionModels);
         }
 
-        private void DeviceDisplay_ScreenMetricsChanged(object sender, ScreenMetricsChangedEventArgs e)
-        {
-            this.Dismiss();
-        }
 
         private void Label_SizeChanged(object sender, EventArgs e)
         {

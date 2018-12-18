@@ -1,5 +1,4 @@
-﻿using CoreAnimation;
-using CoreGraphics;
+﻿using CoreGraphics;
 using System;
 using UIKit;
 
@@ -75,7 +74,15 @@ namespace XF.Material.iOS
 
             a = 0.38f;
 
-            return new UIColor(r, g, b, a);
+            return new UIColor(r, g,b,a);
+        }
+
+        internal static UIColor MixColor(this UIColor color1, UIColor color2)
+        {
+            color1.GetRGBA(out nfloat r1, out nfloat g1, out nfloat b1, out nfloat a1);
+            color2.GetRGBA(out nfloat r2, out nfloat g2, out nfloat b2, out nfloat a2);
+
+            return new UIColor((nfloat)Math.Min((r1 + r2) / 2, 1), (nfloat)Math.Min((g1 + g2) / 2, 1), (nfloat)Math.Min((b1 + b2) / 2, 1), (nfloat)Math.Min((a1 + a2) / 2, 1));
         }
     }
 }

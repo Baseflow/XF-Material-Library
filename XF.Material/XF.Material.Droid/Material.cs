@@ -51,6 +51,12 @@ namespace XF.Material.Droid
             var popupStack = PopupNavigation.Instance.PopupStack;
             var dismissableDialog = popupStack.FirstOrDefault(p => p is BaseMaterialModalPage modalPage && modalPage.Dismissable) as BaseMaterialModalPage;
             var snackBar = popupStack.FirstOrDefault(p => p is BaseMaterialModalPage modalPage && !modalPage.Dismissable) as MaterialSnackbar;
+            var loadingDialog = popupStack.FirstOrDefault(p => p is BaseMaterialModalPage modalPage && !modalPage.Dismissable) as MaterialLoadingDialog;
+
+            if (loadingDialog != null)
+            {
+                return;
+            }
 
             if (dismissableDialog != null)
             {
