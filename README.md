@@ -1,11 +1,9 @@
 
 <img src="images/xf.material_logo.png" width="112" />
 
-# XF.Material Library [![NuGet](https://img.shields.io/badge/version-1.3.0.1-orange.svg?style=flat)](https://github.com/contrix09/XF-Material-Library/blob/master/RELEASE_NOTES.md) [![Build status](https://dev.azure.com/compiledevops/XF.Material/_apis/build/status/XF.Material-CI%20NuGet)](https://dev.azure.com/compiledevops/XF.Material/_build/latest?definitionId=20)
+# XF.Material Library [![NuGet](https://img.shields.io/badge/version-1.3.0.2-orange.svg?style=flat)](https://github.com/contrix09/XF-Material-Library/blob/master/RELEASE_NOTES.md) [![Build status](https://dev.azure.com/compiledevops/XF.Material/_apis/build/status/XF.Material-CI%20NuGet)](https://dev.azure.com/compiledevops/XF.Material/_build/latest?definitionId=20)
 
 A Xamarin.Forms library for Xamarin.Android and Xamarin.iOS to implement [Google's Material Design](https://material.io/design).
-
-<font size="1">*README* still being updated.</font>
 
 ## Contents
 
@@ -18,6 +16,7 @@ A Xamarin.Forms library for Xamarin.Android and Xamarin.iOS to implement [Google
     - [Text Fields](#text-fields)
     - [Selection Controls](#selection-controls)
     - [Menus](#menus)
+    - [Slider](#slider)
     - [Chips](#chips)
     - [Circular Progress Indicator](#circular-progress-indicator)
     - [Tintable Image Icon](#tintable-image-icon)
@@ -150,13 +149,17 @@ Read more about cards [here](https://material.io/design/components/cards.html).
 
 Buttons allow users to take actions, and make choices, with a single tap.
 
+There are two types of buttons you can use: `MaterialButton` and `MaterialIconButton`
+
 | Code | Android  | iOS |
 | ------------- | ------------- | ------------- |
 | `<material:MaterialButton BackgroundColor="#EAEAEA" HorizontalOptions="Center" Text="Elevated Button" TextColor="Black" VerticalOptions="Center" /> ` |<img src="https://media.giphy.com/media/fegjbOqxJpQ5P8Fly6/giphy.gif" alt="Android button" width="500" />|<img src="https://media.giphy.com/media/1oHpBfcWb2a3ZKv3ul/giphy.gif" alt="iOS button" width="500"/> |
 
 ##### Properties
 
-`MaterialButton` inherits the `Button` class.
+`MaterialButton` inherits the `Button` class. `MaterialIconButton` inherits the `ContentView` class.
+
+Both of these controls have these common properties:
 
 1. `ButtonType` - The type of the button. The default value is `Elevated`.
 
@@ -167,9 +170,21 @@ Buttons allow users to take actions, and make choices, with a single tap.
 
 2. `BackgroundColor` - The color of the button's background. *Outlined and Text button types will always have a transparent background color. Flat and elevated buttons have a default background color based on the value of `MaterialColorConfiguration.Secondary`.*
 
-3. `Image` - The icon to be displayed next to the button's label. The color of the icon will be based on the `TextColor` property value of the button.
+3. `PressedBackgroundColor` - The color of the button's background when it is pressed.
 
-4. `AllCaps` - Whether the letters in the label of the button should be in upper case or not. By default, this is set to `true`.
+4. `DisabledBackgroundColor` - The color of the button's background when it is disabled.
+
+`MaterialButton` have these properties:
+
+1. `Image` - The icon to be displayed next to the button's label. The color of the icon will be based on the `TextColor` property value of the button.
+
+2. `AllCaps` - Whether the letters in the label of the button should be in upper case or not. By default, this is set to `true`.
+
+`MaterialIconButton` has this property:
+
+1. `Image` - The image of the button.
+
+2. `TintColor` - The tint color of the image.
 
 ##### Usage & Behavior
 Buttons communicate actions that users can take. They are typically placed throughout your UI.
@@ -382,7 +397,6 @@ Menus display a list of choices on temporary surfaces.
 
 7. `MenuTextFontFamily` - The text font family of the menu items.
 
-
 ##### Event
 
 1. `MenuSelected` - Raised when a menu item was selected.
@@ -393,6 +407,32 @@ Menus are positioned relative to both the element that generates them and the ed
 Menus can be dismissed by tapping outside, when an item was selected, or when the back button was pressed in Android.
 
 Be sure to always match the width and height of the child view to the width and height of the menu.
+
+#### Slider
+Sliders allow users to make selections from a range of values.
+
+```xml
+<mat:MaterialSlider Value="{Binding CurrentValue}" MinValue="0" MaxValue="100" />
+```
+
+##### Properties
+`MaterialSlider` inherits the `ContentView` class.
+
+1. `Value` - The current value selected.
+
+2. `MinValue` -  The minimum value allowed to select.
+
+3. `MaxValue` - The maximum value allowed to select.
+
+4. `ValueChangedCommand` - The command that will execute when the current value has changed.
+
+5. `TrackColor` - The track color of the slider.
+
+6. `ThumbColor` - The thumb color of the slider.
+
+##### Event
+
+1. `ValueChanged` - The event that is raised when the current value has changed.
 
 #### Chips
 Chips are compact elements that represent an input, attribute, or action.

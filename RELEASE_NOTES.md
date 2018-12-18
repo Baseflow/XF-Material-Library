@@ -1,8 +1,13 @@
 # Release Notes
 
+##### 1.3.0.2
+- Fixed issue [32](https://github.com/contrix09/XF-Material-Library/issues/32).
+- Fixed issue [33](https://github.com/contrix09/XF-Material-Library/issues/33).
+- Fixed an issue in `MaterialButtonRenderer` in iOS not updating the color of the button when the background color was changed.
+
 ##### 1.3.0.1
 - Fixed a bug in `MaterialButton` where the border color is not updating when the `ButtonType` is `Outlined`.
-- Lowered the input field in `MaterialTextField` by 2;
+- Lowered the input field in `MaterialTextField` by 2.
 
 ##### 1.3.0
 - Added `MaterialIconButton` and `MaterialSlider`.

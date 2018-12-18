@@ -3,7 +3,7 @@
   <metadata>
     <id>XF.Material</id>
     <title>XF.Material Library</title>
-    <version>1.3.0.1</version>
+    <version>1.3.0.2</version>
     <authors>Dustin Catap</authors>
     <owners>Dustin Catap</owners>
     <projectUrl>https://github.com/contrix09/XF-Material-Library</projectUrl>
@@ -23,7 +23,7 @@
         <dependency id="Xamarin.Forms"
                     version="3.3.0.912540" />
         <dependency id="Xamarin.Essentials"
-                    version="0.11.0-preview" />
+                    version="1.0.0" />
       </group>
       <group targetFramework="MonoAndroid81">
         <dependency id="Com.Airbnb.Xamarin.Forms.Lottie"
@@ -45,7 +45,7 @@
         <dependency id="Xamarin.Forms"
                     version="3.3.0.912540" />
         <dependency id="Xamarin.Essentials"
-                    version="0.11.0-preview" />      
+                    version="1.0.0" />
       </group>
       <group targetFramework="Xamarin.iOS10">
         <dependency id="Com.Airbnb.Xamarin.Forms.Lottie"
@@ -57,7 +57,7 @@
         <dependency id="Xamarin.Forms"
                     version="3.3.0.912540" />
         <dependency id="Xamarin.Essentials"
-                    version="0.11.0-preview" />
+                    version="1.0.0" />
       </group>
     </dependencies>
   </metadata>
