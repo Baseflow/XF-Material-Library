@@ -3,6 +3,7 @@ using Rg.Plugins.Popup.Pages;
 using Rg.Plugins.Popup.Services;
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -38,9 +39,18 @@ namespace XF.Material.Forms.UI.Dialogs
         /// <summary>
         /// Dismisses this modal dialog.
         /// </summary>
+        [Obsolete("Please use DismissAsync()")]
         public void Dismiss()
         {
             this.Dispose();
+        }
+
+        /// <summary>
+        /// Dismisses this modal dialog asynchronously.
+        /// </summary>
+        public async Task DismissAsync()
+        {
+            await PopupNavigation.Instance.RemovePageAsync(this, true);
         }
 
         /// <summary>
@@ -61,7 +71,7 @@ namespace XF.Material.Forms.UI.Dialogs
                 {
                     try
                     {
-                        await PopupNavigation.Instance.RemovePageAsync(this, true);
+                        await this.DismissAsync();
                         this.Content = null;
                     }
                     catch (Exception ex)
@@ -77,7 +87,7 @@ namespace XF.Material.Forms.UI.Dialogs
         protected override void OnDisappearingAnimationEnd()
         {
             base.OnDisappearingAnimationEnd();
-            this.Dismiss();
+            this.Dispose();
         }
 
         /// <summary>
@@ -92,7 +102,7 @@ namespace XF.Material.Forms.UI.Dialogs
 
             else
             {
-                this.Dismiss();
+                await this.DismissAsync();
             }
         }
 

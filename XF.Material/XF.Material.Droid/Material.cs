@@ -46,7 +46,7 @@ namespace XF.Material.Droid
         /// Handles the physical back button event to dismiss specific dialogs shown by <see cref="XF.Material.Forms.UI.Dialogs.MaterialDialog.Instance"/>.
         /// </summary>
         /// <param name="backAction">The base <see cref="Activity.OnBackPressed"/> method.</param>
-        public static void HandleBackButton(Action backAction)
+        public static async void HandleBackButton(Action backAction)
         {
             var popupStack = PopupNavigation.Instance.PopupStack;
             var dismissableDialog = popupStack.FirstOrDefault(p => p is BaseMaterialModalPage modalPage && modalPage.Dismissable) as BaseMaterialModalPage;
@@ -60,7 +60,7 @@ namespace XF.Material.Droid
 
             if (dismissableDialog != null)
             {
-                dismissableDialog.Dismiss();
+                await dismissableDialog.DismissAsync();
             }
 
             else if (snackBar != null)

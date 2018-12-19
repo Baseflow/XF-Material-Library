@@ -28,6 +28,7 @@ namespace XF.Material.Forms.UI
         public MaterialCard()
         {
             this.SetDynamicResource(BackgroundColorProperty, MaterialConstants.Color.SURFACE);
+            this.HasShadow = false;
         }
     }
 }

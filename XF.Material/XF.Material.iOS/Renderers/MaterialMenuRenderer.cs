@@ -13,20 +13,14 @@ namespace XF.Material.iOS.Renderers
         {
             base.OnElementChanged(e);
 
-            if(e?.OldElement != null && this.Element != null)
-            {
-                this.Element.Clicked -= this.Element_Clicked;
-            }
-
             if (e?.NewElement != null)
             {
-                this.Element.Clicked += this.Element_Clicked;
+                this.Element.InternalCommand = new Command(this.OnClick);
             }
         }
 
-        private void Element_Clicked(object sender, System.EventArgs e)
+        private void OnClick()
         {
-
             var globalLocation = this.ConvertPointToView(this.GetContentRenderer().Frame.Location, null);
 
             this.Element.OnViewTouch(globalLocation.X, globalLocation.Y);

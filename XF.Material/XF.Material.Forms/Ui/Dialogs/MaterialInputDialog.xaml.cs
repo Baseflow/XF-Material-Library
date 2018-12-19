@@ -17,15 +17,15 @@ namespace XF.Material.Forms.UI.Dialogs
             TextField.Text = inputText;
             PositiveButton.Text = confirmingText;
             NegativeButton.Text = dismissiveText;
-            PositiveButton.Command = new Command(() =>
+            PositiveButton.Command = new Command(async() =>
             {
+                await this.DismissAsync();
                 this.InputTaskCompletionSource?.SetResult(TextField.Text);
-                this.Dismiss();
             });
-            NegativeButton.Command = new Command(() =>
+            NegativeButton.Command = new Command(async() =>
             {
+                await this.DismissAsync();
                 this.InputTaskCompletionSource?.SetResult(string.Empty);
-                this.Dismiss();
             });
         }
 

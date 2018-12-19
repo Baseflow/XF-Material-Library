@@ -537,7 +537,7 @@ namespace XF.Material.Forms.UI
         private async Task ChangeToErrorState()
         {
             const int animDuration = 250;
-            placeholder.TextColor = this.FloatingPlaceholderEnabled && entry.IsFocused ? this.ErrorColor : this.PlaceholderColor;
+            placeholder.TextColor = (this.FloatingPlaceholderEnabled && entry.IsFocused) || this.FloatingPlaceholderEnabled && !string.IsNullOrEmpty(this.Text) ? this.ErrorColor : this.PlaceholderColor;
             counter.TextColor = this.ErrorColor;
             underline.Color = this.ErrorColor;
             persistentUnderline.Color = this.ErrorColor;

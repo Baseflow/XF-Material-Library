@@ -63,13 +63,13 @@ namespace XF.Material.Forms.UI.Dialogs
                 var actionModel = new ActionModel { Text = a };
                 actionModel.TextColor = preferredConfig != null ? preferredConfig.TextColor : Color.FromHex("#DE000000");
                 actionModel.FontFamily = preferredConfig != null ? preferredConfig.TextFontFamily : Material.FontFamily.Body1;
-                actionModel.SelectedCommand = new Command<int>((position) =>
+                actionModel.SelectedCommand = new Command<int>(async(position) =>
                 {
                     if (this.InputTaskCompletionSource?.Task.Status == TaskStatus.WaitingForActivation)
                     {
                         actionModel.IsSelected = true;
+                        await this.DismissAsync();
                         this.InputTaskCompletionSource?.SetResult(position);
-                        this.Dismiss();
                     }
                 });
 

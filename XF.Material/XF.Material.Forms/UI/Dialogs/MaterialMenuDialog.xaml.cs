@@ -127,9 +127,9 @@ namespace XF.Material.Forms.UI.Dialogs
             DeviceDisplay.MainDisplayInfoChanged -= this.DeviceDisplay_MainDisplayInfoChanged;
         }
 
-        private void DeviceDisplay_MainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
+        private async void DeviceDisplay_MainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
         {
-            this.Dismiss();
+            await this.DismissAsync();
         }
 
         private void CreateActions(MaterialMenuConfiguration configuration)
@@ -145,13 +145,13 @@ namespace XF.Material.Forms.UI.Dialogs
                 var actionModel = new ActionModel { Text = a.Text, Image = a.Image, Index = a.Index };
                 actionModel.TextColor = configuration.TextColor;
                 actionModel.FontFamily = configuration.TextFontFamily;
-                actionModel.SelectedCommand = new Command<int>((position) =>
+                actionModel.SelectedCommand = new Command<int>(async(position) =>
                 {
                     if (this.InputTaskCompletionSource?.Task.Status == TaskStatus.WaitingForActivation)
                     {
                         actionModel.IsSelected = true;
+                        await this.DismissAsync();
                         this.InputTaskCompletionSource?.SetResult(position);
-                        this.Dismiss();
                     }
                 });
 

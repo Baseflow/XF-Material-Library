@@ -4,6 +4,9 @@ using UIKit;
 
 namespace XF.Material.iOS.Delegates
 {
+    /// <summary>
+    /// A <see cref="UIGestureRecognizerDelegate"/> that when its view was touched, it will animate a ripple effect.
+    /// </summary>
     public class MaterialRippleGestureRecognizerDelegate : UIGestureRecognizerDelegate
     {
         private readonly CABasicAnimation _rippleAnimation;

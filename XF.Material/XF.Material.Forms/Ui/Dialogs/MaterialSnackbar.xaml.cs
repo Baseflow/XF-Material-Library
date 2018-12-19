@@ -24,11 +24,11 @@ namespace XF.Material.Forms.UI.Dialogs
             Message.Text = message;
             _duration = msDuration;
             ActionButton.Text = actionButtonText;
-            _primaryActionCommand = new Command(() =>
+            _primaryActionCommand = new Command(async() =>
             {
                 _primaryActionRunning = true;
+                await this.DismissAsync();
                 this.InputTaskCompletionSource?.SetResult(true);
-                this.Dismiss();
             }, () => !_primaryActionRunning);
             ActionButton.Command = _primaryActionCommand;
             _hideAction = () => this.InputTaskCompletionSource?.SetResult(false);

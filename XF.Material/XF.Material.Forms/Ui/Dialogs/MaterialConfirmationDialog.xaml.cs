@@ -163,20 +163,27 @@ namespace XF.Material.Forms.UI.Dialogs
             NegativeButton.Clicked -= this.NegativeButton_Clicked;
         }
 
-        protected override void OnDisappearingAnimationEnd()
-        {
-            base.OnDisappearingAnimationEnd();
+        //protected override void OnDisappearingAnimationEnd()
+        //{
+        //    base.OnDisappearingAnimationEnd();
 
-            if (this.InputTaskCompletionSource.Task.Status == TaskStatus.WaitingForActivation)
-            {
-                var result = (_radioButtonGroup?.SelectedIndex) ?? _checkboxGroup?.SelectedIndices.ToArray() as object;
-                this.InputTaskCompletionSource.SetResult(result);
-            }
+        //    if (this.InputTaskCompletionSource.Task.Status == TaskStatus.WaitingForActivation)
+        //    {
+        //        var result = (_radioButtonGroup?.SelectedIndex) ?? _checkboxGroup?.SelectedIndices.ToArray() as object;
+        //        this.InputTaskCompletionSource.SetResult(result);
+        //    }
+        //}
+
+        protected override bool OnBackButtonPressed()
+        {
+            this.InputTaskCompletionSource?.SetResult(_isMultiChoice ? null : -1 as object);
+
+            return base.OnBackButtonPressed();
         }
 
         protected override bool OnBackgroundClicked()
         {
-            this.InputTaskCompletionSource.SetResult(_isMultiChoice ? null : -1 as object);
+            this.InputTaskCompletionSource?.SetResult(_isMultiChoice ? null : -1 as object);
 
             return base.OnBackgroundClicked();
         }
@@ -208,16 +215,16 @@ namespace XF.Material.Forms.UI.Dialogs
             PositiveButton.IsEnabled = e.Index >= 0;
         }
 
-        private void NegativeButton_Clicked(object sender, EventArgs e)
+        private async void NegativeButton_Clicked(object sender, EventArgs e)
         {
-            this.Dismiss();
+            await this.DismissAsync();
             this.InputTaskCompletionSource.SetResult(_isMultiChoice ? null : -1 as object);
             _checkboxGroup?.SelectedIndices.Clear();
         }
 
-        private void PositiveButton_Clicked(object sender, EventArgs e)
+        private async void PositiveButton_Clicked(object sender, EventArgs e)
         {
-            this.Dismiss();
+            await this.DismissAsync();
             var result = (_radioButtonGroup?.SelectedIndex) ?? _checkboxGroup?.SelectedIndices.ToArray() as object;
             this.InputTaskCompletionSource.SetResult(result);
             _checkboxGroup?.SelectedIndices.Clear();

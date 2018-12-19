@@ -1,5 +1,4 @@
 ﻿using Android.Content;
-using Android.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using XF.Material.Droid.Renderers;
@@ -18,11 +17,11 @@ namespace XF.Material.Droid.Renderers
 
             if(e?.NewElement != null)
             {
-                this.Element.Clicked += this.Element_Clicked;
+                this.Element.InternalCommand = new Command(this.OnClick);
             }
         }
 
-        private void Element_Clicked(object sender, System.EventArgs e)
+        private void OnClick()
         {
             var displayDensity = this.Context.Resources.DisplayMetrics.Density;
             var position = new int[2];

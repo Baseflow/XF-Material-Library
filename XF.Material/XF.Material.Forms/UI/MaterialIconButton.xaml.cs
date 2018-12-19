@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -54,6 +55,12 @@ namespace XF.Material.Forms.UI
                 { nameof(this.TintColor), () => this.OnTintColorChanged(this.TintColor) },
             };
         }
+
+        /// <summary>
+        /// For internal use only.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public ICommand InternalCommand { get; set; }
 
         public event EventHandler Clicked;
 
@@ -126,6 +133,7 @@ namespace XF.Material.Forms.UI
         protected virtual void OnButtonClicked(bool handled)
         {
             this.Clicked?.Invoke(this, EventArgs.Empty);
+            this.InternalCommand?.Execute(null);
 
             if (handled)
             {
