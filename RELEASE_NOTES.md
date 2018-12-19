@@ -1,5 +1,11 @@
 # Release Notes
 
+##### 1.3.0.3
+- Fixed issue [34](https://github.com/contrix09/XF-Material-Library/issues/34).
+- Added new method `IMaterialDialog.DismissAsync()`. 
+- Fixed `MaterialCard` showing original `Frame` shadow when `BorderColor` property was updated.
+- Fixed `MaterialMenuButton` showing inaccurate position.
+
 ##### 1.3.0.2
 - Fixed issue [32](https://github.com/contrix09/XF-Material-Library/issues/32).
 - Fixed issue [33](https://github.com/contrix09/XF-Material-Library/issues/33).

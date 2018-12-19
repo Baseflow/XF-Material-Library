@@ -721,7 +721,7 @@ var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: "S
 
 await Task.Delay(5000) // Represents a task that is running.
 
-loadingDialog.Dispose();
+await loadingDialog.DismissAsync();
 ```
 
 ##### Usage & Behavior
@@ -782,7 +782,7 @@ var snackbar = await MaterialDialog.Instance.LoadingSnackbarAsync(message: "Some
 
 await Task.Delay(5000) // Represents a task that is running.
 
-snackbar.Dispose();
+await snackbar.DismissAsync();
 ```
 
 ##### Usage & Behavior
