@@ -37,23 +37,29 @@ namespace XF.Material.Droid.Renderers.Internals
             }
         }
 
-
         private void ChangeCursorColor()
         {
-            var field = Java.Lang.Class.FromType(typeof(Android.Widget.TextView)).GetDeclaredField("mCursorDrawableRes");
-            field.Accessible = true;
-            int resId = field.GetInt(this.Control);
+            try
+            {
+                var field = Java.Lang.Class.FromType(typeof(Android.Widget.TextView)).GetDeclaredField("mCursorDrawableRes");
+                field.Accessible = true;
+                int resId = field.GetInt(this.Control);
 
-            field = Java.Lang.Class.FromType(typeof(Android.Widget.TextView)).GetDeclaredField("mEditor");
-            field.Accessible = true;
+                field = Java.Lang.Class.FromType(typeof(Android.Widget.TextView)).GetDeclaredField("mEditor");
+                field.Accessible = true;
 
-            var cursorDrawable = ContextCompat.GetDrawable(this.Context, resId);
-            cursorDrawable.SetColorFilter((this.Element as MaterialEntry).TintColor.ToAndroid(), Android.Graphics.PorterDuff.Mode.SrcIn);
+                var cursorDrawable = ContextCompat.GetDrawable(this.Context, resId);
+                cursorDrawable.SetColorFilter((this.Element as MaterialEntry).TintColor.ToAndroid(), Android.Graphics.PorterDuff.Mode.SrcIn);
 
-            var editor = field.Get(this.Control);
-            field = editor.Class.GetDeclaredField("mCursorDrawable");
-            field.Accessible = true;
-            field.Set(editor, new Drawable[] { cursorDrawable, cursorDrawable });
+                var editor = field.Get(this.Control);
+                field = editor.Class.GetDeclaredField("mCursorDrawable");
+                field.Accessible = true;
+                field.Set(editor, new Drawable[] { cursorDrawable, cursorDrawable });
+            }
+            catch (Java.Lang.NoSuchFieldException)
+            {
+                // Do not handle
+            }
         }
     }
 }
