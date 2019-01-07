@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace XF.Material.Forms.UI.Dialogs.Internals
 {
@@ -28,5 +29,13 @@ namespace XF.Material.Forms.UI.Dialogs.Internals
             get => (double)this.GetValue(ItemWidthProperty);
             set => this.SetValue(ItemWidthProperty, value);
         }
+    }
+
+    /// <summary>
+    /// Used as the ItemSource type of MaterialMenuDialog's list.
+    /// </summary>
+    internal class MenuActionModel : ActionModel
+    {
+        public ICommand SizeChangeCommand { get; set; }
     }
 }

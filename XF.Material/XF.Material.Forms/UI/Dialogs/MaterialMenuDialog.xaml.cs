@@ -85,6 +85,7 @@ namespace XF.Material.Forms.UI.Dialogs
             var newX = _dimension.RawX;
             var newY = (_dimension.RawY);
 
+            _maxWidth += 32;
             DialogActionList.WidthRequest = _maxWidth <= 112 ? 112 : _maxWidth;
             DialogActionList.WidthRequest = _maxWidth > 280 ? 280 : DialogActionList.WidthRequest;
 
@@ -142,7 +143,7 @@ namespace XF.Material.Forms.UI.Dialogs
             var actionModels = new List<ActionModel>();
             _choices.ForEach(a =>
             {
-                var actionModel = new ActionModel { Text = a.Text, Image = a.Image, Index = a.Index };
+                var actionModel = new MenuActionModel { Text = a.Text, Image = a.Image, Index = a.Index };
                 actionModel.TextColor = configuration.TextColor;
                 actionModel.FontFamily = configuration.TextFontFamily;
                 actionModel.SelectedCommand = new Command<int>(async(position) =>
@@ -154,6 +155,7 @@ namespace XF.Material.Forms.UI.Dialogs
                         this.InputTaskCompletionSource?.SetResult(position);
                     }
                 });
+                actionModel.SizeChangeCommand = new Command<Dictionary<string, object>>(this.LabelSizeChanged);
 
                 actionModels.Add(actionModel);
                 actionModel.Index = actionModels.IndexOf(actionModel);
@@ -163,19 +165,16 @@ namespace XF.Material.Forms.UI.Dialogs
         }
 
 
-        private void Label_SizeChanged(object sender, EventArgs e)
+        private void LabelSizeChanged(Dictionary<string, object> param)
         {
-            if (_itemChecker != _itemCount)
-            {
-                var view = sender as View;
-                var index = (int)view.GetValue(ParameterProperty);
-                _maxWidth = string.IsNullOrEmpty(_choices[index].Image) ? view.Width : view.Width + 40;
-                _itemChecker++;
+            var width = Convert.ToDouble(param["width"]);
+            var index = Convert.ToInt32(param["parameter"]);
+            var maxWidth = string.IsNullOrEmpty(_choices[index].Image) ? width : width + 40;
+            _itemChecker++;
 
-                if (_itemChecker == _itemCount)
-                {
-                    _maxWidth += 32;
-                }
+            if (_maxWidth < maxWidth)
+            {
+                _maxWidth = maxWidth;
             }
         }
 

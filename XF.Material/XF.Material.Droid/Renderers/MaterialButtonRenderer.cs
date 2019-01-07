@@ -1,17 +1,13 @@
-﻿using Android.Animation;
-using Android.Content;
+﻿using Android.Content;
 using Android.Content.Res;
 using Android.Graphics.Drawables;
-using Android.Support.V4.Graphics;
 using System.ComponentModel;
 using System.Linq;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using XF.Material.Droid.Renderers;
 using XF.Material.Forms.UI;
-using static XF.Material.Forms.UI.MaterialButton;
 using Button = Xamarin.Forms.Button;
-using Color = Android.Graphics.Color;
 
 [assembly: ExportRenderer(typeof(MaterialButton), typeof(MaterialButtonRenderer))]
 

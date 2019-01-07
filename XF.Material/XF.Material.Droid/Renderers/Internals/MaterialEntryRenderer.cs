@@ -58,7 +58,7 @@ namespace XF.Material.Droid.Renderers.Internals
             }
             catch (Java.Lang.NoSuchFieldException)
             {
-                // Do not handle
+                System.Diagnostics.Debug.WriteLine("Cannot change Textfield's cursor color.");
             }
         }
     }

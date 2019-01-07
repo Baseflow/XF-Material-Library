@@ -3,10 +3,8 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:internal="clr-namespace:XF.Material.Forms.UI.Internals"
-    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
     xmlns:local="clr-namespace:XF.Material.Forms.UI.Dialogs"
     xmlns:material="clr-namespace:XF.Material.Forms.UI"
-    xmlns:sys="clr-namespace:System;assembly=netstandard"
     BackgroundColor="Transparent">
     <ContentPage.Content>
         <material:MaterialCard x:Name="Container"
@@ -59,13 +57,13 @@
                                             </Trigger>
                                         </View.Triggers>
                                     </material:MaterialIcon>
-                                    <Label x:Name="Label"
+                                    <internal:MenuDialogLabel x:Name="Label"
                                         Grid.Column="1"
                                         local:MaterialMenuDialog.Parameter="{Binding Index}"
                                         HeightRequest="{Binding Source={x:Reference DialogActionList}, Path=RowHeight}"
-                                        HorizontalOptions="Start"
+                                        HorizontalOptions="StartAndExpand"
                                         LineBreakMode="TailTruncation"
-                                        SizeChanged="Label_SizeChanged"
+                                        SizeChangeCommand="{Binding SizeChangeCommand}"
                                         Style="{DynamicResource Material.TypeScale.Body2}"
                                         Text="{Binding Text}"
                                         TextColor="#DE000000"
@@ -77,7 +75,7 @@
                                                 <Setter Property="TextColor" Value="{Binding TextColor}" />
                                             </DataTrigger>
                                         </Label.Triggers>
-                                    </Label>
+                                    </internal:MenuDialogLabel>
                                 </Grid>
                                 <material:MaterialButton Grid.ColumnSpan="2"
                                     Margin="-6"
