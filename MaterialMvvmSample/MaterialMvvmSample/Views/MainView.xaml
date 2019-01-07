@@ -13,7 +13,7 @@
     material:MaterialNavigationPage.StatusBarColor="#1B3147">
     <ScrollView>
         <StackLayout Padding="16">
-            <Label Style="{StaticResource Label.Title}" Text="Registration" />
+            <Label Style="{DynamicResource Material.TypeScale.H6}" Text="Registration" />
             <material:MaterialTextField x:Name="_textField2"
                 HasHorizontalPadding="False"
                 HelperText="*Required"
@@ -105,17 +105,6 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <StackLayout Margin="0,8,-6,0"
-                HorizontalOptions="End"
-                Orientation="Horizontal">
-                <material:MaterialButton Command="{Binding SaveCommand}"
-                    Style="{StaticResource Button.Bordered}"
-                    Text="Save" />
-                <material:MaterialButton Command="{Binding PostCommand}"
-                    PressedBackgroundColor="White"
-                    Style="{StaticResource Button}"
-                    Text="Post" />
-            </StackLayout>
         </StackLayout>
     </ScrollView>
     <!--<ScrollView VerticalOptions="FillAndExpand">

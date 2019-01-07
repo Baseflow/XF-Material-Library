@@ -47,14 +47,12 @@ namespace MaterialMvvmSample.ViewModels
         {
             new MaterialMenuItem
             {
-                Text = "Edit",
-                //Image = "xf_error"
+                Text = "Edit"
             },
             new MaterialMenuItem
             {
-                Text = "Delete",
-                //Image = "xf_clear"
-            },
+                Text = "Delete"
+            }
         };
 
         private string _selectedChoice;
