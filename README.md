@@ -1,7 +1,7 @@
 
 <img src="images/xf.material_logo.png" width="112" />
 
-# XF.Material Library [![NuGet](https://img.shields.io/badge/version-1.3.0.3-orange.svg?style=flat)](https://github.com/contrix09/XF-Material-Library/blob/master/RELEASE_NOTES.md) [![Build status](https://dev.azure.com/compiledevops/XF.Material/_apis/build/status/XF.Material-CI%20NuGet)](https://dev.azure.com/compiledevops/XF.Material/_build/latest?definitionId=20)
+# XF.Material Library [![NuGet](https://img.shields.io/badge/version-1.3.0.4-orange.svg?style=flat)](https://github.com/contrix09/XF-Material-Library/blob/master/RELEASE_NOTES.md) [![Build status](https://dev.azure.com/compiledevops/XF.Material/_apis/build/status/XF.Material-CI%20NuGet)](https://dev.azure.com/compiledevops/XF.Material/_build/latest?definitionId=20)
 
 A Xamarin.Forms library for Xamarin.Android and Xamarin.iOS to implement [Google's Material Design](https://material.io/design).
 
@@ -46,7 +46,7 @@ A Xamarin.Forms library for Xamarin.Android and Xamarin.iOS to implement [Google
 
 public App()
 {
-    InitializeComponent();
+    this.InitializeComponent();
     XF.Material.Forms.Material.Init(this);
 }
 
@@ -62,7 +62,7 @@ protected override void OnCreate(Bundle savedInstanceState)
     Xamarin.Forms.Forms.Init(this, savedInstanceState);
     XF.Material.Droid.Material.Init(this, savedInstanceState);
 
-    LoadApplication(new App());
+    this.LoadApplication(new App());
 }
 
 //Xamarin.iOS
@@ -71,7 +71,7 @@ public override bool FinishedLaunching(UIApplication app, NSDictionary options)
 {
     Xamarin.Forms.Forms.Init();
     XF.Material.iOS.Material.Init();
-    LoadApplication(new App());
+    this.LoadApplication(new App());
 
     return base.FinishedLaunching(app, options);
 }
