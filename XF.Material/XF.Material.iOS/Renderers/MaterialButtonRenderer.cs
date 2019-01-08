@@ -369,7 +369,7 @@ namespace XF.Material.iOS.Renderers
                     this.Control.Elevate(RESTING_ELEVATION);
                 }
 
-                if (_materialButton.ButtonType == MaterialButtonType.Elevated && _materialButton.ButtonType == MaterialButtonType.Flat)
+                if (_materialButton.ButtonType == MaterialButtonType.Elevated || _materialButton.ButtonType == MaterialButtonType.Flat)
                 {
                     _materialButton.TextColor = _normalTextColor.ToColor();
                 }
