@@ -1,5 +1,9 @@
 # Release Notes
 
+##### 1.3.0.5
+- Removed `IMaterialDialog.Dismiss`.
+- Fixed issue [45](https://github.com/contrix09/XF-Material-Library/issues/45).
+
 ##### 1.3.0.4
 - Fixed issue [36](https://github.com/contrix09/XF-Material-Library/issues/36).
 - Fixed issue [37](https://github.com/contrix09/XF-Material-Library/issues/37).
