@@ -76,7 +76,7 @@ namespace XF.Material.Forms.UI.Dialogs
                 if (!_primaryActionRunning)
                 {
                     _hideAction?.Invoke();
-                    this.Dismiss();
+                    await this.DismissAsync();
                 }
             }
         }

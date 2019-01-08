@@ -35,16 +35,6 @@ namespace XF.Material.Forms.UI.Dialogs
 
         public virtual bool Dismissable => true;
 
-
-        /// <summary>
-        /// Dismisses this modal dialog.
-        /// </summary>
-        [Obsolete("Please use DismissAsync()")]
-        public void Dismiss()
-        {
-            this.Dispose();
-        }
-
         /// <summary>
         /// Dismisses this modal dialog asynchronously.
         /// </summary>
@@ -76,7 +66,7 @@ namespace XF.Material.Forms.UI.Dialogs
                     }
                     catch (Exception ex)
                     {
-                        System.Diagnostics.Debug.WriteLine(ex);
+                        Debug.WriteLine(ex);
                     }
                 });
 
@@ -108,7 +98,11 @@ namespace XF.Material.Forms.UI.Dialogs
 
         private bool CanShowPopup()
         {
-            return !PopupNavigation.Instance.PopupStack.ToList().Exists(p => p.GetType() == this.GetType());
+            return !PopupNavigation
+                .Instance
+                .PopupStack
+                .ToList()
+                .Exists(p => p.GetType() == this.GetType());
         }
 
         protected override bool OnBackButtonPressed()
