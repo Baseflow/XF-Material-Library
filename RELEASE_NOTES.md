@@ -1,5 +1,10 @@
 # Release Notes
 
+##### 1.3.0.6
+- Fixed issue [44](https://github.com/contrix09/XF-Material-Library/issues/44).
+- Changed `IMaterialDialog.ConfirmAsync`. It now returns a nullable bool. Removed the other overload method. 
+
+
 ##### 1.3.0.5
 - Removed `IMaterialDialog.Dismiss`.
 - Fixed issue [45](https://github.com/contrix09/XF-Material-Library/issues/45).
