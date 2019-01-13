@@ -35,23 +35,14 @@ namespace XF.Material.Forms.UI.Dialogs
         Task AlertAsync(string message, string title, string acknowledgementText, MaterialAlertDialogConfiguration configuration = null);
 
         /// <summary>
-        /// Shows an alert dialog for confirmation. Returns true when the confirm button was clicked, false if the dismiss button was clicked or if the alert dialog was dismissed.
-        /// </summary>
-        /// <param name="message">The message of the alert dialog.</param>
-        /// <param name="confirmingText">The text of the confirmation button.</param>
-        /// <param name="dismissiveText">The text of the dismissive button</param>
-        /// <param name="configuration">The style of the alert dialog.</param>
-        Task<bool> ConfirmAsync(string message, string confirmingText = "Ok", string dismissiveText = "Cancel", MaterialAlertDialogConfiguration configuration = null);
-
-        /// <summary>
-        /// Shows an alert dialog for confirmation. Returns true when the confirm button was clicked, false if the dismiss button was clicked or if the alert dialog was dismissed.
+        /// Shows an alert dialog for confirmation. Returns true when the confirm button was clicked, false if the dismiss button was clicked, and null if the alert dialog was dismissed.
         /// </summary>
         /// <param name="message">The message of the alert dialog.</param>
         /// <param name="title">The title of the alert dialog.</param>
         /// <param name="confirmingText">The text of the confirmation button.</param>
         /// <param name="dismissiveText">The text of the dismissive button</param>
         /// <param name="configuration">The style of the alert dialog.</param>
-        Task<bool> ConfirmAsync(string message, string title, string confirmingText = "Ok", string dismissiveText = "Cancel", MaterialAlertDialogConfiguration configuration = null);
+        Task<bool?> ConfirmAsync(string message, string title = null, string confirmingText = "Ok", string dismissiveText = "Cancel", MaterialAlertDialogConfiguration configuration = null);
 
         /// <summary>
         /// Shows a confirmation dialog that allow users to input text. If confirmed, returns the text value of the textfield. If canceled or dismissed, returns <see cref="string.Empty"/>.

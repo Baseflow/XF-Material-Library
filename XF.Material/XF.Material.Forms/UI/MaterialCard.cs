@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using System.Runtime.CompilerServices;
+using Xamarin.Forms;
 using XF.Material.Forms.Resources;
 
 namespace XF.Material.Forms.UI
@@ -18,8 +19,8 @@ namespace XF.Material.Forms.UI
         /// </summary>
         public int Elevation
         {
-            get => (int)GetValue(ElevationProperty);
-            set => SetValue(ElevationProperty, value);
+            get => (int)this.GetValue(ElevationProperty);
+            set => this.SetValue(ElevationProperty, value);
         }
 
         /// <summary>
@@ -28,7 +29,16 @@ namespace XF.Material.Forms.UI
         public MaterialCard()
         {
             this.SetDynamicResource(BackgroundColorProperty, MaterialConstants.Color.SURFACE);
-            this.HasShadow = false;
+        }
+
+        protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            if (propertyName == nameof(this.HasShadow))
+            {
+                return;
+            }
+
+            base.OnPropertyChanged(propertyName);
         }
     }
 }

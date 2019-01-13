@@ -6,7 +6,7 @@ using XF.Material.Forms.UI.Dialogs.Configurations;
 namespace XF.Material.Forms.UI.Dialogs
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MaterialAlertDialog : BaseMaterialModalPage, IMaterialAwaitableDialog<bool>
+    public partial class MaterialAlertDialog : BaseMaterialModalPage, IMaterialAwaitableDialog<bool?>
     {
         internal MaterialAlertDialog(string message, string title, string action1Text, string action2Text, MaterialAlertDialogConfiguration configuration = null) : this(configuration)
         {
@@ -32,7 +32,7 @@ namespace XF.Material.Forms.UI.Dialogs
             this.Configure(configuration);
         }
 
-        public TaskCompletionSource<bool> InputTaskCompletionSource { get; set; }
+        public TaskCompletionSource<bool?> InputTaskCompletionSource { get; set; }
 
         internal static MaterialAlertDialogConfiguration GlobalConfiguration { get; set; }
 
@@ -48,23 +48,11 @@ namespace XF.Material.Forms.UI.Dialogs
             await dialog.ShowAsync();
         }
 
-        internal static async Task<bool> ConfirmAsync(string message, string confirmingText, string dismissiveText = "Cancel", MaterialAlertDialogConfiguration configuration = null)
-        {
-            var dialog = new MaterialAlertDialog(message, null, confirmingText, dismissiveText, configuration)
-            {
-                InputTaskCompletionSource = new TaskCompletionSource<bool>()
-            };
-
-            await dialog.ShowAsync();
-
-            return await dialog.InputTaskCompletionSource.Task;
-        }
-
-        internal static async Task<bool> ConfirmAsync(string message, string title, string confirmingText, string dismissiveText = "Cancel", MaterialAlertDialogConfiguration configuration = null)
+        internal static async Task<bool?> ConfirmAsync(string message, string title, string confirmingText, string dismissiveText = "Cancel", MaterialAlertDialogConfiguration configuration = null)
         {
             var dialog = new MaterialAlertDialog(message, title, confirmingText, dismissiveText, configuration)
             {
-                InputTaskCompletionSource = new TaskCompletionSource<bool>()
+                InputTaskCompletionSource = new TaskCompletionSource<bool?>()
             };
 
             await dialog.ShowAsync();
@@ -74,7 +62,7 @@ namespace XF.Material.Forms.UI.Dialogs
 
         protected override bool OnBackButtonPressed()
         {
-            this.InputTaskCompletionSource?.SetResult(false);
+            this.InputTaskCompletionSource?.SetResult(null);
 
             return base.OnBackButtonPressed();
         }
