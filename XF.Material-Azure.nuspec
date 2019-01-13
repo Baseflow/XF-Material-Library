@@ -3,7 +3,7 @@
   <metadata>
     <id>XF.Material</id>
     <title>XF.Material Library</title>
-    <version>1.3.0.5</version>
+    <version>1.3.0.6</version>
     <authors>Dustin Catap</authors>
     <owners>Dustin Catap</owners>
     <projectUrl>https://github.com/contrix09/XF-Material-Library</projectUrl>
@@ -17,9 +17,9 @@
     <dependencies>
       <group targetFramework="netstandard2.0">
         <dependency id="Com.Airbnb.Xamarin.Forms.Lottie"
-                    version="2.5.4" />
+                    version="2.6.3" />
         <dependency id="Rg.Plugins.Popup"
-                    version="1.1.4.168" />
+                    version="1.1.5.180" />
         <dependency id="Xamarin.Forms"
                     version="3.3.0.912540" />
         <dependency id="Xamarin.Essentials"
@@ -27,20 +27,16 @@
       </group>
       <group targetFramework="MonoAndroid81">
         <dependency id="Com.Airbnb.Xamarin.Forms.Lottie"
-                    version="2.5.4" />
+                    version="2.6.3" />
         <dependency id="Com.Airbnb.Android.Lottie"
-                    version="2.5.4" />
+                    version="2.6.0" />
         <dependency id="Rg.Plugins.Popup"
-                    version="1.1.4.168" />
-        <dependency id="Xamarin.Android.Support.Design"
+                    version="1.1.5.180" />
+        <dependency id="Xamarin.Android.Support.Annotations"
                     version="27.0.2.1" />
-        <dependency id="Xamarin.Android.Support.v4"
+        <dependency id="Xamarin.Android.Support.Compat"
                     version="27.0.2.1" />
-        <dependency id="Xamarin.Android.Support.v7.AppCompat"
-                    version="27.0.2.1" />
-        <dependency id="Xamarin.Android.Support.v7.CardView"
-                    version="27.0.2.1" />
-        <dependency id="Xamarin.Android.Support.v7.MediaRouter"
+        <dependency id="Xamarin.Android.Support.Core.Utils"
                     version="27.0.2.1" />
         <dependency id="Xamarin.Forms"
                     version="3.3.0.912540" />
@@ -49,11 +45,11 @@
       </group>
       <group targetFramework="Xamarin.iOS10">
         <dependency id="Com.Airbnb.Xamarin.Forms.Lottie"
-                    version="2.5.4" />
+                    version="2.6.3" />
         <dependency id="Com.Airbnb.iOS.Lottie"
-                    version="2.5.4" />
+                    version="2.5.6" />
         <dependency id="Rg.Plugins.Popup"
-                    version="1.1.4.168" />
+                    version="1.1.5.180" />
         <dependency id="Xamarin.Forms"
                     version="3.3.0.912540" />
         <dependency id="Xamarin.Essentials"
