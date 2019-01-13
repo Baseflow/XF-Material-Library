@@ -28,7 +28,7 @@ namespace MaterialMvvmSample.Utilities.Dialogs
             return this.Alert($"{jobTitle} already exists.");
         }
 
-        public Task<bool> DeleteJob(string jobTitle)
+        public Task<bool?> DeleteJob(string jobTitle)
         {
             return this.DialogFacade
                    .ConfirmAsync(title: "Confirm Delete",

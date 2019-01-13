@@ -199,7 +199,7 @@ namespace MaterialMvvmSample.ViewModels
             {
                 var confirmed = await _dialogService.DeleteJob(model.Title);
 
-                if (confirmed)
+                if (confirmed == true)
                 {
                     this.Models.Remove(model);
 
