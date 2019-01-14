@@ -56,11 +56,9 @@ namespace XF.Material.Forms.UI.Dialogs
             TextField.TextChanged += this.TextField_TextChanged;
         }
 
-        protected override bool OnBackButtonPressed()
+        public override void OnBackButtonDismissed()
         {
             this.InputTaskCompletionSource?.SetResult(string.Empty);
-
-            return base.OnBackButtonPressed();
         }
 
         protected override bool OnBackgroundClicked()

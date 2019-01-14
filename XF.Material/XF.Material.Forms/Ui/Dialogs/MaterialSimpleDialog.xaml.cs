@@ -82,11 +82,9 @@ namespace XF.Material.Forms.UI.Dialogs
             DialogActionList.ItemsSource = actionModels;
         }
 
-        protected override bool OnBackButtonPressed()
+        public override void OnBackButtonDismissed()
         {
             this.InputTaskCompletionSource.SetResult(-1);
-
-            return base.OnBackButtonPressed();
         }
 
         protected override bool OnBackgroundClicked()

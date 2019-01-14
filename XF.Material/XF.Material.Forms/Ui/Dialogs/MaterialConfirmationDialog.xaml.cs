@@ -174,11 +174,9 @@ namespace XF.Material.Forms.UI.Dialogs
         //    }
         //}
 
-        protected override bool OnBackButtonPressed()
+        public override void OnBackButtonDismissed()
         {
             this.InputTaskCompletionSource?.SetResult(_isMultiChoice ? null : -1 as object);
-
-            return base.OnBackButtonPressed();
         }
 
         protected override bool OnBackgroundClicked()

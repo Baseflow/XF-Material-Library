@@ -61,6 +61,7 @@ namespace XF.Material.Droid
             if (dismissableDialog != null)
             {
                 await dismissableDialog.DismissAsync();
+                dismissableDialog.OnBackButtonDismissed();
             }
 
             else if (snackBar != null)

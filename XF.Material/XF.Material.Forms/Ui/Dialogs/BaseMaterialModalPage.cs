@@ -53,6 +53,12 @@ namespace XF.Material.Forms.UI.Dialogs
             GC.SuppressFinalize(this);
         }
 
+        /// <summary>
+        /// For internal use only.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public virtual void OnBackButtonDismissed() { }
+
         protected virtual void Dispose(bool disposing)
         {
             if (!_disposed && disposing)
@@ -85,11 +91,10 @@ namespace XF.Material.Forms.UI.Dialogs
         /// </summary>
         protected virtual async Task ShowAsync()
         {
-            if(this.CanShowPopup())
+            if (this.CanShowPopup())
             {
                 await PopupNavigation.Instance.PushAsync(this, true);
             }
-
             else
             {
                 await this.DismissAsync();
@@ -103,11 +108,6 @@ namespace XF.Material.Forms.UI.Dialogs
                 .PopupStack
                 .ToList()
                 .Exists(p => p.GetType() == this.GetType());
-        }
-
-        protected override bool OnBackButtonPressed()
-        {
-            return !this.Dismissable;
         }
     }
 }

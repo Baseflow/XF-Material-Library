@@ -107,11 +107,9 @@ namespace XF.Material.Forms.UI.Dialogs
             Container.TranslationY = newY;
         }
 
-        protected override bool OnBackButtonPressed()
+        public override void OnBackButtonDismissed()
         {
             this.InputTaskCompletionSource.SetResult(-1);
-
-            return base.OnBackButtonPressed();
         }
 
         protected override bool OnBackgroundClicked()

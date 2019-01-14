@@ -60,16 +60,14 @@ namespace XF.Material.Forms.UI.Dialogs
             return await dialog.InputTaskCompletionSource.Task;
         }
 
-        protected override bool OnBackButtonPressed()
+        public override void OnBackButtonDismissed()
         {
             this.InputTaskCompletionSource?.SetResult(null);
-
-            return base.OnBackButtonPressed();
         }
 
         protected override bool OnBackgroundClicked()
         {
-            this.InputTaskCompletionSource?.SetResult(false);
+            this.InputTaskCompletionSource?.SetResult(null);
 
             return base.OnBackgroundClicked();
         }
