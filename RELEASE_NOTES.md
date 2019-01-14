@@ -1,5 +1,8 @@
 # Release Notes
 
+##### 1.3.0.7
+- Fixed a bug where modal dialogs that are awaiting user input do not respond to back button event on Android.
+
 ##### 1.3.0.6
 - Fixed issue [44](https://github.com/contrix09/XF-Material-Library/issues/44).
 - Changed `IMaterialDialog.ConfirmAsync`. It now returns a nullable bool. Removed the other overload method. 
