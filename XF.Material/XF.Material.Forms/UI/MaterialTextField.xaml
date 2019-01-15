@@ -17,7 +17,7 @@
             </View.GestureRecognizers>
             <Grid.RowDefinitions>
                 <RowDefinition Height="56" />
-                <RowDefinition Height="16" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -97,7 +97,7 @@
                 Grid.Row="1"
                 Grid.Column="0"
                 Grid.ColumnSpan="3"
-                Margin="12,2,12,0"
+                Margin="12,4,12,0"
                 Style="{DynamicResource Material.TypeScale.Caption}"
                 TextColor="#99000000"
                 VerticalOptions="End"
@@ -119,7 +119,7 @@
             <Label x:Name="counter"
                 Grid.Row="1"
                 Grid.Column="2"
-                Margin="0,2,12,0"
+                Margin="0,4,12,0"
                 HorizontalOptions="End"
                 Style="{DynamicResource Material.TypeScale.Caption}"
                 TextColor="#99000000"
