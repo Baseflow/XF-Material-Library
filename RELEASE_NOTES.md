@@ -1,5 +1,8 @@
 # Release Notes
 
+##### 1.3.0.8
+- Fixed a misalignment in `MaterialTextfield`. Re-adjusted helper & counter texts' top margins from `2` to `4`. 
+
 ##### 1.3.0.7
 - Fixed a bug where modal dialogs that are awaiting user input do not respond to back button event on Android.
 

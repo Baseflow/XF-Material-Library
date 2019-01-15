@@ -74,6 +74,7 @@ namespace XF.Material.Forms.UI
         private readonly Easing animationCurve = Easing.SinOut;
         private bool _counterEnabled;
         private bool _wasFocused;
+        private bool _rowHeightWasSet;
 
         /// <summary>
         /// Initializes a new instance of <see cref="MaterialTextField"/>.
@@ -378,8 +379,8 @@ namespace XF.Material.Forms.UI
             {
                 entry.Margin = new Thickness(0, entry.Margin.Top, 0, entry.Margin.Bottom);
                 placeholder.Margin = 0;
-                helper.Margin = new Thickness(0, 2, 12, 0);
-                counter.Margin = new Thickness(0, 2, 0, 0);
+                helper.Margin = new Thickness(0, helper.Margin.Top, 12, 0);
+                counter.Margin = new Thickness(0, counter.Margin.Top, 0, 0);
                 trailingIcon.Margin = 0;
             }
 
