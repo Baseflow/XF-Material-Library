@@ -1,5 +1,8 @@
 # Release Notes
 
+##### 1.3.0.9
+- Removed previous version, wrong commit.
+
 ##### 1.3.0.8
 - Fixed a misalignment in `MaterialTextfield`. Re-adjusted helper & counter texts' top margins from `2` to `4`. 
 
