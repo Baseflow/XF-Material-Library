@@ -389,7 +389,7 @@ namespace XF.Material.iOS.Renderers
                     this.Control.Elevate(0);
                 }
 
-                if (_materialButton.ButtonType == MaterialButtonType.Elevated && _materialButton.ButtonType == MaterialButtonType.Flat)
+                if (_materialButton.ButtonType == MaterialButtonType.Elevated || _materialButton.ButtonType == MaterialButtonType.Flat)
                 {
                     _materialButton.TextColor = _disabledTextColor.ToColor();
                 }
