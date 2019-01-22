@@ -1,5 +1,8 @@
 # Release Notes
 
+##### 1.3.1.0
+- Fixed issue [50](https://github.com/contrix09/XF-Material-Library/issues/50).
+
 ##### 1.3.0.9
 - Removed previous version, wrong commit.
 
