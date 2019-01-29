@@ -97,6 +97,7 @@
     <Compile Include="Renderers\MaterialCardRenderer.cs" />
     <Compile Include="Renderers\MaterialCircularLoadingViewRenderer.cs" />
     <Compile Include="Renderers\MaterialIconRenderer.cs" />
+    <Compile Include="Renderers\MaterialLabelRenderer.cs" />
     <Compile Include="Renderers\MaterialMenuRenderer.cs" />
     <Compile Include="Renderers\MaterialNavigationPageRenderer.cs" />
     <Compile Include="Utility\MaterialUtility.cs" />

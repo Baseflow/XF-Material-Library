@@ -22,11 +22,11 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <Label x:Name="DialogTitle"
+                <material:MaterialLabel x:Name="DialogTitle"
                     Grid.Row="0"
                     Margin="24,20,24,12"
-                    Style="{DynamicResource Material.TypeScale.H6}"
                     TextColor="#DE000000"
+                    TypeScale="H6"
                     VerticalOptions="Start">
                     <Label.Triggers>
                         <Trigger TargetType="Label" Property="Text" Value="{x:Null}">
@@ -36,13 +36,13 @@
                             <Setter Property="IsVisible" Value="False" />
                         </Trigger>
                     </Label.Triggers>
-                </Label>
-                <Label x:Name="Message"
+                </material:MaterialLabel>
+                <material:MaterialLabel x:Name="Message"
                     Grid.Row="1"
-                    Margin="24,0,24,0"
-                    Style="{StaticResource Material.TypeScale.Body1}"
+                    Margin="24,8,24,0"
                     Text="Lorem ipsum dolor sit amet, conse tetuer adipiscing elit. Aenean commodo ligula eget dolor."
-                    TextColor="#99000000">
+                    TextColor="#99000000"
+                    TypeScale="Body1">
                     <Label.Triggers>
                         <DataTrigger Binding="{Binding Source={x:Reference DialogTitle}, Path=IsVisible}"
                             TargetType="Label"
@@ -50,7 +50,7 @@
                             <Setter Property="Margin" Value="24, 20, 24, 0" />
                         </DataTrigger>
                     </Label.Triggers>
-                </Label>
+                </material:MaterialLabel>
                 <Grid Grid.Row="2"
                     Margin="0,20,8,0"
                     ColumnSpacing="0">

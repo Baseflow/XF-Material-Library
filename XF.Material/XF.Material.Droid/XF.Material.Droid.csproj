@@ -72,6 +72,7 @@
     <Compile Include="MaterialHelper.cs" />
     <Compile Include="Renderers\MaterialDrawableHelper.cs" />
     <Compile Include="Renderers\MaterialIconRenderer.cs" />
+    <Compile Include="Renderers\MaterialLabelRenderer.cs" />
     <Compile Include="Renderers\MaterialMenuRenderer.cs" />
     <Compile Include="Renderers\MaterialNavigationPageRenderer.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />

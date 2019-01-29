@@ -55,5 +55,6 @@
         internal const string MATERIAL_BUTTON_HEIGHT = "Material.Button.Height";
         internal const string MATERIAL_BUTTON_OUTLINED_BORDERCOLOR = "Material.Button.Outlined.BorderColor";
         internal const string MATERIAL_FONTATTRIBUTE_BOLD = "Material.FontAttribute.Bold";
+        internal const string MATERIAL_LINEHEIGHT = "Material.LineHeight";
     }
 }

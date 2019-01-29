@@ -12,5 +12,6 @@
         <OnIdiom.Tablet>560</OnIdiom.Tablet>
         <OnIdiom.Phone>280</OnIdiom.Phone>
     </OnIdiom>
+    <x:Double x:Key="Material.LineHeight">1.4</x:Double>
 
 </ResourceDictionary>
