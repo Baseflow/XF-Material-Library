@@ -74,6 +74,7 @@ namespace XF.Material.iOS.Renderers
 
                 this.SetupIcon();
                 this.SetupColors();
+                this.SetTextLetterSpacing();
                 this.CreateStateAnimations();
                 this.UpdateButtonLayer();
                 this.UpdateCornerRadius();
@@ -117,6 +118,10 @@ namespace XF.Material.iOS.Renderers
             if (e?.PropertyName == nameof(MaterialButton.CornerRadius))
             {
                 this.UpdateCornerRadius();
+            }
+            if (e?.PropertyName == nameof(MaterialButton.LetterSpacing))
+            {
+                this.SetTextLetterSpacing();
             }
         }
 
@@ -229,6 +234,19 @@ namespace XF.Material.iOS.Renderers
         {
             _animationLayer.BorderColor = UIColor.Clear.CGColor;
             _animationLayer.BorderWidth = 0f;
+        }
+
+        private void SetTextLetterSpacing()
+        {
+            var attributedString = new NSMutableAttributedString(this.Control.Title(UIControlState.Normal) ?? string.Empty,
+                font: this.Control.Font,
+                foregroundColor: this.Control.TitleColor(UIControlState.Normal),
+                kerning: (float)_materialButton.LetterSpacing);
+
+            this.Control.SetAttributedTitle(attributedString, UIControlState.Normal);
+            this.Control.SetAttributedTitle(attributedString, UIControlState.Focused);
+            this.Control.SetAttributedTitle(attributedString, UIControlState.Highlighted);
+            this.Control.SetAttributedTitle(attributedString, UIControlState.Selected);
         }
 
         private void SetupColors()

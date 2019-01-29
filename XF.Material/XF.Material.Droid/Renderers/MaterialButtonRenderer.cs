@@ -42,6 +42,7 @@ namespace XF.Material.Droid.Renderers
 
                 this.SetButtonIcon();
                 this.SetTextColors();
+                this.SetTextLetterSpacing();
             }
         }
 
@@ -53,13 +54,17 @@ namespace XF.Material.Droid.Renderers
             {
                 this.SetButtonIcon();
             }
-            else if (e?.PropertyName == nameof(MaterialButton.AllCaps))
+            if (e?.PropertyName == nameof(MaterialButton.AllCaps))
             {
                 this.Control.SetAllCaps(_materialButton.AllCaps);
             }
-            else if (e?.PropertyName == nameof(Button.TextColor))
+            if (e?.PropertyName == nameof(Button.TextColor))
             {
                 this.SetTextColors();
+            }
+            if(e?.PropertyName == nameof(MaterialButton.LetterSpacing))
+            {
+                this.SetTextLetterSpacing();
             }
         }
 
@@ -107,6 +112,12 @@ namespace XF.Material.Droid.Renderers
              };
 
             this.Control.SetTextColor(new ColorStateList(states, colors));
+        }
+
+        private void SetTextLetterSpacing()
+        {
+            var rawLetterSpacing = _materialButton.LetterSpacing / this.Control.TextSize;
+            this.Control.LetterSpacing = MaterialHelper.ConvertToSp(rawLetterSpacing);
         }
     }
 }

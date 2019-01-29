@@ -2,9 +2,7 @@
 using System.Runtime.CompilerServices;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
-using XF.Material.Forms.Effects;
 using XF.Material.Forms.Resources;
-using XF.Material.Forms.Resources.Typography;
 
 namespace XF.Material.Forms.UI
 {
@@ -27,11 +25,12 @@ namespace XF.Material.Forms.UI
 
         public static readonly BindableProperty PressedBackgroundColorProperty = BindableProperty.Create(nameof(PressedBackgroundColor), typeof(Color), typeof(MaterialButton), default(Color));
 
+        public static readonly BindableProperty LetterSpacingProperty = BindableProperty.Create(nameof(LetterSpacing), typeof(double), typeof(MaterialButton), 1.25);
+
         private readonly string[] _colorPropertyNames = new string[] { nameof(BackgroundColor), nameof(PressedBackgroundColor), nameof(DisabledBackgroundColor) };
 
         public MaterialButton()
         {
-            this.SetValue(MaterialTypographyEffect.TypeScaleProperty, MaterialTypeScale.Button);
             this.SetDynamicResource(FontFamilyProperty, MaterialConstants.FontFamily.BUTTON);
             this.SetDynamicResource(FontSizeProperty, MaterialConstants.MATERIAL_FONTSIZE_BUTTON);
             this.SetDynamicResource(FontAttributesProperty, MaterialConstants.MATERIAL_FONTATTRIBUTE_BOLD);
@@ -48,6 +47,15 @@ namespace XF.Material.Forms.UI
         {
             get => (bool)this.GetValue(AllCapsProperty);
             set => this.SetValue(AllCapsProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the letter spacing of this button's text.
+        /// </summary>
+        public double LetterSpacing
+        {
+            get => (double)this.GetValue(LetterSpacingProperty);
+            set => this.SetValue(LetterSpacingProperty, value);
         }
 
         /// <summary>
