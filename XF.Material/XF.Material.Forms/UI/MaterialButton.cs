@@ -27,6 +27,8 @@ namespace XF.Material.Forms.UI
 
         public static readonly BindableProperty LetterSpacingProperty = BindableProperty.Create(nameof(LetterSpacing), typeof(double), typeof(MaterialButton), 1.25);
 
+        public static readonly BindableProperty ElevationProperty = BindableProperty.Create(nameof(Elevation), typeof(MaterialElevation), typeof(MaterialButton), new MaterialElevation(2, 8));
+
         private readonly string[] _colorPropertyNames = new string[] { nameof(BackgroundColor), nameof(PressedBackgroundColor), nameof(DisabledBackgroundColor) };
 
         public MaterialButton()
@@ -38,6 +40,12 @@ namespace XF.Material.Forms.UI
             this.SetDynamicResource(BackgroundColorProperty, MaterialConstants.Color.SECONDARY);
             this.SetDynamicResource(TextColorProperty, MaterialConstants.Color.ON_SECONDARY);
             this.SetDynamicResource(HeightRequestProperty, MaterialConstants.MATERIAL_BUTTON_HEIGHT);
+        }
+
+        public MaterialElevation Elevation
+        {
+            get => (MaterialElevation)this.GetValue(ElevationProperty);
+            set => this.SetValue(ElevationProperty, value);
         }
 
         /// <summary>

@@ -11,6 +11,7 @@ using Xamarin.Forms.Platform.Android;
 using XF.Material.Forms.UI;
 using static XF.Material.Forms.UI.MaterialButton;
 using Color = Android.Graphics.Color;
+using R = Android.Resource;
 
 namespace XF.Material.Droid.Renderers
 {
@@ -65,6 +66,11 @@ namespace XF.Material.Droid.Renderers
                     {
                         this.UpdateCornerRadius();
                         this.UpdateDrawable();
+                    }
+                },
+                { nameof(IMaterialButtonControl.Elevation), () =>
+                    {
+                        this.UpdateElevation();
                     }
                 },
                 { nameof(VisualElement.IsEnabled), () =>
@@ -272,20 +278,54 @@ namespace XF.Material.Droid.Renderers
                 return;
             }
 
+            _aView.StateListAnimator = this.CreateStateListAnimator();
+        }
+
+        private StateListAnimator CreateStateListAnimator()
+        {
             StateListAnimator stateListAnimator = null;
 
             if (_button.ButtonType == MaterialButtonType.Elevated && _aView.Enabled)
             {
-                stateListAnimator = AnimatorInflater.LoadStateListAnimator(_aView.Context, Resource.Animator.material_button_state_list_anim);
+                stateListAnimator = new StateListAnimator();
+
+                var objAnimTransZEnabled = ObjectAnimator.OfFloat(_aView, "translationZ", MaterialHelper.ConvertToDp(_button.Elevation.RestingElevation))
+                .SetDuration(100);
+                objAnimTransZEnabled.StartDelay = 100;
+
+                var objAnimElevationEnabled = ObjectAnimator.OfFloat(_aView, "elevation", MaterialHelper.ConvertToDp(_button.Elevation.RestingElevation))
+                    .SetDuration(0);
+
+                var objAnimTransZPressed = ObjectAnimator.OfFloat(_aView, "translationZ", MaterialHelper.ConvertToDp(_button.Elevation.PressedElevation))
+                    .SetDuration(100);
+
+                var objAnimElevationPressed = ObjectAnimator.OfFloat(_aView, "elevation", MaterialHelper.ConvertToDp(_button.Elevation.RestingElevation))
+                    .SetDuration(0);
+
+                var b = new AnimatorSet();
+                b.PlayTogether(objAnimTransZEnabled, objAnimElevationEnabled);
+                b.SetTarget(_aView);
+
+                var bb = new AnimatorSet();
+                bb.PlayTogether(objAnimTransZPressed, objAnimElevationPressed);
+                bb.SetTarget(_aView);
+
+
+                stateListAnimator.AddState(new int[] { R.Attribute.StatePressed }, bb);
+                stateListAnimator.AddState(new int[] { R.Attribute.StateFocused, R.Attribute.StateEnabled }, bb);
+                stateListAnimator.AddState(new int[] { R.Attribute.StateEnabled }, b);
+                stateListAnimator.AddState(new int[] { R.Attribute.StateFocused }, bb);
 
                 if (_aView is AppCompatImageButton)
                 {
                     _aView.OutlineProvider = new MaterialOutlineProvider(_button.CornerRadius);
                     _aView.ClipToOutline = false;
                 }
+
+                return stateListAnimator;
             }
 
-            _aView.StateListAnimator = stateListAnimator;
+            return null;
         }
 
         private void UpdatePressedColor(Xamarin.Forms.Color pressedColor)

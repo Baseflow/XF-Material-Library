@@ -30,7 +30,7 @@
 
   <dimen name="mtrl_btn_corner_radius">4dp</dimen>
 
-  <dimen name="mtrl_btn_pressed_z">6dp</dimen>
+  <dimen name="mtrl_btn_pressed_z">8dp</dimen>
   <dimen name="mtrl_btn_hovered_z">2dp</dimen>
   <dimen name="mtrl_btn_focused_z">2dp</dimen>
 

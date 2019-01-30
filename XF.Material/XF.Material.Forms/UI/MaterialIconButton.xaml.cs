@@ -34,6 +34,8 @@ namespace XF.Material.Forms.UI
 
         public static readonly BindableProperty TintColorProperty = BindableProperty.Create(nameof(TintColor), typeof(Color), typeof(MaterialIconButton), default(Color));
 
+        public static readonly BindableProperty ElevationProperty = BindableProperty.Create(nameof(Elevation), typeof(MaterialElevation), typeof(MaterialIconButton), new MaterialElevation(2, 8));
+
         private readonly Dictionary<string, Action> _propertyChangeActions;
 
         public MaterialIconButton()
@@ -53,6 +55,7 @@ namespace XF.Material.Forms.UI
                 { nameof(this.Image), () => this.OnImageChanged(this.Image) },
                 { nameof(this.PressedBackgroundColor), () => this.OnPressedBackgroundColorChanged(this.PressedBackgroundColor) },
                 { nameof(this.TintColor), () => this.OnTintColorChanged(this.TintColor) },
+                { nameof(this.Elevation), () => this.OnElevationChanged(this.Elevation) },
             };
         }
 
@@ -130,6 +133,12 @@ namespace XF.Material.Forms.UI
             set => this.SetValue(TintColorProperty, value);
         }
 
+        public MaterialElevation Elevation
+        {
+            get => (MaterialElevation)this.GetValue(ElevationProperty);
+            set => this.SetValue(ElevationProperty, value);
+        }
+
         protected virtual void OnButtonClicked(bool handled)
         {
             this.Clicked?.Invoke(this, EventArgs.Empty);
@@ -196,6 +205,11 @@ namespace XF.Material.Forms.UI
         private void OnTintColorChanged(Color tintColor)
         {
             _icon.TintColor = tintColor;
+        }
+
+        private void OnElevationChanged(MaterialElevation elevation)
+        {
+            _button.Elevation = elevation;
         }
     }
 }

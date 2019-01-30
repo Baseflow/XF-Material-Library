@@ -17,8 +17,6 @@ namespace XF.Material.iOS.Renderers
 {
     public class MaterialButtonRenderer : ButtonRenderer
     {
-        private const int PRESSED_ELEVATION = 8;
-        private const int RESTING_ELEVATION = 2;
         private CALayer _animationLayer;
         private UIColor _borderColor;
         private CABasicAnimation _colorPressed;
@@ -176,7 +174,7 @@ namespace XF.Material.iOS.Renderers
 
             if (elevated)
             {
-                this.Control.Elevate(RESTING_ELEVATION);
+                this.Control.Elevate(_materialButton.Elevation.RestingElevation);
             }
         }
 
@@ -194,25 +192,25 @@ namespace XF.Material.iOS.Renderers
                 _shadowOffsetPressed.Duration = 0.150;
                 _shadowOffsetPressed.FillMode = CAFillMode.Forwards;
                 _shadowOffsetPressed.RemovedOnCompletion = false;
-                _shadowOffsetPressed.To = FromObject(new CGSize(0, PRESSED_ELEVATION));
+                _shadowOffsetPressed.To = FromObject(new CGSize(0, _materialButton.Elevation.PressedElevation));
 
                 _shadowRadiusPressed = CABasicAnimation.FromKeyPath("shadowRadius");
                 _shadowRadiusPressed.Duration = 0.150;
                 _shadowRadiusPressed.FillMode = CAFillMode.Forwards;
                 _shadowRadiusPressed.RemovedOnCompletion = false;
-                _shadowRadiusPressed.To = NSNumber.FromFloat(PRESSED_ELEVATION);
+                _shadowRadiusPressed.To = NSNumber.FromFloat(_materialButton.Elevation.PressedElevation);
 
                 _shadowOffsetResting = CABasicAnimation.FromKeyPath("shadowOffset");
                 _shadowOffsetResting.Duration = 0.150;
                 _shadowOffsetResting.FillMode = CAFillMode.Forwards;
                 _shadowOffsetResting.RemovedOnCompletion = false;
-                _shadowOffsetResting.To = FromObject(new CGSize(0, RESTING_ELEVATION));
+                _shadowOffsetResting.To = FromObject(new CGSize(0, _materialButton.Elevation.RestingElevation));
 
                 _shadowRadiusResting = CABasicAnimation.FromKeyPath("shadowRadius");
                 _shadowRadiusResting.Duration = 0.150;
                 _shadowRadiusResting.FillMode = CAFillMode.Forwards;
                 _shadowRadiusResting.RemovedOnCompletion = false;
-                _shadowRadiusResting.To = NSNumber.FromFloat(RESTING_ELEVATION);
+                _shadowRadiusResting.To = NSNumber.FromFloat(_materialButton.Elevation.RestingElevation);
             }
 
             _colorPressed = CABasicAnimation.FromKeyPath("backgroundColor");
@@ -358,7 +356,7 @@ namespace XF.Material.iOS.Renderers
 
         private void UpdateCornerRadius()
         {
-            _animationLayer.CornerRadius = Convert.ToInt32(_materialButton.CornerRadius - _materialButton.CornerRadius * 0.25);
+            _animationLayer.CornerRadius = Convert.ToInt32(_materialButton.CornerRadius);
             this.Control.Layer.CornerRadius = _animationLayer.CornerRadius;
         }
 
@@ -368,7 +366,7 @@ namespace XF.Material.iOS.Renderers
             var height = this.Control.Frame.Height - 12;
 
             _animationLayer.Frame = new CGRect(6, 6, width, height);
-            _animationLayer.CornerRadius = Convert.ToInt32(_materialButton.CornerRadius - _materialButton.CornerRadius * 0.25);
+            _animationLayer.CornerRadius = Convert.ToInt32(_materialButton.CornerRadius);
 
             this.Control.Layer.BackgroundColor = UIColor.Clear.CGColor;
             this.Control.Layer.BorderColor = UIColor.Clear.CGColor;
@@ -384,7 +382,7 @@ namespace XF.Material.iOS.Renderers
 
                 if (_materialButton.ButtonType == MaterialButtonType.Elevated)
                 {
-                    this.Control.Elevate(RESTING_ELEVATION);
+                    this.Control.Elevate(_materialButton.Elevation.RestingElevation);
                 }
 
                 if (_materialButton.ButtonType == MaterialButtonType.Elevated || _materialButton.ButtonType == MaterialButtonType.Flat)
