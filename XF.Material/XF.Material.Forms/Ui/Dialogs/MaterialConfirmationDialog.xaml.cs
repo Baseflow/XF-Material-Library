@@ -42,6 +42,7 @@ namespace XF.Material.Forms.UI.Dialogs
                 dialog._radioButtonGroup.TextColor = dialog._preferredConfig.TextColor;
             }
 
+            dialog._radioButtonGroup.ShouldShowScrollbar = true;
             dialog.DialogTitle.Text = !string.IsNullOrEmpty(title) ? title : throw new ArgumentNullException(nameof(title));
             dialog.container.Content = dialog._radioButtonGroup;
             await dialog.ShowAsync();
@@ -67,6 +68,7 @@ namespace XF.Material.Forms.UI.Dialogs
                 dialog._radioButtonGroup.TextColor = dialog._preferredConfig.TextColor;
             }
 
+            dialog._radioButtonGroup.ShouldShowScrollbar = true;
             dialog.DialogTitle.Text = !string.IsNullOrEmpty(title) ? title : throw new ArgumentNullException(nameof(title));
             dialog.container.Content = dialog._radioButtonGroup;
             dialog.PositiveButton.IsEnabled = true;
@@ -92,6 +94,7 @@ namespace XF.Material.Forms.UI.Dialogs
                 dialog._checkboxGroup.TextColor = dialog._preferredConfig.TextColor;
             }
 
+            dialog._checkboxGroup.ShouldShowScrollbar = true;
             dialog._isMultiChoice = true;
             dialog.DialogTitle.Text = !string.IsNullOrEmpty(title) ? title : throw new ArgumentNullException(nameof(title));
             dialog.container.Content = dialog._checkboxGroup;
@@ -118,6 +121,7 @@ namespace XF.Material.Forms.UI.Dialogs
                 dialog._checkboxGroup.TextColor = dialog._preferredConfig.TextColor;
             }
 
+            dialog._checkboxGroup.ShouldShowScrollbar = true;
             dialog._isMultiChoice = true;
             dialog.DialogTitle.Text = !string.IsNullOrEmpty(title) ? title : throw new ArgumentNullException(nameof(title));
             dialog.container.Content = dialog._checkboxGroup;
@@ -162,17 +166,6 @@ namespace XF.Material.Forms.UI.Dialogs
             PositiveButton.Clicked -= this.PositiveButton_Clicked;
             NegativeButton.Clicked -= this.NegativeButton_Clicked;
         }
-
-        //protected override void OnDisappearingAnimationEnd()
-        //{
-        //    base.OnDisappearingAnimationEnd();
-
-        //    if (this.InputTaskCompletionSource.Task.Status == TaskStatus.WaitingForActivation)
-        //    {
-        //        var result = (_radioButtonGroup?.SelectedIndex) ?? _checkboxGroup?.SelectedIndices.ToArray() as object;
-        //        this.InputTaskCompletionSource.SetResult(result);
-        //    }
-        //}
 
         public override void OnBackButtonDismissed()
         {

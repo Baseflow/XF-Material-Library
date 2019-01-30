@@ -52,6 +52,14 @@ namespace XF.Material.Forms.UI.Internals
         /// </summary>
         public static readonly BindableProperty VerticalSpacingProperty = BindableProperty.Create(nameof(VerticalSpacing), typeof(double), typeof(BaseMaterialSelectionControlGroup), 0.0);
 
+        internal static readonly BindableProperty ShouldShowScrollbarProperty = BindableProperty.Create(nameof(ShouldShowScrollbar), typeof(bool), typeof(BaseMaterialSelectionControlGroup), false);
+
+        internal bool ShouldShowScrollbar
+        {
+            get => (bool)this.GetValue(ShouldShowScrollbarProperty);
+            set => this.SetValue(ShouldShowScrollbarProperty, value);
+        }
+
         /// <summary>
         /// Gets or sets the list of string which the user will choose from.
         /// </summary>

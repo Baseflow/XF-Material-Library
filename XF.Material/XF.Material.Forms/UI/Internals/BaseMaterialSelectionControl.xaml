@@ -53,7 +53,7 @@
                 Style="{DynamicResource Material.TypeScale.Body1}"
                 TextColor="#DE000000"
                 VerticalOptions="Center"
-                WidthRequest="500">
+                WidthRequest="1000">
                 <Label.Triggers>
                     <Trigger TargetType="Label" Property="Text" Value="{x:Null}">
                         <Setter Property="IsVisible" Value="False" />

@@ -1,4 +1,5 @@
-﻿using Android.Content;
+﻿using System.ComponentModel;
+using Android.Content;
 using Android.Graphics.Drawables;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
@@ -26,6 +27,18 @@ namespace XF.Material.Droid.Renderers.Internals
                 this.Control.ItemClick += this.Control_ItemClick;
 
                 this.Control.Selector = new ColorDrawable(Color.Transparent.ToAndroid());
+
+                this.Control.VerticalScrollBarEnabled = ((MaterialDialogListView)this.Element).ShouldShowScrollbar;
+            }
+        }
+
+        protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            base.OnElementPropertyChanged(sender, e);
+
+            if(e?.PropertyName == nameof(MaterialDialogListView.ShouldShowScrollbar))
+            {
+                this.Control.VerticalScrollBarEnabled = ((MaterialDialogListView)this.Element).ShouldShowScrollbar;
             }
         }
 

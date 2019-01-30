@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using System.ComponentModel;
+using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 using XF.Material.Forms.UI.Internals;
 using XF.Material.iOS.Renderers.Internals;
@@ -15,6 +16,17 @@ namespace XF.Material.iOS.Renderers.Internals
             if(e?.NewElement != null)
             {
                 this.Control.Bounces = false;
+                this.Control.ShowsVerticalScrollIndicator = ((MaterialDialogListView)this.Element).ShouldShowScrollbar;
+            }
+        }
+
+        protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            base.OnElementPropertyChanged(sender, e);
+
+            if (e?.PropertyName == nameof(MaterialDialogListView.ShouldShowScrollbar))
+            {
+                this.Control.ShowsVerticalScrollIndicator = ((MaterialDialogListView)this.Element).ShouldShowScrollbar;
             }
         }
     }
