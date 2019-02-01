@@ -11,41 +11,42 @@
     material:MaterialNavigationPage.AppBarTitleTextFontFamily="{StaticResource FontFamily.RobotoMedium}"
     material:MaterialNavigationPage.AppBarTitleTextFontSize="14"
     material:MaterialNavigationPage.StatusBarColor="#1B3147">
-    <ScrollView>
-        <StackLayout Padding="16">
-            <Label Style="{DynamicResource Material.TypeScale.H6}" Text="Registration" />
-            <material:MaterialTextField x:Name="_textField2"
-                AlwaysShowUnderline="True"
-                BackgroundColor="Transparent"
-                HasHorizontalPadding="False"
-                HelperText="*Required"
-                MaxLength="12"
-                PlaceholderColor="Gray"
-                TintColor="#00377b"
-                UnderlineColor="#00377b" />
-            <material:MaterialTextField AlwaysShowUnderline="True"
-                BackgroundColor="Transparent"
-                Choices="{Binding Choices}"
-                HasError="{Binding HasError}"
-                HasHorizontalPadding="False"
-                HelperText="*Required"
-                InputType="Choice"
-                Placeholder="Customer or company name"
-                Text="{Binding SelectedChoice}"
-                TintColor="#00377b"
-                UnderlineColor="#00377b" />
-            <material:MaterialTextField AlwaysShowUnderline="True"
-                BackgroundColor="Transparent"
-                HasError="True"
-                HasHorizontalPadding="False"
-                HelperText="*Required"
-                TextChanged="MaterialTextField_TextChanged"
-                TintColor="#00377b" />
-            <material:MaterialSlider x:Name="_slider"
-                MaxValue="100"
-                MinValue="0" />
-            <Label Style="{DynamicResource Material.TypeScale.Body1}" Text="{Binding Source={x:Reference _slider}, Path=Value}" />
-            <ListView BackgroundColor="Transparent"
+    <!--<ScrollView>-->
+    <!--<StackLayout Padding="16">-->
+    <!--<material:MaterialButton Elevation="6"
+                HorizontalOptions="Center"
+                Text="Button" />
+            <material:MaterialButton HorizontalOptions="Center"
+                LetterSpacing="2.5"
+                Text="Button" />
+            <material:MaterialIconButton CornerRadius="16"
+                Elevation="6"
+                HorizontalOptions="Center"
+                Image="ic_overflow"
+                TintColor="White" />
+            <material:MaterialMenuButton CornerRadius="18"
+                HorizontalOptions="Center"
+                Image="ic_overflow"
+                TintColor="White">
+                <material:MaterialMenuButton.Choices>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Add</x:String>
+                        <x:String>Edit</x:String>
+                        <x:String>Delete</x:String>
+                    </x:Array>
+                </material:MaterialMenuButton.Choices>
+            </material:MaterialMenuButton>
+            <material:MaterialCard Padding="16">
+                <StackLayout>
+                    <material:MaterialLabel Text="Lorem Ipsum"
+                        TextColor="Black"
+                        TypeScale="H6" />
+                    <material:MaterialLabel Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vitae porttitor metus. Curabitur consectetur finibus sapien in ultricies. Proin eleifend elit et eros pulvinar, in ultrices ipsum rhoncus. Etiam sed egestas turpis, vel ultricies mauris."
+                        TextColor="#DE000000"
+                        TypeScale="Body2" />
+                </StackLayout>
+            </material:MaterialCard>-->
+    <!--<ListView BackgroundColor="Transparent"
                 HasUnevenRows="True"
                 ItemsSource="{Binding Models}"
                 SelectionMode="None"
@@ -111,10 +112,10 @@
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-            </ListView>
-        </StackLayout>
-    </ScrollView>
-    <!--<ScrollView VerticalOptions="FillAndExpand">
+            </ListView>-->
+    <!--</StackLayout>
+    </ScrollView>-->
+    <ScrollView VerticalOptions="FillAndExpand">
         <material:MaterialCard Elevation="4"
             HorizontalOptions="FillAndExpand"
             IsClippedToBounds="False"
@@ -125,9 +126,22 @@
                     Text="Create an account"
                     TextColor="#DE000000" />
                 <material:MaterialTextField AlwaysShowUnderline="True"
+                    ChoiceDisplayBinding="{Binding AS}"
                     HelperText="*Required"
+                    InputType="Choice"
                     Placeholder="Username"
-                    TintColor="#2c3e50" />
+                    TintColor="#2c3e50">
+                    <material:MaterialTextField.Choices>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>Add</x:String>
+                            <x:String>Edit</x:String>
+                            <x:String>Delete</x:String>
+                            <x:String>Save</x:String>
+                            <x:String>Undo</x:String>
+                            <x:String>Redo</x:String>
+                        </x:Array>
+                    </material:MaterialTextField.Choices>
+                </material:MaterialTextField>
                 <material:MaterialTextField AlwaysShowUnderline="True"
                     BackgroundColor="Transparent"
                     FocusCommand="{Binding EmailFocusCommand}"
@@ -152,17 +166,29 @@
                     Placeholder="Confirm Password"
                     TintColor="#2c3e50" />
                 <material:MaterialIconButton HorizontalOptions="Start"
-                    Source="ic_overflow"
+                    Image="ic_overflow"
                     TintColor="Gray" />
                 <material:MaterialCheckbox Margin="-8,0,0,0"
                     SelectedColor="#2c3e50"
                     Text="I agree with the terms and service." />
+                <material:MaterialRadioButtonGroup>
+                    <material:MaterialRadioButtonGroup.Choices>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>Add</x:String>
+                            <x:String>Edit</x:String>
+                            <x:String>Delete</x:String>
+                            <x:String>Save</x:String>
+                            <x:String>Undo</x:String>
+                            <x:String>Redo</x:String>
+                        </x:Array>
+                    </material:MaterialRadioButtonGroup.Choices>
+                </material:MaterialRadioButtonGroup>
                 <material:MaterialButton BackgroundColor="#2c3e50"
                     HorizontalOptions="End"
                     Text="Create" />
             </StackLayout>
         </material:MaterialCard>
-    </ScrollView>-->
+    </ScrollView>
 
 
 </local:BaseMainView>
