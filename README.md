@@ -1,7 +1,7 @@
 
 <img src="images/xf.material_logo.png" width="112" />
 
-# XF.Material Library [![NuGet](https://img.shields.io/badge/version-1.3.0.10-orange.svg?style=flat)](https://github.com/contrix09/XF-Material-Library/blob/master/RELEASE_NOTES.md) [![Build status](https://dev.azure.com/compiledevops/XF.Material/_apis/build/status/XF.Material-CI%20NuGet)](https://dev.azure.com/compiledevops/XF.Material/_build/latest?definitionId=20)
+# XF.Material Library [![NuGet](https://img.shields.io/badge/version-1.3.1.1-orange.svg?style=flat)](https://github.com/contrix09/XF-Material-Library/blob/master/RELEASE_NOTES.md) [![Build status](https://dev.azure.com/compiledevops/XF.Material/_apis/build/status/XF.Material-CI%20NuGet)](https://dev.azure.com/compiledevops/XF.Material/_build/latest?definitionId=20)
 
 A Xamarin.Forms library for Xamarin.Android and Xamarin.iOS to implement [Google's Material Design](https://material.io/design).
 
@@ -1222,8 +1222,12 @@ If targeted below Android 5.0, the following issues can be seen:
 - On Android 4.2 (Jellybean), `MaterialButton` is larger. Explanation is provided in this [issue](https://github.com/contrix09/XF-Material-Library/issues/2#issuecomment-417819032).
 - Letter spacing of typescale effects won't work for devices running below Android 5.0 (Lollipop). The API for setting the letter spacing was added in Android 5.0.
 
-## Libraries Used
+## Thanks and Appreciation
 Special thanks to the following libraries I used for this project:
 - [Rg.Plugins.Popup](https://github.com/rotorgames/Rg.Plugins.Popup)
 - [LottieXamarin](https://github.com/martijn00/LottieXamarin)
 - [Xamarin.Essentials](https://github.com/xamarin/Essentials)
+
+Coffee supports this library, help the devs by giving them coffee:
+
+[![Donate](https://img.shields.io/badge/Give%20Coffee-Donate-orange.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=K4HS649SFADTS&source=url)
