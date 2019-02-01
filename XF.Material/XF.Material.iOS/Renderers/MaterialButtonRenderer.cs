@@ -346,6 +346,11 @@ namespace XF.Material.iOS.Renderers
 
         private void UpdateLayerFrame()
         {
+            if(this.Control == null)
+            {
+                return;
+            }
+
             var width = this.Control.Frame.Width - 12;
             var height = this.Control.Frame.Height - 12;
 
