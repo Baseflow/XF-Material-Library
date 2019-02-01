@@ -35,7 +35,7 @@ A Xamarin.Forms library for Xamarin.Android and Xamarin.iOS to implement [Google
     - [Retrieving a Material Resource](#retrieving-a-material-resource)
   - [Changing the Status Bar Color](#changing-the-status-bar-color)
 - [Android Compatibility Issues](#android-compatibility-issues)
-- [Libraries Used](#libraries-used)
+- [Thanks and Appreciation](#thanks-and-appreciation)
 
 ## Getting Started
 1. Download the current version through [NuGet](https://www.nuget.org/packages/XF.Material) and install it in your Xamarin.Forms projects.
