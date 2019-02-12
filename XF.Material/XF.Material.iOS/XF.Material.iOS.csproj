@@ -101,6 +101,7 @@
     <Compile Include="Renderers\MaterialMenuRenderer.cs" />
     <Compile Include="Renderers\MaterialNavigationPageRenderer.cs" />
     <Compile Include="Utility\MaterialUtility.cs" />
+    <Compile Include="GestureRecognizers\MaterialRippleGestureRecognizer.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\xf_error%402x.png" />
@@ -163,6 +164,9 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\xf_arrow_dropdown%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="GestureRecognizers\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
