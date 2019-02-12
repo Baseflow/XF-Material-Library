@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <local:BaseMainView x:Class="MaterialMvvmSample.Views.MainView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -72,6 +72,7 @@
                             <material:MaterialCard Margin="4"
                                 Padding="16,8,4,8"
                                 Elevation="2"
+                                IsClickable="true"
                                 IsClippedToBounds="False">
                                 <View.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding Source={x:Reference Root}, Path=BindingContext.JobSelectedCommand}"
