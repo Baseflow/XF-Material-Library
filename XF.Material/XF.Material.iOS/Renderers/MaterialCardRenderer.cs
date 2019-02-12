@@ -26,7 +26,7 @@ namespace XF.Material.iOS.Renderers
         {
             base.OnElementPropertyChanged(sender, e);
 
-            if (e?.PropertyName == nameof(MaterialCard.Elevation))
+            if (e?.PropertyName == nameof(MaterialCard.Elevation) || e?.PropertyName == nameof(VisualElement.BackgroundColor))
             {
                 this.Elevate(_materialCard.Elevation);
             }
