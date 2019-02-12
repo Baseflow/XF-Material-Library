@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView x:Class="XF.Material.Forms.UI.MaterialSwitch"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mat="clr-namespace:XF.Material.Forms.UI">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <BoxView x:Name="_background"
+                 CornerRadius="8"
+                 HeightRequest="16"
+                 VerticalOptions="Center"
+                 WidthRequest="36" />
+        <mat:MaterialCard x:Name="_thumb"
+                          Padding="0"
+                          BackgroundColor="#FFFFFF"
+                          CornerRadius="10"
+                          Elevation="1"
+                          HeightRequest="20"
+                          HorizontalOptions="Start"
+                          VerticalOptions="Center"
+                          WidthRequest="20" />
+    </Grid>
+    <ContentView.GestureRecognizers>
+        <TapGestureRecognizer NumberOfTapsRequired="1"
+                              Tapped="TapGestureRecognizer_Tapped" />
+    </ContentView.GestureRecognizers>
+</ContentView>
