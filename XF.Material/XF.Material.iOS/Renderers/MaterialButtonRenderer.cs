@@ -47,6 +47,8 @@ namespace XF.Material.iOS.Renderers
             {
                 _materialButton.WidthRequest = 64;
             }
+
+            UpdateTextSizing();
         }
 
         protected override void OnElementChanged(ElementChangedEventArgs<Button> e)
@@ -267,10 +269,19 @@ namespace XF.Material.iOS.Renderers
         {
             if (_withIcon)
             {
-                using (var image = UIImage.FromFile(_materialButton.Image.File))
+                UIImage image = null; 
+
+                try
                 {
+                    image = UIImage.FromFile(_materialButton.Image.File);
+
+                    if (image == null)
+                        image = UIImage.FromBundle(_materialButton.Image.File);
+
+
                     UIGraphics.BeginImageContextWithOptions(new CGSize(18, 18), false, 0f);
-                    image.Draw(new CGRect(0, 0, 18, 18));
+                    if (image != null)
+                        image.Draw(new CGRect(0, 0, 18, 18));
 
                     using (var newImage = UIGraphics.GetImageFromCurrentImageContext())
                     {
@@ -278,11 +289,23 @@ namespace XF.Material.iOS.Renderers
 
                         this.Control.SetImage(newImage, UIControlState.Normal);
                         this.Control.SetImage(newImage, UIControlState.Disabled);
-                        this.Control.TitleEdgeInsets = new UIEdgeInsets(0f, 0f, 0f, 0f);
-                        this.Control.ImageEdgeInsets = new UIEdgeInsets(0f, -6f, 0f, 0f);
+
+                        this.Control.HorizontalAlignment = UIControlContentHorizontalAlignment.Left;
+                        this.Control.ImageEdgeInsets = new UIEdgeInsets(0f, 0f, 0f, 0f);
                         this.Control.TintColor = _materialButton.TextColor.ToUIColor();
                     }
                 }
+                finally
+                {
+                    if (image != null)
+                        image.Dispose();
+                    image = null;
+                }
+            }
+            else
+            {
+                this.Control.TitleEdgeInsets = new UIEdgeInsets(0, 0, 0, 0);
+                this.Control.HorizontalAlignment = UIControlContentHorizontalAlignment.Center;
             }
         }
 
@@ -332,10 +355,42 @@ namespace XF.Material.iOS.Renderers
             {
                 this.Control.ContentEdgeInsets = new UIEdgeInsets(10f, 22f, 10f, 22f);
             }
-            else if (_materialButton.ButtonType == MaterialButtonType.Text)
+            else if (_materialButton.ButtonType == MaterialButtonType.Text && _withIcon)
+            {
+                this.Control.ContentEdgeInsets = new UIEdgeInsets(10f, 18f, 10f, 22f);
+            }
+            else if (_materialButton.ButtonType == MaterialButtonType.Text && !_withIcon)
             {
                 this.Control.ContentEdgeInsets = new UIEdgeInsets(10f, 14f, 10f, 14f);
             }
+        }
+
+        private void UpdateTextSizing()
+        {
+            if (String.IsNullOrEmpty(_materialButton.Text) || !_withIcon)
+            {
+                this.Control.TitleEdgeInsets = new UIEdgeInsets(0, 0, 0, 0);
+                return;
+            }
+
+            // We have to set the button title insets to make the button look
+            // like Android's material buttons. (icon on left, text is centralized)
+            //
+            NSString textToMeasure = (NSString)(_materialButton.Text ?? "");
+
+            CGRect labelRect = textToMeasure.GetBoundingRect(
+                new CGSize(this.Frame.Width - 40, nfloat.MaxValue),
+                NSStringDrawingOptions.UsesLineFragmentOrigin,
+                new UIStringAttributes() { Font = this.Control.Font },
+                new NSStringDrawingContext()
+            );
+
+            float textWidth = (float)labelRect.Size.Width;
+            float buttonWidth = (float)this.Control.Frame.Width;
+
+            float inset = (buttonWidth - textWidth) / 2 - 28;
+            this.Control.TitleEdgeInsets = new UIEdgeInsets(0, inset, 0,  -40);
+
         }
 
         private void UpdateCornerRadius()
@@ -346,6 +401,11 @@ namespace XF.Material.iOS.Renderers
 
         private void UpdateLayerFrame()
         {
+            if(this.Control == null)
+            {
+                return;
+            }
+
             var width = this.Control.Frame.Width - 12;
             var height = this.Control.Frame.Height - 12;
 

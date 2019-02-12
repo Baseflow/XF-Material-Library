@@ -86,10 +86,7 @@ namespace XF.Material.Droid.Renderers
 
         public void UpdateDrawable()
         {
-            using (var drawable = this.GetDrawable())
-            {
-                _aView.Background = drawable;
-            }
+            _aView.Background = this.GetDrawable();
 
             this.UpdateElevation();
         }

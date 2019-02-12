@@ -74,7 +74,6 @@ namespace XF.Material.Forms.UI
         private readonly Easing animationCurve = Easing.SinOut;
         private bool _counterEnabled;
         private bool _wasFocused;
-        private bool _rowHeightWasSet;
 
         /// <summary>
         /// Initializes a new instance of <see cref="MaterialTextField"/>.
@@ -365,6 +364,11 @@ namespace XF.Material.Forms.UI
                 entry.PropertyChanged -= this.Entry_PropertyChanged;
             }
         }
+
+        /// <summary>
+        /// Requests to focus this text field.
+        /// </summary>
+        public new void Focus() => entry.Focus();
 
         protected override void LayoutChildren(double x, double y, double width, double height)
         {
@@ -872,7 +876,6 @@ namespace XF.Material.Forms.UI
                 { nameof(this.FloatingPlaceholderEnabled), () => this.OnFloatingPlaceholderEnabledChanged(this.FloatingPlaceholderEnabled) },
             };
         }
-
         private void UpdateCounter()
         {
             if (_counterEnabled)

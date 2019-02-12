@@ -1,5 +1,11 @@
 # Release Notes
 
+##### 1.3.1.1
+- Fixed issue [35](https://github.com/contrix09/XF-Material-Library/issues/35).
+- Fixed issue [38](https://github.com/contrix09/XF-Material-Library/issues/38).
+- Fixed issue [53](https://github.com/contrix09/XF-Material-Library/issues/53).
+- Fixed issue [58](https://github.com/contrix09/XF-Material-Library/issues/58).
+
 ##### 1.3.1.0
 - Fixed issue [50](https://github.com/contrix09/XF-Material-Library/issues/50).
 

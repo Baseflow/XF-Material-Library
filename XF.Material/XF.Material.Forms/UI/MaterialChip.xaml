@@ -3,6 +3,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:fx="clr-namespace:XF.Material.Forms.Effects"
+    xmlns:mat="clr-namespace:XF.Material.Forms.UI"
     Padding="0">
     <ContentView.Resources>
         <ResourceDictionary>
@@ -73,15 +74,14 @@
             <Frame x:Name="ChipImageContainer"
                 Margin="6,0,-4,0"
                 Padding="0"
-                BackgroundColor="White"
+                BackgroundColor="Transparent"
                 CornerRadius="12"
                 HasShadow="False"
                 HeightRequest="24"
                 IsVisible="False"
                 VerticalOptions="Center"
                 WidthRequest="24">
-                <Image x:Name="ChipImage"
-                    Aspect="AspectFit"
+                <mat:MaterialIcon x:Name="ChipImage"
                     HeightRequest="24"
                     WidthRequest="24" />
             </Frame>
@@ -102,7 +102,7 @@
                     </DataTrigger>
                 </Label.Triggers>
             </Label>
-            <Image x:Name="ChipActionImage"
+            <mat:MaterialIcon x:Name="ChipActionImage"
                 IsVisible="False"
                 Style="{StaticResource Material.Chip.ActionImage}" />
         </StackLayout>
