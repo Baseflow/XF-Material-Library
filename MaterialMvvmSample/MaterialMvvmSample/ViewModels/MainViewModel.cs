@@ -95,7 +95,7 @@ namespace MaterialMvvmSample.ViewModels
             "San Miguel Corporation",
             "YNGEN Holdings Inc.",
             "ERNI Development Center Philippines, Inc., Bern, Switzerland"
-        };
+        }; 
 
         public ICommand JobSelectedCommand => new Command<string>(async (s) => await this.ViewItemSelected(s));
 

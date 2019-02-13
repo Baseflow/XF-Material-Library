@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <local:BaseMainView x:Class="MaterialMvvmSample.Views.MainView"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:MaterialMvvmSample.Views"
-    xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material.Forms"
-    x:Name="Root"
-    Title="Material MVVM"
-    material:MaterialNavigationPage.AppBarColor="#2c3e50"
-    material:MaterialNavigationPage.AppBarTitleTextAlignment="Start"
-    material:MaterialNavigationPage.AppBarTitleTextFontFamily="{StaticResource FontFamily.RobotoMedium}"
-    material:MaterialNavigationPage.AppBarTitleTextFontSize="14"
-    material:MaterialNavigationPage.StatusBarColor="#1B3147">
-    <!--<ScrollView>-->
-    <!--<StackLayout Padding="16">-->
-    <!--<material:MaterialButton Elevation="6"
-                HorizontalOptions="Center"
-                Text="Button" />
+                    xmlns="http://xamarin.com/schemas/2014/forms"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:local="clr-namespace:MaterialMvvmSample.Views"
+                    xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material.Forms"
+                    x:Name="Root"
+                    Title="Material MVVM"
+                    material:MaterialNavigationPage.AppBarColor="#2c3e50"
+                    material:MaterialNavigationPage.AppBarTitleTextAlignment="Start"
+                    material:MaterialNavigationPage.AppBarTitleTextFontFamily="{StaticResource FontFamily.RobotoMedium}"
+                    material:MaterialNavigationPage.AppBarTitleTextFontSize="14"
+                    material:MaterialNavigationPage.StatusBarColor="#1B3147">
+    <ScrollView>
+        <StackLayout Padding="16">
+            <material:MaterialButton Elevation="6"
+                                     HorizontalOptions="Center"
+                                     Text="Button" />
             <material:MaterialButton HorizontalOptions="Center"
-                LetterSpacing="2.5"
-                Text="Button" />
+                                     LetterSpacing="2.5"
+                                     Text="Button" />
             <material:MaterialIconButton CornerRadius="16"
-                Elevation="6"
-                HorizontalOptions="Center"
-                Image="ic_overflow"
-                TintColor="White" />
+                                         Elevation="6"
+                                         HorizontalOptions="Center"
+                                         Image="ic_overflow"
+                                         TintColor="White" />
             <material:MaterialMenuButton CornerRadius="18"
-                HorizontalOptions="Center"
-                Image="ic_overflow"
-                TintColor="White">
+                                         HorizontalOptions="Center"
+                                         Image="ic_overflow"
+                                         TintColor="White">
                 <material:MaterialMenuButton.Choices>
                     <x:Array Type="{x:Type x:String}">
                         <x:String>Add</x:String>
@@ -39,157 +39,146 @@
             <material:MaterialCard Padding="16">
                 <StackLayout>
                     <material:MaterialLabel Text="Lorem Ipsum"
-                        TextColor="Black"
-                        TypeScale="H6" />
+                                            TextColor="Black"
+                                            TypeScale="H6" />
                     <material:MaterialLabel Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vitae porttitor metus. Curabitur consectetur finibus sapien in ultricies. Proin eleifend elit et eros pulvinar, in ultrices ipsum rhoncus. Etiam sed egestas turpis, vel ultricies mauris."
-                        TextColor="#DE000000"
-                        TypeScale="Body2" />
+                                            TextColor="#DE000000"
+                                            TypeScale="Body2" />
                 </StackLayout>
-            </material:MaterialCard>-->
-    <!--<ListView BackgroundColor="Transparent"
-                HasUnevenRows="True"
-                ItemsSource="{Binding Models}"
-                SelectionMode="None"
-                SeparatorVisibility="None">
+            </material:MaterialCard>
+            <ListView BackgroundColor="Transparent"
+                      HasUnevenRows="True"
+                      ItemsSource="{Binding Models}"
+                      SelectionMode="None"
+                      SeparatorVisibility="None">
                 <ListView.Header>
-                    <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                    <StackLayout HorizontalOptions="FillAndExpand"
+                                 Orientation="Horizontal">
                         <material:MaterialMenuButton ButtonType="Text"
-                            Choices="{Binding ListActions}"
-                            Command="{Binding ListMenuCommand}"
-                            CornerRadius="24"
-                            HeightRequest="48"
-                            HorizontalOptions="Start"
-                            Image="ic_overflow"
-                            WidthRequest="48" />
+                                                     Choices="{Binding ListActions}"
+                                                     Command="{Binding ListMenuCommand}"
+                                                     CornerRadius="24"
+                                                     HeightRequest="48"
+                                                     HorizontalOptions="Start"
+                                                     Image="ic_overflow"
+                                                     WidthRequest="48" />
                         <Label Style="{DynamicResource Material.TypeScale.H6}"
-                            Text="Job Positions"
-                            TextColor="Black"
-                            VerticalOptions="Center" />
+                               Text="Job Positions"
+                               TextColor="Black"
+                               VerticalOptions="Center" />
                     </StackLayout>
                 </ListView.Header>
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
                             <material:MaterialCard Margin="4"
-                                Padding="16,8,4,8"
-                                Elevation="2"
-                                IsClickable="true"
-                                IsClippedToBounds="False">
+                                                   Padding="16,8,4,8"
+                                                   Elevation="2"
+                                                   IsClickable="true"
+                                                   IsClippedToBounds="False">
                                 <View.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding Source={x:Reference Root}, Path=BindingContext.JobSelectedCommand}"
-                                        CommandParameter="{Binding Id}"
-                                        NumberOfTapsRequired="1" />
+                                                          CommandParameter="{Binding Id}"
+                                                          NumberOfTapsRequired="1" />
                                 </View.GestureRecognizers>
-                                <StackLayout HeightRequest="80" Orientation="Horizontal">
-                                    <StackLayout HorizontalOptions="StartAndExpand" Orientation="Horizontal">
+                                <StackLayout HeightRequest="80"
+                                             Orientation="Horizontal">
+                                    <StackLayout HorizontalOptions="StartAndExpand"
+                                                 Orientation="Horizontal">
                                         <Label Style="{DynamicResource Material.TypeScale.Body1}"
-                                            Text="{Binding Title}"
-                                            TextColor="Black"
-                                            VerticalOptions="FillAndExpand"
-                                            VerticalTextAlignment="Center" />
+                                               Text="{Binding Title}"
+                                               TextColor="Black"
+                                               VerticalOptions="FillAndExpand"
+                                               VerticalTextAlignment="Center" />
                                         <material:MaterialCard Padding="8,2"
-                                            BackgroundColor="#2c3e50"
-                                            CornerRadius="2"
-                                            Elevation="1"
-                                            IsVisible="{Binding IsNew}"
-                                            VerticalOptions="Center">
+                                                               BackgroundColor="#2c3e50"
+                                                               CornerRadius="2"
+                                                               Elevation="1"
+                                                               IsVisible="{Binding IsNew}"
+                                                               VerticalOptions="Center">
                                             <Label Style="{DynamicResource Material.TypeScale.Overline}"
-                                                Text="NEW"
-                                                TextColor="#DEFFFFFF" />
+                                                   Text="NEW"
+                                                   TextColor="#DEFFFFFF" />
                                         </material:MaterialCard>
                                     </StackLayout>
 
                                     <material:MaterialMenuButton ButtonType="Text"
-                                        Choices="{Binding Source={x:Reference Root}, Path=BindingContext.Actions}"
-                                        Command="{Binding Source={x:Reference Root}, Path=BindingContext.MenuCommand}"
-                                        CommandParameter="{Binding Title}"
-                                        CornerRadius="24"
-                                        HorizontalOptions="End"
-                                        Image="ic_overflow"
-                                        TintColor="#AEAEAE"
-                                        VerticalOptions="Center" />
+                                                                 Choices="{Binding Source={x:Reference Root}, Path=BindingContext.Actions}"
+                                                                 Command="{Binding Source={x:Reference Root}, Path=BindingContext.MenuCommand}"
+                                                                 CommandParameter="{Binding Title}"
+                                                                 CornerRadius="24"
+                                                                 HorizontalOptions="End"
+                                                                 Image="ic_overflow"
+                                                                 TintColor="#AEAEAE"
+                                                                 VerticalOptions="Center" />
                                 </StackLayout>
                             </material:MaterialCard>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-            </ListView>-->
-    <!--</StackLayout>
-    </ScrollView>-->
-    <ScrollView VerticalOptions="FillAndExpand">
+            </ListView>
+        </StackLayout>
+    </ScrollView>
+    <!--<ScrollView VerticalOptions="FillAndExpand">
         <material:MaterialCard Elevation="4"
-            HorizontalOptions="FillAndExpand"
-            IsClippedToBounds="False"
-            VerticalOptions="FillAndExpand">
+                               HorizontalOptions="FillAndExpand"
+                               IsClickable="True"
+                               IsClippedToBounds="False"
+                               VerticalOptions="FillAndExpand">
             <StackLayout Spacing="8">
                 <Label Margin="0,0,0,16"
-                    Style="{DynamicResource Material.TypeScale.H5}"
-                    Text="Create an account"
-                    TextColor="#DE000000" />
+                       Style="{DynamicResource Material.TypeScale.H5}"
+                       Text="Create an account"
+                       TextColor="#DE000000" />
                 <material:MaterialTextField AlwaysShowUnderline="True"
-                    ChoiceDisplayBinding="{Binding AS}"
-                    HelperText="*Required"
-                    InputType="Choice"
-                    Placeholder="Username"
-                    TintColor="#2c3e50">
-                    <material:MaterialTextField.Choices>
+                                            HelperText="*Required"
+                                            Placeholder="Username"
+                                            TintColor="#2c3e50" />
+                <material:MaterialTextField AlwaysShowUnderline="True"
+                                            BackgroundColor="Transparent"
+                                            FocusCommand="{Binding EmailFocusCommand}"
+                                            HasError="{Binding EmailHasError}"
+                                            HelperText="*Required"
+                                            InputType="Email"
+                                            Placeholder="Email Address"
+                                            Text="{Binding Email}"
+                                            TintColor="#2c3e50" />
+                <material:MaterialTextField AlwaysShowUnderline="True"
+                                            BackgroundColor="Transparent"
+                                            HelperText="*Required"
+                                            InputType="Password"
+                                            MaxLength="8"
+                                            Placeholder="Password"
+                                            TintColor="#2c3e50" />
+                <material:MaterialTextField AlwaysShowUnderline="True"
+                                            BackgroundColor="Transparent"
+                                            HelperText="*Required"
+                                            InputType="Password"
+                                            MaxLength="8"
+                                            Placeholder="Confirm Password"
+                                            TintColor="#2c3e50" />
+                <material:MaterialMenuButton ButtonType="Text"
+                                             HorizontalOptions="End"
+                                             Image="ic_overflow"
+                                             TintColor="Gray">
+                    <material:MaterialMenuButton.Choices>
                         <x:Array Type="{x:Type x:String}">
                             <x:String>Add</x:String>
                             <x:String>Edit</x:String>
                             <x:String>Delete</x:String>
-                            <x:String>Save</x:String>
-                            <x:String>Undo</x:String>
-                            <x:String>Redo</x:String>
                         </x:Array>
-                    </material:MaterialTextField.Choices>
-                </material:MaterialTextField>
-                <material:MaterialTextField AlwaysShowUnderline="True"
-                    BackgroundColor="Transparent"
-                    FocusCommand="{Binding EmailFocusCommand}"
-                    HasError="{Binding EmailHasError}"
-                    HelperText="*Required"
-                    InputType="Email"
-                    Placeholder="Email Address"
-                    Text="{Binding Email}"
-                    TintColor="#2c3e50" />
-                <material:MaterialTextField AlwaysShowUnderline="True"
-                    BackgroundColor="Transparent"
-                    HelperText="*Required"
-                    InputType="Password"
-                    MaxLength="8"
-                    Placeholder="Password"
-                    TintColor="#2c3e50" />
-                <material:MaterialTextField AlwaysShowUnderline="True"
-                    BackgroundColor="Transparent"
-                    HelperText="*Required"
-                    InputType="Password"
-                    MaxLength="8"
-                    Placeholder="Confirm Password"
-                    TintColor="#2c3e50" />
-                <material:MaterialIconButton HorizontalOptions="Start"
-                    Image="ic_overflow"
-                    TintColor="Gray" />
+                    </material:MaterialMenuButton.Choices>
+                </material:MaterialMenuButton>
                 <material:MaterialCheckbox Margin="-8,0,0,0"
-                    SelectedColor="#2c3e50"
-                    Text="I agree with the terms and service." />
-                <material:MaterialRadioButtonGroup>
-                    <material:MaterialRadioButtonGroup.Choices>
-                        <x:Array Type="{x:Type x:String}">
-                            <x:String>Add</x:String>
-                            <x:String>Edit</x:String>
-                            <x:String>Delete</x:String>
-                            <x:String>Save</x:String>
-                            <x:String>Undo</x:String>
-                            <x:String>Redo</x:String>
-                        </x:Array>
-                    </material:MaterialRadioButtonGroup.Choices>
-                </material:MaterialRadioButtonGroup>
+                                           SelectedColor="#2c3e50"
+                                           Text="I agree with the terms and service." />
+                <material:MaterialSwitch />
                 <material:MaterialButton BackgroundColor="#2c3e50"
-                    HorizontalOptions="End"
-                    Text="Create" />
+                                         Clicked="MaterialButton_Clicked"
+                                         HorizontalOptions="End"
+                                         Text="Create" />
             </StackLayout>
         </material:MaterialCard>
-    </ScrollView>
-
+    </ScrollView>-->
 
 </local:BaseMainView>
