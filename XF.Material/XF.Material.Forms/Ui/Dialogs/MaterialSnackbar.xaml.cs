@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XF.Material.Forms.UI.Dialogs.Configurations;
@@ -24,7 +25,7 @@ namespace XF.Material.Forms.UI.Dialogs
             Message.Text = message;
             _duration = msDuration;
             ActionButton.Text = actionButtonText;
-            _primaryActionCommand = new Command(async() =>
+            _primaryActionCommand = new Command(async () =>
             {
                 _primaryActionRunning = true;
                 await this.DismissAsync();
@@ -34,10 +35,8 @@ namespace XF.Material.Forms.UI.Dialogs
             _hideAction = () => this.InputTaskCompletionSource?.SetResult(false);
         }
 
-        public TaskCompletionSource<bool> InputTaskCompletionSource { get; set; }
-
         public override bool Dismissable => false;
-
+        public TaskCompletionSource<bool> InputTaskCompletionSource { get; set; }
         internal static MaterialSnackbarConfiguration GlobalConfiguration { get; set; }
 
         internal static async Task<IMaterialModalPage> Loading(string message, MaterialSnackbarConfiguration configuration = null)
@@ -65,6 +64,13 @@ namespace XF.Material.Forms.UI.Dialogs
             return await snackbar.InputTaskCompletionSource.Task;
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            this.ChangeLayout();
+        }
+
         protected override async void OnAppearingAnimationEnd()
         {
             base.OnAppearingAnimationEnd();
@@ -78,6 +84,27 @@ namespace XF.Material.Forms.UI.Dialogs
                     _hideAction?.Invoke();
                     await this.DismissAsync();
                 }
+            }
+        }
+
+        protected override void OnOrientationChanged(DisplayOrientation orientation)
+        {
+            base.OnOrientationChanged(orientation);
+
+            this.ChangeLayout();
+        }
+
+        private void ChangeLayout()
+        {
+            if (this.DisplayOrientation == DisplayOrientation.Landscape && Device.Idiom == TargetIdiom.Phone)
+            {
+                Container.WidthRequest = 344;
+                Container.HorizontalOptions = LayoutOptions.Center;
+            }
+            else if (this.DisplayOrientation == DisplayOrientation.Portrait && Device.Idiom == TargetIdiom.Phone)
+            {
+                Container.WidthRequest = -1;
+                Container.HorizontalOptions = LayoutOptions.FillAndExpand;
             }
         }
 

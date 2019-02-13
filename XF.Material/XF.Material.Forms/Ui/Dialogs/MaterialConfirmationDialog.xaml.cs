@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XF.Material.Forms.UI.Dialogs.Configurations;
 
@@ -9,11 +11,11 @@ namespace XF.Material.Forms.UI.Dialogs
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MaterialConfirmationDialog : BaseMaterialModalPage, IMaterialAwaitableDialog<object>
-	{
+    {
         private MaterialCheckboxGroup _checkboxGroup;
+        private bool _isMultiChoice;
         private MaterialConfirmationDialogConfiguration _preferredConfig;
         private MaterialRadioButtonGroup _radioButtonGroup;
-        private bool _isMultiChoice;
 
         internal MaterialConfirmationDialog(MaterialConfirmationDialogConfiguration configuration)
         {
@@ -34,7 +36,7 @@ namespace XF.Material.Forms.UI.Dialogs
                 Choices = choices ?? throw new ArgumentNullException(nameof(choices)),
             };
 
-            if(dialog._preferredConfig != null)
+            if (dialog._preferredConfig != null)
             {
                 dialog._radioButtonGroup.SelectedColor = dialog._preferredConfig.ControlSelectedColor;
                 dialog._radioButtonGroup.UnselectedColor = dialog._preferredConfig.ControlUnselectedColor;
@@ -131,15 +133,19 @@ namespace XF.Material.Forms.UI.Dialogs
             return await dialog.InputTaskCompletionSource.Task;
         }
 
+        public override void OnBackButtonDismissed()
+        {
+            this.InputTaskCompletionSource?.SetResult(_isMultiChoice ? null : -1 as object);
+        }
+
         protected override void OnAppearing()
         {
             base.OnAppearing();
 
-            if(_radioButtonGroup != null && _radioButtonGroup.Choices != null && _radioButtonGroup.Choices.Any())
+            if (_radioButtonGroup != null && _radioButtonGroup.Choices != null && _radioButtonGroup.Choices.Any())
             {
                 _radioButtonGroup.SelectedIndexChanged += this.DialogActionList_SelectedIndexChanged;
             }
-
             else if (_checkboxGroup != null && _checkboxGroup.Choices != null && _checkboxGroup.Choices.Any())
             {
                 _checkboxGroup.SelectedIndicesChanged += this.CheckboxGroup_SelectedIndicesChanged;
@@ -147,6 +153,15 @@ namespace XF.Material.Forms.UI.Dialogs
 
             PositiveButton.Clicked += this.PositiveButton_Clicked;
             NegativeButton.Clicked += this.NegativeButton_Clicked;
+
+            this.ChangeLayout();
+        }
+
+        protected override bool OnBackgroundClicked()
+        {
+            this.InputTaskCompletionSource?.SetResult(_isMultiChoice ? null : -1 as object);
+
+            return base.OnBackgroundClicked();
         }
 
         protected override void OnDisappearing()
@@ -157,7 +172,6 @@ namespace XF.Material.Forms.UI.Dialogs
             {
                 _radioButtonGroup.SelectedIndexChanged -= this.DialogActionList_SelectedIndexChanged;
             }
-
             else if (_checkboxGroup != null && _checkboxGroup.Choices != null && _checkboxGroup.Choices.Any())
             {
                 _checkboxGroup.SelectedIndicesChanged -= this.CheckboxGroup_SelectedIndicesChanged;
@@ -167,16 +181,23 @@ namespace XF.Material.Forms.UI.Dialogs
             NegativeButton.Clicked -= this.NegativeButton_Clicked;
         }
 
-        public override void OnBackButtonDismissed()
+        protected override void OnOrientationChanged(DisplayOrientation orientation)
         {
-            this.InputTaskCompletionSource?.SetResult(_isMultiChoice ? null : -1 as object);
+            base.OnOrientationChanged(orientation);
+
+            this.ChangeLayout();
         }
 
-        protected override bool OnBackgroundClicked()
+        private void ChangeLayout()
         {
-            this.InputTaskCompletionSource?.SetResult(_isMultiChoice ? null : -1 as object);
-
-            return base.OnBackgroundClicked();
+            if (this.DisplayOrientation == DisplayOrientation.Landscape && Device.Idiom == TargetIdiom.Phone)
+            {
+                Container.WidthRequest = 560;
+            }
+            else if (this.DisplayOrientation == DisplayOrientation.Portrait && Device.Idiom == TargetIdiom.Phone)
+            {
+                Container.WidthRequest = 280;
+            }
         }
 
         private void CheckboxGroup_SelectedIndicesChanged(object sender, SelectedIndicesChangedEventArgs e)

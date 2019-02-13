@@ -25,7 +25,7 @@ namespace XF.Material.Forms.UI
         /// </summary>
         public static readonly BindableProperty SelectedIndicesChangedCommandProperty = BindableProperty.Create(nameof(SelectedIndicesChangedCommand), typeof(Command<int[]>), typeof(MaterialCheckboxGroup));
 
-        internal override ObservableCollection<MaterialSelectionControlModel> Models => selectionList.ItemsSource as ObservableCollection<MaterialSelectionControlModel>;
+        internal override ObservableCollection<MaterialSelectionControlModel> Models => selectionList.GetValue(BindableLayout.ItemsSourceProperty) as ObservableCollection<MaterialSelectionControlModel>;
 
         /// <summary>
         /// Initializes a new instance of <see cref="MaterialCheckboxGroup"/>.
@@ -90,9 +90,7 @@ namespace XF.Material.Forms.UI
                 models.Add(model);
             }
 
-            selectionList.ShouldShowScrollbar = this.ShouldShowScrollbar;
-            selectionList.ItemsSource = models;
-            selectionList.HeightRequest = (this.Choices.Count * 48) + 2;
+            selectionList.SetValue(BindableLayout.ItemsSourceProperty, models);
         }
 
         /// <summary>
@@ -112,11 +110,6 @@ namespace XF.Material.Forms.UI
             if (propertyName == nameof(this.SelectedIndices))
             {
                 this.OnSelectedIndicesChanged();
-            }
-
-            if(propertyName == nameof(this.ShouldShowScrollbar))
-            {
-                selectionList.ShouldShowScrollbar = this.ShouldShowScrollbar;
             }
         }
 

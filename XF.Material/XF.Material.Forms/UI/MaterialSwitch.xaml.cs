@@ -6,6 +6,13 @@ using Xamarin.Forms.Xaml;
 
 namespace XF.Material.Forms.UI
 {
+    public class ActivatedEventArgs : ToggledEventArgs
+    {
+        public ActivatedEventArgs(bool value) : base(value)
+        {
+        }
+    }
+
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MaterialSwitch : ContentView
     {
@@ -57,7 +64,14 @@ namespace XF.Material.Forms.UI
             set => this.SetValue(IsActivatedProperty, value);
         }
 
-        protected override async void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        protected virtual void OnActivatedChanged(bool isActivated)
+        {
+            this.Activated?.Invoke(this, new ActivatedEventArgs(this.IsActivated));
+
+            Device.BeginInvokeOnMainThread(async () => await this.AnimateSwitchAsync(this.IsActivated));
+        }
+
+        protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             base.OnPropertyChanged(propertyName);
 
@@ -72,26 +86,10 @@ namespace XF.Material.Forms.UI
             }
         }
 
-        protected virtual void OnActivatedChanged(bool isActivated)
+        private async Task AnimateSwitchAsync(bool isActivated)
         {
-            this.Activated?.Invoke(this, new ActivatedEventArgs(this.IsActivated));
-            Device.BeginInvokeOnMainThread(async () => await this.OnIsActivatedChanged(this.IsActivated));
-        }
+            _background.Color = this.IsActivated ? this.ActiveBackgroundColor : this.InactiveBackgroundColor;
 
-        private async Task AnimateToActivatedState()
-        {
-            await _thumb.TranslateTo(16, 0, 150, Easing.SinOut);
-            _thumb.BackgroundColor = this.ActiveThumbColor;
-        }
-
-        private async Task AnimateToUnactivatedState()
-        {
-            await _thumb.TranslateTo(0, 0, 100, Easing.SinOut);
-            _thumb.BackgroundColor = this.InactiveThumbColor;
-        }
-
-        private async Task OnIsActivatedChanged(bool isActivated)
-        {
             if (isActivated)
             {
                 await this.AnimateToActivatedState();
@@ -100,20 +98,23 @@ namespace XF.Material.Forms.UI
             {
                 await this.AnimateToUnactivatedState();
             }
+        }
 
-            _background.Color = this.IsActivated ? this.ActiveBackgroundColor : this.InactiveBackgroundColor;
+        private async Task AnimateToActivatedState()
+        {
+            _thumb.BackgroundColor = this.ActiveThumbColor;
+            await _thumb.TranslateTo(16, 0, 150, Easing.SinOut);
+        }
+
+        private async Task AnimateToUnactivatedState()
+        {
+            _thumb.BackgroundColor = this.InactiveThumbColor;
+            await _thumb.TranslateTo(0, 0, 100, Easing.SinOut);
         }
 
         private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
         {
             this.IsActivated = !this.IsActivated;
-        }
-    }
-
-    public class ActivatedEventArgs : ToggledEventArgs
-    {
-        public ActivatedEventArgs(bool value) : base(value)
-        {
         }
     }
 }

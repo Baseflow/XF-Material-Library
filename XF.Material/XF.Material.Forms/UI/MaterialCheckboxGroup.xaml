@@ -1,33 +1,29 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <internal:BaseMaterialSelectionControlGroup x:Class="XF.Material.Forms.UI.MaterialCheckboxGroup"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:internal="clr-namespace:XF.Material.Forms.UI.Internals"
-    xmlns:local="clr-namespace:XF.Material.Forms.UI"
-    x:Name="root">
+                                            xmlns="http://xamarin.com/schemas/2014/forms"
+                                            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                                            xmlns:internal="clr-namespace:XF.Material.Forms.UI.Internals"
+                                            xmlns:local="clr-namespace:XF.Material.Forms.UI"
+                                            x:Name="root">
     <ContentView.Content>
-        <internal:MaterialDialogListView x:Name="selectionList"
-            BackgroundColor="Transparent"
-            HasRipple="False"
-            HasUnevenRows="True"
-            HeightRequest="0"
-            SeparatorVisibility="None">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <internal:MaterialDialogListViewCell>
+        <ScrollView>
+            <StackLayout x:Name="selectionList"
+                         Spacing="0">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
                         <local:MaterialCheckbox FontFamily="{Binding Source={x:Reference root}, Path=FontFamily}"
-                            FontSize="{Binding Source={x:Reference root}, Path=FontSize}"
-                            HorizontalSpacing="{Binding Source={x:Reference root}, Path=HorizontalSpacing}"
-                            IsSelected="{Binding IsSelected}"
-                            SelectedChangeCommand="{Binding SelectedChangeCommand}"
-                            SelectedColor="{Binding Source={x:Reference root}, Path=SelectedColor}"
-                            Text="{Binding Text}"
-                            TextColor="{Binding Source={x:Reference root}, Path=TextColor}"
-                            UnselectedColor="{Binding Source={x:Reference root}, Path=UnselectedColor}"
-                            VerticalSpacing="{Binding Source={x:Reference root}, Path=VerticalSpacing}" />
-                    </internal:MaterialDialogListViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </internal:MaterialDialogListView>
+                                                FontSize="{Binding Source={x:Reference root}, Path=FontSize}"
+                                                HorizontalSpacing="{Binding Source={x:Reference root}, Path=HorizontalSpacing}"
+                                                IsSelected="{Binding IsSelected}"
+                                                SelectedChangeCommand="{Binding SelectedChangeCommand}"
+                                                SelectedColor="{Binding Source={x:Reference root}, Path=SelectedColor}"
+                                                Text="{Binding Text}"
+                                                TextColor="{Binding Source={x:Reference root}, Path=TextColor}"
+                                                UnselectedColor="{Binding Source={x:Reference root}, Path=UnselectedColor}"
+                                                VerticalSpacing="{Binding Source={x:Reference root}, Path=VerticalSpacing}" />
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </StackLayout>
+        </ScrollView>
     </ContentView.Content>
 </internal:BaseMaterialSelectionControlGroup>

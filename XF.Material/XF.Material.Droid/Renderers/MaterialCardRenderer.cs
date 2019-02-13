@@ -21,21 +21,18 @@ namespace XF.Material.Droid.Renderers
 
         public bool OnTouch(Android.Views.View v, MotionEvent e)
         {
-            if (this._materialCard.GestureRecognizers.Count > 0)
+            if (this._materialCard.GestureRecognizers.Count > 0 && this.Control.Foreground != null)
             {
-                if (this.Control.Foreground != null)
+                if (e.Action == MotionEventActions.Down)
                 {
-                    if (e.Action == MotionEventActions.Down)
-                    {
-                        this.Control.Foreground.SetHotspot(e.GetX(), e.GetY());
-                        this.Control.Pressed = true;
-                    }
-                    else if (e.Action == MotionEventActions.Up ||
-                        e.Action == MotionEventActions.Cancel ||
-                        e.Action == MotionEventActions.Outside)
-                    {
-                        this.Control.Pressed = false;
-                    }
+                    this.Control.Foreground.SetHotspot(e.GetX(), e.GetY());
+                    this.Control.Pressed = true;
+                }
+                else if (e.Action == MotionEventActions.Up ||
+                    e.Action == MotionEventActions.Cancel ||
+                    e.Action == MotionEventActions.Outside)
+                {
+                    this.Control.Pressed = false;
                 }
             }
             return false;

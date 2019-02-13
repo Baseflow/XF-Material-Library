@@ -12,7 +12,7 @@
         </Grid.ColumnDefinitions>
         <BoxView x:Name="_background"
                  CornerRadius="8"
-                 HeightRequest="16"
+                 HeightRequest="14"
                  VerticalOptions="Center"
                  WidthRequest="36" />
         <mat:MaterialCard x:Name="_thumb"

@@ -83,7 +83,7 @@ namespace XF.Material.Forms.UI.Dialogs
             base.OnAppearingAnimationBegin();
 
             var newX = _dimension.RawX;
-            var newY = (_dimension.RawY);
+            var newY = _dimension.RawY;
 
             _maxWidth += 32;
             DialogActionList.WidthRequest = _maxWidth <= 112 ? 112 : _maxWidth;
@@ -95,7 +95,7 @@ namespace XF.Material.Forms.UI.Dialogs
             }
             else if (newX + Container.Width < this.Width)
             {
-                newX += (_dimension.Width - (_dimension.Width / 2));
+                newX += (Container.Width - (_dimension.Width / 2));
             }
 
             if (newY + Container.Height + 16 >= this.Height)
@@ -178,9 +178,8 @@ namespace XF.Material.Forms.UI.Dialogs
 
         private void SetList(IList<ActionModel> actionModels)
         {
-            DialogActionList.RowHeight = _rowHeight;
-            DialogActionList.HeightRequest = (_rowHeight * actionModels.Count) + 2;
-            DialogActionList.ItemsSource = actionModels;
+            DialogActionList.HeightRequest = _rowHeight * actionModels.Count;
+            DialogActionList.SetValue(BindableLayout.ItemsSourceProperty, actionModels);
             _itemCount = actionModels.Count;
         }
     }

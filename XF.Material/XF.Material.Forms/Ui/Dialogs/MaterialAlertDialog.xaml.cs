@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XF.Material.Forms.UI.Dialogs.Configurations;
@@ -58,6 +59,32 @@ namespace XF.Material.Forms.UI.Dialogs
             await dialog.ShowAsync();
 
             return await dialog.InputTaskCompletionSource.Task;
+        }
+
+        protected override void OnOrientationChanged(DisplayOrientation orientation)
+        {
+            base.OnOrientationChanged(orientation);
+
+            this.ChangeLayout();
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            this.ChangeLayout();
+        }
+
+        private void ChangeLayout()
+        {
+            if (this.DisplayOrientation == DisplayOrientation.Landscape && Device.Idiom == TargetIdiom.Phone)
+            {
+                Container.WidthRequest = 560;
+            }
+            else if (this.DisplayOrientation == DisplayOrientation.Portrait && Device.Idiom == TargetIdiom.Phone)
+            {
+                Container.WidthRequest = 280;
+            }
         }
 
         public override void OnBackButtonDismissed()

@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace XF.Material.Forms.UI.Dialogs
@@ -31,9 +32,13 @@ namespace XF.Material.Forms.UI.Dialogs
                 ScaleIn = 0.9,
                 ScaleOut = 1
             };
+
+            this.DisplayOrientation = DeviceDisplay.MainDisplayInfo.Orientation;
         }
 
         public virtual bool Dismissable => true;
+
+        protected DisplayOrientation DisplayOrientation { get; private set; }
 
         /// <summary>
         /// Dismisses this modal dialog asynchronously.
@@ -80,10 +85,28 @@ namespace XF.Material.Forms.UI.Dialogs
             }
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            DeviceDisplay.MainDisplayInfoChanged += this.DeviceDisplay_MainDisplayInfoChanged;
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+
+            DeviceDisplay.MainDisplayInfoChanged -= this.DeviceDisplay_MainDisplayInfoChanged;
+        }
+
         protected override void OnDisappearingAnimationEnd()
         {
             base.OnDisappearingAnimationEnd();
             this.Dispose();
+        }
+
+        protected virtual void OnOrientationChanged(DisplayOrientation orientation)
+        {
         }
 
         /// <summary>
@@ -108,6 +131,15 @@ namespace XF.Material.Forms.UI.Dialogs
                 .PopupStack
                 .ToList()
                 .Exists(p => p.GetType() == this.GetType());
+        }
+
+        private void DeviceDisplay_MainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
+        {
+            if (this.DisplayOrientation != e.DisplayInfo.Orientation)
+            {
+                this.DisplayOrientation = e.DisplayInfo.Orientation;
+                this.OnOrientationChanged(this.DisplayOrientation);
+            }
         }
     }
 }

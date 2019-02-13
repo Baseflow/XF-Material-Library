@@ -1,5 +1,4 @@
-﻿using System;
-using CoreAnimation;
+﻿using CoreAnimation;
 using CoreGraphics;
 using Foundation;
 using UIKit;
@@ -15,7 +14,7 @@ namespace XF.Material.iOS.GestureRecognizers
         private readonly CABasicAnimation _backgroundFadeOutAnimation;
         private readonly CALayer _backgroundLayer;
         private readonly CAShapeLayer _rippleLayer;
-        private UIView _touchView;
+        private readonly UIView _touchView;
         private bool _isStarted;
 
         public MaterialRippleGestureRecognizer(CGColor rippleColor, UIView view)
@@ -57,7 +56,7 @@ namespace XF.Material.iOS.GestureRecognizers
 
             _isStarted = false;
             _touchView = view;
-            Delegate = this;
+            this.Delegate = this;
         }
 
         [Export("gestureRecognizer:shouldReceiveTouch:")]
@@ -74,14 +73,14 @@ namespace XF.Material.iOS.GestureRecognizers
         {
             base.TouchesBegan(touches, evt);
 
-            AnimateStart(touches.AnyObject as UITouch);
+            this.AnimateStart(touches.AnyObject as UITouch);
         }
 
         public override void TouchesEnded(NSSet touches, UIEvent evt)
         {
             base.TouchesEnded(touches, evt);
 
-            AnimateComplete(touches.AnyObject as UITouch);
+            this.AnimateComplete(touches.AnyObject as UITouch);
         }
 
 
@@ -89,7 +88,7 @@ namespace XF.Material.iOS.GestureRecognizers
         {
             base.TouchesMoved(touches, evt);
 
-            AnimateComplete(touches.AnyObject as UITouch);
+            this.AnimateComplete(touches.AnyObject as UITouch);
 
         }
 
@@ -97,14 +96,14 @@ namespace XF.Material.iOS.GestureRecognizers
         {
             base.TouchesCancelled(touches, evt);
 
-            AnimateComplete(touches.AnyObject as UITouch);
+            this.AnimateComplete(touches.AnyObject as UITouch);
         }
 
 
         private void AnimateStart(UITouch touch)
         {
-            AnimateBackgroundFadeIn(touch);
-            AnimateRipple(touch);
+            this.AnimateBackgroundFadeIn(touch);
+            this.AnimateRipple(touch);
 
             _isStarted = true;
         }
@@ -114,7 +113,7 @@ namespace XF.Material.iOS.GestureRecognizers
         {
             if (_isStarted)
             {
-                AnimateBackgroundFadeOut(touch);
+                this.AnimateBackgroundFadeOut(touch);
             }
         }
 
@@ -123,7 +122,7 @@ namespace XF.Material.iOS.GestureRecognizers
         {
             var view = _touchView;
 
-            SetupAnimationLayer(_backgroundLayer, view, 3);
+            this.SetupAnimationLayer(_backgroundLayer, view, 3);
 
             _backgroundLayer.RemoveAllAnimations();
             UIView.Animate(0.8, () =>
@@ -136,7 +135,7 @@ namespace XF.Material.iOS.GestureRecognizers
         {
             var view = _touchView;
 
-            SetupAnimationLayer(_backgroundLayer, view, 3);
+            this.SetupAnimationLayer(_backgroundLayer, view, 3);
 
             _backgroundLayer.RemoveAllAnimations();
             UIView.Animate(0.8, () =>
@@ -153,7 +152,7 @@ namespace XF.Material.iOS.GestureRecognizers
             var startPath = UIBezierPath.FromArc(location, 8f, 0, 360f, true);
             var endPath = UIBezierPath.FromArc(location, view.Frame.Width - 12, 0, 360f, true);
 
-            SetupAnimationLayer(_rippleLayer, view, 4);
+            this.SetupAnimationLayer(_rippleLayer, view, 4);
 
             _rippleAnimation.From = FromObject(startPath.CGPath);
             _rippleAnimation.To = FromObject(endPath.CGPath);

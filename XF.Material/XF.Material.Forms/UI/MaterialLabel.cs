@@ -10,7 +10,9 @@ namespace XF.Material.Forms.UI
         public const string MaterialLineHeightPropertyName = "MaterialLineHeight";
 
         public static readonly BindableProperty LetterSpacingProperty = BindableProperty.Create(nameof(LetterSpacing), typeof(double), typeof(MaterialLabel), 0.0);
+
         public static new readonly BindableProperty LineHeightProperty = BindableProperty.Create(MaterialLineHeightPropertyName, typeof(double), typeof(MaterialLabel), 1.4);
+
         public static readonly BindableProperty TypeScaleProperty = BindableProperty.Create(nameof(TypeScale), typeof(MaterialTypeScale), typeof(MaterialLabel), MaterialTypeScale.None);
 
         private bool _fontFamilyChanged;

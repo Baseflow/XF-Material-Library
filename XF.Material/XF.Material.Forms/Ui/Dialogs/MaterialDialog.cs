@@ -184,7 +184,7 @@ namespace XF.Material.Forms.UI.Dialogs
         /// <param name="simpleDialogConfiguration">Global style for <see cref="MaterialSimpleDialog"/>.</param>
         /// <param name="confirmationDialogConfiguration">Global style for <see cref="MaterialConfirmationDialog"/>.</param>
         /// <param name="inputDialogConfiguration">Global style for <see cref="MaterialInputDialog"/>.</param>
-        public void SetGlobalStyles(MaterialAlertDialogConfiguration dialogConfiguration, MaterialLoadingDialogConfiguration loadingDialogConfiguration, MaterialSnackbarConfiguration snackbarConfiguration, MaterialSimpleDialogConfiguration simpleDialogConfiguration, MaterialConfirmationDialogConfiguration confirmationDialogConfiguration, MaterialInputDialogConfiguration inputDialogConfiguration)
+        public void SetGlobalStyles(MaterialAlertDialogConfiguration dialogConfiguration = null, MaterialLoadingDialogConfiguration loadingDialogConfiguration = null, MaterialSnackbarConfiguration snackbarConfiguration = null, MaterialSimpleDialogConfiguration simpleDialogConfiguration = null, MaterialConfirmationDialogConfiguration confirmationDialogConfiguration = null, MaterialInputDialogConfiguration inputDialogConfiguration = null)
         {
             MaterialAlertDialog.GlobalConfiguration = dialogConfiguration;
             MaterialLoadingDialog.GlobalConfiguration = loadingDialogConfiguration;

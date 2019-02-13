@@ -1,34 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <local:BaseMaterialModalPage x:Class="XF.Material.Forms.UI.Dialogs.MaterialLoadingDialog"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:XF.Material.Forms.UI.Dialogs"
-    xmlns:material="clr-namespace:XF.Material.Forms.UI"
-    BackgroundColor="#51000000"
-    CloseWhenBackgroundIsClicked="False">
+                             xmlns="http://xamarin.com/schemas/2014/forms"
+                             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                             xmlns:local="clr-namespace:XF.Material.Forms.UI.Dialogs"
+                             xmlns:material="clr-namespace:XF.Material.Forms.UI"
+                             BackgroundColor="#51000000"
+                             CloseWhenBackgroundIsClicked="False">
     <ContentPage.Content>
         <material:MaterialCard x:Name="Container"
-            Padding="0"
-            BackgroundColor="White"
-            CornerRadius="4"
-            Elevation="24"
-            HasShadow="True"
-            HorizontalOptions="Center"
-            VerticalOptions="Center"
-            WidthRequest="{StaticResource Material.Dialog.Width}">
+                               Padding="0"
+                               BackgroundColor="White"
+                               CornerRadius="4"
+                               Elevation="24"
+                               HasShadow="True"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               WidthRequest="{StaticResource Material.Dialog.Width}">
             <StackLayout Margin="16,20"
-                Orientation="Horizontal"
-                Spacing="8">
+                         Orientation="Horizontal"
+                         Spacing="8">
                 <material:MaterialCircularLoadingView x:Name="LoadingImage"
-                    HeightRequest="56"
-                    Loop="True"
-                    VerticalOptions="Center"
-                    WidthRequest="56" />
-                <Label x:Name="Message"
-                    Style="{StaticResource Material.TypeScale.Body1}"
-                    Text="Lorem ipsum dolor sit amet."
-                    TextColor="#99000000"
-                    VerticalOptions="Center" />
+                                                      HeightRequest="56"
+                                                      Loop="True"
+                                                      VerticalOptions="Center"
+                                                      WidthRequest="56" />
+                <material:MaterialLabel x:Name="Message"
+                                        Text="Lorem ipsum dolor sit amet."
+                                        TextColor="#99000000"
+                                        TypeScale="Body1"
+                                        VerticalOptions="Center" />
             </StackLayout>
         </material:MaterialCard>
     </ContentPage.Content>

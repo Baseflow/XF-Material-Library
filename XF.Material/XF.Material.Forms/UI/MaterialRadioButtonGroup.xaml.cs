@@ -68,7 +68,7 @@ namespace XF.Material.Forms.UI
             set => this.SetValue(SelectedIndexChangedCommandProperty, value);
         }
 
-        internal override ObservableCollection<MaterialSelectionControlModel> Models => selectionList.ItemsSource as ObservableCollection<MaterialSelectionControlModel>;
+        internal override ObservableCollection<MaterialSelectionControlModel> Models => selectionList.GetValue(BindableLayout.ItemsSourceProperty) as ObservableCollection<MaterialSelectionControlModel>;
 
         protected override void CreateChoices()
         {
@@ -90,9 +90,7 @@ namespace XF.Material.Forms.UI
                 models.Add(model);
             }
 
-            selectionList.ShouldShowScrollbar = this.ShouldShowScrollbar;
-            selectionList.ItemsSource = models;
-            selectionList.HeightRequest = (this.Choices.Count * 48) + 2;
+            selectionList.SetValue(BindableLayout.ItemsSourceProperty, models);
         }
 
         protected override SizeRequest OnMeasure(double widthConstraint, double heightConstraint)
@@ -118,11 +116,6 @@ namespace XF.Material.Forms.UI
                 }
 
                 this.OnSelectedIndexChanged(this.SelectedIndex);
-            }
-
-            if (propertyName == nameof(this.ShouldShowScrollbar))
-            {
-                selectionList.ShouldShowScrollbar = this.ShouldShowScrollbar;
             }
         }
 

@@ -1,22 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <local:BaseMaterialModalPage x:Class="XF.Material.Forms.UI.Dialogs.MaterialSnackbar"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:XF.Material.Forms.UI.Dialogs"
-    xmlns:material="clr-namespace:XF.Material.Forms.UI"
-    BackgroundColor="Transparent"
-    BackgroundInputTransparent="True"
-    CloseWhenBackgroundIsClicked="False">
+                             xmlns="http://xamarin.com/schemas/2014/forms"
+                             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                             xmlns:local="clr-namespace:XF.Material.Forms.UI.Dialogs"
+                             xmlns:material="clr-namespace:XF.Material.Forms.UI"
+                             BackgroundColor="Transparent"
+                             BackgroundInputTransparent="True"
+                             CloseWhenBackgroundIsClicked="False">
     <ContentPage.Content>
         <material:MaterialCard x:Name="Container"
-            Margin="8,0,8,16"
-            Padding="0"
-            BackgroundColor="#343434"
-            CornerRadius="4"
-            Elevation="6"
-            HorizontalOptions="Center"
-            VerticalOptions="End"
-            WidthRequest="344">
+                               Margin="8,0,8,16"
+                               Padding="0"
+                               BackgroundColor="#343434"
+                               CornerRadius="4"
+                               Elevation="6"
+                               HorizontalOptions="{DynamicResource Material.Snackbar.HorizontalOptions}"
+                               VerticalOptions="End"
+                               WidthRequest="{DynamicResource Material.Snackbar.Width}">
             <Grid ColumnSpacing="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -25,29 +25,29 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <Label x:Name="Message"
-                    Grid.Column="0"
-                    Margin="16,14,0,14"
-                    Style="{StaticResource Material.TypeScale.Body2}"
-                    Text="This is a Snackbar"
-                    TextColor="#DEFFFFFF"
-                    VerticalOptions="Center">
+                <material:MaterialLabel x:Name="Message"
+                                        Grid.Column="0"
+                                        Margin="16,14,0,14"
+                                        Text="This is a Snackbar"
+                                        TextColor="#DEFFFFFF"
+                                        TypeScale="Body2"
+                                        VerticalOptions="Center">
                     <Label.Triggers>
                         <DataTrigger Binding="{Binding Source={x:Reference ActionButton}, Path=IsVisible}"
-                            TargetType="Label"
-                            Value="False">
+                                     TargetType="Label"
+                                     Value="False">
                             <Setter Property="Margin" Value="16, 14" />
                         </DataTrigger>
                     </Label.Triggers>
-                </Label>
+                </material:MaterialLabel>
                 <material:MaterialButton x:Name="ActionButton"
-                    Grid.Column="1"
-                    Margin="0,0,2,0"
-                    ButtonType="Text"
-                    FontSize="12"
-                    Text="Action"
-                    TextColor="Yellow"
-                    VerticalOptions="Center">
+                                         Grid.Column="1"
+                                         Margin="0,0,2,0"
+                                         ButtonType="Text"
+                                         FontSize="12"
+                                         Text="Action"
+                                         TextColor="Yellow"
+                                         VerticalOptions="Center">
                     <material:MaterialButton.Triggers>
                         <Trigger TargetType="Button" Property="Text" Value="{x:Null}">
                             <Setter Property="IsVisible" Value="False" />
