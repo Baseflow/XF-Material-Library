@@ -8,6 +8,7 @@
                              CloseWhenBackgroundIsClicked="False">
     <ContentPage.Content>
         <material:MaterialCard x:Name="Container"
+                               Margin="{DynamicResource Material.Dialog.Margin}"
                                Padding="0"
                                BackgroundColor="White"
                                CornerRadius="4"

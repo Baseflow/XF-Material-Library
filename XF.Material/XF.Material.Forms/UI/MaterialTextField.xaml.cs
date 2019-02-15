@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using System.Linq;
 using Xamarin.Forms.Xaml;
 using XF.Material.Forms.Resources;
 using XF.Material.Forms.UI.Dialogs;
@@ -21,13 +23,17 @@ namespace XF.Material.Forms.UI
 
         public static new readonly BindableProperty BackgroundColorProperty = BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#DCDCDC"));
 
-        public static readonly BindableProperty ChoicesProperty = BindableProperty.Create(nameof(Choices), typeof(IList<string>), typeof(MaterialTextField));
+        public static readonly BindableProperty ChoicesProperty = BindableProperty.Create(nameof(Choices), typeof(IList), typeof(MaterialTextField));
 
         public static readonly BindableProperty ErrorColorProperty = BindableProperty.Create(nameof(ErrorColor), typeof(Color), typeof(MaterialTextField), Material.Color.Error);
 
         public static readonly BindableProperty ErrorTextProperty = BindableProperty.Create(nameof(ErrorText), typeof(string), typeof(MaterialTextField), "Error");
 
         public static readonly BindableProperty FloatingPlaceholderEnabledProperty = BindableProperty.Create(nameof(FloatingPlaceholderEnabled), typeof(bool), typeof(MaterialTextField), true);
+
+        public static readonly BindableProperty IconProperty = BindableProperty.Create(nameof(Icon), typeof(string), typeof(MaterialTextField));
+
+        public static readonly BindableProperty IconTintColorProperty = BindableProperty.Create(nameof(IconTintColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#99000000"));
 
         public static readonly BindableProperty FocusCommandProperty = BindableProperty.Create(nameof(FocusCommand), typeof(Command<bool>), typeof(MaterialTextField));
 
@@ -69,9 +75,18 @@ namespace XF.Material.Forms.UI
 
         public static readonly BindableProperty UnderlineColorProperty = BindableProperty.Create(nameof(UnderlineColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#99000000"));
 
+        public static readonly BindableProperty ChoiceSelectedCommandProperty = BindableProperty.Create(nameof(ChoiceSelectedCommand), typeof(ICommand), typeof(MaterialTextField));
+
+        public ICommand ChoiceSelectedCommand
+        {
+            get => (ICommand)this.GetValue(ChoiceSelectedCommandProperty);
+            set => this.SetValue(ChoiceSelectedCommandProperty, value);
+        }
+
         private const double AnimationDuration = 0.35;
         private readonly Dictionary<string, Action> _propertyChangeActions;
         private readonly Easing animationCurve = Easing.SinOut;
+        private IList<string> _choices;
         private bool _counterEnabled;
         private bool _wasFocused;
 
@@ -104,6 +119,8 @@ namespace XF.Material.Forms.UI
             set => this.SetValue(AlwaysShowUnderlineProperty, value);
         }
 
+        public string ChoicesBindingName { get; set; }
+
         /// <summary>
         /// Gets or sets the background color of this text field.
         /// </summary>
@@ -113,9 +130,9 @@ namespace XF.Material.Forms.UI
             set => this.SetValue(BackgroundColorProperty, value);
         }
 
-        public IList<string> Choices
+        public IList Choices
         {
-            get => (IList<string>)this.GetValue(ChoicesProperty);
+            get => (IList)this.GetValue(ChoicesProperty);
             set => this.SetValue(ChoicesProperty, value);
         }
 
@@ -199,6 +216,24 @@ namespace XF.Material.Forms.UI
         {
             get => (string)this.GetValue(HelperTextFontFamilyProperty);
             set => this.SetValue(HelperTextFontFamilyProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the image source of the icon to be showed at the left side of this text field.
+        /// </summary>
+        public string Icon
+        {
+            get => (string)this.GetValue(IconProperty);
+            set => this.SetValue(IconProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the tint color of the icon of this text field.
+        /// </summary>
+        public Color IconTintColor
+        {
+            get => (Color)this.GetValue(IconTintColorProperty);
+            set => this.SetValue(IconTintColorProperty, value);
         }
 
         /// <summary>
@@ -381,8 +416,16 @@ namespace XF.Material.Forms.UI
 
             if (!this.HasHorizontalPadding)
             {
-                entry.Margin = new Thickness(0, entry.Margin.Top, 0, entry.Margin.Bottom);
-                placeholder.Margin = 0;
+                if(icon.IsVisible)
+                {
+                    icon.Margin = new Thickness(0, icon.Margin.Top, 0, icon.Margin.Bottom);
+                }
+                else
+                {
+                    entry.Margin = new Thickness(0, entry.Margin.Top, 0, entry.Margin.Bottom);
+                    placeholder.Margin = 0;
+                }
+
                 helper.Margin = new Thickness(0, helper.Margin.Top, 12, 0);
                 counter.Margin = new Thickness(0, counter.Margin.Top, 0, 0);
                 trailingIcon.Margin = 0;
@@ -786,14 +829,41 @@ namespace XF.Material.Forms.UI
 
         private void OnTextChanged(string text)
         {
-            if (this.InputType == MaterialTextFieldInputType.Choice && !string.IsNullOrEmpty(this.Text) && this.Choices?.Contains(text) == false)
+            if (this.InputType == MaterialTextFieldInputType.Choice && !string.IsNullOrEmpty(text) && _choices?.Contains(text) == false)
             {
-                throw new InvalidOperationException($"The `Text` property value `{this.Text}` was not found in the collection `Choices`.");
+                throw new InvalidOperationException($"The `Text` property value `{this.Text}` does not match any item in the collection `Choices`.");
+            }
+
+            if(this.InputType == MaterialTextFieldInputType.Choice && !string.IsNullOrEmpty(text))
+            {
+                var selectedChoice = this.GetSelectedChoice(text) ?? text;
+                this.ChoiceSelected?.Invoke(this, new SelectedItemChangedEventArgs(selectedChoice));
+                this.ChoiceSelectedCommand?.Execute(selectedChoice);
             }
 
             entry.Text = text;
             this.AnimatePlaceHolderOnStart(this);
             this.UpdateCounter();
+        }
+
+        private object GetSelectedChoice(string text)
+        {
+            if(string.IsNullOrEmpty(this.ChoicesBindingName))
+            {
+                return null;
+            }
+
+            foreach(var item in this.Choices)
+            {
+                var value = item.GetType().GetProperty(this.ChoicesBindingName).GetValue(item, null);
+
+                if(value.ToString() == text)
+                {
+                    return item;
+                }
+            }
+
+            return null;
         }
 
         private void OnTextColorChanged(Color textColor)
@@ -833,18 +903,63 @@ namespace XF.Material.Forms.UI
 
             mainTapGesture.Command = new Command(async () =>
             {
-                if (this.Choices == null || this.Choices.Count <= 0)
+                if (_choices == null || _choices?.Count <= 0)
                 {
                     throw new InvalidOperationException("The property `Choices` is null or empty");
                 }
 
-                var result = await MaterialDialog.Instance.SelectChoiceAsync("Select an item", this.Choices);
+                var result = await MaterialDialog.Instance.SelectChoiceAsync("Select an item", _choices);
 
                 if (result >= 0)
                 {
-                    this.Text = this.Choices[result];
+                    this.Text = _choices[result];
                 }
             });
+        }
+
+        public event EventHandler<SelectedItemChangedEventArgs> ChoiceSelected;
+
+        private void OnChoicesChanged(IList choices)
+        {
+            if(choices?.Count > 0)
+            {
+                _choices = this.GetChoices();
+            }
+
+            else
+            {
+                _choices = null;
+            }
+        }
+
+        private IList<string> GetChoices()
+        {
+            var choiceStrings = new List<string>(this.Choices.Count);
+            var listType = this.Choices[0].GetType();
+            foreach (var item in this.Choices)
+            {
+                if (!string.IsNullOrEmpty(this.ChoicesBindingName))
+                {
+                    var propInfo = listType.GetProperty(this.ChoicesBindingName);
+
+                    if (propInfo == null)
+                    {
+                        System.Diagnostics.Debug.WriteLine($"Property {this.ChoicesBindingName} was not found for item in {this.Choices}.");
+                        choiceStrings.Add(item.ToString());
+                    }
+                    else
+                    {
+                        var propValue = propInfo.GetValue(item);
+                        choiceStrings.Add(propValue.ToString());
+                    }
+                }
+                else
+                {
+                    choiceStrings.Add(item.ToString());
+                }
+            }
+
+            return choiceStrings;
         }
 
         private void SetPropertyChangeHandler(ref Dictionary<string, Action> propertyChangeActions)
@@ -874,8 +989,23 @@ namespace XF.Material.Forms.UI
                 { nameof(this.ErrorText), async () => await this.OnErrorTextChanged() },
                 { nameof(this.HasError), async () => await this.OnHasErrorChanged() },
                 { nameof(this.FloatingPlaceholderEnabled), () => this.OnFloatingPlaceholderEnabledChanged(this.FloatingPlaceholderEnabled) },
+                { nameof(this.Choices), () => this.OnChoicesChanged(this.Choices) },
+                {nameof(this.Icon), () => this.OnIconChanged(this.Icon) },
+                {nameof(this.IconTintColor), () => this.OnIconTintColorChanged(this.IconTintColor) }
             };
         }
+
+        private void OnIconChanged(string icon)
+        {
+            this.icon.Source = icon;
+            this.OnIconTintColorChanged(this.IconTintColor);
+        }
+
+        private void OnIconTintColorChanged(Color tintColor)
+        {
+            icon.TintColor = tintColor;
+        }
+
         private void UpdateCounter()
         {
             if (_counterEnabled)

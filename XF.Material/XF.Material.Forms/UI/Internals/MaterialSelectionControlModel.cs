@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using System;
+using Xamarin.Forms;
 using XF.Material.Forms.Utilities;
 
 namespace XF.Material.Forms.UI.Internals
@@ -87,6 +88,26 @@ namespace XF.Material.Forms.UI.Internals
         {
             get => _canBeUnselected;
             set => this.Set(ref _canBeUnselected, value);
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Index;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is MaterialSelectionControlModel model)
+            {
+                return this.Index == model.Index;
+            }
+
+            return false;
+        }
+
+        public int CompareTo(object obj)
+        {
+            throw new NotImplementedException();
         }
     }
 }

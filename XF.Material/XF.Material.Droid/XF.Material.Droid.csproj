@@ -58,8 +58,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Effects\BaseMaterialEffect.cs" />
-    <Compile Include="Effects\MaterialTypeScaleEffect.cs" />
     <Compile Include="Material.cs" />
     <Compile Include="Renderers\Internals\MaterialBoxViewRenderer.cs" />
     <Compile Include="Renderers\Internals\MaterialDialogListViewRenderer.cs" />

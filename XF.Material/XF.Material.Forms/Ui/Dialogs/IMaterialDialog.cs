@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 using XF.Material.Forms.UI.Dialogs.Configurations;
 
 namespace XF.Material.Forms.UI.Dialogs
@@ -136,7 +137,18 @@ namespace XF.Material.Forms.UI.Dialogs
         /// <param name="simpleDialogConfiguration">Global style for <see cref="MaterialSimpleDialog"/>.</param>
         /// <param name="confirmationDialogConfiguration">Global style for <see cref="MaterialConfirmationDialog"/>.</param>
         /// <param name="inputDialogConfiguration">Global style for <see cref="MaterialInputDialog"/>.</param>
-        void SetGlobalStyles(MaterialAlertDialogConfiguration dialogConfiguration = null, MaterialLoadingDialogConfiguration loadingDialogConfiguration = null, MaterialSnackbarConfiguration snackbarConfiguration = null, MaterialSimpleDialogConfiguration simpleDialogConfiguration = null, MaterialConfirmationDialogConfiguration confirmationDialogConfiguration = null, MaterialInputDialogConfiguration inputDialogConfiguration = null);
+        void SetGlobalStyles(MaterialAlertDialogConfiguration dialogConfiguration = null, MaterialLoadingDialogConfiguration loadingDialogConfiguration = null, MaterialSnackbarConfiguration snackbarConfiguration = null, MaterialSimpleDialogConfiguration simpleDialogConfiguration = null, MaterialConfirmationDialogConfiguration confirmationDialogConfiguration = null, MaterialInputDialogConfiguration inputDialogConfiguration = null, MaterialAlertDialogConfiguration customContentDialogConfiguration = null);
+
+        /// <summary>
+        /// Shows an dialog for confirmation with a custom content. Returns true when the confirm button was clicked, false if the dismiss button was clicked, and null if the alert dialog was dismissed.
+        /// </summary>
+        /// <param name="view">The additional custom content of the dialog.</param>
+        /// <param name="message">The message of the dialog.</param>
+        /// <param name="title">The title of the dialog.</param>
+        /// <param name="confirmingText">The text of the confirmation button.</param>
+        /// <param name="dismissiveText">The text of the dismissive button</param>
+        /// <exception cref="ArgumentNullException" />
+        Task<bool?> ShowCustomContentAsync(View view, string message, string title = null, string confirmingText = "Ok", string dismissiveText = "Cancel", MaterialAlertDialogConfiguration configuration = null);
 
         /// <summary>
         /// Shows a snackbar with no action.

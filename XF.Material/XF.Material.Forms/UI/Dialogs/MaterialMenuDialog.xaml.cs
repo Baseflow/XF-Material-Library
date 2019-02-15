@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -84,21 +85,23 @@ namespace XF.Material.Forms.UI.Dialogs
 
             var newX = _dimension.RawX;
             var newY = _dimension.RawY;
+            var width = this.Width - 56;
+            var height = this.Height - 56;
 
             _maxWidth += 32;
             DialogActionList.WidthRequest = _maxWidth <= 112 ? 112 : _maxWidth;
             DialogActionList.WidthRequest = _maxWidth > 280 ? 280 : DialogActionList.WidthRequest;
 
-            if (newX + Container.Width >= this.Width)
+            if (newX + Container.Width >= width)
             {
-                newX -= (Container.Width - (_dimension.Width / 2));
+                newX -= (Container.Width / 2) + (_dimension.Width / 2) ;
             }
-            else if (newX + Container.Width < this.Width)
+            else if (newX + Container.Width < width)
             {
-                newX += (Container.Width - (_dimension.Width / 2));
+                newX += _dimension.Width / 2;
             }
 
-            if (newY + Container.Height + 16 >= this.Height)
+            if (newY + Container.Height + 16 >= height)
             {
                 newY -= Container.Height;
             }

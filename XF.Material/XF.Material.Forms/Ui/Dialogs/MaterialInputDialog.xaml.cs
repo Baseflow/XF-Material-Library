@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XF.Material.Forms.UI.Dialogs.Configurations;
@@ -10,19 +11,19 @@ namespace XF.Material.Forms.UI.Dialogs
     {
         internal MaterialInputDialog(string title = null, string message = null, string inputText = null, string inputPlaceholder = "Enter input", string confirmingText = "Ok", string dismissiveText = "Cancel", MaterialInputDialogConfiguration configuration = null) : this(configuration)
         {
-            InputTaskCompletionSource = new TaskCompletionSource<string>();
+            this.InputTaskCompletionSource = new TaskCompletionSource<string>();
             Message.Text = message;
             DialogTitle.Text = title;
             TextField.Placeholder = inputPlaceholder;
             TextField.Text = inputText;
             PositiveButton.Text = confirmingText;
             NegativeButton.Text = dismissiveText;
-            PositiveButton.Command = new Command(async() =>
+            PositiveButton.Command = new Command(async () =>
             {
                 await this.DismissAsync();
                 this.InputTaskCompletionSource?.SetResult(TextField.Text);
             });
-            NegativeButton.Command = new Command(async() =>
+            NegativeButton.Command = new Command(async () =>
             {
                 await this.DismissAsync();
                 this.InputTaskCompletionSource?.SetResult(string.Empty);
@@ -49,16 +50,18 @@ namespace XF.Material.Forms.UI.Dialogs
             return await dialog.InputTaskCompletionSource.Task;
         }
 
+        public override void OnBackButtonDismissed()
+        {
+            this.InputTaskCompletionSource?.SetResult(string.Empty);
+        }
+
         protected override void OnAppearing()
         {
             base.OnAppearing();
 
             TextField.TextChanged += this.TextField_TextChanged;
-        }
 
-        public override void OnBackButtonDismissed()
-        {
-            this.InputTaskCompletionSource?.SetResult(string.Empty);
+            this.ChangeLayout();
         }
 
         protected override bool OnBackgroundClicked()
@@ -73,6 +76,25 @@ namespace XF.Material.Forms.UI.Dialogs
             base.OnDisappearing();
 
             TextField.TextChanged -= this.TextField_TextChanged;
+        }
+
+        protected override void OnOrientationChanged(DisplayOrientation orientation)
+        {
+            base.OnOrientationChanged(orientation);
+
+            this.ChangeLayout();
+        }
+
+        private void ChangeLayout()
+        {
+            if (this.DisplayOrientation == DisplayOrientation.Landscape && Device.Idiom == TargetIdiom.Phone)
+            {
+                Container.WidthRequest = 560;
+            }
+            else if (this.DisplayOrientation == DisplayOrientation.Portrait && Device.Idiom == TargetIdiom.Phone)
+            {
+                Container.WidthRequest = 280;
+            }
         }
 
         private void Configure(MaterialInputDialogConfiguration configuration)

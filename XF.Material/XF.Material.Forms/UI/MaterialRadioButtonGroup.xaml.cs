@@ -74,13 +74,12 @@ namespace XF.Material.Forms.UI
         {
             var models = new ObservableCollection<MaterialSelectionControlModel>();
 
-            foreach (var choice in this.Choices)
+            for (int i = 0; i < this.Choices.Count; i++)
             {
-                var index = this.Choices.IndexOf(choice);
                 var model = new MaterialSelectionControlModel
                 {
-                    Index = index,
-                    Text = choice
+                    Index = i,
+                    Text = this.Choices[i]
                 };
                 model.SelectedChangeCommand = new Command<bool>((isSelected) =>
                 {
@@ -146,7 +145,7 @@ namespace XF.Material.Forms.UI
                 _selectedModel = model;
                 this.SelectedIndex = _selectedModel.Index;
             }
-            else if (_selectedModel == model)
+            else if (_selectedModel.Index == model.Index)
             {
                 _selectedModel.IsSelected = true;
             }

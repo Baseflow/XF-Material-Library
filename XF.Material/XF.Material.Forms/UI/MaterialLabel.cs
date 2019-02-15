@@ -18,6 +18,7 @@ namespace XF.Material.Forms.UI
         private bool _fontFamilyChanged;
         private bool _fontSizeChanged;
         private bool _letterSpacingChanged;
+        private bool _fontAttributeChanged;
 
         /// <summary>
         /// Gets or sets the letter spacing of this label's text.
@@ -69,6 +70,11 @@ namespace XF.Material.Forms.UI
             {
                 _letterSpacingChanged = true;
             }
+
+            if(propertyName == nameof(this.FontAttributes))
+            {
+                _fontAttributeChanged = true;
+            }
         }
 
         protected virtual void OnTypeScaleChanged(MaterialTypeScale materialTypeScale)
@@ -91,6 +97,18 @@ namespace XF.Material.Forms.UI
             {
                 var fontSizeKey = $"Material.FontSize.{materialTypeScale.ToString()}";
                 this.FontSize = Convert.ToDouble(Application.Current.Resources[fontSizeKey]);
+            }
+
+            if(!_fontAttributeChanged)
+            {
+                switch(materialTypeScale)
+                {
+                    case MaterialTypeScale.H6:
+                    case MaterialTypeScale.Subtitle2:
+                    case MaterialTypeScale.Button:
+                        this.FontAttributes = FontAttributes.Bold;
+                        break;
+                }
             }
         }
     }

@@ -1,12 +1,10 @@
-﻿<?xml version="1.0" encoding="UTF-8" ?>
-<local:BaseMaterialModalPage x:Class="XF.Material.Forms.UI.Dialogs.MaterialInputDialog"
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<local:BaseMaterialModalPage x:Class="XF.Material.Forms.UI.Dialogs.MaterialDialogFragment"
                              xmlns="http://xamarin.com/schemas/2014/forms"
                              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                              xmlns:local="clr-namespace:XF.Material.Forms.UI.Dialogs"
                              xmlns:material="clr-namespace:XF.Material.Forms.UI"
-                             xmlns:sys="clr-namespace:System;assembly=netstandard"
-                             BackgroundColor="#51000000"
-                             CloseWhenBackgroundIsClicked="True">
+                             xmlns:sys="clr-namespace:System;assembly=netstandard">
     <ContentPage.Content>
         <material:MaterialCard x:Name="Container"
                                Margin="{DynamicResource Material.Dialog.Margin}"
@@ -28,7 +26,7 @@
                 </Grid.RowDefinitions>
                 <material:MaterialLabel x:Name="DialogTitle"
                                         Grid.Row="0"
-                                        Margin="24,20,24,12"
+                                        Margin="24,22,24,22"
                                         TextColor="#DE000000"
                                         TypeScale="H6"
                                         VerticalOptions="Start">
@@ -61,13 +59,23 @@
                         </Trigger>
                     </Label.Triggers>
                 </material:MaterialLabel>
-                <material:MaterialTextField x:Name="TextField"
-                                            Grid.Row="2"
-                                            Margin="24,0,24,0"
-                                            AlwaysShowUnderline="True"
-                                            BackgroundColor="Transparent"
-                                            FloatingPlaceholderEnabled="False"
-                                            HasHorizontalPadding="False" />
+                <ContentView x:Name="container"
+                             Grid.Row="2"
+                             Margin="24,0,24,0"
+                             Padding="0">
+                    <View.Triggers>
+                        <DataTrigger Binding="{Binding Source={x:Reference container}, Path=Content}"
+                                     TargetType="ContentView"
+                                     Value="{x:Null}">
+                            <Setter Property="IsVisible" Value="False" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Source={x:Reference Message}, Path=IsVisible}"
+                                     TargetType="ContentView"
+                                     Value="False">
+                            <Setter Property="Margin" Value="24, 20, 24, 0" />
+                        </DataTrigger>
+                    </View.Triggers>
+                </ContentView>
                 <Grid Grid.Row="3"
                       Margin="0,20,8,0"
                       ColumnSpacing="0">
@@ -84,6 +92,7 @@
                                              Grid.Column="2"
                                              Margin="0,0,-8,0"
                                              ButtonType="Text"
+                                             Text="Cancel"
                                              VerticalOptions="Center">
                         <material:MaterialButton.Triggers>
                             <Trigger TargetType="Button" Property="Text" Value="{x:Null}">
@@ -99,7 +108,7 @@
                     <material:MaterialButton x:Name="PositiveButton"
                                              Grid.Column="3"
                                              ButtonType="Text"
-                                             IsEnabled="False"
+                                             Text="Ok"
                                              VerticalOptions="Center" />
                 </Grid>
             </Grid>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 using XF.Material.Forms.UI.Dialogs.Configurations;
 
 namespace XF.Material.Forms.UI.Dialogs
@@ -12,7 +13,9 @@ namespace XF.Material.Forms.UI.Dialogs
     {
         private static readonly Lazy<IMaterialDialog> MaterialDialogInstance = new Lazy<IMaterialDialog>(() => new MaterialDialog());
 
-        internal MaterialDialog() { }
+        internal MaterialDialog()
+        {
+        }
 
         /// <summary>
         /// The current instance to use for showing modal dialogs.
@@ -184,7 +187,7 @@ namespace XF.Material.Forms.UI.Dialogs
         /// <param name="simpleDialogConfiguration">Global style for <see cref="MaterialSimpleDialog"/>.</param>
         /// <param name="confirmationDialogConfiguration">Global style for <see cref="MaterialConfirmationDialog"/>.</param>
         /// <param name="inputDialogConfiguration">Global style for <see cref="MaterialInputDialog"/>.</param>
-        public void SetGlobalStyles(MaterialAlertDialogConfiguration dialogConfiguration = null, MaterialLoadingDialogConfiguration loadingDialogConfiguration = null, MaterialSnackbarConfiguration snackbarConfiguration = null, MaterialSimpleDialogConfiguration simpleDialogConfiguration = null, MaterialConfirmationDialogConfiguration confirmationDialogConfiguration = null, MaterialInputDialogConfiguration inputDialogConfiguration = null)
+        public void SetGlobalStyles(MaterialAlertDialogConfiguration dialogConfiguration = null, MaterialLoadingDialogConfiguration loadingDialogConfiguration = null, MaterialSnackbarConfiguration snackbarConfiguration = null, MaterialSimpleDialogConfiguration simpleDialogConfiguration = null, MaterialConfirmationDialogConfiguration confirmationDialogConfiguration = null, MaterialInputDialogConfiguration inputDialogConfiguration = null, MaterialAlertDialogConfiguration customContentDialogConfiguration = null)
         {
             MaterialAlertDialog.GlobalConfiguration = dialogConfiguration;
             MaterialLoadingDialog.GlobalConfiguration = loadingDialogConfiguration;
@@ -192,6 +195,22 @@ namespace XF.Material.Forms.UI.Dialogs
             MaterialSimpleDialog.GlobalConfiguration = simpleDialogConfiguration;
             MaterialConfirmationDialog.GlobalConfiguration = confirmationDialogConfiguration;
             MaterialInputDialog.GlobalConfiguration = inputDialogConfiguration;
+            MaterialDialogFragment.GlobalConfiguration = customContentDialogConfiguration;
+        }
+
+        /// <summary>
+        /// Shows an dialog for confirmation with a custom content. Returns true when the confirm button was clicked, false if the dismiss button was clicked, and null if the alert dialog was dismissed.
+        /// </summary>
+        /// <param name="view">The additional custom content of the dialog.</param>
+        /// <param name="message">The message of the dialog.</param>
+        /// <param name="title">The title of the dialog.</param>
+        /// <param name="confirmingText">The text of the confirmation button.</param>
+        /// <param name="dismissiveText">The text of the dismissive button</param>
+        /// <param name="configuration">The style of the dialog.</param>
+        /// <exception cref="ArgumentNullException" />
+        public Task<bool?> ShowCustomContentAsync(View view, string message, string title = null, string confirmingText = "Ok", string dismissiveText = "Cancel", MaterialAlertDialogConfiguration configuration = null)
+        {
+            return MaterialDialogFragment.ShowAsync(view, message, title, confirmingText, dismissiveText, configuration);
         }
 
         /// <summary>

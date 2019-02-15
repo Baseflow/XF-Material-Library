@@ -357,7 +357,7 @@ namespace XF.Material.Forms.UI
             _customTitleView.VerticalOptions = LayoutOptions.FillAndExpand;
             _customTitleView.HorizontalOptions = LayoutOptions.FillAndExpand;
             _customTitleView.HorizontalTextAlignment = textAlignment;
-            _customTitleView.SetDynamicResource(StyleProperty, "Material.TypeScale.H6");
+            _customTitleView.TypeScale = Forms.Resources.Typography.MaterialTypeScale.H6;
             _customTitleView.FontFamily = fontFamily;
             _customTitleView.FontSize = fontSize;
             _customTitleView.Text = page.Title;
@@ -370,5 +370,5 @@ namespace XF.Material.Forms.UI
         }
     }
 
-    internal class TitleLabel : Label { }
+    internal class TitleLabel : MaterialLabel { }
 }

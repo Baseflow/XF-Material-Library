@@ -13,7 +13,7 @@ namespace XF.Material.Forms.UI
     {
         public const string MaterialButtonColorChanged = "BackgroundColorChanged";
 
-        private static Color OutlinedBorderColor = Color.FromHex("#1E000000");
+        private static readonly Color OutlinedBorderColor = Color.FromHex("#1E000000");
 
         public static readonly BindableProperty AllCapsProperty = BindableProperty.Create(nameof(AllCaps), typeof(bool), typeof(MaterialButton), true);
 
@@ -40,6 +40,7 @@ namespace XF.Material.Forms.UI
             this.SetDynamicResource(BackgroundColorProperty, MaterialConstants.Color.SECONDARY);
             this.SetDynamicResource(TextColorProperty, MaterialConstants.Color.ON_SECONDARY);
             this.SetDynamicResource(HeightRequestProperty, MaterialConstants.MATERIAL_BUTTON_HEIGHT);
+            this.SetDynamicResource(FontAttributesProperty, MaterialConstants.MATERIAL_FONTATTRIBUTE_BOLD);
         }
 
         public MaterialElevation Elevation

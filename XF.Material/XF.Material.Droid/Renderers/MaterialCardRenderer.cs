@@ -1,5 +1,6 @@
 ﻿using Android.App;
 using Android.Content;
+using Android.Graphics.Drawables;
 using Android.OS;
 using Android.Util;
 using Android.Views;
@@ -47,17 +48,10 @@ namespace XF.Material.Droid.Renderers
             {
                 _materialCard = this.Element as MaterialCard;
 
-                #region SHADOW FIX FOR BELOW API 23
-
-                if (Build.VERSION.SdkInt < BuildVersionCodes.N && _materialCard.Elevation > 0)
-                {
-                    _materialCard.BorderColor = _materialCard.BackgroundColor;
-                }
-
-                #endregion
+                var a = (GradientDrawable)this.Control.Background;
+                a.SetStroke(0, _materialCard.BackgroundColor.ToAndroid());
 
                 this.Control.Elevate(_materialCard.Elevation);
-
                 this.SetClickable();
                 this.Control.SetOnTouchListener(this);
             }
@@ -75,7 +69,12 @@ namespace XF.Material.Droid.Renderers
             if (e?.PropertyName == nameof(MaterialCard.IsClickable))
             {
                 this.SetClickable();
+            }
 
+            if(e?.PropertyName == nameof(Frame.BackgroundColor))
+            {
+                var a = (GradientDrawable)this.Control.Background;
+                a.SetStroke(0, _materialCard.BackgroundColor.ToAndroid());
             }
         }
 

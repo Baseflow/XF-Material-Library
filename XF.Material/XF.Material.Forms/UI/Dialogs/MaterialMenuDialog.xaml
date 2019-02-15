@@ -57,10 +57,11 @@
                                                           HeightRequest="{Binding Source={x:Reference DialogActionList}, Path=RowHeight}"
                                                           HorizontalOptions="StartAndExpand"
                                                           LineBreakMode="TailTruncation"
+                                                          LineHeight="0"
                                                           SizeChangeCommand="{Binding SizeChangeCommand}"
-                                                          Style="{DynamicResource Material.TypeScale.Body2}"
                                                           Text="{Binding Text}"
                                                           TextColor="#DE000000"
+                                                          TypeScale="Body2"
                                                           VerticalTextAlignment="Center">
                                     <Label.Triggers>
                                         <DataTrigger Binding="{Binding TextColor.IsDefault}"

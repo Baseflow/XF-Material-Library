@@ -72,12 +72,12 @@ namespace XF.Material.Forms.UI
         {
             var models = new ObservableCollection<MaterialSelectionControlModel>();
 
-            foreach (var choice in this.Choices)
+            for (int i = 0; i < this.Choices.Count; i++)
             {
                 var model = new MaterialSelectionControlModel
                 {
-                    SelectedChangeCommand = new Command<bool>((isSelected) => this.CheckboxSelected(isSelected, this.Choices.IndexOf(choice))),
-                    Text = choice,
+                    SelectedChangeCommand = new Command<bool>((isSelected) => this.CheckboxSelected(isSelected, i)),
+                    Text = this.Choices[i],
                     HorizontalSpacing = this.HorizontalSpacing,
                     FontFamily = this.FontFamily,
                     FontSize = this.FontSize,

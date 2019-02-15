@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XF.Material.Forms.UI.Dialogs.Configurations;
@@ -12,8 +13,6 @@ namespace XF.Material.Forms.UI.Dialogs
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MaterialSimpleDialog : BaseMaterialModalPage, IMaterialAwaitableDialog<int>
     {
-        private const int _rowHeight = 48;
-
         internal MaterialSimpleDialog(MaterialSimpleDialogConfiguration configuration)
         {
             this.InitializeComponent();
@@ -77,9 +76,33 @@ namespace XF.Material.Forms.UI.Dialogs
                 actionModel.Index = actionModels.IndexOf(actionModel);
             });
 
-            DialogActionList.RowHeight = _rowHeight;
-            DialogActionList.HeightRequest = (_rowHeight * actionModels.Count) + 2;
-            DialogActionList.ItemsSource = actionModels;
+            DialogActionList.SetValue(BindableLayout.ItemsSourceProperty, actionModels);
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            this.ChangeLayout();
+        }
+
+        protected override void OnOrientationChanged(DisplayOrientation orientation)
+        {
+            base.OnOrientationChanged(orientation);
+
+            this.ChangeLayout();
+        }
+
+        private void ChangeLayout()
+        {
+            if (this.DisplayOrientation == DisplayOrientation.Landscape && Device.Idiom == TargetIdiom.Phone)
+            {
+                Container.WidthRequest = 560;
+            }
+            else if (this.DisplayOrientation == DisplayOrientation.Portrait && Device.Idiom == TargetIdiom.Phone)
+            {
+                Container.WidthRequest = 280;
+            }
         }
 
         public override void OnBackButtonDismissed()

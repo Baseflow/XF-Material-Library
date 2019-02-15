@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ResourceDictionary x:Class="XF.Material.Forms.Resources.Typography.MaterialTypography"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:mtrlfx="clr-namespace:XF.Material.Forms.Effects">
+                    xmlns="http://xamarin.com/schemas/2014/forms"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:mtrlfx="clr-namespace:XF.Material.Forms.Effects">
 
     <!--#region FONT SIZES-->
 
@@ -40,89 +40,8 @@
 
     <!--#endregion-->
 
-    <Style x:Key="Material.TypeScale.H1" TargetType="Label">
-        <Setter Property="mtrlfx:MaterialTypographyEffect.TypeScale" Value="H1" />
-        <Setter Property="FontFamily" Value="{DynamicResource Material.FontFamily.H1}" />
-        <Setter Property="FontSize" Value="{StaticResource Material.FontSize.H1}" />
-    </Style>
-
-    <Style x:Key="Material.TypeScale.H2" TargetType="Label">
-        <Setter Property="mtrlfx:MaterialTypographyEffect.TypeScale" Value="H2" />
-        <Setter Property="FontFamily" Value="{DynamicResource Material.FontFamily.H2}" />
-        <Setter Property="FontSize" Value="{StaticResource Material.FontSize.H2}" />
-    </Style>
-
-    <Style x:Key="Material.TypeScale.H3" TargetType="Label">
-        <Setter Property="mtrlfx:MaterialTypographyEffect.TypeScale" Value="H3" />
-        <Setter Property="FontFamily" Value="{DynamicResource Material.FontFamily.H3}" />
-        <Setter Property="FontSize" Value="{StaticResource Material.FontSize.H3}" />
-    </Style>
-
-    <Style x:Key="Material.TypeScale.H4" TargetType="Label">
-        <Setter Property="mtrlfx:MaterialTypographyEffect.TypeScale" Value="H4" />
-        <Setter Property="FontFamily" Value="{DynamicResource Material.FontFamily.H4}" />
-        <Setter Property="FontSize" Value="{StaticResource Material.FontSize.H4}" />
-    </Style>
-
-    <Style x:Key="Material.TypeScale.H5" TargetType="Label">
-        <Setter Property="mtrlfx:MaterialTypographyEffect.TypeScale" Value="H5" />
-        <Setter Property="FontFamily" Value="{DynamicResource Material.FontFamily.H5}" />
-        <Setter Property="FontSize" Value="{StaticResource Material.FontSize.H5}" />
-    </Style>
-
-    <Style x:Key="Material.TypeScale.H6" TargetType="Label">
-        <Setter Property="mtrlfx:MaterialTypographyEffect.TypeScale" Value="H6" />
-        <Setter Property="FontFamily" Value="{DynamicResource Material.FontFamily.H6}" />
-        <Setter Property="FontSize" Value="{StaticResource Material.FontSize.H6}" />
-        <Setter Property="FontAttributes" Value="Bold" />
-    </Style>
-
-    <Style x:Key="Material.TypeScale.Subtitle1" TargetType="Label">
-        <Setter Property="mtrlfx:MaterialTypographyEffect.TypeScale" Value="Subtitle1" />
-        <Setter Property="FontFamily" Value="{DynamicResource Material.FontFamily.Subtitle1}" />
-        <Setter Property="FontSize" Value="{StaticResource Material.FontSize.Subtitle1}" />
-    </Style>
-
-    <Style x:Key="Material.TypeScale.Subtitle2" TargetType="Label">
-        <Setter Property="mtrlfx:MaterialTypographyEffect.TypeScale" Value="Subtitle2" />
-        <Setter Property="FontFamily" Value="{DynamicResource Material.FontFamily.Subtitle2}" />
-        <Setter Property="FontSize" Value="{StaticResource Material.FontSize.Subtitle2}" />
-        <Setter Property="FontAttributes" Value="Bold" />
-    </Style>
-
-    <Style x:Key="Material.TypeScale.Body1" TargetType="Label">
-        <Setter Property="mtrlfx:MaterialTypographyEffect.TypeScale" Value="Body1" />
-        <Setter Property="FontFamily" Value="{DynamicResource Material.FontFamily.Body1}" />
-        <Setter Property="FontSize" Value="{StaticResource Material.FontSize.Body1}" />
-    </Style>
-
-    <Style x:Key="Material.TypeScale.Body2" TargetType="Label">
-        <Setter Property="mtrlfx:MaterialTypographyEffect.TypeScale" Value="Body2" />
-        <Setter Property="FontFamily" Value="{DynamicResource Material.FontFamily.Body2}" />
-        <Setter Property="FontSize" Value="{StaticResource Material.FontSize.Body2}" />
-    </Style>
-
-    <Style x:Key="Material.TypeScale.Button" TargetType="Button">
-        <Setter Property="mtrlfx:MaterialTypographyEffect.TypeScale" Value="Button" />
-        <Setter Property="FontFamily" Value="{DynamicResource Material.FontFamily.Button}" />
-        <Setter Property="FontSize" Value="{DynamicResource Material.FontSize.Button}" />
-        <Setter Property="FontAttributes" Value="{DynamicResource Material.FontAttribute.Bold}" />
-    </Style>
-
-    <Style x:Key="Material.TypeScale.Caption" TargetType="Label">
-        <Setter Property="mtrlfx:MaterialTypographyEffect.TypeScale" Value="Caption" />
-        <Setter Property="FontFamily" Value="{DynamicResource Material.FontFamily.Caption}" />
-        <Setter Property="FontSize" Value="{StaticResource Material.FontSize.Caption}" />
-    </Style>
-
-    <Style x:Key="Material.TypeScale.Overline" TargetType="Label">
-        <Setter Property="mtrlfx:MaterialTypographyEffect.TypeScale" Value="Overline" />
-        <Setter Property="FontFamily" Value="{DynamicResource Material.FontFamily.Overline}" />
-        <Setter Property="FontSize" Value="{StaticResource Material.FontSize.Overline}" />
-    </Style>
-
     <OnPlatform x:Key="Material.FontAttribute.Bold"
-        x:TypeArguments="FontAttributes"
-        Default="Bold" />
+                x:TypeArguments="FontAttributes"
+                Default="Bold" />
 
 </ResourceDictionary>

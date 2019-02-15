@@ -25,7 +25,6 @@
 
   <ItemGroup>
     <Compile Remove="UI\Dialogs\MaterialDialogs.cs" />
-    <Compile Remove="Effects\MaterialStatusBarColorEffect.cs" />
     <Compile Remove="MaterialStyles.xaml.cs" />
     <Compile Remove="UI\Internals\MaterialInputDialogTextField.xaml.cs" />
     <Compile Remove="UI\MaterialIconButton.cs" />
@@ -60,6 +59,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="UI\Dialogs\MaterialConfirmationDialog.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="UI\Dialogs\MaterialDialogFragment.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="UI\Dialogs\MaterialInputDialog.xaml">
