@@ -64,25 +64,44 @@ namespace XF.Material.iOS.Renderers
 
         private void OnLetterSpacingChanged(UILabel uiLabel, double letterSpacing)
         {
-            ((NSMutableAttributedString)uiLabel.AttributedText).AddAttribute(new NSString("NSKern"), FromObject(letterSpacing), new NSRange(0, uiLabel.Text.Length));
+            if(uiLabel != null)
+            {
+                var attributedString = (NSMutableAttributedString) uiLabel.AttributedText;
+
+                if(attributedString != null)
+                {
+                    var nsKern = new NSString("NSKern");
+                    var nsObject = FromObject(letterSpacing);
+                    var nsRange = new NSRange(0, uiLabel.Text?.Length ?? 0);
+
+                    attributedString.AddAttribute(nsKern, nsObject, nsRange);
+                }
+            }
         }
 
         private void OnLineHeightChanged(UILabel uiLabel, double lineSpacing)
         {
-            var attributeRange = new NSRange(0, uiLabel.Text.Length);
-            var pAttribute = new NSMutableParagraphStyle();
-            var sAttribute = ((NSMutableAttributedString)uiLabel.AttributedText);
-
-            if (lineSpacing == 0)
+            if(uiLabel != null)
             {
-                pAttribute.LineSpacing = 0;
-            }
-            else
-            {
-                pAttribute.LineSpacing = (nfloat)((this.Element.FontSize * lineSpacing) - this.Element.FontSize);
-            }
+                var attributedString = (NSMutableAttributedString)uiLabel.AttributedText;
 
-            sAttribute.SetAttributes(new NSDictionary<NSString, NSObject>(UIStringAttributeKey.ParagraphStyle, pAttribute), attributeRange);
+                if(attributedString != null)
+                {
+                    var attributeRange = new NSRange(0, uiLabel.Text.Length);
+                    var pAttribute = new NSMutableParagraphStyle();
+
+                    if (lineSpacing == 0)
+                    {
+                        pAttribute.LineSpacing = 0;
+                    }
+                    else
+                    {
+                        pAttribute.LineSpacing = (nfloat)((this.Element.FontSize * lineSpacing) - this.Element.FontSize);
+                    }
+
+                    attributedString.SetAttributes(new NSDictionary<NSString, NSObject>(UIStringAttributeKey.ParagraphStyle, pAttribute), attributeRange);
+                }
+            }
         }
     }
 }

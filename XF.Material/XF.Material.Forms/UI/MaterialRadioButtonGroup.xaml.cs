@@ -81,10 +81,7 @@ namespace XF.Material.Forms.UI
                     Index = i,
                     Text = this.Choices[i]
                 };
-                model.SelectedChangeCommand = new Command<bool>((isSelected) =>
-                {
-                    this.RadioButtonSelected(isSelected, model);
-                });
+                model.SelectedChangeCommand = new Command<bool>((isSelected) => this.RadioButtonSelected(isSelected, model));
 
                 models.Add(model);
             }
@@ -108,7 +105,7 @@ namespace XF.Material.Forms.UI
 
             if (propertyName == nameof(this.SelectedIndex))
             {
-                if (this.SelectedIndex >= 0 && this.Models != null && this.Models.Any())
+                if (this.SelectedIndex >= 0 && this.Models?.Any() == true)
                 {
                     var model = this.Models[this.SelectedIndex];
                     model.IsSelected = true;

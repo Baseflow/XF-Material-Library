@@ -104,7 +104,6 @@ namespace XF.Material.Forms
             _res.MergedDictionaries.Add(new MaterialColors(_config.ColorConfiguration ?? new MaterialColorConfiguration()));
             _res.MergedDictionaries.Add(new MaterialTypography(_config.FontConfiguration ?? new MaterialFontConfiguration()));
             _res.MergedDictionaries.Add(new MaterialSizes());
-
         }
 
         /// <summary>

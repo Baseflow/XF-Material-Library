@@ -300,7 +300,6 @@ namespace XF.Material.Forms.UI
                     this.BarTextColor = customTitleView.TextColor = barTextColor;
                 }
             }
-
             else
             {
                 if (barTextColor.IsDefault)

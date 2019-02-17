@@ -404,7 +404,7 @@ namespace XF.Material.iOS.Renderers
             float textWidth = (float)labelRect.Size.Width;
             float buttonWidth = (float)this.Control.Frame.Width;
 
-            float inset = (buttonWidth - textWidth) / 2 - 28;
+            float inset = ((buttonWidth - textWidth) / 2) - 28;
             this.Control.TitleEdgeInsets = new UIEdgeInsets(0, inset, 0,  -40);
 
         }

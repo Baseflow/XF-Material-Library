@@ -223,7 +223,7 @@ namespace XF.Material.Forms.UI
             {
                 var newX = Math.Min(_x + e.TotalX, Placeholder.Width) >= 0 ? Math.Min(_x + e.TotalX, Placeholder.Width) : 0;
                 var percentage = newX / Placeholder.Width;
-                this.Value = percentage * (this.MaxValue - this.MinValue) + this.MinValue;
+                this.Value = (percentage * (this.MaxValue - this.MinValue)) + this.MinValue;
             }
             else if (e.StatusType == GestureStatus.Completed)
             {

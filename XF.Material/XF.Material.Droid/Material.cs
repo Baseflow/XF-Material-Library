@@ -18,29 +18,14 @@ namespace XF.Material.Droid
         internal static Context Context { get; private set; }
 
         /// <summary>
-        /// Gets whether the current Android version is running on 5.0 (Lollipop) or higher.
-        /// </summary>
-        internal static bool IsLollipop { get; private set; }
-
-        /// <summary>
         /// Gets whether the current Android version is running on 4.2 (Jellybean) or lower.
         /// </summary>
         internal static bool IsJellyBean { get; private set; }
 
         /// <summary>
-        /// Initializes the core Material components for the Android platform.
+        /// Gets whether the current Android version is running on 5.0 (Lollipop) or higher.
         /// </summary>
-        /// <param name="context">The context in which the current App is running.</param>
-        /// <param name="bundle">The string values parameter passed to the <see cref="Activity.OnCreate(Bundle)"/> method.</param>
-        public static void Init(Context context, Bundle bundle)
-        {
-            Context = context;
-            IsLollipop = Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop;
-            IsJellyBean = Build.VERSION.SdkInt < BuildVersionCodes.Kitkat;
-
-            AppCompatDelegate.CompatVectorFromResourcesEnabled = true;
-            Popup.Init(context, bundle);
-        }
+        internal static bool IsLollipop { get; private set; }
 
         /// <summary>
         /// Handles the physical back button event to dismiss specific dialogs shown by <see cref="XF.Material.Forms.UI.Dialogs.MaterialDialog.Instance"/>.
@@ -63,16 +48,29 @@ namespace XF.Material.Droid
                 await dismissableDialog.DismissAsync();
                 dismissableDialog.OnBackButtonDismissed();
             }
-
             else if (snackBar != null)
             {
                 backAction.Invoke();
             }
-
             else
             {
                 Popup.SendBackPressed(backAction);
             }
+        }
+
+        /// <summary>
+        /// Initializes the core Material components for the Android platform.
+        /// </summary>
+        /// <param name="context">The context in which the current App is running.</param>
+        /// <param name="bundle">The string values parameter passed to the <see cref="Activity.OnCreate(Bundle)"/> method.</param>
+        public static void Init(Context context, Bundle bundle)
+        {
+            Context = context;
+            IsLollipop = Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop;
+            IsJellyBean = Build.VERSION.SdkInt < BuildVersionCodes.Kitkat;
+
+            AppCompatDelegate.CompatVectorFromResourcesEnabled = true;
+            Popup.Init(context, bundle);
         }
     }
 }

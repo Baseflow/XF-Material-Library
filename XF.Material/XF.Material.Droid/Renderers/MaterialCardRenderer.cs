@@ -12,13 +12,16 @@ using XF.Material.Forms.UI;
 using static Android.Views.View;
 
 [assembly: ExportRenderer(typeof(MaterialCard), typeof(MaterialCardRenderer))]
+
 namespace XF.Material.Droid.Renderers
 {
     public class MaterialCardRenderer : Xamarin.Forms.Platform.Android.AppCompat.FrameRenderer, IOnTouchListener
     {
         private MaterialCard _materialCard;
 
-        public MaterialCardRenderer(Context context) : base(context) { }
+        public MaterialCardRenderer(Context context) : base(context)
+        {
+        }
 
         public bool OnTouch(Android.Views.View v, MotionEvent e)
         {
@@ -39,7 +42,6 @@ namespace XF.Material.Droid.Renderers
             return false;
         }
 
-
         protected override void OnElementChanged(ElementChangedEventArgs<Frame> e)
         {
             base.OnElementChanged(e);
@@ -48,9 +50,7 @@ namespace XF.Material.Droid.Renderers
             {
                 _materialCard = this.Element as MaterialCard;
 
-                var a = (GradientDrawable)this.Control.Background;
-                a.SetStroke(0, _materialCard.BackgroundColor.ToAndroid());
-
+                this.UpdateStrokeColor();
                 this.Control.Elevate(_materialCard.Elevation);
                 this.SetClickable();
                 this.Control.SetOnTouchListener(this);
@@ -71,10 +71,9 @@ namespace XF.Material.Droid.Renderers
                 this.SetClickable();
             }
 
-            if(e?.PropertyName == nameof(Frame.BackgroundColor))
+            if (e?.PropertyName == nameof(Frame.BackgroundColor))
             {
-                var a = (GradientDrawable)this.Control.Background;
-                a.SetStroke(0, _materialCard.BackgroundColor.ToAndroid());
+                this.UpdateStrokeColor();
             }
         }
 
@@ -91,6 +90,12 @@ namespace XF.Material.Droid.Renderers
 
             this.Control.Focusable = clickable;
             this.Control.Clickable = clickable;
+        }
+
+        private void UpdateStrokeColor()
+        {
+            var drawable = (GradientDrawable)this.Control.Background;
+            drawable.SetStroke(0, _materialCard.BackgroundColor.ToAndroid());
         }
     }
 }

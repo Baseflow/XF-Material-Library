@@ -16,11 +16,11 @@ namespace XF.Material.Forms.UI
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MaterialSwitch : ContentView
     {
-        public static readonly BindableProperty ActiveBackgroundColorProperty = BindableProperty.Create(nameof(ActiveBackgroundColor), typeof(Color), typeof(MaterialSwitch), Material.Color.Secondary.MultiplyAlpha(0.54));
+        public static readonly BindableProperty ActiveTrackColorProperty = BindableProperty.Create(nameof(ActiveTrackColor), typeof(Color), typeof(MaterialSwitch), Material.Color.Secondary.MultiplyAlpha(0.54));
 
         public static readonly BindableProperty ActiveThumbColorProperty = BindableProperty.Create(nameof(ActiveThumbColor), typeof(Color), typeof(MaterialSwitch), Material.Color.Secondary);
 
-        public static readonly BindableProperty InactiveBackgroundColorProperty = BindableProperty.Create(nameof(InactiveBackgroundColor), typeof(Color), typeof(MaterialSwitch), Color.LightGray);
+        public static readonly BindableProperty InactiveTrackColorProperty = BindableProperty.Create(nameof(InactiveTrackColor), typeof(Color), typeof(MaterialSwitch), Color.LightGray);
 
         public static readonly BindableProperty InactiveThumColorProperty = BindableProperty.Create(nameof(InactiveThumbColor), typeof(Color), typeof(MaterialSwitch), Color.FromHex("#FFFFFF"));
 
@@ -29,15 +29,15 @@ namespace XF.Material.Forms.UI
         public MaterialSwitch()
         {
             this.InitializeComponent();
-            _background.Color = this.IsActivated ? this.ActiveBackgroundColor : this.InactiveBackgroundColor;
+            _background.Color = this.IsActivated ? this.ActiveTrackColor : this.InactiveTrackColor;
         }
 
         public event EventHandler<ActivatedEventArgs> Activated;
 
-        public Color ActiveBackgroundColor
+        public Color ActiveTrackColor
         {
-            get => (Color)this.GetValue(ActiveBackgroundColorProperty);
-            set => this.SetValue(ActiveBackgroundColorProperty, value);
+            get => (Color)this.GetValue(ActiveTrackColorProperty);
+            set => this.SetValue(ActiveTrackColorProperty, value);
         }
 
         public Color ActiveThumbColor
@@ -46,10 +46,10 @@ namespace XF.Material.Forms.UI
             set => this.SetValue(ActiveThumbColorProperty, value);
         }
 
-        public Color InactiveBackgroundColor
+        public Color InactiveTrackColor
         {
-            get => (Color)this.GetValue(InactiveBackgroundColorProperty);
-            set => this.SetValue(InactiveBackgroundColorProperty, value);
+            get => (Color)this.GetValue(InactiveTrackColorProperty);
+            set => this.SetValue(InactiveTrackColorProperty, value);
         }
 
         public Color InactiveThumbColor
@@ -80,15 +80,15 @@ namespace XF.Material.Forms.UI
                 this.OnActivatedChanged(this.IsActivated);
             }
 
-            if (propertyName == nameof(this.ActiveBackgroundColor) || propertyName == nameof(this.InactiveBackgroundColor))
+            if (propertyName == nameof(this.ActiveTrackColor) || propertyName == nameof(this.InactiveTrackColor))
             {
-                _background.Color = this.IsActivated ? this.ActiveBackgroundColor : this.InactiveBackgroundColor;
+                _background.Color = this.IsActivated ? this.ActiveTrackColor : this.InactiveTrackColor;
             }
         }
 
         private async Task AnimateSwitchAsync(bool isActivated)
         {
-            _background.Color = this.IsActivated ? this.ActiveBackgroundColor : this.InactiveBackgroundColor;
+            _background.Color = this.IsActivated ? this.ActiveTrackColor : this.InactiveTrackColor;
 
             if (isActivated)
             {

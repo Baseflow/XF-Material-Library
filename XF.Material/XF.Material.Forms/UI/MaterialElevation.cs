@@ -18,6 +18,8 @@ namespace XF.Material.Forms.UI
             this.RestingElevation = restingElevation;
             this.PressedElevation = pressedElevation;
         }
+
+        public static implicit operator MaterialElevation(int uniformElevation) => new MaterialElevation(uniformElevation);
     }
 
     [Xamarin.Forms.Xaml.TypeConversion(typeof(MaterialElevation))]
