@@ -1,5 +1,30 @@
 # Release Notes
 
+##### 1.4.0.0  (Latest)
+
+- Added new controls: `MaterialSwitch` and `MaterialLabel`.
+- Added `Elevation` property to `MaterialButton` and `MaterialIconButton`. You can now set
+dynamic elevation when the button is resting or was pressed by using `MaterialElevation`.
+- `MaterialCard` can now responds to touch input when it is set as clickable. Added `IsClickable`, 
+`ClickCommand`, and `ClickCommandParameter` properties. Added `Clicked` event. A feature enhancement
+ found in this [issue](https://github.com/contrix09/XF-Material-Library/issues/55).
+- `MaterialTextField` now accepts an `IList` of objects as choices when the `InputType` is set to
+ `MaterialTextFieldInputType.Choice`. Added `ChoicesBindingName` that determines the value of the
+ property with that name of each object to display. You can still set the `Choices` property to use a collection of strings.
+ This is a feature enhancement found in this [issue](https://github.com/contrix09/XF-Material-Library/issues/56).
+- Added new properties `IsSpellCheckEnabled` and `IsTextPredictionEnabled` to `MaterialTextField`.
+ This is a feature enhancement found in this [issue](https://github.com/contrix09/XF-Material-Library/issues/65).
+- Re-added `Icon` and `IconTintColor` properties to `MaterialTextField`.
+ This is a feature enhancement found in this [issue](https://github.com/contrix09/XF-Material-Library/issues/64).
+- You can now show an alert dialog with a custom content using `MaterialDialog.Instance.ShowCustomContentAsync()`.
+ This is a feature enhancement found in this [issue](https://github.com/contrix09/XF-Material-Library/issues/63).
+- Added maximum width of modal dialogs when running on different device idioms, or when changing screen orientation.
+- Used `BindableLayout` instead of `ListView` when rendering `MaterialRadioButtonGroup`, `MaterialCheckboxGroup`, and `MaterialMenuDialog`.
+- Removed typography dynamic resources. You can now set the specific type scale using `MaterialLabel`.
+- Removed `MaterialTypeScaleEffect`.
+- Updated Android target framework version to `9.0`.
+- Updated other dependencies to latest.
+
 ##### 1.3.1.1
 - Fixed issue [35](https://github.com/contrix09/XF-Material-Library/issues/35).
 - Fixed issue [38](https://github.com/contrix09/XF-Material-Library/issues/38).
