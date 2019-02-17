@@ -1,10 +1,13 @@
-﻿using System;
+﻿using Microsoft.Toolkit.Uwp.UI.Controls;
+using System;
 using System.ComponentModel;
 using Windows.UI;
 using Windows.UI.Xaml.Media;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.UWP;
-using Rectangle = System.Drawing.Rectangle;
+using XF.Material.Forms.UI;
+using XF.Material.UWP.Renderers;
+using Rectangle = Windows.UI.Xaml.Shapes.Rectangle;
 
 [assembly: ExportRenderer(typeof(DropShadowView), typeof(DropShadowViewRenderer))]
 namespace XF.Material.UWP.Renderers
