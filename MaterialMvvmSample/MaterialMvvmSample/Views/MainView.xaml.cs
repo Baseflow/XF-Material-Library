@@ -1,6 +1,10 @@
 ﻿using MaterialMvvmSample.ViewModels;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Threading.Tasks;
 using Xamarin.Forms;
+using XF.Material.Forms;
 using XF.Material.Forms.UI;
 using XF.Material.Forms.UI.Dialogs;
 
@@ -13,24 +17,14 @@ namespace MaterialMvvmSample.Views
             this.InitializeComponent();
         }
 
-        private async void MaterialButton_Clicked(object sender, System.EventArgs e)
-        {
-            //await MaterialDialog.Instance.InputAsync("Enter password", "Enter your current password to proceed");
-            //await MaterialDialog.Instance.AlertAsync("This is an alert dialog. It displays to the user the current context.", "Alert Dialog");
-            await MaterialDialog.Instance.SelectChoicesAsync("Select an item", new string[] 
-            {
-                "Company 1",
-                "Company 2",
-                "Company 3",
-                "Company 4",
-                "Company 5",
-                "Company 6"
-            });
-        }
-
         private void MaterialTextField_TextChanged(object sender, Xamarin.Forms.TextChangedEventArgs e)
         {
             (sender as MaterialTextField).HasError = string.IsNullOrEmpty(e.NewTextValue);
+        }
+
+        private void MaterialTextField_ChoiceSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            Debug.WriteLine($"Selected {e.SelectedItem}");
         }
     }
 

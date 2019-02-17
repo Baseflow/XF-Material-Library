@@ -11,9 +11,10 @@
                     material:MaterialNavigationPage.AppBarTitleTextFontFamily="{StaticResource FontFamily.RobotoMedium}"
                     material:MaterialNavigationPage.AppBarTitleTextFontSize="14"
                     material:MaterialNavigationPage.StatusBarColor="#1B3147">
-    <ScrollView>
+    <!--<ScrollView>
         <StackLayout Padding="16">
-            <material:MaterialButton Elevation="6"
+            <material:MaterialButton Clicked="MaterialButton_Clicked"
+                                     Elevation="6"
                                      HorizontalOptions="Center"
                                      Text="Button" />
             <material:MaterialButton HorizontalOptions="Center"
@@ -57,15 +58,15 @@
                         <material:MaterialMenuButton ButtonType="Text"
                                                      Choices="{Binding ListActions}"
                                                      Command="{Binding ListMenuCommand}"
-                                                     CornerRadius="24"
+                                                     CornerRadius="18"
                                                      HeightRequest="48"
                                                      HorizontalOptions="Start"
                                                      Image="ic_overflow"
                                                      WidthRequest="48" />
-                        <Label Style="{DynamicResource Material.TypeScale.H6}"
-                               Text="Job Positions"
-                               TextColor="Black"
-                               VerticalOptions="Center" />
+                        <material:MaterialLabel Text="Job Positions"
+                                                TextColor="Black"
+                                                TypeScale="H6"
+                                                VerticalOptions="Center" />
                     </StackLayout>
                 </ListView.Header>
                 <ListView.ItemTemplate>
@@ -85,28 +86,27 @@
                                              Orientation="Horizontal">
                                     <StackLayout HorizontalOptions="StartAndExpand"
                                                  Orientation="Horizontal">
-                                        <Label Style="{DynamicResource Material.TypeScale.Body1}"
-                                               Text="{Binding Title}"
-                                               TextColor="Black"
-                                               VerticalOptions="FillAndExpand"
-                                               VerticalTextAlignment="Center" />
+                                        <material:MaterialLabel Text="{Binding Title}"
+                                                                TextColor="Black"
+                                                                TypeScale="Body1"
+                                                                VerticalOptions="FillAndExpand"
+                                                                VerticalTextAlignment="Center" />
                                         <material:MaterialCard Padding="8,2"
                                                                BackgroundColor="#2c3e50"
                                                                CornerRadius="2"
                                                                Elevation="1"
                                                                IsVisible="{Binding IsNew}"
                                                                VerticalOptions="Center">
-                                            <Label Style="{DynamicResource Material.TypeScale.Overline}"
-                                                   Text="NEW"
-                                                   TextColor="#DEFFFFFF" />
+                                            <material:MaterialLabel Text="NEW"
+                                                                    TextColor="#DEFFFFFF"
+                                                                    TypeScale="Overline" />
                                         </material:MaterialCard>
                                     </StackLayout>
-
                                     <material:MaterialMenuButton ButtonType="Text"
                                                                  Choices="{Binding Source={x:Reference Root}, Path=BindingContext.Actions}"
                                                                  Command="{Binding Source={x:Reference Root}, Path=BindingContext.MenuCommand}"
                                                                  CommandParameter="{Binding Title}"
-                                                                 CornerRadius="24"
+                                                                 CornerRadius="18"
                                                                  HorizontalOptions="End"
                                                                  Image="ic_overflow"
                                                                  TintColor="#AEAEAE"
@@ -118,20 +118,27 @@
                 </ListView.ItemTemplate>
             </ListView>
         </StackLayout>
-    </ScrollView>
-    <!--<ScrollView VerticalOptions="FillAndExpand">
+    </ScrollView>-->
+    <ScrollView VerticalOptions="FillAndExpand">
+
         <material:MaterialCard Elevation="4"
                                HorizontalOptions="FillAndExpand"
                                IsClickable="True"
                                IsClippedToBounds="False"
                                VerticalOptions="FillAndExpand">
             <StackLayout Spacing="8">
-                <Label Margin="0,0,0,16"
-                       Style="{DynamicResource Material.TypeScale.H5}"
-                       Text="Create an account"
-                       TextColor="#DE000000" />
+                <material:MaterialLabel Margin="0,0,0,16"
+                                        Text="Create an account"
+                                        TextColor="#DE000000"
+                                        TypeScale="H5" />
                 <material:MaterialTextField AlwaysShowUnderline="True"
+                                            ChoiceSelected="MaterialTextField_ChoiceSelected"
+                                            Choices="{Binding Models}"
+                                            ChoicesBindingName="Title"
+                                            FloatingPlaceholderEnabled="False"
+                                            HasHorizontalPadding="False"
                                             HelperText="*Required"
+                                            InputType="Choice"
                                             Placeholder="Username"
                                             TintColor="#2c3e50" />
                 <material:MaterialTextField AlwaysShowUnderline="True"
@@ -139,7 +146,11 @@
                                             FocusCommand="{Binding EmailFocusCommand}"
                                             HasError="{Binding EmailHasError}"
                                             HelperText="*Required"
+                                            Icon="xf_error"
+                                            IconTintColor="Gray"
                                             InputType="Email"
+                                            IsSpellCheckEnabled="False"
+                                            IsTextPredictionEnabled="False"
                                             Placeholder="Email Address"
                                             Text="{Binding Email}"
                                             TintColor="#2c3e50" />
@@ -174,11 +185,9 @@
                                            Text="I agree with the terms and service." />
                 <material:MaterialSwitch />
                 <material:MaterialButton BackgroundColor="#2c3e50"
-                                         Clicked="MaterialButton_Clicked"
                                          HorizontalOptions="End"
                                          Text="Create" />
             </StackLayout>
         </material:MaterialCard>
-    </ScrollView>-->
-
+    </ScrollView>
 </local:BaseMainView>
