@@ -46,13 +46,14 @@ namespace XF.Material.Forms.UI.Dialogs
 
         private void ChangeLayout()
         {
-            if (this.DisplayOrientation == DisplayOrientation.Landscape && Device.Idiom == TargetIdiom.Phone)
+            switch (this.DisplayOrientation)
             {
-                Container.WidthRequest = 560;
-            }
-            else if (this.DisplayOrientation == DisplayOrientation.Portrait && Device.Idiom == TargetIdiom.Phone)
-            {
-                Container.WidthRequest = 280;
+                case DisplayOrientation.Landscape when Device.Idiom == TargetIdiom.Phone:
+                    Container.WidthRequest = 560;
+                    break;
+                case DisplayOrientation.Portrait when Device.Idiom == TargetIdiom.Phone:
+                    Container.WidthRequest = 280;
+                    break;
             }
         }
 
@@ -60,15 +61,13 @@ namespace XF.Material.Forms.UI.Dialogs
         {
             var preferredConfig = configuration ?? GlobalConfiguration;
 
-            if (preferredConfig != null)
-            {
-                this.BackgroundColor = preferredConfig.ScrimColor;
-                Container.CornerRadius = preferredConfig.CornerRadius;
-                Container.BackgroundColor = preferredConfig.BackgroundColor;
-                Message.TextColor = preferredConfig.MessageTextColor;
-                Message.FontFamily = preferredConfig.MessageFontFamily;
-                LoadingImage.TintColor = preferredConfig.TintColor;
-            }
+            if (preferredConfig == null) return;
+            this.BackgroundColor = preferredConfig.ScrimColor;
+            Container.CornerRadius = preferredConfig.CornerRadius;
+            Container.BackgroundColor = preferredConfig.BackgroundColor;
+            Message.TextColor = preferredConfig.MessageTextColor;
+            Message.FontFamily = preferredConfig.MessageFontFamily;
+            LoadingImage.TintColor = preferredConfig.TintColor;
         }
     }
 }

@@ -23,10 +23,12 @@ namespace XF.Material.Forms.UI.Dialogs
 
         internal static MaterialSimpleDialogConfiguration GlobalConfiguration { get; set; }
 
-        internal static async Task<int> ShowAsync(string title, IList<string> actions, MaterialSimpleDialogConfiguration configuration = null)
+        internal static async Task<int> ShowAsync(string title, IEnumerable<string> actions, MaterialSimpleDialogConfiguration configuration = null)
         {
-            var dialog = new MaterialSimpleDialog(configuration) { InputTaskCompletionSource = new TaskCompletionSource<int>() };
-            dialog.DialogTitle.Text = title;
+            var dialog = new MaterialSimpleDialog(configuration)
+            {
+                InputTaskCompletionSource = new TaskCompletionSource<int>(), DialogTitle = {Text = title}
+            };
             dialog.CreateActions(actions.ToList(), configuration);
 
             await dialog.ShowAsync();
@@ -38,14 +40,12 @@ namespace XF.Material.Forms.UI.Dialogs
         {
             var preferredConfig = configuration ?? GlobalConfiguration;
 
-            if (preferredConfig != null)
-            {
-                this.BackgroundColor = preferredConfig.ScrimColor;
-                Container.CornerRadius = preferredConfig.CornerRadius;
-                Container.BackgroundColor = preferredConfig.BackgroundColor;
-                DialogTitle.TextColor = preferredConfig.TitleTextColor;
-                DialogTitle.FontFamily = preferredConfig.TitleFontFamily;
-            }
+            if (preferredConfig == null) return;
+            this.BackgroundColor = preferredConfig.ScrimColor;
+            Container.CornerRadius = preferredConfig.CornerRadius;
+            Container.BackgroundColor = preferredConfig.BackgroundColor;
+            DialogTitle.TextColor = preferredConfig.TitleTextColor;
+            DialogTitle.FontFamily = preferredConfig.TitleFontFamily;
         }
 
         private void CreateActions(List<string> actions, MaterialSimpleDialogConfiguration configuration)
@@ -59,17 +59,20 @@ namespace XF.Material.Forms.UI.Dialogs
             actions.ForEach(a =>
             {
                 var preferredConfig = configuration ?? GlobalConfiguration;
-                var actionModel = new ActionModel { Text = a };
-                actionModel.TextColor = preferredConfig != null ? preferredConfig.TextColor : Color.FromHex("#DE000000");
-                actionModel.FontFamily = preferredConfig != null ? preferredConfig.TextFontFamily : Material.FontFamily.Body1;
+                var actionModel = new ActionModel
+                {
+                    Text = a,
+                    TextColor = preferredConfig?.TextColor ?? Color.FromHex("#DE000000"),
+                    FontFamily = preferredConfig != null
+                        ? preferredConfig.TextFontFamily
+                        : Material.FontFamily.Body1
+                };
                 actionModel.SelectedCommand = new Command<int>(async(position) =>
                 {
-                    if (this.InputTaskCompletionSource?.Task.Status == TaskStatus.WaitingForActivation)
-                    {
-                        actionModel.IsSelected = true;
-                        await this.DismissAsync();
-                        this.InputTaskCompletionSource?.SetResult(position);
-                    }
+                    if (this.InputTaskCompletionSource?.Task.Status != TaskStatus.WaitingForActivation) return;
+                    actionModel.IsSelected = true;
+                    await this.DismissAsync();
+                    this.InputTaskCompletionSource?.SetResult(position);
                 });
 
                 actionModels.Add(actionModel);
@@ -95,13 +98,14 @@ namespace XF.Material.Forms.UI.Dialogs
 
         private void ChangeLayout()
         {
-            if (this.DisplayOrientation == DisplayOrientation.Landscape && Device.Idiom == TargetIdiom.Phone)
+            switch (this.DisplayOrientation)
             {
-                Container.WidthRequest = 560;
-            }
-            else if (this.DisplayOrientation == DisplayOrientation.Portrait && Device.Idiom == TargetIdiom.Phone)
-            {
-                Container.WidthRequest = 280;
+                case DisplayOrientation.Landscape when Device.Idiom == TargetIdiom.Phone:
+                    Container.WidthRequest = 560;
+                    break;
+                case DisplayOrientation.Portrait when Device.Idiom == TargetIdiom.Phone:
+                    Container.WidthRequest = 280;
+                    break;
             }
         }
 

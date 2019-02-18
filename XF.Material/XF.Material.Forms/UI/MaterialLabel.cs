@@ -51,29 +51,23 @@ namespace XF.Material.Forms.UI
         {
             base.OnPropertyChanged(propertyName);
 
-            if (propertyName == nameof(this.TypeScale))
+            switch (propertyName)
             {
-                this.OnTypeScaleChanged(this.TypeScale);
-            }
-
-            if (propertyName == nameof(this.FontSize))
-            {
-                _fontSizeChanged = true;
-            }
-
-            if (propertyName == nameof(this.FontFamily))
-            {
-                _fontFamilyChanged = true;
-            }
-
-            if (propertyName == nameof(this.LetterSpacing))
-            {
-                _letterSpacingChanged = true;
-            }
-
-            if(propertyName == nameof(this.FontAttributes))
-            {
-                _fontAttributeChanged = true;
+                case nameof(this.TypeScale):
+                    this.OnTypeScaleChanged(this.TypeScale);
+                    break;
+                case nameof(this.FontSize):
+                    _fontSizeChanged = true;
+                    break;
+                case nameof(this.FontFamily):
+                    _fontFamilyChanged = true;
+                    break;
+                case nameof(this.LetterSpacing):
+                    _letterSpacingChanged = true;
+                    break;
+                case nameof(this.FontAttributes):
+                    _fontAttributeChanged = true;
+                    break;
             }
         }
 
@@ -99,16 +93,14 @@ namespace XF.Material.Forms.UI
                 this.FontSize = Convert.ToDouble(Application.Current.Resources[fontSizeKey]);
             }
 
-            if(!_fontAttributeChanged)
+            if (_fontAttributeChanged) return;
+            switch(materialTypeScale)
             {
-                switch(materialTypeScale)
-                {
-                    case MaterialTypeScale.H6:
-                    case MaterialTypeScale.Subtitle2:
-                    case MaterialTypeScale.Button:
-                        this.FontAttributes = FontAttributes.Bold;
-                        break;
-                }
+                case MaterialTypeScale.H6:
+                case MaterialTypeScale.Subtitle2:
+                case MaterialTypeScale.Button:
+                    this.FontAttributes = FontAttributes.Bold;
+                    break;
             }
         }
     }

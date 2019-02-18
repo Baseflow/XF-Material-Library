@@ -21,12 +21,14 @@ namespace XF.Material.Forms.UI.Dialogs
 
         public static async Task<bool?> ShowAsync(View view, string message, string title, string positiveButtonText, string negativeButtonText, MaterialAlertDialogConfiguration configuration)
         {
-            var d = new MaterialDialogFragment(configuration);
-            d.container.Content = view ?? throw new ArgumentNullException(nameof(view));
-            d.DialogTitle.Text = title;
-            d.Message.Text = message;
-            d.PositiveButton.Text = positiveButtonText;
-            d.NegativeButton.Text = negativeButtonText;
+            var d = new MaterialDialogFragment(configuration)
+            {
+                container = {Content = view ?? throw new ArgumentNullException(nameof(view))},
+                DialogTitle = {Text = title},
+                Message = {Text = message},
+                PositiveButton = {Text = positiveButtonText},
+                NegativeButton = {Text = negativeButtonText}
+            };
 
             await d.ShowAsync();
 
@@ -65,13 +67,14 @@ namespace XF.Material.Forms.UI.Dialogs
 
         private void ChangeLayout()
         {
-            if (this.DisplayOrientation == DisplayOrientation.Landscape && Device.Idiom == TargetIdiom.Phone)
+            switch (this.DisplayOrientation)
             {
-                Container.WidthRequest = 560;
-            }
-            else if (this.DisplayOrientation == DisplayOrientation.Portrait && Device.Idiom == TargetIdiom.Phone)
-            {
-                Container.WidthRequest = 280;
+                case DisplayOrientation.Landscape when Device.Idiom == TargetIdiom.Phone:
+                    Container.WidthRequest = 560;
+                    break;
+                case DisplayOrientation.Portrait when Device.Idiom == TargetIdiom.Phone:
+                    Container.WidthRequest = 280;
+                    break;
             }
         }
 
@@ -81,19 +84,17 @@ namespace XF.Material.Forms.UI.Dialogs
         {
             var preferredConfig = configuration ?? GlobalConfiguration;
 
-            if (preferredConfig != null)
-            {
-                this.BackgroundColor = preferredConfig.ScrimColor;
-                Container.CornerRadius = preferredConfig.CornerRadius;
-                Container.BackgroundColor = preferredConfig.BackgroundColor;
-                DialogTitle.TextColor = preferredConfig.TitleTextColor;
-                DialogTitle.FontFamily = preferredConfig.TitleFontFamily;
-                Message.TextColor = preferredConfig.MessageTextColor;
-                Message.FontFamily = preferredConfig.MessageFontFamily;
-                PositiveButton.TextColor = NegativeButton.TextColor = preferredConfig.TintColor;
-                PositiveButton.AllCaps = NegativeButton.AllCaps = preferredConfig.ButtonAllCaps;
-                PositiveButton.FontFamily = NegativeButton.FontFamily = preferredConfig.ButtonFontFamily;
-            }
+            if (preferredConfig == null) return;
+            this.BackgroundColor = preferredConfig.ScrimColor;
+            Container.CornerRadius = preferredConfig.CornerRadius;
+            Container.BackgroundColor = preferredConfig.BackgroundColor;
+            DialogTitle.TextColor = preferredConfig.TitleTextColor;
+            DialogTitle.FontFamily = preferredConfig.TitleFontFamily;
+            Message.TextColor = preferredConfig.MessageTextColor;
+            Message.FontFamily = preferredConfig.MessageFontFamily;
+            PositiveButton.TextColor = NegativeButton.TextColor = preferredConfig.TintColor;
+            PositiveButton.AllCaps = NegativeButton.AllCaps = preferredConfig.ButtonAllCaps;
+            PositiveButton.FontFamily = NegativeButton.FontFamily = preferredConfig.ButtonFontFamily;
         }
 
         private async void NegativeButton_Clicked(object sender, System.EventArgs e)

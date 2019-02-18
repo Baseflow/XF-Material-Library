@@ -4,6 +4,7 @@ using Xamarin.Forms;
 
 namespace XF.Material.Forms.UI.Internals
 {
+    /// <inheritdoc />
     /// <summary>
     /// Used in MaterialSlider as a a tap container.
     /// </summary>
@@ -19,8 +20,9 @@ namespace XF.Material.Forms.UI.Internals
         }
     }
 
+    /// <inheritdoc />
     /// <summary>
-    /// Used in <see cref="MaterialBoxView.Tapped"/> as an event argument.
+    /// Used in <see cref="E:XF.Material.Forms.UI.Internals.MaterialBoxView.Tapped" /> as an event argument.
     /// </summary>
     internal class TappedEventArgs : EventArgs
     {

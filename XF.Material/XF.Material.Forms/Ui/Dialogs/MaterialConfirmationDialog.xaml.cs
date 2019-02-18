@@ -29,11 +29,14 @@ namespace XF.Material.Forms.UI.Dialogs
 
         public static async Task<object> ShowSelectChoiceAsync(string title, IList<string> choices, MaterialConfirmationDialogConfiguration configuration)
         {
-            var dialog = new MaterialConfirmationDialog(configuration) { InputTaskCompletionSource = new TaskCompletionSource<object>() };
-            dialog._radioButtonGroup = new MaterialRadioButtonGroup
+            var dialog = new MaterialConfirmationDialog(configuration)
             {
-                HorizontalSpacing = 20,
-                Choices = choices ?? throw new ArgumentNullException(nameof(choices)),
+                InputTaskCompletionSource = new TaskCompletionSource<object>(),
+                _radioButtonGroup = new MaterialRadioButtonGroup
+                {
+                    HorizontalSpacing = 20,
+                    Choices = choices ?? throw new ArgumentNullException(nameof(choices)),
+                }
             };
 
             if (dialog._preferredConfig != null)
@@ -54,12 +57,15 @@ namespace XF.Material.Forms.UI.Dialogs
 
         public static async Task<object> ShowSelectChoiceAsync(string title, IList<string> choices, int selectedIndex, MaterialConfirmationDialogConfiguration configuration)
         {
-            var dialog = new MaterialConfirmationDialog(configuration) { InputTaskCompletionSource = new TaskCompletionSource<object>() };
-            dialog._radioButtonGroup = new MaterialRadioButtonGroup
+            var dialog = new MaterialConfirmationDialog(configuration)
             {
-                HorizontalSpacing = 20,
-                Choices = choices ?? throw new ArgumentNullException(nameof(choices)),
-                SelectedIndex = selectedIndex
+                InputTaskCompletionSource = new TaskCompletionSource<object>(),
+                _radioButtonGroup = new MaterialRadioButtonGroup
+                {
+                    HorizontalSpacing = 20,
+                    Choices = choices ?? throw new ArgumentNullException(nameof(choices)),
+                    SelectedIndex = selectedIndex
+                }
             };
 
             if (dialog._preferredConfig != null)
@@ -81,11 +87,14 @@ namespace XF.Material.Forms.UI.Dialogs
 
         public static async Task<object> ShowSelectChoicesAsync(string title, IList<string> choices, MaterialConfirmationDialogConfiguration configuration)
         {
-            var dialog = new MaterialConfirmationDialog(configuration) { InputTaskCompletionSource = new TaskCompletionSource<object>() };
-            dialog._checkboxGroup = new MaterialCheckboxGroup
+            var dialog = new MaterialConfirmationDialog(configuration)
             {
-                HorizontalSpacing = 20,
-                Choices = choices ?? throw new ArgumentNullException(nameof(choices))
+                InputTaskCompletionSource = new TaskCompletionSource<object>(),
+                _checkboxGroup = new MaterialCheckboxGroup
+                {
+                    HorizontalSpacing = 20,
+                    Choices = choices ?? throw new ArgumentNullException(nameof(choices))
+                }
             };
 
             if (dialog._preferredConfig != null)
@@ -107,12 +116,15 @@ namespace XF.Material.Forms.UI.Dialogs
 
         public static async Task<object> ShowSelectChoicesAsync(string title, IList<string> choices, IList<int> selectedIndices, MaterialConfirmationDialogConfiguration configuration)
         {
-            var dialog = new MaterialConfirmationDialog(configuration) { InputTaskCompletionSource = new TaskCompletionSource<object>() };
-            dialog._checkboxGroup = new MaterialCheckboxGroup
+            var dialog = new MaterialConfirmationDialog(configuration)
             {
-                HorizontalSpacing = 20,
-                Choices = choices ?? throw new ArgumentNullException(nameof(choices)),
-                SelectedIndices = selectedIndices
+                InputTaskCompletionSource = new TaskCompletionSource<object>(),
+                _checkboxGroup = new MaterialCheckboxGroup
+                {
+                    HorizontalSpacing = 20,
+                    Choices = choices ?? throw new ArgumentNullException(nameof(choices)),
+                    SelectedIndices = selectedIndices
+                }
             };
 
             if (dialog._preferredConfig != null)
@@ -142,11 +154,11 @@ namespace XF.Material.Forms.UI.Dialogs
         {
             base.OnAppearing();
 
-            if (_radioButtonGroup != null && _radioButtonGroup.Choices != null && _radioButtonGroup.Choices.Any())
+            if (_radioButtonGroup?.Choices != null && _radioButtonGroup.Choices.Any())
             {
                 _radioButtonGroup.SelectedIndexChanged += this.DialogActionList_SelectedIndexChanged;
             }
-            else if (_checkboxGroup != null && _checkboxGroup.Choices != null && _checkboxGroup.Choices.Any())
+            else if (_checkboxGroup?.Choices != null && _checkboxGroup.Choices.Any())
             {
                 _checkboxGroup.SelectedIndicesChanged += this.CheckboxGroup_SelectedIndicesChanged;
             }
@@ -168,11 +180,11 @@ namespace XF.Material.Forms.UI.Dialogs
         {
             base.OnDisappearing();
 
-            if (_radioButtonGroup != null && _radioButtonGroup.Choices != null && _radioButtonGroup.Choices.Any())
+            if (_radioButtonGroup?.Choices != null && _radioButtonGroup.Choices.Any())
             {
                 _radioButtonGroup.SelectedIndexChanged -= this.DialogActionList_SelectedIndexChanged;
             }
-            else if (_checkboxGroup != null && _checkboxGroup.Choices != null && _checkboxGroup.Choices.Any())
+            else if (_checkboxGroup?.Choices != null && _checkboxGroup.Choices.Any())
             {
                 _checkboxGroup.SelectedIndicesChanged -= this.CheckboxGroup_SelectedIndicesChanged;
             }
@@ -190,13 +202,14 @@ namespace XF.Material.Forms.UI.Dialogs
 
         private void ChangeLayout()
         {
-            if (this.DisplayOrientation == DisplayOrientation.Landscape && Device.Idiom == TargetIdiom.Phone)
+            switch (this.DisplayOrientation)
             {
-                Container.WidthRequest = 560;
-            }
-            else if (this.DisplayOrientation == DisplayOrientation.Portrait && Device.Idiom == TargetIdiom.Phone)
-            {
-                Container.WidthRequest = 280;
+                case DisplayOrientation.Landscape when Device.Idiom == TargetIdiom.Phone:
+                    Container.WidthRequest = 560;
+                    break;
+                case DisplayOrientation.Portrait when Device.Idiom == TargetIdiom.Phone:
+                    Container.WidthRequest = 280;
+                    break;
             }
         }
 
@@ -209,17 +222,15 @@ namespace XF.Material.Forms.UI.Dialogs
         {
             _preferredConfig = configuration ?? GlobalConfiguration;
 
-            if (_preferredConfig != null)
-            {
-                this.BackgroundColor = _preferredConfig.ScrimColor;
-                Container.CornerRadius = _preferredConfig.CornerRadius;
-                Container.BackgroundColor = _preferredConfig.BackgroundColor;
-                DialogTitle.TextColor = _preferredConfig.TitleTextColor;
-                DialogTitle.FontFamily = _preferredConfig.TitleFontFamily;
-                PositiveButton.TextColor = NegativeButton.TextColor = _preferredConfig.TintColor;
-                PositiveButton.AllCaps = NegativeButton.AllCaps = _preferredConfig.ButtonAllCaps;
-                PositiveButton.FontFamily = NegativeButton.FontFamily = _preferredConfig.ButtonFontFamily;
-            }
+            if (_preferredConfig == null) return;
+            this.BackgroundColor = _preferredConfig.ScrimColor;
+            Container.CornerRadius = _preferredConfig.CornerRadius;
+            Container.BackgroundColor = _preferredConfig.BackgroundColor;
+            DialogTitle.TextColor = _preferredConfig.TitleTextColor;
+            DialogTitle.FontFamily = _preferredConfig.TitleFontFamily;
+            PositiveButton.TextColor = NegativeButton.TextColor = _preferredConfig.TintColor;
+            PositiveButton.AllCaps = NegativeButton.AllCaps = _preferredConfig.ButtonAllCaps;
+            PositiveButton.FontFamily = NegativeButton.FontFamily = _preferredConfig.ButtonFontFamily;
         }
 
         private void DialogActionList_SelectedIndexChanged(object sender, SelectedIndexChangedEventArgs e)

@@ -75,14 +75,15 @@ namespace XF.Material.Forms.UI
         {
             base.OnPropertyChanged(propertyName);
 
-            if (propertyName == nameof(this.IsActivated))
+            switch (propertyName)
             {
-                this.OnActivatedChanged(this.IsActivated);
-            }
-
-            if (propertyName == nameof(this.ActiveTrackColor) || propertyName == nameof(this.InactiveTrackColor))
-            {
-                _background.Color = this.IsActivated ? this.ActiveTrackColor : this.InactiveTrackColor;
+                case nameof(this.IsActivated):
+                    this.OnActivatedChanged(this.IsActivated);
+                    break;
+                case nameof(this.ActiveTrackColor):
+                case nameof(this.InactiveTrackColor):
+                    _background.Color = this.IsActivated ? this.ActiveTrackColor : this.InactiveTrackColor;
+                    break;
             }
         }
 

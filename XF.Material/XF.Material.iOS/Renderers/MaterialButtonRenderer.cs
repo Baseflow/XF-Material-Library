@@ -62,29 +62,30 @@ namespace XF.Material.iOS.Renderers
                 this.Control.TouchDragExit -= this.Control_Released;
             }
 
-            if (e?.NewElement != null)
+            if (e?.NewElement == null) return;
+            _materialButton = this.Element as MaterialButton;
+            if (_materialButton != null)
             {
-                _materialButton = this.Element as MaterialButton;
                 _withIcon = _materialButton.Image != null;
 
                 if (_materialButton.AllCaps)
                 {
                     _materialButton.Text = _materialButton.Text?.ToUpper();
                 }
-
-                this.SetupIcon();
-                this.SetupColors();
-                this.SetTextLetterSpacing();
-                this.CreateStateAnimations();
-                this.UpdateButtonLayer();
-                this.UpdateCornerRadius();
-                this.UpdateState();
-                this.Control.TouchDown += this.Control_Pressed;
-                this.Control.TouchDragEnter += this.Control_Pressed;
-                this.Control.TouchUpInside += this.Control_Released;
-                this.Control.TouchCancel += this.Control_Released;
-                this.Control.TouchDragExit += this.Control_Released;
             }
+
+            this.SetupIcon();
+            this.SetupColors();
+            this.SetTextLetterSpacing();
+            this.CreateStateAnimations();
+            this.UpdateButtonLayer();
+            this.UpdateCornerRadius();
+            this.UpdateState();
+            this.Control.TouchDown += this.Control_Pressed;
+            this.Control.TouchDragEnter += this.Control_Pressed;
+            this.Control.TouchUpInside += this.Control_Released;
+            this.Control.TouchCancel += this.Control_Released;
+            this.Control.TouchDragExit += this.Control_Released;
         }
 
         protected override async void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -96,32 +97,28 @@ namespace XF.Material.iOS.Renderers
                 this.UpdateState();
             }
 
-            if (e?.PropertyName == MaterialButton.MaterialButtonColorChanged || e?.PropertyName == nameof(MaterialButton.ButtonType))
+            switch (e?.PropertyName)
             {
-                this.SetupColors();
-                this.CreateStateAnimations();
-                this.UpdateButtonLayer();
-                await this.UpdateBackgroundColor();
-            }
-
-            if (e?.PropertyName == nameof(MaterialButton.Image))
-            {
-                this.SetupIcon();
-                this.UpdateButtonLayer();
-            }
-
-            if (e?.PropertyName == nameof(MaterialButton.AllCaps))
-            {
-                _materialButton.Text = _materialButton.AllCaps ? _materialButton.Text.ToUpper() : _materialButton.Text.ToLower();
-            }
-
-            if (e?.PropertyName == nameof(MaterialButton.CornerRadius))
-            {
-                this.UpdateCornerRadius();
-            }
-            if (e?.PropertyName == nameof(MaterialButton.LetterSpacing))
-            {
-                this.SetTextLetterSpacing();
+                case MaterialButton.MaterialButtonColorChanged:
+                case nameof(MaterialButton.ButtonType):
+                    this.SetupColors();
+                    this.CreateStateAnimations();
+                    this.UpdateButtonLayer();
+                    await this.UpdateBackgroundColor();
+                    break;
+                case nameof(MaterialButton.Image):
+                    this.SetupIcon();
+                    this.UpdateButtonLayer();
+                    break;
+                case nameof(MaterialButton.AllCaps):
+                    _materialButton.Text = _materialButton.AllCaps ? _materialButton.Text.ToUpper() : _materialButton.Text.ToLower();
+                    break;
+                case nameof(MaterialButton.CornerRadius):
+                    this.UpdateCornerRadius();
+                    break;
+                case nameof(MaterialButton.LetterSpacing):
+                    this.SetTextLetterSpacing();
+                    break;
             }
         }
 
@@ -289,15 +286,11 @@ namespace XF.Material.iOS.Renderers
 
                 try
                 {
-                    image = UIImage.FromFile(_materialButton.Image.File);
-
-                    if (image == null)
-                        image = UIImage.FromBundle(_materialButton.Image.File);
+                    image = UIImage.FromFile(_materialButton.Image.File) ?? UIImage.FromBundle(_materialButton.Image.File);
 
 
                     UIGraphics.BeginImageContextWithOptions(new CGSize(18, 18), false, 0f);
-                    if (image != null)
-                        image.Draw(new CGRect(0, 0, 18, 18));
+                    image?.Draw(new CGRect(0, 0, 18, 18));
 
                     using (var newImage = UIGraphics.GetImageFromCurrentImageContext())
                     {
@@ -313,8 +306,7 @@ namespace XF.Material.iOS.Renderers
                 }
                 finally
                 {
-                    if (image != null)
-                        image.Dispose();
+                    image?.Dispose();
                     image = null;
                 }
             }
@@ -371,19 +363,20 @@ namespace XF.Material.iOS.Renderers
             {
                 this.Control.ContentEdgeInsets = new UIEdgeInsets(10f, 22f, 10f, 22f);
             }
-            else if (_materialButton.ButtonType == MaterialButtonType.Text && _withIcon)
+            else switch (_materialButton.ButtonType)
             {
-                this.Control.ContentEdgeInsets = new UIEdgeInsets(10f, 18f, 10f, 22f);
-            }
-            else if (_materialButton.ButtonType == MaterialButtonType.Text && !_withIcon)
-            {
-                this.Control.ContentEdgeInsets = new UIEdgeInsets(10f, 14f, 10f, 14f);
+                case MaterialButtonType.Text when _withIcon:
+                    this.Control.ContentEdgeInsets = new UIEdgeInsets(10f, 18f, 10f, 22f);
+                    break;
+                case MaterialButtonType.Text when !_withIcon:
+                    this.Control.ContentEdgeInsets = new UIEdgeInsets(10f, 14f, 10f, 14f);
+                    break;
             }
         }
 
         private void UpdateTextSizing()
         {
-            if (String.IsNullOrEmpty(_materialButton.Text) || !_withIcon)
+            if (string.IsNullOrEmpty(_materialButton.Text) || !_withIcon)
             {
                 this.Control.TitleEdgeInsets = new UIEdgeInsets(0, 0, 0, 0);
                 return;
@@ -392,19 +385,19 @@ namespace XF.Material.iOS.Renderers
             // We have to set the button title insets to make the button look
             // like Android's material buttons. (icon on left, text is centralized)
             //
-            NSString textToMeasure = (NSString)(_materialButton.Text ?? "");
+            var textToMeasure = (NSString)(_materialButton.Text ?? "");
 
-            CGRect labelRect = textToMeasure.GetBoundingRect(
+            var labelRect = textToMeasure.GetBoundingRect(
                 new CGSize(this.Frame.Width - 40, nfloat.MaxValue),
                 NSStringDrawingOptions.UsesLineFragmentOrigin,
                 new UIStringAttributes() { Font = this.Control.Font },
                 new NSStringDrawingContext()
             );
 
-            float textWidth = (float)labelRect.Size.Width;
-            float buttonWidth = (float)this.Control.Frame.Width;
+            var textWidth = (float)labelRect.Size.Width;
+            var buttonWidth = (float)this.Control.Frame.Width;
 
-            float inset = ((buttonWidth - textWidth) / 2) - 28;
+            var inset = ((buttonWidth - textWidth) / 2) - 28;
             this.Control.TitleEdgeInsets = new UIEdgeInsets(0, inset, 0,  -40);
 
         }
@@ -445,14 +438,16 @@ namespace XF.Material.iOS.Renderers
                     this.Control.Elevate(_materialButton.Elevation.RestingElevation);
                 }
 
-                if (_materialButton.ButtonType == MaterialButtonType.Elevated || _materialButton.ButtonType == MaterialButtonType.Flat)
+                switch (_materialButton.ButtonType)
                 {
-                    _materialButton.TextColor = _normalTextColor.ToColor();
-                }
-
-                if (_materialButton.ButtonType == MaterialButtonType.Text || _materialButton.ButtonType == MaterialButtonType.Outlined)
-                {
-                    this.Control.Alpha = 1f;
+                    case MaterialButtonType.Elevated:
+                    case MaterialButtonType.Flat:
+                        _materialButton.TextColor = _normalTextColor.ToColor();
+                        break;
+                    case MaterialButtonType.Text:
+                    case MaterialButtonType.Outlined:
+                        this.Control.Alpha = 1f;
+                        break;
                 }
             }
             else
@@ -465,14 +460,16 @@ namespace XF.Material.iOS.Renderers
                     this.Control.Elevate(0);
                 }
 
-                if (_materialButton.ButtonType == MaterialButtonType.Elevated || _materialButton.ButtonType == MaterialButtonType.Flat)
+                switch (_materialButton.ButtonType)
                 {
-                    _materialButton.TextColor = _disabledTextColor.ToColor();
-                }
-
-                if (_materialButton.ButtonType == MaterialButtonType.Text || _materialButton.ButtonType == MaterialButtonType.Outlined)
-                {
-                    this.Control.Alpha = 0.38f;
+                    case MaterialButtonType.Elevated:
+                    case MaterialButtonType.Flat:
+                        _materialButton.TextColor = _disabledTextColor.ToColor();
+                        break;
+                    case MaterialButtonType.Text:
+                    case MaterialButtonType.Outlined:
+                        this.Control.Alpha = 0.38f;
+                        break;
                 }
             }
         }

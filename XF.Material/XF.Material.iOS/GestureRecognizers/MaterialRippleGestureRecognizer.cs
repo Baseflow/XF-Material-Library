@@ -45,14 +45,9 @@ namespace XF.Material.iOS.GestureRecognizers
             _backgroundFadeOutAnimation.From = FromObject(0.20f);
             _backgroundFadeOutAnimation.To = FromObject(0.0f);
 
-            _rippleLayer = new CAShapeLayer();
-            _rippleLayer.FillColor = rippleColor;
-            _rippleLayer.MasksToBounds = true;
+            _rippleLayer = new CAShapeLayer {FillColor = rippleColor, MasksToBounds = true};
 
-            _backgroundLayer = new CALayer();
-            _backgroundLayer.BackgroundColor = rippleColor;
-            _backgroundLayer.MasksToBounds = true;
-            _backgroundLayer.Opacity = 0;
+            _backgroundLayer = new CALayer {BackgroundColor = rippleColor, MasksToBounds = true, Opacity = 0};
 
             _isStarted = false;
             _touchView = view;
@@ -62,10 +57,7 @@ namespace XF.Material.iOS.GestureRecognizers
         [Export("gestureRecognizer:shouldReceiveTouch:")]
         public new bool ShouldReceiveTouch(UIGestureRecognizer recognizer, UITouch touch)
         {
-            if (touch.View is UIButton)
-                return false;
-
-            return true;
+            return !(touch.View is UIButton);
         }
 
 
@@ -122,7 +114,7 @@ namespace XF.Material.iOS.GestureRecognizers
         {
             var view = _touchView;
 
-            this.SetupAnimationLayer(_backgroundLayer, view, 3);
+            SetupAnimationLayer(_backgroundLayer, view, 3);
 
             _backgroundLayer.RemoveAllAnimations();
             UIView.Animate(0.8, () =>
@@ -135,7 +127,7 @@ namespace XF.Material.iOS.GestureRecognizers
         {
             var view = _touchView;
 
-            this.SetupAnimationLayer(_backgroundLayer, view, 3);
+            SetupAnimationLayer(_backgroundLayer, view, 3);
 
             _backgroundLayer.RemoveAllAnimations();
             UIView.Animate(0.8, () =>
@@ -152,7 +144,7 @@ namespace XF.Material.iOS.GestureRecognizers
             var startPath = UIBezierPath.FromArc(location, 8f, 0, 360f, true);
             var endPath = UIBezierPath.FromArc(location, view.Frame.Width - 12, 0, 360f, true);
 
-            this.SetupAnimationLayer(_rippleLayer, view, 4);
+            SetupAnimationLayer(_rippleLayer, view, 4);
 
             _rippleAnimation.From = FromObject(startPath.CGPath);
             _rippleAnimation.To = FromObject(endPath.CGPath);
@@ -170,12 +162,9 @@ namespace XF.Material.iOS.GestureRecognizers
         /// </summary>
         /// <param name="layer">Layer.</param>
         /// <param name="view">View.</param>
-        private void SetupAnimationLayer(CALayer layer, UIView view, int indexToInsertLayer)
+        private static void SetupAnimationLayer(CALayer layer, UIView view, int indexToInsertLayer)
         {
-            if (view is MaterialCardRenderer)
-                layer.Frame = new CGRect(0, 0, view.Frame.Width, view.Frame.Height);
-            else
-                layer.Frame = new CGRect(6, 6, view.Frame.Width - 12, view.Frame.Height - 12);
+            layer.Frame = view is MaterialCardRenderer ? new CGRect(0, 0, view.Frame.Width, view.Frame.Height) : new CGRect(6, 6, view.Frame.Width - 12, view.Frame.Height - 12);
 
             layer.CornerRadius = view.Layer.CornerRadius;
             view.Layer.InsertSublayer(layer, indexToInsertLayer);

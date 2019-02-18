@@ -32,7 +32,7 @@ namespace XF.Material.Forms.UI.Dialogs
     {
         internal static readonly BindableProperty ParameterProperty = BindableProperty.CreateAttached("Parameter", typeof(object), typeof(MaterialMenuDialog), null);
 
-        private const int _rowHeight = 48;
+        private const int RowHeight = 48;
         private readonly List<MaterialMenuItem> _choices;
         private readonly MaterialMenuDimension _dimension;
         private int _itemChecker;
@@ -144,17 +144,20 @@ namespace XF.Material.Forms.UI.Dialogs
             var actionModels = new List<ActionModel>();
             _choices.ForEach(a =>
             {
-                var actionModel = new MenuActionModel { Text = a.Text, Image = a.Image, Index = a.Index };
-                actionModel.TextColor = configuration.TextColor;
-                actionModel.FontFamily = configuration.TextFontFamily;
+                var actionModel = new MenuActionModel
+                {
+                    Text = a.Text,
+                    Image = a.Image,
+                    Index = a.Index,
+                    TextColor = configuration.TextColor,
+                    FontFamily = configuration.TextFontFamily
+                };
                 actionModel.SelectedCommand = new Command<int>(async(position) =>
                 {
-                    if (this.InputTaskCompletionSource?.Task.Status == TaskStatus.WaitingForActivation)
-                    {
-                        actionModel.IsSelected = true;
-                        await this.DismissAsync();
-                        this.InputTaskCompletionSource?.SetResult(position);
-                    }
+                    if (this.InputTaskCompletionSource?.Task.Status != TaskStatus.WaitingForActivation) return;
+                    actionModel.IsSelected = true;
+                    await this.DismissAsync();
+                    this.InputTaskCompletionSource?.SetResult(position);
                 });
                 actionModel.SizeChangeCommand = new Command<Dictionary<string, object>>(this.LabelSizeChanged);
 
@@ -179,9 +182,9 @@ namespace XF.Material.Forms.UI.Dialogs
             }
         }
 
-        private void SetList(IList<ActionModel> actionModels)
+        private void SetList(ICollection<ActionModel> actionModels)
         {
-            DialogActionList.HeightRequest = _rowHeight * actionModels.Count;
+            DialogActionList.HeightRequest = RowHeight * actionModels.Count;
             DialogActionList.SetValue(BindableLayout.ItemsSourceProperty, actionModels);
             _itemCount = actionModels.Count;
         }

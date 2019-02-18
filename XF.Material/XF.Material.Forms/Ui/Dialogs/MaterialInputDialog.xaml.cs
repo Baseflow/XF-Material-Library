@@ -42,8 +42,8 @@ namespace XF.Material.Forms.UI.Dialogs
 
         public static async Task<string> Show(string title = null, string message = null, string inputText = null, string inputPlaceholder = "Enter input", string confirmingText = "Ok", string dismissiveText = "Cancel", MaterialInputDialogConfiguration configuration = null)
         {
-            var dialog = new MaterialInputDialog(title, message, inputText, inputPlaceholder, confirmingText, dismissiveText, configuration);
-            dialog.PositiveButton.IsEnabled = false;
+            var dialog = new MaterialInputDialog(title, message, inputText, inputPlaceholder, confirmingText,
+                dismissiveText, configuration) {PositiveButton = {IsEnabled = false}};
 
             await dialog.ShowAsync();
 
@@ -87,13 +87,14 @@ namespace XF.Material.Forms.UI.Dialogs
 
         private void ChangeLayout()
         {
-            if (this.DisplayOrientation == DisplayOrientation.Landscape && Device.Idiom == TargetIdiom.Phone)
+            switch (this.DisplayOrientation)
             {
-                Container.WidthRequest = 560;
-            }
-            else if (this.DisplayOrientation == DisplayOrientation.Portrait && Device.Idiom == TargetIdiom.Phone)
-            {
-                Container.WidthRequest = 280;
+                case DisplayOrientation.Landscape when Device.Idiom == TargetIdiom.Phone:
+                    Container.WidthRequest = 560;
+                    break;
+                case DisplayOrientation.Portrait when Device.Idiom == TargetIdiom.Phone:
+                    Container.WidthRequest = 280;
+                    break;
             }
         }
 
@@ -101,25 +102,23 @@ namespace XF.Material.Forms.UI.Dialogs
         {
             var preferredConfig = configuration ?? GlobalConfiguration;
 
-            if (preferredConfig != null)
-            {
-                this.BackgroundColor = preferredConfig.ScrimColor;
-                Container.CornerRadius = preferredConfig.CornerRadius;
-                Container.BackgroundColor = preferredConfig.BackgroundColor;
-                DialogTitle.TextColor = preferredConfig.TitleTextColor;
-                DialogTitle.FontFamily = preferredConfig.TitleFontFamily;
-                Message.TextColor = preferredConfig.MessageTextColor;
-                Message.FontFamily = preferredConfig.MessageFontFamily;
-                PositiveButton.TextColor = NegativeButton.TextColor = TextField.TintColor = preferredConfig.TintColor;
-                PositiveButton.AllCaps = NegativeButton.AllCaps = preferredConfig.ButtonAllCaps;
-                PositiveButton.FontFamily = NegativeButton.FontFamily = preferredConfig.ButtonFontFamily;
-                TextField.PlaceholderColor = preferredConfig.InputPlaceholderColor;
-                TextField.TextColor = preferredConfig.InputTextColor;
-                TextField.TextFontFamily = preferredConfig.InputTextFontFamily;
-                TextField.PlaceholderFontFamily = preferredConfig.InputPlaceholderFontFamily;
-                TextField.InputType = preferredConfig.InputType;
-                TextField.MaxLength = preferredConfig.InputMaxLength;
-            }
+            if (preferredConfig == null) return;
+            this.BackgroundColor = preferredConfig.ScrimColor;
+            Container.CornerRadius = preferredConfig.CornerRadius;
+            Container.BackgroundColor = preferredConfig.BackgroundColor;
+            DialogTitle.TextColor = preferredConfig.TitleTextColor;
+            DialogTitle.FontFamily = preferredConfig.TitleFontFamily;
+            Message.TextColor = preferredConfig.MessageTextColor;
+            Message.FontFamily = preferredConfig.MessageFontFamily;
+            PositiveButton.TextColor = NegativeButton.TextColor = TextField.TintColor = preferredConfig.TintColor;
+            PositiveButton.AllCaps = NegativeButton.AllCaps = preferredConfig.ButtonAllCaps;
+            PositiveButton.FontFamily = NegativeButton.FontFamily = preferredConfig.ButtonFontFamily;
+            TextField.PlaceholderColor = preferredConfig.InputPlaceholderColor;
+            TextField.TextColor = preferredConfig.InputTextColor;
+            TextField.TextFontFamily = preferredConfig.InputTextFontFamily;
+            TextField.PlaceholderFontFamily = preferredConfig.InputPlaceholderFontFamily;
+            TextField.InputType = preferredConfig.InputType;
+            TextField.MaxLength = preferredConfig.InputMaxLength;
         }
 
         private void TextField_TextChanged(object sender, TextChangedEventArgs e)

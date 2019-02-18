@@ -27,42 +27,41 @@ namespace XF.Material.Forms.UI
     {
         public override object ConvertFromInvariantString(string value)
         {
-            if (value != null)
+            if (value == null)
+                throw new InvalidOperationException($"Cannot convert {value} to {typeof(MaterialElevation)}");
+            value = value.Trim();
+
+            if (value.Contains(","))
             {
-                value = value.Trim();
+                var elevations = value.Split(',');
 
-                if (value.Contains(","))
+                switch (elevations.Length)
                 {
-                    var elevations = value.Split(',');
+                    case 1:
+                        if (int.TryParse(elevations[0], NumberStyles.Number, CultureInfo.InvariantCulture, out var uE))
+                        {
+                            return new MaterialElevation(uE);
+                        }
+                        break;
+                    case 2:
+                        if (int.TryParse(elevations[0], NumberStyles.Number, CultureInfo.InvariantCulture, out var rE)
+                            && int.TryParse(elevations[1], NumberStyles.Number, CultureInfo.InvariantCulture, out var pE))
+                        {
+                            return new MaterialElevation(rE, pE);
+                        }
+                        break;
+                    default:
+                        throw new InvalidOperationException($"Cannot convert {value} to {typeof(MaterialElevation)}");
+                }
+            }
 
-                    switch (elevations.Length)
-                    {
-                        case 1:
-                            if (int.TryParse(elevations[0], NumberStyles.Number, CultureInfo.InvariantCulture, out int uE))
-                            {
-                                return new MaterialElevation(uE);
-                            }
-                            break;
-                        case 2:
-                            if (int.TryParse(elevations[0], NumberStyles.Number, CultureInfo.InvariantCulture, out int rE)
-                               && int.TryParse(elevations[1], NumberStyles.Number, CultureInfo.InvariantCulture, out int pE))
-                            {
-                                return new MaterialElevation(rE, pE);
-                            }
-                            break;
-                        default:
-                            throw new InvalidOperationException($"Cannot convert {value} to {typeof(MaterialElevation)}");
-                    }
-                }
-
-                else if (int.TryParse(value, NumberStyles.Number, CultureInfo.InvariantCulture, out int uE))
-                {
-                    return new MaterialElevation(uE);
-                }
-                else
-                {
-                    throw new InvalidOperationException($"Cannot convert {value} to {typeof(MaterialElevation)}");
-                }
+            else if (int.TryParse(value, NumberStyles.Number, CultureInfo.InvariantCulture, out var uE))
+            {
+                return new MaterialElevation(uE);
+            }
+            else
+            {
+                throw new InvalidOperationException($"Cannot convert {value} to {typeof(MaterialElevation)}");
             }
 
             throw new InvalidOperationException($"Cannot convert {value} to {typeof(MaterialElevation)}");

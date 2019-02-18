@@ -31,9 +31,7 @@ namespace XF.Material.iOS.Delegates
             _fadeAnimation.From = FromObject(0.66f);
             _fadeAnimation.To = FromObject(0.32f);
 
-            _rippleLayer = new CAShapeLayer();
-            _rippleLayer.FillColor = rippleColor;
-            _rippleLayer.MasksToBounds = true;
+            _rippleLayer = new CAShapeLayer {FillColor = rippleColor, MasksToBounds = true};
         }
 
         public override bool ShouldReceiveTouch(UIGestureRecognizer recognizer, UITouch touch)

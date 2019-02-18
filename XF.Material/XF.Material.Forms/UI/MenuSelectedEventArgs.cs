@@ -13,8 +13,9 @@ namespace XF.Material.Forms.UI
         /// </summary>
         public MaterialMenuResult Result { get; }
 
+        /// <inheritdoc />
         /// <summary>
-        /// Initializes a new instance of <see cref="MenuSelectedEventArgs"/>.
+        /// Initializes a new instance of <see cref="T:XF.Material.Forms.UI.MenuSelectedEventArgs" />.
         /// </summary>
         /// <param name="result">The result of the selection.</param>
         public MenuSelectedEventArgs(MaterialMenuResult result)

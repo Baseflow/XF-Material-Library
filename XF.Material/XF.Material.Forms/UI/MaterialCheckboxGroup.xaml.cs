@@ -72,7 +72,7 @@ namespace XF.Material.Forms.UI
         {
             var models = new ObservableCollection<MaterialSelectionControlModel>();
 
-            for (int i = 0; i < this.Choices.Count; i++)
+            for (var i = 0; i < this.Choices.Count; i++)
             {
                 var model = new MaterialSelectionControlModel
                 {
@@ -115,30 +115,32 @@ namespace XF.Material.Forms.UI
 
         private void OnSelectedIndicesChanged()
         {
-            if (this.SelectedIndices == null)
+            switch (this.SelectedIndices)
             {
-                throw new InvalidOperationException("The property 'SelectedIndices' was assigned with a null value.");
-            }
-
-            else if (this.SelectedIndices is Array)
-            {
-                throw new InvalidOperationException("The property 'SelectedIndices' is 'System.Array', please use a collection that has no fixed size");
-            }
-
-            else if (!this.SelectedIndices.Any())
-            {
-                foreach (var model in this.Models)
+                case null:
+                    throw new InvalidOperationException("The property 'SelectedIndices' was assigned with a null value.");
+                case Array _:
+                    throw new InvalidOperationException("The property 'SelectedIndices' is 'System.Array', please use a collection that has no fixed size");
+                default:
                 {
-                    model.IsSelected = false;
-                }
-            }
+                    if (!this.SelectedIndices.Any())
+                    {
+                        foreach (var model in this.Models)
+                        {
+                            model.IsSelected = false;
+                        }
+                    }
 
-            else
-            {
-                foreach (var index in this.SelectedIndices)
-                {
-                    var model = this.Models.ElementAt(index);
-                    model.IsSelected = true;
+                    else
+                    {
+                        foreach (var index in this.SelectedIndices)
+                        {
+                            var model = this.Models.ElementAt(index);
+                            model.IsSelected = true;
+                        }
+                    }
+
+                    break;
                 }
             }
 
@@ -149,7 +151,7 @@ namespace XF.Material.Forms.UI
         {
             try
             {
-                if (isSelected && !this.SelectedIndices.Any(s => s == index))
+                if (isSelected && this.SelectedIndices.All(s => s != index))
                 {
                     this.SelectedIndices.Add(index);
                     this.OnSelectedIndicesChanged(this.SelectedIndices);

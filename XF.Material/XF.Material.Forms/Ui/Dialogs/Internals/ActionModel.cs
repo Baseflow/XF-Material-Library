@@ -31,6 +31,7 @@ namespace XF.Material.Forms.UI.Dialogs.Internals
         }
     }
 
+    /// <inheritdoc />
     /// <summary>
     /// Used as the ItemSource type of MaterialMenuDialog's list.
     /// </summary>

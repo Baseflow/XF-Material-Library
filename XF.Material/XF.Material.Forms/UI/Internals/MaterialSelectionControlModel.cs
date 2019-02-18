@@ -9,36 +9,36 @@ namespace XF.Material.Forms.UI.Internals
         private int _index;
         public int Index
         {
-            get { return _index; }
-            set { Set(ref _index, value); }
+            get => _index;
+            set => Set(ref _index, value);
         }
 
         private string _text;
         public string Text
         {
-            get { return _text; }
-            set { this.Set(ref _text, value); }
+            get => _text;
+            set => this.Set(ref _text, value);
         }
 
         private bool _isSelected;
         public bool IsSelected
         {
-            get { return _isSelected; }
-            set { this.Set(ref _isSelected, value); }
+            get => _isSelected;
+            set => this.Set(ref _isSelected, value);
         }
 
         private double _horizontalSpacing;
         public double HorizontalSpacing
         {
-            get { return _horizontalSpacing; }
-            set { this.Set(ref _horizontalSpacing, value); }
+            get => _horizontalSpacing;
+            set => this.Set(ref _horizontalSpacing, value);
         }
 
         private Command<bool> _selectedChangeCommand;
         public Command<bool> SelectedChangeCommand
         {
-            get { return _selectedChangeCommand; }
-            set { this.Set(ref _selectedChangeCommand, value); }
+            get => _selectedChangeCommand;
+            set => this.Set(ref _selectedChangeCommand, value);
         }
 
         private string _fontFamily;

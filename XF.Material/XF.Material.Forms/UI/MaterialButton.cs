@@ -107,14 +107,14 @@ namespace XF.Material.Forms.UI
             {
                 base.OnPropertyChanged(propertyName);
 
-                if(propertyName == nameof(this.ButtonType))
+                switch (propertyName)
                 {
-                    this.ButtonTypeChanged(this.ButtonType);
-                }
-
-                if (propertyName == nameof(this.Style))
-                {
-                    this.SetStyleValues(this.Style);
+                    case nameof(this.ButtonType):
+                        this.ButtonTypeChanged(this.ButtonType);
+                        break;
+                    case nameof(this.Style):
+                        this.SetStyleValues(this.Style);
+                        break;
                 }
             }
         }
@@ -146,11 +146,9 @@ namespace XF.Material.Forms.UI
                 this.BorderWidth = 1;
             }
 
-            if (buttonType == MaterialButtonType.Text || buttonType == MaterialButtonType.Outlined)
-            {
-                this.RemoveDynamicResource(TextColorProperty);
-                this.SetDynamicResource(TextColorProperty, MaterialConstants.Color.SECONDARY);
-            }
+            if (buttonType != MaterialButtonType.Text && buttonType != MaterialButtonType.Outlined) return;
+            this.RemoveDynamicResource(TextColorProperty);
+            this.SetDynamicResource(TextColorProperty, MaterialConstants.Color.SECONDARY);
         }
     }
 }
