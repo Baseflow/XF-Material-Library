@@ -498,6 +498,10 @@ Sliders allow users to make selections from a range of values.
 #### Switch
 Switches allow the user to toggle between two states.
 
+```xml
+<mat:MaterialSwitch IsActivated="{Binding IsTracking}" />
+```
+
 ##### Properties
 `MaterialSwitch` inherits the `ContentView` class.
 
