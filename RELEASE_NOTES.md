@@ -1,6 +1,12 @@
 # Release Notes
 
-##### 1.4.0.0  (Latest)
+##### 1.4.0.1 (Latest)
+- Fixed issue [67](https://github.com/contrix09/XF-Material-Library/issues/67).
+- Fixed issue [68](https://github.com/contrix09/XF-Material-Library/issues/68).
+- Fixed issue [69](https://github.com/contrix09/XF-Material-Library/issues/69).
+- Optimized icon resources in `XF.Material.iOS`.
+
+##### 1.4.0.0
 
 - Added new controls: `MaterialSwitch` and `MaterialLabel`.
 - Added `Elevation` property to `MaterialButton` and `MaterialIconButton`. You can now set
