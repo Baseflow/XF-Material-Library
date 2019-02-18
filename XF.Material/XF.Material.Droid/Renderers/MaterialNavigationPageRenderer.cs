@@ -20,38 +20,26 @@ namespace XF.Material.Droid.Renderers
 
         public void ChangeHasShadow(bool hasShadow)
         {
-            if(hasShadow)
-            {
-                _toolbar.Elevate(8);
-            }
-
-            else
-            {
-                _toolbar.Elevate(0);
-            }
+            _toolbar.Elevate(hasShadow ? 8 : 0);
         }
 
         protected override void OnElementChanged(ElementChangedEventArgs<NavigationPage> e)
         {
             base.OnElementChanged(e);
 
-            if (e?.NewElement != null)
-            {
-                _navigationPage = this.Element as MaterialNavigationPage;
-                _toolbar = this.ViewGroup.GetChildAt(0) as Toolbar;
-            }
+            if (e?.NewElement == null) return;
+            _navigationPage = this.Element as MaterialNavigationPage;
+            _toolbar = this.ViewGroup.GetChildAt(0) as Toolbar;
         }
 
         protected override Task<bool> OnPopViewAsync(Page page, bool animated)
         {
             var navStack = _navigationPage.Navigation.NavigationStack.ToList();
 
-            if (navStack.Count - 1 - navStack.IndexOf(page) >= 0)
-            {
-                var previousPage = navStack[navStack.IndexOf(page) - 1];
-                _navigationPage.InternalPagePop(previousPage, page);
-                this.ChangeHasShadow(previousPage);
-            }
+            if (navStack.Count - 1 - navStack.IndexOf(page) < 0) return base.OnPopViewAsync(page, animated);
+            var previousPage = navStack[navStack.IndexOf(page) - 1];
+            _navigationPage.InternalPagePop(previousPage, page);
+            this.ChangeHasShadow(previousPage);
 
             return base.OnPopViewAsync(page, animated);
         }

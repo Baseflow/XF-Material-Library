@@ -29,29 +29,27 @@ namespace XF.Material.Droid.Renderers
         {
             base.OnElementChanged(e);
 
-            if(e?.NewElement != null)
-            {
-                this.OnLetterSpacingChanged(this.Control, this.Element.LetterSpacing);
-                this.OnLineHeightChanged(this.Control, this.Element.LineHeight);
-            }
+            if (e?.NewElement == null) return;
+            OnLetterSpacingChanged(this.Control, this.Element.LetterSpacing);
+            OnLineHeightChanged(this.Control, this.Element.LineHeight);
         }
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             base.OnElementPropertyChanged(sender, e);
 
-            if(e?.PropertyName == nameof(MaterialLabel.LetterSpacing))
+            switch (e?.PropertyName)
             {
-                this.OnLetterSpacingChanged(this.Control, this.Element.LetterSpacing);
-            }
-
-            if(e?.PropertyName == nameof(MaterialLabel.LineHeight))
-            {
-                this.OnLineHeightChanged(this.Control, this.Element.LineHeight);
+                case nameof(MaterialLabel.LetterSpacing):
+                    OnLetterSpacingChanged(this.Control, this.Element.LetterSpacing);
+                    break;
+                case nameof(MaterialLabel.LineHeight):
+                    OnLineHeightChanged(this.Control, this.Element.LineHeight);
+                    break;
             }
         }
 
-        private void OnLetterSpacingChanged(TextView textView, double letterSpacing)
+        private static void OnLetterSpacingChanged(TextView textView, double letterSpacing)
         {
             if(!Material.IsLollipop)
             {
@@ -61,7 +59,7 @@ namespace XF.Material.Droid.Renderers
             textView.LetterSpacing = MaterialHelper.ConvertToSp(letterSpacing) / textView.TextSize;
         }
 
-        private void OnLineHeightChanged(TextView textView, double lineHeight)
+        private static void OnLineHeightChanged(TextView textView, double lineHeight)
         {
             textView.SetLineSpacing(0f, (float)lineHeight);
         }

@@ -172,7 +172,8 @@ namespace XF.Material.Forms.UI
 
             if (collectionType == typeof(MaterialMenuItem))
             {
-                items.AddRange(this.Choices as IList<MaterialMenuItem>);
+                if (!(this.Choices is IList<MaterialMenuItem> result)) return default(List<MaterialMenuItem>);
+                items.AddRange(result);
 
                 foreach (var item in items)
                 {
@@ -181,14 +182,7 @@ namespace XF.Material.Forms.UI
             }
             else
             {
-                foreach (var item in this.Choices)
-                {
-                    items.Add(new MaterialMenuItem
-                    {
-                        Text = item.ToString(),
-                        Index = this.Choices.IndexOf(item)
-                    });
-                }
+                items.AddRange(from object item in this.Choices select new MaterialMenuItem {Text = item.ToString(), Index = this.Choices.IndexOf(item)});
             }
 
             return items;

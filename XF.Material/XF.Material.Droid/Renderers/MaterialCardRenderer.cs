@@ -25,19 +25,18 @@ namespace XF.Material.Droid.Renderers
 
         public bool OnTouch(Android.Views.View v, MotionEvent e)
         {
-            if (this._materialCard.GestureRecognizers.Count > 0 && this.Control.Foreground != null)
+            if (this._materialCard.GestureRecognizers.Count <= 0 || this.Control.Foreground == null) return false;
+            switch (e.Action)
             {
-                if (e.Action == MotionEventActions.Down)
-                {
+                case MotionEventActions.Down:
                     this.Control.Foreground.SetHotspot(e.GetX(), e.GetY());
                     this.Control.Pressed = true;
-                }
-                else if (e.Action == MotionEventActions.Up ||
-                    e.Action == MotionEventActions.Cancel ||
-                    e.Action == MotionEventActions.Outside)
-                {
+                    break;
+                case MotionEventActions.Up:
+                case MotionEventActions.Cancel:
+                case MotionEventActions.Outside:
                     this.Control.Pressed = false;
-                }
+                    break;
             }
             return false;
         }
@@ -46,43 +45,39 @@ namespace XF.Material.Droid.Renderers
         {
             base.OnElementChanged(e);
 
-            if (e?.NewElement != null)
-            {
-                _materialCard = this.Element as MaterialCard;
+            if (e?.NewElement == null) return;
+            _materialCard = this.Element as MaterialCard;
 
-                this.UpdateStrokeColor();
-                this.Control.Elevate(_materialCard.Elevation);
-                this.SetClickable();
-                this.Control.SetOnTouchListener(this);
-            }
+            this.UpdateStrokeColor();
+            this.Control.Elevate(_materialCard.Elevation);
+            this.SetClickable();
+            this.Control.SetOnTouchListener(this);
         }
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             base.OnElementPropertyChanged(sender, e);
 
-            if (e?.PropertyName == nameof(MaterialCard.Elevation))
+            switch (e?.PropertyName)
             {
-                this.Control.Elevate(_materialCard.Elevation);
-            }
-
-            if (e?.PropertyName == nameof(MaterialCard.IsClickable))
-            {
-                this.SetClickable();
-            }
-
-            if (e?.PropertyName == nameof(Frame.BackgroundColor))
-            {
-                this.UpdateStrokeColor();
+                case nameof(MaterialCard.Elevation):
+                    this.Control.Elevate(_materialCard.Elevation);
+                    break;
+                case nameof(MaterialCard.IsClickable):
+                    this.SetClickable();
+                    break;
+                case nameof(Frame.BackgroundColor):
+                    this.UpdateStrokeColor();
+                    break;
             }
         }
 
         protected void SetClickable()
         {
-            bool clickable = _materialCard.IsClickable;
+            var clickable = _materialCard.IsClickable;
             if (clickable && this.Control.Foreground == null)
             {
-                TypedValue outValue = new TypedValue();
+                var outValue = new TypedValue();
                 this.Context.Theme.ResolveAttribute(
                     Resource.Attribute.selectableItemBackground, outValue, true);
                 this.Control.Foreground = this.Context.GetDrawable(outValue.ResourceId);

@@ -9,8 +9,8 @@ namespace XF.Material.iOS
         internal static UIColor BlendColor(UIColor color1, UIColor color2, float alpha)
         {
             alpha = Math.Min(1f, Math.Max(0f, alpha));
-            color1.GetRGBA(out nfloat r1, out nfloat g1, out nfloat b1, out nfloat a1);
-            color2.GetRGBA(out nfloat r2, out nfloat g2, out nfloat b2, out nfloat a2);
+            color1.GetRGBA(out var r1, out var g1, out var b1, out var a1);
+            color2.GetRGBA(out var r2, out var g2, out var b2, out var a2);
             var r = (nfloat)Math.Min(r1 + r2, 1);
             var g = (nfloat)Math.Min(g1 + g2, 1);
             var b = (nfloat)Math.Min(b1 + b2, 1);
@@ -20,7 +20,7 @@ namespace XF.Material.iOS
 
         internal static UIColor DarkenColor(this UIColor color)
         {
-            color.GetRGBA(out nfloat red, out nfloat green, out nfloat blue, out nfloat alpha);
+            color.GetRGBA(out var red, out var green, out var blue, out var alpha);
 
             return UIColor.FromRGBA((float)Math.Max(red - 0.2, 0), (float)Math.Max(green - 0.2, 0), (float)Math.Max(blue - 0.2, 0), alpha);
         }
@@ -36,7 +36,7 @@ namespace XF.Material.iOS
 
         internal static bool IsColorDark(this UIColor color)
         {
-            color.GetRGBA(out nfloat red, out nfloat green, out nfloat blue, out nfloat alpha);
+            color.GetRGBA(out var red, out var green, out var blue, out var alpha);
             var brightness = ((red * 299) + (green * 587) + (blue * 144)) / 1000;
 
             return brightness <= 0.5;
@@ -52,7 +52,7 @@ namespace XF.Material.iOS
 
         internal static UIColor LightenColor(this UIColor color)
         {
-            color.GetRGBA(out nfloat red, out nfloat green, out nfloat blue, out nfloat alpha);
+            color.GetRGBA(out var red, out var green, out var blue, out var alpha);
 
             return UIColor.FromRGBA((float)Math.Min(red + 0.3, 1.0), (float)Math.Min(green + 0.3, 1.0), (float)Math.Min(blue + 0.3, 1.0), alpha);
         }
@@ -70,7 +70,7 @@ namespace XF.Material.iOS
 
         internal static UIColor GetDisabledColor(this UIColor color)
         {
-            color.GetRGBA(out nfloat r, out nfloat g, out nfloat b, out nfloat a);
+            color.GetRGBA(out var r, out var g, out var b, out var a);
 
             a = 0.38f;
 
@@ -79,8 +79,8 @@ namespace XF.Material.iOS
 
         internal static UIColor MixColor(this UIColor color1, UIColor color2)
         {
-            color1.GetRGBA(out nfloat r1, out nfloat g1, out nfloat b1, out nfloat a1);
-            color2.GetRGBA(out nfloat r2, out nfloat g2, out nfloat b2, out nfloat a2);
+            color1.GetRGBA(out var r1, out var g1, out var b1, out var a1);
+            color2.GetRGBA(out var r2, out var g2, out var b2, out var a2);
 
             return new UIColor((nfloat)Math.Min((r1 + r2) / 2, 1), (nfloat)Math.Min((g1 + g2) / 2, 1), (nfloat)Math.Min((b1 + b2) / 2, 1), (nfloat)Math.Min((a1 + a2) / 2, 1));
         }

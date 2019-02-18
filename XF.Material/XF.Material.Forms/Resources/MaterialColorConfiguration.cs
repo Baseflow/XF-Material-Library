@@ -170,10 +170,7 @@ namespace XF.Material.Forms.Resources
                     return Color.Accent;
                 }
 
-                else
-                {
-                    return color.IsDefault ? this.Primary : color;
-                }
+                return color.IsDefault ? this.Primary : color;
             }
             set => this.SetValue(SecondaryProperty, value);
         }

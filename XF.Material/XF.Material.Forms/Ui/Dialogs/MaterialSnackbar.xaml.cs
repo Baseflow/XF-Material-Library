@@ -13,9 +13,9 @@ namespace XF.Material.Forms.UI.Dialogs
         public const int DurationIndefinite = -1;
         public const int DurationLong = 2750;
         public const int DurationShort = 1500;
-        private int _duration;
-        private Action _hideAction;
-        private Command _primaryActionCommand;
+        private readonly int _duration;
+        private readonly Action _hideAction;
+        private readonly Command _primaryActionCommand;
         private bool _primaryActionRunning;
 
         internal MaterialSnackbar(string message, string actionButtonText, int msDuration = DurationLong, MaterialSnackbarConfiguration configuration = null)
@@ -75,16 +75,12 @@ namespace XF.Material.Forms.UI.Dialogs
         {
             base.OnAppearingAnimationEnd();
 
-            if (_duration > 0)
-            {
-                await Task.Delay(_duration);
+            if (_duration <= 0) return;
+            await Task.Delay(_duration);
 
-                if (!_primaryActionRunning)
-                {
-                    _hideAction?.Invoke();
-                    await this.DismissAsync();
-                }
-            }
+            if (_primaryActionRunning) return;
+            _hideAction?.Invoke();
+            await this.DismissAsync();
         }
 
         protected override void OnOrientationChanged(DisplayOrientation orientation)
@@ -96,15 +92,16 @@ namespace XF.Material.Forms.UI.Dialogs
 
         private void ChangeLayout()
         {
-            if (this.DisplayOrientation == DisplayOrientation.Landscape && Device.Idiom == TargetIdiom.Phone)
+            switch (this.DisplayOrientation)
             {
-                Container.WidthRequest = 344;
-                Container.HorizontalOptions = LayoutOptions.Center;
-            }
-            else if (this.DisplayOrientation == DisplayOrientation.Portrait && Device.Idiom == TargetIdiom.Phone)
-            {
-                Container.WidthRequest = -1;
-                Container.HorizontalOptions = LayoutOptions.FillAndExpand;
+                case DisplayOrientation.Landscape when Device.Idiom == TargetIdiom.Phone:
+                    Container.WidthRequest = 344;
+                    Container.HorizontalOptions = LayoutOptions.Center;
+                    break;
+                case DisplayOrientation.Portrait when Device.Idiom == TargetIdiom.Phone:
+                    Container.WidthRequest = -1;
+                    Container.HorizontalOptions = LayoutOptions.FillAndExpand;
+                    break;
             }
         }
 
@@ -112,16 +109,14 @@ namespace XF.Material.Forms.UI.Dialogs
         {
             var preferredConfig = configuration ?? GlobalConfiguration;
 
-            if (preferredConfig != null)
-            {
-                Message.FontFamily = preferredConfig.MessageFontFamily;
-                Message.TextColor = preferredConfig.MessageTextColor;
-                Container.BackgroundColor = preferredConfig.BackgroundColor;
-                ActionButton.TextColor = preferredConfig.TintColor;
-                ActionButton.FontFamily = preferredConfig.ButtonFontFamily;
-                ActionButton.AllCaps = preferredConfig.ButtonAllCaps;
-                Container.Margin = new Thickness(8, 0, 8, preferredConfig.BottomOffset);
-            }
+            if (preferredConfig == null) return;
+            Message.FontFamily = preferredConfig.MessageFontFamily;
+            Message.TextColor = preferredConfig.MessageTextColor;
+            Container.BackgroundColor = preferredConfig.BackgroundColor;
+            ActionButton.TextColor = preferredConfig.TintColor;
+            ActionButton.FontFamily = preferredConfig.ButtonFontFamily;
+            ActionButton.AllCaps = preferredConfig.ButtonAllCaps;
+            Container.Margin = new Thickness(8, 0, 8, preferredConfig.BottomOffset);
         }
     }
 }

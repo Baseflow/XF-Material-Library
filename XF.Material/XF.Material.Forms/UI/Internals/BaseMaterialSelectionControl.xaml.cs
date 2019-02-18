@@ -171,7 +171,7 @@ namespace XF.Material.Forms.UI.Internals
         {
             base.OnPropertyChanged(propertyName);
 
-            if (_propertyChangeActions != null && _propertyChangeActions.TryGetValue(propertyName, out Action handlePropertyChange))
+            if (_propertyChangeActions != null && _propertyChangeActions.TryGetValue(propertyName, out var handlePropertyChange))
             {
                 handlePropertyChange();
             }

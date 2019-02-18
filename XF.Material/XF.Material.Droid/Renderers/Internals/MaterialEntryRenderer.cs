@@ -18,13 +18,11 @@ namespace XF.Material.Droid.Renderers.Internals
         {
             base.OnElementChanged(e);
 
-            if (e?.NewElement != null)
-            {
-                this.ChangeCursorColor();
-                this.Control.Background = new ColorDrawable(Color.Transparent.ToAndroid());
-                this.Control.SetPadding(0, 0, 0, 0);
-                this.Control.SetIncludeFontPadding(false);
-            }
+            if (e?.NewElement == null) return;
+            this.ChangeCursorColor();
+            this.Control.Background = new ColorDrawable(Color.Transparent.ToAndroid());
+            this.Control.SetPadding(0, 0, 0, 0);
+            this.Control.SetIncludeFontPadding(false);
         }
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -43,7 +41,7 @@ namespace XF.Material.Droid.Renderers.Internals
             {
                 var field = Java.Lang.Class.FromType(typeof(Android.Widget.TextView)).GetDeclaredField("mCursorDrawableRes");
                 field.Accessible = true;
-                int resId = field.GetInt(this.Control);
+                var resId = field.GetInt(this.Control);
 
                 field = Java.Lang.Class.FromType(typeof(Android.Widget.TextView)).GetDeclaredField("mEditor");
                 field.Accessible = true;

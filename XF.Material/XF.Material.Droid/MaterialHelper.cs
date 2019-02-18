@@ -32,10 +32,10 @@ namespace XF.Material.Droid
         internal static Color DarkenColor(this Color color)
         {
             const float factor = 0.75f;
-            int a = Color.GetAlphaComponent(color);
-            int r = Convert.ToInt32(Math.Round(Color.GetRedComponent(color) * factor));
-            int g = Convert.ToInt32(Math.Round(Color.GetGreenComponent(color) * factor));
-            int b = Convert.ToInt32(Math.Round(Color.GetBlueComponent(color) * factor));
+            var a = Color.GetAlphaComponent(color);
+            var r = Convert.ToInt32(Math.Round(Color.GetRedComponent(color) * factor));
+            var g = Convert.ToInt32(Math.Round(Color.GetGreenComponent(color) * factor));
+            var b = Convert.ToInt32(Math.Round(Color.GetBlueComponent(color) * factor));
             return Color.Argb(a,
                     Math.Min(r, 255),
                     Math.Min(g, 255),
@@ -45,9 +45,9 @@ namespace XF.Material.Droid
         internal static Color GetDisabledColor(this Color color)
         {
             const float disabledOpacity = 0.38f;
-            int r = Color.GetRedComponent(color);
-            int g = Color.GetGreenComponent(color);
-            int b = Color.GetBlueComponent(color);
+            var r = Color.GetRedComponent(color);
+            var g = Color.GetGreenComponent(color);
+            var b = Color.GetBlueComponent(color);
             return Color.Argb(Convert.ToInt32(Math.Round(Color.GetAlphaComponent(color) * disabledOpacity)), r, g, b);
         }
 

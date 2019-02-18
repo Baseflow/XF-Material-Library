@@ -49,14 +49,14 @@ namespace XF.Material.Forms
         /// <exception cref="ArgumentNullException" />
         public static T GetResource<T>(string key)
         {
-            Application.Current.Resources.TryGetValue(key ?? throw new ArgumentNullException(nameof(key)), out object value);
+            Application.Current.Resources.TryGetValue(key ?? throw new ArgumentNullException(nameof(key)), out var value);
 
             if (value is T resource)
             {
                 return resource;
             }
 
-            else if (value != null)
+            if (value != null)
             {
                 throw new InvalidCastException($"The resource retrieved was not of the type {typeof(T)}. Use {value.GetType()} instead.");
             }

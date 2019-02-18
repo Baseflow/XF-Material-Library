@@ -18,25 +18,27 @@ namespace XF.Material.iOS.Renderers
         {
             base.OnElementChanged(e);
 
-            if(e?.NewElement != null)
-            {
-                _materialElement = this.Element as MaterialCircularLoadingView;
-                _materialElement.Animation = "loading_animation.json";
-                this.Control.ContentMode = UIViewContentMode.ScaleAspectFill;
-            }
+            if (e?.NewElement == null) return;
+            _materialElement = this.Element as MaterialCircularLoadingView;
+            if (_materialElement != null) _materialElement.Animation = "loading_animation.json";
+
+            if (this.Control == null) return;
+
+            this.Control.ContentMode = UIViewContentMode.ScaleAspectFill;
         }
 
         public override void LayoutSubviews()
         {
             base.LayoutSubviews();
 
-            if(_valueCallback == null)
-            {
-                _valueCallback = LOTColorValueCallback.WithCGColor(_materialElement.TintColor.ToCGColor());
-                var keyPath = LOTKeypath.KeypathWithString("Shape Layer 1 Comp 1.Shape Layer 1.Ellipse 1.Stroke 1.Color");
-                this.Control.SetValueDelegate(_valueCallback, keyPath);
-                this.Control.Play();
-            }
+            if (_valueCallback != null) return;
+            _valueCallback = LOTColorValueCallback.WithCGColor(_materialElement.TintColor.ToCGColor());
+            var keyPath = LOTKeypath.KeypathWithString("Shape Layer 1 Comp 1.Shape Layer 1.Ellipse 1.Stroke 1.Color");
+
+            if (this.Control == null) return;
+
+            this.Control.SetValueDelegate(_valueCallback, keyPath);
+            this.Control.Play();
         }
     }
 }

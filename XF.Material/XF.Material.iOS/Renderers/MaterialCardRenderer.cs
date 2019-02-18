@@ -22,14 +22,12 @@ namespace XF.Material.iOS.Renderers
         {
             base.OnElementChanged(e);
 
-            if (e?.NewElement != null)
-            {
-                _materialCard = this.Element as MaterialCard;
-                this.Elevate(_materialCard.Elevation);
+            if (e?.NewElement == null) return;
+            _materialCard = this.Element as MaterialCard;
+            if (_materialCard != null) this.Elevate(_materialCard.Elevation);
 
-                this.SetupColors();
-                this.SetIsClickable();
-            }
+            this.SetupColors();
+            this.SetIsClickable();
         }
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -41,19 +39,19 @@ namespace XF.Material.iOS.Renderers
                 this.Elevate(_materialCard.Elevation);
             }
 
-            // For some reason the Elevation will get messed up when the background
-            // color is modified. So this fixes it.
-            //
-            if (e?.PropertyName == nameof(MaterialCard.BackgroundColor))
+            switch (e?.PropertyName)
             {
-                this.SetupColors();
-                this.SetIsClickable();
-                this.Elevate(_materialCard.Elevation);
-            }
-
-            if (e?.PropertyName == nameof(MaterialCard.IsClickable))
-            {
-                this.SetIsClickable();
+                // For some reason the Elevation will get messed up when the background
+                // color is modified. So this fixes it.
+                //
+                case nameof(MaterialCard.BackgroundColor):
+                    this.SetupColors();
+                    this.SetIsClickable();
+                    this.Elevate(_materialCard.Elevation);
+                    break;
+                case nameof(MaterialCard.IsClickable):
+                    this.SetIsClickable();
+                    break;
             }
         }
 
@@ -64,7 +62,7 @@ namespace XF.Material.iOS.Renderers
 
         protected void SetIsClickable()
         {
-            bool clickable = _materialCard.IsClickable;
+            var clickable = _materialCard.IsClickable;
             if (clickable)
             {
                 if (_rippleGestureRecognizerDelegate == null)

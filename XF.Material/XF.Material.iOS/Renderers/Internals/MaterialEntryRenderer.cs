@@ -14,11 +14,9 @@ namespace XF.Material.iOS.Renderers.Internals
         {
             base.OnElementChanged(e);
 
-            if(e?.NewElement != null)
-            {
-                this.Control.BorderStyle = UITextBorderStyle.None;
-                this.Control.TintColor = (this.Element as MaterialEntry).TintColor.ToUIColor();
-            }
+            if (e?.NewElement == null) return;
+            this.Control.BorderStyle = UITextBorderStyle.None;
+            this.Control.TintColor = (this.Element as MaterialEntry)?.TintColor.ToUIColor();
         }
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -27,7 +25,7 @@ namespace XF.Material.iOS.Renderers.Internals
 
             if(e?.PropertyName == nameof(MaterialEntry.TintColor))
             {
-                this.Control.TintColor = (this.Element as MaterialEntry).TintColor.ToUIColor();
+                this.Control.TintColor = (this.Element as MaterialEntry)?.TintColor.ToUIColor();
             }
         }
     }

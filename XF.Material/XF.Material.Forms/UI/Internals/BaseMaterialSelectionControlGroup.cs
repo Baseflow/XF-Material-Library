@@ -140,14 +140,14 @@ namespace XF.Material.Forms.UI.Internals
         {
             base.OnPropertyChanged(propertyName);
 
-            if (propertyName == nameof(this.Choices) && this.Choices != null && this.Choices.Any())
+            switch (propertyName)
             {
-                this.CreateChoices();
-            }
-
-            else if (propertyName == nameof(this.IsEnabled))
-            {
-                this.Opacity = this.IsEnabled ? 1.0 : 0.38;
+                case nameof(this.Choices) when this.Choices != null && this.Choices.Any():
+                    this.CreateChoices();
+                    break;
+                case nameof(this.IsEnabled):
+                    this.Opacity = this.IsEnabled ? 1.0 : 0.38;
+                    break;
             }
         }
     }

@@ -74,7 +74,7 @@ namespace XF.Material.Forms.UI
         {
             var models = new ObservableCollection<MaterialSelectionControlModel>();
 
-            for (int i = 0; i < this.Choices.Count; i++)
+            for (var i = 0; i < this.Choices.Count; i++)
             {
                 var model = new MaterialSelectionControlModel
                 {
@@ -103,16 +103,14 @@ namespace XF.Material.Forms.UI
         {
             base.OnPropertyChanged(propertyName);
 
-            if (propertyName == nameof(this.SelectedIndex))
+            if (propertyName != nameof(this.SelectedIndex)) return;
+            if (this.SelectedIndex >= 0 && this.Models?.Any() == true)
             {
-                if (this.SelectedIndex >= 0 && this.Models?.Any() == true)
-                {
-                    var model = this.Models[this.SelectedIndex];
-                    model.IsSelected = true;
-                }
-
-                this.OnSelectedIndexChanged(this.SelectedIndex);
+                var model = this.Models[this.SelectedIndex];
+                model.IsSelected = true;
             }
+
+            this.OnSelectedIndexChanged(this.SelectedIndex);
         }
 
         /// <summary>

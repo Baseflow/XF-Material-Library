@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -402,6 +403,7 @@ namespace XF.Material.Forms.UI
             set => this.SetValue(UnderlineColorProperty, value);
         }
 
+        /// <inheritdoc />
         /// <summary>
         /// For internal use only.
         /// </summary>
@@ -468,6 +470,7 @@ namespace XF.Material.Forms.UI
             this.AnimatePlaceHolderOnStart(this.Parent);
         }
 
+        /// <inheritdoc />
         /// <summary>
         /// Method that is called when a bound property has changed.
         /// </summary>
@@ -476,7 +479,7 @@ namespace XF.Material.Forms.UI
         {
             base.OnPropertyChanged(propertyName);
 
-            if (_propertyChangeActions != null && _propertyChangeActions.TryGetValue(propertyName, out Action handlePropertyChange))
+            if (_propertyChangeActions != null && _propertyChangeActions.TryGetValue(propertyName, out var handlePropertyChange))
             {
                 handlePropertyChange();
             }
@@ -487,7 +490,7 @@ namespace XF.Material.Forms.UI
             Color tintColor;
             double startFont = entry.IsFocused ? 16 : 12;
             double endFOnt = entry.IsFocused ? 12 : 16;
-            double startY = placeholder.TranslationY;
+            var startY = placeholder.TranslationY;
             double endY = entry.IsFocused ? -12 : 0;
 
             if (this.HasError)
@@ -571,7 +574,8 @@ namespace XF.Material.Forms.UI
                 return;
             }
 
-            if ((startObject != null && string.IsNullOrEmpty(this.Text) && placeholder.TranslationY == -12) || placeholder.TranslationY == -20)
+            if ((startObject == null || !string.IsNullOrEmpty(this.Text) || placeholder.TranslationY != -12) &&
+                placeholder.TranslationY != -20) return;
             {
                 if (entry.IsFocused)
                 {
@@ -668,15 +672,15 @@ namespace XF.Material.Forms.UI
                 this.UpdateCounter();
             }
 
-            if (e.PropertyName == nameof(Entry.IsFocused) && string.IsNullOrEmpty(entry.Text))
+            switch (e.PropertyName)
             {
-                this.AnimatePlaceHolder();
-            }
-
-            if (e.PropertyName == nameof(Entry.Text))
-            {
-                this.Text = entry.Text;
-                this.UpdateCounter();
+                case nameof(Entry.IsFocused) when string.IsNullOrEmpty(entry.Text):
+                    this.AnimatePlaceHolder();
+                    break;
+                case nameof(Entry.Text):
+                    this.Text = entry.Text;
+                    this.UpdateCounter();
+                    break;
             }
         }
 
@@ -717,17 +721,7 @@ namespace XF.Material.Forms.UI
                 return null;
             }
 
-            foreach (var item in this.Choices)
-            {
-                var value = item.GetType().GetProperty(this.ChoicesBindingName).GetValue(item, null);
-
-                if (value.ToString() == text)
-                {
-                    return item;
-                }
-            }
-
-            return null;
+            return (from object item in this.Choices let value = item.GetType().GetProperty(this.ChoicesBindingName)?.GetValue(item, null) where value?.ToString() == text select item).FirstOrDefault();
         }
 
         private void OnAlwaysShowUnderlineChanged(bool isShown)
@@ -741,16 +735,9 @@ namespace XF.Material.Forms.UI
             backgroundCard.BackgroundColor = cardCut.Color = backgroundColor;
         }
 
-        private void OnChoicesChanged(IList choices)
+        private void OnChoicesChanged(ICollection choices)
         {
-            if (choices?.Count > 0)
-            {
-                _choices = this.GetChoices();
-            }
-            else
-            {
-                _choices = null;
-            }
+            _choices = choices?.Count > 0 ? this.GetChoices() : null;
         }
 
         private void OnEnabledChanged(bool isEnabled)
@@ -774,15 +761,13 @@ namespace XF.Material.Forms.UI
 
         private void OnFloatingPlaceholderEnabledChanged(bool isEnabled)
         {
-            if (!isEnabled)
-            {
-                placeholder.HeightRequest = 20;
-                placeholder.VerticalOptions = LayoutOptions.Center;
-                placeholder.VerticalTextAlignment = TextAlignment.Center;
-                _gridContainer.RowDefinitions[0].Height = 40;
-                entry.Margin = new Thickness(entry.Margin.Left, 2, entry.Margin.Right, 0);
-                entry.VerticalOptions = LayoutOptions.Center;
-            }
+            if (isEnabled) return;
+            placeholder.HeightRequest = 20;
+            placeholder.VerticalOptions = LayoutOptions.Center;
+            placeholder.VerticalTextAlignment = TextAlignment.Center;
+            _gridContainer.RowDefinitions[0].Height = 40;
+            entry.Margin = new Thickness(entry.Margin.Left, 2, entry.Margin.Right, 0);
+            entry.VerticalOptions = LayoutOptions.Center;
         }
 
         private async Task OnHasErrorChanged()
@@ -1032,11 +1017,9 @@ namespace XF.Material.Forms.UI
 
         private void UpdateCounter()
         {
-            if (_counterEnabled)
-            {
-                var count = entry.Text?.Length ?? 0;
-                counter.Text = entry.IsFocused ? $"{count}/{this.MaxLength}" : string.Empty;
-            }
+            if (!_counterEnabled) return;
+            var count = entry.Text?.Length ?? 0;
+            counter.Text = entry.IsFocused ? $"{count}/{this.MaxLength}" : string.Empty;
         }
     }
 }
