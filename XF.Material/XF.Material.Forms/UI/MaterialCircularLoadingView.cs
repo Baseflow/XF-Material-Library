@@ -13,8 +13,8 @@ namespace XF.Material.Forms.UI
         /// </summary>
         public Color TintColor
         {
-            get => (Color)GetValue(TintColorProperty);
-            set => SetValue(TintColorProperty, value);
+            get => (Color)this.GetValue(TintColorProperty);
+            set => this.SetValue(TintColorProperty, value);
         }
 
         public MaterialCircularLoadingView()
@@ -25,7 +25,7 @@ namespace XF.Material.Forms.UI
 
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            if(propertyName == nameof(this.Animation))
+            if (propertyName == nameof(this.Animation))
             {
                 return;
             }

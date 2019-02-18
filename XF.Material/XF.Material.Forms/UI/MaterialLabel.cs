@@ -85,7 +85,7 @@ namespace XF.Material.Forms.UI
             if (!_fontFamilyChanged)
             {
                 var fontFamilyKey = $"Material.FontFamily.{materialTypeScale.ToString()}";
-                this.FontFamily = Application.Current.Resources[fontFamilyKey].ToString();
+                this.FontFamily = Application.Current.Resources[fontFamilyKey]?.ToString();
             }
             if (!_fontSizeChanged)
             {
@@ -94,7 +94,7 @@ namespace XF.Material.Forms.UI
             }
 
             if (_fontAttributeChanged) return;
-            switch(materialTypeScale)
+            switch (materialTypeScale)
             {
                 case MaterialTypeScale.H6:
                 case MaterialTypeScale.Subtitle2:
