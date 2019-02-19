@@ -25,7 +25,7 @@ namespace XF.Material.Droid.Renderers
 
         public bool OnTouch(Android.Views.View v, MotionEvent e)
         {
-            if (this._materialCard.GestureRecognizers.Count <= 0 || this.Control.Foreground == null) return false;
+            if (_materialCard.GestureRecognizers.Count <= 0 || this.Control.Foreground == null) return false;
             switch (e.Action)
             {
                 case MotionEventActions.Down:
@@ -72,7 +72,7 @@ namespace XF.Material.Droid.Renderers
             }
         }
 
-        protected void SetClickable()
+        private void SetClickable()
         {
             var clickable = _materialCard.IsClickable;
             if (clickable && this.Control.Foreground == null)

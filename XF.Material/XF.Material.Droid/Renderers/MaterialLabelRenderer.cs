@@ -21,7 +21,7 @@ namespace XF.Material.Droid.Renderers
 {
     public class MaterialLabelRenderer : LabelRenderer
     {
-        public new MaterialLabel Element => base.Element as MaterialLabel;
+        private new MaterialLabel Element => base.Element as MaterialLabel;
 
         public MaterialLabelRenderer(Context context) : base(context) { }
 

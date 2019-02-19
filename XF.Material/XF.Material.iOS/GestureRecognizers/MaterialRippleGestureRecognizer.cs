@@ -55,7 +55,7 @@ namespace XF.Material.iOS.GestureRecognizers
         }
 
         [Export("gestureRecognizer:shouldReceiveTouch:")]
-        public new bool ShouldReceiveTouch(UIGestureRecognizer recognizer, UITouch touch)
+        public bool ShouldReceiveTouch(UIGestureRecognizer recognizer, UITouch touch)
         {
             return !(touch.View is UIButton);
         }
@@ -72,7 +72,7 @@ namespace XF.Material.iOS.GestureRecognizers
         {
             base.TouchesEnded(touches, evt);
 
-            this.AnimateComplete(touches.AnyObject as UITouch);
+            this.AnimateComplete();
         }
 
 
@@ -80,7 +80,7 @@ namespace XF.Material.iOS.GestureRecognizers
         {
             base.TouchesMoved(touches, evt);
 
-            this.AnimateComplete(touches.AnyObject as UITouch);
+            this.AnimateComplete();
 
         }
 
@@ -88,29 +88,29 @@ namespace XF.Material.iOS.GestureRecognizers
         {
             base.TouchesCancelled(touches, evt);
 
-            this.AnimateComplete(touches.AnyObject as UITouch);
+            this.AnimateComplete();
         }
 
 
         private void AnimateStart(UITouch touch)
         {
-            this.AnimateBackgroundFadeIn(touch);
+            this.AnimateBackgroundFadeIn();
             this.AnimateRipple(touch);
 
             _isStarted = true;
         }
 
 
-        private void AnimateComplete(UITouch touch)
+        private void AnimateComplete()
         {
             if (_isStarted)
             {
-                this.AnimateBackgroundFadeOut(touch);
+                this.AnimateBackgroundFadeOut();
             }
         }
 
 
-        private void AnimateBackgroundFadeIn(UITouch touch)
+        private void AnimateBackgroundFadeIn()
         {
             var view = _touchView;
 
@@ -123,7 +123,7 @@ namespace XF.Material.iOS.GestureRecognizers
             });
         }
 
-        private void AnimateBackgroundFadeOut(UITouch touch)
+        private void AnimateBackgroundFadeOut()
         {
             var view = _touchView;
 
@@ -162,9 +162,11 @@ namespace XF.Material.iOS.GestureRecognizers
         /// </summary>
         /// <param name="layer">Layer.</param>
         /// <param name="view">View.</param>
+        /// <param name="indexToInsertLayer"></param>
         private static void SetupAnimationLayer(CALayer layer, UIView view, int indexToInsertLayer)
         {
-            layer.Frame = view is MaterialCardRenderer ? new CGRect(0, 0, view.Frame.Width, view.Frame.Height) : new CGRect(6, 6, view.Frame.Width - 12, view.Frame.Height - 12);
+            layer.Frame = view is MaterialCardRenderer ? new CGRect(0, 0, view.Frame.Width, view.Frame.Height) : 
+                new CGRect(6, 6, view.Frame.Width - 12, view.Frame.Height - 12);
 
             layer.CornerRadius = view.Layer.CornerRadius;
             view.Layer.InsertSublayer(layer, indexToInsertLayer);

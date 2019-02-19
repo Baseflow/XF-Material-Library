@@ -66,23 +66,21 @@ namespace XF.Material.Forms.UI.Dialogs
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!_disposed && disposing)
+            if (_disposed || !disposing) return;
+            Device.BeginInvokeOnMainThread(async () =>
             {
-                Device.BeginInvokeOnMainThread(async () =>
+                try
                 {
-                    try
-                    {
-                        await this.DismissAsync();
-                        this.Content = null;
-                    }
-                    catch (Exception ex)
-                    {
-                        Debug.WriteLine(ex);
-                    }
-                });
+                    await this.DismissAsync();
+                    this.Content = null;
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex);
+                }
+            });
 
-                _disposed = true;
-            }
+            _disposed = true;
         }
 
         protected override void OnAppearing()
@@ -135,11 +133,9 @@ namespace XF.Material.Forms.UI.Dialogs
 
         private void DeviceDisplay_MainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
         {
-            if (this.DisplayOrientation != e.DisplayInfo.Orientation)
-            {
-                this.DisplayOrientation = e.DisplayInfo.Orientation;
-                this.OnOrientationChanged(this.DisplayOrientation);
-            }
+            if (this.DisplayOrientation == e.DisplayInfo.Orientation) return;
+            this.DisplayOrientation = e.DisplayInfo.Orientation;
+            this.OnOrientationChanged(this.DisplayOrientation);
         }
     }
 }

@@ -15,7 +15,6 @@ namespace XF.Material.Forms.UI.Dialogs
         public const int DurationShort = 1500;
         private readonly int _duration;
         private readonly Action _hideAction;
-        private readonly Command _primaryActionCommand;
         private bool _primaryActionRunning;
 
         internal MaterialSnackbar(string message, string actionButtonText, int msDuration = DurationLong, MaterialSnackbarConfiguration configuration = null)
@@ -25,13 +24,13 @@ namespace XF.Material.Forms.UI.Dialogs
             Message.Text = message;
             _duration = msDuration;
             ActionButton.Text = actionButtonText;
-            _primaryActionCommand = new Command(async () =>
+            var primaryActionCommand = new Command(async () =>
             {
                 _primaryActionRunning = true;
                 await this.DismissAsync();
                 this.InputTaskCompletionSource?.SetResult(true);
             }, () => !_primaryActionRunning);
-            ActionButton.Command = _primaryActionCommand;
+            ActionButton.Command = primaryActionCommand;
             _hideAction = () => this.InputTaskCompletionSource?.SetResult(false);
         }
 

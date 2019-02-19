@@ -20,6 +20,8 @@ namespace XF.Material.Droid.Renderers
         {
             base.OnElementChanged(e);
 
+            if (this.Control == null) return;
+
             if (e?.NewElement == null) return;
             _materialIcon = this.Element as MaterialIcon;
             this.UpdateDrawable();
@@ -29,7 +31,9 @@ namespace XF.Material.Droid.Renderers
         {
             base.OnElementPropertyChanged(sender, e);
 
-            if(e?.PropertyName == nameof(MaterialIcon.TintColor) || e?.PropertyName == nameof(Image.Source))
+            if (this.Control == null) return;
+
+            if (e?.PropertyName == nameof(MaterialIcon.TintColor) || e?.PropertyName == nameof(Image.Source))
             {
                 this.UpdateDrawable();
             }

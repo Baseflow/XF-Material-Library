@@ -17,16 +17,16 @@ namespace XF.Material.Droid
 {
     internal static class MaterialHelper
     {
-        private static DisplayMetrics _displayMetrics => Material.Context.Resources.DisplayMetrics;
+        private static DisplayMetrics DisplayMetrics => Material.Context.Resources.DisplayMetrics;
 
         internal static float ConvertToDp(double value)
         {
-            return TypedValue.ApplyDimension(ComplexUnitType.Dip, (float)value, _displayMetrics);
+            return TypedValue.ApplyDimension(ComplexUnitType.Dip, (float)value, DisplayMetrics);
         }
 
         internal static float ConvertToSp(double value)
         {
-            return TypedValue.ApplyDimension(ComplexUnitType.Sp, (float)value, _displayMetrics);
+            return TypedValue.ApplyDimension(ComplexUnitType.Sp, (float)value, DisplayMetrics);
         }
 
         internal static Color DarkenColor(this Color color)
@@ -83,14 +83,14 @@ namespace XF.Material.Droid
             DrawableCompat.SetTintList(drawable, GetColorStates(tintColor));
         }
 
-        private static ColorStateList GetColorStates(Android.Graphics.Color activeColor)
+        private static ColorStateList GetColorStates(Color activeColor)
         {
-            var states = new int[][]
+            var states = new[]
             {
-                new int[] { Android.Resource.Attribute.StatePressed },
-                new int[] { Android.Resource.Attribute.StateFocused, Android.Resource.Attribute.StateEnabled },
-                new int[] { Android.Resource.Attribute.StateEnabled },
-                new int[] { Android.Resource.Attribute.StateFocused },
+                new[] { Android.Resource.Attribute.StatePressed },
+                new[] { Android.Resource.Attribute.StateFocused, Android.Resource.Attribute.StateEnabled },
+                new[] { Android.Resource.Attribute.StateEnabled },
+                new[] { Android.Resource.Attribute.StateFocused },
                 new int[] { }
             };
 

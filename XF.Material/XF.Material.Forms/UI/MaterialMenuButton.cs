@@ -33,12 +33,12 @@ namespace XF.Material.Forms.UI
         /// <summary>
         /// Backing field for the bindable property <see cref="CommandParameter"/>.
         /// </summary>
-        public static new readonly BindableProperty CommandParameterProperty = BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(MaterialMenuButton));
+        public new static readonly BindableProperty CommandParameterProperty = BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(MaterialMenuButton));
 
         /// <summary>
         /// Backing field for the bindable property <see cref="Command"/>.
         /// </summary>
-        public static new readonly BindableProperty CommandProperty = BindableProperty.Create(nameof(Command), typeof(Command<MaterialMenuResult>), typeof(MaterialMenuButton));
+        public new static readonly BindableProperty CommandProperty = BindableProperty.Create(nameof(Command), typeof(Command<MaterialMenuResult>), typeof(MaterialMenuButton));
 
         /// <summary>
         /// Backing field for the bindable property <see cref="MenuTextColor"/>.
@@ -49,11 +49,6 @@ namespace XF.Material.Forms.UI
         /// Backing field for the bindable property <see cref="MenuTextFontFamily"/>.
         /// </summary>
         public static readonly BindableProperty MenuTextFontFamilyProperty = BindableProperty.Create(nameof(MenuTextFontFamily), typeof(string), typeof(MaterialMenuButton));
-
-        /// <summary>
-        /// Initializes a new instance of <see cref="MaterialMenuButton"/>.
-        /// </summary>
-        public MaterialMenuButton() { }
 
         /// <summary>
         /// Raised when a menu item was selected.

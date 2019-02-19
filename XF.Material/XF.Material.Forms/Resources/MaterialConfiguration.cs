@@ -3,6 +3,7 @@ using XF.Material.Forms.Resources.Typography;
 
 namespace XF.Material.Forms.Resources
 {
+    /// <inheritdoc />
     /// <summary>
     /// Class that provides Material theme configuration that will be applied in the current App.
     /// </summary>
@@ -23,7 +24,7 @@ namespace XF.Material.Forms.Resources
         /// </summary>
         public MaterialFontConfiguration FontConfiguration
         {
-            get => (MaterialFontConfiguration)GetValue(FontConfigurationProperty);
+            get => (MaterialFontConfiguration) this.GetValue(FontConfigurationProperty);
             set => this.SetValue(FontConfigurationProperty, value);
         }
 
@@ -32,7 +33,7 @@ namespace XF.Material.Forms.Resources
         /// </summary>
         public MaterialColorConfiguration ColorConfiguration
         {
-            get => (MaterialColorConfiguration)GetValue(ColorConfigurationProperty);
+            get => (MaterialColorConfiguration) this.GetValue(ColorConfigurationProperty);
             set => this.SetValue(ColorConfigurationProperty, value);
         }
     }

@@ -3,10 +3,8 @@ using Xamarin.Forms.Platform.iOS;
 using XF.Material.Forms.UI;
 using XF.Material.iOS.Renderers;
 using System.ComponentModel;
-using XF.Material.iOS.Delegates;
 using UIKit;
 using XF.Material.iOS.GestureRecognizers;
-using System;
 
 [assembly: ExportRenderer(typeof(MaterialCard), typeof(MaterialCardRenderer))]
 namespace XF.Material.iOS.Renderers
@@ -60,7 +58,7 @@ namespace XF.Material.iOS.Renderers
             _rippleColor = this.BackgroundColor.IsColorDark() ? Color.FromHex("#52FFFFFF").ToUIColor() : Color.FromHex("#52000000").ToUIColor();
         }
 
-        protected void SetIsClickable()
+        private void SetIsClickable()
         {
             var clickable = _materialCard.IsClickable;
             if (clickable)

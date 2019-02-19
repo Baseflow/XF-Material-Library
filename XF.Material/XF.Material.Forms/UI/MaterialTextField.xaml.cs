@@ -13,6 +13,7 @@ using XF.Material.Forms.UI.Internals;
 
 namespace XF.Material.Forms.UI
 {
+    /// <inheritdoc />
     /// <summary>
     /// A control that let users enter and edit text.
     /// </summary>
@@ -21,7 +22,7 @@ namespace XF.Material.Forms.UI
     {
         public static readonly BindableProperty AlwaysShowUnderlineProperty = BindableProperty.Create(nameof(AlwaysShowUnderline), typeof(bool), typeof(MaterialTextField), false);
 
-        public static new readonly BindableProperty BackgroundColorProperty = BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#DCDCDC"));
+        public new static readonly BindableProperty BackgroundColorProperty = BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#DCDCDC"));
 
         public static readonly BindableProperty ChoiceSelectedCommandProperty = BindableProperty.Create(nameof(ChoiceSelectedCommand), typeof(ICommand), typeof(MaterialTextField));
 
@@ -83,7 +84,7 @@ namespace XF.Material.Forms.UI
 
         private const double AnimationDuration = 0.35;
         private readonly Dictionary<string, Action> _propertyChangeActions;
-        private readonly Easing animationCurve = Easing.SinOut;
+        private readonly Easing _animationCurve = Easing.SinOut;
         private IList<string> _choices;
         private bool _counterEnabled;
         private bool _wasFocused;
@@ -478,7 +479,9 @@ namespace XF.Material.Forms.UI
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             base.OnPropertyChanged(propertyName);
-
+            
+            if(propertyName == null) return;
+            
             if (_propertyChangeActions != null && _propertyChangeActions.TryGetValue(propertyName, out var handlePropertyChange))
             {
                 handlePropertyChange();
@@ -507,12 +510,12 @@ namespace XF.Material.Forms.UI
                 {
                     0.0,
                     AnimationDuration,
-                    new Animation(v => placeholder.FontSize = v, startFont, endFOnt, animationCurve)
+                    new Animation(v => placeholder.FontSize = v, startFont, endFOnt, _animationCurve)
                 },
                 {
                     0.0,
                     AnimationDuration,
-                    new Animation(v => placeholder.TranslationY = v, startY, endY, animationCurve, () =>
+                    new Animation(v => placeholder.TranslationY = v, startY, endY, _animationCurve, () =>
                     {
                         if(this.HasError && entry.IsFocused)
                         {
@@ -526,11 +529,11 @@ namespace XF.Material.Forms.UI
 
             if (entry.IsFocused)
             {
-                anim.Add(0.0, AnimationDuration, new Animation(v => underline.WidthRequest = v, 0, this.Width, animationCurve, () => underline.HorizontalOptions = LayoutOptions.FillAndExpand));
+                anim.Add(0.0, AnimationDuration, new Animation(v => underline.WidthRequest = v, 0, this.Width, _animationCurve, () => underline.HorizontalOptions = LayoutOptions.FillAndExpand));
             }
             else
             {
-                anim.Add(0.0, AnimationDuration, new Animation(v => underline.HeightRequest = v, underline.HeightRequest, 0, animationCurve, () =>
+                anim.Add(0.0, AnimationDuration, new Animation(v => underline.HeightRequest = v, underline.HeightRequest, 0, _animationCurve, () =>
                 {
                     underline.WidthRequest = 0;
                     underline.HeightRequest = 2;
@@ -538,14 +541,14 @@ namespace XF.Material.Forms.UI
                 }));
             }
 
-            anim.Commit(this, "FocusAnimation", rate: 2, length: (uint)(Device.RuntimePlatform == Device.iOS ? 500 : AnimationDuration * 1000), easing: animationCurve);
+            anim.Commit(this, "FocusAnimation", rate: 2, length: (uint)(Device.RuntimePlatform == Device.iOS ? 500 : AnimationDuration * 1000), easing: _animationCurve);
         }
 
         private void AnimatePlaceHolderOnStart(object startObject)
         {
             if (startObject != null && !string.IsNullOrEmpty(this.Text) && !_wasFocused)
             {
-                if (placeholder.TranslationY == -12)
+                if (Math.Abs(placeholder.TranslationY - (-12)) < float.MinValue)
                 {
                     return;
                 }
@@ -557,16 +560,16 @@ namespace XF.Material.Forms.UI
 
                     if (this.FloatingPlaceholderEnabled)
                     {
-                        anim.Add(0.0, AnimationDuration, new Animation(v => placeholder.FontSize = v, 16, 12, animationCurve));
-                        anim.Add(0.0, AnimationDuration, new Animation(v => placeholder.TranslationY = v, placeholder.TranslationY, -12, animationCurve, () =>
+                        anim.Add(0.0, AnimationDuration, new Animation(v => placeholder.FontSize = v, 16, 12, _animationCurve));
+                        anim.Add(0.0, AnimationDuration, new Animation(v => placeholder.TranslationY = v, placeholder.TranslationY, -12, _animationCurve, () =>
                         {
                             placeholder.TextColor = this.HasError ? this.ErrorColor : this.TintColor;
                             entry.Opacity = 1;
                         }));
                     }
 
-                    anim.Add(0.0, AnimationDuration, new Animation(v => underline.WidthRequest = v, 0, this.Width, animationCurve, () => underline.HorizontalOptions = LayoutOptions.FillAndExpand));
-                    anim.Commit(this, "Anim2", rate: 2, length: (uint)(AnimationDuration * 1000), easing: animationCurve);
+                    anim.Add(0.0, AnimationDuration, new Animation(v => underline.WidthRequest = v, 0, this.Width, _animationCurve, () => underline.HorizontalOptions = LayoutOptions.FillAndExpand));
+                    anim.Commit(this, "Anim2", rate: 2, length: (uint)(AnimationDuration * 1000), easing: _animationCurve);
                 });
 
                 entry.Opacity = 1;
@@ -574,8 +577,8 @@ namespace XF.Material.Forms.UI
                 return;
             }
 
-            if ((startObject == null || !string.IsNullOrEmpty(this.Text) || placeholder.TranslationY != -12) &&
-                placeholder.TranslationY != -20) return;
+            if ((startObject == null || !string.IsNullOrEmpty(this.Text) || Math.Abs(placeholder.TranslationY - (-12)) > float.MinValue) &&
+                Math.Abs(placeholder.TranslationY - (-20)) > float.MinValue) return;
             {
                 if (entry.IsFocused)
                 {
@@ -588,16 +591,16 @@ namespace XF.Material.Forms.UI
 
                     if (this.FloatingPlaceholderEnabled)
                     {
-                        anim.Add(0.0, AnimationDuration, new Animation(v => placeholder.FontSize = v, 12, 16, animationCurve));
-                        anim.Add(0.0, AnimationDuration, new Animation(v => placeholder.TranslationY = v, placeholder.TranslationY, 0, animationCurve, () =>
+                        anim.Add(0.0, AnimationDuration, new Animation(v => placeholder.FontSize = v, 12, 16, _animationCurve));
+                        anim.Add(0.0, AnimationDuration, new Animation(v => placeholder.TranslationY = v, placeholder.TranslationY, 0, _animationCurve, () =>
                         {
                             placeholder.TextColor = this.PlaceholderColor;
                             entry.Opacity = 1;
                         }));
                     }
 
-                    anim.Add(0.0, AnimationDuration, new Animation(v => underline.WidthRequest = v, this.Width, 0, animationCurve, () => underline.HorizontalOptions = LayoutOptions.Center));
-                    anim.Commit(this, "Anim2", rate: 2, length: (uint)(AnimationDuration * 1000), easing: animationCurve);
+                    anim.Add(0.0, AnimationDuration, new Animation(v => underline.WidthRequest = v, this.Width, 0, _animationCurve, () => underline.HorizontalOptions = LayoutOptions.Center));
+                    anim.Commit(this, "Anim2", rate: 2, length: (uint)(AnimationDuration * 1000), easing: _animationCurve);
                 });
             }
         }
@@ -615,14 +618,14 @@ namespace XF.Material.Forms.UI
 
             await Task.WhenAll
             (
-                helper.FadeTo(0, animDuration / 2, animationCurve).ContinueWith(delegate
+                helper.FadeTo(0, animDuration / 2, _animationCurve).ContinueWith(delegate
                 {
                     Device.BeginInvokeOnMainThread(async () =>
                     {
                         helper.TranslationY = -4;
                         helper.TextColor = this.ErrorColor;
                         helper.Text = this.ErrorText;
-                        await Task.WhenAll(helper.FadeTo(1, animDuration / 2, animationCurve), helper.TranslateTo(0, 0, animDuration / 2, animationCurve));
+                        await Task.WhenAll(helper.FadeTo(1, animDuration / 2, _animationCurve), helper.TranslateTo(0, 0, animDuration / 2, _animationCurve));
                     });
                 })
             );
@@ -654,17 +657,17 @@ namespace XF.Material.Forms.UI
                 counter.TextColor = this.HelperTextColor;
                 underline.Color = accentColor;
                 persistentUnderline.Color = this.UnderlineColor;
-                await helper.FadeTo(0, 150, animationCurve);
+                await helper.FadeTo(0, 150, _animationCurve);
                 helper.TranslationY = -4;
                 helper.TextColor = this.HelperTextColor;
                 helper.Text = this.HelperText;
-                await Task.WhenAll(helper.FadeTo(1, 150, animationCurve), helper.TranslateTo(0, 0, 150, animationCurve));
+                await Task.WhenAll(helper.FadeTo(1, 150, _animationCurve), helper.TranslateTo(0, 0, 150, _animationCurve));
             });
         }
 
         private void Entry_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(Entry.IsFocused))
+            if (e.PropertyName == nameof(this.IsFocused))
             {
                 _wasFocused = true;
                 this.FocusCommand?.Execute(entry.IsFocused);
@@ -674,7 +677,7 @@ namespace XF.Material.Forms.UI
 
             switch (e.PropertyName)
             {
-                case nameof(Entry.IsFocused) when string.IsNullOrEmpty(entry.Text):
+                case nameof(this.IsFocused) when string.IsNullOrEmpty(entry.Text):
                     this.AnimatePlaceHolder();
                     break;
                 case nameof(Entry.Text):
@@ -982,6 +985,7 @@ namespace XF.Material.Forms.UI
 
         private void SetPropertyChangeHandler(ref Dictionary<string, Action> propertyChangeActions)
         {
+            if (propertyChangeActions == null) throw new ArgumentNullException(nameof(propertyChangeActions));
             propertyChangeActions = new Dictionary<string, Action>
             {
                 { nameof(this.Text), () => this.OnTextChanged(this.Text) },

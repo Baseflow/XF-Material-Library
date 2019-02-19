@@ -68,15 +68,9 @@ namespace XF.Material.Droid.Renderers
                         this.UpdateDrawable();
                     }
                 },
-                { nameof(IMaterialButtonControl.Elevation), () =>
-                    {
-                        this.UpdateElevation();
-                    }
+                { nameof(IMaterialButtonControl.Elevation), this.UpdateElevation
                 },
-                { nameof(VisualElement.IsEnabled), () =>
-                    {
-                        this.UpdateElevation();
-                    }
+                { nameof(VisualElement.IsEnabled), this.UpdateElevation
                 },
             };
 
@@ -104,7 +98,10 @@ namespace XF.Material.Droid.Renderers
 
         private void BindableButton_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (_propertyChangeActions != null && _propertyChangeActions.TryGetValue(e?.PropertyName, out var handlePropertyChange))
+            var prop = e?.PropertyName;
+
+            if (prop == null) return;
+            if (_propertyChangeActions != null && _propertyChangeActions.TryGetValue(prop, out var handlePropertyChange))
             {
                 handlePropertyChange();
             }
@@ -112,11 +109,12 @@ namespace XF.Material.Droid.Renderers
 
         private GradientDrawable CreateShapeDrawable(float cornerRadius, int borderWidth, Color backgroundColor, Color borderColor)
         {
-            GradientDrawable shapeDrawable = null;
+            GradientDrawable shapeDrawable;
 
             if (_button.ButtonType != MaterialButtonType.Text)
             {
-                shapeDrawable = _withIcon ? MaterialHelper.GetDrawableCopyFromResource<GradientDrawable>(Resource.Drawable.drawable_shape_with_icon) : MaterialHelper.GetDrawableCopyFromResource<GradientDrawable>(Resource.Drawable.drawable_shape);
+                shapeDrawable = _withIcon ? MaterialHelper.GetDrawableCopyFromResource<GradientDrawable>(Resource.Drawable.drawable_shape_with_icon) 
+                                          : MaterialHelper.GetDrawableCopyFromResource<GradientDrawable>(Resource.Drawable.drawable_shape);
             }
             else
             {
@@ -138,15 +136,14 @@ namespace XF.Material.Droid.Renderers
             if (Material.IsLollipop)
             {
                 var rippleDrawable = this.GetRippleDrawable();
-                var insetDrawable = rippleDrawable.FindDrawableByLayerId(Resource.Id.inset_drawable) as InsetDrawable;
-                if (insetDrawable != null)
+                if (rippleDrawable.FindDrawableByLayerId(Resource.Id.inset_drawable) is InsetDrawable insetDrawable)
                 {
                     var stateListDrawable = insetDrawable.Drawable as StateListDrawable;
                     SetStates(stateListDrawable, normalStateDrawable, normalStateDrawable, disabledStateDrawable);
                 }
 
-                rippleDrawable.SetColor(new ColorStateList(new int[][]
-                {
+                rippleDrawable.SetColor(new ColorStateList(new[]
+                    {
                     new int[]{}
                 },
                 new int[]
@@ -159,8 +156,8 @@ namespace XF.Material.Droid.Renderers
             else
             {
                 var pressedStateDrawable = this.CreateShapeDrawable(_cornerRadius, _borderWidth, _pressedColor, _enabledBorderColor);
-                StateListDrawable stateListDrawable = null;
-                Drawable backgroundDrawable = null;
+                StateListDrawable stateListDrawable;
+                Drawable backgroundDrawable;
 
                 if (Material.IsJellyBean)
                 {
@@ -182,7 +179,7 @@ namespace XF.Material.Droid.Renderers
 
         private RippleDrawable GetRippleDrawable()
         {
-            RippleDrawable rippleDrawable = null;
+            RippleDrawable rippleDrawable;
 
             if (_button.ButtonType == MaterialButtonType.Text || _button.ButtonType == MaterialButtonType.Outlined)
             {
@@ -210,10 +207,10 @@ namespace XF.Material.Droid.Renderers
 
         private static void SetStates(StateListDrawable stateListDrawable, Drawable normalDrawable, Drawable pressedDrawable, Drawable disabledDrawable)
         {
-            stateListDrawable.AddState(new int[] { Android.Resource.Attribute.StatePressed }, pressedDrawable);
-            stateListDrawable.AddState(new int[] { Android.Resource.Attribute.StateFocused, Android.Resource.Attribute.StateEnabled }, pressedDrawable);
-            stateListDrawable.AddState(new int[] { Android.Resource.Attribute.StateEnabled }, normalDrawable);
-            stateListDrawable.AddState(new int[] { Android.Resource.Attribute.StateFocused }, pressedDrawable);
+            stateListDrawable.AddState(new[] { Android.Resource.Attribute.StatePressed }, pressedDrawable);
+            stateListDrawable.AddState(new[] { Android.Resource.Attribute.StateFocused, Android.Resource.Attribute.StateEnabled }, pressedDrawable);
+            stateListDrawable.AddState(new[] { Android.Resource.Attribute.StateEnabled }, normalDrawable);
+            stateListDrawable.AddState(new[] { Android.Resource.Attribute.StateFocused }, pressedDrawable);
             stateListDrawable.AddState(new int[] { }, disabledDrawable);
         }
 
@@ -303,10 +300,10 @@ namespace XF.Material.Droid.Renderers
             bb.SetTarget(_aView);
 
 
-            stateListAnimator.AddState(new int[] { R.Attribute.StatePressed }, bb);
-            stateListAnimator.AddState(new int[] { R.Attribute.StateFocused, R.Attribute.StateEnabled }, bb);
-            stateListAnimator.AddState(new int[] { R.Attribute.StateEnabled }, b);
-            stateListAnimator.AddState(new int[] { R.Attribute.StateFocused }, bb);
+            stateListAnimator.AddState(new[] { R.Attribute.StatePressed }, bb);
+            stateListAnimator.AddState(new[] { R.Attribute.StateFocused, R.Attribute.StateEnabled }, bb);
+            stateListAnimator.AddState(new[] { R.Attribute.StateEnabled }, b);
+            stateListAnimator.AddState(new[] { R.Attribute.StateFocused }, bb);
 
             if (!(_aView is AppCompatImageButton)) return stateListAnimator;
             _aView.OutlineProvider = new MaterialOutlineProvider(_button.CornerRadius);

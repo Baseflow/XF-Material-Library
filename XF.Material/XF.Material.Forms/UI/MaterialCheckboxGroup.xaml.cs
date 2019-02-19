@@ -9,6 +9,7 @@ using XF.Material.Forms.UI.Internals;
 
 namespace XF.Material.Forms.UI
 {
+    /// <inheritdoc />
     /// <summary>
     /// A control that allow user to select one or more items from a set.
     /// </summary>
@@ -74,9 +75,10 @@ namespace XF.Material.Forms.UI
 
             for (var i = 0; i < this.Choices.Count; i++)
             {
+                var i1 = i;
                 var model = new MaterialSelectionControlModel
                 {
-                    SelectedChangeCommand = new Command<bool>((isSelected) => this.CheckboxSelected(isSelected, i)),
+                    SelectedChangeCommand = new Command<bool>((isSelected) => this.CheckboxSelected(isSelected, i1)),
                     Text = this.Choices[i],
                     HorizontalSpacing = this.HorizontalSpacing,
                     FontFamily = this.FontFamily,

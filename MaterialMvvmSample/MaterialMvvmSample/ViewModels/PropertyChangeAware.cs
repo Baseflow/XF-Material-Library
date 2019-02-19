@@ -4,13 +4,15 @@ using System.Runtime.CompilerServices;
 
 namespace MaterialMvvmSample.ViewModels
 {
-    /// <summary>
-    /// An abstract class that implements the <see cref="INotifyPropertyChanged"/> interface.
-    ///</summary>
+    /// <inheritdoc />
+    ///  <summary>
+    ///  An abstract class that implements the <see cref="T:System.ComponentModel.INotifyPropertyChanged" /> interface.
+    /// </summary>
     public abstract class PropertyChangeAware : INotifyPropertyChanged
     {
+        /// <inheritdoc />
         /// <summary>
-        /// Raised when any properties on this instance have changed by using the <see cref="PropertyChangeAware.Set{T}(ref T, T, string)"/> method.
+        /// Raised when any properties on this instance have changed by using the <see cref="M:MaterialMvvmSample.ViewModels.PropertyChangeAware.Set``1(``0@,``0,System.String)" /> method.
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -25,11 +27,9 @@ namespace MaterialMvvmSample.ViewModels
         {
             if (!EqualityComparer<T>.Default.Equals(field, default(T)))
             {
-                if (!field.Equals(newValue))
-                {
-                    field = newValue;
-                    this.OnPropertyChanged(propertyName);
-                }
+                if (field.Equals(newValue)) return;
+                field = newValue;
+                this.OnPropertyChanged(propertyName);
             }
 
             else if (!EqualityComparer<T>.Default.Equals(newValue, default(T)))
@@ -45,7 +45,7 @@ namespace MaterialMvvmSample.ViewModels
         /// <param name="propertyName">The name of the property who's value has changed.</param>
         protected virtual void OnPropertyChanged([CallerMemberName]string propertyName = null)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

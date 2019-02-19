@@ -7,6 +7,7 @@ using XF.Material.Forms.UI.Internals;
 
 namespace XF.Material.Forms.UI
 {
+    /// <inheritdoc />
     /// <summary>
     /// A control that allow users to make selections from a range of values.
     /// </summary>
@@ -108,7 +109,7 @@ namespace XF.Material.Forms.UI
             {
                 var oldVal = (double)this.GetValue(ValueProperty);
 
-                if (oldVal != value)
+                if (Math.Abs(oldVal - value) > float.MinValue)
                 {
                     this.OnValueChanged(oldVal, value);
                 }
@@ -153,7 +154,7 @@ namespace XF.Material.Forms.UI
         {
             base.LayoutChildren(x, y, width, height);
 
-            if (width * height == 0 || !(this.Value > 0) || _draggerTranslatedInitially) return;
+            if (Math.Abs(width * height) < float.MinValue || !(this.Value > 0) || _draggerTranslatedInitially) return;
             this.AnimateDragger();
             _x = Dragger.TranslationX;
             _draggerTranslatedInitially = true;
@@ -184,7 +185,7 @@ namespace XF.Material.Forms.UI
         {
             base.OnSizeAllocated(width, height);
 
-            if (_lastWidth == width && _lastHeight == height) return;
+            if (Math.Abs(_lastWidth - width) < float.MinValue && Math.Abs(_lastHeight - height) < float.MinValue) return;
             _lastWidth = width;
             _lastHeight = height;
 
