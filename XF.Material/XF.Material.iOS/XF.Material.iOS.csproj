@@ -1,16 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project
-  ToolsVersion="4.0"
-  DefaultTargets="Build"
-  xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import
-    Project="..\..\packages\Xamarin.Forms.3.5.0.129452\build\Xamarin.Forms.props"
-    Condition="Exists('..\..\packages\Xamarin.Forms.3.5.0.129452\build\Xamarin.Forms.props')" />
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\packages\Xamarin.Forms.3.5.0.129452\build\Xamarin.Forms.props" Condition="Exists('..\..\packages\Xamarin.Forms.3.5.0.129452\build\Xamarin.Forms.props')" />
   <PropertyGroup>
-    <Configuration
-      Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform
-      Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{E71F3053-056C-4381-9638-048ED73BDFF6}</ProjectGuid>
@@ -23,8 +16,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
-  <PropertyGroup
-    Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -34,8 +26,7 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
-  <PropertyGroup
-    Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release</OutputPath>
@@ -45,8 +36,7 @@
     <DocumentationFile>bin\Release\XF.Material.iOS.xml</DocumentationFile>
     <NoWarn>1591</NoWarn>
   </PropertyGroup>
-  <PropertyGroup
-    Condition="'$(Configuration)|$(Platform)' == 'iOS Release|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'iOS Release|AnyCPU'">
     <OutputPath>bin\iOS Release\</OutputPath>
     <DefineConstants>__IOS__;__MOBILE__;__UNIFIED__;</DefineConstants>
     <DocumentationFile>bin\Release\XF.Material.iOS.xml</DocumentationFile>
@@ -58,185 +48,126 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference
-      Include="Lottie.Forms, Version=2.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Lottie.Forms, Version=2.7.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Com.Airbnb.Xamarin.Forms.Lottie.2.7.0\lib\xamarinios10\Lottie.Forms.dll</HintPath>
     </Reference>
-    <Reference
-      Include="Lottie.iOS, Version=2.5.6.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Lottie.iOS, Version=2.5.6.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Com.Airbnb.iOS.Lottie.2.5.6\lib\xamarinios10\Lottie.iOS.dll</HintPath>
     </Reference>
-    <Reference
-      Include="Rg.Plugins.Popup, Version=1.1.5.188, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Rg.Plugins.Popup, Version=1.1.5.188, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Rg.Plugins.Popup.1.1.5.188\lib\Xamarin.IOS\Rg.Plugins.Popup.dll</HintPath>
     </Reference>
-    <Reference
-      Include="Rg.Plugins.Popup.IOS, Version=1.1.5.188, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Rg.Plugins.Popup.IOS, Version=1.1.5.188, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Rg.Plugins.Popup.1.1.5.188\lib\Xamarin.IOS\Rg.Plugins.Popup.IOS.dll</HintPath>
     </Reference>
-    <Reference
-      Include="System" />
-    <Reference
-      Include="System.Xml" />
-    <Reference
-      Include="System.Core" />
-    <Reference
-      Include="Xamarin.Essentials, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="Xamarin.Essentials, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Xamarin.Essentials.1.0.1\lib\xamarinios10\Xamarin.Essentials.dll</HintPath>
     </Reference>
-    <Reference
-      Include="Xamarin.Forms.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Xamarin.Forms.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Xamarin.Forms.3.5.0.129452\lib\Xamarin.iOS10\Xamarin.Forms.Core.dll</HintPath>
     </Reference>
-    <Reference
-      Include="Xamarin.Forms.Platform, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Xamarin.Forms.Platform, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Xamarin.Forms.3.5.0.129452\lib\Xamarin.iOS10\Xamarin.Forms.Platform.dll</HintPath>
     </Reference>
-    <Reference
-      Include="Xamarin.Forms.Platform.iOS, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Xamarin.Forms.Platform.iOS, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Xamarin.Forms.3.5.0.129452\lib\Xamarin.iOS10\Xamarin.Forms.Platform.iOS.dll</HintPath>
     </Reference>
-    <Reference
-      Include="Xamarin.Forms.Xaml, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Xamarin.Forms.Xaml, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Xamarin.Forms.3.5.0.129452\lib\Xamarin.iOS10\Xamarin.Forms.Xaml.dll</HintPath>
     </Reference>
-    <Reference
-      Include="Xamarin.iOS" />
+    <Reference Include="Xamarin.iOS" />
   </ItemGroup>
   <ItemGroup>
-    <Compile
-      Include="Material.cs" />
-    <Compile
-      Include="MaterialHelper.cs" />
-    <Compile
-      Include="Delegates\MaterialRippleGestureRecognizerDelegate.cs" />
-    <Compile
-      Include="Properties\AssemblyInfo.cs" />
-    <Compile
-      Include="Renderers\Internals\MaterialBoxViewRenderer.cs" />
-    <Compile
-      Include="Renderers\Internals\MaterialElementRenderer.cs" />
-    <Compile
-      Include="Renderers\Internals\MaterialEntryRenderer.cs" />
-    <Compile
-      Include="Renderers\MaterialButtonRenderer.cs" />
-    <Compile
-      Include="Renderers\MaterialCardRenderer.cs" />
-    <Compile
-      Include="Renderers\MaterialCircularLoadingViewRenderer.cs" />
-    <Compile
-      Include="Renderers\MaterialIconRenderer.cs" />
-    <Compile
-      Include="Renderers\MaterialLabelRenderer.cs" />
-    <Compile
-      Include="Renderers\MaterialMenuRenderer.cs" />
-    <Compile
-      Include="Renderers\MaterialNavigationPageRenderer.cs" />
-    <Compile
-      Include="Utility\MaterialUtility.cs" />
-    <Compile
-      Include="GestureRecognizers\MaterialRippleGestureRecognizer.cs" />
+    <Compile Include="Material.cs" />
+    <Compile Include="MaterialHelper.cs" />
+    <Compile Include="Delegates\MaterialRippleGestureRecognizerDelegate.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Renderers\Internals\MaterialBoxViewRenderer.cs" />
+    <Compile Include="Renderers\Internals\MaterialElementRenderer.cs" />
+    <Compile Include="Renderers\Internals\MaterialEntryRenderer.cs" />
+    <Compile Include="Renderers\MaterialButtonRenderer.cs" />
+    <Compile Include="Renderers\MaterialCardRenderer.cs" />
+    <Compile Include="Renderers\MaterialCircularLoadingViewRenderer.cs" />
+    <Compile Include="Renderers\MaterialIconRenderer.cs" />
+    <Compile Include="Renderers\MaterialLabelRenderer.cs" />
+    <Compile Include="Renderers\MaterialMenuRenderer.cs" />
+    <Compile Include="Renderers\MaterialNavigationPageRenderer.cs" />
+    <Compile Include="Utility\MaterialUtility.cs" />
+    <Compile Include="GestureRecognizers\MaterialRippleGestureRecognizer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource
-      Include="Resources\xf_error%402x.png" />
-    <BundleResource
-      Include="Resources\xf_error%403x.png" />
-    <BundleResource
-      Include="Resources\xf_error.png" />
-    <BundleResource
-      Include="Resources\loading_animation.json" />
+    <BundleResource Include="Resources\xf_error%402x.png" />
+    <BundleResource Include="Resources\xf_error%403x.png" />
+    <BundleResource Include="Resources\xf_error.png" />
+    <BundleResource Include="Resources\loading_animation.json" />
   </ItemGroup>
   <ItemGroup>
-    <None
-      Include="packages.config">
+    <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference
-      Include="..\XF.Material.Forms\XF.Material.Forms.csproj">
-      <Project>{caf232f8-446a-41b1-b837-006ff5de9a60}</Project>
+    <ProjectReference Include="..\XF.Material.Forms\XF.Material.Forms.csproj">
+      <Project>{C314D3B8-EAEB-491D-AB5E-8C9A43EAC131}</Project>
       <Name>XF.Material.Forms</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <BundleResource
-      Include="Resources\xf_checkbox_unselected%403x.png" />
+    <BundleResource Include="Resources\xf_checkbox_unselected%403x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource
-      Include="Resources\xf_checkbox_selected.png" />
+    <BundleResource Include="Resources\xf_checkbox_selected.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource
-      Include="Resources\xf_checkbox_selected%402x.png" />
+    <BundleResource Include="Resources\xf_checkbox_selected%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource
-      Include="Resources\xf_checkbox_selected%403x.png" />
+    <BundleResource Include="Resources\xf_checkbox_selected%403x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource
-      Include="Resources\xf_checkbox_unselected.png" />
+    <BundleResource Include="Resources\xf_checkbox_unselected.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource
-      Include="Resources\xf_checkbox_unselected%402x.png" />
+    <BundleResource Include="Resources\xf_checkbox_unselected%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource
-      Include="Resources\xf_radio_button_unselected%403x.png" />
+    <BundleResource Include="Resources\xf_radio_button_unselected%403x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource
-      Include="Resources\xf_radio_button_selected.png" />
+    <BundleResource Include="Resources\xf_radio_button_selected.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource
-      Include="Resources\xf_radio_button_selected%402x.png" />
+    <BundleResource Include="Resources\xf_radio_button_selected%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource
-      Include="Resources\xf_radio_button_selected%403x.png" />
+    <BundleResource Include="Resources\xf_radio_button_selected%403x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource
-      Include="Resources\xf_radio_button_unselected.png" />
+    <BundleResource Include="Resources\xf_radio_button_unselected.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource
-      Include="Resources\xf_radio_button_unselected%402x.png" />
+    <BundleResource Include="Resources\xf_radio_button_unselected%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource
-      Include="Resources\xf_arrow_dropdown.png" />
+    <BundleResource Include="Resources\xf_arrow_dropdown.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource
-      Include="Resources\xf_arrow_dropdown%402x.png" />
+    <BundleResource Include="Resources\xf_arrow_dropdown%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource
-      Include="Resources\xf_arrow_dropdown%403x.png" />
+    <BundleResource Include="Resources\xf_arrow_dropdown%403x.png" />
   </ItemGroup>
   <ItemGroup />
-  <Import
-    Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
-  <Target
-    Name="EnsureNuGetPackageBuildImports"
-    BeforeTargets="PrepareForBuild">
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error
-      Condition="!Exists('..\..\packages\Xamarin.Forms.3.5.0.129452\build\Xamarin.Forms.props')"
-      Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Forms.3.5.0.129452\build\Xamarin.Forms.props'))" />
-    <Error
-      Condition="!Exists('..\..\packages\Xamarin.Forms.3.5.0.129452\build\Xamarin.Forms.targets')"
-      Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Forms.3.5.0.129452\build\Xamarin.Forms.targets'))" />
+    <Error Condition="!Exists('..\..\packages\Xamarin.Forms.3.5.0.129452\build\Xamarin.Forms.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Forms.3.5.0.129452\build\Xamarin.Forms.props'))" />
+    <Error Condition="!Exists('..\..\packages\Xamarin.Forms.3.5.0.129452\build\Xamarin.Forms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Forms.3.5.0.129452\build\Xamarin.Forms.targets'))" />
   </Target>
-  <Import
-    Project="..\..\packages\Xamarin.Forms.3.5.0.129452\build\Xamarin.Forms.targets"
-    Condition="Exists('..\..\packages\Xamarin.Forms.3.5.0.129452\build\Xamarin.Forms.targets')" />
+  <Import Project="..\..\packages\Xamarin.Forms.3.5.0.129452\build\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.3.5.0.129452\build\Xamarin.Forms.targets')" />
 </Project>
