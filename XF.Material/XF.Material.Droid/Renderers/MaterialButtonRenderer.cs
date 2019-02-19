@@ -26,7 +26,9 @@ namespace XF.Material.Droid.Renderers
         {
             base.OnElementChanged(e);
 
-            if(e?.OldElement != null)
+            if (this.Control == null) return;
+
+            if (e?.OldElement != null)
             {
                 _helper.Clean();
             }
@@ -47,6 +49,8 @@ namespace XF.Material.Droid.Renderers
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             base.OnElementPropertyChanged(sender, e);
+
+            if (this.Control == null) return;
 
             switch (e?.PropertyName)
             {
@@ -88,12 +92,12 @@ namespace XF.Material.Droid.Renderers
         }
         private void SetTextColors()
         {
-            var states = new int[][]
+            var states = new[]
             {
-                new int[] { Android.Resource.Attribute.StatePressed },
-                new int[] { Android.Resource.Attribute.StateFocused, Android.Resource.Attribute.StateEnabled },
-                new int[] { Android.Resource.Attribute.StateEnabled },
-                new int[] { Android.Resource.Attribute.StateFocused },
+                new[] { Android.Resource.Attribute.StatePressed },
+                new[] { Android.Resource.Attribute.StateFocused, Android.Resource.Attribute.StateEnabled },
+                new[] { Android.Resource.Attribute.StateEnabled },
+                new[] { Android.Resource.Attribute.StateFocused },
                 new int[] { }
             };
 

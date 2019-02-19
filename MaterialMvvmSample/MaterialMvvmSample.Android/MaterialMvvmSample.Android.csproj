@@ -131,7 +131,7 @@
       <Name>MaterialMvvmSample.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\MaterialMvvmSample\MaterialMvvmSample.csproj">
-      <Project>{50937322-AA9B-40B5-8544-6468DBCFEBE8}</Project>
+      <Project>{BA3F5DF0-18B8-43EC-9EB7-A4C6B23DE7BB}</Project>
       <Name>MaterialMvvmSample</Name>
     </ProjectReference>
   </ItemGroup>

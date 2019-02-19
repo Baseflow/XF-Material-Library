@@ -215,7 +215,7 @@ namespace XF.Material.Forms.UI
         {
             var page = sender as Page;
 
-            if (e?.PropertyName == nameof(this.Title) && page.GetValue(TitleViewProperty) is TitleLabel label)
+            if (e?.PropertyName == nameof(this.Title) && page?.GetValue(TitleViewProperty) is TitleLabel label)
             {
                 label.Text = page.Title;
             }

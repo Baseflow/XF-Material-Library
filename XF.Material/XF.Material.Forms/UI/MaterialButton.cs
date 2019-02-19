@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
@@ -17,7 +18,7 @@ namespace XF.Material.Forms.UI
 
         public static readonly BindableProperty AllCapsProperty = BindableProperty.Create(nameof(AllCaps), typeof(bool), typeof(MaterialButton), true);
 
-        public static new readonly BindableProperty BackgroundColorProperty = BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(MaterialButton), Material.Color.Secondary);
+        public new static readonly BindableProperty BackgroundColorProperty = BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(MaterialButton), Material.Color.Secondary);
 
         public static readonly BindableProperty ButtonTypeProperty = BindableProperty.Create(nameof(ButtonType), typeof(MaterialButtonType), typeof(MaterialButton), MaterialButtonType.Elevated);
 
@@ -29,7 +30,7 @@ namespace XF.Material.Forms.UI
 
         public static readonly BindableProperty ElevationProperty = BindableProperty.Create(nameof(Elevation), typeof(MaterialElevation), typeof(MaterialButton), new MaterialElevation(2, 8));
 
-        private readonly string[] _colorPropertyNames = new string[] { nameof(BackgroundColor), nameof(PressedBackgroundColor), nameof(DisabledBackgroundColor) };
+        private readonly string[] _colorPropertyNames = { nameof(BackgroundColor), nameof(PressedBackgroundColor), nameof(DisabledBackgroundColor) };
 
         public MaterialButton()
         {
@@ -141,7 +142,7 @@ namespace XF.Material.Forms.UI
                 this.BorderColor = OutlinedBorderColor;
             }
 
-            if (buttonType == MaterialButtonType.Outlined && this.BorderWidth == (double)BorderWidthProperty.DefaultValue)
+            if (buttonType == MaterialButtonType.Outlined && Math.Abs(this.BorderWidth - (double)BorderWidthProperty.DefaultValue) < float.MinValue)
             {
                 this.BorderWidth = 1;
             }

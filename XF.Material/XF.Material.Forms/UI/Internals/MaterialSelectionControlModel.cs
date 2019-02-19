@@ -10,7 +10,7 @@ namespace XF.Material.Forms.UI.Internals
         public int Index
         {
             get => _index;
-            set => Set(ref _index, value);
+            set => this.Set(ref _index, value);
         }
 
         private string _text;

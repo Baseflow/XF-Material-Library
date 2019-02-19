@@ -1,5 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
@@ -7,41 +7,35 @@
     <RootNamespace>XF.Material.Forms</RootNamespace>
     <Configurations>Debug;Release;iOS Release</Configurations>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>bin\Release\netstandard2.0\XF.Material.Forms.xml</DocumentationFile>
-    <OutputPath></OutputPath>
+    <OutputPath>
+    </OutputPath>
     <NoWarn>1701;1702;1591</NoWarn>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='iOS Release|AnyCPU'">
     <DocumentationFile>bin\Release\netstandard2.0\XF.Material.Forms.xml</DocumentationFile>
     <OutputPath />
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <NoWarn>1701;1702</NoWarn>
   </PropertyGroup>
-
   <ItemGroup>
     <Compile Remove="UI\Dialogs\MaterialDialogs.cs" />
     <Compile Remove="MaterialStyles.xaml.cs" />
     <Compile Remove="UI\Internals\MaterialInputDialogTextField.xaml.cs" />
     <Compile Remove="UI\MaterialIconButton.cs" />
   </ItemGroup>
-
   <ItemGroup>
     <EmbeddedResource Remove="MaterialStyles.xaml" />
     <EmbeddedResource Remove="UI\Internals\MaterialInputDialogTextField.xaml" />
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie" Version="2.7.0" />
     <PackageReference Include="Rg.Plugins.Popup" Version="1.1.5.188" />
     <PackageReference Include="Xamarin.Essentials" Version="1.0.1" />
     <PackageReference Include="Xamarin.Forms" Version="3.5.0.129452" />
   </ItemGroup>
-
   <ItemGroup>
     <Compile Update="UI\Dialogs\MaterialAlertDialog.xaml.cs">
       <DependentUpon>MaterialAlertDialog.xaml</DependentUpon>
@@ -53,7 +47,6 @@
       <DependentUpon>MaterialSizes.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
-
   <ItemGroup>
     <EmbeddedResource Update="UI\Dialogs\MaterialAlertDialog.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
@@ -107,7 +100,6 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
-
   <ItemGroup>
     <None Update="MaterialStyles.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -193,5 +185,11 @@
     <None Update="Views\MaterialTextField.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Service\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\XF.Material.Core\XF.Material.Core.csproj" />
   </ItemGroup>
 </Project>

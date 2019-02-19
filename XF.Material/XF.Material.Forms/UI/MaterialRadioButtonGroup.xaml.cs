@@ -91,7 +91,7 @@ namespace XF.Material.Forms.UI
 
         protected override SizeRequest OnMeasure(double widthConstraint, double heightConstraint)
         {
-            if (widthConstraint * heightConstraint != 0 && this.SelectedIndex >= 0)
+            if (Math.Abs(widthConstraint * heightConstraint) > float.MinValue && this.SelectedIndex >= 0)
             {
                 _selectedModel = this.Models[this.SelectedIndex];
             }

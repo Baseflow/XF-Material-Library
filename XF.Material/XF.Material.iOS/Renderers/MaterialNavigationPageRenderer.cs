@@ -15,8 +15,10 @@ namespace XF.Material.iOS.Renderers
     {
         private MaterialNavigationPage _navigationPage;
 
-        public void ChangeHasShadow(bool hasShadow)
+        private void ChangeHasShadow(bool hasShadow)
         {
+            if (this.NavigationBar == null || this.NavigationBar.Layer == null) return;
+
             if (hasShadow)
             {
                 this.NavigationBar.Layer.MasksToBounds = false;

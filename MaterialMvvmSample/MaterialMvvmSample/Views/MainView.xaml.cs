@@ -17,7 +17,7 @@ namespace MaterialMvvmSample.Views
             this.InitializeComponent();
         }
 
-        private void MaterialTextField_TextChanged(object sender, Xamarin.Forms.TextChangedEventArgs e)
+        private void MaterialTextField_TextChanged(object sender, TextChangedEventArgs e)
         {
             (sender as MaterialTextField).HasError = string.IsNullOrEmpty(e.NewTextValue);
         }

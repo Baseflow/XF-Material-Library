@@ -97,13 +97,13 @@ namespace XF.Material.Forms.UI.Dialogs
             PositiveButton.FontFamily = NegativeButton.FontFamily = preferredConfig.ButtonFontFamily;
         }
 
-        private async void NegativeButton_Clicked(object sender, System.EventArgs e)
+        private async void NegativeButton_Clicked(object sender, EventArgs e)
         {
             await this.DismissAsync();
             this.InputTaskCompletionSource?.SetResult(false);
         }
 
-        private async void PositiveButton_Clicked(object sender, System.EventArgs e)
+        private async void PositiveButton_Clicked(object sender, EventArgs e)
         {
             await this.DismissAsync();
             this.InputTaskCompletionSource?.SetResult(true);

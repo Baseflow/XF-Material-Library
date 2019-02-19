@@ -80,7 +80,7 @@ namespace XF.Material.iOS.Renderers
             var attributeRange = new NSRange(0, uiLabel.Text.Length);
             var pAttribute = new NSMutableParagraphStyle();
 
-            if (lineSpacing == 0)
+            if (Math.Abs(lineSpacing) < float.MinValue)
             {
                 pAttribute.LineSpacing = 0;
             }

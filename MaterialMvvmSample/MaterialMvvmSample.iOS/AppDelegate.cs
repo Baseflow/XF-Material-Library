@@ -15,7 +15,7 @@ namespace MaterialMvvmSample.iOS
             var appContainer = new PlatformContainer();
             appContainer.Setup();
 
-            LoadApplication(CommonServiceLocator.ServiceLocator.Current.GetInstance<App>());
+            this.LoadApplication(CommonServiceLocator.ServiceLocator.Current.GetInstance<App>());
 
             return base.FinishedLaunching(uiApplication, launchOptions);
         }

@@ -2,6 +2,7 @@
 
 namespace XF.Material.Forms.UI.Dialogs.Configurations
 {
+    /// <inheritdoc />
     /// <summary>
     /// A class that provides properties specifically for styling input dialogs.
     /// </summary>

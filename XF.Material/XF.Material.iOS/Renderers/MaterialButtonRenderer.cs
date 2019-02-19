@@ -41,17 +41,19 @@ namespace XF.Material.iOS.Renderers
 
             this.UpdateLayerFrame();
 
-            if (_materialButton.WidthRequest == -1 && _materialButton.Width < 64)
+            if (Math.Abs(_materialButton.WidthRequest - (-1)) < float.MinValue && _materialButton.Width < 64)
             {
                 _materialButton.WidthRequest = 64;
             }
 
-            UpdateTextSizing();
+            this.UpdateTextSizing();
         }
 
         protected override void OnElementChanged(ElementChangedEventArgs<Button> e)
         {
             base.OnElementChanged(e);
+
+            if (this.Control == null) return;
 
             if (e?.OldElement != null)
             {
@@ -92,12 +94,14 @@ namespace XF.Material.iOS.Renderers
         {
             base.OnElementPropertyChanged(sender, e);
 
+            if (this.Control == null) return;
+
             if (e.PropertyName == nameof(Button.IsEnabled))
             {
                 this.UpdateState();
             }
 
-            switch (e?.PropertyName)
+            switch (e.PropertyName)
             {
                 case MaterialButton.MaterialButtonColorChanged:
                 case nameof(MaterialButton.ButtonType):
@@ -282,7 +286,7 @@ namespace XF.Material.iOS.Renderers
         {
             if (_withIcon)
             {
-                UIImage image = null; 
+                UIImage image = null;
 
                 try
                 {
@@ -364,18 +368,20 @@ namespace XF.Material.iOS.Renderers
                 this.Control.ContentEdgeInsets = new UIEdgeInsets(10f, 22f, 10f, 22f);
             }
             else switch (_materialButton.ButtonType)
-            {
-                case MaterialButtonType.Text when _withIcon:
-                    this.Control.ContentEdgeInsets = new UIEdgeInsets(10f, 18f, 10f, 22f);
-                    break;
-                case MaterialButtonType.Text when !_withIcon:
-                    this.Control.ContentEdgeInsets = new UIEdgeInsets(10f, 14f, 10f, 14f);
-                    break;
-            }
+                {
+                    case MaterialButtonType.Text when _withIcon:
+                        this.Control.ContentEdgeInsets = new UIEdgeInsets(10f, 18f, 10f, 22f);
+                        break;
+                    case MaterialButtonType.Text when !_withIcon:
+                        this.Control.ContentEdgeInsets = new UIEdgeInsets(10f, 14f, 10f, 14f);
+                        break;
+                }
         }
 
         private void UpdateTextSizing()
         {
+            if (this.Control == null) return;
+
             if (string.IsNullOrEmpty(_materialButton.Text) || !_withIcon)
             {
                 this.Control.TitleEdgeInsets = new UIEdgeInsets(0, 0, 0, 0);
@@ -398,7 +404,7 @@ namespace XF.Material.iOS.Renderers
             var buttonWidth = (float)this.Control.Frame.Width;
 
             var inset = ((buttonWidth - textWidth) / 2) - 28;
-            this.Control.TitleEdgeInsets = new UIEdgeInsets(0, inset, 0,  -40);
+            this.Control.TitleEdgeInsets = new UIEdgeInsets(0, inset, 0, -40);
 
         }
 
@@ -410,10 +416,7 @@ namespace XF.Material.iOS.Renderers
 
         private void UpdateLayerFrame()
         {
-            if(this.Control == null)
-            {
-                return;
-            }
+            if (this.Control == null) return;
 
             var width = this.Control.Frame.Width - 12;
             var height = this.Control.Frame.Height - 12;

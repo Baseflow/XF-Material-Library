@@ -18,6 +18,8 @@ namespace XF.Material.Droid.Renderers.Internals
         {
             base.OnElementChanged(e);
 
+            if (this.Control == null) return;
+
             if (e?.NewElement == null) return;
             this.ChangeCursorColor();
             this.Control.Background = new ColorDrawable(Color.Transparent.ToAndroid());
@@ -29,7 +31,9 @@ namespace XF.Material.Droid.Renderers.Internals
         {
             base.OnElementPropertyChanged(sender, e);
 
-            if(e?.PropertyName == nameof(MaterialEntry.TintColor))
+            if (this.Control == null) return;
+
+            if (e?.PropertyName == nameof(MaterialEntry.TintColor))
             {
                 this.ChangeCursorColor();
             }
@@ -47,12 +51,12 @@ namespace XF.Material.Droid.Renderers.Internals
                 field.Accessible = true;
 
                 var cursorDrawable = ContextCompat.GetDrawable(this.Context, resId);
-                cursorDrawable.SetColorFilter((this.Element as MaterialEntry).TintColor.ToAndroid(), Android.Graphics.PorterDuff.Mode.SrcIn);
+                cursorDrawable.SetColorFilter(((MaterialEntry)this.Element).TintColor.ToAndroid(), Android.Graphics.PorterDuff.Mode.SrcIn);
 
                 var editor = field.Get(this.Control);
                 field = editor.Class.GetDeclaredField("mCursorDrawable");
                 field.Accessible = true;
-                field.Set(editor, new Drawable[] { cursorDrawable, cursorDrawable });
+                field.Set(editor, new[] { cursorDrawable, cursorDrawable });
             }
             catch (Java.Lang.NoSuchFieldException)
             {

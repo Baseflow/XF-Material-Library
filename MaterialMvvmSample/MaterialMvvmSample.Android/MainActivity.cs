@@ -15,7 +15,7 @@ namespace MaterialMvvmSample.Droid
 
             base.OnCreate(savedInstanceState);
             Xamarin.Forms.Forms.Init(this, savedInstanceState);
-            XF.Material.Droid.Material.Init(this, savedInstanceState);
+            Material.Init(this, savedInstanceState);
 
             var appContainer = new PlatformContainer();
             appContainer.Setup();

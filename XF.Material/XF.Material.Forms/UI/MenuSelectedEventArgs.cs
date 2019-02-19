@@ -3,8 +3,9 @@ using XF.Material.Forms.Models;
 
 namespace XF.Material.Forms.UI
 {
+    /// <inheritdoc />
     /// <summary>
-    /// Contains event data when <see cref="MaterialMenuButton.MenuSelected"/> is invoked.
+    /// Contains event data when <see cref="E:XF.Material.Forms.UI.MaterialMenuButton.MenuSelected" /> is invoked.
     /// </summary>
     public class MenuSelectedEventArgs : EventArgs
     {
