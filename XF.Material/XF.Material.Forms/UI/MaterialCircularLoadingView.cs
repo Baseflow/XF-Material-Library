@@ -25,7 +25,7 @@ namespace XF.Material.Forms.UI
 
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            if(propertyName == nameof(this.Animation))
+            if (propertyName == nameof(this.Animation))
             {
                 return;
             }
