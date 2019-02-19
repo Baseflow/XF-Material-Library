@@ -479,9 +479,9 @@ namespace XF.Material.Forms.UI
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             base.OnPropertyChanged(propertyName);
-            
-            if(propertyName == null) return;
-            
+
+            if (propertyName == null) return;
+
             if (_propertyChangeActions != null && _propertyChangeActions.TryGetValue(propertyName, out var handlePropertyChange))
             {
                 handlePropertyChange();
@@ -985,7 +985,6 @@ namespace XF.Material.Forms.UI
 
         private void SetPropertyChangeHandler(ref Dictionary<string, Action> propertyChangeActions)
         {
-            if (propertyChangeActions == null) throw new ArgumentNullException(nameof(propertyChangeActions));
             propertyChangeActions = new Dictionary<string, Action>
             {
                 { nameof(this.Text), () => this.OnTextChanged(this.Text) },
