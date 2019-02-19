@@ -19,7 +19,7 @@ namespace XF.Material.iOS.Renderers
             base.OnElementChanged(e);
 
             if (e?.NewElement == null) return;
-            _materialElement = this.Element as MaterialCircularLoadingView;
+            _materialElement = e?.NewElement as MaterialCircularLoadingView;
             if (_materialElement != null) _materialElement.Animation = "loading_animation.json";
 
             if (this.Control == null) return;

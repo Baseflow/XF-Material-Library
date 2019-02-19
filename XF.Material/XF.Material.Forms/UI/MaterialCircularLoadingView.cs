@@ -1,5 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 using XF.Material.Forms.Resources;
 
 namespace XF.Material.Forms.UI
@@ -13,7 +12,7 @@ namespace XF.Material.Forms.UI
         /// </summary>
         public Color TintColor
         {
-            get => (Color) this.GetValue(TintColorProperty);
+            get => (Color)this.GetValue(TintColorProperty);
             set => this.SetValue(TintColorProperty, value);
         }
 
@@ -21,16 +20,6 @@ namespace XF.Material.Forms.UI
         {
             this.SetDynamicResource(TintColorProperty, MaterialConstants.Color.SECONDARY);
             this.Loop = true;
-        }
-
-        protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            if (propertyName == nameof(this.Animation))
-            {
-                return;
-            }
-
-            base.OnPropertyChanged(propertyName);
         }
     }
 }
