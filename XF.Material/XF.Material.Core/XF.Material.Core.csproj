@@ -11,5 +11,7 @@
     <Folder Include="Control\" />
     <Folder Include="Control\Contract\" />
     <Folder Include="Pattern\" />
+    <Folder Include="Application\" />
+    <Folder Include="Application\Theme\" />
   </ItemGroup>
 </Project>
