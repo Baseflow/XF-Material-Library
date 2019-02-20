@@ -10,5 +10,6 @@
   <ItemGroup>
     <Folder Include="Control\" />
     <Folder Include="Control\Contract\" />
+    <Folder Include="Pattern\" />
   </ItemGroup>
 </Project>

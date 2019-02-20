@@ -1,4 +1,4 @@
-﻿using Rg.Plugins.Popup.Animations;
+using Rg.Plugins.Popup.Animations;
 using Rg.Plugins.Popup.Pages;
 using Rg.Plugins.Popup.Services;
 using System;
@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using XF.Material.Core.Control.Contract;
 
 namespace XF.Material.Forms.UI.Dialogs
 {

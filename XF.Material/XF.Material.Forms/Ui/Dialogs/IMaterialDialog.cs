@@ -1,8 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using XF.Material.Core.Control.Contract;
 using XF.Material.Forms.UI.Dialogs.Configurations;
+using XF.Material.Core.Control;
 
 namespace XF.Material.Forms.UI.Dialogs
 {
@@ -156,7 +158,7 @@ namespace XF.Material.Forms.UI.Dialogs
         /// <param name="message">The message of the snackbar.</param>
         /// <param name="msDuration">The duration, in milliseconds, before the snackbar is automatically dismissed.</param>
         /// <param name="configuration">The style of the snackbar.</param>
-        Task SnackbarAsync(string message, int msDuration = MaterialSnackbar.DurationLong, MaterialSnackbarConfiguration configuration = null);
+        Task SnackbarAsync(string message, Dialog msDuration = Dialog.DurationLong, MaterialSnackbarConfiguration configuration = null);
 
         /// <summary>
         /// Shows a snackbar with an action. Returns true if the snackbar's action button was clicked, or false if the snackbar was automatically dismissed.
@@ -165,6 +167,6 @@ namespace XF.Material.Forms.UI.Dialogs
         /// <param name="actionButtonText">The label text of the snackbar's button.</param>
         /// <param name="msDuration">The duration, in milliseconds, before the snackbar is automatically dismissed.</param>
         /// <param name="configuration">The style of the snackbar.</param>
-        Task<bool> SnackbarAsync(string message, string actionButtonText, int msDuration = MaterialSnackbar.DurationLong, MaterialSnackbarConfiguration configuration = null);
+        Task<bool> SnackbarAsync(string message, string actionButtonText, Dialog msDuration = Dialog.DurationLong, MaterialSnackbarConfiguration configuration = null);
     }
 }

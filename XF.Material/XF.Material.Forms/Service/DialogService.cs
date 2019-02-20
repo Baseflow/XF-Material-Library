@@ -1,4 +1,4 @@
-﻿//
+//
 //  Author:
 //    Songurov Fiodor songurov@gmail.com
 //
@@ -28,6 +28,7 @@
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using XF.Material.Core.Control;
 using XF.Material.Core.Control.Contract;
 using XF.Material.Forms.UI.Dialogs;
 
@@ -60,6 +61,16 @@ namespace XF.Material.Forms.Service
             return await MaterialDialog.Instance.InputAsync(title, message, inputText, inputPlaceholder, confirmingText, dismissiveText);
         }
 
+        public async Task<IMaterialModalPage> LoadingDialogAsync(string message)
+        {
+            return await MaterialDialog.Instance.LoadingDialogAsync(message);
+        }
+
+        public async Task<IMaterialModalPage> LoadingSnackbarAsync(string message)
+        {
+            return await MaterialDialog.Instance.LoadingSnackbarAsync(message);
+        }
+
         public async Task<int> SelectActionAsync(IList<string> actions)
         {
             return await MaterialDialog.Instance.SelectActionAsync(actions);
@@ -88,6 +99,16 @@ namespace XF.Material.Forms.Service
         public async Task<int[]> SelectChoicesAsync(string title, IList<string> choices, List<int> selectedIndices)
         {
             return await MaterialDialog.Instance.SelectChoicesAsync(title, choices, selectedIndices);
+        }
+
+        public async Task SnackbarAsync(string message, Dialog msDuration = Dialog.DurationShort)
+        {
+            await MaterialDialog.Instance.SnackbarAsync(message, msDuration);
+        }
+
+        public async Task<bool> SnackbarAsync(string message, string actionButtonText, Dialog msDuration = Dialog.DurationShort)
+        {
+            return await MaterialDialog.Instance.SnackbarAsync(message, actionButtonText, msDuration);
         }
     }
 }

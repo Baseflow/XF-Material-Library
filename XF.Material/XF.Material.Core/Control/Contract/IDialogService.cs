@@ -1,4 +1,4 @@
-﻿//
+//
 //  Author:
 //    Songurov Fiodor songurov@gmail.com
 //
@@ -127,5 +127,32 @@ namespace XF.Material.Core.Control.Contract
         /// <exception cref="ArgumentNullException" />
         /// <exception cref="IndexOutOfRangeException" />
         Task<int[]> SelectChoicesAsync(string title, IList<string> choices, List<int> selectedIndices);
+
+        /// <summary>
+        /// Shows a dialog indicating a running task.
+        /// </summary>
+        /// <param name="message">The message of the dialog.</param>
+        Task<IMaterialModalPage> LoadingDialogAsync(string message);
+
+        /// <summary>
+        /// Shows a snackbar indicating a running task.
+        /// </summary>
+        /// <param name="message">The message of the snackbar.</param>
+        Task<IMaterialModalPage> LoadingSnackbarAsync(string message);
+
+        /// <summary>
+        /// Shows a snackbar with no action.
+        /// </summary>
+        /// <param name="message">The message of the snackbar.</param>
+        /// <param name="msDuration">The duration, in milliseconds, before the snackbar is automatically dismissed.</param>
+        Task SnackbarAsync(string message, Dialog msDuration = Dialog.DurationShort);
+
+        /// <summary>
+        /// Shows a snackbar with an action. Returns true if the snackbar's action button was clicked, or false if the snackbar was automatically dismissed.
+        /// </summary>
+        /// <param name="message">The message of the snackbar.</param>
+        /// <param name="actionButtonText">The label text of the snackbar's button.</param>
+        /// <param name="msDuration">The duration, in milliseconds, before the snackbar is automatically dismissed.</param>
+        Task<bool> SnackbarAsync(string message, string actionButtonText, Dialog msDuration = Dialog.DurationShort);
     }
 }

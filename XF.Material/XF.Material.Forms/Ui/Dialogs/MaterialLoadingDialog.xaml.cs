@@ -1,7 +1,8 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using XF.Material.Core.Control.Contract;
 using XF.Material.Forms.UI.Dialogs.Configurations;
 
 namespace XF.Material.Forms.UI.Dialogs

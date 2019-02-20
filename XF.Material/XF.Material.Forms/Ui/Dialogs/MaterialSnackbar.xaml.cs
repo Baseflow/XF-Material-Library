@@ -1,28 +1,27 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using XF.Material.Core.Control.Contract;
 using XF.Material.Forms.UI.Dialogs.Configurations;
+using XF.Material.Core.Control;
 
 namespace XF.Material.Forms.UI.Dialogs
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MaterialSnackbar : BaseMaterialModalPage, IMaterialAwaitableDialog<bool>
     {
-        public const int DurationIndefinite = -1;
-        public const int DurationLong = 2750;
-        public const int DurationShort = 1500;
         private readonly int _duration;
         private readonly Action _hideAction;
         private bool _primaryActionRunning;
 
-        internal MaterialSnackbar(string message, string actionButtonText, int msDuration = DurationLong, MaterialSnackbarConfiguration configuration = null)
+        internal MaterialSnackbar(string message, string actionButtonText, Dialog msDuration = Dialog.DurationLong, MaterialSnackbarConfiguration configuration = null)
         {
             this.InitializeComponent();
             this.Configure(configuration);
             Message.Text = message;
-            _duration = msDuration;
+            _duration = (int)msDuration;
             ActionButton.Text = actionButtonText;
             var primaryActionCommand = new Command(async () =>
             {
@@ -40,19 +39,19 @@ namespace XF.Material.Forms.UI.Dialogs
 
         internal static async Task<IMaterialModalPage> Loading(string message, MaterialSnackbarConfiguration configuration = null)
         {
-            var snackbar = new MaterialSnackbar(message, null, DurationIndefinite, configuration);
+            var snackbar = new MaterialSnackbar(message, null, Dialog.DurationLong, configuration);
             await snackbar.ShowAsync();
 
             return snackbar;
         }
 
-        internal static async Task ShowAsync(string message, int msDuration = 3000, MaterialSnackbarConfiguration configuration = null)
+        internal static async Task ShowAsync(string message, Dialog msDuration = Dialog.DurationLong, MaterialSnackbarConfiguration configuration = null)
         {
             var snackbar = new MaterialSnackbar(message, null, msDuration, configuration);
             await snackbar.ShowAsync();
         }
 
-        internal static async Task<bool> ShowAsync(string message, string actionButtonText, int msDuration = DurationLong, MaterialSnackbarConfiguration configuration = null)
+        internal static async Task<bool> ShowAsync(string message, string actionButtonText, Dialog msDuration = Dialog.DurationLong, MaterialSnackbarConfiguration configuration = null)
         {
             var snackbar = new MaterialSnackbar(message, actionButtonText, msDuration, configuration)
             {

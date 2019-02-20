@@ -1,27 +1,18 @@
-﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using XF.Material.Core.Control.Contract;
 using XF.Material.Forms.UI.Dialogs.Configurations;
+using XF.Material.Core.Control;
+using XF.Material.Core.Pattern;
 
 namespace XF.Material.Forms.UI.Dialogs
 {
     /// <summary>
     /// Class for showing dialogs and snackbar.
     /// </summary>
-    public sealed class MaterialDialog : IMaterialDialog
+    public sealed class MaterialDialog : Singleton<MaterialDialog>, IMaterialDialog
     {
-        private static readonly Lazy<IMaterialDialog> MaterialDialogInstance = new Lazy<IMaterialDialog>(() => new MaterialDialog());
-
-        internal MaterialDialog()
-        {
-        }
-
-        /// <summary>
-        /// The current instance to use for showing modal dialogs.
-        /// </summary>
-        public static IMaterialDialog Instance => MaterialDialogInstance.Value;
-
         /// <inheritdoc />
         /// <summary>
         /// Shows an alert dialog for acknowledgement. It only has a single, dismissive action used for acknowledgement.
@@ -235,7 +226,7 @@ namespace XF.Material.Forms.UI.Dialogs
         /// <param name="message">The message of the snackbar.</param>
         /// <param name="msDuration">The duration, in milliseconds, before the snackbar is automatically dismissed.</param>
         /// <param name="configuration">The style of the snackbar.</param>
-        public Task SnackbarAsync(string message, int msDuration = MaterialSnackbar.DurationLong, MaterialSnackbarConfiguration configuration = null)
+        public Task SnackbarAsync(string message, Dialog msDuration = Dialog.DurationLong, MaterialSnackbarConfiguration configuration = null)
         {
             return MaterialSnackbar.ShowAsync(message, msDuration, configuration);
         }
@@ -248,7 +239,7 @@ namespace XF.Material.Forms.UI.Dialogs
         /// <param name="actionButtonText">The label text of the snackbar's button.</param>
         /// <param name="msDuration">The duration, in milliseconds, before the snackbar is automatically dismissed.</param>
         /// <param name="configuration">The style of the snackbar.</param>
-        public Task<bool> SnackbarAsync(string message, string actionButtonText, int msDuration = MaterialSnackbar.DurationLong, MaterialSnackbarConfiguration configuration = null)
+        public Task<bool> SnackbarAsync(string message, string actionButtonText, Dialog msDuration = Dialog.DurationLong, MaterialSnackbarConfiguration configuration = null)
         {
             return MaterialSnackbar.ShowAsync(message, actionButtonText, msDuration, configuration);
         }

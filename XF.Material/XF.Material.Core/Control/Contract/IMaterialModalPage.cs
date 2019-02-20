@@ -1,7 +1,7 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 
-namespace XF.Material.Forms.UI.Dialogs
+namespace XF.Material.Core.Control.Contract
 {
     public interface IMaterialModalPage : IDisposable
     {
