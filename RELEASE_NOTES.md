@@ -1,6 +1,12 @@
 # Release Notes
 
-##### 1.4.0.1 (Latest)
+##### 1.4.0.2 (Latest)
+- Fixed issue [74](https://github.com/contrix09/XF-Material-Library/issues/74).
+- Fixed crashing in iOS renderers which is caused by null native controls.
+- Fixed `MaterialTextField` `ReturnCommandParameter` property always null.
+- Refactored modal dialogs.
+
+##### 1.4.0.1
 - Fixed issue [67](https://github.com/contrix09/XF-Material-Library/issues/67).
 - Fixed issue [68](https://github.com/contrix09/XF-Material-Library/issues/68).
 - Fixed issue [69](https://github.com/contrix09/XF-Material-Library/issues/69).
