@@ -22,7 +22,7 @@ namespace XF.Material.Forms.UI
     {
         public static readonly BindableProperty AlwaysShowUnderlineProperty = BindableProperty.Create(nameof(AlwaysShowUnderline), typeof(bool), typeof(MaterialTextField), false);
 
-        public new static readonly BindableProperty BackgroundColorProperty = BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#DCDCDC"));
+        public static new readonly BindableProperty BackgroundColorProperty = BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#DCDCDC"));
 
         public static readonly BindableProperty ChoiceSelectedCommandProperty = BindableProperty.Create(nameof(ChoiceSelectedCommand), typeof(ICommand), typeof(MaterialTextField));
 
@@ -64,7 +64,7 @@ namespace XF.Material.Forms.UI
 
         public static readonly BindableProperty PlaceholderProperty = BindableProperty.Create(nameof(Placeholder), typeof(string), typeof(MaterialTextField), string.Empty);
 
-        public static readonly BindableProperty ReturnCommandParameterProperty = BindableProperty.Create(nameof(ReturnCommand), typeof(object), typeof(MaterialTextField));
+        public static readonly BindableProperty ReturnCommandParameterProperty = BindableProperty.Create(nameof(ReturnCommandParameter), typeof(object), typeof(MaterialTextField));
 
         public static readonly BindableProperty ReturnCommandProperty = BindableProperty.Create(nameof(ReturnCommand), typeof(ICommand), typeof(MaterialTextField));
 
@@ -429,11 +429,6 @@ namespace XF.Material.Forms.UI
         {
             base.LayoutChildren(x, y, width, height);
 
-            if (width + height > 0 && Device.RuntimePlatform == Device.iOS && !this.HasHorizontalPadding)
-            {
-                entry.WidthRequest = this.Width - 24;
-            }
-
             if (!this.HasHorizontalPadding)
             {
                 if (icon.IsVisible)
@@ -529,7 +524,11 @@ namespace XF.Material.Forms.UI
 
             if (entry.IsFocused)
             {
-                anim.Add(0.0, AnimationDuration, new Animation(v => underline.WidthRequest = v, 0, this.Width, _animationCurve, () => underline.HorizontalOptions = LayoutOptions.FillAndExpand));
+                anim.Add(0.0, AnimationDuration, new Animation(v => underline.WidthRequest = v, 0, this.Width, _animationCurve, () =>
+                {
+                    underline.HorizontalOptions = LayoutOptions.FillAndExpand;
+                    underline.WidthRequest = -1;
+                }));
             }
             else
             {
@@ -568,7 +567,11 @@ namespace XF.Material.Forms.UI
                         }));
                     }
 
-                    anim.Add(0.0, AnimationDuration, new Animation(v => underline.WidthRequest = v, 0, this.Width, _animationCurve, () => underline.HorizontalOptions = LayoutOptions.FillAndExpand));
+                    anim.Add(0.0, AnimationDuration, new Animation(v => underline.WidthRequest = v, 0, this.Width, _animationCurve, () =>
+                    {
+                        underline.HorizontalOptions = LayoutOptions.FillAndExpand;
+                        underline.WidthRequest = -1;
+                    }));
                     anim.Commit(this, "Anim2", rate: 2, length: (uint)(AnimationDuration * 1000), easing: _animationCurve);
                 });
 
@@ -599,7 +602,7 @@ namespace XF.Material.Forms.UI
                         }));
                     }
 
-                    anim.Add(0.0, AnimationDuration, new Animation(v => underline.WidthRequest = v, this.Width, 0, _animationCurve, () => underline.HorizontalOptions = LayoutOptions.Center));
+                    anim.Add(0.0, AnimationDuration, new Animation(v => underline.WidthRequest = v, underline.Width, 0, _animationCurve, () => underline.HorizontalOptions = LayoutOptions.Center));
                     anim.Commit(this, "Anim2", rate: 2, length: (uint)(AnimationDuration * 1000), easing: _animationCurve);
                 });
             }
@@ -969,10 +972,11 @@ namespace XF.Material.Forms.UI
 
             mainTapGesture.Command = new Command(async () =>
             {
-                if (_choices == null || _choices?.Count <= 0)
+                if (this.Choices == null || this.Choices?.Count <= 0)
                 {
                     throw new InvalidOperationException("The property `Choices` is null or empty");
                 }
+                _choices = this.GetChoices();
 
                 var result = await MaterialDialog.Instance.SelectChoiceAsync("Select an item", _choices);
 

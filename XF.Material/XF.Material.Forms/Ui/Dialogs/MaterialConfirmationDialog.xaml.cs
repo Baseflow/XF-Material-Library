@@ -206,9 +206,11 @@ namespace XF.Material.Forms.UI.Dialogs
             {
                 case DisplayOrientation.Landscape when Device.Idiom == TargetIdiom.Phone:
                     Container.WidthRequest = 560;
+                    Container.HorizontalOptions = LayoutOptions.Center;
                     break;
                 case DisplayOrientation.Portrait when Device.Idiom == TargetIdiom.Phone:
-                    Container.WidthRequest = 280;
+                    Container.WidthRequest = -1;
+                    Container.HorizontalOptions = LayoutOptions.FillAndExpand;
                     break;
             }
         }

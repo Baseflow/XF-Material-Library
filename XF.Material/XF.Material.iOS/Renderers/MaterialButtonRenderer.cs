@@ -292,7 +292,6 @@ namespace XF.Material.iOS.Renderers
                 {
                     image = UIImage.FromFile(_materialButton.Image.File) ?? UIImage.FromBundle(_materialButton.Image.File);
 
-
                     UIGraphics.BeginImageContextWithOptions(new CGSize(18, 18), false, 0f);
                     image?.Draw(new CGRect(0, 0, 18, 18));
 
@@ -390,7 +389,7 @@ namespace XF.Material.iOS.Renderers
 
             // We have to set the button title insets to make the button look
             // like Android's material buttons. (icon on left, text is centralized)
-            //
+
             var textToMeasure = (NSString)(_materialButton.Text ?? "");
 
             var labelRect = textToMeasure.GetBoundingRect(

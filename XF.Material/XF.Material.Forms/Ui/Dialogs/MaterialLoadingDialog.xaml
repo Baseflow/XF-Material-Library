@@ -17,20 +17,28 @@
                                HorizontalOptions="Center"
                                VerticalOptions="Center"
                                WidthRequest="{StaticResource Material.Dialog.Width}">
-            <StackLayout Margin="16,20"
-                         Orientation="Horizontal"
-                         Spacing="8">
+            <Grid Margin="16,20"
+                  ColumnSpacing="8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="56" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
                 <material:MaterialCircularLoadingView x:Name="LoadingImage"
+                                                      Grid.Column="0"
                                                       HeightRequest="56"
                                                       Loop="True"
                                                       VerticalOptions="Center"
                                                       WidthRequest="56" />
                 <material:MaterialLabel x:Name="Message"
+                                        Grid.Column="1"
                                         Text="Lorem ipsum dolor sit amet."
                                         TextColor="#99000000"
                                         TypeScale="Body1"
                                         VerticalOptions="Center" />
-            </StackLayout>
+            </Grid>
         </material:MaterialCard>
     </ContentPage.Content>
 </local:BaseMaterialModalPage>

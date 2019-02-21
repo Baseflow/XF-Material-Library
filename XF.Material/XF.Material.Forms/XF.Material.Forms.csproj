@@ -21,6 +21,11 @@
     <NoWarn>1701;1702</NoWarn>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Service\**" />
+    <EmbeddedResource Remove="Service\**" />
+    <None Remove="Service\**" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Remove="UI\Dialogs\MaterialDialogs.cs" />
     <Compile Remove="MaterialStyles.xaml.cs" />
     <Compile Remove="UI\Internals\MaterialInputDialogTextField.xaml.cs" />
@@ -185,11 +190,5 @@
     <None Update="Views\MaterialTextField.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Service\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\XF.Material.Core\XF.Material.Core.csproj" />
   </ItemGroup>
 </Project>

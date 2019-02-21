@@ -20,7 +20,7 @@ namespace XF.Material.iOS.Renderers
         {
             base.LayoutSubviews();
 
-            if (this.Control.Frame.Size.Height == 0)
+            if (this.Control == null || this.Control.Frame.Size.Height == 0)
             {
                 return;
             }
