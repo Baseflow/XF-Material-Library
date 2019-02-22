@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Runtime.CompilerServices;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
@@ -142,14 +141,16 @@ namespace XF.Material.Forms.UI
                 this.BorderColor = OutlinedBorderColor;
             }
 
-            if (buttonType == MaterialButtonType.Outlined && Math.Abs(this.BorderWidth - (double)BorderWidthProperty.DefaultValue) < float.MinValue)
+            if (buttonType == MaterialButtonType.Outlined && this.BorderWidth == (double)BorderWidthProperty.DefaultValue)
             {
                 this.BorderWidth = 1;
             }
 
-            if (buttonType != MaterialButtonType.Text && buttonType != MaterialButtonType.Outlined) return;
-            this.RemoveDynamicResource(TextColorProperty);
-            this.SetDynamicResource(TextColorProperty, MaterialConstants.Color.SECONDARY);
+            if (buttonType == MaterialButtonType.Text || buttonType == MaterialButtonType.Outlined)
+            {
+                this.RemoveDynamicResource(TextColorProperty);
+                this.SetDynamicResource(TextColorProperty, MaterialConstants.Color.SECONDARY);
+            }
         }
     }
 }
