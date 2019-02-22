@@ -1,6 +1,8 @@
 # Release Notes
+##### 1.4.0.3 (Latest)
+- Fixed `MaterialButton` not showing border when `ButtonType` is `MaterialButtonType.Outlined`.
 
-##### 1.4.0.2 (Latest)
+##### 1.4.0.2
 - Fixed issue [74](https://github.com/contrix09/XF-Material-Library/issues/74).
 - Fixed crashing in iOS renderers which is caused by null native controls.
 - Fixed `MaterialTextField` `ReturnCommandParameter` property always null.
