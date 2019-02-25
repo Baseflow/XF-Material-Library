@@ -3,8 +3,7 @@
              xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:internal="clr-namespace:XF.Material.Forms.UI.Internals"
-             xmlns:material="clr-namespace:XF.Material.Forms.UI"
-             xmlns:sys="clr-namespace:System;assembly=netstandard">
+             xmlns:material="clr-namespace:XF.Material.Forms.UI">
     <View.GestureRecognizers>
         <TapGestureRecognizer x:Name="mainTapGesture"
                               NumberOfTapsRequired="1" />
@@ -18,7 +17,8 @@
                                       NumberOfTapsRequired="1" />
             </View.GestureRecognizers>
             <Grid.RowDefinitions>
-                <RowDefinition Height="56" />
+                <RowDefinition x:Name="_autoSizingRow"
+                               Height="56" />
                 <RowDefinition Height="20" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -26,19 +26,17 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <material:MaterialCard x:Name="backgroundCard"
-                                   Grid.Row="0"
-                                   Grid.ColumnSpan="3"
-                                   BackgroundColor="#DCDCDC"
-                                   CornerRadius="4"
-                                   Elevation="0" />
+            <BoxView x:Name="backgroundCard"
+                     Grid.Row="0"
+                     Grid.ColumnSpan="3"
+                     BackgroundColor="#DCDCDC"
+                     CornerRadius="4,4,0,0" />
             <material:MaterialIcon x:Name="icon"
                                    Grid.Row="0"
                                    Grid.Column="0"
-                                   Margin="12,0,0,0"
+                                   Margin="12,16,0,16"
                                    HeightRequest="24"
-                                   HorizontalOptions="Center"
-                                   VerticalOptions="Center"
+                                   VerticalOptions="Start"
                                    WidthRequest="24">
                 <View.Triggers>
                     <Trigger TargetType="material:MaterialIcon" Property="Source" Value="{x:Null}">
@@ -46,43 +44,37 @@
                     </Trigger>
                 </View.Triggers>
             </material:MaterialIcon>
-            <Label x:Name="placeholder"
-                   Grid.Row="0"
-                   Grid.Column="1"
-                   Margin="12,0"
-                   FontFamily="{DynamicResource Material.FontFamily.Body2}"
-                   FontSize="16"
-                   InputTransparent="True"
-                   Text="Placeholder"
-                   TextColor="#99000000"
-                   VerticalOptions="Center" />
+            <material:MaterialLabel x:Name="placeholder"
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    Margin="12,18,12,18"
+                                    FontSize="16"
+                                    InputTransparent="True"
+                                    Text="Placeholder"
+                                    TextColor="#99000000"
+                                    TypeScale="Body2"
+                                    VerticalOptions="Start"
+                                    VerticalTextAlignment="Center" />
             <internal:MaterialEntry x:Name="entry"
                                     Grid.Row="0"
                                     Grid.Column="1"
                                     Grid.ColumnSpan="2"
-                                    Margin="12,12,12,10"
-                                    BackgroundColor="Transparent"
+                                    Margin="12,24,12,0"
+                                    AutoSize="TextChanges"
                                     FontFamily="{DynamicResource Material.FontFamily.Body2}"
                                     FontSize="16"
-                                    HeightRequest="20"
                                     HorizontalOptions="FillAndExpand"
+                                    SizeChanged="Entry_SizeChanged"
                                     TextColor="#D0000000"
-                                    VerticalOptions="End">
+                                    VerticalOptions="Start">
                 <internal:MaterialEntry.Triggers>
                     <DataTrigger Binding="{Binding Source={x:Reference trailingIcon}, Path=IsVisible}"
-                                 TargetType="Entry"
+                                 TargetType="internal:MaterialEntry"
                                  Value="True">
                         <Setter Property="Grid.ColumnSpan" Value="1" />
                     </DataTrigger>
                 </internal:MaterialEntry.Triggers>
             </internal:MaterialEntry>
-            <BoxView x:Name="cardCut"
-                     Grid.Row="0"
-                     Grid.ColumnSpan="3"
-                     HeightRequest="4"
-                     HorizontalOptions="FillAndExpand"
-                     VerticalOptions="End"
-                     Color="#DCDCDC" />
             <BoxView x:Name="persistentUnderline"
                      Grid.Row="0"
                      Grid.ColumnSpan="3"
@@ -102,12 +94,11 @@
             <material:MaterialIcon x:Name="trailingIcon"
                                    Grid.Row="0"
                                    Grid.Column="2"
-                                   Margin="0,0,12,0"
+                                   Margin="0,16,12,16"
                                    HeightRequest="24"
-                                   HorizontalOptions="Center"
                                    IsVisible="False"
                                    Source="xf_arrow_dropdown"
-                                   VerticalOptions="Center"
+                                   VerticalOptions="Start"
                                    WidthRequest="24" />
             <material:MaterialLabel x:Name="helper"
                                     Grid.Row="1"

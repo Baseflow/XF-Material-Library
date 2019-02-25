@@ -1,37 +1,39 @@
-﻿using System.ComponentModel;
+﻿using Android.App;
 using Android.Content;
 using Android.Graphics.Drawables;
+using Android.Runtime;
 using Android.Support.V4.Content;
+using Android.Views;
+using Android.Views.InputMethods;
+using Android.Widget;
+using System.ComponentModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using XF.Material.Droid.Renderers.Internals;
 using XF.Material.Forms.UI.Internals;
+using static Android.Widget.TextView;
 
 [assembly: ExportRenderer(typeof(MaterialEntry), typeof(MaterialEntryRenderer))]
 namespace XF.Material.Droid.Renderers.Internals
 {
-    internal class MaterialEntryRenderer : EntryRenderer
+    internal class MaterialEntryRenderer : EditorRenderer, IOnEditorActionListener
     {
         public MaterialEntryRenderer(Context context) : base(context) { }
 
-        protected override void OnElementChanged(ElementChangedEventArgs<Entry> e)
+        protected override void OnElementChanged(ElementChangedEventArgs<Editor> e)
         {
             base.OnElementChanged(e);
 
-            if (this.Control == null) return;
-
-            if (e?.NewElement == null) return;
-            this.ChangeCursorColor();
-            this.Control.Background = new ColorDrawable(Color.Transparent.ToAndroid());
-            this.Control.SetPadding(0, 0, 0, 0);
-            this.Control.SetIncludeFontPadding(false);
+            if (e?.NewElement != null)
+            {
+                this.ChangeCursorColor();
+                this.SetControl();
+            }
         }
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             base.OnElementPropertyChanged(sender, e);
-
-            if (this.Control == null) return;
 
             if (e?.PropertyName == nameof(MaterialEntry.TintColor))
             {
@@ -39,8 +41,39 @@ namespace XF.Material.Droid.Renderers.Internals
             }
         }
 
+        private void SetControl()
+        {
+            if(this.Control == null)
+            {
+                return;
+            }
+
+            this.Control.Background = new ColorDrawable(Color.Transparent.ToAndroid());
+            this.Control.SetPadding(0, 0, 0, 0);
+            this.Control.SetIncludeFontPadding(false);
+            this.Control.SetMinimumHeight((int)MaterialHelper.ConvertToDp(20));
+            this.Control.SetLineSpacing(0, 1.4f);
+            this.Control.LetterSpacing = MaterialHelper.ConvertToSp(0.25) / this.Control.TextSize;
+
+            // DEV HINT
+            // This removes the 'New Line' button and shows a 'Done' button.
+            // This prevents the crash that is caused by a `java.lang.IllegalStateException'.
+            // Reported here https://github.com/xamarin/Xamarin.Forms/issues/4832.
+            this.Control.ImeOptions = Android.Views.InputMethods.ImeAction.Done;
+            this.Control.SetRawInputType(Android.Text.InputTypes.ClassText);
+            this.Control.InputType = Android.Text.InputTypes.TextFlagImeMultiLine;
+            this.Control.SetHorizontallyScrolling(false);
+            this.Control.SetMaxLines(int.MaxValue);
+            this.Control.SetOnEditorActionListener(this);
+        }
+
         private void ChangeCursorColor()
         {
+            if (this.Control == null)
+            {
+                return;
+            }
+
             try
             {
                 var field = Java.Lang.Class.FromType(typeof(Android.Widget.TextView)).GetDeclaredField("mCursorDrawableRes");
@@ -62,6 +95,20 @@ namespace XF.Material.Droid.Renderers.Internals
             {
                 System.Diagnostics.Debug.WriteLine("Cannot change Textfield's cursor color.");
             }
+        }
+
+        public bool OnEditorAction(TextView v, [GeneratedEnum] ImeAction actionId, KeyEvent e)
+        {
+            switch(actionId)
+            {
+                case ImeAction.Done:
+                    v?.ClearFocus();
+                    var im = (InputMethodManager)this.Context.GetSystemService(Context.InputMethodService);
+                    im.HideSoftInputFromWindow(((Activity)this.Context).CurrentFocus.WindowToken, 0);
+                    break;
+            }
+
+            return false;
         }
     }
 }

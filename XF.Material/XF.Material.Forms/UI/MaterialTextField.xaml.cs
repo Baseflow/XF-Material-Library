@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -738,7 +739,7 @@ namespace XF.Material.Forms.UI
 
         private void OnBackgroundColorChanged(Color backgroundColor)
         {
-            backgroundCard.BackgroundColor = cardCut.Color = backgroundColor;
+            backgroundCard.BackgroundColor = backgroundColor;
         }
 
         private void OnChoicesChanged(ICollection choices)
@@ -867,7 +868,7 @@ namespace XF.Material.Forms.UI
             _gridContainer.InputTransparent = inputType == MaterialTextFieldInputType.Choice;
             trailingIcon.IsVisible = inputType == MaterialTextFieldInputType.Choice;
 
-            entry.IsPassword = inputType == MaterialTextFieldInputType.Password || inputType == MaterialTextFieldInputType.NumericPassword;
+            //entry.IsPassword = inputType == MaterialTextFieldInputType.Password || inputType == MaterialTextFieldInputType.NumericPassword;
         }
 
         private void OnIsSpellCheckEnabledChanged(bool isSpellCheckEnabled)
@@ -903,17 +904,17 @@ namespace XF.Material.Forms.UI
 
         private void OnReturnCommandChanged(ICommand returnCommand)
         {
-            entry.ReturnCommand = returnCommand;
+            //entry.ReturnCommand = returnCommand;
         }
 
         private void OnReturnCommandParameterChanged(object parameter)
         {
-            entry.ReturnCommandParameter = parameter;
+            //entry.ReturnCommandParameter = parameter;
         }
 
         private void OnReturnTypeChangedd(ReturnType returnType)
         {
-            entry.ReturnType = returnType;
+            //entry.ReturnType = returnType;
         }
 
         private void OnTextChanged(string text)
@@ -1027,6 +1028,13 @@ namespace XF.Material.Forms.UI
             if (!_counterEnabled) return;
             var count = entry.Text?.Length ?? 0;
             counter.Text = entry.IsFocused ? $"{count}/{this.MaxLength}" : string.Empty;
+        }
+
+        private void Entry_SizeChanged(object sender, EventArgs e)
+        {
+            var diff = entry.Height - 20;
+
+            _autoSizingRow.Height = new GridLength(56 + diff);
         }
     }
 }
