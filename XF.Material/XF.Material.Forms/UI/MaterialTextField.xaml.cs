@@ -548,7 +548,7 @@ namespace XF.Material.Forms.UI
         {
             if (startObject != null && !string.IsNullOrEmpty(this.Text) && !_wasFocused)
             {
-                if (Math.Abs(placeholder.TranslationY - (-12)) < float.MinValue)
+                if (placeholder.TranslationY == -12)
                 {
                     return;
                 }
@@ -568,11 +568,7 @@ namespace XF.Material.Forms.UI
                         }));
                     }
 
-                    anim.Add(0.0, AnimationDuration, new Animation(v => underline.WidthRequest = v, 0, this.Width, _animationCurve, () =>
-                    {
-                        underline.HorizontalOptions = LayoutOptions.FillAndExpand;
-                        underline.WidthRequest = -1;
-                    }));
+                    anim.Add(0.0, AnimationDuration, new Animation(v => underline.WidthRequest = v, 0, this.Width, _animationCurve, () => underline.HorizontalOptions = LayoutOptions.FillAndExpand));
                     anim.Commit(this, "Anim2", rate: 2, length: (uint)(AnimationDuration * 1000), easing: _animationCurve);
                 });
 
@@ -581,8 +577,7 @@ namespace XF.Material.Forms.UI
                 return;
             }
 
-            if ((startObject == null || !string.IsNullOrEmpty(this.Text) || Math.Abs(placeholder.TranslationY - (-12)) > float.MinValue) &&
-                Math.Abs(placeholder.TranslationY - (-20)) > float.MinValue) return;
+            if ((startObject != null && string.IsNullOrEmpty(this.Text) && placeholder.TranslationY == -12) || placeholder.TranslationY == -20)
             {
                 if (entry.IsFocused)
                 {
@@ -603,7 +598,7 @@ namespace XF.Material.Forms.UI
                         }));
                     }
 
-                    anim.Add(0.0, AnimationDuration, new Animation(v => underline.WidthRequest = v, underline.Width, 0, _animationCurve, () => underline.HorizontalOptions = LayoutOptions.Center));
+                    anim.Add(0.0, AnimationDuration, new Animation(v => underline.WidthRequest = v, this.Width, 0, _animationCurve, () => underline.HorizontalOptions = LayoutOptions.Center));
                     anim.Commit(this, "Anim2", rate: 2, length: (uint)(AnimationDuration * 1000), easing: _animationCurve);
                 });
             }

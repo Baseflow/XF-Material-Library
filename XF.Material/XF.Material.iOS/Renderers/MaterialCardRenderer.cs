@@ -1,10 +1,10 @@
-﻿using Xamarin.Forms;
+﻿using System.ComponentModel;
+using UIKit;
+using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 using XF.Material.Forms.UI;
-using XF.Material.iOS.Renderers;
-using System.ComponentModel;
-using UIKit;
 using XF.Material.iOS.GestureRecognizers;
+using XF.Material.iOS.Renderers;
 
 [assembly: ExportRenderer(typeof(MaterialCard), typeof(MaterialCardRenderer))]
 namespace XF.Material.iOS.Renderers
@@ -72,9 +72,10 @@ namespace XF.Material.iOS.Renderers
 
                 this.AddGestureRecognizer(_rippleGestureRecognizerDelegate);
             }
-            else
-                if (_rippleGestureRecognizerDelegate != null)
+            else if (_rippleGestureRecognizerDelegate != null)
+            {
                 this.RemoveGestureRecognizer(_rippleGestureRecognizerDelegate);
+            }
         }
     }
 }
