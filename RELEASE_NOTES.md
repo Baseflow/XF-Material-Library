@@ -1,5 +1,8 @@
 # Release Notes
-##### 1.4.0.3 (Latest)
+##### 1.4.0.4 (Latest)
+- Fixed `MaterialTextField` animating when the text changes even if there is a current text value is not null or empty.
+
+##### 1.4.0.3
 - Fixed `MaterialButton` not showing border when `ButtonType` is `MaterialButtonType.Outlined`.
 
 ##### 1.4.0.2
