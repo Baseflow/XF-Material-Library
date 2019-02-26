@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -491,6 +490,7 @@ namespace XF.Material.Forms.UI
             double endFOnt = entry.IsFocused ? 12 : 16;
             var startY = placeholder.TranslationY;
             double endY = entry.IsFocused ? -12 : 0;
+            placeholder.Opacity = !string.IsNullOrEmpty(this.Text) && !this.FloatingPlaceholderEnabled ? 0 : 1;
 
             if (this.HasError)
             {
@@ -674,15 +674,15 @@ namespace XF.Material.Forms.UI
                 this.UpdateCounter();
             }
 
-            switch (e.PropertyName)
+            if (e.PropertyName is nameof(this.IsFocused))
             {
-                case nameof(this.IsFocused) when string.IsNullOrEmpty(entry.Text):
-                    this.AnimatePlaceHolder();
-                    break;
-                case nameof(Entry.Text):
-                    this.Text = entry.Text;
-                    this.UpdateCounter();
-                    break;
+                this.AnimatePlaceHolder();
+            }
+
+            if (e.PropertyName == nameof(Entry.Text))
+            {
+                this.Text = entry.Text;
+                this.UpdateCounter();
             }
         }
 
@@ -763,13 +763,9 @@ namespace XF.Material.Forms.UI
 
         private void OnFloatingPlaceholderEnabledChanged(bool isEnabled)
         {
-            if (isEnabled) return;
-            placeholder.HeightRequest = 20;
-            placeholder.VerticalOptions = LayoutOptions.Center;
-            placeholder.VerticalTextAlignment = TextAlignment.Center;
-            _gridContainer.RowDefinitions[0].Height = 40;
-            entry.Margin = new Thickness(entry.Margin.Left, 2, entry.Margin.Right, 0);
-            entry.VerticalOptions = LayoutOptions.Center;
+            double marginTopVariation = Device.RuntimePlatform == Device.iOS ? 18 : 20;
+
+            entry.Margin = isEnabled ? new Thickness(12, 24, 12, 0) : new Thickness(12, marginTopVariation, 12, 0);
         }
 
         private async Task OnHasErrorChanged()
@@ -1029,7 +1025,7 @@ namespace XF.Material.Forms.UI
         {
             var diff = entry.Height - 20;
 
-            _autoSizingRow.Height = new GridLength(56 + diff);
+            _autoSizingRow.Height = new GridLength(56 + Math.Abs(diff));
         }
     }
 }

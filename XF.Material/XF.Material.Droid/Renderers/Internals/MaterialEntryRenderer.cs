@@ -52,19 +52,12 @@ namespace XF.Material.Droid.Renderers.Internals
             this.Control.SetPadding(0, 0, 0, 0);
             this.Control.SetIncludeFontPadding(false);
             this.Control.SetMinimumHeight((int)MaterialHelper.ConvertToDp(20));
-            this.Control.SetLineSpacing(0, 1.4f);
-            this.Control.LetterSpacing = MaterialHelper.ConvertToSp(0.25) / this.Control.TextSize;
 
             // DEV HINT
-            // This removes the 'New Line' button and shows a 'Done' button.
+            // This removes the 'Next' button and shows a 'Done' button when the device's orientation is in landscape.
             // This prevents the crash that is caused by a `java.lang.IllegalStateException'.
             // Reported here https://github.com/xamarin/Xamarin.Forms/issues/4832.
             this.Control.ImeOptions = Android.Views.InputMethods.ImeAction.Done;
-            this.Control.SetRawInputType(Android.Text.InputTypes.ClassText);
-            this.Control.InputType = Android.Text.InputTypes.TextFlagImeMultiLine;
-            this.Control.SetHorizontallyScrolling(false);
-            this.Control.SetMaxLines(int.MaxValue);
-            this.Control.SetOnEditorActionListener(this);
         }
 
         private void ChangeCursorColor()
@@ -104,7 +97,8 @@ namespace XF.Material.Droid.Renderers.Internals
                 case ImeAction.Done:
                     v?.ClearFocus();
                     var im = (InputMethodManager)this.Context.GetSystemService(Context.InputMethodService);
-                    im.HideSoftInputFromWindow(((Activity)this.Context).CurrentFocus.WindowToken, 0);
+                    var currentActivity = Material.Context as Activity;
+                    im.HideSoftInputFromInputMethod(currentActivity.CurrentFocus?.WindowToken, 0);
                     break;
             }
 

@@ -41,7 +41,7 @@ namespace XF.Material.iOS.Renderers
 
             this.UpdateLayerFrame();
 
-            if (Math.Abs(_materialButton.WidthRequest - (-1)) < float.MinValue && _materialButton.Width < 64)
+            if (_materialButton.WidthRequest == -1 && _materialButton.Width < 64)
             {
                 _materialButton.WidthRequest = 64;
             }
