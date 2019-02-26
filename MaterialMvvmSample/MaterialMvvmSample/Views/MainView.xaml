@@ -156,6 +156,7 @@
                                             TintColor="#2c3e50" />
                 <material:MaterialTextField AlwaysShowUnderline="True"
                                             BackgroundColor="Transparent"
+                                            FontSize="24"
                                             HelperText="*Required"
                                             InputType="Password"
                                             MaxLength="8"
