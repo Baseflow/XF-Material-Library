@@ -6,7 +6,7 @@ namespace XF.Material.Forms.UI.Internals
     /// <summary>
     /// Used for rendering the <see cref="T:Xamarin.Forms.Entry" /> control in <see cref="T:XF.Material.Forms.UI.MaterialTextField" />.
     /// </summary>
-    public class MaterialEntry : Entry
+    public class MaterialEntry : Editor
     {
         public static readonly BindableProperty TintColorProperty = BindableProperty.Create(nameof(TintColor), typeof(Color), typeof(MaterialEntry), Material.Color.Secondary);
 

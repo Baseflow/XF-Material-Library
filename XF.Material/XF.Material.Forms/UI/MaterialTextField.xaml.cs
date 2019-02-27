@@ -501,6 +501,7 @@ namespace XF.Material.Forms.UI
             double endFOnt = entry.IsFocused ? this.FontSize * 0.75 : this.FontSize;
             var startY = placeholder.TranslationY;
             double endY = entry.IsFocused ? -this.FontSize * 0.75 : 0;
+            placeholder.Opacity = !string.IsNullOrEmpty(this.Text) && !this.FloatingPlaceholderEnabled ? 0 : 1;
 
             if (this.HasError)
             {
@@ -684,15 +685,15 @@ namespace XF.Material.Forms.UI
                 this.UpdateCounter();
             }
 
-            switch (e.PropertyName)
+            if (e.PropertyName is nameof(this.IsFocused))
             {
-                case nameof(this.IsFocused) when string.IsNullOrEmpty(entry.Text):
-                    this.AnimatePlaceHolder();
-                    break;
-                case nameof(Entry.Text):
-                    this.Text = entry.Text;
-                    this.UpdateCounter();
-                    break;
+                this.AnimatePlaceHolder();
+            }
+
+            if (e.PropertyName == nameof(Entry.Text))
+            {
+                this.Text = entry.Text;
+                this.UpdateCounter();
             }
         }
 
@@ -744,7 +745,7 @@ namespace XF.Material.Forms.UI
 
         private void OnBackgroundColorChanged(Color backgroundColor)
         {
-            backgroundCard.BackgroundColor = cardCut.Color = backgroundColor;
+            backgroundCard.BackgroundColor = backgroundColor;
         }
 
         private void OnChoicesChanged(ICollection choices)
@@ -773,13 +774,9 @@ namespace XF.Material.Forms.UI
 
         private void OnFloatingPlaceholderEnabledChanged(bool isEnabled)
         {
-            if (isEnabled) return;
-            placeholder.HeightRequest = 20;
-            placeholder.VerticalOptions = LayoutOptions.Center;
-            placeholder.VerticalTextAlignment = TextAlignment.Center;
-            _gridContainer.RowDefinitions[0].Height = 40;
-            entry.Margin = new Thickness(entry.Margin.Left, 2, entry.Margin.Right, 0);
-            entry.VerticalOptions = LayoutOptions.Center;
+            double marginTopVariation = Device.RuntimePlatform == Device.iOS ? 18 : 20;
+
+            entry.Margin = isEnabled ? new Thickness(12, 24, 12, 0) : new Thickness(12, marginTopVariation, 12, 0);
         }
 
         private async Task OnHasErrorChanged()
@@ -873,7 +870,7 @@ namespace XF.Material.Forms.UI
             _gridContainer.InputTransparent = inputType == MaterialTextFieldInputType.Choice;
             trailingIcon.IsVisible = inputType == MaterialTextFieldInputType.Choice;
 
-            entry.IsPassword = inputType == MaterialTextFieldInputType.Password || inputType == MaterialTextFieldInputType.NumericPassword;
+            //entry.IsPassword = inputType == MaterialTextFieldInputType.Password || inputType == MaterialTextFieldInputType.NumericPassword;
         }
 
         private void OnIsSpellCheckEnabledChanged(bool isSpellCheckEnabled)
@@ -909,17 +906,17 @@ namespace XF.Material.Forms.UI
 
         private void OnReturnCommandChanged(ICommand returnCommand)
         {
-            entry.ReturnCommand = returnCommand;
+            //entry.ReturnCommand = returnCommand;
         }
 
         private void OnReturnCommandParameterChanged(object parameter)
         {
-            entry.ReturnCommandParameter = parameter;
+            //entry.ReturnCommandParameter = parameter;
         }
 
         private void OnReturnTypeChangedd(ReturnType returnType)
         {
-            entry.ReturnType = returnType;
+            //entry.ReturnType = returnType;
         }
 
         private void OnTextChanged(string text)
@@ -1046,6 +1043,13 @@ namespace XF.Material.Forms.UI
             if (!_counterEnabled) return;
             var count = entry.Text?.Length ?? 0;
             counter.Text = entry.IsFocused ? $"{count}/{this.MaxLength}" : string.Empty;
+        }
+
+        private void Entry_SizeChanged(object sender, EventArgs e)
+        {
+            var diff = entry.Height - 20;
+
+            _autoSizingRow.Height = new GridLength(56 + Math.Abs(diff));
         }
     }
 }

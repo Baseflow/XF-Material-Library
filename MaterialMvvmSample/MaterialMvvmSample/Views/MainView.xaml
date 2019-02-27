@@ -131,7 +131,8 @@
                                         Text="Create an account"
                                         TextColor="#DE000000"
                                         TypeScale="H5" />
-                <material:MaterialTextField AlwaysShowUnderline="True"
+                <material:MaterialTextField />
+                <!--<material:MaterialTextField AlwaysShowUnderline="True"
                                             ChoiceSelected="MaterialTextField_ChoiceSelected"
                                             Choices="{Binding Models}"
                                             ChoicesBindingName="Title"
@@ -168,7 +169,7 @@
                                             InputType="Password"
                                             MaxLength="8"
                                             Placeholder="Confirm Password"
-                                            TintColor="#2c3e50" />
+                                            TintColor="#2c3e50" />-->
                 <material:MaterialMenuButton ButtonType="Text"
                                              HorizontalOptions="End"
                                              Image="ic_overflow"
