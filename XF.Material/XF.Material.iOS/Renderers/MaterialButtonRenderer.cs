@@ -150,11 +150,11 @@ namespace XF.Material.iOS.Renderers
 
             if (_materialButton.ButtonType == MaterialButtonType.Elevated)
             {
-                _shadowOffsetResting.From = _shadowOffsetPressed.ValueForKeyPath(new NSString("shadowOffset"));
-                this.Control.Layer.RemoveAnimation("shadowOffsetPressed");
+                var shadowOffsetAnim = this.Control.Layer.AnimationForKey("shadowOffsetPressed");
+                _shadowOffsetResting.From = shadowOffsetAnim.ValueForKeyPath(new NSString("shadowOffset"));
 
-                _shadowRadiusResting.From = _shadowRadiusPressed.ValueForKeyPath(new NSString("shadowRadius"));
-                this.Control.Layer.RemoveAnimation("shadowRadiusPressed");
+                var shadowRadiusAnim = this.Control.Layer.AnimationForKey("shadowRadiusPressed");
+                _shadowRadiusResting.From = shadowRadiusAnim.ValueForKeyPath(new NSString("shadowRadius"));
 
                 await AnimateAsync(0.150, () =>
                 {
