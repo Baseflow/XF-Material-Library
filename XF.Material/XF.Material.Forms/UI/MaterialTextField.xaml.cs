@@ -354,8 +354,6 @@ namespace XF.Material.Forms.UI
                     placeholder.IsVisible = true;
                 }
 
-                this.TextChangeCommand?.Execute(value);
-                this.TextChanged?.Invoke(this, new TextChangedEventArgs((string)this.GetValue(TextProperty), value));
                 this.SetValue(TextProperty, value);
             }
         }
@@ -994,6 +992,13 @@ namespace XF.Material.Forms.UI
                     this.Text = _choices[result];
                 }
             });
+
+            entry.TextChanged += (sender, args) =>
+            {
+                this.TextChangeCommand?.Execute(entry.Text);
+                this.TextChanged?.Invoke(this, args);
+            };
+
         }
 
         private void SetPropertyChangeHandler(ref Dictionary<string, Action> propertyChangeActions)
