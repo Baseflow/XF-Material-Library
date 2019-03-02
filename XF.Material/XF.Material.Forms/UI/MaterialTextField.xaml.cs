@@ -728,6 +728,8 @@ namespace XF.Material.Forms.UI
         private void OnAlwaysShowUnderlineChanged(bool isShown)
         {
             persistentUnderline.IsVisible = isShown;
+            cardCut.IsVisible = isShown;
+            underline.IsVisible = isShown;
             persistentUnderline.Color = this.UnderlineColor;
         }
 
