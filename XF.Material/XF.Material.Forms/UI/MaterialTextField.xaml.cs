@@ -354,9 +354,10 @@ namespace XF.Material.Forms.UI
                     placeholder.IsVisible = true;
                 }
 
-                this.TextChangeCommand?.Execute(value);
-                this.TextChanged?.Invoke(this, new TextChangedEventArgs((string)this.GetValue(TextProperty), value));
+                var oldTextValue = (string)this.GetValue(TextProperty);
                 this.SetValue(TextProperty, value);
+                this.TextChangeCommand?.Execute(value);
+                this.TextChanged?.Invoke(this, new TextChangedEventArgs(oldTextValue, value));
             }
         }
 
