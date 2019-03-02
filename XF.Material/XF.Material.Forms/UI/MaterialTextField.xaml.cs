@@ -84,6 +84,10 @@ namespace XF.Material.Forms.UI
 
         public static readonly BindableProperty CounterVisibleProperty = BindableProperty.Create(nameof(CounterVisible), typeof(bool), typeof(MaterialTextField), true);
 
+        public static readonly BindableProperty PlaceholderFontSizeProperty = BindableProperty.Create(nameof(PlaceholderFontSize), typeof(int), typeof(MaterialTextField), 16);
+
+        public static readonly BindableProperty TextFontSizeProperty = BindableProperty.Create(nameof(TextFontSize), typeof(int), typeof(MaterialTextField), 16);
+
         private const double AnimationDuration = 0.35;
         private readonly Dictionary<string, Action> _propertyChangeActions;
         private readonly Easing _animationCurve = Easing.SinOut;
@@ -413,6 +417,24 @@ namespace XF.Material.Forms.UI
             set => this.SetValue(CounterVisibleProperty, value);
         }
 
+        /// <summary>
+        /// Gets or sets the Placeholder FontSize.
+        /// </summary>
+        public int PlaceholderFontSize
+        {
+            get => (int)this.GetValue(PlaceholderFontSizeProperty);
+            set => this.SetValue(PlaceholderFontSizeProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the Entry Text FontSize.
+        /// </summary>
+        public int TextFontSize
+        {
+            get => (int)this.GetValue(TextFontSizeProperty);
+            set => this.SetValue(TextFontSizeProperty, value);
+        }
+
         /// <inheritdoc />
         /// <summary>
         /// For internal use only.
@@ -646,6 +668,7 @@ namespace XF.Material.Forms.UI
             placeholder.Opacity = opactiy;
             helper.Opacity = opactiy;
             underline.Opacity = opactiy;
+            placeholder.FontSize = PlaceholderFontSize;
 
             Device.BeginInvokeOnMainThread(async () =>
             {
@@ -965,10 +988,23 @@ namespace XF.Material.Forms.UI
             }
         }
 
+
+        private void OnPlaceholderFontSize(int size)
+        {
+            placeholder.FontSize = size;
+        }
+
+
+        private void OnTextFontSize(int textSize)
+        {
+            entry.FontSize = textSize;
+        }
+
         private void SetControl()
         {
             trailingIcon.TintColor = this.TextColor;
             persistentUnderline.Color = this.UnderlineColor;
+            entry.FontSize = TextFontSize;
             tapGesture.Command = new Command(() =>
             {
                 if (!entry.IsFocused)
@@ -1032,7 +1068,9 @@ namespace XF.Material.Forms.UI
                 { nameof(this.Icon), () => this.OnIconChanged(this.Icon) },
                 { nameof(this.IconTintColor), () => this.OnIconTintColorChanged(this.IconTintColor) },
                 { nameof(this.IsSpellCheckEnabled), () => this.OnIsSpellCheckEnabledChanged(this.IsSpellCheckEnabled) },
-                { nameof(this.IsTextPredictionEnabled), () => this.OnIsTextPredictionEnabledChanged(this.IsTextPredictionEnabled) }
+                { nameof(this.IsTextPredictionEnabled), () => this.OnIsTextPredictionEnabledChanged(this.IsTextPredictionEnabled) },
+                { nameof(this.PlaceholderFontSize), () => this.OnPlaceholderFontSize(this.PlaceholderFontSize) },
+                { nameof(this.TextFontSize), () => this.OnTextFontSize(this.TextFontSize) }
             };
         }
 
