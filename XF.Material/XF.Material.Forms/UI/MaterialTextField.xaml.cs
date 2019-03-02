@@ -82,6 +82,8 @@ namespace XF.Material.Forms.UI
 
         public static readonly BindableProperty UnderlineColorProperty = BindableProperty.Create(nameof(UnderlineColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#99000000"));
 
+        public static readonly BindableProperty CounterVisibleProperty = BindableProperty.Create(nameof(CounterVisible), typeof(bool), typeof(MaterialTextField), true);
+
         private const double AnimationDuration = 0.35;
         private readonly Dictionary<string, Action> _propertyChangeActions;
         private readonly Easing _animationCurve = Easing.SinOut;
@@ -404,6 +406,15 @@ namespace XF.Material.Forms.UI
             set => this.SetValue(UnderlineColorProperty, value);
         }
 
+        /// <summary>
+        /// Gets or sets the visible counter.
+        /// </summary>
+        public bool CounterVisible
+        {
+            get => (bool)this.GetValue(CounterVisibleProperty);
+            set => this.SetValue(CounterVisibleProperty, value);
+        }
+
         /// <inheritdoc />
         /// <summary>
         /// For internal use only.
@@ -652,6 +663,7 @@ namespace XF.Material.Forms.UI
 
                 var accentColor = this.TintColor;
                 placeholder.TextColor = accentColor;
+                counter.IsVisible = CounterVisible;
                 counter.TextColor = this.HelperTextColor;
                 underline.Color = accentColor;
                 persistentUnderline.Color = this.UnderlineColor;
