@@ -64,7 +64,6 @@
                                     FontFamily="{DynamicResource Material.FontFamily.Body2}"
                                     FontSize="16"
                                     HorizontalOptions="FillAndExpand"
-                                    SizeChanged="Entry_SizeChanged"
                                     TextColor="#D0000000"
                                     VerticalOptions="Start">
                 <internal:MaterialEntry.Triggers>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -82,11 +83,9 @@ namespace XF.Material.Forms.UI
 
         public static readonly BindableProperty UnderlineColorProperty = BindableProperty.Create(nameof(UnderlineColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#99000000"));
 
-        public static readonly BindableProperty FontSizeProperty = BindableProperty.Create(nameof(FontSize), typeof(double), typeof(MaterialTextField), 16.0);
-
         private const double AnimationDuration = 0.35;
-        private readonly Dictionary<string, Action> _propertyChangeActions;
         private readonly Easing _animationCurve = Easing.SinOut;
+        private readonly Dictionary<string, Action> _propertyChangeActions;
         private IList<string> _choices;
         private bool _counterEnabled;
         private bool _wasFocused;
@@ -354,10 +353,7 @@ namespace XF.Material.Forms.UI
                     placeholder.IsVisible = true;
                 }
 
-                var oldTextValue = (string)this.GetValue(TextProperty);
                 this.SetValue(TextProperty, value);
-                this.TextChangeCommand?.Execute(value);
-                this.TextChanged?.Invoke(this, new TextChangedEventArgs(oldTextValue, value));
             }
         }
 
@@ -407,28 +403,24 @@ namespace XF.Material.Forms.UI
             set => this.SetValue(UnderlineColorProperty, value);
         }
 
-        /// <summary>
-        /// Gets or sets the Font Size Of the entry.
-        /// </summary>
-        public double FontSize
-        {
-            get => (double)this.GetValue(FontSizeProperty);
-            set => this.SetValue(FontSizeProperty, value);
-        }
-
         /// <inheritdoc />
         /// <summary>
         /// For internal use only.
         /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public void ElementChanged(bool created)
         {
             if (created)
             {
                 entry.PropertyChanged += this.Entry_PropertyChanged;
+                entry.TextChanged += this.Entry_TextChanged;
+                entry.SizeChanged += this.Entry_SizeChanged;
             }
             else
             {
                 entry.PropertyChanged -= this.Entry_PropertyChanged;
+                entry.TextChanged -= this.Entry_TextChanged;
+                entry.SizeChanged -= this.Entry_SizeChanged;
             }
         }
 
@@ -498,11 +490,10 @@ namespace XF.Material.Forms.UI
         private void AnimatePlaceHolder()
         {
             Color tintColor;
-            double startFont = entry.IsFocused ? this.FontSize : this.FontSize * 0.75;
-            double endFOnt = entry.IsFocused ? this.FontSize * 0.75 : this.FontSize;
+            double startFont = entry.IsFocused ? 16 : 12;
+            double endFOnt = entry.IsFocused ? 12 : 16;
             var startY = placeholder.TranslationY;
-            double endY = entry.IsFocused ? -this.FontSize * 0.75 : 0;
-            placeholder.Opacity = !string.IsNullOrEmpty(this.Text) && !this.FloatingPlaceholderEnabled ? 0 : 1;
+            double endY = entry.IsFocused ? -12 : 0;
 
             if (this.HasError)
             {
@@ -572,8 +563,8 @@ namespace XF.Material.Forms.UI
 
                     if (this.FloatingPlaceholderEnabled)
                     {
-                        anim.Add(0.0, AnimationDuration, new Animation(v => placeholder.FontSize = v, this.FontSize, this.FontSize*0.75, _animationCurve));
-                        anim.Add(0.0, AnimationDuration, new Animation(v => placeholder.TranslationY = v, placeholder.TranslationY, -this.FontSize * 0.75, _animationCurve, () =>
+                        anim.Add(0.0, AnimationDuration, new Animation(v => placeholder.FontSize = v, 16, 12, _animationCurve));
+                        anim.Add(0.0, AnimationDuration, new Animation(v => placeholder.TranslationY = v, placeholder.TranslationY, -12, _animationCurve, () =>
                         {
                             placeholder.TextColor = this.HasError ? this.ErrorColor : this.TintColor;
                             entry.Opacity = 1;
@@ -589,7 +580,7 @@ namespace XF.Material.Forms.UI
                 return;
             }
 
-            if ((startObject != null && string.IsNullOrEmpty(this.Text) && placeholder.TranslationY == -this.FontSize * 0.75) || placeholder.TranslationY == -20)
+            if ((startObject != null && string.IsNullOrEmpty(this.Text) && placeholder.TranslationY == -12) || placeholder.TranslationY == -20)
             {
                 if (entry.IsFocused)
                 {
@@ -602,7 +593,7 @@ namespace XF.Material.Forms.UI
 
                     if (this.FloatingPlaceholderEnabled)
                     {
-                        anim.Add(0.0, AnimationDuration, new Animation(v => placeholder.FontSize = v, this.FontSize * 0.75, this.FontSize, _animationCurve));
+                        anim.Add(0.0, AnimationDuration, new Animation(v => placeholder.FontSize = v, 12, 16, _animationCurve));
                         anim.Add(0.0, AnimationDuration, new Animation(v => placeholder.TranslationY = v, placeholder.TranslationY, 0, _animationCurve, () =>
                         {
                             placeholder.TextColor = this.PlaceholderColor;
@@ -686,16 +677,30 @@ namespace XF.Material.Forms.UI
                 this.UpdateCounter();
             }
 
-            if (e.PropertyName is nameof(this.IsFocused))
+            switch (e.PropertyName)
             {
-                this.AnimatePlaceHolder();
-            }
+                case nameof(this.IsFocused) when string.IsNullOrEmpty(entry.Text):
+                    this.AnimatePlaceHolder();
+                    break;
 
-            if (e.PropertyName == nameof(Entry.Text))
-            {
-                this.Text = entry.Text;
-                this.UpdateCounter();
+                case nameof(Entry.Text):
+                    this.Text = entry.Text;
+                    this.UpdateCounter();
+                    break;
             }
+        }
+
+        private void Entry_SizeChanged(object sender, EventArgs e)
+        {
+            var diff = entry.Height - 20;
+
+            _autoSizingRow.Height = new GridLength(56 + diff);
+        }
+
+        private void Entry_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            this.TextChangeCommand?.Execute(entry.Text);
+            this.TextChanged?.Invoke(this, e);
         }
 
         private IList<string> GetChoices()
@@ -939,13 +944,6 @@ namespace XF.Material.Forms.UI
             this.UpdateCounter();
         }
 
-        private void OnFontSizeChanged(double fontSize)
-        {
-            placeholder.FontSize = fontSize;
-            entry.FontSize = fontSize;
-            entry.HeightRequest = entry.FontSize * 1.25;
-        }
-
         private void OnTextColorChanged(Color textColor)
         {
             entry.TextColor = trailingIcon.TintColor = textColor;
@@ -973,11 +971,6 @@ namespace XF.Material.Forms.UI
         {
             trailingIcon.TintColor = this.TextColor;
             persistentUnderline.Color = this.UnderlineColor;
-
-            placeholder.FontSize = this.FontSize;
-            entry.FontSize = this.FontSize;
-            entry.HeightRequest = entry.FontSize * 1.25;
-
             tapGesture.Command = new Command(() =>
             {
                 if (!entry.IsFocused)
@@ -1008,7 +1001,6 @@ namespace XF.Material.Forms.UI
             propertyChangeActions = new Dictionary<string, Action>
             {
                 { nameof(this.Text), () => this.OnTextChanged(this.Text) },
-                { nameof(this.FontSize), () => this.OnFontSizeChanged(this.FontSize) },
                 { nameof(this.TextColor), () => this.OnTextColorChanged(this.TextColor) },
                 { nameof(this.TextFontFamily), () => this.OnTextFontFamilyChanged(this.TextFontFamily) },
                 { nameof(this.TintColor), () => this.OnTintColorChanged(this.TintColor) },
@@ -1044,13 +1036,6 @@ namespace XF.Material.Forms.UI
             if (!_counterEnabled) return;
             var count = entry.Text?.Length ?? 0;
             counter.Text = entry.IsFocused ? $"{count}/{this.MaxLength}" : string.Empty;
-        }
-
-        private void Entry_SizeChanged(object sender, EventArgs e)
-        {
-            var diff = entry.Height - 20;
-
-            _autoSizingRow.Height = new GridLength(56 + Math.Abs(diff));
         }
     }
 }

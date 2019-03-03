@@ -131,7 +131,7 @@
                                         Text="Create an account"
                                         TextColor="#DE000000"
                                         TypeScale="H5" />
-                <material:MaterialTextField />
+                <material:MaterialTextField AlwaysShowUnderline="True" />
                 <!--<material:MaterialTextField AlwaysShowUnderline="True"
                                             ChoiceSelected="MaterialTextField_ChoiceSelected"
                                             Choices="{Binding Models}"
