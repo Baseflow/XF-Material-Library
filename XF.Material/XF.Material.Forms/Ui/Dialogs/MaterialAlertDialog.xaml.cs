@@ -90,7 +90,7 @@ namespace XF.Material.Forms.UI.Dialogs
             }
         }
 
-        public override void OnBackButtonDismissed()
+        protected override void OnBackButtonDismissed()
         {
             this.InputTaskCompletionSource?.SetResult(null);
         }

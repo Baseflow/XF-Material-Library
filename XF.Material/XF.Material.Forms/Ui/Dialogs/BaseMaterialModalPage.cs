@@ -17,6 +17,7 @@ namespace XF.Material.Forms.UI.Dialogs
     public abstract class BaseMaterialModalPage : PopupPage, IMaterialModalPage
     {
         private bool _disposed;
+        private bool _dismissing;
 
         protected BaseMaterialModalPage()
         {
@@ -59,10 +60,19 @@ namespace XF.Material.Forms.UI.Dialogs
         }
 
         /// <summary>
-        /// For internal use only.
+        /// For internal use only when running on the Android platform.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public virtual void OnBackButtonDismissed() { }
+        public void RaiseOnBackButtonDismissed()
+        {
+            if (_dismissing || Device.RuntimePlatform == Device.iOS) return;
+
+            _dismissing = true;
+
+            this.OnBackButtonDismissed();
+        }
+
+        protected virtual void OnBackButtonDismissed() { }
 
         protected virtual void Dispose(bool disposing)
         {
