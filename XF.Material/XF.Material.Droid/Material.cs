@@ -31,7 +31,7 @@ namespace XF.Material.Droid
         /// Handles the physical back button event to dismiss specific dialogs shown by <see cref="XF.Material.Forms.UI.Dialogs.MaterialDialog.Instance"/>.
         /// </summary>
         /// <param name="backAction">The base <see cref="Activity.OnBackPressed"/> method.</param>
-        public static async void HandleBackButton(Action backAction)
+        public static void HandleBackButton(Action backAction)
         {
             var popupStack = PopupNavigation.Instance.PopupStack;
             var dismissableDialog = popupStack.FirstOrDefault(p => p is BaseMaterialModalPage modalPage && modalPage.Dismissable) as BaseMaterialModalPage;
@@ -44,8 +44,8 @@ namespace XF.Material.Droid
 
             if (dismissableDialog != null)
             {
-                await dismissableDialog.DismissAsync();
-                dismissableDialog.OnBackButtonDismissed();
+                ((Activity)Context).RunOnUiThread(async () => await dismissableDialog.DismissAsync());
+                dismissableDialog.RaiseOnBackButtonDismissed();
             }
             else if (snackBar != null)
             {
@@ -64,7 +64,7 @@ namespace XF.Material.Droid
         /// <param name="bundle">The string values parameter passed to the <see cref="Activity.OnCreate(Bundle)"/> method.</param>
         public static void Init(Context context, Bundle bundle)
         {
-            Context = context;
+            Context = context ?? throw new ArgumentNullException(nameof(context));
             IsLollipop = Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop;
             IsJellyBean = Build.VERSION.SdkInt < BuildVersionCodes.Kitkat;
 

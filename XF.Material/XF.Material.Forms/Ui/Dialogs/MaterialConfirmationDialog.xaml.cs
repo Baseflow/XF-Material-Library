@@ -145,7 +145,7 @@ namespace XF.Material.Forms.UI.Dialogs
             return await dialog.InputTaskCompletionSource.Task;
         }
 
-        public override void OnBackButtonDismissed()
+        protected override void OnBackButtonDismissed()
         {
             this.InputTaskCompletionSource?.SetResult(_isMultiChoice ? null : -1 as object);
         }

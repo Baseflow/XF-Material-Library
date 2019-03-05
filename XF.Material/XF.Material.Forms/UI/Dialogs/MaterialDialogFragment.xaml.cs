@@ -35,7 +35,7 @@ namespace XF.Material.Forms.UI.Dialogs
             return await d.InputTaskCompletionSource.Task;
         }
 
-        public override void OnBackButtonDismissed()
+        protected override void OnBackButtonDismissed()
         {
             this.InputTaskCompletionSource?.SetResult(null);
         }
