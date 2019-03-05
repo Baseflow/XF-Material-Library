@@ -11,22 +11,26 @@ using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using XF.Material.Droid.Renderers.Internals;
 using XF.Material.Forms.UI.Internals;
+using static Android.Text.TextUtils;
 using static Android.Widget.TextView;
 
 [assembly: ExportRenderer(typeof(MaterialEntry), typeof(MaterialEntryRenderer))]
 namespace XF.Material.Droid.Renderers.Internals
 {
-    internal class MaterialEntryRenderer : EditorRenderer, IOnEditorActionListener
+    internal class MaterialEntryRenderer : EntryRenderer
     {
+        private MaterialEntry _materialEntry;
+
         public MaterialEntryRenderer(Context context) : base(context) { }
 
-        protected override void OnElementChanged(ElementChangedEventArgs<Editor> e)
+        protected override void OnElementChanged(ElementChangedEventArgs<Entry> e)
         {
             base.OnElementChanged(e);
 
             if (e?.NewElement != null)
             {
                 this.ChangeCursorColor();
+                _materialEntry = this.Element as MaterialEntry;
                 this.SetControl();
             }
         }
@@ -53,11 +57,11 @@ namespace XF.Material.Droid.Renderers.Internals
             this.Control.SetIncludeFontPadding(false);
             this.Control.SetMinimumHeight((int)MaterialHelper.ConvertToDp(20));
 
-            // DEV HINT
-            // This removes the 'Next' button and shows a 'Done' button when the device's orientation is in landscape.
-            // This prevents the crash that is caused by a `java.lang.IllegalStateException'.
-            // Reported here https://github.com/xamarin/Xamarin.Forms/issues/4832.
-            this.Control.ImeOptions = Android.Views.InputMethods.ImeAction.Done;
+            //// DEV HINT: This will be used for the future control `MaterialTextArea`.
+            //// This removes the 'Next' button and shows a 'Done' button when the device's orientation is in landscape.
+            //// This prevents the crash that is caused by a `java.lang.IllegalStateException'.
+            //// Reported here https://github.com/xamarin/Xamarin.Forms/issues/4832.
+            //this.Control.ImeOptions = Android.Views.InputMethods.ImeAction.Done;
         }
 
         private void ChangeCursorColor()
@@ -92,15 +96,15 @@ namespace XF.Material.Droid.Renderers.Internals
 
         public bool OnEditorAction(TextView v, [GeneratedEnum] ImeAction actionId, KeyEvent e)
         {
-            switch(actionId)
+            var currentFocus = (this.Context as Activity).CurrentFocus;
+
+            if (currentFocus != null)
             {
-                case ImeAction.Done:
-                    v?.ClearFocus();
-                    var im = (InputMethodManager)this.Context.GetSystemService(Context.InputMethodService);
-                    var currentActivity = Material.Context as Activity;
-                    im.HideSoftInputFromInputMethod(currentActivity.CurrentFocus?.WindowToken, 0);
-                    break;
+                var inputMethodManager = (InputMethodManager)(this.Context as Activity).GetSystemService(Context.InputMethodService);
+                inputMethodManager.HideSoftInputFromWindow(currentFocus.WindowToken, HideSoftInputFlags.None);
             }
+
+            _materialEntry.ReturnCommand?.Execute(_materialEntry.ReturnCommandParameter);
 
             return false;
         }

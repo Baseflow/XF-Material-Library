@@ -5,26 +5,19 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using XF.Material.Forms;
+using Xamarin.Forms.Xaml;
 using XF.Material.Forms.UI;
 using XF.Material.Forms.UI.Dialogs;
+using Xamarin.Forms.Internals;
 
 namespace MaterialMvvmSample.Views
 {
+    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MainView : BaseMainView
     {
         public MainView()
         {
             this.InitializeComponent();
-        }
-
-        private void MaterialTextField_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            (sender as MaterialTextField).HasError = string.IsNullOrEmpty(e.NewTextValue);
-        }
-
-        private void MaterialTextField_ChoiceSelected(object sender, SelectedItemChangedEventArgs e)
-        {
-            Debug.WriteLine($"Selected {e.SelectedItem}");
         }
     }
 

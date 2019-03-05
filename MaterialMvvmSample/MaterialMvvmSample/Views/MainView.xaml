@@ -123,7 +123,6 @@
 
         <material:MaterialCard Elevation="4"
                                HorizontalOptions="FillAndExpand"
-                               IsClickable="True"
                                IsClippedToBounds="False"
                                VerticalOptions="FillAndExpand">
             <StackLayout Spacing="8">
@@ -131,13 +130,17 @@
                                         Text="Create an account"
                                         TextColor="#DE000000"
                                         TypeScale="H5" />
-                <material:MaterialTextField AlwaysShowUnderline="True" />
+                <material:MaterialTextField HasError="True"
+                                            IsEnabled="False"
+                                            IsSpellCheckEnabled="False"
+                                            Text="Lorem Ipsum Dolor Sit Amet" />
+
                 <!--<material:MaterialTextField AlwaysShowUnderline="True"
                                             ChoiceSelected="MaterialTextField_ChoiceSelected"
                                             Choices="{Binding Models}"
                                             ChoicesBindingName="Title"
                                             FloatingPlaceholderEnabled="False"
-                                            HasHorizontalPadding="False"
+                                            HorizontalPadding="0"
                                             HelperText="*Required"
                                             InputType="Choice"
                                             Placeholder="Username"
@@ -185,10 +188,13 @@
                 <material:MaterialCheckbox Margin="-8,0,0,0"
                                            SelectedColor="#2c3e50"
                                            Text="I agree with the terms and service." />
-                <material:MaterialSwitch />
+                <material:MaterialSwitch HorizontalOptions="Start" />
                 <material:MaterialButton BackgroundColor="#2c3e50"
                                          HorizontalOptions="End"
                                          Text="Create" />
+                <material:MaterialIconButton CornerRadius="24"
+                                             Image="xf_error"
+                                             TintColor="White" />
             </StackLayout>
         </material:MaterialCard>
     </ScrollView>

@@ -40,6 +40,7 @@ namespace XF.Material.iOS.Renderers
             base.LayoutSubviews();
 
             this.UpdateLayerFrame();
+            this.UpdateCornerRadius();
             this.UpdateTextSizing();
         }
 
@@ -48,6 +49,9 @@ namespace XF.Material.iOS.Renderers
             base.OnElementChanged(e);
 
             if (this.Control == null) return;
+
+            var widthContraint = NSLayoutConstraint.Create(this.Control, NSLayoutAttribute.Width, NSLayoutRelation.GreaterThanOrEqual, 1f, 64f);
+            this.Control.AddConstraint(widthContraint);
 
             if (e?.OldElement != null)
             {
@@ -58,34 +62,32 @@ namespace XF.Material.iOS.Renderers
                 this.Control.TouchDragExit -= this.Control_Released;
             }
 
-            if (e?.NewElement == null) return;
-            _materialButton = this.Element as MaterialButton;
-
-            if (_materialButton != null)
+            if (e?.NewElement != null)
             {
-                _withIcon = _materialButton.Image != null;
+                _materialButton = this.Element as MaterialButton;
 
-                if (_materialButton.AllCaps)
+                if (_materialButton != null)
                 {
-                    _materialButton.Text = _materialButton.Text?.ToUpper();
+                    _withIcon = _materialButton.Image != null;
+
+                    if (_materialButton.AllCaps)
+                    {
+                        _materialButton.Text = _materialButton.Text?.ToUpper();
+                    }
                 }
 
-                var widthContraint = NSLayoutConstraint.Create(this.Control, NSLayoutAttribute.Width, NSLayoutRelation.GreaterThanOrEqual, 1f, 64f);
-                this.Control.AddConstraint(widthContraint);
+                this.SetupIcon();
+                this.SetupColors();
+                this.UpdateText();
+                this.CreateStateAnimations();
+                this.UpdateButtonLayer();
+                this.UpdateState();
+                this.Control.TouchDown += this.Control_Pressed;
+                this.Control.TouchDragEnter += this.Control_Pressed;
+                this.Control.TouchUpInside += this.Control_Released;
+                this.Control.TouchCancel += this.Control_Released;
+                this.Control.TouchDragExit += this.Control_Released;
             }
-
-            this.SetupIcon();
-            this.SetupColors();
-            this.UpdateText();
-            this.CreateStateAnimations();
-            this.UpdateButtonLayer();
-            this.UpdateCornerRadius();
-            this.UpdateState();
-            this.Control.TouchDown += this.Control_Pressed;
-            this.Control.TouchDragEnter += this.Control_Pressed;
-            this.Control.TouchUpInside += this.Control_Released;
-            this.Control.TouchCancel += this.Control_Released;
-            this.Control.TouchDragExit += this.Control_Released;
         }
 
         protected override async void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -326,6 +328,8 @@ namespace XF.Material.iOS.Renderers
 
         private void UpdateButtonLayer()
         {
+            if (this.Control == null) return;
+
             if (_animationLayer == null)
             {
                 _animationLayer = new CALayer();
@@ -373,7 +377,15 @@ namespace XF.Material.iOS.Renderers
 
         private void UpdateCornerRadius()
         {
-            _animationLayer.CornerRadius = Convert.ToInt32(_materialButton.CornerRadius);
+            if (this.Control == null || _animationLayer == null)
+            {
+                return;
+            }
+
+            var maxCornerRadius = _animationLayer.Frame.Height / 2;
+            var preferredCornerRadius = _materialButton.CornerRadius > maxCornerRadius ? maxCornerRadius : _materialButton.CornerRadius;
+
+            _animationLayer.CornerRadius = Convert.ToInt32(preferredCornerRadius);
             this.Control.Layer.CornerRadius = _animationLayer.CornerRadius;
         }
 
@@ -385,15 +397,15 @@ namespace XF.Material.iOS.Renderers
             var height = this.Control.Frame.Height - 12;
 
             _animationLayer.Frame = new CGRect(6, 6, width, height);
-            _animationLayer.CornerRadius = Convert.ToInt32(_materialButton.CornerRadius);
 
             this.Control.Layer.BackgroundColor = UIColor.Clear.CGColor;
             this.Control.Layer.BorderColor = UIColor.Clear.CGColor;
-            this.Control.Layer.CornerRadius = _animationLayer.CornerRadius;
         }
 
         private void UpdateState()
         {
+            if (this.Control == null) return;
+
             if (_materialButton.IsEnabled)
             {
                 _animationLayer.BackgroundColor = _restingBackgroundColor.CGColor;
@@ -444,6 +456,8 @@ namespace XF.Material.iOS.Renderers
 
         private void UpdateText()
         {
+            if (this.Control == null) return;
+
             var text = this.Control.Title(UIControlState.Normal);
             text = _materialButton.AllCaps ? text?.ToUpper() : text;
 
