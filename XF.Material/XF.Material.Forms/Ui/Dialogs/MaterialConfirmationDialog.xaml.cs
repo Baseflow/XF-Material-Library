@@ -63,7 +63,7 @@ namespace XF.Material.Forms.UI.Dialogs
 
         internal static MaterialConfirmationDialogConfiguration GlobalConfiguration { get; set; }
 
-        public static async Task<object> ShowSelectChoiceAsync(string title, IList<string> choices, MaterialConfirmationDialogConfiguration configuration)
+        public static async Task<object> ShowSelectChoiceAsync(string title, IList<string> choices, string confirmingText = "Ok", string dismissiveText = "Cancel", MaterialConfirmationDialogConfiguration configuration = null)
         {
             var dialog = new MaterialConfirmationDialog(configuration)
             {
@@ -85,13 +85,15 @@ namespace XF.Material.Forms.UI.Dialogs
 
             dialog._radioButtonGroup.ShouldShowScrollbar = true;
             dialog.DialogTitle.Text = !string.IsNullOrEmpty(title) ? title : throw new ArgumentNullException(nameof(title));
+            dialog.PositiveButton.Text = confirmingText;
+            dialog.NegativeButton.Text = dismissiveText;
             dialog.container.Content = dialog._radioButtonGroup;
             await dialog.ShowAsync();
 
             return await dialog.InputTaskCompletionSource.Task;
         }
 
-        public static async Task<object> ShowSelectChoiceAsync(string title, IList<string> choices, int selectedIndex, MaterialConfirmationDialogConfiguration configuration)
+        public static async Task<object> ShowSelectChoiceAsync(string title, IList<string> choices, int selectedIndex, string confirmingText = "Ok", string dismissiveText = "Cancel", MaterialConfirmationDialogConfiguration configuration = null)
         {
             var dialog = new MaterialConfirmationDialog(configuration)
             {
@@ -116,12 +118,14 @@ namespace XF.Material.Forms.UI.Dialogs
             dialog.DialogTitle.Text = !string.IsNullOrEmpty(title) ? title : throw new ArgumentNullException(nameof(title));
             dialog.container.Content = dialog._radioButtonGroup;
             dialog.PositiveButton.IsEnabled = true;
+            dialog.PositiveButton.Text = confirmingText;
+            dialog.NegativeButton.Text = dismissiveText;
             await dialog.ShowAsync();
 
             return await dialog.InputTaskCompletionSource.Task;
         }
 
-        public static async Task<object> ShowSelectChoicesAsync(string title, IList<string> choices, MaterialConfirmationDialogConfiguration configuration)
+        public static async Task<object> ShowSelectChoicesAsync(string title, IList<string> choices, string confirmingText = "Ok", string dismissiveText = "Cancel", MaterialConfirmationDialogConfiguration configuration = null)
         {
             var dialog = new MaterialConfirmationDialog(configuration)
             {
@@ -145,12 +149,14 @@ namespace XF.Material.Forms.UI.Dialogs
             dialog._isMultiChoice = true;
             dialog.DialogTitle.Text = !string.IsNullOrEmpty(title) ? title : throw new ArgumentNullException(nameof(title));
             dialog.container.Content = dialog._checkboxGroup;
+            dialog.PositiveButton.Text = confirmingText;
+            dialog.NegativeButton.Text = dismissiveText;
             await dialog.ShowAsync();
 
             return await dialog.InputTaskCompletionSource.Task;
         }
 
-        public static async Task<object> ShowSelectChoicesAsync(string title, IList<string> choices, IList<int> selectedIndices, MaterialConfirmationDialogConfiguration configuration)
+        public static async Task<object> ShowSelectChoicesAsync(string title, IList<string> choices, IList<int> selectedIndices, string confirmingText = "Ok", string dismissiveText = "Cancel", MaterialConfirmationDialogConfiguration configuration = null)
         {
             var dialog = new MaterialConfirmationDialog(configuration)
             {
@@ -159,7 +165,7 @@ namespace XF.Material.Forms.UI.Dialogs
                 {
                     HorizontalSpacing = 20,
                     Choices = choices ?? throw new ArgumentNullException(nameof(choices)),
-                    SelectedIndices = selectedIndices
+                    SelectedIndices = selectedIndices.ToList()
                 }
             };
 
@@ -176,6 +182,8 @@ namespace XF.Material.Forms.UI.Dialogs
             dialog.DialogTitle.Text = !string.IsNullOrEmpty(title) ? title : throw new ArgumentNullException(nameof(title));
             dialog.container.Content = dialog._checkboxGroup;
             dialog.PositiveButton.IsEnabled = true;
+            dialog.PositiveButton.Text = confirmingText;
+            dialog.NegativeButton.Text = dismissiveText;
             await dialog.ShowAsync();
 
             return await dialog.InputTaskCompletionSource.Task;
