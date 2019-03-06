@@ -70,7 +70,7 @@ namespace XF.Material.Forms.UI.Dialogs
             Message.TextColor = preferredConfig.MessageTextColor;
             Message.FontFamily = preferredConfig.MessageFontFamily;
             LoadingImage.TintColor = preferredConfig.TintColor;
-            Container.Margin = preferredConfig.Margin;
+            Container.Margin = preferredConfig.Margin == default ? Material.GetResource<Thickness>("Material.Dialog.Margin") : preferredConfig.Margin;
         }
     }
 }

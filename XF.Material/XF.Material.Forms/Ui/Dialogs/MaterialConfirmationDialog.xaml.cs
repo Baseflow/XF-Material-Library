@@ -12,45 +12,17 @@ namespace XF.Material.Forms.UI.Dialogs
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MaterialConfirmationDialog : BaseMaterialModalPage, IMaterialAwaitableDialog<object>
     {
+        public static readonly BindableProperty DialogConfigurationProperty = BindableProperty.Create("DialogConfiguration", typeof(MaterialConfirmationDialogConfiguration), typeof(MaterialConfirmationDialog));
+        public static readonly BindableProperty DialogConfirmingTextProperty = BindableProperty.Create("DialogConfirmingText", typeof(string), typeof(MaterialConfirmationDialog), "Ok");
+        public static readonly BindableProperty DialogDismissiveTextProperty = BindableProperty.Create("DialogDismissiveText", typeof(string), typeof(MaterialConfirmationDialog), "Cancel");
         public static readonly BindableProperty DialogTitleProperty = BindableProperty.Create("DialogTitle", typeof(string), typeof(MaterialConfirmationDialog), "Select an item");
 
-        public static string GetDialogTitle(BindableObject bindable)
-        {
-            return (string)bindable.GetValue(DialogTitleProperty);
-        }
-
-        public static void SetDialogTitle(BindableObject bindable, string title)
-        {
-            bindable.SetValue(DialogTitleProperty, title);
-        }
-
-        public static readonly BindableProperty DialogConfirmingTextProperty = BindableProperty.Create("DialogConfirmingText", typeof(string), typeof(MaterialConfirmationDialog), "Ok");
-
-        public static string GetDialogConfirmingText(BindableObject bindable)
-        {
-            return (string)bindable.GetValue(DialogConfirmingTextProperty);
-        }
-
-        public static void SetDialogConfirmingText(BindableObject bindable, string confirmingText)
-        {
-            bindable.SetValue(DialogConfirmingTextProperty, confirmingText);
-        }
-
-        public static readonly BindableProperty DialogDismissiveTextProperty = BindableProperty.Create("DialogDismissiveText", typeof(string), typeof(MaterialConfirmationDialog), "Cancel");
-
-        public static string GetDialogDismissiveText(BindableObject bindable)
-        {
-            return (string)bindable.GetValue(DialogDismissiveTextProperty);
-        }
-
-        public static void SetDialogDismissiveText(BindableObject bindable, string dismissiveText)
-        {
-            bindable.SetValue(DialogDismissiveTextProperty, dismissiveText);
-        }
-
         private MaterialCheckboxGroup _checkboxGroup;
+
         private bool _isMultiChoice;
+
         private MaterialConfirmationDialogConfiguration _preferredConfig;
+
         private MaterialRadioButtonGroup _radioButtonGroup;
 
         internal MaterialConfirmationDialog(MaterialConfirmationDialogConfiguration configuration)
@@ -62,6 +34,46 @@ namespace XF.Material.Forms.UI.Dialogs
         public TaskCompletionSource<object> InputTaskCompletionSource { get; set; }
 
         internal static MaterialConfirmationDialogConfiguration GlobalConfiguration { get; set; }
+
+        public static MaterialConfirmationDialogConfiguration GetDialogConfiguration(BindableObject bindable)
+        {
+            return (MaterialConfirmationDialogConfiguration)bindable.GetValue(DialogConfigurationProperty);
+        }
+
+        public static string GetDialogConfirmingText(BindableObject bindable)
+        {
+            return (string)bindable.GetValue(DialogConfirmingTextProperty);
+        }
+
+        public static string GetDialogDismissiveText(BindableObject bindable)
+        {
+            return (string)bindable.GetValue(DialogDismissiveTextProperty);
+        }
+
+        public static string GetDialogTitle(BindableObject bindable)
+        {
+            return (string)bindable.GetValue(DialogTitleProperty);
+        }
+
+        public static void SetDialogConfiguration(BindableObject bindable, MaterialConfirmationDialogConfiguration configuration)
+        {
+            bindable.SetValue(DialogConfigurationProperty, configuration);
+        }
+
+        public static void SetDialogConfirmingText(BindableObject bindable, string confirmingText)
+        {
+            bindable.SetValue(DialogConfirmingTextProperty, confirmingText);
+        }
+
+        public static void SetDialogDismissiveText(BindableObject bindable, string dismissiveText)
+        {
+            bindable.SetValue(DialogDismissiveTextProperty, dismissiveText);
+        }
+
+        public static void SetDialogTitle(BindableObject bindable, string title)
+        {
+            bindable.SetValue(DialogTitleProperty, title);
+        }
 
         public static async Task<object> ShowSelectChoiceAsync(string title, IList<string> choices, string confirmingText = "Ok", string dismissiveText = "Cancel", MaterialConfirmationDialogConfiguration configuration = null)
         {
@@ -189,11 +201,6 @@ namespace XF.Material.Forms.UI.Dialogs
             return await dialog.InputTaskCompletionSource.Task;
         }
 
-        protected override void OnBackButtonDismissed()
-        {
-            this.InputTaskCompletionSource?.SetResult(_isMultiChoice ? null : -1 as object);
-        }
-
         protected override void OnAppearing()
         {
             base.OnAppearing();
@@ -211,6 +218,11 @@ namespace XF.Material.Forms.UI.Dialogs
             NegativeButton.Clicked += this.NegativeButton_Clicked;
 
             this.ChangeLayout();
+        }
+
+        protected override void OnBackButtonDismissed()
+        {
+            this.InputTaskCompletionSource?.SetResult(_isMultiChoice ? null : -1 as object);
         }
 
         protected override bool OnBackgroundClicked()
@@ -252,6 +264,7 @@ namespace XF.Material.Forms.UI.Dialogs
                     Container.WidthRequest = 560;
                     Container.HorizontalOptions = LayoutOptions.Center;
                     break;
+
                 case DisplayOrientation.Portrait when Device.Idiom == TargetIdiom.Phone:
                     Container.WidthRequest = -1;
                     Container.HorizontalOptions = LayoutOptions.FillAndExpand;
@@ -277,7 +290,7 @@ namespace XF.Material.Forms.UI.Dialogs
             PositiveButton.TextColor = NegativeButton.TextColor = _preferredConfig.TintColor;
             PositiveButton.AllCaps = NegativeButton.AllCaps = _preferredConfig.ButtonAllCaps;
             PositiveButton.FontFamily = NegativeButton.FontFamily = _preferredConfig.ButtonFontFamily;
-            Container.Margin = _preferredConfig.Margin;
+            Container.Margin = _preferredConfig.Margin == default ? Material.GetResource<Thickness>("Material.Dialog.Margin") : _preferredConfig.Margin;
         }
 
         private void DialogActionList_SelectedIndexChanged(object sender, SelectedIndexChangedEventArgs e)

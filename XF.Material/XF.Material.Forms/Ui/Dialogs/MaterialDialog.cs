@@ -31,9 +31,6 @@ namespace XF.Material.Forms.UI.Dialogs
             string title,
             MaterialAlertDialogConfiguration configuration = null)
         {
-            if (title == null)
-                throw new ArgumentNullException(nameof(title));
-
             return MaterialAlertDialog.AlertAsync(message, title, configuration);
         }
 

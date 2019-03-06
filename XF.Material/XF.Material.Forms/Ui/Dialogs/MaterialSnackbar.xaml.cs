@@ -115,7 +115,7 @@ namespace XF.Material.Forms.UI.Dialogs
             ActionButton.TextColor = preferredConfig.TintColor;
             ActionButton.FontFamily = preferredConfig.ButtonFontFamily;
             ActionButton.AllCaps = preferredConfig.ButtonAllCaps;
-            Container.Margin = preferredConfig.Margin;
+            Container.Margin = preferredConfig.Margin == default ? Material.GetResource<Thickness>("Material.Snackbar.Margin") : preferredConfig.Margin;
         }
     }
 }

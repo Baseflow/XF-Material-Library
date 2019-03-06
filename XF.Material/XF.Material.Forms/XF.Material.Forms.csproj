@@ -6,6 +6,7 @@
     <AssemblyName>XF.Material.Forms</AssemblyName>
     <RootNamespace>XF.Material.Forms</RootNamespace>
     <Configurations>Debug;Release;iOS Release</Configurations>
+    <LangVersion>7.1</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>bin\Release\netstandard2.0\XF.Material.Forms.xml</DocumentationFile>

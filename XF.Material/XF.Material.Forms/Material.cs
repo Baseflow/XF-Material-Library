@@ -61,7 +61,7 @@ namespace XF.Material.Forms
                 throw new InvalidCastException($"The resource retrieved was not of the type {typeof(T)}. Use {value.GetType()} instead.");
             }
 
-            return default(T);
+            return default;
         }
 
         /// <summary>
@@ -161,7 +161,15 @@ namespace XF.Material.Forms
             /// Accents select parts of your UI.
             /// If not provided, use <see cref="MaterialColorConfiguration.Primary"/>.
             /// </summary>
-            public static Xamarin.Forms.Color Secondary => GetResource<Xamarin.Forms.Color>(MaterialConstants.Color.SECONDARY);
+            public static Xamarin.Forms.Color Secondary => GetSecondaryColor();
+
+            //TODO: Make configurations bindable.
+            private static Xamarin.Forms.Color GetSecondaryColor()
+            {
+                var color = GetResource<Xamarin.Forms.Color>(MaterialConstants.Color.SECONDARY);
+
+                return color.IsDefault ? Xamarin.Forms.Color.FromHex("#6200EE") : color;
+            }
 
             /// <summary>
             /// A tonal variation of <see cref="MaterialColorConfiguration.Secondary"/>.

@@ -97,7 +97,7 @@ namespace XF.Material.Forms.UI.Dialogs
             PositiveButton.TextColor = NegativeButton.TextColor = preferredConfig.TintColor;
             PositiveButton.AllCaps = NegativeButton.AllCaps = preferredConfig.ButtonAllCaps;
             PositiveButton.FontFamily = NegativeButton.FontFamily = preferredConfig.ButtonFontFamily;
-            Container.Margin = preferredConfig.Margin;
+            Container.Margin = preferredConfig.Margin == default ? Material.GetResource<Thickness>("Material.Dialog.Margin") : preferredConfig.Margin;
         }
 
         private async void NegativeButton_Clicked(object sender, EventArgs e)

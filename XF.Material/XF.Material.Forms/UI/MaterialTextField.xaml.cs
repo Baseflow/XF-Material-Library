@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -12,7 +11,6 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XF.Material.Forms.Resources;
 using XF.Material.Forms.UI.Dialogs;
-using XF.Material.Forms.UI.Dialogs.Configurations;
 using XF.Material.Forms.UI.Internals;
 
 namespace XF.Material.Forms.UI
@@ -54,8 +52,6 @@ namespace XF.Material.Forms.UI
 
         public static readonly BindableProperty HorizontalPaddingProperty = BindableProperty.Create(nameof(HorizontalPadding), typeof(MaterialHorizontalThickness), typeof(MaterialTextField), new MaterialHorizontalThickness(12d), defaultBindingMode: BindingMode.OneTime);
 
-        public static readonly BindableProperty LeadingIconProperty = BindableProperty.Create(nameof(LeadingIcon), typeof(string), typeof(MaterialTextField));
-
         public static readonly BindableProperty IconTintColorProperty = BindableProperty.Create(nameof(IconTintColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#99000000"));
 
         public static readonly BindableProperty InputTypeProperty = BindableProperty.Create(nameof(InputType), typeof(MaterialTextFieldInputType), typeof(MaterialTextField), MaterialTextFieldInputType.Default);
@@ -65,6 +61,8 @@ namespace XF.Material.Forms.UI
         public static readonly BindableProperty IsSpellCheckEnabledProperty = BindableProperty.Create(nameof(IsSpellCheckEnabled), typeof(bool), typeof(MaterialTextField), false);
 
         public static readonly BindableProperty IsTextPredictionEnabledProperty = BindableProperty.Create(nameof(IsTextPredictionEnabled), typeof(bool), typeof(MaterialTextField), false);
+
+        public static readonly BindableProperty LeadingIconProperty = BindableProperty.Create(nameof(LeadingIcon), typeof(string), typeof(MaterialTextField));
 
         public static readonly BindableProperty MaxLengthProperty = BindableProperty.Create(nameof(MaxLength), typeof(int), typeof(MaterialTextField), 0);
 
@@ -97,17 +95,12 @@ namespace XF.Material.Forms.UI
         public static readonly BindableProperty UnderlineColorProperty = BindableProperty.Create(nameof(UnderlineColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#99000000"));
 
         private const double AnimationDuration = 0.35;
-
         private readonly Easing _animationCurve = Easing.SinOut;
-
         private readonly Dictionary<string, Action> _propertyChangeActions;
-
         private IList<string> _choices;
-
         private bool _counterEnabled;
-
         private DisplayInfo _lastDeviceDisplay;
-
+        private int _selectedIndex = -1;
         private bool _wasFocused;
 
         /// <summary>
@@ -151,14 +144,23 @@ namespace XF.Material.Forms.UI
             set => this.SetValue(BackgroundColorProperty, value);
         }
 
+        /// <summary>
+        /// Gets or sets the collection of objects which the user will choose from. This is required when <see cref="InputType"/> is set to <see cref="MaterialTextFieldInputType.Choice"/>.
+        /// </summary>
         public IList Choices
         {
             get => (IList)this.GetValue(ChoicesProperty);
             set => this.SetValue(ChoicesProperty, value);
         }
 
+        /// <summary>
+        /// Gets or sets the name of the property to display of each object in the <see cref="Choices"/> property. This will be ignored if the objects are strings.
+        /// </summary>
         public string ChoicesBindingName { get; set; }
 
+        /// <summary>
+        /// Gets or sets the command that will execute if a choice was selected when the <see cref="InputType"/> is set to <see cref="MaterialTextFieldInputType.Choice"/>.
+        /// </summary>
         public ICommand ChoiceSelectedCommand
         {
             get => (ICommand)this.GetValue(ChoiceSelectedCommandProperty);
@@ -184,6 +186,9 @@ namespace XF.Material.Forms.UI
             set => this.SetValue(ErrorTextProperty, value);
         }
 
+        /// <summary>
+        /// Gets or sets the color of the floating placeholder.
+        /// </summary>
         public Color FloatingPlaceholderColor
         {
             get => (Color)this.GetValue(FloatingPlaceholderColorProperty);
@@ -199,6 +204,9 @@ namespace XF.Material.Forms.UI
             set => this.SetValue(FloatingPlaceholderEnabledProperty, value);
         }
 
+        /// <summary>
+        /// Gets or sets the font size of the floating placeholder.
+        /// </summary>
         public double FloatingPlaceholderFontSize
         {
             get => (double)this.GetValue(FloatingPlaceholderFontSizeProperty);
@@ -250,19 +258,13 @@ namespace XF.Material.Forms.UI
             set => this.SetValue(HelperTextFontFamilyProperty, value);
         }
 
+        /// <summary>
+        /// Gets or sets the horizontal padding of the text field.
+        /// </summary>
         public MaterialHorizontalThickness HorizontalPadding
         {
             get => (MaterialHorizontalThickness)this.GetValue(HorizontalPaddingProperty);
             set => this.SetValue(HorizontalPaddingProperty, value);
-        }
-
-        /// <summary>
-        /// Gets or sets the image source of the icon to be showed at the left side of this text field.
-        /// </summary>
-        public string LeadingIcon
-        {
-            get => (string)this.GetValue(LeadingIconProperty);
-            set => this.SetValue(LeadingIconProperty, value);
         }
 
         /// <summary>
@@ -283,22 +285,40 @@ namespace XF.Material.Forms.UI
             set => this.SetValue(InputTypeProperty, value);
         }
 
+        /// <summary>
+        /// Gets or sets whether auto capitialization is enabled.
+        /// </summary>
         public bool IsAutoCapitalizationEnabled
         {
             get => (bool)this.GetValue(IsAutoCapitalizationEnabledProperty);
             set => this.SetValue(IsAutoCapitalizationEnabledProperty, value);
         }
 
+        /// <summary>
+        /// Gets or sets whether spell checking is enabled.
+        /// </summary>
         public bool IsSpellCheckEnabled
         {
             get => (bool)this.GetValue(IsSpellCheckEnabledProperty);
             set => this.SetValue(IsSpellCheckEnabledProperty, value);
         }
 
+        /// <summary>
+        /// Gets or sets whether text prediction is enabled.
+        /// </summary>
         public bool IsTextPredictionEnabled
         {
             get => (bool)this.GetValue(IsTextPredictionEnabledProperty);
             set => this.SetValue(IsTextPredictionEnabledProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the image source of the icon to be showed at the left side of this text field.
+        /// </summary>
+        public string LeadingIcon
+        {
+            get => (string)this.GetValue(LeadingIconProperty);
+            set => this.SetValue(LeadingIconProperty, value);
         }
 
         /// <summary>
@@ -372,6 +392,9 @@ namespace XF.Material.Forms.UI
             set => this.SetValue(ReturnTypeProperty, value);
         }
 
+        /// <summary>
+        /// Gets or sets whether the underline indicator will be animated. If set to false, the underline will not be shown.
+        /// </summary>
         public bool ShouldAnimateUnderline
         {
             get => (bool)this.GetValue(ShouldAnimateUnderlineProperty);
@@ -426,6 +449,9 @@ namespace XF.Material.Forms.UI
             set => this.SetValue(TextFontFamilyProperty, value);
         }
 
+        /// <summary>
+        /// Gets or sets the text's font size.
+        /// </summary>
         public double TextFontSize
         {
             get => (double)this.GetValue(TextFontSizeProperty);
@@ -656,6 +682,7 @@ namespace XF.Material.Forms.UI
 
                     if (this.ShouldAnimateUnderline)
                     {
+                        underline.Color = this.HasError ? this.ErrorColor : this.TintColor;
                         underline.HeightRequest = 1;
                         anim.Add(0.0, AnimationDuration, new Animation(v => underline.WidthRequest = v, 0, this.Width, _animationCurve, () => underline.HorizontalOptions = LayoutOptions.FillAndExpand));
                     }
@@ -884,14 +911,14 @@ namespace XF.Material.Forms.UI
             return choiceStrings;
         }
 
-        private object GetSelectedChoice(string text)
+        private object GetSelectedChoice(int index)
         {
-            if (string.IsNullOrEmpty(this.ChoicesBindingName))
+            if (index < 0)
             {
                 return null;
             }
 
-            return (from object item in this.Choices let value = item.GetType().GetProperty(this.ChoicesBindingName)?.GetValue(item, null) where value?.ToString() == text select item).FirstOrDefault();
+            return this.Choices[index];
         }
 
         private void OnAlwaysShowUnderlineChanged(bool isShown)
@@ -967,17 +994,6 @@ namespace XF.Material.Forms.UI
         private void OnHelpertTextFontFamilyChanged(string fontFamily)
         {
             helper.FontFamily = counter.FontFamily = fontFamily;
-        }
-
-        private void OnLeadingIconChanged(string icon)
-        {
-            leadingIcon.Source = icon;
-            this.OnLeadingIconTintColorChanged(this.IconTintColor);
-        }
-
-        private void OnLeadingIconTintColorChanged(Color tintColor)
-        {
-            leadingIcon.TintColor = tintColor;
         }
 
         private void OnInputTypeChanged(MaterialTextFieldInputType inputType)
@@ -1059,6 +1075,17 @@ namespace XF.Material.Forms.UI
             Debug.WriteLine(flags);
         }
 
+        private void OnLeadingIconChanged(string icon)
+        {
+            leadingIcon.Source = icon;
+            this.OnLeadingIconTintColorChanged(this.IconTintColor);
+        }
+
+        private void OnLeadingIconTintColorChanged(Color tintColor)
+        {
+            leadingIcon.TintColor = tintColor;
+        }
+
         private void OnMaxLengthChanged(int maxLength)
         {
             _counterEnabled = maxLength > 0;
@@ -1095,21 +1122,58 @@ namespace XF.Material.Forms.UI
             entry.ReturnType = returnType;
         }
 
+        private async Task OnSelectChoices()
+        {
+            if (this.Choices == null || this.Choices?.Count <= 0)
+            {
+                throw new InvalidOperationException("The property `Choices` is null or empty");
+            }
+            _choices = this.GetChoices();
+
+            var title = MaterialConfirmationDialog.GetDialogTitle(this);
+            var confirmingText = MaterialConfirmationDialog.GetDialogConfirmingText(this);
+            var dismissiveText = MaterialConfirmationDialog.GetDialogDismissiveText(this);
+            var configuration = MaterialConfirmationDialog.GetDialogConfiguration(this);
+            int result;
+
+            if (_selectedIndex >= 0)
+            {
+                result = await MaterialDialog.Instance.SelectChoiceAsync(title, _choices, _selectedIndex, confirmingText, dismissiveText, configuration);
+            }
+            else
+            {
+                result = await MaterialDialog.Instance.SelectChoiceAsync(title, _choices, confirmingText, dismissiveText, configuration);
+            }
+
+            if (result >= 0)
+            {
+                _selectedIndex = result;
+                this.Text = _choices[result];
+            }
+        }
+
         private void OnTextChanged(string text)
         {
             if (this.InputType == MaterialTextFieldInputType.Choice && !string.IsNullOrEmpty(text) && _choices?.Contains(text) == false)
             {
-                throw new InvalidOperationException($"The `Text` property value `{this.Text}` does not match any item in the collection `Choices`.");
+                Debug.WriteLine($"The `Text` property value `{this.Text}` does not match any item in the collection `Choices`.");
+                this.Text = null;
+                return;
             }
 
             if (this.InputType == MaterialTextFieldInputType.Choice && !string.IsNullOrEmpty(text))
             {
-                var selectedChoice = this.GetSelectedChoice(text) ?? text;
+                var selectedChoice = this.GetSelectedChoice(_selectedIndex);
                 this.ChoiceSelected?.Invoke(this, new SelectedItemChangedEventArgs(selectedChoice));
                 this.ChoiceSelectedCommand?.Execute(selectedChoice);
             }
+            else if (this.InputType == MaterialTextFieldInputType.Choice && string.IsNullOrEmpty(text))
+            {
+                _selectedIndex = -1;
+            }
 
             entry.Text = text;
+
             this.AnimateToInactiveOrFocusedStateOnStart(this);
             this.UpdateCounter();
         }
@@ -1154,24 +1218,7 @@ namespace XF.Material.Forms.UI
                 }
             });
 
-            mainTapGesture.Command = new Command(async () =>
-            {
-                if (this.Choices == null || this.Choices?.Count <= 0)
-                {
-                    throw new InvalidOperationException("The property `Choices` is null or empty");
-                }
-                _choices = this.GetChoices();
-
-                var title = MaterialConfirmationDialog.GetDialogTitle(this);
-                var confirmingText = MaterialConfirmationDialog.GetDialogConfirmingText(this);
-                var dismissiveText = MaterialConfirmationDialog.GetDialogDismissiveText(this);
-                var result = await MaterialDialog.Instance.SelectChoiceAsync(title, _choices);
-
-                if (result >= 0)
-                {
-                    this.Text = _choices[result];
-                }
-            });
+            mainTapGesture.Command = new Command(async () => await this.OnSelectChoices());
         }
 
         private void SetPropertyChangeHandler(ref Dictionary<string, Action> propertyChangeActions)
