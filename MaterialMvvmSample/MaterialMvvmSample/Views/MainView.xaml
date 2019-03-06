@@ -3,6 +3,7 @@
                     xmlns="http://xamarin.com/schemas/2014/forms"
                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                     xmlns:local="clr-namespace:MaterialMvvmSample.Views"
+                    xmlns:matd="clr-namespace:XF.Material.Forms.UI.Dialogs;assembly=XF.Material.Forms"
                     xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material.Forms"
                     x:Name="Root"
                     Title="Material MVVM"
@@ -130,7 +131,9 @@
                                         Text="Create an account"
                                         TextColor="#DE000000"
                                         TypeScale="H5" />
-                <material:MaterialTextField HasError="True"
+                <material:MaterialTextField matd:MaterialConfirmationDialog.DialogConfirmingText="Confirm"
+                                            matd:MaterialConfirmationDialog.DialogTitle="Select companies"
+                                            HasError="True"
                                             IsEnabled="False"
                                             IsSpellCheckEnabled="False"
                                             Text="Lorem Ipsum Dolor Sit Amet" />

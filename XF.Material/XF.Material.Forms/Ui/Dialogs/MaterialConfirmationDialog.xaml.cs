@@ -12,6 +12,42 @@ namespace XF.Material.Forms.UI.Dialogs
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MaterialConfirmationDialog : BaseMaterialModalPage, IMaterialAwaitableDialog<object>
     {
+        public static readonly BindableProperty DialogTitleProperty = BindableProperty.Create("DialogTitle", typeof(string), typeof(MaterialConfirmationDialog), "Select an item");
+
+        public static string GetDialogTitle(BindableObject bindable)
+        {
+            return (string)bindable.GetValue(DialogTitleProperty);
+        }
+
+        public static void SetDialogTitle(BindableObject bindable, string title)
+        {
+            bindable.SetValue(DialogTitleProperty, title);
+        }
+
+        public static readonly BindableProperty DialogConfirmingTextProperty = BindableProperty.Create("DialogConfirmingText", typeof(string), typeof(MaterialConfirmationDialog), "Ok");
+
+        public static string GetDialogConfirmingText(BindableObject bindable)
+        {
+            return (string)bindable.GetValue(DialogConfirmingTextProperty);
+        }
+
+        public static void SetDialogConfirmingText(BindableObject bindable, string confirmingText)
+        {
+            bindable.SetValue(DialogConfirmingTextProperty, confirmingText);
+        }
+
+        public static readonly BindableProperty DialogDismissiveTextProperty = BindableProperty.Create("DialogDismissiveText", typeof(string), typeof(MaterialConfirmationDialog), "Cancel");
+
+        public static string GetDialogDismissiveText(BindableObject bindable)
+        {
+            return (string)bindable.GetValue(DialogDismissiveTextProperty);
+        }
+
+        public static void SetDialogDismissiveText(BindableObject bindable, string dismissiveText)
+        {
+            bindable.SetValue(DialogDismissiveTextProperty, dismissiveText);
+        }
+
         private MaterialCheckboxGroup _checkboxGroup;
         private bool _isMultiChoice;
         private MaterialConfirmationDialogConfiguration _preferredConfig;

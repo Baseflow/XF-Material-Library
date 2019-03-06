@@ -12,6 +12,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XF.Material.Forms.Resources;
 using XF.Material.Forms.UI.Dialogs;
+using XF.Material.Forms.UI.Dialogs.Configurations;
 using XF.Material.Forms.UI.Internals;
 
 namespace XF.Material.Forms.UI
@@ -94,8 +95,6 @@ namespace XF.Material.Forms.UI
         public static readonly BindableProperty TintColorProperty = BindableProperty.Create(nameof(TintColor), typeof(Color), typeof(MaterialTextField), Material.Color.Secondary);
 
         public static readonly BindableProperty UnderlineColorProperty = BindableProperty.Create(nameof(UnderlineColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#99000000"));
-
-        
 
         private const double AnimationDuration = 0.35;
 
@@ -1163,7 +1162,10 @@ namespace XF.Material.Forms.UI
                 }
                 _choices = this.GetChoices();
 
-                var result = await MaterialDialog.Instance.SelectChoiceAsync("Select an item", _choices);
+                var title = MaterialConfirmationDialog.GetDialogTitle(this);
+                var confirmingText = MaterialConfirmationDialog.GetDialogConfirmingText(this);
+                var dismissiveText = MaterialConfirmationDialog.GetDialogDismissiveText(this);
+                var result = await MaterialDialog.Instance.SelectChoiceAsync(title, _choices);
 
                 if (result >= 0)
                 {
