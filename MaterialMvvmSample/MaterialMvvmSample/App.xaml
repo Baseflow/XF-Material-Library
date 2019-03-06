@@ -32,15 +32,6 @@
                     Android="Fonts/Roboto-Medium.ttf#Roboto-Medium"
                     iOS="Roboto-Medium" />
 
-        <OnPlatform x:Key="FontFamily.LatoRegular"
-                    x:TypeArguments="x:String"
-                    Android="Fonts/Lato-Regular.ttf#Lato-Regular"
-                    iOS="Lato-Regular" />
-        <OnPlatform x:Key="FontFamily.LatoBold"
-                    x:TypeArguments="x:String"
-                    Android="Fonts/Lato-Bold.ttf#Lato-Bold"
-                    iOS="Lato-Bold" />
-
         <mtrltypo:MaterialFontConfiguration x:Key="Material.Font"
                                             Body1="{StaticResource FontFamily.RobotoRegular}"
                                             Body2="{StaticResource FontFamily.RobotoRegular}"
