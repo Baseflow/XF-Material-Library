@@ -115,7 +115,7 @@ namespace XF.Material.Forms.UI.Dialogs
             ActionButton.TextColor = preferredConfig.TintColor;
             ActionButton.FontFamily = preferredConfig.ButtonFontFamily;
             ActionButton.AllCaps = preferredConfig.ButtonAllCaps;
-            Container.Margin = new Thickness(8, 0, 8, preferredConfig.BottomOffset);
+            Container.Margin = preferredConfig.Margin;
         }
     }
 }

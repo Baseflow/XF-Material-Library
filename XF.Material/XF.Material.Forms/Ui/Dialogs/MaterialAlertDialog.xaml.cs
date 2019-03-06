@@ -117,6 +117,7 @@ namespace XF.Material.Forms.UI.Dialogs
             PositiveButton.TextColor = NegativeButton.TextColor = preferredConfig.TintColor;
             PositiveButton.AllCaps = NegativeButton.AllCaps = preferredConfig.ButtonAllCaps;
             PositiveButton.FontFamily = NegativeButton.FontFamily = preferredConfig.ButtonFontFamily;
+            Container.Margin = preferredConfig.Margin;
         }
     }
 }

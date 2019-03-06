@@ -233,6 +233,7 @@ namespace XF.Material.Forms.UI.Dialogs
             PositiveButton.TextColor = NegativeButton.TextColor = _preferredConfig.TintColor;
             PositiveButton.AllCaps = NegativeButton.AllCaps = _preferredConfig.ButtonAllCaps;
             PositiveButton.FontFamily = NegativeButton.FontFamily = _preferredConfig.ButtonFontFamily;
+            Container.Margin = _preferredConfig.Margin;
         }
 
         private void DialogActionList_SelectedIndexChanged(object sender, SelectedIndexChangedEventArgs e)
