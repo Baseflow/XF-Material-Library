@@ -9,7 +9,7 @@
                              CloseWhenBackgroundIsClicked="False">
     <ContentPage.Content>
         <material:MaterialCard x:Name="Container"
-                               Margin="8,0,8,16"
+                               Margin="{DynamicResource Material.Snackbar.Margin}"
                                Padding="0"
                                BackgroundColor="#343434"
                                CornerRadius="4"

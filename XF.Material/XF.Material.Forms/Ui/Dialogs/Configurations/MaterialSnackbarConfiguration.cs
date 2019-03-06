@@ -48,8 +48,8 @@ namespace XF.Material.Forms.UI.Dialogs.Configurations
         public override float CornerRadius => 4;
 
         /// <summary>
-        /// Gets or sets the bottom offset of the snackbar.
+        /// Gets or sets the margin of the snackbar.
         /// </summary>
-        public double BottomOffset { get; set; } = 16;
+        public override Thickness Margin { get; set; } = Material.GetResource<Thickness>("Material.Snackbar.Margin");
     }
 }

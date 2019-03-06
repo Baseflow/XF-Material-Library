@@ -46,6 +46,7 @@ namespace XF.Material.Forms.UI.Dialogs
             Container.BackgroundColor = preferredConfig.BackgroundColor;
             DialogTitle.TextColor = preferredConfig.TitleTextColor;
             DialogTitle.FontFamily = preferredConfig.TitleFontFamily;
+            Container.Margin = preferredConfig.Margin;
         }
 
         private void CreateActions(List<string> actions, MaterialSimpleDialogConfiguration configuration)

@@ -121,6 +121,7 @@ namespace XF.Material.Forms.UI.Dialogs
             TextField.PlaceholderFontFamily = preferredConfig.InputPlaceholderFontFamily;
             TextField.InputType = preferredConfig.InputType;
             TextField.MaxLength = preferredConfig.InputMaxLength;
+            Container.Margin = preferredConfig.Margin;
         }
 
         private void TextField_TextChanged(object sender, TextChangedEventArgs e)
