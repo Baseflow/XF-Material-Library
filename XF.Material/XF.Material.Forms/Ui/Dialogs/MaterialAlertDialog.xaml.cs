@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XF.Material.Forms.UI.Dialogs.Configurations;
@@ -60,7 +61,36 @@ namespace XF.Material.Forms.UI.Dialogs
             return await dialog.InputTaskCompletionSource.Task;
         }
 
-        public override void OnBackButtonDismissed()
+        protected override void OnOrientationChanged(DisplayOrientation orientation)
+        {
+            base.OnOrientationChanged(orientation);
+
+            this.ChangeLayout();
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            this.ChangeLayout();
+        }
+
+        private void ChangeLayout()
+        {
+            switch (this.DisplayOrientation)
+            {
+                case DisplayOrientation.Landscape when Device.Idiom == TargetIdiom.Phone:
+                    Container.WidthRequest = 560;
+                    Container.HorizontalOptions = LayoutOptions.Center;
+                    break;
+                case DisplayOrientation.Portrait when Device.Idiom == TargetIdiom.Phone:
+                    Container.WidthRequest = -1;
+                    Container.HorizontalOptions = LayoutOptions.FillAndExpand;
+                    break;
+            }
+        }
+
+        protected override void OnBackButtonDismissed()
         {
             this.InputTaskCompletionSource?.SetResult(null);
         }
@@ -76,19 +106,18 @@ namespace XF.Material.Forms.UI.Dialogs
         {
             var preferredConfig = configuration ?? GlobalConfiguration;
 
-            if (preferredConfig != null)
-            {
-                this.BackgroundColor = preferredConfig.ScrimColor;
-                Container.CornerRadius = preferredConfig.CornerRadius;
-                Container.BackgroundColor = preferredConfig.BackgroundColor;
-                DialogTitle.TextColor = preferredConfig.TitleTextColor;
-                DialogTitle.FontFamily = preferredConfig.TitleFontFamily;
-                Message.TextColor = preferredConfig.MessageTextColor;
-                Message.FontFamily = preferredConfig.MessageFontFamily;
-                PositiveButton.TextColor = NegativeButton.TextColor = preferredConfig.TintColor;
-                PositiveButton.AllCaps = NegativeButton.AllCaps = preferredConfig.ButtonAllCaps;
-                PositiveButton.FontFamily = NegativeButton.FontFamily = preferredConfig.ButtonFontFamily;
-            }
+            if (preferredConfig == null) return;
+            this.BackgroundColor = preferredConfig.ScrimColor;
+            Container.CornerRadius = preferredConfig.CornerRadius;
+            Container.BackgroundColor = preferredConfig.BackgroundColor;
+            DialogTitle.TextColor = preferredConfig.TitleTextColor;
+            DialogTitle.FontFamily = preferredConfig.TitleFontFamily;
+            Message.TextColor = preferredConfig.MessageTextColor;
+            Message.FontFamily = preferredConfig.MessageFontFamily;
+            PositiveButton.TextColor = NegativeButton.TextColor = preferredConfig.TintColor;
+            PositiveButton.AllCaps = NegativeButton.AllCaps = preferredConfig.ButtonAllCaps;
+            PositiveButton.FontFamily = NegativeButton.FontFamily = preferredConfig.ButtonFontFamily;
+            Container.Margin = preferredConfig.Margin == default ? Material.GetResource<Thickness>("Material.Dialog.Margin") : preferredConfig.Margin;
         }
     }
 }

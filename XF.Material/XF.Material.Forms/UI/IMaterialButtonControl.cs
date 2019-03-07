@@ -17,5 +17,7 @@ namespace XF.Material.Forms.UI
         Color DisabledBackgroundColor { get; set; }
 
         Color PressedBackgroundColor { get; set; }
+
+        MaterialElevation Elevation { get; set; }
     }
 }

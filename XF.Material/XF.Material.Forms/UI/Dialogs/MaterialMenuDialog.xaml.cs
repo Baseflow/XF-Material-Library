@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -31,7 +32,7 @@ namespace XF.Material.Forms.UI.Dialogs
     {
         internal static readonly BindableProperty ParameterProperty = BindableProperty.CreateAttached("Parameter", typeof(object), typeof(MaterialMenuDialog), null);
 
-        private const int _rowHeight = 48;
+        private const int RowHeight = 48;
         private readonly List<MaterialMenuItem> _choices;
         private readonly MaterialMenuDimension _dimension;
         private int _itemChecker;
@@ -83,22 +84,24 @@ namespace XF.Material.Forms.UI.Dialogs
             base.OnAppearingAnimationBegin();
 
             var newX = _dimension.RawX;
-            var newY = (_dimension.RawY);
+            var newY = _dimension.RawY;
+            var width = this.Width - 56;
+            var height = this.Height - 56;
 
             _maxWidth += 32;
             DialogActionList.WidthRequest = _maxWidth <= 112 ? 112 : _maxWidth;
             DialogActionList.WidthRequest = _maxWidth > 280 ? 280 : DialogActionList.WidthRequest;
 
-            if (newX + Container.Width >= this.Width)
+            if (newX + Container.Width >= width)
             {
-                newX -= (Container.Width - (_dimension.Width / 2));
+                newX -= (Container.Width / 2) + (_dimension.Width / 2) ;
             }
-            else if (newX + Container.Width < this.Width)
+            else if (newX + Container.Width < width)
             {
-                newX += (_dimension.Width - (_dimension.Width / 2));
+                newX += _dimension.Width / 2;
             }
 
-            if (newY + Container.Height + 16 >= this.Height)
+            if (newY + Container.Height + 16 >= height)
             {
                 newY -= Container.Height;
             }
@@ -107,7 +110,7 @@ namespace XF.Material.Forms.UI.Dialogs
             Container.TranslationY = newY;
         }
 
-        public override void OnBackButtonDismissed()
+        protected override void OnBackButtonDismissed()
         {
             this.InputTaskCompletionSource.SetResult(-1);
         }
@@ -141,17 +144,20 @@ namespace XF.Material.Forms.UI.Dialogs
             var actionModels = new List<ActionModel>();
             _choices.ForEach(a =>
             {
-                var actionModel = new MenuActionModel { Text = a.Text, Image = a.Image, Index = a.Index };
-                actionModel.TextColor = configuration.TextColor;
-                actionModel.FontFamily = configuration.TextFontFamily;
+                var actionModel = new MenuActionModel
+                {
+                    Text = a.Text,
+                    Image = a.Image,
+                    Index = a.Index,
+                    TextColor = configuration.TextColor,
+                    FontFamily = configuration.TextFontFamily
+                };
                 actionModel.SelectedCommand = new Command<int>(async(position) =>
                 {
-                    if (this.InputTaskCompletionSource?.Task.Status == TaskStatus.WaitingForActivation)
-                    {
-                        actionModel.IsSelected = true;
-                        await this.DismissAsync();
-                        this.InputTaskCompletionSource?.SetResult(position);
-                    }
+                    if (this.InputTaskCompletionSource?.Task.Status != TaskStatus.WaitingForActivation) return;
+                    actionModel.IsSelected = true;
+                    await this.DismissAsync();
+                    this.InputTaskCompletionSource?.SetResult(position);
                 });
                 actionModel.SizeChangeCommand = new Command<Dictionary<string, object>>(this.LabelSizeChanged);
 
@@ -176,11 +182,10 @@ namespace XF.Material.Forms.UI.Dialogs
             }
         }
 
-        private void SetList(IList<ActionModel> actionModels)
+        private void SetList(ICollection<ActionModel> actionModels)
         {
-            DialogActionList.RowHeight = _rowHeight;
-            DialogActionList.HeightRequest = (_rowHeight * actionModels.Count) + 2;
-            DialogActionList.ItemsSource = actionModels;
+            DialogActionList.HeightRequest = RowHeight * actionModels.Count;
+            DialogActionList.SetValue(BindableLayout.ItemsSourceProperty, actionModels);
             _itemCount = actionModels.Count;
         }
     }

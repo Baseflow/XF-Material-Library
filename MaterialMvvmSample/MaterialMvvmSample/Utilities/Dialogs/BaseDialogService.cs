@@ -5,11 +5,11 @@ namespace MaterialMvvmSample.Utilities.Dialogs
 {
     public abstract class BaseDialogService
     {
-        public IMaterialDialog DialogFacade => MaterialDialog.Instance;
+        public static IMaterialDialog DialogFacade => MaterialDialog.Instance;
 
-        protected Task Alert(string message)
+        protected static Task Alert(string message)
         {
-            return this.DialogFacade.AlertAsync(message);
+            return DialogFacade.AlertAsync(message);
         }
     }
 }

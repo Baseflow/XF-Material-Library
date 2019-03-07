@@ -1,22 +1,90 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <local:BaseMaterialModalPage x:Class="XF.Material.Forms.UI.Dialogs.MaterialMenuDialog"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:internal="clr-namespace:XF.Material.Forms.UI.Internals"
-    xmlns:local="clr-namespace:XF.Material.Forms.UI.Dialogs"
-    xmlns:material="clr-namespace:XF.Material.Forms.UI"
-    BackgroundColor="Transparent">
+                             xmlns="http://xamarin.com/schemas/2014/forms"
+                             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                             xmlns:internal="clr-namespace:XF.Material.Forms.UI.Internals"
+                             xmlns:local="clr-namespace:XF.Material.Forms.UI.Dialogs"
+                             xmlns:material="clr-namespace:XF.Material.Forms.UI"
+                             BackgroundColor="Transparent">
     <ContentPage.Content>
         <material:MaterialCard x:Name="Container"
-            Padding="0,8,0,8"
-            BackgroundColor="White"
-            CornerRadius="4"
-            Elevation="8"
-            HasShadow="True"
-            HorizontalOptions="Start"
-            IsClippedToBounds="True"
-            VerticalOptions="Start">
-            <internal:MaterialDialogListView x:Name="DialogActionList"
+                               Padding="0,8,0,8"
+                               BackgroundColor="White"
+                               CornerRadius="4"
+                               Elevation="8"
+                               HasShadow="True"
+                               HorizontalOptions="Start"
+                               IsClippedToBounds="True"
+                               VerticalOptions="Start">
+            <StackLayout x:Name="DialogActionList">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Grid ColumnSpacing="0"
+                              HeightRequest="48">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="1"
+                                  Margin="16,0"
+                                  ColumnSpacing="16">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <View.Triggers>
+                                    <DataTrigger Binding="{Binding Source={x:Reference Icon}, Path=IsVisible}"
+                                                 TargetType="Grid"
+                                                 Value="False">
+                                        <Setter Property="ColumnSpacing" Value="0" />
+                                    </DataTrigger>
+                                </View.Triggers>
+                                <material:MaterialIcon x:Name="Icon"
+                                                       HeightRequest="24"
+                                                       Source="{Binding Image}"
+                                                       TintColor="{Binding Source={x:Reference Label}, Path=TextColor}"
+                                                       VerticalOptions="Center"
+                                                       WidthRequest="24">
+                                    <View.Triggers>
+                                        <Trigger TargetType="Image" Property="Source" Value="{x:Null}">
+                                            <Setter Property="IsVisible" Value="False" />
+                                        </Trigger>
+                                    </View.Triggers>
+                                </material:MaterialIcon>
+                                <internal:MenuDialogLabel x:Name="Label"
+                                                          Grid.Column="1"
+                                                          local:MaterialMenuDialog.Parameter="{Binding Index}"
+                                                          HeightRequest="{Binding Source={x:Reference DialogActionList}, Path=RowHeight}"
+                                                          HorizontalOptions="StartAndExpand"
+                                                          LineBreakMode="TailTruncation"
+                                                          LineHeight="0"
+                                                          SizeChangeCommand="{Binding SizeChangeCommand}"
+                                                          Text="{Binding Text}"
+                                                          TextColor="#DE000000"
+                                                          TypeScale="Body2"
+                                                          VerticalTextAlignment="Center">
+                                    <Label.Triggers>
+                                        <DataTrigger Binding="{Binding TextColor.IsDefault}"
+                                                     TargetType="Label"
+                                                     Value="False">
+                                            <Setter Property="TextColor" Value="{Binding TextColor}" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </internal:MenuDialogLabel>
+                            </Grid>
+                            <material:MaterialButton Grid.ColumnSpan="2"
+                                                     Margin="-6"
+                                                     ButtonType="Text"
+                                                     Command="{Binding SelectedCommand}"
+                                                     CommandParameter="{Binding Index}"
+                                                     CornerRadius="0"
+                                                     HorizontalOptions="FillAndExpand"
+                                                     VerticalOptions="FillAndExpand" />
+                        </Grid>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </StackLayout>
+            <!--<internal:MaterialDialogListView x:Name="DialogActionList"
                 Grid.Row="1"
                 BackgroundColor="Transparent"
                 HasUnevenRows="True"
@@ -89,7 +157,7 @@
                         </internal:MaterialDialogListViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-            </internal:MaterialDialogListView>
+            </internal:MaterialDialogListView>-->
         </material:MaterialCard>
     </ContentPage.Content>
 </local:BaseMaterialModalPage>

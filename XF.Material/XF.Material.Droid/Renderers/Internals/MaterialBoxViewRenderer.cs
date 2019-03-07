@@ -31,12 +31,10 @@ namespace XF.Material.Droid.Renderers.Internals
         {
             base.OnElementChanged(e);
 
-            if(e?.NewElement != null)
-            {
-                _boxView = this.Element as MaterialBoxView;
-                this.ViewGroup.SetOnTouchListener(null);
-                this.ViewGroup.SetOnTouchListener(this);
-            }
+            if (e?.NewElement == null) return;
+            _boxView = this.Element as MaterialBoxView;
+            this.ViewGroup.SetOnTouchListener(null);
+            this.ViewGroup.SetOnTouchListener(this);
         }
     }
 }

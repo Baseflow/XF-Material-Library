@@ -9,8 +9,9 @@ namespace XF.Material.Forms.Utilities
     ///</summary>
     internal abstract class PropertyChangeAware : INotifyPropertyChanged
     {
+        /// <inheritdoc />
         /// <summary>
-        /// Raised when any properties on this instance have changed by using the <see cref="PropertyChangeAware.Set{T}(ref T, T, string)"/> method.
+        /// Raised when any properties on this instance have changed by using the <see cref="M:XF.Material.Forms.Utilities.PropertyChangeAware.Set``1(``0@,``0,System.String)" /> method.
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -25,11 +26,9 @@ namespace XF.Material.Forms.Utilities
         {
             if (!EqualityComparer<T>.Default.Equals(field, default(T)))
             {
-                if (!field.Equals(newValue))
-                {
-                    field = newValue;
-                    this.OnPropertyChanged(propertyName);
-                }
+                if (field.Equals(newValue)) return;
+                field = newValue;
+                this.OnPropertyChanged(propertyName);
             }
 
             else if (!EqualityComparer<T>.Default.Equals(newValue, default(T)))
@@ -45,7 +44,7 @@ namespace XF.Material.Forms.Utilities
         /// <param name="propertyName">The name of the property who's value has changed.</param>
         protected virtual void OnPropertyChanged([CallerMemberName]string propertyName = null)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

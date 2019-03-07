@@ -1,9 +1,11 @@
 
 <img src="images/xf.material_logo.png" width="112" />
 
-# XF.Material Library [![NuGet](https://img.shields.io/badge/version-1.3.1.1-orange.svg?style=flat)](https://github.com/contrix09/XF-Material-Library/blob/master/RELEASE_NOTES.md) [![Build status](https://dev.azure.com/compiledevops/XF.Material/_apis/build/status/XF.Material-CI%20NuGet)](https://dev.azure.com/compiledevops/XF.Material/_build/latest?definitionId=20)
+# XF.Material Library [![NuGet](https://img.shields.io/badge/version-1.4.1.0-orange.svg?style=flat)](https://github.com/contrix09/XF-Material-Library/blob/master/RELEASE_NOTES.md) [![Build status](https://dev.azure.com/compiledevops/XF.Material/_apis/build/status/XF.Material-CI%20NuGet)](https://dev.azure.com/compiledevops/XF.Material/_build/latest?definitionId=20) [![Donate](https://img.shields.io/badge/Give%20Coffee-Donate-orange.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=K4HS649SFADTS&source=url)
 
 A Xamarin.Forms library for Xamarin.Android and Xamarin.iOS to implement [Google's Material Design](https://material.io/design).
+
+*READ_ME to be updated.*
 
 ## Contents
 
@@ -17,6 +19,8 @@ A Xamarin.Forms library for Xamarin.Android and Xamarin.iOS to implement [Google
     - [Selection Controls](#selection-controls)
     - [Menus](#menus)
     - [Slider](#slider)
+    - [Switch](#switch)
+    - [Typography Label](#typography-label)
     - [Chips](#chips)
     - [Circular Progress Indicator](#circular-progress-indicator)
     - [Tintable Image Icon](#tintable-image-icon)
@@ -137,7 +141,18 @@ Cards contain content and actions about a single subject.
 ##### Property
 
 `MaterialCard` inherits the `Frame` class.
+
 - `Elevation` - The virtual distance along the z-axis. The value determines the importance of the content pesented in this view. The default value is `1`.
+
+- `IsClickable` - When set to `true`, the card displays a ripple-effect when touched.
+
+- `ClickCommand` - The command that will run when this card was touched and the property `IsClickable` is set to `true`.
+
+- `ClickCommandParameter` - The parameter to pass in `ClickCommand` when it is executed.
+
+##### Event
+
+- `Clicked` - The event that is raised when this card was touched and the property `IsClickable` is set to `true`.
 
 ##### Usage
 
@@ -174,6 +189,8 @@ Both of these controls have these common properties:
 
 4. `DisabledBackgroundColor` - The color of the button's background when it is disabled.
 
+5. `Elevation` - The virtual distance along the z-axis.
+
 `MaterialButton` have these properties:
 
 1. `Image` - The icon to be displayed next to the button's label. The color of the icon will be based on the `TextColor` property value of the button.
@@ -206,6 +223,42 @@ Buttons communicate actions that users can take. They are typically placed throu
     <img src="images/button_text.jpg" alt="outlined buttons" width="800" />
     
     These buttons are typically used for less-pronounced actions, which are located in modal dialogs or in cards.
+
+You can set the `Elevation` property of the button using XAML or C# code. You can also set values when the button is in normal state or pressed state.
+
+Using XAML
+
+```xml
+<!-- Button with a normal and pressed elevation of `4` -->
+<material:MaterialButton Elevation="4" Text="Click" />
+
+<!-- Button with a normal elevation of `4` and pressed elevation of `8` -->
+<material:MaterialButton Elevation="4, 8" Text="Click" />
+```
+
+Using C#
+```c#
+// Button with a normal and pressed elevation of `4`
+var button1 = new MaterialButton()
+{
+    Elevation = new MaterialElevation(4),
+    Text = "Click"
+};
+
+// Button with a normal and pressed elevation of `4` using implicit operator
+var button2 = new MaterialButton()
+{
+    Elevation = 4,
+    Text = "Click"
+};
+
+// Button with a normal elevation of `4` and pressed elevation of `8`
+var button3 = new MaterialButton()
+{
+    Elevation = new MaterialElevation(4,8),
+    Text = "Click"
+};
+```
 
 On press, buttons display touch feedback (ripple effect).
 
@@ -272,13 +325,23 @@ Text fields allow users to enter and edit text.
 
 25. `Choices` - When the `InputType` property is set to `MaterialInputType.Choice`, provides the list of choices from which the user will select one.
 
-26. `HasHorizontalPadding` - Boolean flag determines whether the left and right bounds of the text field should be padded or not.
+26. `ChoicesBindingName` - The name of the property of the items in the `Choices` property to display.
+
+27. `ChoiceSelectedCommand` - The command that will execute when an item is selected using the input type `Choice`. The parameter that will be passed to this command is the selected item.
+
+28. `HasHorizontalPadding` - Boolean flag determines whether the left and right bounds of the text field should be padded or not.
+
+29. `IsSpellCheckEnabled` - Boolean flag determines whether spell checking is enabled in this text field.
+
+30. `IsTextPredictionEnabled` - Boolean flag determines whether text prediction is enabled in this field.
 
 ##### Events
 
 1. `Focused` - Raised when this text field receives or loses focus.
 
 2. `TextChanged` - Raised when the input text of this text field has changed.
+
+3. `ChoiceSelected` - The event that will be raised when an item is selected using the input type `Choice`. Gives the item that was selected.
 
 ##### Usage and Behavior
 
@@ -434,6 +497,42 @@ Sliders allow users to make selections from a range of values.
 
 1. `ValueChanged` - The event that is raised when the current value has changed.
 
+#### Switch
+Switches allow the user to toggle between two states.
+
+```xml
+<mat:MaterialSwitch IsActivated="{Binding IsTracking}" />
+```
+
+##### Properties
+`MaterialSwitch` inherits the `ContentView` class.
+
+1. `ActiveTrackColor` - The track color of the switch when it is in active state.
+
+2. `ActiveThumbColor` - The thumb color of the switch when it is in active state.
+
+3. `InactiveTrackColor` - The track color of the switch when it is in inactive state.
+
+4. `InactiveThumbColor` - The thumb color of the switch when it is in inactive state.
+
+5. `IsActivated` - Boolean flag whether the switch was activated or not.
+
+##### Event
+
+1. `Activated` - The event that is raised when the switch was activated or not.
+
+#### Typography Label
+A view that displays a text. Allows customizations to conform with the typography guidelines.
+
+##### Properties
+`MaterialLabel` inherits the `Label` class.
+
+1. `LetterSpacing` - The spacing between the letters of each word in the text.
+
+2. `TypeScale` - In material design, these are categories on how the text are displayed. Each type scale has its own font family, font weight, font size, and letter spacing. For more info about type scale, read [here](#type-scale).
+
+3. `LineHeight` - The factor to multiply that will identify the distance between the base of a line of text to another. The default value is `1.4`.
+
 #### Chips
 Chips are compact elements that represent an input, attribute, or action.
 
@@ -515,6 +614,24 @@ A tintable image view.
 
 Under the `XF.Material.Forms.UI.Dialogs` namespace, you can display modal views to notify users by using `MaterialDialog.Instance`.
 
+**Handling the Back Button on Android**
+
+In order for the back button to work on Android for dismissing dialogs, override the `OnBackPressed` method in your `MainActivity` class and add this:
+
+```c#
+public override void OnBackPressed()
+{
+    XF.Material.Droid.Material.HandleBackButton(base.OnBackPressed);
+
+    //No need to call  Rg.Plugins.Popup.Popup.SendBackPressed();
+}
+```
+
+**Important**<br />
+If you are using `Rg.Plugins.Popup`, using `XF.Material.Droid.Material.HandleBackButton(base.OnBackPressed)` will call `Popup.SendBackPressed` when
+there is a modal page that is not a shown using `MaterialDialog.Instance`.
+
+
 #### Alert Dialog
 Alert dialogs interrupt users with urgent information, details, or actions.
 
@@ -577,16 +694,33 @@ Alert dialogs may be dismissed by tapping outside of the dialog, tapping the dis
 
 Read more about alert dialogs [here](https://material.io/design/components/dialogs.html#alert-dialog).
 
-##### Handling the Back Button on Android
+##### Custom Alert Dialog Content
+You can show a custom dialog content by using the `MaterialDialog.Instance.ShowCustomContentAsync()`.
 
-In order for the back button to work on Android for dismissing alert dialogs, override the `OnBackPressed` method in your `MainActivity` class and add this:
+<img src="images/custom_content_android.png" alt="Android button" width="500" />
 
 ```c#
-public override void OnBackPressed()
+var choices = new string[]
 {
-    XF.Material.Droid.Material.HandleBackButton(base.OnBackPressed);
-}
+    "Biology",
+    "Psychology",
+    "Phsyics",
+    "Chemistry"
+};
+
+var view = new MaterialRadioButtonGroup()
+{
+    Choices = choices
+};
+
+bool? wasConfirmed = await MaterialDialog.Instance.ShowCustomContentAsync(view, "What field of science is considered as the study of life?", "Question 1");
 ```
+This method returns a nullable `bool`. Returns `true` when the user dismisses the dialog using the confirm button, `false` when using the dismiss button, and `null` when using the back button or when the background was clicked.
+
+You can pass parameters as like what you would do in when using `MaterialDialog.Instance.ConfirmAsync()`. The only
+ difference is that it takes a `View` as a parameter and this will be shown inside the dialog.
+
+You can remove the negative button by passing `null` to the `dismissiveText` parameter.
 
 #### Simple Dialog
 Simple dialogs can display items that are immediately actionable when selected. They don’t have text buttons.
@@ -846,7 +980,12 @@ await MaterialDialog.Instance.AlertAsync(message: "This is an alert dialog",
                                          configuration: alertDialogConfiguration);
 ```
 <br />
-<img src="images/alertconfig.png" width="400" />
+<img src="images/alertconfig.png" width="400" /><br />
+
+You can also pass the same configuration when you want to style alert dialogs with custom content. But you would
+have to update also the style of the custom view separately.
+
+<img src="images/custom_content_android_styled.png" width="400" /><br />
 
 #### Styling Simple Dialogs
 `MaterialSimpleDialogConfiguration` class provides properties to be used for customizing a simple dialog. You can pass an instance of this class to any overload methods of `MaterialDialog.Instance.SelectActionAsync()`.
@@ -906,7 +1045,7 @@ You can pass an instance of this class to any overload methods of `MaterialDialo
 The input type of the input field can be set by using this configuration.
 
 ```c#
-var config = new MaterialInputDialogConfiguration
+var config = new MaterialInputDialogConfiguration()
 {
     InputType = MaterialTextFieldInputType.Password,
     CornerRadius = 8,
@@ -933,7 +1072,7 @@ var input = await MaterialDialog.Instance.InputAsync(title: "Deactivate account"
 `MaterialLoadingDialogConfiguration` class provides properties to be used for customizing a loading dialog. You can pass an instance of this class to any overload methods of `MaterialDialog.Instance.LoadingDialogAsync()`.
 
 ```c#
-var loadingDialogConfiguration = new MaterialLoadingDialogConfiguration
+var loadingDialogConfiguration = new MaterialLoadingDialogConfiguration()
 {
     BackgroundColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.PRIMARY),
     MessageTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ONPRIMARY).MultiplyAlpha(0.8),
@@ -954,7 +1093,7 @@ await MaterialDialog.Instance.LoadingDialogAsync(message: "Something is running.
 `MaterialSnackbarConfiguration` class provides properties to be used for customizing a snackbar. You can pass an instance of this class to any overload methods of `MaterialDialog.Instance.SnackbarAsync()` or `MaterialDialog.Instance.LoadingSnackbarAsync()`.
 
 ```c#
-var snackbarConfiguration = new MaterialSnackbarConfiguration            
+var snackbarConfiguration = new MaterialSnackbarConfiguration()            
 {
     BackgroundColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.PRIMARY),
     MessageFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansRegular"),
@@ -974,33 +1113,6 @@ await MaterialDialog.Instance.SnackbarAsync(message: "This is a snackbar."
 #### Setting a global style for each type of dialogs
 
 You can set the global styles of each dialog by using the `MaterialDialog.Instance.SetGlobalStyles()` method.
-
-```c#
-MaterialDialog.Instance.SetGlobalStyles(new MaterialAlertDialogConfiguration
-{
-    //Configure properties
-},
-new MaterialLoadingDialogConfiguration
-{
-    //Configure properties
-}, 
-new MaterialSnackbarConfiguration
-{
-    //Configure properties
-},
-new MaterialSimpleDialogConfiguration
-{
-    //Configure properties
-},
-new MaterialConfirmationDialogConfiguration
-{
-    //Configure properties
-},
-new MaterialInputDialogConfiguration
-{
-    //Configure properties
-});
-```
 
 You can still override these styles be passing the configuration object when showing an alert dialog, loading dialog, simple dialog, confirmation dialog, and snackbar.
 
@@ -1055,21 +1167,21 @@ This library offers the same type scales, each can be applied and reused in your
 
 <img src="images/typescale.jpg" width="400" /><br />
 
-| Resource Key | Applicable Control | Font Size | Font Attribute | Letter Spacing |
+| TypeScale | Font Size | Font Attribute | Letter Spacing |
 | -------------- | ------------- | ----------- | ---------------- | --------------|
-|`Material.TypeScale.H1`| `Label` | 96 | Regular | -1.5 |
-|`Material.TypeScale.H2`| `Label` | 60 | Regular | -0.5 |
-|`Material.TypeScale.H3`| `Label` | 48 | Regular | 0 |
-|`Material.TypeScale.H4`| `Label` | 34 | Regular | 0.25|
-|`Material.TypeScale.H5`| `Label` | 24 | Regular | 0 |
-|`Material.TypeScale.H6`| `Label` | 20 | Bold | 0.15 |
-|`Material.TypeScale.Subtitle1`| `Label` | 16 | Regular | 0.15 |
-|`Material.TypeScale.Subtitle2`| `Label` | 14 | Bold | 0.1 |
-|`Material.TypeScale.Body1`| `Label` | 16 | Regular | 0.5 |
-|`Material.TypeScale.Body2`| `Label` | 14 | Regular | 0.25 |
-|`Material.TypeScale.Button`| `Button` | 14 | Bold | 0.75 |
-|`Material.TypeScale.Caption`| `Label` | 12 | Regular | 0.4 |
-|`Material.TypeScale.Overline`| `Label` | 10 | Regular | 1.5 |
+|`MaterialTypeScale.H1` | 96 | Regular | -1.5 |
+|`MaterialTypeScale.H2` | 60 | Regular | -0.5 |
+|`MaterialTypeScale.H3` | 48 | Regular | 0 |
+|`MaterialTypeScale.H4` | 34 | Regular | 0.25|
+|`MaterialTypeScale.H5` | 24 | Regular | 0 |
+|`MaterialTypeScale.H6` | 20 | Bold | 0.15 |
+|`MaterialTypeScale.Subtitle1` | 16 | Regular | 0.15 |
+|`MaterialTypeScale.Subtitle2` | 14 | Bold | 0.1 |
+|`MaterialTypeScale.Body1` | 16 | Regular | 0.5 |
+|`MaterialTypeScale.Body2` | 14 | Regular | 0.25 |
+|`MaterialTypeScale.Button` | 14 | Bold | 0.75 |
+|`MaterialTypeScale.Caption`| 12 | Regular | 0.4 |
+|`MaterialTypeScale.Overline`| 10 | Regular | 1.5 |
 
 
 - <b>Headlines</b> - The largest text on the screen, and used for short, important text or numerals.
@@ -1085,12 +1197,7 @@ This library offers the same type scales, each can be applied and reused in your
 Read more about applying the type scale [here](https://material.io/design/typography/#applying-the-type-scale).
 
 ##### Applying a Type Scale
-You can apply a type scale to a Label or Button by setting its style.
-
-```xml
-<Label Style="{DynamicResource Material.TypeScale.Body1}" 
-    Text="This is a Label with a Body1 Type Scale" />
-```
+You can apply a type scale to a text using `MaterialLabel`.
 
 ##### Setting a Font Family to a Type Scale
 The `MaterialFontConfiguration` class allows you to set a specific font to a type scale.
@@ -1201,7 +1308,7 @@ The static `MaterialConstants` class provides a list of constant Material resour
 ```c#
 //Get color resource, use either
 Color primaryColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.PRIMARY);
-Color primaryColor = XF.Material.Forms.Material.ColorConfiguration.Primary;
+Color primaryColor = XF.Material.Forms.Material.Color.Primary;
 
 //Get font family resource, use either
 string body1Font = XF.Material.Forms.Material.GetResource<string>(MaterialConstants.FontFamily.BODY1);
@@ -1227,7 +1334,3 @@ Special thanks to the following libraries I used for this project:
 - [Rg.Plugins.Popup](https://github.com/rotorgames/Rg.Plugins.Popup)
 - [LottieXamarin](https://github.com/martijn00/LottieXamarin)
 - [Xamarin.Essentials](https://github.com/xamarin/Essentials)
-
-Coffee supports this library, help the devs by giving them coffee:
-
-[![Donate](https://img.shields.io/badge/Give%20Coffee-Donate-orange.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=K4HS649SFADTS&source=url)

@@ -2,6 +2,7 @@
 
 namespace XF.Material.Forms.UI
 {
+    /// <inheritdoc />
     /// <summary>
     /// A control that allow users to select or deselect a single choice.
     /// </summary>

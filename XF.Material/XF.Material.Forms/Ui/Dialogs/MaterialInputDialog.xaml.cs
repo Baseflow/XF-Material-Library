@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XF.Material.Forms.UI.Dialogs.Configurations;
@@ -10,19 +11,19 @@ namespace XF.Material.Forms.UI.Dialogs
     {
         internal MaterialInputDialog(string title = null, string message = null, string inputText = null, string inputPlaceholder = "Enter input", string confirmingText = "Ok", string dismissiveText = "Cancel", MaterialInputDialogConfiguration configuration = null) : this(configuration)
         {
-            InputTaskCompletionSource = new TaskCompletionSource<string>();
+            this.InputTaskCompletionSource = new TaskCompletionSource<string>();
             Message.Text = message;
             DialogTitle.Text = title;
             TextField.Placeholder = inputPlaceholder;
             TextField.Text = inputText;
             PositiveButton.Text = confirmingText;
             NegativeButton.Text = dismissiveText;
-            PositiveButton.Command = new Command(async() =>
+            PositiveButton.Command = new Command(async () =>
             {
                 await this.DismissAsync();
                 this.InputTaskCompletionSource?.SetResult(TextField.Text);
             });
-            NegativeButton.Command = new Command(async() =>
+            NegativeButton.Command = new Command(async () =>
             {
                 await this.DismissAsync();
                 this.InputTaskCompletionSource?.SetResult(string.Empty);
@@ -41,12 +42,17 @@ namespace XF.Material.Forms.UI.Dialogs
 
         public static async Task<string> Show(string title = null, string message = null, string inputText = null, string inputPlaceholder = "Enter input", string confirmingText = "Ok", string dismissiveText = "Cancel", MaterialInputDialogConfiguration configuration = null)
         {
-            var dialog = new MaterialInputDialog(title, message, inputText, inputPlaceholder, confirmingText, dismissiveText, configuration);
-            dialog.PositiveButton.IsEnabled = false;
+            var dialog = new MaterialInputDialog(title, message, inputText, inputPlaceholder, confirmingText,
+                dismissiveText, configuration) {PositiveButton = {IsEnabled = false}};
 
             await dialog.ShowAsync();
 
             return await dialog.InputTaskCompletionSource.Task;
+        }
+
+        protected override void OnBackButtonDismissed()
+        {
+            this.InputTaskCompletionSource?.SetResult(string.Empty);
         }
 
         protected override void OnAppearing()
@@ -54,11 +60,8 @@ namespace XF.Material.Forms.UI.Dialogs
             base.OnAppearing();
 
             TextField.TextChanged += this.TextField_TextChanged;
-        }
 
-        public override void OnBackButtonDismissed()
-        {
-            this.InputTaskCompletionSource?.SetResult(string.Empty);
+            this.ChangeLayout();
         }
 
         protected override bool OnBackgroundClicked()
@@ -75,29 +78,50 @@ namespace XF.Material.Forms.UI.Dialogs
             TextField.TextChanged -= this.TextField_TextChanged;
         }
 
+        protected override void OnOrientationChanged(DisplayOrientation orientation)
+        {
+            base.OnOrientationChanged(orientation);
+
+            this.ChangeLayout();
+        }
+
+        private void ChangeLayout()
+        {
+            switch (this.DisplayOrientation)
+            {
+                case DisplayOrientation.Landscape when Device.Idiom == TargetIdiom.Phone:
+                    Container.WidthRequest = 560;
+                    Container.HorizontalOptions = LayoutOptions.Center;
+                    break;
+                case DisplayOrientation.Portrait when Device.Idiom == TargetIdiom.Phone:
+                    Container.WidthRequest = -1;
+                    Container.HorizontalOptions = LayoutOptions.FillAndExpand;
+                    break;
+            }
+        }
+
         private void Configure(MaterialInputDialogConfiguration configuration)
         {
             var preferredConfig = configuration ?? GlobalConfiguration;
 
-            if (preferredConfig != null)
-            {
-                this.BackgroundColor = preferredConfig.ScrimColor;
-                Container.CornerRadius = preferredConfig.CornerRadius;
-                Container.BackgroundColor = preferredConfig.BackgroundColor;
-                DialogTitle.TextColor = preferredConfig.TitleTextColor;
-                DialogTitle.FontFamily = preferredConfig.TitleFontFamily;
-                Message.TextColor = preferredConfig.MessageTextColor;
-                Message.FontFamily = preferredConfig.MessageFontFamily;
-                PositiveButton.TextColor = NegativeButton.TextColor = TextField.TintColor = preferredConfig.TintColor;
-                PositiveButton.AllCaps = NegativeButton.AllCaps = preferredConfig.ButtonAllCaps;
-                PositiveButton.FontFamily = NegativeButton.FontFamily = preferredConfig.ButtonFontFamily;
-                TextField.PlaceholderColor = preferredConfig.InputPlaceholderColor;
-                TextField.TextColor = preferredConfig.InputTextColor;
-                TextField.TextFontFamily = preferredConfig.InputTextFontFamily;
-                TextField.PlaceholderFontFamily = preferredConfig.InputPlaceholderFontFamily;
-                TextField.InputType = preferredConfig.InputType;
-                TextField.MaxLength = preferredConfig.InputMaxLength;
-            }
+            if (preferredConfig == null) return;
+            this.BackgroundColor = preferredConfig.ScrimColor;
+            Container.CornerRadius = preferredConfig.CornerRadius;
+            Container.BackgroundColor = preferredConfig.BackgroundColor;
+            DialogTitle.TextColor = preferredConfig.TitleTextColor;
+            DialogTitle.FontFamily = preferredConfig.TitleFontFamily;
+            Message.TextColor = preferredConfig.MessageTextColor;
+            Message.FontFamily = preferredConfig.MessageFontFamily;
+            PositiveButton.TextColor = NegativeButton.TextColor = TextField.TintColor = preferredConfig.TintColor;
+            PositiveButton.AllCaps = NegativeButton.AllCaps = preferredConfig.ButtonAllCaps;
+            PositiveButton.FontFamily = NegativeButton.FontFamily = preferredConfig.ButtonFontFamily;
+            TextField.PlaceholderColor = preferredConfig.InputPlaceholderColor;
+            TextField.TextColor = preferredConfig.InputTextColor;
+            TextField.TextFontFamily = preferredConfig.InputTextFontFamily;
+            TextField.PlaceholderFontFamily = preferredConfig.InputPlaceholderFontFamily;
+            TextField.InputType = preferredConfig.InputType;
+            TextField.MaxLength = preferredConfig.InputMaxLength;
+            Container.Margin = preferredConfig.Margin == default ? Material.GetResource<Thickness>("Material.Dialog.Margin") : preferredConfig.Margin;
         }
 
         private void TextField_TextChanged(object sender, TextChangedEventArgs e)

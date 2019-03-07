@@ -11,6 +11,7 @@ using Xamarin.Forms.Platform.Android;
 using XF.Material.Forms.UI;
 using static XF.Material.Forms.UI.MaterialButton;
 using Color = Android.Graphics.Color;
+using R = Android.Resource;
 
 namespace XF.Material.Droid.Renderers
 {
@@ -67,10 +68,9 @@ namespace XF.Material.Droid.Renderers
                         this.UpdateDrawable();
                     }
                 },
-                { nameof(VisualElement.IsEnabled), () =>
-                    {
-                        this.UpdateElevation();
-                    }
+                { nameof(IMaterialButtonControl.Elevation), this.UpdateElevation
+                },
+                { nameof(VisualElement.IsEnabled), this.UpdateElevation
                 },
             };
 
@@ -98,7 +98,10 @@ namespace XF.Material.Droid.Renderers
 
         private void BindableButton_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (_propertyChangeActions != null && _propertyChangeActions.TryGetValue(e?.PropertyName, out Action handlePropertyChange))
+            var prop = e?.PropertyName;
+
+            if (prop == null) return;
+            if (_propertyChangeActions != null && _propertyChangeActions.TryGetValue(prop, out var handlePropertyChange))
             {
                 handlePropertyChange();
             }
@@ -106,11 +109,12 @@ namespace XF.Material.Droid.Renderers
 
         private GradientDrawable CreateShapeDrawable(float cornerRadius, int borderWidth, Color backgroundColor, Color borderColor)
         {
-            GradientDrawable shapeDrawable = null;
+            GradientDrawable shapeDrawable;
 
             if (_button.ButtonType != MaterialButtonType.Text)
             {
-                shapeDrawable = _withIcon ? MaterialHelper.GetDrawableCopyFromResource<GradientDrawable>(Resource.Drawable.drawable_shape_with_icon) : MaterialHelper.GetDrawableCopyFromResource<GradientDrawable>(Resource.Drawable.drawable_shape);
+                shapeDrawable = _withIcon ? MaterialHelper.GetDrawableCopyFromResource<GradientDrawable>(Resource.Drawable.drawable_shape_with_icon) 
+                                          : MaterialHelper.GetDrawableCopyFromResource<GradientDrawable>(Resource.Drawable.drawable_shape);
             }
             else
             {
@@ -132,12 +136,14 @@ namespace XF.Material.Droid.Renderers
             if (Material.IsLollipop)
             {
                 var rippleDrawable = this.GetRippleDrawable();
-                var insetDrawable = rippleDrawable.FindDrawableByLayerId(Resource.Id.inset_drawable) as InsetDrawable;
-                var stateListDrawable = insetDrawable.Drawable as StateListDrawable;
-                this.SetStates(stateListDrawable, normalStateDrawable, normalStateDrawable, disabledStateDrawable);
-
-                rippleDrawable.SetColor(new ColorStateList(new int[][]
+                if (rippleDrawable.FindDrawableByLayerId(Resource.Id.inset_drawable) is InsetDrawable insetDrawable)
                 {
+                    var stateListDrawable = insetDrawable.Drawable as StateListDrawable;
+                    SetStates(stateListDrawable, normalStateDrawable, normalStateDrawable, disabledStateDrawable);
+                }
+
+                rippleDrawable.SetColor(new ColorStateList(new[]
+                    {
                     new int[]{}
                 },
                 new int[]
@@ -150,8 +156,8 @@ namespace XF.Material.Droid.Renderers
             else
             {
                 var pressedStateDrawable = this.CreateShapeDrawable(_cornerRadius, _borderWidth, _pressedColor, _enabledBorderColor);
-                StateListDrawable stateListDrawable = null;
-                Drawable backgroundDrawable = null;
+                StateListDrawable stateListDrawable;
+                Drawable backgroundDrawable;
 
                 if (Material.IsJellyBean)
                 {
@@ -165,7 +171,7 @@ namespace XF.Material.Droid.Renderers
                     backgroundDrawable = insetDrawable;
                 }
 
-                this.SetStates(stateListDrawable, normalStateDrawable, pressedStateDrawable, disabledStateDrawable);
+                SetStates(stateListDrawable, normalStateDrawable, pressedStateDrawable, disabledStateDrawable);
 
                 return backgroundDrawable;
             }
@@ -173,7 +179,7 @@ namespace XF.Material.Droid.Renderers
 
         private RippleDrawable GetRippleDrawable()
         {
-            RippleDrawable rippleDrawable = null;
+            RippleDrawable rippleDrawable;
 
             if (_button.ButtonType == MaterialButtonType.Text || _button.ButtonType == MaterialButtonType.Outlined)
             {
@@ -192,19 +198,19 @@ namespace XF.Material.Droid.Renderers
                 rippleDrawable = _withIcon ? MaterialHelper.GetDrawableCopyFromResource<RippleDrawable>(Resource.Drawable.drawable_ripple_with_icon) : MaterialHelper.GetDrawableCopyFromResource<RippleDrawable>(Resource.Drawable.drawable_ripple);
             }
 
-            var maskDrawable = rippleDrawable.FindDrawableByLayerId(Android.Resource.Id.Mask) as InsetDrawable;
-            var rippleMaskGradientDrawable = maskDrawable.Drawable as GradientDrawable;
-            rippleMaskGradientDrawable.SetCornerRadius(_cornerRadius);
+            if (!(rippleDrawable.FindDrawableByLayerId(Android.Resource.Id.Mask) is InsetDrawable maskDrawable))
+                return rippleDrawable;
+            if (maskDrawable.Drawable is GradientDrawable rippleMaskGradientDrawable) rippleMaskGradientDrawable.SetCornerRadius(_cornerRadius);
 
             return rippleDrawable;
         }
 
-        private void SetStates(StateListDrawable stateListDrawable, Drawable normalDrawable, Drawable pressedDrawable, Drawable disabledDrawable)
+        private static void SetStates(StateListDrawable stateListDrawable, Drawable normalDrawable, Drawable pressedDrawable, Drawable disabledDrawable)
         {
-            stateListDrawable.AddState(new int[] { Android.Resource.Attribute.StatePressed }, pressedDrawable);
-            stateListDrawable.AddState(new int[] { Android.Resource.Attribute.StateFocused, Android.Resource.Attribute.StateEnabled }, pressedDrawable);
-            stateListDrawable.AddState(new int[] { Android.Resource.Attribute.StateEnabled }, normalDrawable);
-            stateListDrawable.AddState(new int[] { Android.Resource.Attribute.StateFocused }, pressedDrawable);
+            stateListDrawable.AddState(new[] { Android.Resource.Attribute.StatePressed }, pressedDrawable);
+            stateListDrawable.AddState(new[] { Android.Resource.Attribute.StateFocused, Android.Resource.Attribute.StateEnabled }, pressedDrawable);
+            stateListDrawable.AddState(new[] { Android.Resource.Attribute.StateEnabled }, normalDrawable);
+            stateListDrawable.AddState(new[] { Android.Resource.Attribute.StateFocused }, pressedDrawable);
             stateListDrawable.AddState(new int[] { }, disabledDrawable);
         }
 
@@ -240,12 +246,11 @@ namespace XF.Material.Droid.Renderers
             this.UpdatePressedColor(_button.PressedBackgroundColor);
             this.UpdateBorderColor();
 
-            if (_button.ButtonType == MaterialButtonType.Outlined || _button.ButtonType == MaterialButtonType.Text)
-            {
-                _normalColor = Color.Transparent;
-                _disabledColor = Color.Transparent;
-                _pressedColor = _button.PressedBackgroundColor.IsDefault ? Color.ParseColor("#52000000") : _button.PressedBackgroundColor.ToAndroid();
-            }
+            if (_button.ButtonType != MaterialButtonType.Outlined &&
+                _button.ButtonType != MaterialButtonType.Text) return;
+            _normalColor = Color.Transparent;
+            _disabledColor = Color.Transparent;
+            _pressedColor = _button.PressedBackgroundColor.IsDefault ? Color.ParseColor("#52000000") : _button.PressedBackgroundColor.ToAndroid();
         }
 
         private void UpdateCornerRadius()
@@ -255,14 +260,7 @@ namespace XF.Material.Droid.Renderers
 
         private void UpdateDisabledColor(Xamarin.Forms.Color disabledColor)
         {
-            if (disabledColor.IsDefault)
-            {
-                _disabledColor = _normalColor.GetDisabledColor();
-            }
-            else
-            {
-                _disabledColor = disabledColor.ToAndroid();
-            }
+            _disabledColor = disabledColor.IsDefault ? _normalColor.GetDisabledColor() : disabledColor.ToAndroid();
         }
 
         private void UpdateElevation()
@@ -272,20 +270,47 @@ namespace XF.Material.Droid.Renderers
                 return;
             }
 
-            StateListAnimator stateListAnimator = null;
+            _aView.StateListAnimator = this.CreateStateListAnimator();
+        }
 
-            if (_button.ButtonType == MaterialButtonType.Elevated && _aView.Enabled)
-            {
-                stateListAnimator = AnimatorInflater.LoadStateListAnimator(_aView.Context, Resource.Animator.material_button_state_list_anim);
+        private StateListAnimator CreateStateListAnimator()
+        {
+            if (_button.ButtonType != MaterialButtonType.Elevated || !_aView.Enabled) return null;
+            var stateListAnimator = new StateListAnimator();
 
-                if (_aView is AppCompatImageButton)
-                {
-                    _aView.OutlineProvider = new MaterialOutlineProvider(_button.CornerRadius);
-                    _aView.ClipToOutline = false;
-                }
-            }
+            var objAnimTransZEnabled = ObjectAnimator.OfFloat(_aView, "translationZ", MaterialHelper.ConvertToDp(_button.Elevation.RestingElevation))
+                .SetDuration(100);
+            objAnimTransZEnabled.StartDelay = 100;
 
-            _aView.StateListAnimator = stateListAnimator;
+            var objAnimElevationEnabled = ObjectAnimator.OfFloat(_aView, "elevation", MaterialHelper.ConvertToDp(_button.Elevation.RestingElevation))
+                .SetDuration(0);
+
+            var objAnimTransZPressed = ObjectAnimator.OfFloat(_aView, "translationZ", MaterialHelper.ConvertToDp(_button.Elevation.PressedElevation))
+                .SetDuration(100);
+
+            var objAnimElevationPressed = ObjectAnimator.OfFloat(_aView, "elevation", MaterialHelper.ConvertToDp(_button.Elevation.RestingElevation))
+                .SetDuration(0);
+
+            var b = new AnimatorSet();
+            b.PlayTogether(objAnimTransZEnabled, objAnimElevationEnabled);
+            b.SetTarget(_aView);
+
+            var bb = new AnimatorSet();
+            bb.PlayTogether(objAnimTransZPressed, objAnimElevationPressed);
+            bb.SetTarget(_aView);
+
+
+            stateListAnimator.AddState(new[] { R.Attribute.StatePressed }, bb);
+            stateListAnimator.AddState(new[] { R.Attribute.StateFocused, R.Attribute.StateEnabled }, bb);
+            stateListAnimator.AddState(new[] { R.Attribute.StateEnabled }, b);
+            stateListAnimator.AddState(new[] { R.Attribute.StateFocused }, bb);
+
+            if (!(_aView is AppCompatImageButton)) return stateListAnimator;
+            _aView.OutlineProvider = new MaterialOutlineProvider(_button.CornerRadius);
+            _aView.ClipToOutline = false;
+
+            return stateListAnimator;
+
         }
 
         private void UpdatePressedColor(Xamarin.Forms.Color pressedColor)

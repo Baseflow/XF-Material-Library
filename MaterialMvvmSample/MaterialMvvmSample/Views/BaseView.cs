@@ -1,8 +1,7 @@
 ﻿using MaterialMvvmSample.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration;
+using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
 namespace MaterialMvvmSample.Views
 {
@@ -14,6 +13,7 @@ namespace MaterialMvvmSample.Views
         {
             this.ViewModel = CommonServiceLocator.ServiceLocator.Current.GetInstance<TViewModel>();
             this.BindingContext = this.ViewModel;
+            this.On<iOS>().SetUseSafeArea(true);
         }
     }
 }

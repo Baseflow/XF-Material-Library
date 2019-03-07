@@ -3,7 +3,7 @@
   <metadata>
     <id>XF.Material</id>
     <title>XF.Material Library</title>
-    <version>1.3.1.1</version>
+    <version>1.4.1.0</version>
     <authors>Dustin Catap</authors>
     <owners>Dustin Catap</owners>
     <projectUrl>https://github.com/contrix09/XF-Material-Library</projectUrl>
@@ -17,43 +17,37 @@
     <dependencies>
       <group targetFramework="netstandard2.0">
         <dependency id="Com.Airbnb.Xamarin.Forms.Lottie"
-                    version="2.6.3" />
+                    version="2.7.0" />
         <dependency id="Rg.Plugins.Popup"
-                    version="1.1.5.180" />
+                    version="1.1.5.188" />
         <dependency id="Xamarin.Forms"
-                    version="3.3.0.912540" />
+                    version="3.5.0.129452" />
         <dependency id="Xamarin.Essentials"
-                    version="1.0.0" />
+                    version="1.0.1" />
       </group>
-      <group targetFramework="MonoAndroid81">
+      <group targetFramework="MonoAndroid90">
         <dependency id="Com.Airbnb.Xamarin.Forms.Lottie"
-                    version="2.6.3" />
+                    version="2.7.0" />
         <dependency id="Com.Airbnb.Android.Lottie"
-                    version="2.6.0" />
+                    version="2.7.0" />
         <dependency id="Rg.Plugins.Popup"
-                    version="1.1.5.180" />
-        <dependency id="Xamarin.Android.Support.Annotations"
-                    version="27.0.2.1" />
-        <dependency id="Xamarin.Android.Support.Compat"
-                    version="27.0.2.1" />
-        <dependency id="Xamarin.Android.Support.Core.Utils"
-                    version="27.0.2.1" />
+                    version="1.1.5.188" />
         <dependency id="Xamarin.Forms"
-                    version="3.3.0.912540" />
+                    version="3.5.0.129452" />
         <dependency id="Xamarin.Essentials"
-                    version="1.0.0" />
+                    version="1.0.1" />
       </group>
       <group targetFramework="Xamarin.iOS10">
         <dependency id="Com.Airbnb.Xamarin.Forms.Lottie"
-                    version="2.6.3" />
+                    version="2.7.0" />
         <dependency id="Com.Airbnb.iOS.Lottie"
                     version="2.5.6" />
         <dependency id="Rg.Plugins.Popup"
-                    version="1.1.5.180" />
+                    version="1.1.5.188" />
         <dependency id="Xamarin.Forms"
-                    version="3.3.0.912540" />
+                    version="3.5.0.129452" />
         <dependency id="Xamarin.Essentials"
-                    version="1.0.0" />
+                    version="1.0.1" />
       </group>
     </dependencies>
   </metadata>
@@ -65,17 +59,17 @@
     <file src="XF.Material.Forms\bin\Release\netstandard2.0\XF.Material.Forms.xml"
           target="lib\netstandard2.0" />
     <file src="XF.Material.Droid\bin\Release\XF.Material.Forms.dll"
-          target="lib\MonoAndroid81" />
+          target="lib\MonoAndroid90" />
     <file src="XF.Material.Droid\bin\Release\XF.Material.Forms.pdb"
-          target="lib\MonoAndroid81" />
+          target="lib\MonoAndroid90" />
     <file src="XF.Material.Droid\bin\Release\XF.Material.Forms.xml"
-          target="lib\MonoAndroid81" />
+          target="lib\MonoAndroid90" />
     <file src="XF.Material.Droid\bin\Release\XF.Material.Droid.dll"
-          target="lib\MonoAndroid81" />
+          target="lib\MonoAndroid90" />
     <file src="XF.Material.Droid\bin\Release\XF.Material.Droid.pdb"
-          target="lib\MonoAndroid81" />
+          target="lib\MonoAndroid90" />
     <file src="XF.Material.Droid\bin\Release\XF.Material.Droid.xml"
-          target="lib\MonoAndroid81" />
+          target="lib\MonoAndroid90" />
     <file src="XF.Material.iOS\bin\Release\XF.Material.Forms.dll"
           target="lib\Xamarin.iOS10" />
     <file src="XF.Material.iOS\bin\Release\XF.Material.Forms.pdb"

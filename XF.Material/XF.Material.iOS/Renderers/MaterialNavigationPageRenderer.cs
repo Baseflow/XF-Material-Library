@@ -15,8 +15,10 @@ namespace XF.Material.iOS.Renderers
     {
         private MaterialNavigationPage _navigationPage;
 
-        public void ChangeHasShadow(bool hasShadow)
+        private void ChangeHasShadow(bool hasShadow)
         {
+            if (this.NavigationBar == null || this.NavigationBar.Layer == null) return;
+
             if (hasShadow)
             {
                 this.NavigationBar.Layer.MasksToBounds = false;
@@ -51,12 +53,10 @@ namespace XF.Material.iOS.Renderers
             var pop = base.OnPopViewAsync(page, animated);
             var navStack = _navigationPage.Navigation.NavigationStack.ToList();
 
-            if (navStack.Count - 1 - navStack.IndexOf(_navigationPage.CurrentPage) >= 0)
-            {
-                var previousPage = navStack[navStack.IndexOf(_navigationPage.CurrentPage) - 1];
-                _navigationPage.InternalPagePop(previousPage, page);
-                this.ChangeHasShadow(previousPage);
-            }
+            if (navStack.Count - 1 - navStack.IndexOf(_navigationPage.CurrentPage) < 0) return pop;
+            var previousPage = navStack[navStack.IndexOf(_navigationPage.CurrentPage) - 1];
+            _navigationPage.InternalPagePop(previousPage, page);
+            this.ChangeHasShadow(previousPage);
 
             return pop;
         }

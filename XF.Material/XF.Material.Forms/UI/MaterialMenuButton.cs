@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace XF.Material.Forms.UI
         /// <summary>
         /// Backing field for the bindable property <see cref="Choices"/>.
         /// </summary>
-        public static readonly BindableProperty ChoicesProperty = BindableProperty.Create(nameof(Choices), typeof(IList<object>), typeof(MaterialMenuButton));
+        public static readonly BindableProperty ChoicesProperty = BindableProperty.Create(nameof(Choices), typeof(IList), typeof(MaterialMenuButton));
 
         /// <summary>
         /// Backing field for the bindable property <see cref="MenuBackgroundColor"/>.
@@ -32,12 +33,12 @@ namespace XF.Material.Forms.UI
         /// <summary>
         /// Backing field for the bindable property <see cref="CommandParameter"/>.
         /// </summary>
-        public static new readonly BindableProperty CommandParameterProperty = BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(MaterialMenuButton));
+        public new static readonly BindableProperty CommandParameterProperty = BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(MaterialMenuButton));
 
         /// <summary>
         /// Backing field for the bindable property <see cref="Command"/>.
         /// </summary>
-        public static new readonly BindableProperty CommandProperty = BindableProperty.Create(nameof(Command), typeof(Command<MaterialMenuResult>), typeof(MaterialMenuButton));
+        public new static readonly BindableProperty CommandProperty = BindableProperty.Create(nameof(Command), typeof(Command<MaterialMenuResult>), typeof(MaterialMenuButton));
 
         /// <summary>
         /// Backing field for the bindable property <see cref="MenuTextColor"/>.
@@ -50,11 +51,6 @@ namespace XF.Material.Forms.UI
         public static readonly BindableProperty MenuTextFontFamilyProperty = BindableProperty.Create(nameof(MenuTextFontFamily), typeof(string), typeof(MaterialMenuButton));
 
         /// <summary>
-        /// Initializes a new instance of <see cref="MaterialMenuButton"/>.
-        /// </summary>
-        public MaterialMenuButton() { }
-
-        /// <summary>
         /// Raised when a menu item was selected.
         /// </summary>
         public event EventHandler<MenuSelectedEventArgs> MenuSelected;
@@ -62,9 +58,9 @@ namespace XF.Material.Forms.UI
         /// <summary>
         /// Gets or sets the list of items from which the user will choose from.
         /// </summary>
-        public IList<object> Choices
+        public IList Choices
         {
-            get => (IList<object>)this.GetValue(ChoicesProperty);
+            get => (IList)this.GetValue(ChoicesProperty);
             set => this.SetValue(ChoicesProperty, value);
         }
 
@@ -167,22 +163,12 @@ namespace XF.Material.Forms.UI
         private List<MaterialMenuItem> CreateMenuItems()
         {
             var items = new List<MaterialMenuItem>();
-            var collectionType = this.Choices.FirstOrDefault()?.GetType();
+            var collectionType = this.Choices.Cast<object>().FirstOrDefault()?.GetType();
 
-            if (collectionType == typeof(string))
+            if (collectionType == typeof(MaterialMenuItem))
             {
-                foreach (var item in this.Choices as IList<string>)
-                {
-                    items.Add(new MaterialMenuItem
-                    {
-                        Text = item,
-                        Index = this.Choices.IndexOf(item)
-                    });
-                }
-            }
-            else if (collectionType == typeof(MaterialMenuItem))
-            {
-                items.AddRange(this.Choices as IList<MaterialMenuItem>);
+                if (!(this.Choices is IList<MaterialMenuItem> result)) return default(List<MaterialMenuItem>);
+                items.AddRange(result);
 
                 foreach (var item in items)
                 {
@@ -191,7 +177,7 @@ namespace XF.Material.Forms.UI
             }
             else
             {
-                throw new InvalidOperationException("The property 'Choices' has invalid item types. Please use either a collection of 'System.String' or 'XF.Material.Forms.Models.MaterialMenuItem'.");
+                items.AddRange(from object item in this.Choices select new MaterialMenuItem {Text = item.ToString(), Index = this.Choices.IndexOf(item)});
             }
 
             return items;

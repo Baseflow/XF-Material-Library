@@ -20,18 +20,20 @@ namespace XF.Material.Droid.Renderers
         {
             base.OnElementChanged(e);
 
-            if(e?.NewElement != null)
-            {
-                _materialIcon = this.Element as MaterialIcon;
-                this.UpdateDrawable();
-            }
+            if (this.Control == null) return;
+
+            if (e?.NewElement == null) return;
+            _materialIcon = this.Element as MaterialIcon;
+            this.UpdateDrawable();
         }
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             base.OnElementPropertyChanged(sender, e);
 
-            if(e?.PropertyName == nameof(MaterialIcon.TintColor) || e?.PropertyName == nameof(Image.Source))
+            if (this.Control == null) return;
+
+            if (e?.PropertyName == nameof(MaterialIcon.TintColor) || e?.PropertyName == nameof(Image.Source))
             {
                 this.UpdateDrawable();
             }
@@ -47,12 +49,10 @@ namespace XF.Material.Droid.Renderers
 
         private void ChangeTintColor(Drawable drawable)
         {
-            if(!_materialIcon.TintColor.IsDefault && drawable != null)
-            {
-                var tintColor = _materialIcon.TintColor.ToAndroid();
-                DrawableCompat.SetTint(drawable, tintColor);
-                this.Control.SetImageDrawable(drawable);
-            }
+            if (_materialIcon.TintColor.IsDefault || drawable == null) return;
+            var tintColor = _materialIcon.TintColor.ToAndroid();
+            DrawableCompat.SetTint(drawable, tintColor);
+            this.Control.SetImageDrawable(drawable);
         }
     }
 }

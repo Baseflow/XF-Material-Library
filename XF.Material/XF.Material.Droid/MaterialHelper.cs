@@ -17,25 +17,25 @@ namespace XF.Material.Droid
 {
     internal static class MaterialHelper
     {
-        private static DisplayMetrics _displayMetrics => Material.Context.Resources.DisplayMetrics;
+        private static DisplayMetrics DisplayMetrics => Material.Context.Resources.DisplayMetrics;
 
         internal static float ConvertToDp(double value)
         {
-            return TypedValue.ApplyDimension(ComplexUnitType.Dip, (float)value, _displayMetrics);
+            return TypedValue.ApplyDimension(ComplexUnitType.Dip, (float)value, DisplayMetrics);
         }
 
         internal static float ConvertToSp(double value)
         {
-            return TypedValue.ApplyDimension(ComplexUnitType.Sp, (float)value, _displayMetrics);
+            return TypedValue.ApplyDimension(ComplexUnitType.Sp, (float)value, DisplayMetrics);
         }
 
         internal static Color DarkenColor(this Color color)
         {
             const float factor = 0.75f;
-            int a = Color.GetAlphaComponent(color);
-            int r = Convert.ToInt32(Math.Round(Color.GetRedComponent(color) * factor));
-            int g = Convert.ToInt32(Math.Round(Color.GetGreenComponent(color) * factor));
-            int b = Convert.ToInt32(Math.Round(Color.GetBlueComponent(color) * factor));
+            var a = Color.GetAlphaComponent(color);
+            var r = Convert.ToInt32(Math.Round(Color.GetRedComponent(color) * factor));
+            var g = Convert.ToInt32(Math.Round(Color.GetGreenComponent(color) * factor));
+            var b = Convert.ToInt32(Math.Round(Color.GetBlueComponent(color) * factor));
             return Color.Argb(a,
                     Math.Min(r, 255),
                     Math.Min(g, 255),
@@ -45,9 +45,9 @@ namespace XF.Material.Droid
         internal static Color GetDisabledColor(this Color color)
         {
             const float disabledOpacity = 0.38f;
-            int r = Color.GetRedComponent(color);
-            int g = Color.GetGreenComponent(color);
-            int b = Color.GetBlueComponent(color);
+            var r = Color.GetRedComponent(color);
+            var g = Color.GetGreenComponent(color);
+            var b = Color.GetBlueComponent(color);
             return Color.Argb(Convert.ToInt32(Math.Round(Color.GetAlphaComponent(color) * disabledOpacity)), r, g, b);
         }
 
@@ -83,14 +83,14 @@ namespace XF.Material.Droid
             DrawableCompat.SetTintList(drawable, GetColorStates(tintColor));
         }
 
-        private static ColorStateList GetColorStates(Android.Graphics.Color activeColor)
+        private static ColorStateList GetColorStates(Color activeColor)
         {
-            var states = new int[][]
+            var states = new[]
             {
-                new int[] { Android.Resource.Attribute.StatePressed },
-                new int[] { Android.Resource.Attribute.StateFocused, Android.Resource.Attribute.StateEnabled },
-                new int[] { Android.Resource.Attribute.StateEnabled },
-                new int[] { Android.Resource.Attribute.StateFocused },
+                new[] { Android.Resource.Attribute.StatePressed },
+                new[] { Android.Resource.Attribute.StateFocused, Android.Resource.Attribute.StateEnabled },
+                new[] { Android.Resource.Attribute.StateEnabled },
+                new[] { Android.Resource.Attribute.StateFocused },
                 new int[] { }
             };
 
