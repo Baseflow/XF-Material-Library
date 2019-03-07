@@ -39,7 +39,11 @@ namespace XF.Material.Forms.UI.Dialogs
 
         public virtual bool Dismissable => true;
 
-        protected DisplayOrientation DisplayOrientation { get; private set; }
+        public virtual string MessageText
+        {
+            get { return ""; }
+            set { }
+        }
 
         /// <summary>
         /// Dismisses this modal dialog asynchronously.

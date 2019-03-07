@@ -34,6 +34,14 @@ namespace XF.Material.Forms.UI.Dialogs
             _hideAction = () => this.InputTaskCompletionSource?.SetResult(false);
         }
 
+        public TaskCompletionSource<bool> InputTaskCompletionSource { get; set; }
+
+        public override string MessageText
+        {
+            get { return this.Message.Text; }
+            set { this.Message.Text = value; }
+        }
+
         public override bool Dismissable => false;
         public TaskCompletionSource<bool> InputTaskCompletionSource { get; set; }
         internal static MaterialSnackbarConfiguration GlobalConfiguration { get; set; }
@@ -117,5 +125,6 @@ namespace XF.Material.Forms.UI.Dialogs
             ActionButton.AllCaps = preferredConfig.ButtonAllCaps;
             Container.Margin = preferredConfig.Margin == default ? Material.GetResource<Thickness>("Material.Snackbar.Margin") : preferredConfig.Margin;
         }
+
     }
 }
