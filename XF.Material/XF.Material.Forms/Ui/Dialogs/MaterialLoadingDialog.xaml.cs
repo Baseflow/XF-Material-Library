@@ -47,5 +47,11 @@ namespace XF.Material.Forms.UI.Dialogs
                 LoadingImage.TintColor = preferredConfig.TintColor;
             }
         }
+
+
+        public override void SetMessageText(string text)
+        {
+            Message.Text = text;
+        }
     }
 }

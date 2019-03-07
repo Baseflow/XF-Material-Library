@@ -96,5 +96,11 @@ namespace XF.Material.Forms.UI.Dialogs
                 Container.Margin = new Thickness(8, 0, 8, preferredConfig.BottomOffset);
             }
         }
+
+        public override void SetMessageText(string text)
+        {
+            Message.Text = text;
+        }
+
     }
 }
