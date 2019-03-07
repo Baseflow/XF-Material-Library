@@ -724,6 +724,17 @@ await Task.Delay(5000) // Represents a task that is running.
 await loadingDialog.DismissAsync();
 ```
 
+- Change the dialog text.
+```c#
+using(var dialog = await MaterialDialog.Instance.LoadingDialogAsync(message: "Something is running"))
+{
+    await Task.Delay(5000) // Represents a task that is running.
+    dialog.Text = "Something else is running now!";
+    await Task.Delay(5000) // Represents a task that is running.
+}
+```
+
+
 ##### Usage & Behavior
 
 Show a loading dialog to inform users of a running process in your app.
@@ -783,6 +794,16 @@ var snackbar = await MaterialDialog.Instance.LoadingSnackbarAsync(message: "Some
 await Task.Delay(5000) // Represents a task that is running.
 
 await snackbar.DismissAsync();
+```
+
+- Change the dialog text.
+```c#
+using(var snackbar = await MaterialDialog.Instance.LoadingSnackbarAsync(message: "Something is running"))
+{
+    await Task.Delay(5000) // Represents a task that is running.
+    snackbar.Text = "Something else is running now!";
+    await Task.Delay(5000) // Represents a task that is running.
+}
 ```
 
 ##### Usage & Behavior
