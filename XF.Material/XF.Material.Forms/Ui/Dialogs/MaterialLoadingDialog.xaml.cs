@@ -79,6 +79,5 @@ namespace XF.Material.Forms.UI.Dialogs
             LoadingImage.TintColor = preferredConfig.TintColor;
             Container.Margin = preferredConfig.Margin == default ? Material.GetResource<Thickness>("Material.Dialog.Margin") : preferredConfig.Margin;
         }
-
     }
 }
