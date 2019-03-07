@@ -1,9 +1,11 @@
 
 <img src="images/xf.material_logo.png" width="112" />
 
-# XF.Material Library [![NuGet](https://img.shields.io/badge/version-1.4.0.4-orange.svg?style=flat)](https://github.com/contrix09/XF-Material-Library/blob/master/RELEASE_NOTES.md) [![Build status](https://dev.azure.com/compiledevops/XF.Material/_apis/build/status/XF.Material-CI%20NuGet)](https://dev.azure.com/compiledevops/XF.Material/_build/latest?definitionId=20)
+# XF.Material Library [![NuGet](https://img.shields.io/badge/version-1.4.1.0-orange.svg?style=flat)](https://github.com/contrix09/XF-Material-Library/blob/master/RELEASE_NOTES.md) [![Build status](https://dev.azure.com/compiledevops/XF.Material/_apis/build/status/XF.Material-CI%20NuGet)](https://dev.azure.com/compiledevops/XF.Material/_build/latest?definitionId=20) [![Donate](https://img.shields.io/badge/Give%20Coffee-Donate-orange.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=K4HS649SFADTS&source=url)
 
 A Xamarin.Forms library for Xamarin.Android and Xamarin.iOS to implement [Google's Material Design](https://material.io/design).
+
+*READ_ME to be updated.*
 
 ## Contents
 
@@ -1332,7 +1334,3 @@ Special thanks to the following libraries I used for this project:
 - [Rg.Plugins.Popup](https://github.com/rotorgames/Rg.Plugins.Popup)
 - [LottieXamarin](https://github.com/martijn00/LottieXamarin)
 - [Xamarin.Essentials](https://github.com/xamarin/Essentials)
-
-Coffee supports this library, help the devs by giving them coffee:
-
-[![Donate](https://img.shields.io/badge/Give%20Coffee-Donate-orange.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=K4HS649SFADTS&source=url)

@@ -1,5 +1,26 @@
 # Release Notes
-##### 1.4.0.4 (Latest)
+
+##### 1.4.1.0 (Latest)
+- Updated `MaterialTextField`:
+    - Can be attached with properties from `MaterialConfirmationDialog` to customize confirmation dialog appearance.
+       A feature request from issue [86](https://github.com/contrix09/XF-Material-Library/issues/86).
+    - Added `TextFontSize`, `FloatingPlaceholderFontSize`, and `FloatingPlaceholderColor`.
+    - Added `IsAutoCapitalizationEnabled` property.
+    - Added `ShouldAnimateUnderline` property that can be used to determine whether to animate the underline indicator or not.
+      Setting this to `false` will not show any underline when activated or fouces.
+      A feature request from issue [92](https://github.com/contrix09/XF-Material-Library/issues/92).
+    - The `TintColor` will be applied to the underline and floating placeholder only when the text field is focused.
+    - Renamed `Icon` to `LeadingIcon`, `IconTintColor` to `LeadingIconTintColor`. This is to differentiate from the trailing icon, which will be a future enhancement.
+- Added `Margin` property to Material dialog configuration classes.
+ A feature request from issue [91](https://github.com/contrix09/XF-Material-Library/issues/91).
+- Fixed issue [84](https://github.com/contrix09/XF-Material-Library/issues/84).
+- Fixed issue [87](https://github.com/contrix09/XF-Material-Library/issues/87).
+- Fixed issue [88](https://github.com/contrix09/XF-Material-Library/issues/88).
+- Fixed issue [89](https://github.com/contrix09/XF-Material-Library/issues/89).
+- Fixed issue [97](https://github.com/contrix09/XF-Material-Library/issues/97).
+- Fixed issue [98](https://github.com/contrix09/XF-Material-Library/issues/98).
+
+##### 1.4.0.4
 - Fixed `MaterialTextField` animating when the text changes even if there is a current text value is not null or empty.
 
 ##### 1.4.0.3
