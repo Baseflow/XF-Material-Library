@@ -52,7 +52,7 @@ namespace XF.Material.Forms.UI
 
         public static readonly BindableProperty HorizontalPaddingProperty = BindableProperty.Create(nameof(HorizontalPadding), typeof(MaterialHorizontalThickness), typeof(MaterialTextField), new MaterialHorizontalThickness(12d), defaultBindingMode: BindingMode.OneTime);
 
-        public static readonly BindableProperty IconTintColorProperty = BindableProperty.Create(nameof(IconTintColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#99000000"));
+        public static readonly BindableProperty LeadingIconTintColorProperty = BindableProperty.Create(nameof(LeadingIconTintColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#99000000"));
 
         public static readonly BindableProperty InputTypeProperty = BindableProperty.Create(nameof(InputType), typeof(MaterialTextFieldInputType), typeof(MaterialTextField), MaterialTextFieldInputType.Default);
 
@@ -270,10 +270,10 @@ namespace XF.Material.Forms.UI
         /// <summary>
         /// Gets or sets the tint color of the icon of this text field.
         /// </summary>
-        public Color IconTintColor
+        public Color LeadingIconTintColor
         {
-            get => (Color)this.GetValue(IconTintColorProperty);
-            set => this.SetValue(IconTintColorProperty, value);
+            get => (Color)this.GetValue(LeadingIconTintColorProperty);
+            set => this.SetValue(LeadingIconTintColorProperty, value);
         }
 
         /// <summary>
@@ -1078,7 +1078,7 @@ namespace XF.Material.Forms.UI
         private void OnLeadingIconChanged(string icon)
         {
             leadingIcon.Source = icon;
-            this.OnLeadingIconTintColorChanged(this.IconTintColor);
+            this.OnLeadingIconTintColorChanged(this.LeadingIconTintColor);
         }
 
         private void OnLeadingIconTintColorChanged(Color tintColor)
@@ -1249,7 +1249,7 @@ namespace XF.Material.Forms.UI
                 { nameof(this.FloatingPlaceholderEnabled), () => this.OnFloatingPlaceholderEnabledChanged(this.FloatingPlaceholderEnabled) },
                 { nameof(this.Choices), () => this.OnChoicesChanged(this.Choices) },
                 { nameof(this.LeadingIcon), () => this.OnLeadingIconChanged(this.LeadingIcon) },
-                { nameof(this.IconTintColor), () => this.OnLeadingIconTintColorChanged(this.IconTintColor) },
+                { nameof(this.LeadingIconTintColor), () => this.OnLeadingIconTintColorChanged(this.LeadingIconTintColor) },
                 { nameof(this.IsSpellCheckEnabled), () => this.OnKeyboardFlagsChanged(this.IsAutoCapitalizationEnabled, this.IsSpellCheckEnabled, this.IsTextPredictionEnabled) },
                 { nameof(this.IsTextPredictionEnabled), () => this.OnKeyboardFlagsChanged(this.IsAutoCapitalizationEnabled, this.IsSpellCheckEnabled, this.IsTextPredictionEnabled) },
                 { nameof(this.IsAutoCapitalizationEnabled), () => this.OnKeyboardFlagsChanged(this.IsAutoCapitalizationEnabled, this.IsSpellCheckEnabled, this.IsTextPredictionEnabled) },
