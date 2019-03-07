@@ -12,6 +12,8 @@ namespace XF.Material.iOS.GestureRecognizers
         private readonly CABasicAnimation _rippleAnimation;
         private readonly CABasicAnimation _fadeAnimation;
         private readonly CABasicAnimation _backgroundFadeInAnimation;
+        private readonly CABasicAnimation _backgroundFadeInHoldAnimation;
+        private readonly CABasicAnimation _backgroundFadeOutAfterHoldAnimation;
         private readonly CABasicAnimation _backgroundFadeOutAnimation;
         private readonly CALayer _backgroundLayer;
         private readonly CAShapeLayer _rippleLayer;
@@ -33,11 +35,28 @@ namespace XF.Material.iOS.GestureRecognizers
             _fadeAnimation.To = FromObject(0.0f);
 
             _backgroundFadeInAnimation = CABasicAnimation.FromKeyPath("opacity");
-            _backgroundFadeInAnimation.Duration = 0.3;
+            _backgroundFadeInAnimation.BeginTime = 0;
+            _backgroundFadeInAnimation.Duration = 0.3f;
             _backgroundFadeInAnimation.FillMode = CAFillMode.Forwards;
             _backgroundFadeInAnimation.RemovedOnCompletion = false;
             _backgroundFadeInAnimation.From = FromObject(0.0f);
             _backgroundFadeInAnimation.To = FromObject(0.20f);
+
+            _backgroundFadeInHoldAnimation = CABasicAnimation.FromKeyPath("opacity");
+            _backgroundFadeInHoldAnimation.BeginTime = 0.3f;
+            _backgroundFadeInHoldAnimation.Duration = 1.2f;
+            _backgroundFadeInHoldAnimation.FillMode = CAFillMode.Forwards;
+            _backgroundFadeInHoldAnimation.RemovedOnCompletion = false;
+            _backgroundFadeInHoldAnimation.From = FromObject(0.20f);
+            _backgroundFadeInHoldAnimation.To = FromObject(0.20f);
+
+            _backgroundFadeOutAfterHoldAnimation = CABasicAnimation.FromKeyPath("opacity");
+            _backgroundFadeOutAfterHoldAnimation.BeginTime = 1.5f;
+            _backgroundFadeOutAfterHoldAnimation.Duration = 0.2f;
+            _backgroundFadeOutAfterHoldAnimation.FillMode = CAFillMode.Forwards;
+            _backgroundFadeOutAfterHoldAnimation.RemovedOnCompletion = false;
+            _backgroundFadeOutAfterHoldAnimation.From = FromObject(0.20f);
+            _backgroundFadeOutAfterHoldAnimation.To = FromObject(0.0f);
 
             _backgroundFadeOutAnimation = CABasicAnimation.FromKeyPath("opacity");
             _backgroundFadeOutAnimation.Duration = 0.3;
@@ -58,6 +77,7 @@ namespace XF.Material.iOS.GestureRecognizers
             _isStarted = false;
             _touchView = view;
             Delegate = this;
+
         }
 
         [Export("gestureRecognizer:shouldReceiveTouch:")]
@@ -101,6 +121,7 @@ namespace XF.Material.iOS.GestureRecognizers
         }
 
 
+
         private void AnimateStart(UITouch touch)
         {
             AnimateBackgroundFadeIn(touch);
@@ -109,6 +130,7 @@ namespace XF.Material.iOS.GestureRecognizers
             _isStarted = true;
         }
 
+        
 
         private void AnimateComplete(UITouch touch)
         {
@@ -125,11 +147,25 @@ namespace XF.Material.iOS.GestureRecognizers
 
             SetupAnimationLayer(_backgroundLayer, view, 3);
 
+
             _backgroundLayer.RemoveAllAnimations();
-            UIView.Animate(0.8, () =>
-            {
-                _backgroundLayer.AddAnimation(_backgroundFadeInAnimation, "backgroundFadeInAnimation");
-            });
+
+            // Apparently the UITapGestureRecognizer is disabled after
+            // 1.5 seconds and none of the Touches* events are triggered
+            // for us to fade the backgroundLayer, so we have to chain
+            // animations to ensure that we automatically fade out
+            // the background layer after 1.5 seconds.
+            //
+            CAAnimationGroup group = new CAAnimationGroup();
+            group.Duration = 1.7;
+            group.RepeatCount = 1;
+            group.TimingFunction = CAMediaTimingFunction.FromName(CAMediaTimingFunction.Linear);
+            group.Animations = new CAAnimation[] { 
+                _backgroundFadeInAnimation, 
+                _backgroundFadeInHoldAnimation, 
+                _backgroundFadeOutAfterHoldAnimation };
+
+            _backgroundLayer.AddAnimation(group, "backgroundFadeInAnimation");
         }
 
         private void AnimateBackgroundFadeOut(UITouch touch)
@@ -139,10 +175,7 @@ namespace XF.Material.iOS.GestureRecognizers
             SetupAnimationLayer(_backgroundLayer, view, 3);
 
             _backgroundLayer.RemoveAllAnimations();
-            UIView.Animate(0.8, () =>
-            {
-                _backgroundLayer.AddAnimation(_backgroundFadeOutAnimation, "backgroundFadeOutAnimation");
-            });
+            _backgroundLayer.AddAnimation(_backgroundFadeOutAnimation, "backgroundFadeOutAnimation");
         }
 
         private void AnimateRipple(UITouch touch)
