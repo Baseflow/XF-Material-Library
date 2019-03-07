@@ -45,6 +45,8 @@ namespace XF.Material.Forms.UI.Dialogs
             set { }
         }
 
+        protected DisplayOrientation DisplayOrientation { get; private set; }
+
         /// <summary>
         /// Dismisses this modal dialog asynchronously.
         /// </summary>
