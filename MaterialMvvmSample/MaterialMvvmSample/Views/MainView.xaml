@@ -4,6 +4,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                     xmlns:local="clr-namespace:MaterialMvvmSample.Views"
                     xmlns:matd="clr-namespace:XF.Material.Forms.UI.Dialogs;assembly=XF.Material.Forms"
+                    xmlns:matdc="clr-namespace:XF.Material.Forms.UI.Dialogs.Configurations;assembly=XF.Material.Forms"
                     xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material.Forms"
                     x:Name="Root"
                     Title="Material MVVM"
@@ -122,7 +123,8 @@
     </ScrollView>-->
     <ScrollView VerticalOptions="FillAndExpand">
 
-        <material:MaterialCard Elevation="4"
+        <material:MaterialCard BackgroundColor="White"
+                               Elevation="4"
                                HorizontalOptions="FillAndExpand"
                                IsClippedToBounds="False"
                                VerticalOptions="FillAndExpand">
@@ -132,11 +134,17 @@
                                         TextColor="#DE000000"
                                         TypeScale="H5" />
                 <material:MaterialTextField matd:MaterialConfirmationDialog.DialogConfirmingText="Confirm"
+                                            matd:MaterialConfirmationDialog.DialogDismissiveText="Exit"
                                             matd:MaterialConfirmationDialog.DialogTitle="Select companies"
                                             HasError="True"
                                             IsEnabled="False"
                                             IsSpellCheckEnabled="False"
-                                            Text="Lorem Ipsum Dolor Sit Amet" />
+                                            Text="Lorem Ipsum Dolor Sit Amet">
+                    <matd:MaterialConfirmationDialog.DialogConfiguration>
+                        <matdc:MaterialConfirmationDialogConfiguration ButtonAllCaps="False"
+                                                                       CornerRadius="8" />
+                    </matd:MaterialConfirmationDialog.DialogConfiguration>
+                </material:MaterialTextField>
 
                 <!--<material:MaterialTextField AlwaysShowUnderline="True"
                                             ChoiceSelected="MaterialTextField_ChoiceSelected"
