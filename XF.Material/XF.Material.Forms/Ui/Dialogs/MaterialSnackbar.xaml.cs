@@ -36,6 +36,12 @@ namespace XF.Material.Forms.UI.Dialogs
 
         public TaskCompletionSource<bool> InputTaskCompletionSource { get; set; }
 
+        public override string MessageText
+        {
+            get { return this.Message.Text; }
+            set { this.Message.Text = value; }
+        }
+
         public override bool Dismissable => false;
 
         internal static MaterialSnackbarConfiguration GlobalConfiguration { get; set; }
@@ -95,11 +101,6 @@ namespace XF.Material.Forms.UI.Dialogs
                 ActionButton.AllCaps = preferredConfig.ButtonAllCaps;
                 Container.Margin = new Thickness(8, 0, 8, preferredConfig.BottomOffset);
             }
-        }
-
-        public override void SetMessageText(string text)
-        {
-            Message.Text = text;
         }
 
     }

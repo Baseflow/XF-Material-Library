@@ -35,14 +35,12 @@ namespace XF.Material.Forms.UI.Dialogs
 
         public virtual bool Dismissable => true;
 
-        /// <summary>
-        /// Sets the message text.
-        /// </summary>
-        /// <param name="text">Text.</param>
-        public virtual void SetMessageText(string text)
+        public virtual string MessageText
         {
-
+            get { return ""; }
+            set { }
         }
+
 
         /// <summary>
         /// Dismisses this modal dialog asynchronously.

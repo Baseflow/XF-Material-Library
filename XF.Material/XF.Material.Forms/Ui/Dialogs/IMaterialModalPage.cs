@@ -6,10 +6,9 @@ namespace XF.Material.Forms.UI.Dialogs
     public interface IMaterialModalPage : IDisposable
     {
         /// <summary>
-        /// Sets the message text.
+        /// Gets or sets the message text.
         /// </summary>
-        /// <param name="text">Text.</param>
-        void SetMessageText(string text);
+        string MessageText { get; set; }
 
         /// <summary>
         /// Dismisses this modal dialog asynchronously.

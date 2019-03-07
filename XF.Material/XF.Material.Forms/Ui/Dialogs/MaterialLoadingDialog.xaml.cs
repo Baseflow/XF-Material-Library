@@ -16,6 +16,13 @@ namespace XF.Material.Forms.UI.Dialogs
 
         public override bool Dismissable => false;
 
+        public override string MessageText
+        {
+            get { return this.Message.Text; }
+            set { this.Message.Text = value; }
+        }
+
+
         internal static MaterialLoadingDialogConfiguration GlobalConfiguration { get; set; }
 
         internal static async Task<IMaterialModalPage> Loading(string message, MaterialLoadingDialogConfiguration configuration = null)
@@ -49,9 +56,5 @@ namespace XF.Material.Forms.UI.Dialogs
         }
 
 
-        public override void SetMessageText(string text)
-        {
-            Message.Text = text;
-        }
     }
 }
