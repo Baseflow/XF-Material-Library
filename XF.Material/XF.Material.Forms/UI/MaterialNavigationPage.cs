@@ -215,7 +215,7 @@ namespace XF.Material.Forms.UI
         {
             var page = sender as Page;
 
-            if (e?.PropertyName == nameof(this.Title) && page.GetValue(TitleViewProperty) is TitleLabel label)
+            if (e?.PropertyName == nameof(this.Title) && page?.GetValue(TitleViewProperty) is TitleLabel label)
             {
                 label.Text = page.Title;
             }
@@ -225,12 +225,10 @@ namespace XF.Material.Forms.UI
         {
             base.OnAppearing();
 
-            if (!_firstLoad)
-            {
-                this.ChangeStatusBarColor(this.RootPage);
+            if (_firstLoad) return;
+            ChangeStatusBarColor(this.RootPage);
 
-                _firstLoad = true;
-            }
+            _firstLoad = true;
         }
 
         /// <summary>
@@ -246,7 +244,7 @@ namespace XF.Material.Forms.UI
             }
 
             this.ChangeBarTextColor(previousPage);
-            this.ChangeStatusBarColor(previousPage);
+            ChangeStatusBarColor(previousPage);
             this.ChangeBarBackgroundColor(previousPage);
 
             previousPage.SetValue(BackButtonTitleProperty, string.Empty);
@@ -265,7 +263,7 @@ namespace XF.Material.Forms.UI
 
             this.ChangeFont(page);
             this.ChangeBarTextColor(page);
-            this.ChangeStatusBarColor(page);
+            ChangeStatusBarColor(page);
             this.ChangeBarBackgroundColor(page);
 
             page.SetValue(BackButtonTitleProperty, string.Empty);
@@ -300,17 +298,9 @@ namespace XF.Material.Forms.UI
                     this.BarTextColor = customTitleView.TextColor = barTextColor;
                 }
             }
-
             else
             {
-                if (barTextColor.IsDefault)
-                {
-                    this.BarTextColor = Material.Color.OnPrimary;
-                }
-                else
-                {
-                    this.BarTextColor = barTextColor;
-                }
+                this.BarTextColor = barTextColor.IsDefault ? Material.Color.OnPrimary : barTextColor;
             }
         }
 
@@ -334,21 +324,14 @@ namespace XF.Material.Forms.UI
 
             _customTitleView = new TitleLabel();
 
-            if (Device.RuntimePlatform == Device.iOS)
+            switch (Device.RuntimePlatform)
             {
-                if (this.Navigation.NavigationStack.Count == 1)
-                {
-                    _customTitleView.Margin = new Thickness(8, 0, 8, 0);
-                }
-                else
-                {
-                    _customTitleView.Margin = new Thickness(8, 0, 32, 0);
-                }
-            }
-
-            if (Device.RuntimePlatform == Device.Android && this.Navigation.NavigationStack.Count > 1 && page.ToolbarItems.Count == 0)
-            {
-                _customTitleView.Margin = new Thickness(0, 0, 72, 0);
+                case Device.iOS:
+                    _customTitleView.Margin = this.Navigation.NavigationStack.Count == 1 ? new Thickness(8, 0, 8, 0) : new Thickness(8, 0, 32, 0);
+                    break;
+                case Device.Android when this.Navigation.NavigationStack.Count > 1 && page.ToolbarItems.Count == 0:
+                    _customTitleView.Margin = new Thickness(0, 0, 72, 0);
+                    break;
             }
 
             page.SetValue(TitleViewProperty, _customTitleView);
@@ -357,18 +340,18 @@ namespace XF.Material.Forms.UI
             _customTitleView.VerticalOptions = LayoutOptions.FillAndExpand;
             _customTitleView.HorizontalOptions = LayoutOptions.FillAndExpand;
             _customTitleView.HorizontalTextAlignment = textAlignment;
-            _customTitleView.SetDynamicResource(StyleProperty, "Material.TypeScale.H6");
+            _customTitleView.TypeScale = Forms.Resources.Typography.MaterialTypeScale.H6;
             _customTitleView.FontFamily = fontFamily;
             _customTitleView.FontSize = fontSize;
             _customTitleView.Text = page.Title;
         }
 
-        private void ChangeStatusBarColor(Page page)
+        private static void ChangeStatusBarColor(Page page)
         {
             var statusBarColor = (Color)page.GetValue(StatusBarColorProperty);
             Material.PlatformConfiguration.ChangeStatusBarColor(statusBarColor.IsDefault ? Material.Color.PrimaryVariant : statusBarColor);
         }
     }
 
-    internal class TitleLabel : Label { }
+    internal class TitleLabel : MaterialLabel { }
 }

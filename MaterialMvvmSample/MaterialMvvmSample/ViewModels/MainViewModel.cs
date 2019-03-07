@@ -3,6 +3,7 @@ using MaterialMvvmSample.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -61,7 +62,7 @@ namespace MaterialMvvmSample.ViewModels
             get => _selectedChoice;
             set
             {
-                this.HasError = string.Equals(value, this.Choices[0]);
+                this.HasError = string.Equals(value, Choices[0]);
                 this.Set(ref _selectedChoice, value);
             }
         }
@@ -73,7 +74,7 @@ namespace MaterialMvvmSample.ViewModels
             set => this.Set(ref _hasError, value);
         }
 
-        public string[] Filters => new string[] { "None", "Alhpabetical" };
+        public static string[] Filters => new string[] { "None", "Alhpabetical" };
 
         public string[] ListActions => new string[] { "Add job", "Sort" };
 
@@ -85,17 +86,17 @@ namespace MaterialMvvmSample.ViewModels
         {
             foreach (var _ in s)
             {
-                System.Diagnostics.Debug.WriteLine(this.Filters[_]);
+                Debug.WriteLine(Filters[_]);
             }
         });
 
-        public IList<string> Choices => new List<string>
+        public static IList<string> Choices => new List<string>
         {
             "Ayala Corporation",
             "San Miguel Corporation",
             "YNGEN Holdings Inc.",
             "ERNI Development Center Philippines, Inc., Bern, Switzerland"
-        };
+        }; 
 
         public ICommand JobSelectedCommand => new Command<string>(async (s) => await this.ViewItemSelected(s));
 
@@ -142,36 +143,38 @@ namespace MaterialMvvmSample.ViewModels
 
         private async Task ListMenuSelected(MaterialMenuResult s)
         {
-            if (s.Index == 0)
+            switch (s.Index)
             {
-                var result = await _dialogService.AddNewJob();
-
-                if (this.Models.Any(m => m.Title == result))
+                case 0:
                 {
-                    await _dialogService.AlertExistingJob(result);
-                }
-                else if (!string.IsNullOrEmpty(result))
-                {
-                    this.Models.Where(m => m.IsNew).ForEach(m => m.IsNew = false);
+                    var result = await _dialogService.AddNewJob();
 
-                    var model = new TestModel
+                    if (this.Models.Any(m => m.Title == result))
                     {
-                        Title = result,
-                        Id = Guid.NewGuid().ToString("N"),
-                        IsNew = true
-                    };
+                        await _dialogService.AlertExistingJob(result);
+                    }
+                    else if (!string.IsNullOrEmpty(result))
+                    {
+                        this.Models.Where(m => m.IsNew).ForEach(m => m.IsNew = false);
 
-                    this.Models.Add(model);
+                        var model = new TestModel
+                        {
+                            Title = result,
+                            Id = Guid.NewGuid().ToString("N"),
+                            IsNew = true
+                        };
+
+                        this.Models.Add(model);
+                    }
+
+                    break;
                 }
-            }
-            else if (s.Index == 1)
-            {
-                this.Models = new ObservableCollection<TestModel>(this.Models.OrderBy(m => m.Title));
-            }
-
-            else if (s.Index == 2)
-            {
-                this.SelectedFilters = new List<int>();
+                case 1:
+                    this.Models = new ObservableCollection<TestModel>(this.Models.OrderBy(m => m.Title));
+                    break;
+                case 2:
+                    this.SelectedFilters = new List<int>();
+                    break;
             }
         }
 
@@ -186,24 +189,37 @@ namespace MaterialMvvmSample.ViewModels
         {
             var model = this.Models.FirstOrDefault(m => m.Title == (string)i.Parameter);
 
-            if (i.Index == 0)
+            switch (i.Index)
             {
-                var result = await _dialogService.EditJob(model.Title);
-
-                if (!string.IsNullOrEmpty(result))
+                case 0:
                 {
-                    model.Title = result;
+                    if (model != null)
+                    {
+                        var result = await _dialogService.EditJob(model.Title);
+
+                        if (!string.IsNullOrEmpty(result))
+                        {
+                            model.Title = result;
+                        }
+                    }
+
+                    break;
                 }
-            }
-            else if (i.Index == 1)
-            {
-                var confirmed = await _dialogService.DeleteJob(model.Title);
-
-                if (confirmed == true)
+                case 1:
                 {
-                    this.Models.Remove(model);
+                    if (model != null)
+                    {
+                        var confirmed = await _dialogService.DeleteJob(model.Title);
 
-                    await _dialogService.JobDeleted();
+                        if (confirmed == true)
+                        {
+                            this.Models.Remove(model);
+
+                            await _dialogService.JobDeleted();
+                        }
+                    }
+
+                    break;
                 }
             }
         }

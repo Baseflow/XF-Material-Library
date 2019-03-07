@@ -2,9 +2,7 @@
 using System.Runtime.CompilerServices;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
-using XF.Material.Forms.Effects;
 using XF.Material.Forms.Resources;
-using XF.Material.Forms.Resources.Typography;
 
 namespace XF.Material.Forms.UI
 {
@@ -15,11 +13,11 @@ namespace XF.Material.Forms.UI
     {
         public const string MaterialButtonColorChanged = "BackgroundColorChanged";
 
-        private static Color OutlinedBorderColor = Color.FromHex("#1E000000");
+        private static readonly Color OutlinedBorderColor = Color.FromHex("#1E000000");
 
         public static readonly BindableProperty AllCapsProperty = BindableProperty.Create(nameof(AllCaps), typeof(bool), typeof(MaterialButton), true);
 
-        public static new readonly BindableProperty BackgroundColorProperty = BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(MaterialButton), Material.Color.Secondary);
+        public new static readonly BindableProperty BackgroundColorProperty = BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(MaterialButton), Material.Color.Secondary);
 
         public static readonly BindableProperty ButtonTypeProperty = BindableProperty.Create(nameof(ButtonType), typeof(MaterialButtonType), typeof(MaterialButton), MaterialButtonType.Elevated);
 
@@ -27,11 +25,14 @@ namespace XF.Material.Forms.UI
 
         public static readonly BindableProperty PressedBackgroundColorProperty = BindableProperty.Create(nameof(PressedBackgroundColor), typeof(Color), typeof(MaterialButton), default(Color));
 
-        private readonly string[] _colorPropertyNames = new string[] { nameof(BackgroundColor), nameof(PressedBackgroundColor), nameof(DisabledBackgroundColor) };
+        public static readonly BindableProperty LetterSpacingProperty = BindableProperty.Create(nameof(LetterSpacing), typeof(double), typeof(MaterialButton), 1.25);
+
+        public static readonly BindableProperty ElevationProperty = BindableProperty.Create(nameof(Elevation), typeof(MaterialElevation), typeof(MaterialButton), new MaterialElevation(2, 8));
+
+        private readonly string[] _colorPropertyNames = { nameof(BackgroundColor), nameof(PressedBackgroundColor), nameof(DisabledBackgroundColor) };
 
         public MaterialButton()
         {
-            this.SetValue(MaterialTypographyEffect.TypeScaleProperty, MaterialTypeScale.Button);
             this.SetDynamicResource(FontFamilyProperty, MaterialConstants.FontFamily.BUTTON);
             this.SetDynamicResource(FontSizeProperty, MaterialConstants.MATERIAL_FONTSIZE_BUTTON);
             this.SetDynamicResource(FontAttributesProperty, MaterialConstants.MATERIAL_FONTATTRIBUTE_BOLD);
@@ -39,6 +40,13 @@ namespace XF.Material.Forms.UI
             this.SetDynamicResource(BackgroundColorProperty, MaterialConstants.Color.SECONDARY);
             this.SetDynamicResource(TextColorProperty, MaterialConstants.Color.ON_SECONDARY);
             this.SetDynamicResource(HeightRequestProperty, MaterialConstants.MATERIAL_BUTTON_HEIGHT);
+            this.SetDynamicResource(FontAttributesProperty, MaterialConstants.MATERIAL_FONTATTRIBUTE_BOLD);
+        }
+
+        public MaterialElevation Elevation
+        {
+            get => (MaterialElevation)this.GetValue(ElevationProperty);
+            set => this.SetValue(ElevationProperty, value);
         }
 
         /// <summary>
@@ -48,6 +56,15 @@ namespace XF.Material.Forms.UI
         {
             get => (bool)this.GetValue(AllCapsProperty);
             set => this.SetValue(AllCapsProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the letter spacing of this button's text.
+        /// </summary>
+        public double LetterSpacing
+        {
+            get => (double)this.GetValue(LetterSpacingProperty);
+            set => this.SetValue(LetterSpacingProperty, value);
         }
 
         /// <summary>
@@ -90,14 +107,14 @@ namespace XF.Material.Forms.UI
             {
                 base.OnPropertyChanged(propertyName);
 
-                if(propertyName == nameof(this.ButtonType))
+                switch (propertyName)
                 {
-                    this.ButtonTypeChanged(this.ButtonType);
-                }
-
-                if (propertyName == nameof(this.Style))
-                {
-                    this.SetStyleValues(this.Style);
+                    case nameof(this.ButtonType):
+                        this.ButtonTypeChanged(this.ButtonType);
+                        break;
+                    case nameof(this.Style):
+                        this.SetStyleValues(this.Style);
+                        break;
                 }
             }
         }

@@ -68,35 +68,30 @@ namespace XF.Material.Forms.UI
             set => this.SetValue(SelectedIndexChangedCommandProperty, value);
         }
 
-        internal override ObservableCollection<MaterialSelectionControlModel> Models => selectionList.ItemsSource as ObservableCollection<MaterialSelectionControlModel>;
+        internal override ObservableCollection<MaterialSelectionControlModel> Models => selectionList.GetValue(BindableLayout.ItemsSourceProperty) as ObservableCollection<MaterialSelectionControlModel>;
 
         protected override void CreateChoices()
         {
             var models = new ObservableCollection<MaterialSelectionControlModel>();
 
-            foreach (var choice in this.Choices)
+            for (var i = 0; i < this.Choices.Count; i++)
             {
-                var index = this.Choices.IndexOf(choice);
                 var model = new MaterialSelectionControlModel
                 {
-                    Index = index,
-                    Text = choice
+                    Index = i,
+                    Text = this.Choices[i]
                 };
-                model.SelectedChangeCommand = new Command<bool>((isSelected) =>
-                {
-                    this.RadioButtonSelected(isSelected, model);
-                });
+                model.SelectedChangeCommand = new Command<bool>((isSelected) => this.RadioButtonSelected(isSelected, model));
 
                 models.Add(model);
             }
 
-            selectionList.ItemsSource = models;
-            selectionList.HeightRequest = (this.Choices.Count * 48) + 2;
+            selectionList.SetValue(BindableLayout.ItemsSourceProperty, models);
         }
 
         protected override SizeRequest OnMeasure(double widthConstraint, double heightConstraint)
         {
-            if (widthConstraint * heightConstraint != 0 && this.SelectedIndex >= 0)
+            if (Math.Abs(widthConstraint * heightConstraint) > float.MinValue && this.SelectedIndex >= 0)
             {
                 _selectedModel = this.Models[this.SelectedIndex];
             }
@@ -108,16 +103,14 @@ namespace XF.Material.Forms.UI
         {
             base.OnPropertyChanged(propertyName);
 
-            if (propertyName == nameof(this.SelectedIndex))
+            if (propertyName != nameof(this.SelectedIndex)) return;
+            if (this.SelectedIndex >= 0 && this.Models?.Any() == true)
             {
-                if (this.SelectedIndex >= 0 && this.Models != null && this.Models.Any())
-                {
-                    var model = this.Models[this.SelectedIndex];
-                    model.IsSelected = true;
-                }
-
-                this.OnSelectedIndexChanged(this.SelectedIndex);
+                var model = this.Models[this.SelectedIndex];
+                model.IsSelected = true;
             }
+
+            this.OnSelectedIndexChanged(this.SelectedIndex);
         }
 
         /// <summary>
@@ -147,7 +140,7 @@ namespace XF.Material.Forms.UI
                 _selectedModel = model;
                 this.SelectedIndex = _selectedModel.Index;
             }
-            else if (_selectedModel == model)
+            else if (_selectedModel.Index == model.Index)
             {
                 _selectedModel.IsSelected = true;
             }

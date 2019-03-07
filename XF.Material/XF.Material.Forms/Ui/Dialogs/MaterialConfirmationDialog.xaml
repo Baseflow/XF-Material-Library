@@ -1,37 +1,36 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <local:BaseMaterialModalPage x:Class="XF.Material.Forms.UI.Dialogs.MaterialConfirmationDialog"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
-    xmlns:local="clr-namespace:XF.Material.Forms.UI.Dialogs"
-    xmlns:material="clr-namespace:XF.Material.Forms.UI"
-    xmlns:sys="clr-namespace:System;assembly=netstandard">
+                             xmlns="http://xamarin.com/schemas/2014/forms"
+                             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                             xmlns:local="clr-namespace:XF.Material.Forms.UI.Dialogs"
+                             xmlns:material="clr-namespace:XF.Material.Forms.UI"
+                             xmlns:sys="clr-namespace:System;assembly=netstandard">
     <ContentPage.Content>
         <material:MaterialCard x:Name="Container"
-            Padding="0"
-            BackgroundColor="White"
-            CornerRadius="4"
-            Elevation="24"
-            HasShadow="True"
-            HorizontalOptions="Center"
-            IsClippedToBounds="True"
-            VerticalOptions="Center"
-            WidthRequest="{StaticResource Material.Dialog.Width}">
+                               Margin="{DynamicResource Material.Dialog.Margin}"
+                               Padding="0"
+                               BackgroundColor="White"
+                               CornerRadius="4"
+                               Elevation="24"
+                               HasShadow="True"
+                               HorizontalOptions="Center"
+                               IsClippedToBounds="True"
+                               VerticalOptions="Center"
+                               WidthRequest="{StaticResource Material.Dialog.Width}">
             <Grid RowSpacing="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="1" />
-                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
                     <RowDefinition Height="1" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <Label x:Name="DialogTitle"
-                    Grid.Row="0"
-                    Margin="24,22,24,22"
-                    FontFamily="{DynamicResource Material.FontFamily.H6}"
-                    Style="{DynamicResource Material.TypeScale.H6}"
-                    TextColor="#DE000000"
-                    VerticalOptions="Start">
+                <material:MaterialLabel x:Name="DialogTitle"
+                                        Grid.Row="0"
+                                        Margin="24,22,24,22"
+                                        TextColor="#DE000000"
+                                        TypeScale="H6"
+                                        VerticalOptions="Start">
                     <Label.Triggers>
                         <Trigger TargetType="Label" Property="Text" Value="{x:Null}">
                             <Setter Property="IsVisible" Value="False" />
@@ -40,24 +39,26 @@
                             <Setter Property="IsVisible" Value="False" />
                         </Trigger>
                     </Label.Triggers>
-                </Label>
-                <BoxView Grid.Row="1" BackgroundColor="#E0E0E0" />
-                <ContentView x:Name="container"
-                    Grid.Row="2"
-                    Margin="8,0,8,0"
-                    Padding="0">
+                </material:MaterialLabel>
+                <BoxView Grid.Row="1"
+                         BackgroundColor="#E0E0E0" />
+                <ScrollView x:Name="container"
+                            Grid.Row="2"
+                            Margin="8,0,8,0"
+                            Padding="0">
                     <View.Triggers>
                         <DataTrigger Binding="{Binding Source={x:Reference DialogTitle}, Path=IsVisible}"
-                            TargetType="View"
-                            Value="False">
+                                     TargetType="View"
+                                     Value="False">
                             <Setter Property="Margin" Value="8,20,8,0" />
                         </DataTrigger>
                     </View.Triggers>
-                </ContentView>
-                <BoxView Grid.Row="3" BackgroundColor="#E0E0E0" />
+                </ScrollView>
+                <BoxView Grid.Row="3"
+                         BackgroundColor="#E0E0E0" />
                 <Grid Grid.Row="4"
-                    Margin="0,0,8,0"
-                    ColumnSpacing="0">
+                      Margin="0,0,8,0"
+                      ColumnSpacing="0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="52" />
                     </Grid.RowDefinitions>
@@ -68,11 +69,11 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <material:MaterialButton x:Name="NegativeButton"
-                        Grid.Column="2"
-                        Margin="0,0,-8,0"
-                        ButtonType="Text"
-                        Text="Cancel"
-                        VerticalOptions="Center">
+                                             Grid.Column="2"
+                                             Margin="0,0,-8,0"
+                                             ButtonType="Text"
+                                             Text="Cancel"
+                                             VerticalOptions="Center">
                         <material:MaterialButton.Triggers>
                             <Trigger TargetType="Button" Property="Text" Value="{x:Null}">
                                 <Setter Property="IsVisible" Value="False" />
@@ -85,11 +86,11 @@
                         </material:MaterialButton.Triggers>
                     </material:MaterialButton>
                     <material:MaterialButton x:Name="PositiveButton"
-                        Grid.Column="3"
-                        ButtonType="Text"
-                        IsEnabled="False"
-                        Text="Ok"
-                        VerticalOptions="Center" />
+                                             Grid.Column="3"
+                                             ButtonType="Text"
+                                             IsEnabled="False"
+                                             Text="Ok"
+                                             VerticalOptions="Center" />
                 </Grid>
             </Grid>
         </material:MaterialCard>

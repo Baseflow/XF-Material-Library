@@ -12,7 +12,7 @@ namespace XF.Material.Forms.UI
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MaterialIconButton : ContentView, IMaterialButtonControl, IMaterialTintableControl
     {
-        public static new readonly BindableProperty BackgroundColorProperty = BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(MaterialButton), Material.Color.Secondary);
+        public new static readonly BindableProperty BackgroundColorProperty = BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(MaterialButton), Material.Color.Secondary);
 
         public static readonly BindableProperty BorderColorProperty = BindableProperty.Create(nameof(BorderColor), typeof(Color), typeof(MaterialIconButton), Color.Default);
 
@@ -27,6 +27,8 @@ namespace XF.Material.Forms.UI
         public static readonly BindableProperty CornerRadiusProperty = BindableProperty.Create(nameof(CornerRadius), typeof(int), typeof(MaterialIconButton), 4);
 
         public static readonly BindableProperty DisabledBackgroundColorProperty = BindableProperty.Create(nameof(DisabledBackgroundColor), typeof(Color), typeof(MaterialIconButton), default(Color));
+
+        public static readonly BindableProperty ElevationProperty = BindableProperty.Create(nameof(Elevation), typeof(MaterialElevation), typeof(MaterialIconButton), new MaterialElevation(2, 8));
 
         public static readonly BindableProperty ImageProperty = BindableProperty.Create(nameof(Image), typeof(string), typeof(MaterialIconButton));
 
@@ -53,14 +55,9 @@ namespace XF.Material.Forms.UI
                 { nameof(this.Image), () => this.OnImageChanged(this.Image) },
                 { nameof(this.PressedBackgroundColor), () => this.OnPressedBackgroundColorChanged(this.PressedBackgroundColor) },
                 { nameof(this.TintColor), () => this.OnTintColorChanged(this.TintColor) },
+                { nameof(this.Elevation), () => this.OnElevationChanged(this.Elevation) },
             };
         }
-
-        /// <summary>
-        /// For internal use only.
-        /// </summary>
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public ICommand InternalCommand { get; set; }
 
         public event EventHandler Clicked;
 
@@ -112,11 +109,23 @@ namespace XF.Material.Forms.UI
             set => this.SetValue(DisabledBackgroundColorProperty, value);
         }
 
+        public MaterialElevation Elevation
+        {
+            get => (MaterialElevation)this.GetValue(ElevationProperty);
+            set => this.SetValue(ElevationProperty, value);
+        }
+
         public string Image
         {
             get => (string)this.GetValue(ImageProperty);
             set => this.SetValue(ImageProperty, value);
         }
+
+        /// <summary>
+        /// For internal use only.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public ICommand InternalCommand { get; set; }
 
         public Color PressedBackgroundColor
         {
@@ -151,8 +160,10 @@ namespace XF.Material.Forms.UI
             }
 
             base.OnPropertyChanged(propertyName);
+            
+            if(propertyName == null) return;
 
-            if (_propertyChangeActions != null && _propertyChangeActions.TryGetValue(propertyName, out Action handlePropertyChange))
+            if (_propertyChangeActions != null && _propertyChangeActions.TryGetValue(propertyName, out var handlePropertyChange))
             {
                 handlePropertyChange();
             }
@@ -181,6 +192,11 @@ namespace XF.Material.Forms.UI
         private void OnDisabledBackgroundColorChanged(Color color)
         {
             _button.DisabledBackgroundColor = color;
+        }
+
+        private void OnElevationChanged(MaterialElevation elevation)
+        {
+            _button.Elevation = elevation;
         }
 
         private void OnImageChanged(string image)

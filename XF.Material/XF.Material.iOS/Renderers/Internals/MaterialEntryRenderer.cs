@@ -14,20 +14,36 @@ namespace XF.Material.iOS.Renderers.Internals
         {
             base.OnElementChanged(e);
 
-            if(e?.NewElement != null)
+            if (e?.NewElement != null)
             {
-                this.Control.BorderStyle = UITextBorderStyle.None;
-                this.Control.TintColor = (this.Element as MaterialEntry).TintColor.ToUIColor();
+                this.SetControl();
             }
+        }
+
+        private void SetControl()
+        {
+            if(this.Control == null)
+            {
+                return;
+            }
+
+            var heightConstraint = NSLayoutConstraint.Create(this.Control, NSLayoutAttribute.Height, NSLayoutRelation.Equal, 1, 20f);
+            this.Control.AddConstraint(heightConstraint);
+            this.Control.BackgroundColor = UIColor.Clear;
+            this.Control.TintColor = (this.Element as MaterialEntry)?.TintColor.ToUIColor();
+            this.Control.BorderStyle = UITextBorderStyle.None;
+            this.Control.TranslatesAutoresizingMaskIntoConstraints = false;
         }
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             base.OnElementPropertyChanged(sender, e);
 
-            if(e?.PropertyName == nameof(MaterialEntry.TintColor))
+            if (this.Control == null) return;
+
+            if (e?.PropertyName == nameof(MaterialEntry.TintColor))
             {
-                this.Control.TintColor = (this.Element as MaterialEntry).TintColor.ToUIColor();
+                this.Control.TintColor = (this.Element as MaterialEntry)?.TintColor.ToUIColor();
             }
         }
     }

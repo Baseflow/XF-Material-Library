@@ -9,6 +9,7 @@ using XF.Material.Forms.UI.Internals;
 
 namespace XF.Material.Forms.UI
 {
+    /// <inheritdoc />
     /// <summary>
     /// A control that allow user to select one or more items from a set.
     /// </summary>
@@ -25,7 +26,7 @@ namespace XF.Material.Forms.UI
         /// </summary>
         public static readonly BindableProperty SelectedIndicesChangedCommandProperty = BindableProperty.Create(nameof(SelectedIndicesChangedCommand), typeof(Command<int[]>), typeof(MaterialCheckboxGroup));
 
-        internal override ObservableCollection<MaterialSelectionControlModel> Models => selectionList.ItemsSource as ObservableCollection<MaterialSelectionControlModel>;
+        internal override ObservableCollection<MaterialSelectionControlModel> Models => selectionList.GetValue(BindableLayout.ItemsSourceProperty) as ObservableCollection<MaterialSelectionControlModel>;
 
         /// <summary>
         /// Initializes a new instance of <see cref="MaterialCheckboxGroup"/>.
@@ -72,12 +73,13 @@ namespace XF.Material.Forms.UI
         {
             var models = new ObservableCollection<MaterialSelectionControlModel>();
 
-            foreach (var choice in this.Choices)
+            for (var i = 0; i < this.Choices.Count; i++)
             {
+                var i1 = i;
                 var model = new MaterialSelectionControlModel
                 {
-                    SelectedChangeCommand = new Command<bool>((isSelected) => this.CheckboxSelected(isSelected, this.Choices.IndexOf(choice))),
-                    Text = choice,
+                    SelectedChangeCommand = new Command<bool>((isSelected) => this.CheckboxSelected(isSelected, i1)),
+                    Text = this.Choices[i],
                     HorizontalSpacing = this.HorizontalSpacing,
                     FontFamily = this.FontFamily,
                     FontSize = this.FontSize,
@@ -90,8 +92,7 @@ namespace XF.Material.Forms.UI
                 models.Add(model);
             }
 
-            selectionList.ItemsSource = models;
-            selectionList.HeightRequest = (this.Choices.Count * 48) + 2;
+            selectionList.SetValue(BindableLayout.ItemsSourceProperty, models);
         }
 
         /// <summary>
@@ -116,30 +117,32 @@ namespace XF.Material.Forms.UI
 
         private void OnSelectedIndicesChanged()
         {
-            if (this.SelectedIndices == null)
+            switch (this.SelectedIndices)
             {
-                throw new InvalidOperationException("The property 'SelectedIndices' was assigned with a null value.");
-            }
-
-            else if (this.SelectedIndices is Array)
-            {
-                throw new InvalidOperationException("The property 'SelectedIndices' is 'System.Array', please use a collection that has no fixed size");
-            }
-
-            else if (!this.SelectedIndices.Any())
-            {
-                foreach (var model in this.Models)
+                case null:
+                    throw new InvalidOperationException("The property 'SelectedIndices' was assigned with a null value.");
+                case Array _:
+                    throw new InvalidOperationException("The property 'SelectedIndices' is 'System.Array', please use a collection that has no fixed size");
+                default:
                 {
-                    model.IsSelected = false;
-                }
-            }
+                    if (!this.SelectedIndices.Any())
+                    {
+                        foreach (var model in this.Models)
+                        {
+                            model.IsSelected = false;
+                        }
+                    }
 
-            else
-            {
-                foreach (var index in this.SelectedIndices)
-                {
-                    var model = this.Models.ElementAt(index);
-                    model.IsSelected = true;
+                    else
+                    {
+                        foreach (var index in this.SelectedIndices)
+                        {
+                            var model = this.Models.ElementAt(index);
+                            model.IsSelected = true;
+                        }
+                    }
+
+                    break;
                 }
             }
 
@@ -150,7 +153,7 @@ namespace XF.Material.Forms.UI
         {
             try
             {
-                if (isSelected && !this.SelectedIndices.Any(s => s == index))
+                if (isSelected && this.SelectedIndices.All(s => s != index))
                 {
                     this.SelectedIndices.Add(index);
                     this.OnSelectedIndicesChanged(this.SelectedIndices);

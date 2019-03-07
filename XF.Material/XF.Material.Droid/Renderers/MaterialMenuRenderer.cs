@@ -3,6 +3,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using XF.Material.Droid.Renderers;
 using XF.Material.Forms.UI;
+using System.Linq;
 
 [assembly: ExportRenderer(typeof(MaterialMenuButton), typeof(MaterialMenuRenderer))]
 namespace XF.Material.Droid.Renderers
@@ -15,7 +16,7 @@ namespace XF.Material.Droid.Renderers
         {
             base.OnElementChanged(e);
 
-            if(e?.NewElement != null)
+            if (e?.NewElement != null)
             {
                 this.Element.InternalCommand = new Command(this.OnClick);
             }
@@ -26,7 +27,7 @@ namespace XF.Material.Droid.Renderers
             var displayDensity = this.Context.Resources.DisplayMetrics.Density;
             var position = new int[2];
             this.ViewGroup.GetChildAt(0).GetLocationInWindow(position);
-            this.Element.OnViewTouch(position[0] / displayDensity, position[1] / displayDensity);
+            this.Element.OnViewTouch(position.ElementAtOrDefault(0) / displayDensity, position.ElementAtOrDefault(1) / displayDensity);
         }
     }
 }

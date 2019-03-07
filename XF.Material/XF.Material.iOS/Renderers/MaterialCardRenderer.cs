@@ -1,12 +1,10 @@
-﻿using Xamarin.Forms;
+﻿using System.ComponentModel;
+using UIKit;
+using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 using XF.Material.Forms.UI;
-using XF.Material.iOS.Renderers;
-using System.ComponentModel;
-using XF.Material.iOS.Delegates;
-using UIKit;
 using XF.Material.iOS.GestureRecognizers;
-using System;
+using XF.Material.iOS.Renderers;
 
 [assembly: ExportRenderer(typeof(MaterialCard), typeof(MaterialCardRenderer))]
 namespace XF.Material.iOS.Renderers
@@ -22,38 +20,36 @@ namespace XF.Material.iOS.Renderers
         {
             base.OnElementChanged(e);
 
-            if (e?.NewElement != null)
-            {
-                _materialCard = this.Element as MaterialCard;
-                this.Elevate(_materialCard.Elevation);
+            if (e?.NewElement == null) return;
+            _materialCard = this.Element as MaterialCard;
+            if (_materialCard != null) this.Elevate(_materialCard.Elevation);
 
-                this.SetupColors();
-                this.SetIsClickable();
-            }
+            this.SetupColors();
+            this.SetIsClickable();
         }
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             base.OnElementPropertyChanged(sender, e);
 
-            if (e?.PropertyName == nameof(MaterialCard.Elevation))
+            if (e?.PropertyName == nameof(MaterialCard.Elevation) || e?.PropertyName == nameof(VisualElement.BackgroundColor))
             {
                 this.Elevate(_materialCard.Elevation);
             }
 
-            // For some reason the Elevation will get messed up when the background
-            // color is modified. So this fixes it.
-            //
-            if (e?.PropertyName == nameof(MaterialCard.BackgroundColor))
+            switch (e?.PropertyName)
             {
-                this.SetupColors();
-                this.SetIsClickable();
-                this.Elevate(_materialCard.Elevation);
-            }
-
-            if (e?.PropertyName == nameof(MaterialCard.IsClickable))
-            {
-                this.SetIsClickable();
+                // For some reason the Elevation will get messed up when the background
+                // color is modified. So this fixes it.
+                //
+                case nameof(MaterialCard.BackgroundColor):
+                    this.SetupColors();
+                    this.SetIsClickable();
+                    this.Elevate(_materialCard.Elevation);
+                    break;
+                case nameof(MaterialCard.IsClickable):
+                    this.SetIsClickable();
+                    break;
             }
         }
 
@@ -62,9 +58,9 @@ namespace XF.Material.iOS.Renderers
             _rippleColor = this.BackgroundColor.IsColorDark() ? Color.FromHex("#52FFFFFF").ToUIColor() : Color.FromHex("#52000000").ToUIColor();
         }
 
-        protected void SetIsClickable()
+        private void SetIsClickable()
         {
-            bool clickable = _materialCard.IsClickable;
+            var clickable = _materialCard.IsClickable;
             if (clickable)
             {
                 if (_rippleGestureRecognizerDelegate == null)
@@ -76,9 +72,10 @@ namespace XF.Material.iOS.Renderers
 
                 this.AddGestureRecognizer(_rippleGestureRecognizerDelegate);
             }
-            else
-                if (_rippleGestureRecognizerDelegate != null)
+            else if (_rippleGestureRecognizerDelegate != null)
+            {
                 this.RemoveGestureRecognizer(_rippleGestureRecognizerDelegate);
+            }
         }
     }
 }

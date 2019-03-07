@@ -49,19 +49,19 @@ namespace XF.Material.Forms
         /// <exception cref="ArgumentNullException" />
         public static T GetResource<T>(string key)
         {
-            Application.Current.Resources.TryGetValue(key ?? throw new ArgumentNullException(nameof(key)), out object value);
+            Application.Current.Resources.TryGetValue(key ?? throw new ArgumentNullException(nameof(key)), out var value);
 
             if (value is T resource)
             {
                 return resource;
             }
 
-            else if (value != null)
+            if (value != null)
             {
                 throw new InvalidCastException($"The resource retrieved was not of the type {typeof(T)}. Use {value.GetType()} instead.");
             }
 
-            return default(T);
+            return default;
         }
 
         /// <summary>
@@ -104,7 +104,6 @@ namespace XF.Material.Forms
             _res.MergedDictionaries.Add(new MaterialColors(_config.ColorConfiguration ?? new MaterialColorConfiguration()));
             _res.MergedDictionaries.Add(new MaterialTypography(_config.FontConfiguration ?? new MaterialFontConfiguration()));
             _res.MergedDictionaries.Add(new MaterialSizes());
-
         }
 
         /// <summary>
@@ -162,7 +161,15 @@ namespace XF.Material.Forms
             /// Accents select parts of your UI.
             /// If not provided, use <see cref="MaterialColorConfiguration.Primary"/>.
             /// </summary>
-            public static Xamarin.Forms.Color Secondary => GetResource<Xamarin.Forms.Color>(MaterialConstants.Color.SECONDARY);
+            public static Xamarin.Forms.Color Secondary => GetSecondaryColor();
+
+            //TODO: Make configurations bindable.
+            private static Xamarin.Forms.Color GetSecondaryColor()
+            {
+                var color = GetResource<Xamarin.Forms.Color>(MaterialConstants.Color.SECONDARY);
+
+                return color.IsDefault ? Xamarin.Forms.Color.FromHex("#6200EE") : color;
+            }
 
             /// <summary>
             /// A tonal variation of <see cref="MaterialColorConfiguration.Secondary"/>.

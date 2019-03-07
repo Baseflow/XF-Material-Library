@@ -18,11 +18,6 @@ namespace XF.Material.Forms.UI.Dialogs.Configurations
         public bool ButtonAllCaps { get; set; } = true;
 
         /// <summary>
-        /// Gets or sets the tint color of the dialog's buttons.
-        /// </summary>
-        public Color TintColor { get; set; } = Material.Color.Secondary;
-
-        /// <summary>
         /// Gets or sets the color of this selection control when selected.
         /// </summary>
         public Color ControlSelectedColor { get; set; } = Material.Color.Secondary;

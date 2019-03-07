@@ -1,5 +1,68 @@
 # Release Notes
 
+##### 1.4.1.0 (Latest)
+- Updated `MaterialTextField`:
+    - Can be attached with properties from `MaterialConfirmationDialog` to customize confirmation dialog appearance.
+       A feature request from issue [86](https://github.com/contrix09/XF-Material-Library/issues/86).
+    - Added `TextFontSize`, `FloatingPlaceholderFontSize`, and `FloatingPlaceholderColor`.
+    - Added `IsAutoCapitalizationEnabled` property.
+    - Added `ShouldAnimateUnderline` property that can be used to determine whether to animate the underline indicator or not.
+      Setting this to `false` will not show any underline when activated or fouces.
+      A feature request from issue [92](https://github.com/contrix09/XF-Material-Library/issues/92).
+    - The `TintColor` will be applied to the underline and floating placeholder only when the text field is focused.
+    - Renamed `Icon` to `LeadingIcon`, `IconTintColor` to `LeadingIconTintColor`. This is to differentiate from the trailing icon, which will be a future enhancement.
+- Added `Margin` property to Material dialog configuration classes.
+ A feature request from issue [91](https://github.com/contrix09/XF-Material-Library/issues/91).
+- Fixed issue [84](https://github.com/contrix09/XF-Material-Library/issues/84).
+- Fixed issue [87](https://github.com/contrix09/XF-Material-Library/issues/87).
+- Fixed issue [88](https://github.com/contrix09/XF-Material-Library/issues/88).
+- Fixed issue [89](https://github.com/contrix09/XF-Material-Library/issues/89).
+- Fixed issue [97](https://github.com/contrix09/XF-Material-Library/issues/97).
+- Fixed issue [98](https://github.com/contrix09/XF-Material-Library/issues/98).
+
+##### 1.4.0.4
+- Fixed `MaterialTextField` animating when the text changes even if there is a current text value is not null or empty.
+
+##### 1.4.0.3
+- Fixed `MaterialButton` not showing border when `ButtonType` is `MaterialButtonType.Outlined`.
+
+##### 1.4.0.2
+- Fixed issue [74](https://github.com/contrix09/XF-Material-Library/issues/74).
+- Fixed crashing in iOS renderers which is caused by null native controls.
+- Fixed `MaterialTextField` `ReturnCommandParameter` property always null.
+- Refactored modal dialogs.
+
+##### 1.4.0.1
+- Fixed issue [67](https://github.com/contrix09/XF-Material-Library/issues/67).
+- Fixed issue [68](https://github.com/contrix09/XF-Material-Library/issues/68).
+- Fixed issue [69](https://github.com/contrix09/XF-Material-Library/issues/69).
+- Optimized icon resources in `XF.Material.iOS`.
+
+##### 1.4.0.0
+
+- Added new controls: `MaterialSwitch` and `MaterialLabel`.
+- Added `Elevation` property to `MaterialButton` and `MaterialIconButton`. You can now set
+dynamic elevation when the button is resting or was pressed by using `MaterialElevation`.
+- `MaterialCard` can now responds to touch input when it is set as clickable. Added `IsClickable`, 
+`ClickCommand`, and `ClickCommandParameter` properties. Added `Clicked` event. A feature enhancement
+ found in this [issue](https://github.com/contrix09/XF-Material-Library/issues/55).
+- `MaterialTextField` now accepts an `IList` of objects as choices when the `InputType` is set to
+ `MaterialTextFieldInputType.Choice`. Added `ChoicesBindingName` that determines the value of the
+ property with that name of each object to display. You can still set the `Choices` property to use a collection of strings.
+ This is a feature enhancement found in this [issue](https://github.com/contrix09/XF-Material-Library/issues/56).
+- Added new properties `IsSpellCheckEnabled` and `IsTextPredictionEnabled` to `MaterialTextField`.
+ This is a feature enhancement found in this [issue](https://github.com/contrix09/XF-Material-Library/issues/65).
+- Re-added `Icon` and `IconTintColor` properties to `MaterialTextField`.
+ This is a feature enhancement found in this [issue](https://github.com/contrix09/XF-Material-Library/issues/64).
+- You can now show an alert dialog with a custom content using `MaterialDialog.Instance.ShowCustomContentAsync()`.
+ This is a feature enhancement found in this [issue](https://github.com/contrix09/XF-Material-Library/issues/63).
+- Added maximum width of modal dialogs when running on different device idioms, or when changing screen orientation.
+- Used `BindableLayout` instead of `ListView` when rendering `MaterialRadioButtonGroup`, `MaterialCheckboxGroup`, and `MaterialMenuDialog`.
+- Removed typography dynamic resources. You can now set the specific type scale using `MaterialLabel`.
+- Removed `MaterialTypeScaleEffect`.
+- Updated Android target framework version to `9.0`.
+- Updated other dependencies to latest.
+
 ##### 1.3.1.1
 - Fixed issue [35](https://github.com/contrix09/XF-Material-Library/issues/35).
 - Fixed issue [38](https://github.com/contrix09/XF-Material-Library/issues/38).

@@ -2,7 +2,7 @@
 
 namespace XF.Material.Forms.UI.Dialogs.Configurations
 {
-    public abstract class BaseMaterialListDialogConfiguration
+    public abstract class BaseMaterialListDialogConfiguration : BaseMaterialModalDialogConfiguration
     {
         /// <summary>
         /// Gets or sets the title text color of the dialog.
@@ -20,19 +20,9 @@ namespace XF.Material.Forms.UI.Dialogs.Configurations
         public Color TextColor { get; set; } = Color.FromHex("#DE000000");
 
         /// <summary>
-        /// Gets or sets the scrim color of the dialog.
-        /// </summary>
-        public Color ScrimColor { get; set; } = Color.FromHex("#51000000");
-
-        /// <summary>
-        /// Gets or sets the background color of the dialog.
-        /// </summary>
-        public Color BackgroundColor { get; set; } = Color.White;
-
-        /// <summary>
         /// Gets or sets the corner radius of the dialog.
         /// </summary>
-        public float CornerRadius { get; set; } = 2;
+        public override float CornerRadius { get; set; } = 4;
 
         /// <summary>
         /// Gets or sets the list text font family of the dialog.

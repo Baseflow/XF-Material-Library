@@ -8,7 +8,7 @@ namespace MaterialMvvmSample.Utilities.Dialogs
     {
         public Task<string> AddNewJob()
         {
-            return this.DialogFacade
+            return DialogFacade
                    .InputAsync(title: "Add a new job",
                     message: "Enter the job title:",
                     inputPlaceholder: "Job Title",
@@ -25,12 +25,12 @@ namespace MaterialMvvmSample.Utilities.Dialogs
 
         public Task AlertExistingJob(string jobTitle)
         {
-            return this.Alert($"{jobTitle} already exists.");
+            return Alert($"{jobTitle} already exists.");
         }
 
         public Task<bool?> DeleteJob(string jobTitle)
         {
-            return this.DialogFacade
+            return DialogFacade
                    .ConfirmAsync(title: "Confirm Delete",
                    message: $"Are you sure do you want to delete {jobTitle}?",
                    confirmingText: "Delete");
@@ -38,7 +38,7 @@ namespace MaterialMvvmSample.Utilities.Dialogs
 
         public Task<string> EditJob(string jobTitle)
         {
-            return this.DialogFacade
+            return DialogFacade
                    .InputAsync(title: "Edit job",
                     message: "Enter new job title:",
                     inputText: jobTitle,
@@ -48,7 +48,7 @@ namespace MaterialMvvmSample.Utilities.Dialogs
 
         public Task JobDeleted()
         {
-            return this.DialogFacade
+            return DialogFacade
                    .SnackbarAsync("Job deleted", MaterialSnackbar.DurationShort);
         }
     }

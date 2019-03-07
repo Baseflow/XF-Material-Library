@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 using XF.Material.Forms.UI.Dialogs.Configurations;
 
 namespace XF.Material.Forms.UI.Dialogs
@@ -92,9 +93,11 @@ namespace XF.Material.Forms.UI.Dialogs
         /// </summary>
         /// <param name="title">The title of the confirmation dialog. This parameter must not be null or empty.</param>
         /// <param name="choices">The list of choices the user will choose from.</param>
+        /// <param name="confirmingText">The text of the confirmation button.</param>
+        /// <param name="dismissiveText">The text of the dismissive button</param>
         /// <param name="configuration">The style of the confirmation dialog.</param>
         /// <exception cref="ArgumentNullException" />
-        Task<int> SelectChoiceAsync(string title, IList<string> choices, MaterialConfirmationDialogConfiguration configuration = null);
+        Task<int> SelectChoiceAsync(string title, IList<string> choices, string confirmingText = "Ok", string dismissiveText = "Cancel", MaterialConfirmationDialogConfiguration configuration = null);
 
         /// <summary>
         /// Shows a confirmation dialog that allows the user to select one of the listed choices. Returns the index of the selected choice. If none was selected, returns -1.
@@ -102,19 +105,23 @@ namespace XF.Material.Forms.UI.Dialogs
         /// <param name="title">The title of the confirmation dialog. This parameter must not be null or empty.</param>
         /// <param name="choices">The list of choices the user will choose from.</param>
         /// <param name="selectedIndex">The currently selected index.</param>
+        /// <param name="confirmingText">The text of the confirmation button.</param>
+        /// <param name="dismissiveText">The text of the dismissive button</param>
         /// <param name="configuration">The style of the confirmation dialog.</param>
         /// <exception cref="ArgumentNullException" />
         /// <exception cref="IndexOutOfRangeException" />
-        Task<int> SelectChoiceAsync(string title, IList<string> choices, int selectedIndex, MaterialConfirmationDialogConfiguration configuration = null);
+        Task<int> SelectChoiceAsync(string title, IList<string> choices, int selectedIndex, string confirmingText = "Ok", string dismissiveText = "Cancel", MaterialConfirmationDialogConfiguration configuration = null);
 
         /// <summary>
         /// Shows a confirmation dialog that allows the user to select any of the listed choices. Returns the indices of the selected choices. If none was selected, returns an empty array.
         /// </summary>
         /// <param name="title">The title of the confirmation dialog. This parameter must not be null or empty.</param>
         /// <param name="choices">The list of choices the user will choose from.</param>
+        /// <param name="confirmingText">The text of the confirmation button.</param>
+        /// <param name="dismissiveText">The text of the dismissive button</param>
         /// <param name="configuration">The style of the confirmation dialog.</param>
         /// <exception cref="ArgumentNullException" />
-        Task<int[]> SelectChoicesAsync(string title, IList<string> choices, MaterialConfirmationDialogConfiguration configuration = null);
+        Task<int[]> SelectChoicesAsync(string title, IList<string> choices, string confirmingText = "Ok", string dismissiveText = "Cancel", MaterialConfirmationDialogConfiguration configuration = null);
 
         /// <summary>
         /// Shows a confirmation dialog that allows the user to select any of the listed choices. Returns the indices of the selected choices. If none was selected, returns an empty array.
@@ -122,10 +129,12 @@ namespace XF.Material.Forms.UI.Dialogs
         /// <param name="title">The title of the confirmation dialog. This parameter must not be null or empty.</param>
         /// <param name="choices">The list of choices the user will choose from.</param>
         /// <param name="selectedIndices">The currently selected indices.</param>
+        /// <param name="confirmingText">The text of the confirmation button.</param>
+        /// <param name="dismissiveText">The text of the dismissive button</param>
         /// <param name="configuration">The style of the confirmation dialog.</param>
         /// <exception cref="ArgumentNullException" />
         /// <exception cref="IndexOutOfRangeException" />
-        Task<int[]> SelectChoicesAsync(string title, IList<string> choices, List<int> selectedIndices, MaterialConfirmationDialogConfiguration configuration = null);
+        Task<int[]> SelectChoicesAsync(string title, IList<string> choices, IList<int> selectedIndices, string confirmingText = "Ok", string dismissiveText = "Cancel", MaterialConfirmationDialogConfiguration configuration = null);
 
         /// <summary>
         /// Sets the global styles for <see cref="MaterialAlertDialog"/>, <see cref="MaterialLoadingDialog"/>, <see cref="MaterialSimpleDialog"/>, <see cref="MaterialConfirmationDialog"/>, and <see cref="MaterialSnackbar"/>. Parameters can be null.
@@ -136,7 +145,18 @@ namespace XF.Material.Forms.UI.Dialogs
         /// <param name="simpleDialogConfiguration">Global style for <see cref="MaterialSimpleDialog"/>.</param>
         /// <param name="confirmationDialogConfiguration">Global style for <see cref="MaterialConfirmationDialog"/>.</param>
         /// <param name="inputDialogConfiguration">Global style for <see cref="MaterialInputDialog"/>.</param>
-        void SetGlobalStyles(MaterialAlertDialogConfiguration dialogConfiguration, MaterialLoadingDialogConfiguration loadingDialogConfiguration, MaterialSnackbarConfiguration snackbarConfiguration, MaterialSimpleDialogConfiguration simpleDialogConfiguration, MaterialConfirmationDialogConfiguration confirmationDialogConfiguration, MaterialInputDialogConfiguration inputDialogConfiguration);
+        void SetGlobalStyles(MaterialAlertDialogConfiguration dialogConfiguration = null, MaterialLoadingDialogConfiguration loadingDialogConfiguration = null, MaterialSnackbarConfiguration snackbarConfiguration = null, MaterialSimpleDialogConfiguration simpleDialogConfiguration = null, MaterialConfirmationDialogConfiguration confirmationDialogConfiguration = null, MaterialInputDialogConfiguration inputDialogConfiguration = null, MaterialAlertDialogConfiguration customContentDialogConfiguration = null);
+
+        /// <summary>
+        /// Shows an dialog for confirmation with a custom content. Returns true when the confirm button was clicked, false if the dismiss button was clicked, and null if the alert dialog was dismissed.
+        /// </summary>
+        /// <param name="view">The additional custom content of the dialog.</param>
+        /// <param name="message">The message of the dialog.</param>
+        /// <param name="title">The title of the dialog.</param>
+        /// <param name="confirmingText">The text of the confirmation button.</param>
+        /// <param name="dismissiveText">The text of the dismissive button</param>
+        /// <exception cref="ArgumentNullException" />
+        Task<bool?> ShowCustomContentAsync(View view, string message, string title = null, string confirmingText = "Ok", string dismissiveText = "Cancel", MaterialAlertDialogConfiguration configuration = null);
 
         /// <summary>
         /// Shows a snackbar with no action.

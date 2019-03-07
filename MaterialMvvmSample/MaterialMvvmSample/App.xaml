@@ -1,80 +1,67 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Application x:Class="MaterialMvvmSample.App"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:mtrl="clr-namespace:XF.Material.Forms.Resources;assembly=XF.Material.Forms"
-    xmlns:mtrltypo="clr-namespace:XF.Material.Forms.Resources.Typography;assembly=XF.Material.Forms">
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mtrl="clr-namespace:XF.Material.Forms.Resources;assembly=XF.Material.Forms"
+             xmlns:mtrltypo="clr-namespace:XF.Material.Forms.Resources.Typography;assembly=XF.Material.Forms">
     <Application.Resources>
 
         <OnPlatform x:Key="FontFamily.Exo2Regular"
-            x:TypeArguments="x:String"
-            Android="Fonts/Exo2-Regular.ttf#Exo2-Regular"
-            iOS="Exo2-Regular" />
+                    x:TypeArguments="x:String"
+                    Android="Fonts/Exo2-Regular.ttf#Exo2-Regular"
+                    iOS="Exo2-Regular" />
         <OnPlatform x:Key="FontFamily.Exo2Bold"
-            x:TypeArguments="x:String"
-            Android="Fonts/Exo2-Bold.ttf#Exo2-Bold"
-            iOS="Exo2-Bold" />
+                    x:TypeArguments="x:String"
+                    Android="Fonts/Exo2-Bold.ttf#Exo2-Bold"
+                    iOS="Exo2-Bold" />
         <OnPlatform x:Key="FontFamily.Exo2Medium"
-            x:TypeArguments="x:String"
-            Android="Fonts/Exo2-Medium.ttf#Exo2-Medium"
-            iOS="Exo2-Medium" />
+                    x:TypeArguments="x:String"
+                    Android="Fonts/Exo2-Medium.ttf#Exo2-Medium"
+                    iOS="Exo2-Medium" />
 
         <OnPlatform x:Key="FontFamily.RobotoRegular"
-            x:TypeArguments="x:String"
-            Android="Fonts/Roboto-Regular.ttf#Roboto-Regular"
-            iOS="Roboto-Regular" />
+                    x:TypeArguments="x:String"
+                    Android="Fonts/Roboto-Regular.ttf#Roboto-Regular"
+                    iOS="Roboto-Regular" />
         <OnPlatform x:Key="FontFamily.RobotoBold"
-            x:TypeArguments="x:String"
-            Android="Fonts/Roboto-Bold.ttf#Roboto-Bold"
-            iOS="Roboto-Bold" />
+                    x:TypeArguments="x:String"
+                    Android="Fonts/Roboto-Bold.ttf#Roboto-Bold"
+                    iOS="Roboto-Bold" />
         <OnPlatform x:Key="FontFamily.RobotoMedium"
-            x:TypeArguments="x:String"
-            Android="Fonts/Roboto-Medium.ttf#Roboto-Medium"
-            iOS="Roboto-Medium" />
-
-        <OnPlatform x:Key="FontFamily.OpenSansRegular"
-            x:TypeArguments="x:String"
-            Android="Fonts/OpenSans-Regular.ttf#OpenSans-Regular"
-            iOS="OpenSans-Regular" />
-        <OnPlatform x:Key="FontFamily.OpenSansBold"
-            x:TypeArguments="x:String"
-            Android="Fonts/OpenSans-Bold.ttf#OpenSans-Bold"
-            iOS="OpenSans-Bold" />
-        <OnPlatform x:Key="FontFamily.OpenSansSemiBold"
-            x:TypeArguments="x:String"
-            Android="Fonts/OpenSans-SemiBold.ttf#OpenSans-SemiBold"
-            iOS="OpenSans-SemiBold" />
+                    x:TypeArguments="x:String"
+                    Android="Fonts/Roboto-Medium.ttf#Roboto-Medium"
+                    iOS="Roboto-Medium" />
 
         <mtrltypo:MaterialFontConfiguration x:Key="Material.Font"
-            Body1="{StaticResource FontFamily.RobotoRegular}"
-            Body2="{StaticResource FontFamily.RobotoRegular}"
-            Button="{StaticResource FontFamily.RobotoMedium}"
-            Caption="{StaticResource FontFamily.RobotoRegular}"
-            H1="{StaticResource FontFamily.RobotoRegular}"
-            H2="{StaticResource FontFamily.RobotoRegular}"
-            H3="{StaticResource FontFamily.RobotoRegular}"
-            H4="{StaticResource FontFamily.RobotoRegular}"
-            H5="{StaticResource FontFamily.RobotoRegular}"
-            H6="{StaticResource FontFamily.RobotoMedium}"
-            Overline="{StaticResource FontFamily.RobotoRegular}"
-            Subtitle1="{StaticResource FontFamily.RobotoRegular}"
-            Subtitle2="{StaticResource FontFamily.RobotoMedium}" />
+                                            Body1="{StaticResource FontFamily.RobotoRegular}"
+                                            Body2="{StaticResource FontFamily.RobotoRegular}"
+                                            Button="{StaticResource FontFamily.RobotoMedium}"
+                                            Caption="{StaticResource FontFamily.RobotoRegular}"
+                                            H1="{StaticResource FontFamily.RobotoRegular}"
+                                            H2="{StaticResource FontFamily.RobotoRegular}"
+                                            H3="{StaticResource FontFamily.RobotoRegular}"
+                                            H4="{StaticResource FontFamily.RobotoRegular}"
+                                            H5="{StaticResource FontFamily.RobotoRegular}"
+                                            H6="{StaticResource FontFamily.RobotoMedium}"
+                                            Overline="{StaticResource FontFamily.RobotoRegular}"
+                                            Subtitle1="{StaticResource FontFamily.RobotoRegular}"
+                                            Subtitle2="{StaticResource FontFamily.RobotoMedium}" />
 
         <mtrl:MaterialColorConfiguration x:Key="Material.Color"
-            Background="#EAEAEA"
-            Error="#B00020"
-            OnBackground="#000000"
-            OnError="#FFFFFF"
-            OnPrimary="#FFFFFF"
-            OnSecondary="#FFFFFF"
-            OnSurface="#000000"
-            Primary="#6200EE"
-            PrimaryVariant="#6200EE"
-            Secondary="#00377b"
-            Surface="#FFFFFF" />
+                                         Background="#EAEAEA"
+                                         Error="#B00020"
+                                         OnBackground="#000000"
+                                         OnError="#FFFFFF"
+                                         OnPrimary="#FFFFFF"
+                                         OnSecondary="#FFFFFF"
+                                         OnSurface="#000000"
+                                         Primary="#6200EE"
+                                         PrimaryVariant="#6200EE"
+                                         Secondary="#00377b"
+                                         Surface="#FFFFFF" />
 
         <mtrl:MaterialConfiguration x:Key="Material.Style"
-            ColorConfiguration="{StaticResource Material.Color}"
-            FontConfiguration="{StaticResource Material.Font}" />
+                                    ColorConfiguration="{StaticResource Material.Color}"
+                                    FontConfiguration="{StaticResource Material.Font}" />
     </Application.Resources>
 </Application>

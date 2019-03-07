@@ -7,6 +7,7 @@ using XF.Material.Forms.UI.Internals;
 
 namespace XF.Material.Forms.UI
 {
+    /// <inheritdoc />
     /// <summary>
     /// A control that allow users to make selections from a range of values.
     /// </summary>
@@ -108,7 +109,7 @@ namespace XF.Material.Forms.UI
             {
                 var oldVal = (double)this.GetValue(ValueProperty);
 
-                if (oldVal != value)
+                if (Math.Abs(oldVal - value) > float.MinValue)
                 {
                     this.OnValueChanged(oldVal, value);
                 }
@@ -126,6 +127,7 @@ namespace XF.Material.Forms.UI
             set => this.SetValue(ValueChangedCommandProperty, value);
         }
 
+        /// <inheritdoc />
         /// <summary>
         /// For internal use only.
         /// </summary>
@@ -152,36 +154,30 @@ namespace XF.Material.Forms.UI
         {
             base.LayoutChildren(x, y, width, height);
 
-            if (width * height != 0 && this.Value > 0 && !_draggerTranslatedInitially)
-            {
-                this.AnimateDragger();
-                _x = Dragger.TranslationX;
-                _draggerTranslatedInitially = true;
-            }
+            if (Math.Abs(width * height) < float.MinValue || !(this.Value > 0) || _draggerTranslatedInitially) return;
+            this.AnimateDragger();
+            _x = Dragger.TranslationX;
+            _draggerTranslatedInitially = true;
         }
 
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             base.OnPropertyChanged(propertyName);
 
-            if (propertyName == nameof(this.Value))
+            switch (propertyName)
             {
-                this.AnimateDragger();
-            }
-
-            if (propertyName == nameof(this.ThumbColor))
-            {
-                Dragger.BackgroundColor = this.ThumbColor;
-            }
-
-            if (propertyName == nameof(this.TrackColor))
-            {
-                Indicator.Color = Placeholder.Color = this.TrackColor;
-            }
-
-            if (propertyName == nameof(this.IsEnabled))
-            {
-                this.Opacity = this.IsEnabled ? 1.0 : 0.24;
+                case nameof(this.Value):
+                    this.AnimateDragger();
+                    break;
+                case nameof(this.ThumbColor):
+                    Dragger.BackgroundColor = this.ThumbColor;
+                    break;
+                case nameof(this.TrackColor):
+                    Indicator.Color = Placeholder.Color = this.TrackColor;
+                    break;
+                case nameof(this.IsEnabled):
+                    this.Opacity = this.IsEnabled ? 1.0 : 0.24;
+                    break;
             }
         }
 
@@ -189,14 +185,12 @@ namespace XF.Material.Forms.UI
         {
             base.OnSizeAllocated(width, height);
 
-            if (_lastWidth != width || _lastHeight != height)
-            {
-                _lastWidth = width;
-                _lastHeight = height;
+            if (Math.Abs(_lastWidth - width) < float.MinValue && Math.Abs(_lastHeight - height) < float.MinValue) return;
+            _lastWidth = width;
+            _lastHeight = height;
 
-                this.AnimateDragger();
-                _x = Dragger.TranslationX;
-            }
+            this.AnimateDragger();
+            _x = Dragger.TranslationX;
         }
 
         /// <summary>
@@ -219,15 +213,18 @@ namespace XF.Material.Forms.UI
 
         private void Pan_PanUpdated(object sender, PanUpdatedEventArgs e)
         {
-            if (e.StatusType == GestureStatus.Running)
+            switch (e.StatusType)
             {
-                var newX = Math.Min(_x + e.TotalX, Placeholder.Width) >= 0 ? Math.Min(_x + e.TotalX, Placeholder.Width) : 0;
-                var percentage = newX / Placeholder.Width;
-                this.Value = percentage * (this.MaxValue - this.MinValue) + this.MinValue;
-            }
-            else if (e.StatusType == GestureStatus.Completed)
-            {
-                _x = Dragger.TranslationX;
+                case GestureStatus.Running:
+                {
+                    var newX = Math.Min(_x + e.TotalX, Placeholder.Width) >= 0 ? Math.Min(_x + e.TotalX, Placeholder.Width) : 0;
+                    var percentage = newX / Placeholder.Width;
+                    this.Value = (percentage * (this.MaxValue - this.MinValue)) + this.MinValue;
+                    break;
+                }
+                case GestureStatus.Completed:
+                    _x = Dragger.TranslationX;
+                    break;
             }
         }
 

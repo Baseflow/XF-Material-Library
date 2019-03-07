@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace XF.Material.Forms.UI.Dialogs
@@ -16,6 +17,7 @@ namespace XF.Material.Forms.UI.Dialogs
     public abstract class BaseMaterialModalPage : PopupPage, IMaterialModalPage
     {
         private bool _disposed;
+        private bool _dismissing;
 
         protected BaseMaterialModalPage()
         {
@@ -31,6 +33,8 @@ namespace XF.Material.Forms.UI.Dialogs
                 ScaleIn = 0.9,
                 ScaleOut = 1
             };
+
+            this.DisplayOrientation = DeviceDisplay.MainDisplayInfo.Orientation;
         }
 
         public virtual bool Dismissable => true;
@@ -40,7 +44,6 @@ namespace XF.Material.Forms.UI.Dialogs
             get { return ""; }
             set { }
         }
-
 
         /// <summary>
         /// Dismisses this modal dialog asynchronously.
@@ -61,36 +64,61 @@ namespace XF.Material.Forms.UI.Dialogs
         }
 
         /// <summary>
-        /// For internal use only.
+        /// For internal use only when running on the Android platform.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public virtual void OnBackButtonDismissed() { }
+        public void RaiseOnBackButtonDismissed()
+        {
+            if (_dismissing || Device.RuntimePlatform == Device.iOS) return;
+
+            _dismissing = true;
+
+            this.OnBackButtonDismissed();
+        }
+
+        protected virtual void OnBackButtonDismissed() { }
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!_disposed && disposing)
+            if (_disposed || !disposing) return;
+            Device.BeginInvokeOnMainThread(async () =>
             {
-                Device.BeginInvokeOnMainThread(async () =>
+                try
                 {
-                    try
-                    {
-                        await this.DismissAsync();
-                        this.Content = null;
-                    }
-                    catch (Exception ex)
-                    {
-                        Debug.WriteLine(ex);
-                    }
-                });
+                    await this.DismissAsync();
+                    this.Content = null;
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex);
+                }
+            });
 
-                _disposed = true;
-            }
+            _disposed = true;
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            DeviceDisplay.MainDisplayInfoChanged += this.DeviceDisplay_MainDisplayInfoChanged;
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+
+            DeviceDisplay.MainDisplayInfoChanged -= this.DeviceDisplay_MainDisplayInfoChanged;
         }
 
         protected override void OnDisappearingAnimationEnd()
         {
             base.OnDisappearingAnimationEnd();
             this.Dispose();
+        }
+
+        protected virtual void OnOrientationChanged(DisplayOrientation orientation)
+        {
         }
 
         /// <summary>
@@ -115,6 +143,13 @@ namespace XF.Material.Forms.UI.Dialogs
                 .PopupStack
                 .ToList()
                 .Exists(p => p.GetType() == this.GetType());
+        }
+
+        private void DeviceDisplay_MainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
+        {
+            if (this.DisplayOrientation == e.DisplayInfo.Orientation) return;
+            this.DisplayOrientation = e.DisplayInfo.Orientation;
+            this.OnOrientationChanged(this.DisplayOrientation);
         }
     }
 }

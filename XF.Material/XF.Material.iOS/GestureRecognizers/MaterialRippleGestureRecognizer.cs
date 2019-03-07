@@ -1,5 +1,4 @@
-﻿using System;
-using CoreAnimation;
+﻿using CoreAnimation;
 using CoreGraphics;
 using Foundation;
 using UIKit;
@@ -15,7 +14,7 @@ namespace XF.Material.iOS.GestureRecognizers
         private readonly CABasicAnimation _backgroundFadeOutAnimation;
         private readonly CALayer _backgroundLayer;
         private readonly CAShapeLayer _rippleLayer;
-        private UIView _touchView;
+        private readonly UIView _touchView;
         private bool _isStarted;
 
         public MaterialRippleGestureRecognizer(CGColor rippleColor, UIView view)
@@ -46,27 +45,19 @@ namespace XF.Material.iOS.GestureRecognizers
             _backgroundFadeOutAnimation.From = FromObject(0.20f);
             _backgroundFadeOutAnimation.To = FromObject(0.0f);
 
-            _rippleLayer = new CAShapeLayer();
-            _rippleLayer.FillColor = rippleColor;
-            _rippleLayer.MasksToBounds = true;
+            _rippleLayer = new CAShapeLayer {FillColor = rippleColor, MasksToBounds = true};
 
-            _backgroundLayer = new CALayer();
-            _backgroundLayer.BackgroundColor = rippleColor;
-            _backgroundLayer.MasksToBounds = true;
-            _backgroundLayer.Opacity = 0;
+            _backgroundLayer = new CALayer {BackgroundColor = rippleColor, MasksToBounds = true, Opacity = 0};
 
             _isStarted = false;
             _touchView = view;
-            Delegate = this;
+            this.Delegate = this;
         }
 
         [Export("gestureRecognizer:shouldReceiveTouch:")]
-        public new bool ShouldReceiveTouch(UIGestureRecognizer recognizer, UITouch touch)
+        public bool ShouldReceiveTouch(UIGestureRecognizer recognizer, UITouch touch)
         {
-            if (touch.View is UIButton)
-                return false;
-
-            return true;
+            return !(touch.View is UIButton);
         }
 
 
@@ -74,14 +65,14 @@ namespace XF.Material.iOS.GestureRecognizers
         {
             base.TouchesBegan(touches, evt);
 
-            AnimateStart(touches.AnyObject as UITouch);
+            this.AnimateStart(touches.AnyObject as UITouch);
         }
 
         public override void TouchesEnded(NSSet touches, UIEvent evt)
         {
             base.TouchesEnded(touches, evt);
 
-            AnimateComplete(touches.AnyObject as UITouch);
+            this.AnimateComplete();
         }
 
 
@@ -89,7 +80,7 @@ namespace XF.Material.iOS.GestureRecognizers
         {
             base.TouchesMoved(touches, evt);
 
-            AnimateComplete(touches.AnyObject as UITouch);
+            this.AnimateComplete();
 
         }
 
@@ -97,29 +88,29 @@ namespace XF.Material.iOS.GestureRecognizers
         {
             base.TouchesCancelled(touches, evt);
 
-            AnimateComplete(touches.AnyObject as UITouch);
+            this.AnimateComplete();
         }
 
 
         private void AnimateStart(UITouch touch)
         {
-            AnimateBackgroundFadeIn(touch);
-            AnimateRipple(touch);
+            this.AnimateBackgroundFadeIn();
+            this.AnimateRipple(touch);
 
             _isStarted = true;
         }
 
 
-        private void AnimateComplete(UITouch touch)
+        private void AnimateComplete()
         {
             if (_isStarted)
             {
-                AnimateBackgroundFadeOut(touch);
+                this.AnimateBackgroundFadeOut();
             }
         }
 
 
-        private void AnimateBackgroundFadeIn(UITouch touch)
+        private void AnimateBackgroundFadeIn()
         {
             var view = _touchView;
 
@@ -132,7 +123,7 @@ namespace XF.Material.iOS.GestureRecognizers
             });
         }
 
-        private void AnimateBackgroundFadeOut(UITouch touch)
+        private void AnimateBackgroundFadeOut()
         {
             var view = _touchView;
 
@@ -171,12 +162,11 @@ namespace XF.Material.iOS.GestureRecognizers
         /// </summary>
         /// <param name="layer">Layer.</param>
         /// <param name="view">View.</param>
-        private void SetupAnimationLayer(CALayer layer, UIView view, int indexToInsertLayer)
+        /// <param name="indexToInsertLayer"></param>
+        private static void SetupAnimationLayer(CALayer layer, UIView view, int indexToInsertLayer)
         {
-            if (view is MaterialCardRenderer)
-                layer.Frame = new CGRect(0, 0, view.Frame.Width, view.Frame.Height);
-            else
-                layer.Frame = new CGRect(6, 6, view.Frame.Width - 12, view.Frame.Height - 12);
+            layer.Frame = view is MaterialCardRenderer ? new CGRect(0, 0, view.Frame.Width, view.Frame.Height) : 
+                new CGRect(6, 6, view.Frame.Width - 12, view.Frame.Height - 12);
 
             layer.CornerRadius = view.Layer.CornerRadius;
             view.Layer.InsertSublayer(layer, indexToInsertLayer);

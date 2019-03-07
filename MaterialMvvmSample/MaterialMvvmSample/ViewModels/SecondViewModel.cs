@@ -16,7 +16,7 @@ namespace MaterialMvvmSample.ViewModels
         public override void OnViewPushed(object navigationParameter = null)
         {
             var selectedJob = (TestModel)navigationParameter;
-            this.JobTitle = selectedJob.Title;
+            this.JobTitle = selectedJob?.Title;
         }
     }
 }

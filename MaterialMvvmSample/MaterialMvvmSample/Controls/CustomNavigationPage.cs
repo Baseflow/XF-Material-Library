@@ -55,11 +55,9 @@ namespace MaterialMvvmSample.Controls
         {
             base.OnPagePush(page);
 
-            if (page.BindingContext is BaseViewModel viewModel)
-            {
-                viewModel?.OnViewPushed(_currentNavigationParameter);
-                _currentNavigationParameter = null;
-            }
+            if (!(page.BindingContext is BaseViewModel viewModel)) return;
+            viewModel?.OnViewPushed(_currentNavigationParameter);
+            _currentNavigationParameter = null;
         }
 
         protected override void OnPagePop(Page previousPage, Page poppedPage)

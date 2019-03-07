@@ -6,7 +6,7 @@ using XF.Material.Forms.UI.Dialogs;
 
 namespace XF.Material.Forms.UI.Internals
 {
-    internal class MenuDialogLabel : Label
+    internal class MenuDialogLabel : MaterialLabel
     {
         public static readonly BindableProperty SizeChangeCommandProperty = BindableProperty.Create(nameof(SizeChangeCommand), typeof(ICommand), typeof(MenuDialogLabel));
 

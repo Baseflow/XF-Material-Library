@@ -8,6 +8,7 @@ using XF.Material.iOS.Utility;
 [assembly: Dependency(typeof(MaterialUtility))]
 namespace XF.Material.iOS.Utility
 {
+    /// <inheritdoc />
     /// <summary>
     /// Concrete implementation which provides methods that can be used to change platform-specific configurations.
     /// </summary>
@@ -17,8 +18,7 @@ namespace XF.Material.iOS.Utility
         {
             var isColorDark = color.ToCGColor().IsColorDark();
             UIApplication.SharedApplication.StatusBarStyle = isColorDark ? UIStatusBarStyle.LightContent : UIStatusBarStyle.Default;
-            var statusBar = UIApplication.SharedApplication.ValueForKey(new NSString("statusBar")) as UIView;
-            statusBar.BackgroundColor = color.ToUIColor();
+            if (UIApplication.SharedApplication.ValueForKey(new NSString("statusBar")) is UIView statusBar) statusBar.BackgroundColor = color.ToUIColor();
         }
     }
 }

@@ -12,7 +12,7 @@ namespace XF.Material.Forms.UI
         public static readonly BindableProperty ActionImageProperty = BindableProperty.Create(nameof(ActionImage), typeof(ImageSource), typeof(MaterialChip), default(ImageSource));
         public static readonly BindableProperty ActionImageTappedCommandProperty = BindableProperty.Create(nameof(ActionImageTappedCommand), typeof(ICommand), typeof(MaterialChip), default(Command));
         public static readonly BindableProperty ActionImageTintColorProperty = BindableProperty.Create(nameof(ActionImageTintColor), typeof(Color), typeof(MaterialChip), default(Color));
-        public static new readonly BindableProperty BackgroundColorProperty = BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(MaterialChip), default(Color));
+        public new static readonly BindableProperty BackgroundColorProperty = BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(MaterialChip), default(Color));
         public static readonly BindableProperty FontFamilyProperty = BindableProperty.Create(nameof(FontFamily), typeof(string), typeof(MaterialChip), default(string));
         public static readonly BindableProperty ImageProperty = BindableProperty.Create(nameof(Image), typeof(ImageSource), typeof(MaterialChip), default(ImageSource));
         public static readonly BindableProperty ImageTintColorProperty = BindableProperty.Create(nameof(ImageTintColor), typeof(Color), typeof(MaterialChip), default(Color));
@@ -92,45 +92,42 @@ namespace XF.Material.Forms.UI
             {
                 base.OnPropertyChanged(propertyName);
 
-                if (propertyName == nameof(this.Text))
+                switch (propertyName)
                 {
-                    ChipLabel.Text = this.Text;
-                }
-
-                if (propertyName == nameof(this.ActionImageTintColor))
-                {
-                    ChipActionImage.TintColor = this.ActionImageTintColor;
-                }
-
-                if (propertyName == nameof(this.ImageTintColor))
-                {
-                    ChipImage.TintColor = this.ImageTintColor;
-                }
-                else if (propertyName == nameof(this.TextColor))
-                {
-                    ChipLabel.TextColor = this.TextColor;
-                }
-                else if (propertyName == nameof(this.FontFamily))
-                {
-                    ChipLabel.FontFamily = this.FontFamily;
-                }
-                else if (propertyName == nameof(this.Image))
-                {
-                    ChipImageContainer.IsVisible = this.Image != null;
-                    ChipImage.Source = this.Image;
-                }
-                else if (propertyName == nameof(this.ActionImage))
-                {
-                    ChipActionImage.Source = this.ActionImage;
-                    ChipActionImage.IsVisible = this.ActionImage != null;
-
-                    if (this.ActionImage != null && ChipActionImage.GestureRecognizers.Count <= 0)
+                    case nameof(this.Text):
+                        ChipLabel.Text = this.Text;
+                        break;
+                    case nameof(this.ActionImageTintColor):
+                        ChipActionImage.TintColor = this.ActionImageTintColor;
+                        break;
+                    case nameof(this.ImageTintColor):
+                        ChipImage.TintColor = this.ImageTintColor;
+                        break;
+                    case nameof(this.TextColor):
+                        ChipLabel.TextColor = this.TextColor;
+                        break;
+                    case nameof(this.FontFamily):
+                        ChipLabel.FontFamily = this.FontFamily;
+                        break;
+                    case nameof(this.Image):
+                        ChipImageContainer.IsVisible = this.Image != null;
+                        ChipImage.Source = this.Image;
+                        break;
+                    case nameof(this.ActionImage):
                     {
-                        ChipActionImage.GestureRecognizers.Add(new TapGestureRecognizer { Command = new Command(this.ActionImageTapHandled, () => !_canExecute), NumberOfTapsRequired = 1 });
-                    }
-                    else if (this.ActionImage == null)
-                    {
-                        ChipActionImage.GestureRecognizers.Clear();
+                        ChipActionImage.Source = this.ActionImage;
+                        ChipActionImage.IsVisible = this.ActionImage != null;
+
+                        if (this.ActionImage != null && ChipActionImage.GestureRecognizers.Count <= 0)
+                        {
+                            ChipActionImage.GestureRecognizers.Add(new TapGestureRecognizer { Command = new Command(this.ActionImageTapHandled, () => !_canExecute), NumberOfTapsRequired = 1 });
+                        }
+                        else if (this.ActionImage == null)
+                        {
+                            ChipActionImage.GestureRecognizers.Clear();
+                        }
+
+                        break;
                     }
                 }
             }

@@ -18,14 +18,44 @@ namespace XF.Material.Droid
         internal static Context Context { get; private set; }
 
         /// <summary>
+        /// Gets whether the current Android version is running on 4.2 (Jellybean) or lower.
+        /// </summary>
+        internal static bool IsJellyBean { get; private set; }
+
+        /// <summary>
         /// Gets whether the current Android version is running on 5.0 (Lollipop) or higher.
         /// </summary>
         internal static bool IsLollipop { get; private set; }
 
         /// <summary>
-        /// Gets whether the current Android version is running on 4.2 (Jellybean) or lower.
+        /// Handles the physical back button event to dismiss specific dialogs shown by <see cref="XF.Material.Forms.UI.Dialogs.MaterialDialog.Instance"/>.
         /// </summary>
-        internal static bool IsJellyBean { get; private set; }
+        /// <param name="backAction">The base <see cref="Activity.OnBackPressed"/> method.</param>
+        public static void HandleBackButton(Action backAction)
+        {
+            var popupStack = PopupNavigation.Instance.PopupStack;
+            var dismissableDialog = popupStack.FirstOrDefault(p => p is BaseMaterialModalPage modalPage && modalPage.Dismissable) as BaseMaterialModalPage;
+            var snackBar = popupStack.FirstOrDefault(p => p is BaseMaterialModalPage modalPage && !modalPage.Dismissable) as MaterialSnackbar;
+
+            if (popupStack.FirstOrDefault(p => p is BaseMaterialModalPage modalPage && !modalPage.Dismissable) is MaterialLoadingDialog)
+            {
+                return;
+            }
+
+            if (dismissableDialog != null)
+            {
+                ((Activity)Context).RunOnUiThread(async () => await dismissableDialog.DismissAsync());
+                dismissableDialog.RaiseOnBackButtonDismissed();
+            }
+            else if (snackBar != null)
+            {
+                backAction.Invoke();
+            }
+            else
+            {
+                Popup.SendBackPressed(backAction);
+            }
+        }
 
         /// <summary>
         /// Initializes the core Material components for the Android platform.
@@ -34,45 +64,12 @@ namespace XF.Material.Droid
         /// <param name="bundle">The string values parameter passed to the <see cref="Activity.OnCreate(Bundle)"/> method.</param>
         public static void Init(Context context, Bundle bundle)
         {
-            Context = context;
+            Context = context ?? throw new ArgumentNullException(nameof(context));
             IsLollipop = Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop;
             IsJellyBean = Build.VERSION.SdkInt < BuildVersionCodes.Kitkat;
 
             AppCompatDelegate.CompatVectorFromResourcesEnabled = true;
             Popup.Init(context, bundle);
-        }
-
-        /// <summary>
-        /// Handles the physical back button event to dismiss specific dialogs shown by <see cref="XF.Material.Forms.UI.Dialogs.MaterialDialog.Instance"/>.
-        /// </summary>
-        /// <param name="backAction">The base <see cref="Activity.OnBackPressed"/> method.</param>
-        public static async void HandleBackButton(Action backAction)
-        {
-            var popupStack = PopupNavigation.Instance.PopupStack;
-            var dismissableDialog = popupStack.FirstOrDefault(p => p is BaseMaterialModalPage modalPage && modalPage.Dismissable) as BaseMaterialModalPage;
-            var snackBar = popupStack.FirstOrDefault(p => p is BaseMaterialModalPage modalPage && !modalPage.Dismissable) as MaterialSnackbar;
-            var loadingDialog = popupStack.FirstOrDefault(p => p is BaseMaterialModalPage modalPage && !modalPage.Dismissable) as MaterialLoadingDialog;
-
-            if (loadingDialog != null)
-            {
-                return;
-            }
-
-            if (dismissableDialog != null)
-            {
-                await dismissableDialog.DismissAsync();
-                dismissableDialog.OnBackButtonDismissed();
-            }
-
-            else if (snackBar != null)
-            {
-                backAction.Invoke();
-            }
-
-            else
-            {
-                Popup.SendBackPressed(backAction);
-            }
         }
     }
 }
