@@ -1,7 +1,7 @@
 
 <img src="images/xf.material_logo.png" width="112" />
 
-# XF.Material Library [![NuGet](https://img.shields.io/badge/version-1.4.1.0-orange.svg?style=flat)](https://github.com/contrix09/XF-Material-Library/blob/master/RELEASE_NOTES.md) [![Build status](https://dev.azure.com/compiledevops/XF.Material/_apis/build/status/XF.Material-CI%20NuGet)](https://dev.azure.com/compiledevops/XF.Material/_build/latest?definitionId=20) [![Donate](https://img.shields.io/badge/Give%20Coffee-Donate-orange.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=K4HS649SFADTS&source=url)
+# XF.Material Library [![NuGet](https://img.shields.io/badge/version-1.4.1.1-orange.svg?style=flat)](https://github.com/contrix09/XF-Material-Library/blob/master/RELEASE_NOTES.md) [![Build status](https://dev.azure.com/compiledevops/XF.Material/_apis/build/status/XF.Material-CI%20NuGet)](https://dev.azure.com/compiledevops/XF.Material/_build/latest?definitionId=20) [![Donate](https://img.shields.io/badge/Give%20Coffee-Donate-orange.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=K4HS649SFADTS&source=url)
 
 A Xamarin.Forms library for Xamarin.Android and Xamarin.iOS to implement [Google's Material Design](https://material.io/design).
 
@@ -858,7 +858,7 @@ await Task.Delay(5000) // Represents a task that is running.
 await loadingDialog.DismissAsync();
 ```
 
-- Change the dialog text.
+- Change the dialog's text.
 ```c#
 using(var dialog = await MaterialDialog.Instance.LoadingDialogAsync(message: "Something is running"))
 {
@@ -930,7 +930,7 @@ await Task.Delay(5000) // Represents a task that is running.
 await snackbar.DismissAsync();
 ```
 
-- Change the dialog text.
+- Change the snackbar's text.
 ```c#
 using(var snackbar = await MaterialDialog.Instance.LoadingSnackbarAsync(message: "Something is running"))
 {

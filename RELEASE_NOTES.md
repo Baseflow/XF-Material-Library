@@ -1,6 +1,13 @@
 # Release Notes
 
-##### 1.4.1.0 (Latest)
+##### 1.4.1.1 (Latest)
+- You can now change the text of the loading dialog and loading snackbar when using `IMaterialDialog.LoadingDialogAsync` and `IMaterialDialog.LoadingSnackbarAsync`.
+- Fixed issue [105](https://github.com/contrix09/XF-Material-Library/issues/105).
+- Fixed issue [106](https://github.com/contrix09/XF-Material-Library/issues/106).
+- Fixed `MaterialTextField` not firing `Focused` event. 
+- Added new event `Unfocused`, property `IsMaxLengthCounterVisible`, and method `Unfocus` to `MaterialTextField`.
+
+##### 1.4.1.0
 - Updated `MaterialTextField`:
     - Can be attached with properties from `MaterialConfirmationDialog` to customize confirmation dialog appearance.
        A feature request from issue [86](https://github.com/contrix09/XF-Material-Library/issues/86).
