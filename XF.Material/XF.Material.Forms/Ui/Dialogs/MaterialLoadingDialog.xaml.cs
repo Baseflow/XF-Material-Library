@@ -24,7 +24,6 @@ namespace XF.Material.Forms.UI.Dialogs
             set { this.Message.Text = value; }
         }
 
-
         internal static MaterialLoadingDialogConfiguration GlobalConfiguration { get; set; }
 
         internal static async Task<IMaterialModalPage> Loading(string message, MaterialLoadingDialogConfiguration configuration = null)

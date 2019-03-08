@@ -44,6 +44,7 @@ namespace XF.Material.Forms.UI
 
         public static readonly BindableProperty HasErrorProperty = BindableProperty.Create(nameof(HasError), typeof(bool), typeof(MaterialTextField), false);
 
+
         public static readonly BindableProperty HelperTextColorProperty = BindableProperty.Create(nameof(HelperTextColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#99000000"));
 
         public static readonly BindableProperty HelperTextFontFamilyProperty = BindableProperty.Create(nameof(HelperTextFontFamily), typeof(string), typeof(MaterialTextField));
@@ -52,17 +53,19 @@ namespace XF.Material.Forms.UI
 
         public static readonly BindableProperty HorizontalPaddingProperty = BindableProperty.Create(nameof(HorizontalPadding), typeof(MaterialHorizontalThickness), typeof(MaterialTextField), new MaterialHorizontalThickness(12d), defaultBindingMode: BindingMode.OneTime);
 
-        public static readonly BindableProperty LeadingIconTintColorProperty = BindableProperty.Create(nameof(LeadingIconTintColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#99000000"));
-
         public static readonly BindableProperty InputTypeProperty = BindableProperty.Create(nameof(InputType), typeof(MaterialTextFieldInputType), typeof(MaterialTextField), MaterialTextFieldInputType.Default);
 
         public static readonly BindableProperty IsAutoCapitalizationEnabledProperty = BindableProperty.Create(nameof(IsAutoCapitalizationEnabled), typeof(bool), typeof(MaterialTextField), false);
+
+        public static readonly BindableProperty IsMaxLengthCounterVisibleProperty = BindableProperty.Create(nameof(IsMaxLengthCounterVisible), typeof(bool), typeof(MaterialTextField), true);
 
         public static readonly BindableProperty IsSpellCheckEnabledProperty = BindableProperty.Create(nameof(IsSpellCheckEnabled), typeof(bool), typeof(MaterialTextField), false);
 
         public static readonly BindableProperty IsTextPredictionEnabledProperty = BindableProperty.Create(nameof(IsTextPredictionEnabled), typeof(bool), typeof(MaterialTextField), false);
 
         public static readonly BindableProperty LeadingIconProperty = BindableProperty.Create(nameof(LeadingIcon), typeof(string), typeof(MaterialTextField));
+
+        public static readonly BindableProperty LeadingIconTintColorProperty = BindableProperty.Create(nameof(LeadingIconTintColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#99000000"));
 
         public static readonly BindableProperty MaxLengthProperty = BindableProperty.Create(nameof(MaxLength), typeof(int), typeof(MaterialTextField), 0);
 
@@ -117,9 +120,14 @@ namespace XF.Material.Forms.UI
         public event EventHandler<SelectedItemChangedEventArgs> ChoiceSelected;
 
         /// <summary>
-        /// Raised when this text field receives or loses focus.
+        /// Raised when this text field receives focus.
         /// </summary>
         public new event EventHandler<FocusEventArgs> Focused;
+
+        /// <summary>
+        /// Raised when this text field loses focus.
+        /// </summary>
+        public new event EventHandler<FocusEventArgs> Unfocused;
 
         /// <summary>
         /// Raised when the input text of this text field has changed.
@@ -268,15 +276,6 @@ namespace XF.Material.Forms.UI
         }
 
         /// <summary>
-        /// Gets or sets the tint color of the icon of this text field.
-        /// </summary>
-        public Color LeadingIconTintColor
-        {
-            get => (Color)this.GetValue(LeadingIconTintColorProperty);
-            set => this.SetValue(LeadingIconTintColorProperty, value);
-        }
-
-        /// <summary>
         /// Gets or sets the keyboard input type of this text field.
         /// </summary>
         public MaterialTextFieldInputType InputType
@@ -292,6 +291,15 @@ namespace XF.Material.Forms.UI
         {
             get => (bool)this.GetValue(IsAutoCapitalizationEnabledProperty);
             set => this.SetValue(IsAutoCapitalizationEnabledProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets whether the counter for the max input length of this text field is visible or not.
+        /// </summary>
+        public bool IsMaxLengthCounterVisible
+        {
+            get => (bool)this.GetValue(IsMaxLengthCounterVisibleProperty);
+            set => this.SetValue(IsMaxLengthCounterVisibleProperty, value);
         }
 
         /// <summary>
@@ -319,6 +327,15 @@ namespace XF.Material.Forms.UI
         {
             get => (string)this.GetValue(LeadingIconProperty);
             set => this.SetValue(LeadingIconProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the tint color of the icon of this text field.
+        /// </summary>
+        public Color LeadingIconTintColor
+        {
+            get => (Color)this.GetValue(LeadingIconTintColorProperty);
+            set => this.SetValue(LeadingIconTintColorProperty, value);
         }
 
         /// <summary>
@@ -490,6 +507,7 @@ namespace XF.Material.Forms.UI
                 entry.TextChanged += this.Entry_TextChanged;
                 entry.SizeChanged += this.Entry_SizeChanged;
                 entry.Focused += this.Entry_Focused;
+                entry.Unfocused += this.Entry_Unfocused;
                 DeviceDisplay.MainDisplayInfoChanged += this.DeviceDisplay_MainDisplayInfoChanged;
             }
             else
@@ -498,14 +516,20 @@ namespace XF.Material.Forms.UI
                 entry.TextChanged -= this.Entry_TextChanged;
                 entry.SizeChanged -= this.Entry_SizeChanged;
                 entry.Focused -= this.Entry_Focused;
+                entry.Unfocused -= this.Entry_Unfocused;
                 DeviceDisplay.MainDisplayInfoChanged -= this.DeviceDisplay_MainDisplayInfoChanged;
             }
         }
 
         /// <summary>
-        /// Requests to focus this text field.
+        /// Requests to set focus on this text field.
         /// </summary>
         public new void Focus() => entry.Focus();
+
+        /// <summary>
+        /// Requests to unset the focus on this text field.
+        /// </summary>
+        public new void Unfocus() => entry.Unfocus();
 
         protected override void OnBindingContextChanged()
         {
@@ -881,6 +905,13 @@ namespace XF.Material.Forms.UI
             this.TextChanged?.Invoke(this, e);
         }
 
+        private void Entry_Unfocused(object sender, FocusEventArgs e)
+        {
+            this.FocusCommand?.Execute(entry.IsFocused);
+            this.Unfocused?.Invoke(this, e);
+            this.UpdateCounter();
+        }
+
         private IList<string> GetChoices()
         {
             var choiceStrings = new List<string>(this.Choices.Count);
@@ -1086,10 +1117,10 @@ namespace XF.Material.Forms.UI
             leadingIcon.TintColor = tintColor;
         }
 
-        private void OnMaxLengthChanged(int maxLength)
+        private void OnMaxLengthChanged(int maxLength, bool isMaxLengthCounterVisible)
         {
-            _counterEnabled = maxLength > 0;
-            entry.MaxLength = _counterEnabled ? maxLength : (int)InputView.MaxLengthProperty.DefaultValue;
+            _counterEnabled = maxLength > 0 && isMaxLengthCounterVisible;
+            entry.MaxLength = maxLength > 0 ? maxLength : (int)InputView.MaxLengthProperty.DefaultValue;
         }
 
         private void OnPlaceholderChanged(string placeholderText)
@@ -1239,7 +1270,7 @@ namespace XF.Material.Forms.UI
                 { nameof(this.IsEnabled), () => this.OnEnabledChanged(this.IsEnabled) },
                 { nameof(this.BackgroundColor), () => this.OnBackgroundColorChanged(this.BackgroundColor) },
                 { nameof(this.AlwaysShowUnderline), () => this.OnAlwaysShowUnderlineChanged(this.AlwaysShowUnderline) },
-                { nameof(this.MaxLength), () => this.OnMaxLengthChanged(this.MaxLength) },
+                { nameof(this.MaxLength), () => this.OnMaxLengthChanged(this.MaxLength, this.IsMaxLengthCounterVisible) },
                 { nameof(this.ReturnCommand), () => this.OnReturnCommandChanged(this.ReturnCommand) },
                 { nameof(this.ReturnCommandParameter), () => this.OnReturnCommandParameterChanged(this.ReturnCommandParameter) },
                 { nameof(this.ReturnType), () => this.OnReturnTypeChangedd(this.ReturnType) },
