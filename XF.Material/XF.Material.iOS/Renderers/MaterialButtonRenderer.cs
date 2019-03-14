@@ -3,6 +3,7 @@ using CoreGraphics;
 using Foundation;
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using UIKit;
 using Xamarin.Forms;
@@ -42,6 +43,7 @@ namespace XF.Material.iOS.Renderers
             this.UpdateLayerFrame();
             this.UpdateCornerRadius();
             this.UpdateTextSizing();
+            this.UpdateButtonLayer();
         }
 
         protected override void OnElementChanged(ElementChangedEventArgs<Button> e)
@@ -49,9 +51,6 @@ namespace XF.Material.iOS.Renderers
             base.OnElementChanged(e);
 
             if (this.Control == null) return;
-
-            var widthContraint = NSLayoutConstraint.Create(this.Control, NSLayoutAttribute.Width, NSLayoutRelation.GreaterThanOrEqual, 1f, 64f);
-            this.Control.AddConstraint(widthContraint);
 
             if (e?.OldElement != null)
             {
@@ -131,6 +130,10 @@ namespace XF.Material.iOS.Renderers
                 case nameof(MaterialButton.Text):
                     this.UpdateText();
                     this.UpdateTextSizing();
+                    break;
+
+                case nameof(MaterialButton.Padding):
+                    this.UpdatePadding();
                     break;
             }
         }
@@ -355,24 +358,47 @@ namespace XF.Material.iOS.Renderers
                     break;
             }
 
+            this.UpdatePadding();
+        }
+
+        private void UpdatePadding()
+        {
+            if (this.Control == null) return;
+
+            var additionalPadding = this.Element.Padding;
+
             if (_materialButton.ButtonType != MaterialButtonType.Text && _withIcon)
             {
-                this.Control.ContentEdgeInsets = new UIEdgeInsets(10f, 18f, 10f, 22f);
+                this.Control.ContentEdgeInsets = new UIEdgeInsets(
+                    10f + (nfloat)additionalPadding.Top,
+                    18f + (nfloat)additionalPadding.Left,
+                    10f + (nfloat)additionalPadding.Bottom,
+                    22f + (nfloat)additionalPadding.Right);
             }
             else if (_materialButton.ButtonType != MaterialButtonType.Text && !_withIcon)
             {
-                this.Control.ContentEdgeInsets = new UIEdgeInsets(10f, 22f, 10f, 22f);
+                this.Control.ContentEdgeInsets = new UIEdgeInsets(
+                    10f + (nfloat)additionalPadding.Top,
+                    22f + (nfloat)additionalPadding.Left,
+                    10f + (nfloat)additionalPadding.Bottom,
+                    22f + (nfloat)additionalPadding.Right);
             }
-            else switch (_materialButton.ButtonType)
-                {
-                    case MaterialButtonType.Text when _withIcon:
-                        this.Control.ContentEdgeInsets = new UIEdgeInsets(10f, 18f, 10f, 22f);
-                        break;
-
-                    case MaterialButtonType.Text when !_withIcon:
-                        this.Control.ContentEdgeInsets = new UIEdgeInsets(10f, 14f, 10f, 14f);
-                        break;
-                }
+            else if (_materialButton.ButtonType is MaterialButtonType.Text && _withIcon)
+            {
+                this.Control.ContentEdgeInsets = new UIEdgeInsets(
+                    10f + (nfloat)additionalPadding.Top,
+                    18f + (nfloat)additionalPadding.Left,
+                    10f + (nfloat)additionalPadding.Bottom,
+                    22f + (nfloat)additionalPadding.Right);
+            }
+            else if (_materialButton.ButtonType is MaterialButtonType.Text && !_withIcon)
+            {
+                this.Control.ContentEdgeInsets = new UIEdgeInsets(
+                    10f + (nfloat)additionalPadding.Top,
+                    14f + (nfloat)additionalPadding.Left,
+                    10f + (nfloat)additionalPadding.Bottom,
+                    14f + (nfloat)additionalPadding.Right);
+            }
         }
 
         private void UpdateCornerRadius()
@@ -400,6 +426,9 @@ namespace XF.Material.iOS.Renderers
 
             this.Control.Layer.BackgroundColor = UIColor.Clear.CGColor;
             this.Control.Layer.BorderColor = UIColor.Clear.CGColor;
+
+            Debug.WriteLine(_animationLayer.Frame);
+            Debug.WriteLine(this.Control.Frame);
         }
 
         private void UpdateState()
