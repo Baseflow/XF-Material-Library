@@ -44,7 +44,6 @@ namespace XF.Material.Forms.UI
 
         public static readonly BindableProperty HasErrorProperty = BindableProperty.Create(nameof(HasError), typeof(bool), typeof(MaterialTextField), false);
 
-
         public static readonly BindableProperty HelperTextColorProperty = BindableProperty.Create(nameof(HelperTextColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#99000000"));
 
         public static readonly BindableProperty HelperTextFontFamilyProperty = BindableProperty.Create(nameof(HelperTextFontFamily), typeof(string), typeof(MaterialTextField));
@@ -133,6 +132,11 @@ namespace XF.Material.Forms.UI
         /// Raised when the input text of this text field has changed.
         /// </summary>
         public event EventHandler<TextChangedEventArgs> TextChanged;
+
+        /// <summary>
+        /// Raised when the user finalizes the input on this text field using the return key.
+        /// </summary>
+        public event EventHandler Completed;
 
         /// <summary>
         /// Gets or sets whether the underline accent of this text field should always show or not.
@@ -508,6 +512,7 @@ namespace XF.Material.Forms.UI
                 entry.SizeChanged += this.Entry_SizeChanged;
                 entry.Focused += this.Entry_Focused;
                 entry.Unfocused += this.Entry_Unfocused;
+                entry.Completed += this.Entry_Completed;
                 DeviceDisplay.MainDisplayInfoChanged += this.DeviceDisplay_MainDisplayInfoChanged;
             }
             else
@@ -517,6 +522,7 @@ namespace XF.Material.Forms.UI
                 entry.SizeChanged -= this.Entry_SizeChanged;
                 entry.Focused -= this.Entry_Focused;
                 entry.Unfocused -= this.Entry_Unfocused;
+                entry.Completed += this.Entry_Completed;
                 DeviceDisplay.MainDisplayInfoChanged -= this.DeviceDisplay_MainDisplayInfoChanged;
             }
         }
@@ -833,6 +839,8 @@ namespace XF.Material.Forms.UI
                 _lastDeviceDisplay = e.DisplayInfo;
             }
         }
+
+        private void Entry_Completed(object sender, EventArgs e) => this.Completed?.Invoke(this, EventArgs.Empty);
 
         private void Entry_Focused(object sender, FocusEventArgs e)
         {
