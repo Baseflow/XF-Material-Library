@@ -75,20 +75,20 @@ namespace XF.Material.Droid.Renderers
             _helper.UpdateHasIcon(withIcon);
 
             if (!withIcon) return;
-            var fileName = _materialButton.Image.File.Split('.').First();
-            var id = this.Resources.GetIdentifier(fileName, "drawable", Material.Context.PackageName);
+
+            var drawable = this.Control.GetCompoundDrawables().FirstOrDefault(s => s != null);
+
+            if (drawable == null) return;
+
+            var drawableCopy = drawable.GetDrawableCopy();
             var width = _materialButton.ButtonType == MaterialButtonType.Text ? (int)MaterialHelper.ConvertToDp(18) : (int)MaterialHelper.ConvertToDp(18 + 4);
             var height = (int)MaterialHelper.ConvertToDp(18);
             var left = _materialButton.ButtonType == MaterialButtonType.Text ? 0 : (int)MaterialHelper.ConvertToDp(4);
+            drawableCopy.SetBounds(left, 0, width, height);
+            drawableCopy.TintDrawable(_materialButton.TextColor.ToAndroid());
 
-            using (var drawable = MaterialHelper.GetDrawableCopyFromResource<Drawable>(id))
-            {
-                drawable.SetBounds(left, 0, width, height);
-                drawable.TintDrawable(_materialButton.TextColor.ToAndroid());
-
-                this.Control.SetCompoundDrawables(drawable, null, null, null);
-                this.Control.CompoundDrawablePadding = 0;
-            }
+            this.Control.SetCompoundDrawables(drawableCopy, null, null, null);
+            this.Control.CompoundDrawablePadding = 0;
         }
         private void SetTextColors()
         {
