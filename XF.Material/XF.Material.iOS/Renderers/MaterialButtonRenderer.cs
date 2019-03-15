@@ -44,6 +44,7 @@ namespace XF.Material.iOS.Renderers
             this.UpdateCornerRadius();
             this.UpdateTextSizing();
             this.UpdateButtonLayer();
+            this.UpdateState();
         }
 
         protected override void OnElementChanged(ElementChangedEventArgs<Button> e)
