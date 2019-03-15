@@ -4,12 +4,15 @@ using Xamarin.Forms.Platform.iOS;
 using XF.Material.iOS.Renderers.Internals;
 using XF.Material.Forms.UI.Internals;
 using System.ComponentModel;
+using System.Drawing;
 
 [assembly: ExportRenderer(typeof(MaterialEntry), typeof(MaterialEntryRenderer))]
 namespace XF.Material.iOS.Renderers.Internals
 {
     internal class MaterialEntryRenderer : EntryRenderer
     {
+        private bool _returnButtonAdded;
+
         protected override void OnElementChanged(ElementChangedEventArgs<Entry> e)
         {
             base.OnElementChanged(e);
@@ -33,6 +36,7 @@ namespace XF.Material.iOS.Renderers.Internals
             this.Control.TintColor = (this.Element as MaterialEntry)?.TintColor.ToUIColor();
             this.Control.BorderStyle = UITextBorderStyle.None;
             this.Control.TranslatesAutoresizingMaskIntoConstraints = false;
+            this.AddRemoveReturnKeyToNumericInput();
         }
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -45,6 +49,42 @@ namespace XF.Material.iOS.Renderers.Internals
             {
                 this.Control.TintColor = (this.Element as MaterialEntry)?.TintColor.ToUIColor();
             }
+
+            if(e?.PropertyName == nameof(MaterialEntry.Keyboard))
+            {
+                this.AddRemoveReturnKeyToNumericInput();
+            }
+        }
+
+        private void AddRemoveReturnKeyToNumericInput()
+        {
+            if(this.Element.Keyboard == Keyboard.Numeric)
+            {
+                UIToolbar toolbar = null;
+
+                if(!_returnButtonAdded)
+                {
+                    toolbar = new UIToolbar(new RectangleF(0.0f, 0.0f, 50.0f, 44.0f));
+
+                    var doneButton = new UIBarButtonItem(UIBarButtonSystemItem.Done, delegate
+                    {
+                        Control.ResignFirstResponder();
+                        this.Element.SendCompleted();
+                    });
+
+                    toolbar.Items = new[] { new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace), doneButton };
+
+                    _returnButtonAdded = true;
+                }
+
+                this.Control.InputAccessoryView = toolbar;
+            }
+
+            else if(this.Element.Keyboard != Keyboard.Numeric)
+            {
+                this.Control.InputAccessoryView = null;
+            }
+
         }
     }
 }
