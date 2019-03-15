@@ -144,9 +144,9 @@ namespace XF.Material.Forms.UI
             this.Clicked?.Invoke(this, EventArgs.Empty);
             this.InternalCommand?.Execute(null);
 
-            if (handled)
+            if (handled && this.Command?.CanExecute(this.CommandParameter) == true)
             {
-                this.Command?.Execute(this.CommandParameter);
+                this.Command.Execute(this.CommandParameter);
             }
         }
 
