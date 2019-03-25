@@ -34,6 +34,7 @@ namespace XF.Material.iOS.Renderers
         private CABasicAnimation _shadowOffsetResting;
         private CABasicAnimation _shadowRadiusPressed;
         private CABasicAnimation _shadowRadiusResting;
+        private UIGestureRecognizer _rippleGestureRecognizer;
         private bool _withIcon;
 
         public override void LayoutSubviews()
@@ -241,7 +242,12 @@ namespace XF.Material.iOS.Renderers
             _colorResting.RemovedOnCompletion = false;
             _colorResting.To = FromObject(_restingBackgroundColor.CGColor);
 
-            this.Control.AddGestureRecognizer(new UITapGestureRecognizer() { Delegate = new MaterialRippleGestureRecognizerDelegate(_rippleColor.CGColor) });
+
+            if(_rippleGestureRecognizer == null)
+            {
+                _rippleGestureRecognizer = new UITapGestureRecognizer() { Delegate = new MaterialRippleGestureRecognizerDelegate(_rippleColor.CGColor) };
+                this.Control.AddGestureRecognizer(_rippleGestureRecognizer);
+            }
         }
 
         private void CreateTextButtonLayer()
@@ -427,9 +433,6 @@ namespace XF.Material.iOS.Renderers
 
             this.Control.Layer.BackgroundColor = UIColor.Clear.CGColor;
             this.Control.Layer.BorderColor = UIColor.Clear.CGColor;
-
-            Debug.WriteLine(_animationLayer.Frame);
-            Debug.WriteLine(this.Control.Frame);
         }
 
         private void UpdateState()
