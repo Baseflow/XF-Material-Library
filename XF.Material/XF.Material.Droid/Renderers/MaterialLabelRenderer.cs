@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
-
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -30,8 +29,8 @@ namespace XF.Material.Droid.Renderers
             base.OnElementChanged(e);
 
             if (e?.NewElement == null) return;
-            OnLetterSpacingChanged(this.Control, this.Element.LetterSpacing);
-            OnLineHeightChanged(this.Control, this.Element.LineHeight);
+
+            this.OnLetterSpacingChanged(this.Control, this.Element.LetterSpacing);
         }
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -41,15 +40,12 @@ namespace XF.Material.Droid.Renderers
             switch (e?.PropertyName)
             {
                 case nameof(MaterialLabel.LetterSpacing):
-                    OnLetterSpacingChanged(this.Control, this.Element.LetterSpacing);
-                    break;
-                case nameof(MaterialLabel.LineHeight):
-                    OnLineHeightChanged(this.Control, this.Element.LineHeight);
+                    this.OnLetterSpacingChanged(this.Control, this.Element.LetterSpacing);
                     break;
             }
         }
 
-        private static void OnLetterSpacingChanged(TextView textView, double letterSpacing)
+        private void OnLetterSpacingChanged(TextView textView, double letterSpacing)
         {
             if(!Material.IsLollipop)
             {
@@ -57,11 +53,6 @@ namespace XF.Material.Droid.Renderers
             }
 
             textView.LetterSpacing = MaterialHelper.ConvertToSp(letterSpacing) / textView.TextSize;
-        }
-
-        private static void OnLineHeightChanged(TextView textView, double lineHeight)
-        {
-            textView.SetLineSpacing(0f, (float)lineHeight);
         }
     }
 }

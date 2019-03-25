@@ -11,14 +11,17 @@ namespace XF.Material.Forms.UI
 
         public static readonly BindableProperty LetterSpacingProperty = BindableProperty.Create(nameof(LetterSpacing), typeof(double), typeof(MaterialLabel), 0.0);
 
-        public new static readonly BindableProperty LineHeightProperty = BindableProperty.Create(MaterialLineHeightPropertyName, typeof(double), typeof(MaterialLabel), 1.4);
-
         public static readonly BindableProperty TypeScaleProperty = BindableProperty.Create(nameof(TypeScale), typeof(MaterialTypeScale), typeof(MaterialLabel), MaterialTypeScale.None);
 
         private bool _fontFamilyChanged;
         private bool _fontSizeChanged;
         private bool _letterSpacingChanged;
         private bool _fontAttributeChanged;
+
+        public MaterialLabel()
+        {
+            this.SetDynamicResource(LineHeightProperty, "Material.LineHeight");
+        }
 
         /// <summary>
         /// Gets or sets the letter spacing of this label's text.
@@ -28,16 +31,7 @@ namespace XF.Material.Forms.UI
             get => (double)this.GetValue(LetterSpacingProperty);
             set => this.SetValue(LetterSpacingProperty, value);
         }
-
-        /// <summary>
-        /// Gets or sets the multiplier that determines the line height of this label.
-        /// </summary>
-        public new double LineHeight
-        {
-            get => (double)this.GetValue(LineHeightProperty);
-            set => this.SetValue(LineHeightProperty, value);
-        }
-
+     
         /// <summary>
         /// Gets or sets the type scale used for this label.
         /// </summary>

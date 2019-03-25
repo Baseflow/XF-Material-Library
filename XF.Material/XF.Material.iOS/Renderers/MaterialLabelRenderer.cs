@@ -16,10 +16,18 @@ namespace XF.Material.iOS.Renderers
     {
         public new MaterialLabel Element => base.Element as MaterialLabel;
 
+        public NSMutableAttributedString AttributedString => this.Control?.AttributedText as NSMutableAttributedString;
+
         public override void LayoutSubviews()
         {
             base.LayoutSubviews();
 
+            this.CheckIfSingleLine();
+            this.OnLetterSpacingChanged(this.Control, this.Element.LetterSpacing);
+        }
+
+        private void CheckIfSingleLine()
+        {
             if (this.Control == null || this.Control.Frame.Size.Height == 0)
             {
                 return;
@@ -32,7 +40,7 @@ namespace XF.Material.iOS.Renderers
 
             if (lines == 1)
             {
-                this.OnLineHeightChanged(this.Control, 0);
+                this.Element.LineHeight = 1;
             }
         }
 
@@ -41,8 +49,8 @@ namespace XF.Material.iOS.Renderers
             base.OnElementChanged(e);
 
             if (e?.NewElement == null) return;
-            OnLetterSpacingChanged(this.Control, this.Element.LetterSpacing);
-            this.OnLineHeightChanged(this.Control, this.Element.LineHeight);
+
+            this.OnLetterSpacingChanged(this.Control, this.Element.LetterSpacing);
         }
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -54,42 +62,22 @@ namespace XF.Material.iOS.Renderers
                 case nameof(MaterialLabel.LetterSpacing):
                     OnLetterSpacingChanged(this.Control, this.Element.LetterSpacing);
                     break;
-                case nameof(MaterialLabel.LineHeight):
-                    this.OnLineHeightChanged(this.Control, this.Element.LineHeight);
-                    break;
             }
         }
 
-        private static void OnLetterSpacingChanged(UILabel uiLabel, double letterSpacing)
+        private void OnLetterSpacingChanged(UILabel uiLabel, double letterSpacing)
         {
-            var attributedString = (NSMutableAttributedString) uiLabel?.AttributedText;
+            if (uiLabel == null || this.AttributedString == null) return;
 
-            if (attributedString == null) return;
-            var nsKern = new NSString("NSKern");
-            var nsObject = FromObject(letterSpacing);
+            var nsObject = FromObject((float)letterSpacing);
             var nsRange = new NSRange(0, uiLabel.Text?.Length ?? 0);
-
-            attributedString.AddAttribute(nsKern, nsObject, nsRange);
-        }
-
-        private void OnLineHeightChanged(UILabel uiLabel, double lineSpacing)
-        {
-            var attributedString = (NSMutableAttributedString) uiLabel?.AttributedText;
-
-            if (attributedString == null) return;
-            var attributeRange = new NSRange(0, uiLabel.Text.Length);
-            var pAttribute = new NSMutableParagraphStyle();
-
-            if (Math.Abs(lineSpacing) < float.MinValue)
-            {
-                pAttribute.LineSpacing = 0;
-            }
-            else
-            {
-                pAttribute.LineSpacing = (nfloat)((this.Element.FontSize * lineSpacing) - this.Element.FontSize);
-            }
-
-            attributedString.SetAttributes(new NSDictionary<NSString, NSObject>(UIStringAttributeKey.ParagraphStyle, pAttribute), attributeRange);
+            var paragraphStyle = (NSMutableParagraphStyle)this.AttributedString.GetAttribute(UIStringAttributeKey.ParagraphStyle, 0, out NSRange range);
+            this.Control.AttributedText = new NSMutableAttributedString(uiLabel.Text ?? string.Empty,
+                font: uiLabel.Font,
+                foregroundColor: uiLabel.TextColor,
+                backgroundColor: uiLabel.BackgroundColor,
+                kerning: (float)letterSpacing,
+                paragraphStyle: paragraphStyle);
         }
     }
 }
