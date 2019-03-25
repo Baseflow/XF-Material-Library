@@ -1,11 +1,9 @@
 
 <img src="images/xf.material_logo.png" width="112" />
 
-# XF.Material Library [![NuGet](https://img.shields.io/badge/version-1.4.1.1-orange.svg?style=flat)](https://github.com/contrix09/XF-Material-Library/blob/master/RELEASE_NOTES.md) [![Build status](https://dev.azure.com/compiledevops/XF.Material/_apis/build/status/XF.Material-CI%20NuGet)](https://dev.azure.com/compiledevops/XF.Material/_build/latest?definitionId=20) [![Donate](https://img.shields.io/badge/Give%20Coffee-Donate-orange.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=K4HS649SFADTS&source=url)
+# XF.Material Library [![NuGet](https://img.shields.io/badge/version-1.4.1.2-orange.svg?style=flat)](https://github.com/contrix09/XF-Material-Library/blob/master/RELEASE_NOTES.md) [![Build status](https://dev.azure.com/compiledevops/XF.Material/_apis/build/status/XF.Material-CI%20NuGet)](https://dev.azure.com/compiledevops/XF.Material/_build/latest?definitionId=20) [![Donate](https://img.shields.io/badge/Give%20Coffee-Donate-orange.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=K4HS649SFADTS&source=url)
 
 A Xamarin.Forms library for Xamarin.Android and Xamarin.iOS to implement [Google's Material Design](https://material.io/design).
-
-*READ_ME to be updated.*
 
 ## Contents
 
@@ -293,9 +291,9 @@ Text fields allow users to enter and edit text.
 
 9. `HelperTextFontFamily` - The font family of the helper text. The `ErrorText` will use this as its font family.
 
-10. `Icon` - The image icon that will show on the left side of this text field.
+10. `LeadingIcon` - The image icon that will show on the left side of this text field.
 
-11. `IconTintColor` - The color to be used to tint the icon image of this text field. The default hex color value is `#99000000`.
+11. `LeadingIconTintColor` - The color to be used to tint the icon image of this text field. The default hex color value is `#99000000`.
 
 12. `InputType` - The keyboard input type to be used for this text field.
 
@@ -329,19 +327,35 @@ Text fields allow users to enter and edit text.
 
 27. `ChoiceSelectedCommand` - The command that will execute when an item is selected using the input type `Choice`. The parameter that will be passed to this command is the selected item.
 
-28. `HasHorizontalPadding` - Boolean flag determines whether the left and right bounds of the text field should be padded or not.
+28. `HorizontalPadding` - The value that determines the left and right padding of the text field.
 
 29. `IsSpellCheckEnabled` - Boolean flag determines whether spell checking is enabled in this text field.
 
 30. `IsTextPredictionEnabled` - Boolean flag determines whether text prediction is enabled in this field.
 
+31. `TextFontSize` - The font size of the text field's input text.
+
+32. `FloatingPlaceholderFontSize` - The font size of the text field's floating placeholder.
+
+33. `FloatingPlaceholderColor` - The color of the text field's floating placeholder.
+
+34. `IsAutocapitalizationEnabled` - Boolean value that determines whether to autocapitalize the input text or not.
+
+35. `IsMaxLengthCounterVisible` - Boolean value that determines whether to show the max input length counter on not.
+
+36. `ShouldAnimateUnderline` - Boolean value that determines whether to anumate the underline indicator or not.
+
 ##### Events
 
-1. `Focused` - Raised when this text field receives or loses focus.
+1. `Focused` - Raised when this text field receives focus.
 
-2. `TextChanged` - Raised when the input text of this text field has changed.
+2. `Unfocused` -  Raised when this text field loses focus.
 
-3. `ChoiceSelected` - The event that will be raised when an item is selected using the input type `Choice`. Gives the item that was selected.
+3. `TextChanged` - Raised when the input text of this text field has changed.
+
+4. `ChoiceSelected` - The event that will be raised when an item is selected using the input type `Choice`. Gives the item that was selected.
+
+5. `Completed` - The event that will be raised when the user completes the input using the return key.
 
 ##### Usage and Behavior
 

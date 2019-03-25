@@ -1,6 +1,17 @@
 # Release Notes
 
-##### 1.4.1.1 (Latest)
+##### 1.4.1.2
+
+- Added `Completed` event in `MaterialTextField`. A feature enhancement stated in this [issue](https://github.com/contrix09/XF-Material-Library/issues/112).
+- Added a return button when a numeric keyboard is presented using `MaterialTextField` in iOS. A feature enhancement stated in this [issue](https://github.com/contrix09/XF-Material-Library/issues/115).
+- Fixed a bug in iOS where the `MaterialButton` ripple layer is shorter when the `Text` property changes.
+- Fixed a bug in iOS where the `MaterialLabel` text alignment is not preserved when the font properties change.
+- Fixed issue [109](https://github.com/contrix09/XF-Material-Library/issues/109).
+- Fixed issue [109](https://github.com/contrix09/XF-Material-Library/issues/109).
+- Fixed issue [116](https://github.com/contrix09/XF-Material-Library/issues/116).
+- Fixed issue [119](https://github.com/contrix09/XF-Material-Library/issues/119).
+
+##### 1.4.1.1
 - You can now change the text of the loading dialog and loading snackbar when using `IMaterialDialog.LoadingDialogAsync` and `IMaterialDialog.LoadingSnackbarAsync`.
 - Fixed issue [105](https://github.com/contrix09/XF-Material-Library/issues/105).
 - Fixed issue [106](https://github.com/contrix09/XF-Material-Library/issues/106).
