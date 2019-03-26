@@ -36,7 +36,7 @@ namespace XF.Material.iOS.Renderers.Internals
             this.Control.TintColor = (this.Element as MaterialEntry)?.TintColor.ToUIColor();
             this.Control.BorderStyle = UITextBorderStyle.None;
             this.Control.TranslatesAutoresizingMaskIntoConstraints = false;
-            this.AddRemoveReturnKeyToNumericInput();
+            this.AddRemoveReturnKeyToNumericInput((this.Element as MaterialEntry).IsNumericKeyboard);
         }
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -50,15 +50,15 @@ namespace XF.Material.iOS.Renderers.Internals
                 this.Control.TintColor = (this.Element as MaterialEntry)?.TintColor.ToUIColor();
             }
 
-            if(e?.PropertyName == nameof(MaterialEntry.Keyboard))
+            if(e?.PropertyName == nameof(MaterialEntry.IsNumericKeyboard))
             {
-                this.AddRemoveReturnKeyToNumericInput();
+                this.AddRemoveReturnKeyToNumericInput((this.Element as MaterialEntry).IsNumericKeyboard);
             }
         }
 
-        private void AddRemoveReturnKeyToNumericInput()
+        private void AddRemoveReturnKeyToNumericInput(bool isNumeric)
         {
-            if(this.Element.Keyboard == Keyboard.Numeric)
+            if(isNumeric)
             {
                 UIToolbar toolbar = null;
 
@@ -80,7 +80,7 @@ namespace XF.Material.iOS.Renderers.Internals
                 this.Control.InputAccessoryView = toolbar;
             }
 
-            else if(this.Element.Keyboard != Keyboard.Numeric)
+            else
             {
                 this.Control.InputAccessoryView = null;
             }

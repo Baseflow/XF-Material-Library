@@ -489,20 +489,18 @@ namespace XF.Material.iOS.Renderers
 
         private void UpdateText()
         {
-            if (this.Control == null) return;
+            if (this.Control == null || this.Control.TitleLabel.AttributedText == null) return;
 
-            var text = this.Control.Title(UIControlState.Normal);
+            var text = this.Element.Text;
             text = _materialButton.AllCaps ? text?.ToUpper() : text;
+            this.Control.TitleLabel.Text = text;
 
-            var attributedString = new NSMutableAttributedString(text ?? string.Empty,
-                font: this.Control.Font,
-                foregroundColor: this.Control.TitleColor(UIControlState.Normal),
-                kerning: (float)_materialButton.LetterSpacing);
+            var range = new NSRange(0, text?.Length ?? 0);
+            var originalAttr = this.Control.TitleLabel.AttributedText as NSMutableAttributedString;
+            var newAttr = new NSMutableAttributedString(originalAttr);
+            newAttr.AddAttribute(UIStringAttributeKey.KerningAdjustment, FromObject((float)_materialButton.LetterSpacing), range);
 
-            this.Control.SetAttributedTitle(attributedString, UIControlState.Normal);
-            this.Control.SetAttributedTitle(attributedString, UIControlState.Focused);
-            this.Control.SetAttributedTitle(attributedString, UIControlState.Highlighted);
-            this.Control.SetAttributedTitle(attributedString, UIControlState.Selected);
+            this.Control.SetAttributedTitle(newAttr, UIControlState.Normal);
         }
 
         private void UpdateTextSizing()

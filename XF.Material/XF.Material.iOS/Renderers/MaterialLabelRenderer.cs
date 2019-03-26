@@ -23,7 +23,7 @@ namespace XF.Material.iOS.Renderers
             base.LayoutSubviews();
 
             this.CheckIfSingleLine();
-            this.OnLetterSpacingChanged(this.Control, this.Element.LetterSpacing);
+            this.UpdateLetterSpacing(this.Control, this.Element.LetterSpacing);
         }
 
         private void CheckIfSingleLine()
@@ -48,9 +48,10 @@ namespace XF.Material.iOS.Renderers
         {
             base.OnElementChanged(e);
 
-            if (e?.NewElement == null) return;
-
-            this.OnLetterSpacingChanged(this.Control, this.Element.LetterSpacing);
+            if(e?.NewElement != null)
+            {
+                this.UpdateLetterSpacing(this.Control, this.Element.LetterSpacing);
+            }
         }
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -60,24 +61,22 @@ namespace XF.Material.iOS.Renderers
             switch (e?.PropertyName)
             {
                 case nameof(MaterialLabel.LetterSpacing):
-                    OnLetterSpacingChanged(this.Control, this.Element.LetterSpacing);
+                case nameof(Label.Text):
+                    UpdateLetterSpacing(this.Control, this.Element.LetterSpacing);
+                    this.CheckIfSingleLine();
                     break;
             }
         }
 
-        private void OnLetterSpacingChanged(UILabel uiLabel, double letterSpacing)
+        private void UpdateLetterSpacing(UILabel uiLabel, double letterSpacing)
         {
             if (uiLabel == null || this.AttributedString == null) return;
 
-            var nsObject = FromObject((float)letterSpacing);
-            var nsRange = new NSRange(0, uiLabel.Text?.Length ?? 0);
-            var paragraphStyle = (NSMutableParagraphStyle)this.AttributedString.GetAttribute(UIStringAttributeKey.ParagraphStyle, 0, out NSRange range);
-            this.Control.AttributedText = new NSMutableAttributedString(uiLabel.Text ?? string.Empty,
-                font: uiLabel.Font,
-                foregroundColor: uiLabel.TextColor,
-                backgroundColor: uiLabel.BackgroundColor,
-                kerning: (float)letterSpacing,
-                paragraphStyle: paragraphStyle);
+            var range = new NSRange(0, uiLabel.Text?.Length ?? 0);
+            var attr = new NSMutableAttributedString(this.Control.AttributedText);
+            attr.AddAttribute(UIStringAttributeKey.KerningAdjustment, FromObject((float)letterSpacing), range);
+
+            this.Control.AttributedText = attr;
         }
     }
 }

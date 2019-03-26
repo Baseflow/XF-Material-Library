@@ -1084,16 +1084,18 @@ namespace XF.Material.Forms.UI
                     break;
             }
 
-            //entry.AutoSize = inputType == MaterialTextFieldInputType.MultiLine ? EditorAutoSizeOption.TextChanges : EditorAutoSizeOption.Disabled;
+            // Hint: Will use this for MaterialTextArea
+            // entry.AutoSize = inputType == MaterialTextFieldInputType.MultiLine ? EditorAutoSizeOption.TextChanges : EditorAutoSizeOption.Disabled;
             _gridContainer.InputTransparent = inputType == MaterialTextFieldInputType.Choice;
             trailingIcon.IsVisible = inputType == MaterialTextFieldInputType.Choice;
 
+            entry.IsNumericKeyboard = inputType == MaterialTextFieldInputType.Telephone || inputType == MaterialTextFieldInputType.Numeric;
             entry.IsPassword = inputType == MaterialTextFieldInputType.Password || inputType == MaterialTextFieldInputType.NumericPassword;
         }
 
         private void OnKeyboardFlagsChanged(bool isAutoCapitalizationEnabled, bool isSpellCheckEnabled, bool isTextPredictionEnabled)
         {
-            KeyboardFlags flags = KeyboardFlags.CapitalizeWord | KeyboardFlags.Spellcheck | KeyboardFlags.Suggestions;
+            var flags = KeyboardFlags.CapitalizeWord | KeyboardFlags.Spellcheck | KeyboardFlags.Suggestions;
 
             if (!isAutoCapitalizationEnabled)
             {
@@ -1111,7 +1113,6 @@ namespace XF.Material.Forms.UI
             }
 
             entry.Keyboard = Keyboard.Create(flags);
-            Debug.WriteLine(flags);
         }
 
         private void OnLeadingIconChanged(string icon)
