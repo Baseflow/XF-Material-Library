@@ -3,16 +3,16 @@
   <metadata>
     <id>XF.Material</id>
     <title>XF.Material Library</title>
-    <version>1.4.1.2</version>
+    <version>1.4.1.3</version>
     <authors>Dustin Catap</authors>
     <owners>Dustin Catap</owners>
     <projectUrl>https://github.com/contrix09/XF-Material-Library</projectUrl>
-    <licenseUrl>https://github.com/contrix09/XF-Material-Library/blob/master/LICENSE.md</licenseUrl>
+    <license type="file">LICENSE.md</license>
     <iconUrl>https://github.com/contrix09/XF-Material-Library/raw/master/images/xf.material_logo.png</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <releaseNotes>https://github.com/contrix09/XF-Material-Library/blob/master/RELEASE_NOTES.md</releaseNotes>
     <description>A Xamarin.Forms library for Xamarin.Android and Xamarin.iOS to implement Google's Material Design.</description>
-    <copyright>Copyright © 2018 - Dustin Catap</copyright>
+    <copyright>Copyright © 2019 - Dustin Catap</copyright>
     <tags>Xamarin.Forms Xamarin</tags>
     <dependencies>
       <group targetFramework="netstandard2.0">
@@ -52,6 +52,7 @@
     </dependencies>
   </metadata>
   <files>
+    <file src="LICENSE.md" target="" />
     <file src="XF.Material\XF.Material.Forms\bin\Release\netstandard2.0\XF.Material.Forms.dll"
           target="lib\netstandard2.0" />
     <file src="XF.Material\XF.Material.Forms\bin\Release\netstandard2.0\XF.Material.Forms.pdb"
