@@ -159,6 +159,16 @@ namespace XF.Material.iOS.Renderers
 
         private async void Control_Released(object sender, EventArgs e)
         {
+            if(this.Control == null)
+            {
+                // Control is disposing
+                return;
+            }
+            else
+            {
+                // Good to go
+            }
+
             _colorResting.From = _colorPressed.ValueForKeyPath(new NSString("backgroundColor"));
             _animationLayer.RemoveAnimation("backgroundColorPressed");
 
