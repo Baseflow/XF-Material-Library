@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -12,6 +13,7 @@ using Xamarin.Forms.Xaml;
 using XF.Material.Forms.Resources;
 using XF.Material.Forms.UI.Dialogs;
 using XF.Material.Forms.UI.Internals;
+using XF.Material.Forms.Utilities;
 
 namespace XF.Material.Forms.UI
 {
@@ -99,10 +101,9 @@ namespace XF.Material.Forms.UI
         private const double AnimationDuration = 0.35;
         private readonly Easing _animationCurve = Easing.SinOut;
         private readonly Dictionary<string, Action> _propertyChangeActions;
-        private IList<string> _choices;
         private bool _counterEnabled;
         private DisplayInfo _lastDeviceDisplay;
-        private int _selectedIndex = -1;
+        private List<int> _selectedIndicies = new List<int>();
         private bool _wasFocused;
 
         /// <summary>
@@ -157,7 +158,7 @@ namespace XF.Material.Forms.UI
         }
 
         /// <summary>
-        /// Gets or sets the collection of objects which the user will choose from. This is required when <see cref="InputType"/> is set to <see cref="MaterialTextFieldInputType.Choice"/>.
+        /// Gets or sets the collection of objects which the user will choose from. This is required when <see cref="InputType"/> is set to <see cref="MaterialTextFieldInputType.Choice"/> or <see cref="MaterialTextFieldInputType.MultiChoice"/>.
         /// </summary>
         public IList Choices
         {
@@ -171,7 +172,7 @@ namespace XF.Material.Forms.UI
         public string ChoicesBindingName { get; set; }
 
         /// <summary>
-        /// Gets or sets the command that will execute if a choice was selected when the <see cref="InputType"/> is set to <see cref="MaterialTextFieldInputType.Choice"/>.
+        /// Gets or sets the command that will execute if a choice was selected when the <see cref="InputType"/> is set to <see cref="MaterialTextFieldInputType.Choice"/> or <see cref="MaterialTextFieldInputType.MultiChoice"/>.
         /// </summary>
         public ICommand ChoiceSelectedCommand
         {
@@ -795,7 +796,7 @@ namespace XF.Material.Forms.UI
 
             Device.BeginInvokeOnMainThread(async () =>
             {
-                if (this.InputType == MaterialTextFieldInputType.Choice)
+                if (IsChoiceInput(this.InputType))
                 {
                     trailingIcon.Source = "xf_arrow_dropdown";
                     trailingIcon.TintColor = this.TextColor;
@@ -923,31 +924,49 @@ namespace XF.Material.Forms.UI
         private IList<string> GetChoices()
         {
             var choiceStrings = new List<string>(this.Choices.Count);
-            var listType = this.Choices[0].GetType();
-            foreach (var item in this.Choices)
-            {
-                if (!string.IsNullOrEmpty(this.ChoicesBindingName))
-                {
-                    var propInfo = listType.GetProperty(this.ChoicesBindingName);
 
-                    if (propInfo == null)
-                    {
-                        System.Diagnostics.Debug.WriteLine($"Property {this.ChoicesBindingName} was not found for item in {this.Choices}.");
-                        choiceStrings.Add(item.ToString());
-                    }
-                    else
-                    {
-                        var propValue = propInfo.GetValue(item);
-                        choiceStrings.Add(propValue.ToString());
-                    }
-                }
-                else
-                {
-                    choiceStrings.Add(item.ToString());
-                }
+            for (int i = 0; i < this.Choices.Count; i++)
+            {
+                this.GetChoiceString(i);
             }
 
             return choiceStrings;
+        }
+
+        private string GetChoiceString(int index)
+        {
+            if (index < 0)
+            {
+                return "";
+            }
+            else
+            {
+                //Ok
+            }
+
+            var choice = this.Choices[index];
+
+            var listType = this.Choices[0].GetType();
+
+            if (!string.IsNullOrEmpty(this.ChoicesBindingName))
+            {
+                var propInfo = listType.GetProperty(this.ChoicesBindingName);
+
+                if (propInfo == null)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Property {this.ChoicesBindingName} was not found for item in {this.Choices}.");
+                    return choice.ToString();
+                }
+                else
+                {
+                    var propValue = propInfo.GetValue(choice);
+                    return propValue.ToString();
+                }
+            }
+            else
+            {
+                return choice.ToString();
+            }
         }
 
         private object GetSelectedChoice(int index)
@@ -958,6 +977,16 @@ namespace XF.Material.Forms.UI
             }
 
             return this.Choices[index];
+        }
+
+        private IList GetSelectedChoices(List<int> indicies)
+        {
+            if (indicies.Count() < 0)
+            {
+                return null;
+            }
+
+            return this.Choices.Subset(indicies.ToArray());
         }
 
         private void OnAlwaysShowUnderlineChanged(bool isShown)
@@ -973,7 +1002,6 @@ namespace XF.Material.Forms.UI
 
         private void OnChoicesChanged(ICollection choices)
         {
-            _choices = choices?.Count > 0 ? this.GetChoices() : null;
         }
 
         private void OnEnabledChanged(bool isEnabled)
@@ -1080,17 +1108,25 @@ namespace XF.Material.Forms.UI
                     break;
 
                 case MaterialTextFieldInputType.Choice:
+                case MaterialTextFieldInputType.MultiChoice:
 
                     break;
             }
 
             // Hint: Will use this for MaterialTextArea
             // entry.AutoSize = inputType == MaterialTextFieldInputType.MultiLine ? EditorAutoSizeOption.TextChanges : EditorAutoSizeOption.Disabled;
-            _gridContainer.InputTransparent = inputType == MaterialTextFieldInputType.Choice;
-            trailingIcon.IsVisible = inputType == MaterialTextFieldInputType.Choice;
+            _gridContainer.InputTransparent = IsChoiceInput(inputType);
+            trailingIcon.IsVisible = IsChoiceInput(inputType);
 
             entry.IsNumericKeyboard = inputType == MaterialTextFieldInputType.Telephone || inputType == MaterialTextFieldInputType.Numeric;
             entry.IsPassword = inputType == MaterialTextFieldInputType.Password || inputType == MaterialTextFieldInputType.NumericPassword;
+        }
+
+        private bool IsChoiceInput(MaterialTextFieldInputType inputType)
+        {
+
+            
+            return inputType == MaterialTextFieldInputType.Choice || inputType == MaterialTextFieldInputType.MultiChoice;
         }
 
         private void OnKeyboardFlagsChanged(bool isAutoCapitalizationEnabled, bool isSpellCheckEnabled, bool isTextPredictionEnabled)
@@ -1168,48 +1204,83 @@ namespace XF.Material.Forms.UI
             {
                 throw new InvalidOperationException("The property `Choices` is null or empty");
             }
-            _choices = this.GetChoices();
 
             var title = MaterialConfirmationDialog.GetDialogTitle(this);
             var confirmingText = MaterialConfirmationDialog.GetDialogConfirmingText(this);
             var dismissiveText = MaterialConfirmationDialog.GetDialogDismissiveText(this);
             var configuration = MaterialConfirmationDialog.GetDialogConfiguration(this);
-            int result;
+            List<int> result = new List<int>();
 
-            if (_selectedIndex >= 0)
+            if (this.InputType == MaterialTextFieldInputType.Choice)
             {
-                result = await MaterialDialog.Instance.SelectChoiceAsync(title, _choices, _selectedIndex, confirmingText, dismissiveText, configuration);
+                if (_selectedIndicies.Count > 0)
+                {
+                    int choiceIndicies = await MaterialDialog.Instance.SelectChoiceAsync(title, this.Choices, _selectedIndicies[0], this.ChoicesBindingName, confirmingText, dismissiveText, configuration);
+                    result.Add(choiceIndicies);
+                }
+                else
+                {
+                    int choiceIndicies = await MaterialDialog.Instance.SelectChoiceAsync(title, this.Choices, this.ChoicesBindingName, confirmingText, dismissiveText, configuration);
+                    result.Add(choiceIndicies);
+                }
+
+                if (result.Count > 0)
+                {
+                    _selectedIndicies = result;
+                    this.Text = this.GetChoiceString(_selectedIndicies[0]);
+                }
             }
-            else
+            else //MultiChoice
             {
-                result = await MaterialDialog.Instance.SelectChoiceAsync(title, _choices, confirmingText, dismissiveText, configuration);
+                if (_selectedIndicies.Count > 0)
+                {
+                    IEnumerable<int> choiceIndicies = await MaterialDialog.Instance.SelectChoicesAsync(title, this.Choices, _selectedIndicies, this.ChoicesBindingName, confirmingText, dismissiveText, configuration);
+                    result = choiceIndicies.ToList();
+                }
+                else
+                {
+                    IEnumerable<int> choiceIndicies = await MaterialDialog.Instance.SelectChoicesAsync(title, this.Choices, this.ChoicesBindingName, confirmingText, dismissiveText, configuration);
+                    result = choiceIndicies.ToList();
+                }
+
+                if (result.Count > 0)
+                {
+                    _selectedIndicies = result;
+                    var selectedChoices = this.GetSelectedChoices(_selectedIndicies);
+                    this.ChoiceSelected?.Invoke(this, new SelectedItemChangedEventArgs(selectedChoices));
+                    this.ChoiceSelectedCommand?.Execute(selectedChoices);
+                }
+                else
+                {
+                    _selectedIndicies.Clear();
+                }
+                
             }
 
-            if (result >= 0)
+            if (result.Count > 0)
             {
-                _selectedIndex = result;
-                this.Text = _choices[result];
+                this.Text = result.Count > 1 ? "Multiple" : this.GetChoiceString(_selectedIndicies[0]);
             }
         }
 
         private void OnTextChanged(string text)
         {
-            if (this.InputType == MaterialTextFieldInputType.Choice && !string.IsNullOrEmpty(text) && _choices?.Contains(text) == false)
-            {
-                Debug.WriteLine($"The `Text` property value `{this.Text}` does not match any item in the collection `Choices`.");
-                this.Text = null;
-                return;
-            }
+            //if (this.InputType == MaterialTextFieldInputType.Choice && !string.IsNullOrEmpty(text) && _choices?.Contains(text) == false)
+            //{
+            //    Debug.WriteLine($"The `Text` property value `{this.Text}` does not match any item in the collection `Choices`.");
+            //    this.Text = null;
+            //    return;
+            //}
 
             if (this.InputType == MaterialTextFieldInputType.Choice && !string.IsNullOrEmpty(text))
             {
-                var selectedChoice = this.GetSelectedChoice(_selectedIndex);
+                var selectedChoice = this.GetSelectedChoice(_selectedIndicies[0]);
                 this.ChoiceSelected?.Invoke(this, new SelectedItemChangedEventArgs(selectedChoice));
                 this.ChoiceSelectedCommand?.Execute(selectedChoice);
             }
             else if (this.InputType == MaterialTextFieldInputType.Choice && string.IsNullOrEmpty(text))
             {
-                _selectedIndex = -1;
+                _selectedIndicies.Clear();
             }
 
             entry.Text = text;

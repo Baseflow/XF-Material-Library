@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -39,7 +40,7 @@ namespace XF.Material.Forms.UI
         /// Initializes a new instance of <see cref="MaterialRadioButtonGroup"/>.
         /// </summary>
         /// <param name="choices">The list of string which the user will choose from.</param>
-        public MaterialRadioButtonGroup(IList<string> choices)
+        public MaterialRadioButtonGroup(IList choices)
         {
             this.InitializeComponent();
             this.Choices = choices;
@@ -73,13 +74,37 @@ namespace XF.Material.Forms.UI
         protected override void CreateChoices()
         {
             var models = new ObservableCollection<MaterialSelectionControlModel>();
+            var listType = this.Choices[0].GetType();
 
             for (var i = 0; i < this.Choices.Count; i++)
             {
+                var i1 = i;
+
+                var choiceString = "";
+                if (!string.IsNullOrEmpty(base.ChoicesBindingName))
+                {
+                    var propInfo = listType.GetProperty(base.ChoicesBindingName);
+
+                    if (propInfo == null)
+                    {
+                        System.Diagnostics.Debug.WriteLine($"Property {base.ChoicesBindingName} was not found for item in {this.Choices}.");
+                        choiceString = (string)this.Choices[i];
+                    }
+                    else
+                    {
+                        var propValue = propInfo.GetValue(this.Choices[i]);
+                        choiceString = propValue.ToString();
+                    }
+                }
+                else
+                {
+                    choiceString = (string)this.Choices[i];
+                }
+
                 var model = new MaterialSelectionControlModel
                 {
                     Index = i,
-                    Text = this.Choices[i]
+                    Text = choiceString
                 };
                 model.SelectedChangeCommand = new Command<bool>((isSelected) => this.RadioButtonSelected(isSelected, model));
 

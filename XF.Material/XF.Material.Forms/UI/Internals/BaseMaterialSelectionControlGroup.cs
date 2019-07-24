@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -15,7 +16,7 @@ namespace XF.Material.Forms.UI.Internals
         /// <summary>
         /// Backing field for the bindable property <see cref="Choices"/>.
         /// </summary>
-        public static readonly BindableProperty ChoicesProperty = BindableProperty.Create(nameof(Choices), typeof(IList<string>), typeof(BaseMaterialSelectionControlGroup), default(IList<string>));
+        public static readonly BindableProperty ChoicesProperty = BindableProperty.Create(nameof(Choices), typeof(IList), typeof(BaseMaterialSelectionControlGroup));
 
         /// <summary>
         /// Backing field for the bindable property <see cref="FontFamily"/>.
@@ -54,6 +55,15 @@ namespace XF.Material.Forms.UI.Internals
 
         internal static readonly BindableProperty ShouldShowScrollbarProperty = BindableProperty.Create(nameof(ShouldShowScrollbar), typeof(bool), typeof(BaseMaterialSelectionControlGroup), false);
 
+        /// <summary>
+        /// Gets or sets the name of the property to display of each object in the <see cref="Choices"/> property. This will be ignored if the objects are strings.
+        /// </summary>
+        public string ChoicesBindingName
+        {
+            get;
+            set;
+        }
+
         internal bool ShouldShowScrollbar
         {
             get => (bool)this.GetValue(ShouldShowScrollbarProperty);
@@ -61,11 +71,11 @@ namespace XF.Material.Forms.UI.Internals
         }
 
         /// <summary>
-        /// Gets or sets the list of string which the user will choose from.
+        /// Gets or sets the collection of objects which the user will choose from.
         /// </summary>
-        public IList<string> Choices
+        public IList Choices
         {
-            get => (IList<string>)this.GetValue(ChoicesProperty);
+            get => (IList)this.GetValue(ChoicesProperty);
             set => this.SetValue(ChoicesProperty, value);
         }
 
@@ -142,7 +152,7 @@ namespace XF.Material.Forms.UI.Internals
 
             switch (propertyName)
             {
-                case nameof(this.Choices) when this.Choices != null && this.Choices.Any():
+                case nameof(this.Choices) when this.Choices != null && this.Choices.Count > 0:
                     this.CreateChoices();
                     break;
                 case nameof(this.IsEnabled):

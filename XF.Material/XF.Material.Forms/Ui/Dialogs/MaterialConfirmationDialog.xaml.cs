@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -75,16 +76,19 @@ namespace XF.Material.Forms.UI.Dialogs
             bindable.SetValue(DialogTitleProperty, title);
         }
 
-        public static async Task<object> ShowSelectChoiceAsync(string title, IList<string> choices, string confirmingText = "Ok", string dismissiveText = "Cancel", MaterialConfirmationDialogConfiguration configuration = null)
+        public static async Task<object> ShowSelectChoiceAsync(string title, IList choices, string choiceBindingName = null, string confirmingText = "Ok", string dismissiveText = "Cancel", MaterialConfirmationDialogConfiguration configuration = null)
         {
+            var radioButtonGroup = new MaterialRadioButtonGroup
+            {
+                HorizontalSpacing = 20,
+                ChoicesBindingName = choiceBindingName
+            };
+            radioButtonGroup.Choices = choices ?? throw new ArgumentNullException(nameof(choices));
+
             var dialog = new MaterialConfirmationDialog(configuration)
             {
                 InputTaskCompletionSource = new TaskCompletionSource<object>(),
-                _radioButtonGroup = new MaterialRadioButtonGroup
-                {
-                    HorizontalSpacing = 20,
-                    Choices = choices ?? throw new ArgumentNullException(nameof(choices)),
-                }
+                _radioButtonGroup = radioButtonGroup
             };
 
             if (dialog._preferredConfig != null)
@@ -105,17 +109,21 @@ namespace XF.Material.Forms.UI.Dialogs
             return await dialog.InputTaskCompletionSource.Task;
         }
 
-        public static async Task<object> ShowSelectChoiceAsync(string title, IList<string> choices, int selectedIndex, string confirmingText = "Ok", string dismissiveText = "Cancel", MaterialConfirmationDialogConfiguration configuration = null)
+        public static async Task<object> ShowSelectChoiceAsync(string title, IList choices, int selectedIndex, string choiceBindingName = null, string confirmingText = "Ok", string dismissiveText = "Cancel", MaterialConfirmationDialogConfiguration configuration = null)
         {
+            var radioButtonGroup = new MaterialRadioButtonGroup
+            {
+                HorizontalSpacing = 20,
+                SelectedIndex = selectedIndex,
+                ChoicesBindingName = choiceBindingName
+            };
+            radioButtonGroup.Choices = choices ?? throw new ArgumentNullException(nameof(choices));
+            radioButtonGroup.SelectedIndex = selectedIndex;
+
             var dialog = new MaterialConfirmationDialog(configuration)
             {
                 InputTaskCompletionSource = new TaskCompletionSource<object>(),
-                _radioButtonGroup = new MaterialRadioButtonGroup
-                {
-                    HorizontalSpacing = 20,
-                    Choices = choices ?? throw new ArgumentNullException(nameof(choices)),
-                    SelectedIndex = selectedIndex
-                }
+                _radioButtonGroup = radioButtonGroup
             };
 
             if (dialog._preferredConfig != null)
@@ -137,16 +145,19 @@ namespace XF.Material.Forms.UI.Dialogs
             return await dialog.InputTaskCompletionSource.Task;
         }
 
-        public static async Task<object> ShowSelectChoicesAsync(string title, IList<string> choices, string confirmingText = "Ok", string dismissiveText = "Cancel", MaterialConfirmationDialogConfiguration configuration = null)
+        public static async Task<object> ShowSelectChoicesAsync(string title, IList choices, string choiceBindingName = null, string confirmingText = "Ok", string dismissiveText = "Cancel", MaterialConfirmationDialogConfiguration configuration = null)
         {
+            var checkboxGroup = new MaterialCheckboxGroup
+            {
+                HorizontalSpacing = 20,
+                ChoicesBindingName = choiceBindingName
+            };
+            checkboxGroup.Choices = choices ?? throw new ArgumentNullException(nameof(choices));
+
             var dialog = new MaterialConfirmationDialog(configuration)
             {
                 InputTaskCompletionSource = new TaskCompletionSource<object>(),
-                _checkboxGroup = new MaterialCheckboxGroup
-                {
-                    HorizontalSpacing = 20,
-                    Choices = choices ?? throw new ArgumentNullException(nameof(choices))
-                }
+                _checkboxGroup = checkboxGroup
             };
 
             if (dialog._preferredConfig != null)
@@ -168,17 +179,20 @@ namespace XF.Material.Forms.UI.Dialogs
             return await dialog.InputTaskCompletionSource.Task;
         }
 
-        public static async Task<object> ShowSelectChoicesAsync(string title, IList<string> choices, IList<int> selectedIndices, string confirmingText = "Ok", string dismissiveText = "Cancel", MaterialConfirmationDialogConfiguration configuration = null)
+        public static async Task<object> ShowSelectChoicesAsync(string title, IList choices, IList<int> selectedIndices, string choiceBindingName = null, string confirmingText = "Ok", string dismissiveText = "Cancel", MaterialConfirmationDialogConfiguration configuration = null)
         {
+            var checkboxGroup = new MaterialCheckboxGroup
+            {
+                HorizontalSpacing = 20,
+                ChoicesBindingName = choiceBindingName
+            };
+            checkboxGroup.Choices = choices ?? throw new ArgumentNullException(nameof(choices));
+            checkboxGroup.SelectedIndices = selectedIndices;
+
             var dialog = new MaterialConfirmationDialog(configuration)
             {
                 InputTaskCompletionSource = new TaskCompletionSource<object>(),
-                _checkboxGroup = new MaterialCheckboxGroup
-                {
-                    HorizontalSpacing = 20,
-                    Choices = choices ?? throw new ArgumentNullException(nameof(choices)),
-                    SelectedIndices = selectedIndices.ToList()
-                }
+                _checkboxGroup = checkboxGroup
             };
 
             if (dialog._preferredConfig != null)
@@ -205,11 +219,11 @@ namespace XF.Material.Forms.UI.Dialogs
         {
             base.OnAppearing();
 
-            if (_radioButtonGroup?.Choices != null && _radioButtonGroup.Choices.Any())
+            if (_radioButtonGroup?.Choices != null && _radioButtonGroup.Choices.Count > 0)
             {
                 _radioButtonGroup.SelectedIndexChanged += this.DialogActionList_SelectedIndexChanged;
             }
-            else if (_checkboxGroup?.Choices != null && _checkboxGroup.Choices.Any())
+            else if (_checkboxGroup?.Choices != null && _checkboxGroup.Choices.Count > 0)
             {
                 _checkboxGroup.SelectedIndicesChanged += this.CheckboxGroup_SelectedIndicesChanged;
             }
@@ -236,11 +250,11 @@ namespace XF.Material.Forms.UI.Dialogs
         {
             base.OnDisappearing();
 
-            if (_radioButtonGroup?.Choices != null && _radioButtonGroup.Choices.Any())
+            if (_radioButtonGroup?.Choices != null && _radioButtonGroup.Choices.Count > 0)
             {
                 _radioButtonGroup.SelectedIndexChanged -= this.DialogActionList_SelectedIndexChanged;
             }
-            else if (_checkboxGroup?.Choices != null && _checkboxGroup.Choices.Any())
+            else if (_checkboxGroup?.Choices != null && _checkboxGroup.Choices.Count > 0)
             {
                 _checkboxGroup.SelectedIndicesChanged -= this.CheckboxGroup_SelectedIndicesChanged;
             }

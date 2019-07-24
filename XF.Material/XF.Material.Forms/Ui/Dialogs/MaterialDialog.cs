@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -96,44 +97,48 @@ namespace XF.Material.Forms.UI.Dialogs
 
         public async Task<int> SelectChoiceAsync(
             string title,
-            IList<string> choices,
+            IList choices,
+            string choiceBindingName = null,
             string confirmingText = "Ok",
             string dismissiveText = "Cancel",
             MaterialConfirmationDialogConfiguration configuration = null)
         {
-            return (int)await MaterialConfirmationDialog.ShowSelectChoiceAsync(title, choices, confirmingText, dismissiveText, configuration);
+            return (int)await MaterialConfirmationDialog.ShowSelectChoiceAsync(title, choices, choiceBindingName, confirmingText, dismissiveText, configuration);
         }
 
         public async Task<int> SelectChoiceAsync(
             string title,
-            IList<string> choices,
+            IList choices,
             int selectedIndex,
+            string choiceBindingName = null,
             string confirmingText = "Ok",
             string dismissiveText = "Cancel",
             MaterialConfirmationDialogConfiguration configuration = null)
         {
-            return (int)await MaterialConfirmationDialog.ShowSelectChoiceAsync(title, choices, selectedIndex, confirmingText, dismissiveText, configuration);
+            return (int)await MaterialConfirmationDialog.ShowSelectChoiceAsync(title, choices, selectedIndex, choiceBindingName, confirmingText, dismissiveText, configuration);
         }
 
         public async Task<int[]> SelectChoicesAsync(
             string title,
-            IList<string> choices,
+            IList choices,
+            string choiceBindingName = null,
             string confirmingText = "Ok",
             string dismissiveText = "Cancel",
             MaterialConfirmationDialogConfiguration configuration = null)
         {
-            return (int[])await MaterialConfirmationDialog.ShowSelectChoicesAsync(title, choices, confirmingText, dismissiveText, configuration);
+            return (int[])await MaterialConfirmationDialog.ShowSelectChoicesAsync(title, choices, choiceBindingName, confirmingText, dismissiveText, configuration);
         }
 
         public async Task<int[]> SelectChoicesAsync(
             string title,
-            IList<string> choices,
+            IList choices,
             IList<int> selectedIndices,
+            string choiceBindingName = null,
             string confirmingText = "Ok",
             string dismissiveText = "Cancel",
             MaterialConfirmationDialogConfiguration configuration = null)
         {
-            return (int[])await MaterialConfirmationDialog.ShowSelectChoicesAsync(title, choices, selectedIndices, confirmingText, dismissiveText, configuration);
+            return (int[])await MaterialConfirmationDialog.ShowSelectChoicesAsync(title, choices, selectedIndices, choiceBindingName, confirmingText, dismissiveText, configuration);
         }
 
         public void SetGlobalStyles(
