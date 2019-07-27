@@ -7,7 +7,8 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Xamarin.Essentials;
+using Plugin.DeviceOrientation;
+using Plugin.DeviceOrientation.Abstractions;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XF.Material.Forms.Resources;
@@ -102,7 +103,7 @@ namespace XF.Material.Forms.UI
         private readonly Easing _animationCurve = Easing.SinOut;
         private readonly Dictionary<string, Action> _propertyChangeActions;
         private bool _counterEnabled;
-        private DisplayInfo _lastDeviceDisplay;
+        private DeviceOrientations DisplayOrientation;
         private List<int> _selectedIndicies = new List<int>();
         private bool _wasFocused;
 
@@ -114,7 +115,7 @@ namespace XF.Material.Forms.UI
             this.InitializeComponent();
             this.SetPropertyChangeHandler(ref _propertyChangeActions);
             this.SetControl();
-            _lastDeviceDisplay = DeviceDisplay.MainDisplayInfo;
+            this.DisplayOrientation = Plugin.DeviceOrientation.CrossDeviceOrientation.Current.CurrentOrientation;
         }
 
         public event EventHandler<SelectedItemChangedEventArgs> ChoiceSelected;
@@ -514,7 +515,7 @@ namespace XF.Material.Forms.UI
                 entry.Focused += this.Entry_Focused;
                 entry.Unfocused += this.Entry_Unfocused;
                 entry.Completed += this.Entry_Completed;
-                DeviceDisplay.MainDisplayInfoChanged += this.DeviceDisplay_MainDisplayInfoChanged;
+                CrossDeviceOrientation.Current.OrientationChanged += this.CurrentOnOrientationChanged;
             }
             else
             {
@@ -524,7 +525,7 @@ namespace XF.Material.Forms.UI
                 entry.Focused -= this.Entry_Focused;
                 entry.Unfocused -= this.Entry_Unfocused;
                 entry.Completed += this.Entry_Completed;
-                DeviceDisplay.MainDisplayInfoChanged -= this.DeviceDisplay_MainDisplayInfoChanged;
+                CrossDeviceOrientation.Current.OrientationChanged -= this.CurrentOnOrientationChanged;
             }
         }
 
@@ -827,9 +828,9 @@ namespace XF.Material.Forms.UI
             });
         }
 
-        private void DeviceDisplay_MainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
+        private void CurrentOnOrientationChanged(object sender, OrientationChangedEventArgs e)
         {
-            if (e.DisplayInfo.Orientation != _lastDeviceDisplay.Orientation)
+            if (e.Orientation != this.DisplayOrientation)
             {
                 if (!string.IsNullOrEmpty(entry.Text) && this.ShouldAnimateUnderline)
                 {
@@ -837,7 +838,7 @@ namespace XF.Material.Forms.UI
                     underline.HorizontalOptions = LayoutOptions.FillAndExpand;
                 }
 
-                _lastDeviceDisplay = e.DisplayInfo;
+                this.DisplayOrientation = e.Orientation;
             }
         }
 
@@ -1235,12 +1236,26 @@ namespace XF.Material.Forms.UI
                 if (_selectedIndicies.Count > 0)
                 {
                     IEnumerable<int> choiceIndicies = await MaterialDialog.Instance.SelectChoicesAsync(title, this.Choices, _selectedIndicies, this.ChoicesBindingName, confirmingText, dismissiveText, configuration);
-                    result = choiceIndicies.ToList();
+                    if (choiceIndicies != null)
+                    {
+                        result = choiceIndicies.ToList();
+                    }
+                    else
+                    {
+                        //retain empty list from above
+                    }
                 }
                 else
                 {
                     IEnumerable<int> choiceIndicies = await MaterialDialog.Instance.SelectChoicesAsync(title, this.Choices, this.ChoicesBindingName, confirmingText, dismissiveText, configuration);
-                    result = choiceIndicies.ToList();
+                    if (choiceIndicies != null)
+                    {
+                        result = choiceIndicies.ToList();
+                    }
+                    else
+                    {
+                        //retain empty list from above
+                    }
                 }
 
                 if (result.Count > 0)

@@ -12,13 +12,22 @@
     <DocumentationFile>bin\Release\netstandard2.0\XF.Material.Forms.xml</DocumentationFile>
     <NoWarn>1701;1702;1591</NoWarn>
     <OutputPath>bin\Release</OutputPath>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='iOS Release|AnyCPU'">
     <DocumentationFile>bin\Release\netstandard2.0\XF.Material.Forms.xml</DocumentationFile>
     <OutputPath>bin\Release</OutputPath>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <NoWarn>1701;1702</NoWarn>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Mock|AnyCPU' ">
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AppStore|AnyCPU' ">
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="UI\Dialogs\MaterialDialogs.cs" />
@@ -33,8 +42,8 @@
   <ItemGroup>
     <PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie" Version="3.0.0" />
     <PackageReference Include="Rg.Plugins.Popup" Version="1.1.5.188" />
-    <PackageReference Include="Xamarin.Essentials" Version="1.2.0" />
     <PackageReference Include="Xamarin.Forms" Version="4.1.0.581479" />
+    <PackageReference Include="Plugin.DeviceOrientation" Version="1.0.7" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="UI\Dialogs\MaterialAlertDialog.xaml.cs">

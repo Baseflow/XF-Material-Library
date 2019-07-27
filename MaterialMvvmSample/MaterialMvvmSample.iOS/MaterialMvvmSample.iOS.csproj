@@ -176,7 +176,7 @@
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
     <ProjectReference Include="..\..\XF.Material\XF.Material.Forms\XF.Material.Forms.csproj">
-      <Project>{3BA410B6-935C-4D89-9766-5C0F64CFB271}</Project>
+      <Project>{8D5F7334-ADFF-4925-B1CA-47C199E39CC2}</Project>
       <Name>XF.Material.Forms</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\XF.Material\XF.Material.iOS\XF.Material.iOS.csproj">

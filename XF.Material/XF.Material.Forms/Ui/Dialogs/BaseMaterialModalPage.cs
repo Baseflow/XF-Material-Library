@@ -1,4 +1,6 @@
-﻿using Rg.Plugins.Popup.Animations;
+﻿using Plugin.DeviceOrientation;
+using Plugin.DeviceOrientation.Abstractions;
+using Rg.Plugins.Popup.Animations;
 using Rg.Plugins.Popup.Pages;
 using Rg.Plugins.Popup.Services;
 using System;
@@ -6,7 +8,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace XF.Material.Forms.UI.Dialogs
@@ -34,7 +35,7 @@ namespace XF.Material.Forms.UI.Dialogs
                 ScaleOut = 1
             };
 
-            this.DisplayOrientation = DeviceDisplay.MainDisplayInfo.Orientation;
+            this.DisplayOrientation = Plugin.DeviceOrientation.CrossDeviceOrientation.Current.CurrentOrientation;
         }
 
         public virtual bool Dismissable => true;
@@ -45,7 +46,7 @@ namespace XF.Material.Forms.UI.Dialogs
             set { }
         }
 
-        protected DisplayOrientation DisplayOrientation { get; private set; }
+        protected DeviceOrientations DisplayOrientation { get; private set; }
 
         /// <summary>
         /// Dismisses this modal dialog asynchronously.
@@ -103,14 +104,14 @@ namespace XF.Material.Forms.UI.Dialogs
         {
             base.OnAppearing();
 
-            DeviceDisplay.MainDisplayInfoChanged += this.DeviceDisplay_MainDisplayInfoChanged;
+            CrossDeviceOrientation.Current.OrientationChanged += this.CurrentOnOrientationChanged;
         }
 
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
 
-            DeviceDisplay.MainDisplayInfoChanged -= this.DeviceDisplay_MainDisplayInfoChanged;
+            CrossDeviceOrientation.Current.OrientationChanged -= this.CurrentOnOrientationChanged;
         }
 
         protected override void OnDisappearingAnimationEnd()
@@ -119,7 +120,7 @@ namespace XF.Material.Forms.UI.Dialogs
             this.Dispose();
         }
 
-        protected virtual void OnOrientationChanged(DisplayOrientation orientation)
+        protected virtual void OnOrientationChanged(DeviceOrientations orientation)
         {
         }
 
@@ -147,10 +148,10 @@ namespace XF.Material.Forms.UI.Dialogs
                 .Exists(p => p.GetType() == this.GetType());
         }
 
-        private void DeviceDisplay_MainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
+        private void CurrentOnOrientationChanged(object sender, OrientationChangedEventArgs e)
         {
-            if (this.DisplayOrientation == e.DisplayInfo.Orientation) return;
-            this.DisplayOrientation = e.DisplayInfo.Orientation;
+            if (this.DisplayOrientation == e.Orientation) return;
+            this.DisplayOrientation = e.Orientation;
             this.OnOrientationChanged(this.DisplayOrientation);
         }
     }
