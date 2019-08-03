@@ -30,6 +30,40 @@ namespace XF.Material.Forms.UI
 
         public static readonly BindableProperty ChoicesProperty = BindableProperty.Create(nameof(Choices), typeof(IList), typeof(MaterialTextField));
 
+        public static readonly BindableProperty SelectedChoiceProperty = BindableProperty.Create(nameof(SelectedChoice), typeof(object), typeof(MaterialTextField),null,BindingMode.TwoWay,null, propertyChanged: SelectedChoicePropertyChange);
+
+        static void SelectedChoicePropertyChange(BindableObject bindable, object oldValue, object newValue)
+        {
+            var control = bindable as MaterialTextField;
+            if (control == null)
+                return;
+
+            if (control.Choices?.Count > 0)
+            {
+                if (newValue != null)
+                {
+                    // 1. Get selected value index
+                    // 1.1 Current selected index and get selected index should not same.
+                    // 2. set control selected index
+
+                   // List<object> data = control.Choices as List<object>;
+
+                    var index = control.Choices.IndexOf(newValue);
+                    if (control._selectedIndex != index)
+                    {
+                        control._selectedIndex  = index;
+                        control.Text = control._choices[index];
+                        control.AnimateToInactiveOrFocusedStateOnStart(control);
+
+                        control.UpdateCounter();
+                        // control.OnSelectChoices();
+                    }
+
+                }
+            }
+            
+        }
+
         public static readonly BindableProperty ErrorColorProperty = BindableProperty.Create(nameof(ErrorColor), typeof(Color), typeof(MaterialTextField), Material.Color.Error);
 
         public static readonly BindableProperty ErrorTextProperty = BindableProperty.Create(nameof(ErrorText), typeof(string), typeof(MaterialTextField));
@@ -95,6 +129,8 @@ namespace XF.Material.Forms.UI
         public static readonly BindableProperty TintColorProperty = BindableProperty.Create(nameof(TintColor), typeof(Color), typeof(MaterialTextField), Material.Color.Secondary);
 
         public static readonly BindableProperty UnderlineColorProperty = BindableProperty.Create(nameof(UnderlineColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#99000000"));
+
+        //public static readonly BindableProperty ChoicesBindingNameProperty = BindableProperty.Create(nameof(Text), typeof(string), typeof(MaterialTextField), string.Empty, BindingMode.TwoWay);
 
         private const double AnimationDuration = 0.35;
         private readonly Easing _animationCurve = Easing.SinOut;
@@ -165,10 +201,17 @@ namespace XF.Material.Forms.UI
             set => this.SetValue(ChoicesProperty, value);
         }
 
+        public object SelectedChoice
+        {
+            get => (object)this.GetValue(SelectedChoiceProperty);
+            set => this.SetValue(SelectedChoiceProperty, value);
+        }
+
+
         /// <summary>
         /// Gets or sets the name of the property to display of each object in the <see cref="Choices"/> property. This will be ignored if the objects are strings.
         /// </summary>
-        public string ChoicesBindingName { get; set; }
+        
 
         /// <summary>
         /// Gets or sets the command that will execute if a choice was selected when the <see cref="InputType"/> is set to <see cref="MaterialTextFieldInputType.Choice"/>.
@@ -422,6 +465,16 @@ namespace XF.Material.Forms.UI
             set => this.SetValue(ShouldAnimateUnderlineProperty, value);
         }
 
+       public string ChoicesBindingName { get; set; }
+
+        //public string ChoicesBindingName
+        //{
+        //    get => (string)this.GetValue(ChoicesBindingNameProperty);
+        //    set => this.SetValue(ChoicesBindingNameProperty, value);
+        //}
+
+
+
         /// <summary>
         /// Gets or sets the input text of this text field.
         /// </summary>
@@ -439,7 +492,7 @@ namespace XF.Material.Forms.UI
                     placeholder.IsVisible = true;
                 }
 
-                this.SetValue(TextProperty, value);
+              this.SetValue(TextProperty, value);
             }
         }
 
@@ -956,7 +1009,7 @@ namespace XF.Material.Forms.UI
             {
                 return null;
             }
-
+            
             return this.Choices[index];
         }
 
@@ -1189,6 +1242,7 @@ namespace XF.Material.Forms.UI
             {
                 _selectedIndex = result;
                 this.Text = _choices[result];
+               // entry.Text = Text;
             }
         }
 
@@ -1204,15 +1258,18 @@ namespace XF.Material.Forms.UI
             if (this.InputType == MaterialTextFieldInputType.Choice && !string.IsNullOrEmpty(text))
             {
                 var selectedChoice = this.GetSelectedChoice(_selectedIndex);
+                SelectedChoice = selectedChoice;
                 this.ChoiceSelected?.Invoke(this, new SelectedItemChangedEventArgs(selectedChoice));
                 this.ChoiceSelectedCommand?.Execute(selectedChoice);
             }
             else if (this.InputType == MaterialTextFieldInputType.Choice && string.IsNullOrEmpty(text))
             {
                 _selectedIndex = -1;
+                
             }
-
-            entry.Text = text;
+           
+                entry.Text = text;
+           
 
             this.AnimateToInactiveOrFocusedStateOnStart(this);
             this.UpdateCounter();

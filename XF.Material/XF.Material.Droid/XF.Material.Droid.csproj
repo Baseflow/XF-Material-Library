@@ -144,7 +144,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\XF.Material.Forms\XF.Material.Forms.csproj">
-      <Project>{C314D3B8-EAEB-491D-AB5E-8C9A43EAC131}</Project>
+      <Project>{77F8A41F-E79E-4EB6-BA26-DBAE7612C663}</Project>
       <Name>XF.Material.Forms</Name>
     </ProjectReference>
   </ItemGroup>
@@ -177,10 +177,10 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Com.Airbnb.Android.Lottie">
-      <Version>2.7.0</Version>
+      <Version>3.0.3</Version>
     </PackageReference>
     <PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie">
-      <Version>2.7.0</Version>
+      <Version>3.0.0</Version>
     </PackageReference>
     <PackageReference Include="Rg.Plugins.Popup">
       <Version>1.1.5.188</Version>
@@ -195,10 +195,10 @@
       <Version>28.0.0.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Essentials">
-      <Version>1.0.1</Version>
+      <Version>1.2.0</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms">
-      <Version>3.5.0.129452</Version>
+      <Version>4.1.0.618606</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
