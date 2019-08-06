@@ -9,7 +9,7 @@ namespace XF.Material.iOS
         /// </summary>
         public static void Init()
         {
-            Rg.Plugins.Popup.Popup.Init();
+            //Popup.Popup.Init();
             AnimationViewRenderer.Init();
         }
     }

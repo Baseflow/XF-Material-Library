@@ -46,6 +46,9 @@
     <Compile Update="Resources\MaterialSizes.xaml.cs">
       <DependentUpon>MaterialSizes.xaml</DependentUpon>
     </Compile>
+    <Compile Update="UI\MaterialDateField.xaml.cs">
+      <DependentUpon>MaterialDateField.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="UI\Dialogs\MaterialAlertDialog.xaml">
