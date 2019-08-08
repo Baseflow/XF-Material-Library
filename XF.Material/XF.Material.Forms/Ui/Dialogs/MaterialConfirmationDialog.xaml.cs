@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Plugin.DeviceOrientation.Abstractions;
@@ -101,6 +102,7 @@ namespace XF.Material.Forms.UI.Dialogs
 
             dialog._radioButtonGroup.ShouldShowScrollbar = true;
             dialog.DialogTitle.Text = !string.IsNullOrEmpty(title) ? title : throw new ArgumentNullException(nameof(title));
+            dialog.PositiveButton.IsEnabled = false;
             dialog.PositiveButton.Text = confirmingText;
             dialog.NegativeButton.Text = dismissiveText;
             dialog.container.Content = dialog._radioButtonGroup;
@@ -172,6 +174,7 @@ namespace XF.Material.Forms.UI.Dialogs
             dialog._isMultiChoice = true;
             dialog.DialogTitle.Text = !string.IsNullOrEmpty(title) ? title : throw new ArgumentNullException(nameof(title));
             dialog.container.Content = dialog._checkboxGroup;
+            dialog.PositiveButton.IsEnabled = false;
             dialog.PositiveButton.Text = confirmingText;
             dialog.NegativeButton.Text = dismissiveText;
             await dialog.ShowAsync();
@@ -288,6 +291,7 @@ namespace XF.Material.Forms.UI.Dialogs
 
         private void CheckboxGroup_SelectedIndicesChanged(object sender, SelectedIndicesChangedEventArgs e)
         {
+            Debug.WriteLine($"CheckboxGroup_SelectedIndicesChanged: {(e.Indices.Any() ? string.Join(",", e.Indices) : "No indicies")}");
             PositiveButton.IsEnabled = e.Indices.Any();
         }
 
@@ -295,7 +299,10 @@ namespace XF.Material.Forms.UI.Dialogs
         {
             _preferredConfig = configuration ?? GlobalConfiguration;
 
-            if (_preferredConfig == null) return;
+            if (_preferredConfig == null)
+            {
+                return;
+            }
             this.BackgroundColor = _preferredConfig.ScrimColor;
             Container.CornerRadius = _preferredConfig.CornerRadius;
             Container.BackgroundColor = _preferredConfig.BackgroundColor;
@@ -309,6 +316,7 @@ namespace XF.Material.Forms.UI.Dialogs
 
         private void DialogActionList_SelectedIndexChanged(object sender, SelectedIndexChangedEventArgs e)
         {
+            Debug.WriteLine($"DialogActionList_SelectedIndexChanged: {e.Index}");
             PositiveButton.IsEnabled = e.Index >= 0;
         }
 
