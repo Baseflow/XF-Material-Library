@@ -20,10 +20,10 @@ namespace XF.Material.Forms.UI
 {
     /// <inheritdoc />
     /// <summary>
-    /// A control that let users enter and edit text.
+    /// A control that let users enter and editor text.
     /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MaterialTextField : ContentView, IMaterialElementConfiguration
+    public partial class MaterialTextArea : ContentView, IMaterialElementConfiguration
     {
         public static readonly BindableProperty AlwaysShowUnderlineProperty = BindableProperty.Create(nameof(AlwaysShowUnderline), typeof(bool), typeof(MaterialTextField), false);
 
@@ -77,12 +77,6 @@ namespace XF.Material.Forms.UI
 
         public static readonly BindableProperty PlaceholderProperty = BindableProperty.Create(nameof(Placeholder), typeof(string), typeof(MaterialTextField), string.Empty);
 
-        public static readonly BindableProperty ReturnCommandParameterProperty = BindableProperty.Create(nameof(ReturnCommandParameter), typeof(object), typeof(MaterialTextField));
-
-        public static readonly BindableProperty ReturnCommandProperty = BindableProperty.Create(nameof(ReturnCommand), typeof(ICommand), typeof(MaterialTextField));
-
-        public static readonly BindableProperty ReturnTypeProperty = BindableProperty.Create(nameof(ReturnType), typeof(ReturnType), typeof(MaterialTextField), ReturnType.Default);
-
         public static readonly BindableProperty ShouldAnimateUnderlineProperty = BindableProperty.Create(nameof(ShouldAnimateUnderline), typeof(bool), typeof(MaterialTextField), true);
 
         public static readonly BindableProperty TextChangeCommandProperty = BindableProperty.Create(nameof(TextChangeCommand), typeof(Command<string>), typeof(MaterialTextField));
@@ -108,9 +102,9 @@ namespace XF.Material.Forms.UI
         private bool _wasFocused;
 
         /// <summary>
-        /// Initializes a new instance of <see cref="MaterialTextField"/>.
+        /// Initializes a new instance of <see cref="MaterialTextArea"/>.
         /// </summary>
-        public MaterialTextField()
+        public MaterialTextArea()
         {
             this.InitializeComponent();
             this.SetPropertyChangeHandler(ref _propertyChangeActions);
@@ -121,27 +115,27 @@ namespace XF.Material.Forms.UI
         public event EventHandler<SelectedItemChangedEventArgs> ChoiceSelected;
 
         /// <summary>
-        /// Raised when this text field receives focus.
+        /// Raised when this text area receives focus.
         /// </summary>
         public new event EventHandler<FocusEventArgs> Focused;
 
         /// <summary>
-        /// Raised when this text field loses focus.
+        /// Raised when this text area loses focus.
         /// </summary>
         public new event EventHandler<FocusEventArgs> Unfocused;
 
         /// <summary>
-        /// Raised when the input text of this text field has changed.
+        /// Raised when the input text of this text area has changed.
         /// </summary>
         public event EventHandler<TextChangedEventArgs> TextChanged;
 
         /// <summary>
-        /// Raised when the user finalizes the input on this text field using the return key.
+        /// Raised when the user finalizes the input on this text area using the return key.
         /// </summary>
         public event EventHandler Completed;
 
         /// <summary>
-        /// Gets or sets whether the underline accent of this text field should always show or not.
+        /// Gets or sets whether the underline accent of this text area should always show or not.
         /// </summary>
         public bool AlwaysShowUnderline
         {
@@ -150,7 +144,7 @@ namespace XF.Material.Forms.UI
         }
 
         /// <summary>
-        /// Gets or sets the background color of this text field.
+        /// Gets or sets the background color of this text area.
         /// </summary>
         public new Color BackgroundColor
         {
@@ -159,7 +153,7 @@ namespace XF.Material.Forms.UI
         }
 
         /// <summary>
-        /// Gets or sets the collection of objects which the user will choose from. This is required when <see cref="InputType"/> is set to <see cref="MaterialTextFieldInputType.Choice"/> or <see cref="MaterialTextFieldInputType.MultiChoice"/>.
+        /// Gets or sets the collection of objects which the user will choose from. This is required when <see cref="InputType"/> is set to <see cref="MaterialTextFieldInputType.Choice"/>.
         /// </summary>
         public IList Choices
         {
@@ -173,7 +167,7 @@ namespace XF.Material.Forms.UI
         public string ChoicesBindingName { get; set; }
 
         /// <summary>
-        /// Gets or sets the command that will execute if a choice was selected when the <see cref="InputType"/> is set to <see cref="MaterialTextFieldInputType.Choice"/> or <see cref="MaterialTextFieldInputType.MultiChoice"/>.
+        /// Gets or sets the command that will execute if a choice was selected when the <see cref="InputType"/> is set to <see cref="MaterialTextFieldInputType.Choice"/>.
         /// </summary>
         public ICommand ChoiceSelectedCommand
         {
@@ -182,7 +176,7 @@ namespace XF.Material.Forms.UI
         }
 
         /// <summary>
-        /// Gets or sets the color to indicate an error in this text field.
+        /// Gets or sets the color to indicate an error in this text area.
         /// The default value is the color of <see cref="MaterialColorConfiguration.Error"/>.
         /// </summary>
         public Color ErrorColor
@@ -192,7 +186,7 @@ namespace XF.Material.Forms.UI
         }
 
         /// <summary>
-        /// Gets or sets the error text of this text field.
+        /// Gets or sets the error text of this text area.
         /// </summary>
         public string ErrorText
         {
@@ -210,7 +204,7 @@ namespace XF.Material.Forms.UI
         }
 
         /// <summary>
-        /// Gets or sets whether the placeholder label will float at top of the text field when focused or when it has text.
+        /// Gets or sets whether the placeholder label will float at top of the text area when focused or when it has text.
         /// </summary>
         public bool FloatingPlaceholderEnabled
         {
@@ -228,7 +222,7 @@ namespace XF.Material.Forms.UI
         }
 
         /// <summary>
-        /// Gets or sets the command that will be executed when this text field receives or loses focus.
+        /// Gets or sets the command that will be executed when this text area receives or loses focus.
         /// </summary>
         public Command<bool> FocusCommand
         {
@@ -237,7 +231,7 @@ namespace XF.Material.Forms.UI
         }
 
         /// <summary>
-        /// Gets or sets the boolean value whether this text field has an error, and if it will show the its error text.
+        /// Gets or sets the boolean value whether this text area has an error, and if it will show the its error text.
         /// </summary>
         public bool HasError
         {
@@ -246,7 +240,7 @@ namespace XF.Material.Forms.UI
         }
 
         /// <summary>
-        /// Gets or sets the helper text of this text field.
+        /// Gets or sets the helper text of this text area.
         /// </summary>
         public string HelperText
         {
@@ -255,7 +249,7 @@ namespace XF.Material.Forms.UI
         }
 
         /// <summary>
-        /// Gets or sets the color of this text field's helper text.
+        /// Gets or sets the color of this text area's helper text.
         /// </summary>
         public Color HelperTextColor
         {
@@ -264,7 +258,7 @@ namespace XF.Material.Forms.UI
         }
 
         /// <summary>
-        /// Gets or sets the font family of this text field's helper text.
+        /// Gets or sets the font family of this text area's helper text.
         /// </summary>
         public string HelperTextFontFamily
         {
@@ -273,7 +267,7 @@ namespace XF.Material.Forms.UI
         }
 
         /// <summary>
-        /// Gets or sets the horizontal padding of the text field.
+        /// Gets or sets the horizontal padding of the text area.
         /// </summary>
         public MaterialHorizontalThickness HorizontalPadding
         {
@@ -282,7 +276,7 @@ namespace XF.Material.Forms.UI
         }
 
         /// <summary>
-        /// Gets or sets the keyboard input type of this text field.
+        /// Gets or sets the keyboard input type of this text area.
         /// </summary>
         public MaterialTextFieldInputType InputType
         {
@@ -300,7 +294,7 @@ namespace XF.Material.Forms.UI
         }
 
         /// <summary>
-        /// Gets or sets whether the counter for the max input length of this text field is visible or not.
+        /// Gets or sets whether the counter for the max input length of this text area is visible or not.
         /// </summary>
         public bool IsMaxLengthCounterVisible
         {
@@ -327,7 +321,7 @@ namespace XF.Material.Forms.UI
         }
 
         /// <summary>
-        /// Gets or sets the image source of the icon to be showed at the left side of this text field.
+        /// Gets or sets the image source of the icon to be showed at the left side of this text area.
         /// </summary>
         public string LeadingIcon
         {
@@ -336,7 +330,7 @@ namespace XF.Material.Forms.UI
         }
 
         /// <summary>
-        /// Gets or sets the tint color of the icon of this text field.
+        /// Gets or sets the tint color of the icon of this text area.
         /// </summary>
         public Color LeadingIconTintColor
         {
@@ -345,7 +339,7 @@ namespace XF.Material.Forms.UI
         }
 
         /// <summary>
-        /// Gets or sets the maximum allowed number of characters in this text field.
+        /// Gets or sets the maximum allowed number of characters in this text area.
         /// </summary>
         public int MaxLength
         {
@@ -354,7 +348,7 @@ namespace XF.Material.Forms.UI
         }
 
         /// <summary>
-        /// Gets or sets the text of this text field's placeholder.
+        /// Gets or sets the text of this text area's placeholder.
         /// </summary>
         public string Placeholder
         {
@@ -371,7 +365,7 @@ namespace XF.Material.Forms.UI
         }
 
         /// <summary>
-        /// Gets or sets the color of this text field's placeholder.
+        /// Gets or sets the color of this text area's placeholder.
         /// </summary>
         public Color PlaceholderColor
         {
@@ -380,39 +374,12 @@ namespace XF.Material.Forms.UI
         }
 
         /// <summary>
-        /// Gets or sets the font family of this text field's placeholder
+        /// Gets or sets the font family of this text area's placeholder
         /// </summary>
         public string PlaceholderFontFamily
         {
             get => (string)this.GetValue(PlaceholderFontFamilyProperty);
             set => this.SetValue(PlaceholderFontFamilyProperty, value);
-        }
-
-        /// <summary>
-        /// Gets or sets the command that will run when the user returns the input in this textfield.
-        /// </summary>
-        public ICommand ReturnCommand
-        {
-            get => (ICommand)this.GetValue(ReturnCommandProperty);
-            set => this.SetValue(ReturnCommandProperty, value);
-        }
-
-        /// <summary>
-        /// Gets or sets the parameter of <see cref="ReturnCommand"/>.
-        /// </summary>
-        public object ReturnCommandParameter
-        {
-            get => this.GetValue(ReturnCommandParameterProperty);
-            set => this.SetValue(ReturnCommandParameterProperty, value);
-        }
-
-        /// <summary>
-        /// Gets or sets the return type of this textfield.
-        /// </summary>
-        public ReturnType ReturnType
-        {
-            get => (ReturnType)this.GetValue(ReturnTypeProperty);
-            set => this.SetValue(ReturnTypeProperty, value);
         }
 
         /// <summary>
@@ -425,7 +392,7 @@ namespace XF.Material.Forms.UI
         }
 
         /// <summary>
-        /// Gets or sets the input text of this text field.
+        /// Gets or sets the input text of this text area.
         /// </summary>
         public string Text
         {
@@ -434,7 +401,7 @@ namespace XF.Material.Forms.UI
         }
 
         /// <summary>
-        /// Gets or sets the command that will execute if there is a change in this text field's input text.
+        /// Gets or sets the command that will execute if there is a change in this text area's input text.
         /// </summary>
         public Command<string> TextChangeCommand
         {
@@ -443,7 +410,7 @@ namespace XF.Material.Forms.UI
         }
 
         /// <summary>
-        /// Gets or sets the color of this text field's input text.
+        /// Gets or sets the color of this text area's input text.
         /// </summary>
         public Color TextColor
         {
@@ -452,7 +419,7 @@ namespace XF.Material.Forms.UI
         }
 
         /// <summary>
-        /// Gets or sets the font family of this text field's input text.
+        /// Gets or sets the font family of this text area's input text.
         /// </summary>
         public string TextFontFamily
         {
@@ -470,7 +437,7 @@ namespace XF.Material.Forms.UI
         }
 
         /// <summary>
-        /// Gets or sets the tint color of the underline and the placeholder of this text field when focused.
+        /// Gets or sets the tint color of the underline and the placeholder of this text area when focused.
         /// The default value is the color of <see cref="MaterialColorConfiguration.Secondary"/>.
         /// </summary>
         public Color TintColor
@@ -480,7 +447,7 @@ namespace XF.Material.Forms.UI
         }
 
         /// <summary>
-        /// Gets or sets the color of the underline when this text field is activated. <see cref="AlwaysShowUnderline"/> is set to true.
+        /// Gets or sets the color of the underline when this text area is activated. <see cref="AlwaysShowUnderline"/> is set to true.
         /// </summary>
         public Color UnderlineColor
         {
@@ -497,35 +464,35 @@ namespace XF.Material.Forms.UI
         {
             if (created)
             {
-                entry.PropertyChanged += this.Entry_PropertyChanged;
-                entry.TextChanged += this.Entry_TextChanged;
-                entry.SizeChanged += this.Entry_SizeChanged;
-                entry.Focused += this.Entry_Focused;
-                entry.Unfocused += this.Entry_Unfocused;
-                entry.Completed += this.Entry_Completed;
+                editor.PropertyChanged += this.Entry_PropertyChanged;
+                editor.TextChanged += this.Entry_TextChanged;
+                editor.SizeChanged += this.Entry_SizeChanged;
+                editor.Focused += this.Entry_Focused;
+                editor.Unfocused += this.Entry_Unfocused;
+                editor.Completed += this.Entry_Completed;
                 CrossDeviceOrientation.Current.OrientationChanged += this.CurrentOnOrientationChanged;
             }
             else
             {
-                entry.PropertyChanged -= this.Entry_PropertyChanged;
-                entry.TextChanged -= this.Entry_TextChanged;
-                entry.SizeChanged -= this.Entry_SizeChanged;
-                entry.Focused -= this.Entry_Focused;
-                entry.Unfocused -= this.Entry_Unfocused;
-                entry.Completed += this.Entry_Completed;
+                editor.PropertyChanged -= this.Entry_PropertyChanged;
+                editor.TextChanged -= this.Entry_TextChanged;
+                editor.SizeChanged -= this.Entry_SizeChanged;
+                editor.Focused -= this.Entry_Focused;
+                editor.Unfocused -= this.Entry_Unfocused;
+                editor.Completed += this.Entry_Completed;
                 CrossDeviceOrientation.Current.OrientationChanged -= this.CurrentOnOrientationChanged;
             }
         }
 
         /// <summary>
-        /// Requests to set focus on this text field.
+        /// Requests to set focus on this text area.
         /// </summary>
-        public new void Focus() => entry.Focus();
+        public new void Focus() => editor.Focus();
 
         /// <summary>
-        /// Requests to unset the focus on this text field.
+        /// Requests to unset the focus on this text area.
         /// </summary>
-        public new void Unfocus() => entry.Unfocus();
+        public new void Unfocus() => editor.Unfocus();
 
         protected override void OnBindingContextChanged()
         {
@@ -563,7 +530,7 @@ namespace XF.Material.Forms.UI
             var anim = new Animation();
             var hasText = !string.IsNullOrEmpty(this.Text);
 
-            if (entry.IsFocused)
+            if (editor.IsFocused)
             {
                 var tintColor = this.HasError ? this.ErrorColor : this.TintColor;
 
@@ -601,20 +568,20 @@ namespace XF.Material.Forms.UI
         private void AnimateToInactiveOrFocusedState()
         {
             Color tintColor;
-            double preferredStartFont = this.FloatingPlaceholderFontSize == 0 ? entry.FontSize * 0.75 : this.FloatingPlaceholderFontSize;
-            double preferredEndFont = this.FloatingPlaceholderFontSize == 0 ? entry.FontSize * 0.75 : this.FloatingPlaceholderFontSize;
-            double startFont = entry.IsFocused ? entry.FontSize : preferredStartFont;
-            double endFOnt = entry.IsFocused ? preferredEndFont : entry.FontSize;
+            double preferredStartFont = this.FloatingPlaceholderFontSize == 0 ? editor.FontSize * 0.75 : this.FloatingPlaceholderFontSize;
+            double preferredEndFont = this.FloatingPlaceholderFontSize == 0 ? editor.FontSize * 0.75 : this.FloatingPlaceholderFontSize;
+            double startFont = editor.IsFocused ? editor.FontSize : preferredStartFont;
+            double endFOnt = editor.IsFocused ? preferredEndFont : editor.FontSize;
             var startY = placeholder.TranslationY;
-            double endY = entry.IsFocused ? -(entry.FontSize * 0.8) : 0;
+            double endY = editor.IsFocused ? -(editor.FontSize * 0.8) : 0;
 
             if (this.HasError)
             {
-                tintColor = entry.IsFocused ? this.ErrorColor : this.PlaceholderColor;
+                tintColor = editor.IsFocused ? this.ErrorColor : this.PlaceholderColor;
             }
             else
             {
-                tintColor = entry.IsFocused ? this.TintColor : this.PlaceholderColor;
+                tintColor = editor.IsFocused ? this.TintColor : this.PlaceholderColor;
             }
 
             var anim = this.FloatingPlaceholderEnabled ? new Animation
@@ -629,17 +596,17 @@ namespace XF.Material.Forms.UI
                     AnimationDuration,
                     new Animation(v => placeholder.TranslationY = v, startY, endY, _animationCurve, () =>
                     {
-                        if(this.HasError && entry.IsFocused)
+                        if(this.HasError && editor.IsFocused)
                         {
                             placeholder.TextColor = this.ErrorColor;
                         }
 
-                        placeholder.TextColor = tintColor;
+                         placeholder.TextColor = tintColor;
                     })
                 }
             } : new Animation();
 
-            if (entry.IsFocused)
+            if (editor.IsFocused)
             {
                 if (this.ShouldAnimateUnderline)
                 {
@@ -670,10 +637,10 @@ namespace XF.Material.Forms.UI
 
         private void AnimateToInactiveOrFocusedStateOnStart(object startObject)
         {
-            var placeholderEndY = -(entry.FontSize * 0.8);
-            var placeholderEndFont = entry.FontSize * 0.75;
+            var placeholderEndY = -(editor.FontSize * 0.8);
+            var placeholderEndFont = editor.FontSize * 0.75;
 
-            if (!this.FloatingPlaceholderEnabled && string.IsNullOrEmpty(entry.Text))
+            if (!this.FloatingPlaceholderEnabled && string.IsNullOrEmpty(editor.Text))
             {
                 placeholder.TextColor = this.PlaceholderColor;
             }
@@ -684,7 +651,7 @@ namespace XF.Material.Forms.UI
                 {
                     return;
                 }
-                entry.Opacity = 0;
+                editor.Opacity = 0;
 
                 Device.BeginInvokeOnMainThread(() =>
                 {
@@ -692,11 +659,11 @@ namespace XF.Material.Forms.UI
 
                     if (this.FloatingPlaceholderEnabled)
                     {
-                        anim.Add(0.0, AnimationDuration, new Animation(v => placeholder.FontSize = v, entry.FontSize, placeholderEndFont, _animationCurve));
+                        anim.Add(0.0, AnimationDuration, new Animation(v => placeholder.FontSize = v, editor.FontSize, placeholderEndFont, _animationCurve));
                         anim.Add(0.0, AnimationDuration, new Animation(v => placeholder.TranslationY = v, placeholder.TranslationY, placeholderEndY, _animationCurve, () =>
                         {
                             placeholder.TextColor = this.HasError ? this.ErrorColor : this.FloatingPlaceholderColor;
-                            entry.Opacity = 1;
+                            editor.Opacity = 1;
                         }));
                     }
 
@@ -710,14 +677,14 @@ namespace XF.Material.Forms.UI
                     anim.Commit(this, "Anim2", rate: 2, length: (uint)(AnimationDuration * 1000), easing: _animationCurve);
                 });
 
-                entry.Opacity = 1;
+                editor.Opacity = 1;
 
                 return;
             }
 
             if (startObject != null && string.IsNullOrEmpty(this.Text) && placeholder.TranslationY == placeholderEndY)
             {
-                if (entry.IsFocused)
+                if (editor.IsFocused)
                 {
                     return;
                 }
@@ -728,11 +695,11 @@ namespace XF.Material.Forms.UI
 
                     if (this.FloatingPlaceholderEnabled)
                     {
-                        anim.Add(0.0, AnimationDuration, new Animation(v => placeholder.FontSize = v, placeholderEndFont, entry.FontSize, _animationCurve));
+                        anim.Add(0.0, AnimationDuration, new Animation(v => placeholder.FontSize = v, placeholderEndFont, editor.FontSize, _animationCurve));
                         anim.Add(0.0, AnimationDuration, new Animation(v => placeholder.TranslationY = v, placeholder.TranslationY, 0, _animationCurve, () =>
                         {
                             placeholder.TextColor = this.PlaceholderColor;
-                            entry.Opacity = 1;
+                            editor.Opacity = 1;
                         }));
                     }
 
@@ -749,7 +716,7 @@ namespace XF.Material.Forms.UI
         private void ChangeToErrorState()
         {
             const int animDuration = 250;
-            placeholder.TextColor = (this.FloatingPlaceholderEnabled && entry.IsFocused) || (this.FloatingPlaceholderEnabled && !string.IsNullOrEmpty(this.Text)) ? this.ErrorColor : this.PlaceholderColor;
+            placeholder.TextColor = (this.FloatingPlaceholderEnabled && editor.IsFocused) || (this.FloatingPlaceholderEnabled && !string.IsNullOrEmpty(this.Text)) ? this.ErrorColor : this.PlaceholderColor;
             counter.TextColor = this.ErrorColor;
             underline.Color = this.ShouldAnimateUnderline ? this.ErrorColor : Color.Transparent;
             persistentUnderline.Color = this.AlwaysShowUnderline ? this.ErrorColor : Color.Transparent;
@@ -778,14 +745,14 @@ namespace XF.Material.Forms.UI
         {
             const double opactiy = 1;
             this.IsEnabled = true;
-            entry.Opacity = opactiy;
+            editor.Opacity = opactiy;
             placeholder.Opacity = opactiy;
             helper.Opacity = opactiy;
             underline.Opacity = opactiy;
 
             Device.BeginInvokeOnMainThread(async () =>
             {
-                if (IsChoiceInput(this.InputType))
+                if (this.InputType == MaterialTextFieldInputType.Choice)
                 {
                     trailingIcon.Source = "xf_arrow_dropdown";
                     trailingIcon.TintColor = this.TextColor;
@@ -820,7 +787,7 @@ namespace XF.Material.Forms.UI
         {
             if (e.Orientation != this.DisplayOrientation)
             {
-                if (!string.IsNullOrEmpty(entry.Text) && this.ShouldAnimateUnderline)
+                if (!string.IsNullOrEmpty(editor.Text) && this.ShouldAnimateUnderline)
                 {
                     underline.WidthRequest = -1;
                     underline.HorizontalOptions = LayoutOptions.FillAndExpand;
@@ -835,7 +802,7 @@ namespace XF.Material.Forms.UI
         private void Entry_Focused(object sender, FocusEventArgs e)
         {
             _wasFocused = true;
-            this.FocusCommand?.Execute(entry.IsFocused);
+            this.FocusCommand?.Execute(editor.IsFocused);
             this.Focused?.Invoke(this, e);
             this.UpdateCounter();
         }
@@ -844,16 +811,16 @@ namespace XF.Material.Forms.UI
         {
             switch (e.PropertyName)
             {
-                case nameof(this.IsFocused) when string.IsNullOrEmpty(entry.Text):
+                case nameof(this.IsFocused) when string.IsNullOrEmpty(editor.Text):
                     this.AnimateToInactiveOrFocusedState();
                     break;
 
-                case nameof(this.IsFocused) when !string.IsNullOrEmpty(entry.Text):
+                case nameof(this.IsFocused) when !string.IsNullOrEmpty(editor.Text):
                     this.AnimateToActivatedState();
                     break;
 
                 case nameof(Entry.Text):
-                    this.Text = entry.Text;
+                    this.Text = editor.Text;
                     this.UpdateCounter();
                     break;
             }
@@ -862,7 +829,7 @@ namespace XF.Material.Forms.UI
         private void Entry_SizeChanged(object sender, EventArgs e)
         {
             var baseHeight = this.FloatingPlaceholderEnabled ? 56 : 40;
-            var diff = entry.Height - 20;
+            var diff = editor.Height - 20;
             var rawRowHeight = baseHeight + diff;
             _autoSizingRow.Height = new GridLength(rawRowHeight);
 
@@ -871,24 +838,24 @@ namespace XF.Material.Forms.UI
             if (leadingIcon.IsVisible)
             {
                 leadingIcon.Margin = new Thickness(this.HorizontalPadding.Left, iconVerticalMargin, 0, iconVerticalMargin);
-                entry.Margin = new Thickness(12, entry.Margin.Top, this.HorizontalPadding.Right, entry.Margin.Bottom);
+                editor.Margin = new Thickness(12, editor.Margin.Top, this.HorizontalPadding.Right, editor.Margin.Bottom);
             }
             else
             {
-                entry.Margin = new Thickness(this.HorizontalPadding.Left, entry.Margin.Top, this.HorizontalPadding.Right, entry.Margin.Bottom);
+                editor.Margin = new Thickness(this.HorizontalPadding.Left, editor.Margin.Top, this.HorizontalPadding.Right, editor.Margin.Bottom);
             }
 
             if (trailingIcon.IsVisible)
             {
                 var entryPaddingLeft = leadingIcon.IsVisible ? 12 : this.HorizontalPadding;
                 trailingIcon.Margin = new Thickness(12, iconVerticalMargin, this.HorizontalPadding.Right, iconVerticalMargin);
-                entry.Margin = new Thickness(entryPaddingLeft.Left, entry.Margin.Top, 0, entry.Margin.Bottom);
+                editor.Margin = new Thickness(entryPaddingLeft.Left, editor.Margin.Top, 0, editor.Margin.Bottom);
             }
 
             helper.Margin = new Thickness(this.HorizontalPadding.Left, helper.Margin.Top, 12, 0);
             counter.Margin = new Thickness(0, counter.Margin.Top, this.HorizontalPadding.Right, 0);
 
-            var placeholderLeftMargin = this.FloatingPlaceholderEnabled ? this.HorizontalPadding.Left : entry.Margin.Left;
+            var placeholderLeftMargin = this.FloatingPlaceholderEnabled ? this.HorizontalPadding.Left : editor.Margin.Left;
             placeholder.Margin = new Thickness(placeholderLeftMargin, 0, 0, 0);
 
             if (this.HasError)
@@ -899,13 +866,13 @@ namespace XF.Material.Forms.UI
 
         private void Entry_TextChanged(object sender, TextChangedEventArgs e)
         {
-            this.TextChangeCommand?.Execute(entry.Text);
+            this.TextChangeCommand?.Execute(editor.Text);
             this.TextChanged?.Invoke(this, e);
         }
 
         private void Entry_Unfocused(object sender, FocusEventArgs e)
         {
-            this.FocusCommand?.Execute(entry.IsFocused);
+            this.FocusCommand?.Execute(editor.IsFocused);
             this.Unfocused?.Invoke(this, e);
             this.UpdateCounter();
         }
@@ -991,6 +958,7 @@ namespace XF.Material.Forms.UI
 
         private void OnChoicesChanged(ICollection choices)
         {
+            //_choices = choices?.Count > 0 ? this.GetChoices() : null;
         }
 
         private void OnEnabledChanged(bool isEnabled)
@@ -1015,7 +983,7 @@ namespace XF.Material.Forms.UI
         private void OnFloatingPlaceholderEnabledChanged(bool isEnabled)
         {
             double marginTopVariation = Device.RuntimePlatform == Device.iOS ? 18 : 20;
-            entry.Margin = isEnabled ? new Thickness(entry.Margin.Left, 24, entry.Margin.Right, 0) : new Thickness(entry.Margin.Left, marginTopVariation - 9, entry.Margin.Right, 0);
+            editor.Margin = isEnabled ? new Thickness(editor.Margin.Left, 24, editor.Margin.Right, 0) : new Thickness(editor.Margin.Left, marginTopVariation - 9, editor.Margin.Right, 0);
 
             var iconMargin = leadingIcon.Margin;
             leadingIcon.Margin = isEnabled ? new Thickness(iconMargin.Left, 16, iconMargin.Right, 16) : new Thickness(iconMargin.Left, 8, iconMargin.Right, 8);
@@ -1057,65 +1025,55 @@ namespace XF.Material.Forms.UI
             switch (inputType)
             {
                 case MaterialTextFieldInputType.Chat:
-                    entry.Keyboard = Keyboard.Chat;
+                    editor.Keyboard = Keyboard.Chat;
                     break;
 
                 case MaterialTextFieldInputType.Default:
-                    entry.Keyboard = Keyboard.Default;
+                    editor.Keyboard = Keyboard.Default;
                     break;
 
                 case MaterialTextFieldInputType.Email:
-                    entry.Keyboard = Keyboard.Email;
+                    editor.Keyboard = Keyboard.Email;
                     break;
 
                 case MaterialTextFieldInputType.Numeric:
-                    entry.Keyboard = Keyboard.Numeric;
+                    editor.Keyboard = Keyboard.Numeric;
                     break;
 
                 case MaterialTextFieldInputType.Plain:
-                    entry.Keyboard = Keyboard.Plain;
+                    editor.Keyboard = Keyboard.Plain;
                     break;
 
                 case MaterialTextFieldInputType.Telephone:
-                    entry.Keyboard = Keyboard.Telephone;
+                    editor.Keyboard = Keyboard.Telephone;
                     break;
 
                 case MaterialTextFieldInputType.Text:
-                    entry.Keyboard = Keyboard.Text;
+                case MaterialTextFieldInputType.MultiLineText:
+                    editor.Keyboard = Keyboard.Text;
                     break;
 
                 case MaterialTextFieldInputType.Url:
-                    entry.Keyboard = Keyboard.Url;
+                    editor.Keyboard = Keyboard.Url;
                     break;
 
                 case MaterialTextFieldInputType.NumericPassword:
-                    entry.Keyboard = Keyboard.Numeric;
+                    editor.Keyboard = Keyboard.Numeric;
                     break;
 
                 case MaterialTextFieldInputType.Password:
-                    entry.Keyboard = Keyboard.Text;
+                    editor.Keyboard = Keyboard.Text;
                     break;
 
                 case MaterialTextFieldInputType.Choice:
-                case MaterialTextFieldInputType.MultiChoice:
-
                     break;
             }
 
             // Hint: Will use this for MaterialTextArea
-            // entry.AutoSize = inputType == MaterialTextFieldInputType.MultiLineText ? EditorAutoSizeOption.TextChanges : EditorAutoSizeOption.Disabled;
-            _gridContainer.InputTransparent = IsChoiceInput(inputType);
-            trailingIcon.IsVisible = IsChoiceInput(inputType);
+            editor.AutoSize = inputType == MaterialTextFieldInputType.MultiLineText ? EditorAutoSizeOption.TextChanges : EditorAutoSizeOption.Disabled;
+            _gridContainer.InputTransparent = inputType == MaterialTextFieldInputType.Choice;
+            trailingIcon.IsVisible = inputType == MaterialTextFieldInputType.Choice;
 
-            entry.IsNumericKeyboard = inputType == MaterialTextFieldInputType.Telephone || inputType == MaterialTextFieldInputType.Numeric;
-            entry.IsPassword = inputType == MaterialTextFieldInputType.Password || inputType == MaterialTextFieldInputType.NumericPassword;
-        }
-
-        private bool IsChoiceInput(MaterialTextFieldInputType inputType)
-        {
-
-            
-            return inputType == MaterialTextFieldInputType.Choice || inputType == MaterialTextFieldInputType.MultiChoice;
         }
 
         private void OnKeyboardFlagsChanged(bool isAutoCapitalizationEnabled, bool isSpellCheckEnabled, bool isTextPredictionEnabled)
@@ -1137,7 +1095,7 @@ namespace XF.Material.Forms.UI
                 flags &= ~KeyboardFlags.Suggestions;
             }
 
-            entry.Keyboard = Keyboard.Create(flags);
+            editor.Keyboard = Keyboard.Create(flags);
         }
 
         private void OnLeadingIconChanged(string icon)
@@ -1154,7 +1112,7 @@ namespace XF.Material.Forms.UI
         private void OnMaxLengthChanged(int maxLength, bool isMaxLengthCounterVisible)
         {
             _counterEnabled = maxLength > 0 && isMaxLengthCounterVisible;
-            entry.MaxLength = maxLength > 0 ? maxLength : (int)InputView.MaxLengthProperty.DefaultValue;
+            editor.MaxLength = maxLength > 0 ? maxLength : (int)InputView.MaxLengthProperty.DefaultValue;
         }
 
         private void OnPlaceholderChanged(string placeholderText)
@@ -1172,20 +1130,6 @@ namespace XF.Material.Forms.UI
             placeholder.FontFamily = fontFamily;
         }
 
-        private void OnReturnCommandChanged(ICommand returnCommand)
-        {
-            entry.ReturnCommand = returnCommand;
-        }
-
-        private void OnReturnCommandParameterChanged(object parameter)
-        {
-            entry.ReturnCommandParameter = parameter;
-        }
-
-        private void OnReturnTypeChangedd(ReturnType returnType)
-        {
-            entry.ReturnType = returnType;
-        }
 
         private async Task OnSelectChoices()
         {
@@ -1210,7 +1154,6 @@ namespace XF.Material.Forms.UI
                 else
                 {
                     int choiceIndicies = await MaterialDialog.Instance.SelectChoiceAsync(title, this.Choices, this.ChoicesBindingName, confirmingText, dismissiveText, configuration);
-
                     result.Add(choiceIndicies);
                 }
 
@@ -1237,8 +1180,6 @@ namespace XF.Material.Forms.UI
                 else
                 {
                     IEnumerable<int> choiceIndicies = await MaterialDialog.Instance.SelectChoicesAsync(title, this.Choices, this.ChoicesBindingName, confirmingText, dismissiveText, configuration);
-
-
                     if (choiceIndicies != null)
                     {
                         result = choiceIndicies.ToList();
@@ -1247,8 +1188,6 @@ namespace XF.Material.Forms.UI
                     {
                         //retain empty list from above
                     }
-
-
                 }
 
                 if (result.Count > 0)
@@ -1262,7 +1201,7 @@ namespace XF.Material.Forms.UI
                 {
                     _selectedIndicies.Clear();
                 }
-                
+
             }
 
             if (result.Count > 0)
@@ -1271,7 +1210,7 @@ namespace XF.Material.Forms.UI
             }
         }
 
-        private void OnTextChanged(string text)
+        private void OnTextChanged(string text) 
         {
             if (!string.IsNullOrEmpty(text) && !this.FloatingPlaceholderEnabled)
             {
@@ -1282,12 +1221,12 @@ namespace XF.Material.Forms.UI
                 placeholder.IsVisible = true;
             }
 
-            //if (this.InputType == MaterialTextFieldInputType.Choice && !string.IsNullOrEmpty(text) && _choices?.Contains(text) == false)
-            //{
-            //    Debug.WriteLine($"The `Text` property value `{this.Text}` does not match any item in the collection `Choices`.");
-            //    this.Text = null;
-            //    return;
-            //}
+            if (this.InputType == MaterialTextFieldInputType.Choice && !string.IsNullOrEmpty(text) && this.Choices?.Contains(text) == false)
+            {
+                Debug.WriteLine($"The `Text` property value `{this.Text}` does not match any item in the collection `Choices`.");
+                this.Text = null;
+                return;
+            }
 
             if (this.InputType == MaterialTextFieldInputType.Choice && !string.IsNullOrEmpty(text))
             {
@@ -1300,7 +1239,7 @@ namespace XF.Material.Forms.UI
                 _selectedIndicies.Clear();
             }
 
-            entry.Text = text;
+            editor.Text = text;
 
             this.AnimateToInactiveOrFocusedStateOnStart(this);
             this.UpdateCounter();
@@ -1308,22 +1247,22 @@ namespace XF.Material.Forms.UI
 
         private void OnTextColorChanged(Color textColor)
         {
-            entry.TextColor = trailingIcon.TintColor = textColor;
+            editor.TextColor = trailingIcon.TintColor = textColor;
         }
 
         private void OnTextFontFamilyChanged(string fontFamily)
         {
-            entry.FontFamily = fontFamily;
+            editor.FontFamily = fontFamily;
         }
 
         private void OnTextFontSizeChanged(double fontSize)
         {
-            placeholder.FontSize = entry.FontSize = fontSize;
+            placeholder.FontSize = editor.FontSize = fontSize;
         }
 
         private void OnTintColorChanged(Color tintColor)
         {
-            entry.TintColor = tintColor;
+            editor.TintColor = tintColor;
         }
 
         private void OnUnderlineColorChanged(Color underlineColor)
@@ -1340,9 +1279,9 @@ namespace XF.Material.Forms.UI
             persistentUnderline.Color = this.UnderlineColor;
             tapGesture.Command = new Command(() =>
             {
-                if (!entry.IsFocused)
+                if (!editor.IsFocused)
                 {
-                    entry.Focus();
+                    editor.Focus();
                 }
             });
 
@@ -1368,9 +1307,6 @@ namespace XF.Material.Forms.UI
                 { nameof(this.BackgroundColor), () => this.OnBackgroundColorChanged(this.BackgroundColor) },
                 { nameof(this.AlwaysShowUnderline), () => this.OnAlwaysShowUnderlineChanged(this.AlwaysShowUnderline) },
                 { nameof(this.MaxLength), () => this.OnMaxLengthChanged(this.MaxLength, this.IsMaxLengthCounterVisible) },
-                { nameof(this.ReturnCommand), () => this.OnReturnCommandChanged(this.ReturnCommand) },
-                { nameof(this.ReturnCommandParameter), () => this.OnReturnCommandParameterChanged(this.ReturnCommandParameter) },
-                { nameof(this.ReturnType), () => this.OnReturnTypeChangedd(this.ReturnType) },
                 { nameof(this.ErrorColor), () => this.OnErrorColorChanged(this.ErrorColor) },
                 { nameof(this.UnderlineColor), () => this.OnUnderlineColorChanged(this.UnderlineColor) },
                 { nameof(this.HasError), () => this.OnHasErrorChanged() },
@@ -1389,8 +1325,8 @@ namespace XF.Material.Forms.UI
         private void UpdateCounter()
         {
             if (!_counterEnabled) return;
-            var count = entry.Text?.Length ?? 0;
-            counter.Text = entry.IsFocused ? $"{count}/{this.MaxLength}" : string.Empty;
+            var count = editor.Text?.Length ?? 0;
+            counter.Text = editor.IsFocused ? $"{count}/{this.MaxLength}" : string.Empty;
         }
     }
 }

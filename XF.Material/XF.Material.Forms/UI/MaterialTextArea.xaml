@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+  x:Class="XF.Material.Forms.UI.MaterialTextArea"
+  xmlns="http://xamarin.com/schemas/2014/forms"
+  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+  xmlns:internal="clr-namespace:XF.Material.Forms.UI.Internals"
+  xmlns:material="clr-namespace:XF.Material.Forms.UI">
+  <View.GestureRecognizers>
+    <TapGestureRecognizer x:Name="mainTapGesture" NumberOfTapsRequired="1" />
+  </View.GestureRecognizers>
+  <ContentView.Content>
+    <Grid
+      x:Name="_gridContainer"
+      ColumnSpacing="0"
+      RowSpacing="0">
+      <View.GestureRecognizers>
+        <TapGestureRecognizer x:Name="tapGesture" NumberOfTapsRequired="1" />
+      </View.GestureRecognizers>
+      <Grid.RowDefinitions>
+        <RowDefinition x:Name="_autoSizingRow" Height="56" />
+        <RowDefinition Height="20" />
+      </Grid.RowDefinitions>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto" />
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="Auto" />
+      </Grid.ColumnDefinitions>
+      <BoxView
+        x:Name="backgroundCard"
+        Grid.Row="0"
+        Grid.ColumnSpan="3"
+        BackgroundColor="#DCDCDC"
+        CornerRadius="4,4,0,0" />
+      <material:MaterialIcon
+        x:Name="leadingIcon"
+        Grid.Row="0"
+        Grid.Column="0"
+        Margin="12,16,0,16"
+        HeightRequest="24"
+        VerticalOptions="Start"
+        WidthRequest="24">
+        <View.Triggers>
+          <Trigger TargetType="material:MaterialIcon" Property="Source" Value="{x:Null}">
+            <Setter Property="IsVisible" Value="False" />
+          </Trigger>
+        </View.Triggers>
+      </material:MaterialIcon>
+      <material:MaterialLabel
+        x:Name="placeholder"
+        Grid.Row="0"
+        Grid.Column="1"
+        Margin="12,0,12,0"
+        FontSize="{Binding Source={x:Reference editor}, Path=FontSize}"
+        InputTransparent="True"
+        Text="Placeholder"
+        TextColor="#99000000"
+        TypeScale="Body2"
+        VerticalOptions="Center"
+        VerticalTextAlignment="Center" />
+      <ContentView
+        x:Name="_inputContainer"
+        Grid.Row="0"
+        Grid.Column="1"
+        Grid.ColumnSpan="2"
+        HorizontalOptions="FillAndExpand"
+        VerticalOptions="Start">
+        <internal:MaterialEditor
+          x:Name="editor"
+          Margin="12,24,12,0"
+          FontFamily="{DynamicResource Material.FontFamily.Body2}"
+          FontSize="16"
+          HorizontalOptions="FillAndExpand"
+          IsSpellCheckEnabled="False"
+          IsTextPredictionEnabled="False"
+          TextColor="#D0000000"
+          VerticalOptions="FillAndExpand" />
+        <ContentView.Triggers>
+          <DataTrigger
+            Binding="{Binding Source={x:Reference trailingIcon}, Path=IsVisible}"
+            TargetType="ContentView"
+            Value="True">
+            <Setter Property="Grid.ColumnSpan" Value="1" />
+          </DataTrigger>
+        </ContentView.Triggers>
+      </ContentView>
+      <BoxView
+        x:Name="persistentUnderline"
+        Grid.Row="0"
+        Grid.ColumnSpan="3"
+        Margin="0,0,0,-1"
+        HeightRequest="1"
+        HorizontalOptions="FillAndExpand"
+        IsVisible="False"
+        VerticalOptions="End"
+        Color="{Binding Source={x:Reference underline}, Path=Color}" />
+      <BoxView
+        x:Name="underline"
+        Grid.Row="0"
+        Grid.ColumnSpan="3"
+        Margin="0,0,0,-1"
+        HeightRequest="2"
+        HorizontalOptions="Center"
+        VerticalOptions="End"
+        WidthRequest="0" />
+      <material:MaterialIcon
+        x:Name="trailingIcon"
+        Grid.Row="0"
+        Grid.Column="2"
+        Margin="0,16,12,16"
+        HeightRequest="24"
+        IsVisible="False"
+        Source="xf_arrow_dropdown"
+        VerticalOptions="Start"
+        WidthRequest="24" />
+      <material:MaterialLabel
+        x:Name="helper"
+        Grid.Row="1"
+        Grid.Column="0"
+        Grid.ColumnSpan="3"
+        Margin="12,4,12,0"
+        TextColor="#99000000"
+        TypeScale="Caption">
+        <Label.Triggers>
+          <Trigger TargetType="Label" Property="Text" Value="">
+            <Setter Property="IsVisible" Value="False" />
+          </Trigger>
+          <Trigger TargetType="Label" Property="Text" Value="{x:Null}">
+            <Setter Property="IsVisible" Value="False" />
+          </Trigger>
+          <DataTrigger
+            Binding="{Binding Source={x:Reference counter}, Path=IsVisible}"
+            TargetType="Label"
+            Value="True">
+            <Setter Property="Grid.ColumnSpan" Value="2" />
+          </DataTrigger>
+        </Label.Triggers>
+      </material:MaterialLabel>
+      <material:MaterialLabel
+        x:Name="counter"
+        Grid.Row="1"
+        Grid.Column="2"
+        Margin="0,4,12,0"
+        HorizontalOptions="End"
+        TextColor="#99000000"
+        TypeScale="Caption">
+        <Label.Triggers>
+          <Trigger TargetType="Label" Property="Text" Value="">
+            <Setter Property="IsVisible" Value="False" />
+          </Trigger>
+          <Trigger TargetType="Label" Property="Text" Value="{x:Null}">
+            <Setter Property="IsVisible" Value="False" />
+          </Trigger>
+        </Label.Triggers>
+      </material:MaterialLabel>
+    </Grid>
+  </ContentView.Content>
+</ContentView>

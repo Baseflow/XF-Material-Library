@@ -110,6 +110,7 @@
     <Compile Include="Renderers\MaterialNavigationPageRenderer.cs" />
     <Compile Include="Utility\MaterialUtility.cs" />
     <Compile Include="GestureRecognizers\MaterialRippleGestureRecognizer.cs" />
+    <Compile Include="Renderers\Internals\MaterialEditorRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\xf_error%402x.png" />
