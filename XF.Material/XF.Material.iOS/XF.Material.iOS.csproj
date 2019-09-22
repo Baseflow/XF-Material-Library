@@ -78,12 +78,6 @@
     <Reference Include="Lottie.Forms">
       <HintPath>..\..\..\..\packages\Com.Airbnb.Xamarin.Forms.Lottie.3.0.0\lib\xamarinios10\Lottie.Forms.dll</HintPath>
     </Reference>
-    <Reference Include="Rg.Plugins.Popup">
-      <HintPath>..\..\..\..\packages\Rg.Plugins.Popup.1.1.5.188\lib\Xamarin.IOS\Rg.Plugins.Popup.dll</HintPath>
-    </Reference>
-    <Reference Include="Rg.Plugins.Popup.IOS">
-      <HintPath>..\..\..\..\packages\Rg.Plugins.Popup.1.1.5.188\lib\Xamarin.IOS\Rg.Plugins.Popup.IOS.dll</HintPath>
-    </Reference>
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.Net.Http" />
     <Reference Include="Plugin.DeviceOrientation.Abstractions">
@@ -91,6 +85,12 @@
     </Reference>
     <Reference Include="Plugin.DeviceOrientation">
       <HintPath>..\..\..\..\packages\Plugin.DeviceOrientation.1.0.7\lib\Xamarin.iOS10\Plugin.DeviceOrientation.dll</HintPath>
+    </Reference>
+    <Reference Include="Rg.Plugins.Popup">
+      <HintPath>..\..\packages\Rg.Plugins.Popup.Pepsi1x1.2.0.1\lib\Xamarin.IOS\Rg.Plugins.Popup.dll</HintPath>
+    </Reference>
+    <Reference Include="Rg.Plugins.Popup.IOS">
+      <HintPath>..\..\packages\Rg.Plugins.Popup.Pepsi1x1.2.0.1\lib\Xamarin.IOS\Rg.Plugins.Popup.IOS.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
