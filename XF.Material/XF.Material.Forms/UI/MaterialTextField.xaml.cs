@@ -97,11 +97,15 @@ namespace XF.Material.Forms.UI
 
         public static readonly BindableProperty TintColorProperty = BindableProperty.Create(nameof(TintColor), typeof(Color), typeof(MaterialTextField), Material.Color.Secondary);
 
+        public static readonly BindableProperty TrailingIconProperty = BindableProperty.Create(nameof(TrailingIcon), typeof(string), typeof(MaterialTextField));
+
+        public static readonly BindableProperty TrailingIconTintColorProperty = BindableProperty.Create(nameof(TrailingIconTintColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#99000000"));
+
         public static readonly BindableProperty UnderlineColorProperty = BindableProperty.Create(nameof(UnderlineColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#99000000"));
 
         private const double AnimationDuration = 0.35;
         private readonly Easing _animationCurve = Easing.SinOut;
-        private readonly Dictionary<string, Action> _propertyChangeActions;
+        protected readonly Dictionary<string, Action> _propertyChangeActions;
         private bool _counterEnabled;
         private DeviceOrientations DisplayOrientation;
         private List<int> _selectedIndicies = new List<int>();
@@ -116,6 +120,14 @@ namespace XF.Material.Forms.UI
             this.SetPropertyChangeHandler(ref _propertyChangeActions);
             this.SetControl();
             this.DisplayOrientation = Plugin.DeviceOrientation.CrossDeviceOrientation.Current.CurrentOrientation;
+        }
+
+        protected Entry Entry
+        {
+            get
+            {
+                return this.entry;
+            }
         }
 
         public event EventHandler<SelectedItemChangedEventArgs> ChoiceSelected;
@@ -480,6 +492,24 @@ namespace XF.Material.Forms.UI
         }
 
         /// <summary>
+        /// Gets or sets the image source of the icon to be showed at the right side of this text field.
+        /// </summary>
+        public string TrailingIcon
+        {
+            get => (string)this.GetValue(TrailingIconProperty);
+            set => this.SetValue(TrailingIconProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the tint color of the trailing icon of this text field.
+        /// </summary>
+        public Color TrailingIconTintColor
+        {
+            get => (Color)this.GetValue(TrailingIconTintColorProperty);
+            set => this.SetValue(TrailingIconTintColorProperty, value);
+        }
+
+        /// <summary>
         /// Gets or sets the color of the underline when this text field is activated. <see cref="AlwaysShowUnderline"/> is set to true.
         /// </summary>
         public Color UnderlineColor
@@ -792,7 +822,8 @@ namespace XF.Material.Forms.UI
                 }
                 else
                 {
-                    trailingIcon.IsVisible = false;
+                    trailingIcon.Source = this.TrailingIcon;
+                    trailingIcon.IsVisible = this.ShowsTrailingIcon(this.InputType);
                 }
 
                 var accentColor = this.TintColor;
@@ -816,7 +847,7 @@ namespace XF.Material.Forms.UI
             });
         }
 
-        private void CurrentOnOrientationChanged(object sender, OrientationChangedEventArgs e)
+        protected void CurrentOnOrientationChanged(object sender, OrientationChangedEventArgs e)
         {
             if (e.Orientation != this.DisplayOrientation)
             {
@@ -978,33 +1009,33 @@ namespace XF.Material.Forms.UI
             return this.Choices.Subset(indicies.ToArray());
         }
 
-        private void OnAlwaysShowUnderlineChanged(bool isShown)
+        protected void OnAlwaysShowUnderlineChanged(bool isShown)
         {
             persistentUnderline.IsVisible = isShown;
             persistentUnderline.Color = this.UnderlineColor;
         }
 
-        private void OnBackgroundColorChanged(Color backgroundColor)
+        protected void OnBackgroundColorChanged(Color backgroundColor)
         {
             backgroundCard.BackgroundColor = backgroundColor;
         }
 
-        private void OnChoicesChanged(ICollection choices)
+        protected void OnChoicesChanged(ICollection choices)
         {
         }
 
-        private void OnEnabledChanged(bool isEnabled)
+        protected void OnEnabledChanged(bool isEnabled)
         {
             this.Opacity = isEnabled ? 1 : 0.33;
             helper.IsVisible = isEnabled && !string.IsNullOrEmpty(this.HelperText);
         }
 
-        private void OnErrorColorChanged(Color errorColor)
+        protected void OnErrorColorChanged(Color errorColor)
         {
             trailingIcon.TintColor = errorColor;
         }
 
-        private void OnErrorTextChanged()
+        protected void OnErrorTextChanged()
         {
             if (this.HasError)
             {
@@ -1012,7 +1043,7 @@ namespace XF.Material.Forms.UI
             }
         }
 
-        private void OnFloatingPlaceholderEnabledChanged(bool isEnabled)
+        protected void OnFloatingPlaceholderEnabledChanged(bool isEnabled)
         {
             double marginTopVariation = Device.RuntimePlatform == Device.iOS ? 18 : 20;
             entry.Margin = isEnabled ? new Thickness(entry.Margin.Left, 24, entry.Margin.Right, 0) : new Thickness(entry.Margin.Left, marginTopVariation - 9, entry.Margin.Right, 0);
@@ -1024,7 +1055,7 @@ namespace XF.Material.Forms.UI
             trailingIcon.Margin = isEnabled ? new Thickness(trailingIconMargin.Left, 16, trailingIconMargin.Right, 16) : new Thickness(trailingIconMargin.Left, 8, trailingIconMargin.Right, 8);
         }
 
-        private void OnHasErrorChanged()
+        protected void OnHasErrorChanged()
         {
             if (this.HasError)
             {
@@ -1036,23 +1067,23 @@ namespace XF.Material.Forms.UI
             }
         }
 
-        private void OnHelperTextChanged(string helperText)
+        protected void OnHelperTextChanged(string helperText)
         {
             helper.Text = helperText;
             helper.IsVisible = !string.IsNullOrEmpty(helperText);
         }
 
-        private void OnHelperTextColorChanged(Color textColor)
+        protected void OnHelperTextColorChanged(Color textColor)
         {
             helper.TextColor = counter.TextColor = textColor;
         }
 
-        private void OnHelpertTextFontFamilyChanged(string fontFamily)
+        protected void OnHelpertTextFontFamilyChanged(string fontFamily)
         {
             helper.FontFamily = counter.FontFamily = fontFamily;
         }
 
-        private void OnInputTypeChanged(MaterialTextFieldInputType inputType)
+        protected void OnInputTypeChanged(MaterialTextFieldInputType inputType)
         {
             switch (inputType)
             {
@@ -1098,27 +1129,41 @@ namespace XF.Material.Forms.UI
 
                 case MaterialTextFieldInputType.Choice:
                 case MaterialTextFieldInputType.MultiChoice:
-
+                case MaterialTextFieldInputType.Date:
+                case MaterialTextFieldInputType.Time:
                     break;
             }
 
             // Hint: Will use this for MaterialTextArea
             // entry.AutoSize = inputType == MaterialTextFieldInputType.MultiLineText ? EditorAutoSizeOption.TextChanges : EditorAutoSizeOption.Disabled;
-            _gridContainer.InputTransparent = IsChoiceInput(inputType);
-            trailingIcon.IsVisible = IsChoiceInput(inputType);
+            _gridContainer.InputTransparent = this.RespondsToInputCycle(inputType);
+            trailingIcon.IsVisible = this.ShowsTrailingIcon(inputType);
 
             entry.IsNumericKeyboard = inputType == MaterialTextFieldInputType.Telephone || inputType == MaterialTextFieldInputType.Numeric;
             entry.IsPassword = inputType == MaterialTextFieldInputType.Password || inputType == MaterialTextFieldInputType.NumericPassword;
         }
 
+        private bool ShowsTrailingIcon(MaterialTextFieldInputType inputType)
+        {
+            return this.TrailingIcon != null || this.IsChoiceInput(inputType);
+        }
+
+        private bool RespondsToInputCycle(MaterialTextFieldInputType inputType)
+        {
+            return this.IsPickerInput(inputType) || this.IsChoiceInput(inputType);
+        }
+
+        private bool IsPickerInput(MaterialTextFieldInputType inputType)
+        {
+            return inputType == MaterialTextFieldInputType.Date || inputType == MaterialTextFieldInputType.Time;
+        }
+
         private bool IsChoiceInput(MaterialTextFieldInputType inputType)
         {
-
-            
             return inputType == MaterialTextFieldInputType.Choice || inputType == MaterialTextFieldInputType.MultiChoice;
         }
 
-        private void OnKeyboardFlagsChanged(bool isAutoCapitalizationEnabled, bool isSpellCheckEnabled, bool isTextPredictionEnabled)
+        protected void OnKeyboardFlagsChanged(bool isAutoCapitalizationEnabled, bool isSpellCheckEnabled, bool isTextPredictionEnabled)
         {
             var flags = KeyboardFlags.CapitalizeWord | KeyboardFlags.Spellcheck | KeyboardFlags.Suggestions;
 
@@ -1140,51 +1185,72 @@ namespace XF.Material.Forms.UI
             entry.Keyboard = Keyboard.Create(flags);
         }
 
-        private void OnLeadingIconChanged(string icon)
+        protected void OnLeadingIconChanged(string icon)
         {
             leadingIcon.Source = icon;
             this.OnLeadingIconTintColorChanged(this.LeadingIconTintColor);
         }
 
-        private void OnLeadingIconTintColorChanged(Color tintColor)
+        protected void OnLeadingIconTintColorChanged(Color tintColor)
         {
             leadingIcon.TintColor = tintColor;
         }
 
-        private void OnMaxLengthChanged(int maxLength, bool isMaxLengthCounterVisible)
+
+        protected void OnTrailingIconChanged(string icon)
+        {
+            this.trailingIcon.Source = icon;
+            this.OnTrailingIconTintColorChanged(this.TrailingIconTintColor);
+        }
+
+        protected void OnTrailingIconTintColorChanged(Color tintColor)
+        {
+            this.trailingIcon.TintColor = tintColor;
+            this.trailingIcon.IsVisible = this.ShowsTrailingIcon(this.InputType);
+        }
+
+        protected void OnMaxLengthChanged(int maxLength, bool isMaxLengthCounterVisible)
         {
             _counterEnabled = maxLength > 0 && isMaxLengthCounterVisible;
             entry.MaxLength = maxLength > 0 ? maxLength : (int)InputView.MaxLengthProperty.DefaultValue;
         }
 
-        private void OnPlaceholderChanged(string placeholderText)
+        protected void OnPlaceholderChanged(string placeholderText)
         {
             placeholder.Text = placeholderText;
         }
 
-        private void OnPlaceholderColorChanged(Color placeholderColor)
+        protected void OnPlaceholderColorChanged(Color placeholderColor)
         {
             placeholder.TextColor = placeholderColor;
         }
 
-        private void OnPlaceholderFontFamilyChanged(string fontFamily)
+        protected void OnPlaceholderFontFamilyChanged(string fontFamily)
         {
             placeholder.FontFamily = fontFamily;
         }
 
-        private void OnReturnCommandChanged(ICommand returnCommand)
+        protected void OnReturnCommandChanged(ICommand returnCommand)
         {
             entry.ReturnCommand = returnCommand;
         }
 
-        private void OnReturnCommandParameterChanged(object parameter)
+        protected void OnReturnCommandParameterChanged(object parameter)
         {
             entry.ReturnCommandParameter = parameter;
         }
 
-        private void OnReturnTypeChangedd(ReturnType returnType)
+        protected void OnReturnTypeChangedd(ReturnType returnType)
         {
             entry.ReturnType = returnType;
+        }
+
+        protected virtual async Task OnPartcipatingInNonUserInteractiveInput()
+        {
+            if(this.IsChoiceInput(this.InputType))
+            {
+                await this.OnSelectChoices();
+            }
         }
 
         private async Task OnSelectChoices()
@@ -1194,10 +1260,11 @@ namespace XF.Material.Forms.UI
                 throw new InvalidOperationException("The property `Choices` is null or empty");
             }
 
-            var title = MaterialConfirmationDialog.GetDialogTitle(this);
-            var confirmingText = MaterialConfirmationDialog.GetDialogConfirmingText(this);
-            var dismissiveText = MaterialConfirmationDialog.GetDialogDismissiveText(this);
-            var configuration = MaterialConfirmationDialog.GetDialogConfiguration(this);
+            string title = MaterialConfirmationDialog.GetDialogTitle(this);
+            string confirmingText = MaterialConfirmationDialog.GetDialogConfirmingText(this);
+            string dismissiveText = MaterialConfirmationDialog.GetDialogDismissiveText(this);
+            Dialogs.Configurations.MaterialConfirmationDialogConfiguration configuration = MaterialConfirmationDialog.GetDialogConfiguration(this);
+
             List<int> result = new List<int>();
 
             if (this.InputType == MaterialTextFieldInputType.Choice)
@@ -1262,7 +1329,7 @@ namespace XF.Material.Forms.UI
                 {
                     _selectedIndicies.Clear();
                 }
-                
+
             }
 
             if (result.Count > 0)
@@ -1271,7 +1338,7 @@ namespace XF.Material.Forms.UI
             }
         }
 
-        private void OnTextChanged(string text)
+        protected void OnTextChanged(string text)
         {
             if (!string.IsNullOrEmpty(text) && !this.FloatingPlaceholderEnabled)
             {
@@ -1306,27 +1373,27 @@ namespace XF.Material.Forms.UI
             this.UpdateCounter();
         }
 
-        private void OnTextColorChanged(Color textColor)
+        protected void OnTextColorChanged(Color textColor)
         {
-            entry.TextColor = trailingIcon.TintColor = textColor;
+            entry.TextColor = textColor;
         }
 
-        private void OnTextFontFamilyChanged(string fontFamily)
+        protected void OnTextFontFamilyChanged(string fontFamily)
         {
             entry.FontFamily = fontFamily;
         }
 
-        private void OnTextFontSizeChanged(double fontSize)
+        protected void OnTextFontSizeChanged(double fontSize)
         {
             placeholder.FontSize = entry.FontSize = fontSize;
         }
 
-        private void OnTintColorChanged(Color tintColor)
+        protected void OnTintColorChanged(Color tintColor)
         {
             entry.TintColor = tintColor;
         }
 
-        private void OnUnderlineColorChanged(Color underlineColor)
+        protected void OnUnderlineColorChanged(Color underlineColor)
         {
             if (this.AlwaysShowUnderline)
             {
@@ -1336,20 +1403,23 @@ namespace XF.Material.Forms.UI
 
         private void SetControl()
         {
-            trailingIcon.TintColor = this.TextColor;
+            trailingIcon.TintColor = this.TrailingIconTintColor;
             persistentUnderline.Color = this.UnderlineColor;
             tapGesture.Command = new Command(() =>
             {
-                if (!entry.IsFocused)
+                if (this.RespondsToInputCycle(this.InputType))
                 {
-                    entry.Focus();
+                    if (!entry.IsFocused)
+                    {
+                        entry.Focus();
+                    }
                 }
             });
 
-            mainTapGesture.Command = new Command(async () => await this.OnSelectChoices());
+            mainTapGesture.Command = new Command(async () => await this.OnPartcipatingInNonUserInteractiveInput());
         }
 
-        private void SetPropertyChangeHandler(ref Dictionary<string, Action> propertyChangeActions)
+        protected virtual void SetPropertyChangeHandler(ref Dictionary<string, Action> propertyChangeActions)
         {
             propertyChangeActions = new Dictionary<string, Action>
             {
@@ -1378,6 +1448,8 @@ namespace XF.Material.Forms.UI
                 { nameof(this.Choices), () => this.OnChoicesChanged(this.Choices) },
                 { nameof(this.LeadingIcon), () => this.OnLeadingIconChanged(this.LeadingIcon) },
                 { nameof(this.LeadingIconTintColor), () => this.OnLeadingIconTintColorChanged(this.LeadingIconTintColor) },
+                { nameof(this.TrailingIcon), () => this.OnTrailingIconChanged(this.TrailingIcon) },
+                { nameof(this.TrailingIconTintColor), () => this.OnTrailingIconTintColorChanged(this.TrailingIconTintColor) },
                 { nameof(this.IsSpellCheckEnabled), () => this.OnKeyboardFlagsChanged(this.IsAutoCapitalizationEnabled, this.IsSpellCheckEnabled, this.IsTextPredictionEnabled) },
                 { nameof(this.IsTextPredictionEnabled), () => this.OnKeyboardFlagsChanged(this.IsAutoCapitalizationEnabled, this.IsSpellCheckEnabled, this.IsTextPredictionEnabled) },
                 { nameof(this.IsAutoCapitalizationEnabled), () => this.OnKeyboardFlagsChanged(this.IsAutoCapitalizationEnabled, this.IsSpellCheckEnabled, this.IsTextPredictionEnabled) },

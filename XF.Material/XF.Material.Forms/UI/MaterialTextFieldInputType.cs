@@ -17,6 +17,8 @@
         NumericPassword,
         Choice,
         MultiChoice,
-        MultiLineText
+        MultiLineText,
+        Date,
+        Time
     }
 }
