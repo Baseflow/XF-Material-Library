@@ -9,6 +9,11 @@
     <x:Int32 x:Key="Material.Button.CornerRadius">4</x:Int32>
     <Thickness x:Key="Material.Dialog.Margin">40</Thickness>
     <Thickness x:Key="Material.Snackbar.Margin">8,0,8,16</Thickness>
+  <OnIdiom x:Key="Material.Picker.Width"
+             x:TypeArguments="x:Double">
+        <OnIdiom.Tablet>512</OnIdiom.Tablet>
+        <OnIdiom.Phone>328</OnIdiom.Phone>
+    </OnIdiom>
     <OnIdiom x:Key="Material.Dialog.Width"
              x:TypeArguments="x:Double">
         <OnIdiom.Tablet>560</OnIdiom.Tablet>
