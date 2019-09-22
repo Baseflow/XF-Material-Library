@@ -53,7 +53,7 @@ namespace XF.Material.Forms.UI.Dialogs
         /// </summary>
         public async Task DismissAsync()
         {
-            await PopupNavigation.Instance.RemovePageAsync(this, true);
+            await Device.InvokeOnMainThreadAsync(async () => await PopupNavigation.Instance.RemovePageAsync(this, true)).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace XF.Material.Forms.UI.Dialogs
         protected virtual void Dispose(bool disposing)
         {
             if (_disposed || !disposing) return;
-            Device.BeginInvokeOnMainThread(async () =>
+            Device.InvokeOnMainThreadAsync(async () =>
             {
                 try
                 {
@@ -131,7 +131,11 @@ namespace XF.Material.Forms.UI.Dialogs
         {
             if (this.CanShowPopup())
             {
-                await PopupNavigation.Instance.PushAsync(this, true);
+                await Device.InvokeOnMainThreadAsync(async () =>
+                {
+                    await PopupNavigation.Instance.PushAsync(this, true);
+                }).ConfigureAwait(false);
+
             }
             else
             {
