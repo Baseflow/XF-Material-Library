@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<local:BaseMaterialModalPage x:Class="XF.Material.Forms.UI.Dialogs.MaterialDatePicker"
+                             xmlns="http://xamarin.com/schemas/2014/forms"
+                             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                             xmlns:local="clr-namespace:XF.Material.Forms.UI.Dialogs"
+                             xmlns:material="clr-namespace:XF.Material.Forms.UI"
+                             xmlns:sys="clr-namespace:System;assembly=netstandard"
+                             xmlns:internals="clr-namespace:XF.Material.Forms.UI.Internals"
+                             BackgroundColor="#51000000"
+                             CloseWhenBackgroundIsClicked="True">
+    <ContentPage.Content>
+      <material:MaterialCard x:Name="Container"
+                               Margin="{DynamicResource Material.Dialog.Margin}"
+                               Padding="0"
+                               BackgroundColor="White"
+                               CornerRadius="4"
+                               Elevation="24"
+                               HasShadow="True"
+                               HorizontalOptions="Center"
+                               IsClippedToBounds="True"
+                               VerticalOptions="Center"
+                               WidthRequest="{StaticResource Material.Picker.Width}">
+            <StackLayout Orientation="Vertical"
+                         Padding="0"
+                         Margin="0,0,0,0"
+                         Spacing="0">
+
+                <internals:BaseMaterialCalendarView x:Name="Calendar" Padding="0" Margin="0"></internals:BaseMaterialCalendarView>
+              <Grid
+                      Margin="0,-52,8,0"
+                      ColumnSpacing="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="52" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <material:MaterialButton x:Name="NegativeButton"
+                                             Grid.Column="2"
+                                             Margin="0,0,-8,0"
+                                             ButtonType="Text"
+                                             Text="CANCEL"
+                                             VerticalOptions="Center" TextColor="Blue">
+                        <!--<material:MaterialButton.Triggers>
+                            <Trigger TargetType="Button" Property="Text" Value="{x:Null}">
+                                <Setter Property="IsVisible" Value="False" />
+                                <Setter Property="IsEnabled" Value="False" />
+                            </Trigger>
+                            <Trigger TargetType="Button" Property="Text" Value="{x:Static sys:String.Empty}">
+                                <Setter Property="IsVisible" Value="False" />
+                                <Setter Property="IsEnabled" Value="False" />
+                            </Trigger>
+                        </material:MaterialButton.Triggers>-->
+                    </material:MaterialButton>
+                    <material:MaterialButton x:Name="PositiveButton"
+                                             Grid.Column="3"
+                                             ButtonType="Text"
+                                             IsEnabled="False"
+                                             Text="OK"
+                                             VerticalOptions="Center"  TextColor="Blue"/>
+                </Grid>
+            </StackLayout>
+        </material:MaterialCard>
+    </ContentPage.Content>
+</local:BaseMaterialModalPage>

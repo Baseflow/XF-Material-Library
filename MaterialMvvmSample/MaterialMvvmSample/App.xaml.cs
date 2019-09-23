@@ -15,7 +15,7 @@ namespace MaterialMvvmSample
 
             XF.Material.Forms.Material.Init(this, "Material.Style");
 
-            navigationService.SetRootView(ViewNames.MainView);
+            navigationService.SetRootView(ViewNames.EntryView);
         }
 
         protected override void OnStart()

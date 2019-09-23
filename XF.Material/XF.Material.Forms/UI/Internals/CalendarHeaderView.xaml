@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<internals:CorneredContentView  xmlns:internals="clr-namespace:XF.Material.Forms.UI.Internals"
+                                x:Class="XF.Material.Forms.UI.Internals.CalendarHeaderView"
+                         xmlns="http://xamarin.com/schemas/2014/forms"
+                         xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                         xmlns:local="clr-namespace:XF.Material.Forms.UI.Dialogs"
+                         xmlns:material="clr-namespace:XF.Material.Forms.UI"
+                         xmlns:sys="clr-namespace:System;assembly=netstandard"
+                         Padding="0"
+                         Margin="0"
+                         CornerRadius="2,2,0,0"
+                         BackgroundColor="{Binding HeaderColor, Source={x:Reference Root}}" x:Name="Root">
+
+
+  <Grid RowSpacing="0"
+        ColumnSpacing="0"
+        Padding="24,0,24,0">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="32">
+      </RowDefinition>
+      <RowDefinition Height="72">
+      </RowDefinition>
+      <RowDefinition Height="*">
+      </RowDefinition>
+    </Grid.RowDefinitions>
+    <material:MaterialLabel TextColor="White"
+                            Grid.Row="0"
+                            VerticalOptions="EndAndExpand"
+                            TypeScale="Overline"
+                            Text="SELECT DATE">
+    </material:MaterialLabel>
+    <material:MaterialLabel x:Name="dateLabel"
+                            TextColor="White"
+                            Grid.Row="1"
+                            Margin="0,16,0,0"
+                            VerticalOptions="Start"
+                            TypeScale="H4"
+                            MaxLines="2"
+                            LineBreakMode="WordWrap"
+                            Text="undefined">
+    </material:MaterialLabel>
+  </Grid>
+</internals:CorneredContentView>

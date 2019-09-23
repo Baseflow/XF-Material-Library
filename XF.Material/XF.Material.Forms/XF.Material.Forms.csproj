@@ -29,21 +29,32 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AppStore|AnyCPU' ">
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Publish|AnyCPU' ">
+    <IntermediateOutputPath>obj\Publish</IntermediateOutputPath>
+    <DebugType></DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Publish</OutputPath>
+    <DefineConstants></DefineConstants>
+    <NoWarn></NoWarn>
+    <LangVersion>Default</LangVersion>
+    <NoStdLib>false</NoStdLib>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Remove="UI\Dialogs\MaterialDialogs.cs" />
     <Compile Remove="MaterialStyles.xaml.cs" />
     <Compile Remove="UI\Internals\MaterialInputDialogTextField.xaml.cs" />
     <Compile Remove="UI\MaterialIconButton.cs" />
+    <Compile Remove="UI\Internals\MaterialDatePicker.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Remove="MaterialStyles.xaml" />
     <EmbeddedResource Remove="UI\Internals\MaterialInputDialogTextField.xaml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie" Version="3.0.0" />
-    <PackageReference Include="Xamarin.Forms" Version="4.1.0.618606" />
+    <PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie" Version="3.0.1" />
+    <PackageReference Include="Xamarin.Forms" Version="4.2.0.815419" />
     <PackageReference Include="Plugin.DeviceOrientation" Version="1.0.7" />
-    <PackageReference Include="Rg.Plugins.Popup.Pepsi1x1" Version="2.0.1" />
+    <PackageReference Include="Rg.Plugins.Popup.Pepsi1x1" Version="2.0.0-CI-20190922-021550" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="UI\Dialogs\MaterialAlertDialog.xaml.cs">
@@ -54,6 +65,9 @@
     </Compile>
     <Compile Update="Resources\MaterialSizes.xaml.cs">
       <DependentUpon>MaterialSizes.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="UI\Internals\CalendarYearsControl.xaml.cs">
+      <DependentUpon>CalendarYearsControl.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -189,4 +203,9 @@
       <Generator>MSBuild:Compile</Generator>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="UI\" />
+    <Folder Include="UI\Internals\" />
+  </ItemGroup>
+  <Import Project="..\..\packages\Xamarin.Android.Arch.Lifecycle.Runtime.1.1.1.3\build\monoandroid90\Xamarin.Android.Arch.Lifecycle.Runtime.targets" Condition="Exists('..\..\packages\Xamarin.Android.Arch.Lifecycle.Runtime.1.1.1.3\build\monoandroid90\Xamarin.Android.Arch.Lifecycle.Runtime.targets')" />
 </Project>

@@ -31,11 +31,15 @@ namespace MaterialMvvmSample.Core
             containerBuilder.RegisterType<NavigationService>().As<INavigationService>().SingleInstance();
             containerBuilder.RegisterType<JobDialogService>().As<IJobDialogService>().InstancePerDependency();
 
+            containerBuilder.RegisterType<EntryView>().Named<Page>(ViewNames.EntryView).As<EntryView>().InstancePerDependency();
             containerBuilder.RegisterType<MainView>().Named<Page>(ViewNames.MainView).As<MainView>().InstancePerDependency();
             containerBuilder.RegisterType<SecondView>().Named<Page>(ViewNames.SecondView).As<SecondView>().InstancePerDependency();
+            containerBuilder.RegisterType<CalendarView>().Named<Page>(ViewNames.CalendarView).As<CalendarView>().InstancePerDependency();
 
+            containerBuilder.RegisterType<EntryViewModel>().InstancePerDependency();
             containerBuilder.RegisterType<MainViewModel>().InstancePerDependency();
             containerBuilder.RegisterType<SecondViewModel>().InstancePerDependency();
+            containerBuilder.RegisterType<CalendarViewModel>().InstancePerDependency();
         }
     }
 }

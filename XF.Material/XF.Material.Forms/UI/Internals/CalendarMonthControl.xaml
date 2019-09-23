@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Grid x:Class="XF.Material.Forms.UI.Internals.CalendarMonthControl"
+      HeightRequest="24"
+      RowSpacing="0"
+      ColumnSpacing="0"
+      Margin="0,0,0,0"
+      Padding="24,16,24,16"
+      BackgroundColor="White"
+      xmlns="http://xamarin.com/schemas/2014/forms"
+      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+      xmlns:material="clr-namespace:XF.Material.Forms.UI"
+      xmlns:sys="clr-namespace:System;assembly=netstandard"
+      x:Name="Root">
+  <Grid.RowDefinitions>
+    <RowDefinition Height="24">
+    </RowDefinition>
+  </Grid.RowDefinitions>
+  <Grid.ColumnDefinitions>
+    <ColumnDefinition Width="24">
+    </ColumnDefinition>
+    <ColumnDefinition Width="*">
+    </ColumnDefinition>
+    <ColumnDefinition Width="24">
+    </ColumnDefinition>
+  </Grid.ColumnDefinitions>
+  <material:MaterialLabel x:Name="previousMonth"
+                          Grid.Row="0"
+                          Grid.Column="0"
+                          TextColor="Gray"
+                          Margin="0"
+                          HeightRequest="24"
+                          WidthRequest="24"
+                          HorizontalTextAlignment="Start"
+                          Text="&lt;"><material:MaterialLabel.GestureRecognizers><TapGestureRecognizer Command="{Binding PreviousMonthCommand, Source={x:Reference Root}}"></TapGestureRecognizer></material:MaterialLabel.GestureRecognizers>
+  </material:MaterialLabel>
+  <material:MaterialLabel x:Name="monthLabel"
+                          TextColor="Gray"
+                          Grid.Row="0"
+                          Grid.Column="1"
+                          Margin="0"
+                          VerticalOptions="StartAndExpand"
+                          HorizontalOptions="CenterAndExpand"
+                          TypeScale="Subtitle1"
+                          HorizontalTextAlignment="Center"
+                          Text="undefined">
+  </material:MaterialLabel>
+  <material:MaterialLabel x:Name="nextMonth"
+                          Grid.Row="0"
+                          Grid.Column="2"
+                          Margin="0"
+                          TextColor="Gray"
+                          HorizontalTextAlignment="End"
+                          Text="&gt;"><material:MaterialLabel.GestureRecognizers><TapGestureRecognizer Command="{Binding NextMonthCommand, Source={x:Reference Root}}"></TapGestureRecognizer></material:MaterialLabel.GestureRecognizers>
+  </material:MaterialLabel>
+</Grid>

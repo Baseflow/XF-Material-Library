@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView x:Class="XF.Material.Forms.UI.Internals.BaseMaterialCalendarView"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material.Forms"
+             x:Name="Root"
+             xmlns:controls="clr-namespace:XF.Material.Forms.UI.Internals">
+  <ContentView.Content>
+    <Grid>
+      <Grid HeightRequest="512"
+            RowSpacing="0"
+            ColumnSpacing="0"
+            Margin="0"
+            Padding="0"
+            VerticalOptions="Start"
+            x:Name="CalendarContainer">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="120"></RowDefinition>
+          <RowDefinition Height="56"></RowDefinition>
+          <RowDefinition Height="344"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <controls:CalendarHeaderView x:Name="CalendarHeader" Title="{Binding Title, Source={x:Reference Root}}" Date="{Binding SelectedDate, Source={x:Reference Root}}" Grid.Row="0" VerticalOptions="Start"/>
+
+
+        <controls:CalendarMonthControl x:Name="MonthControl" Command="{Binding MonthChangedCommand, Source={x:Reference Root}}" CurrentMonth="{Binding CurrentMonth, Source={x:Reference Root}}" Grid.Row="1" VerticalOptions="Start"/>
+
+        <controls:CalendarDaysGrid
+            x:Name="DaysGrid"
+            Grid.Row="2"
+            HorizontalOptions="Center"
+            VerticalOptions="Start"/>
+
+        <!--<controls:CalendarYearsControl
+          BackgroundColor="Tomato"
+          x:Name="YearsControl"
+          Grid.Row="2"
+            HorizontalOptions="Center"
+            VerticalOptions="Start"/>-->
+      </Grid>
+    </Grid>
+  </ContentView.Content>
+</ContentView>

@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:material="clr-namespace:XF.Material.Forms.UI"
+             xmlns:internals="clr-namespace:XF.Material.Forms.UI.Internals"
+             x:Class="XF.Material.Forms.UI.Internals.CalendarYearsControl" x:Name="CYCRoot">
+  <ContentView.Content>
+    <StackLayout Margin="0"
+                 HeightRequest="286"
+                 Padding="24,0,24,0">
+      <CollectionView ItemsSource="{Binding Years, Source={x:Reference CYCRoot}}"
+                      SelectionChanged="OnSelectionChanged"
+                      SelectionMode="Single"
+                      SelectedItem="{Binding SelectedYear, Source={x:Reference CYCRoot}}">
+        <CollectionView.ItemsLayout>
+          <GridItemsLayout Orientation="Vertical"
+                           VerticalItemSpacing="0"
+                           HorizontalItemSpacing="8"
+                           Span="3" />
+        </CollectionView.ItemsLayout>
+        <CollectionView.ItemTemplate>
+          <DataTemplate>
+            <Grid x:Name="GridElement" HeightRequest="52"
+                  WidthRequest="88">
+              <internals:CorneredContentView x:Name="DayComponent"
+                                       CornerRadius="18"
+                                       BackgroundColor="{Binding SelectionColor, Source={x:Reference CYCRoot}}"
+                                       Margin="8">
+                <material:MaterialLabel HorizontalOptions="Center" VerticalOptions="Center" TextColor="Black" Text="{Binding .}"></material:MaterialLabel>
+              </internals:CorneredContentView>
+            </Grid>
+          </DataTemplate>
+        </CollectionView.ItemTemplate>
+      </CollectionView>
+    </StackLayout>
+  </ContentView.Content>
+</ContentView>

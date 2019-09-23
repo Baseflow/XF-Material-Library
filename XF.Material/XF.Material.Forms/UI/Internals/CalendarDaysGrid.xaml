@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<forms:Grid  xmlns:forms="http://xamarin.com/schemas/2014/forms"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+      xmlns:material="clr-namespace:XF.Material.Forms.UI"
+      xmlns:sys="clr-namespace:System;assembly=netstandard"
+             xmlns:internals="clr-namespace:XF.Material.Forms.UI.Internals"
+      RowSpacing="0"
+      WidthRequest="328"
+      ColumnSpacing="4"
+      Padding="12,0,12,0"
+      Margin="0,0,0,0"
+      BackgroundColor="White"
+      x:Class="XF.Material.Forms.UI.Internals.CalendarDaysGrid">
+  <Grid.RowDefinitions>
+    <RowDefinition Height="40">
+    </RowDefinition>
+    <RowDefinition Height="40">
+    </RowDefinition>
+    <RowDefinition Height="40">
+    </RowDefinition>
+    <RowDefinition Height="40">
+    </RowDefinition>
+    <RowDefinition Height="40">
+    </RowDefinition>
+    <RowDefinition Height="40">
+    </RowDefinition>
+    <RowDefinition Height="40">
+    </RowDefinition>
+  </Grid.RowDefinitions>
+  <Grid.ColumnDefinitions>
+    <ColumnDefinition Width="40">
+    </ColumnDefinition>
+    <ColumnDefinition Width="40">
+    </ColumnDefinition>
+    <ColumnDefinition Width="40">
+    </ColumnDefinition>
+    <ColumnDefinition Width="40">
+    </ColumnDefinition>
+    <ColumnDefinition Width="40">
+    </ColumnDefinition>
+    <ColumnDefinition Width="40">
+    </ColumnDefinition>
+    <ColumnDefinition Width="40">
+    </ColumnDefinition>
+  </Grid.ColumnDefinitions>
+  <material:MaterialLabel Grid.Row="0"
+                          Grid.Column="0"
+                          Text="S"
+                          HorizontalOptions="CenterAndExpand"
+                          VerticalOptions="CenterAndExpand"
+                          HorizontalTextAlignment="Center">
+  </material:MaterialLabel>
+  <material:MaterialLabel Grid.Row="0"
+                          Grid.Column="1"
+                          Text="M"
+                          HorizontalOptions="CenterAndExpand"
+                          VerticalOptions="CenterAndExpand"
+                          HorizontalTextAlignment="Center">
+  </material:MaterialLabel>
+  <material:MaterialLabel Grid.Row="0"
+                          Grid.Column="2"
+                          Text="T"
+                          HorizontalOptions="CenterAndExpand"
+                          VerticalOptions="CenterAndExpand"
+                          HorizontalTextAlignment="Center">
+  </material:MaterialLabel>
+  <material:MaterialLabel Grid.Row="0"
+                          Grid.Column="3"
+                          Text="W"
+                          HorizontalOptions="CenterAndExpand"
+                          VerticalOptions="CenterAndExpand"
+                          HorizontalTextAlignment="Center">
+  </material:MaterialLabel>
+  <material:MaterialLabel Grid.Row="0"
+                          Grid.Column="4"
+                          Text="T"
+                          HorizontalOptions="CenterAndExpand"
+                          VerticalOptions="CenterAndExpand"
+                          HorizontalTextAlignment="Center">
+  </material:MaterialLabel>
+  <material:MaterialLabel Grid.Row="0"
+                          Grid.Column="5"
+                          Text="F"
+                          HorizontalOptions="CenterAndExpand"
+                          VerticalOptions="CenterAndExpand"
+                          HorizontalTextAlignment="Center">
+  </material:MaterialLabel>
+  <material:MaterialLabel Grid.Row="0"
+                          Grid.Column="6"
+                          Text="S"
+                          HorizontalOptions="CenterAndExpand"
+                          VerticalOptions="CenterAndExpand"
+                          HorizontalTextAlignment="Center">
+  </material:MaterialLabel>
+</forms:Grid>
