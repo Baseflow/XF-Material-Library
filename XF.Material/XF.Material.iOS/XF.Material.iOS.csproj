@@ -97,7 +97,6 @@
     <Compile Include="Renderers\MaterialNavigationPageRenderer.cs" />
     <Compile Include="Utility\MaterialUtility.cs" />
     <Compile Include="GestureRecognizers\MaterialRippleGestureRecognizer.cs" />
-    <Compile Include="DeviceHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\xf_error%402x.png" />
@@ -112,7 +111,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\XF.Material.Forms\XF.Material.Forms.csproj">
-      <Project>{3BA410B6-935C-4D89-9766-5C0F64CFB271}</Project>
+      <Project>{C314D3B8-EAEB-491D-AB5E-8C9A43EAC131}</Project>
       <Name>XF.Material.Forms</Name>
     </ProjectReference>
   </ItemGroup>
