@@ -123,7 +123,7 @@
       <Name>XF.Material.Droid</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\XF.Material\XF.Material.Forms\XF.Material.Forms.csproj">
-      <Project>{caf232f8-446a-41b1-b837-006ff5de9a60}</Project>
+      <Project>{3BA410B6-935C-4D89-9766-5C0F64CFB271}</Project>
       <Name>XF.Material.Forms</Name>
     </ProjectReference>
     <ProjectReference Include="..\MaterialMvvmSample.Core\MaterialMvvmSample.Core.csproj">
