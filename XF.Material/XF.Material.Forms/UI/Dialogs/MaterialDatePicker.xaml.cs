@@ -143,7 +143,7 @@ namespace XF.Material.Forms.UI.Dialogs
         /// <summary>
         /// Shows this modal dialog.
         /// </summary>
-        protected virtual async Task ShowAsync()
+        protected override async Task ShowAsync()
         {
             if (this.CanShowPopup())
             {
