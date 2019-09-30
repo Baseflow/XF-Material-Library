@@ -5,11 +5,6 @@
 
 A Xamarin.Forms library for Xamarin.Android and Xamarin.iOS to implement [Google's Material Design](https://material.io/design).
 
-## Update (September 27, 2019)
-First, I would like to thank all who are using this library. Sorry also for the unresolved issues and active pull requests. But unfortunately I overlooked these things because of other commitments.
-
-Nevertheless, if there is anybody who is willing to continue the development and maintenance of this repo, feel free to email me. 
-
 ## Contents
 
 - [Getting Started](#getting-started)
