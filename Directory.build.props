@@ -6,8 +6,8 @@
     <PackageIconUrl>https://raw.githubusercontent.com/BaseflowIT/XF-Material-Library/develop/icon.png</PackageIconUrl>
     <Authors>Dustin Catap, Martijn van Dijk</Authors>
     <Owners>Dustin Catap, Martijn van Dijk</Owners>
-    <PackageTags>xamarin, android, plugin</PackageTags>
-    <PackageReleaseNotes>https://github.com/BaseflowIT/XF-Material-Library</PackageReleaseNotes>
+    <PackageTags>xamarin, android, plugin, XF.Material, Material, Material Design, Xamarin.Forms, Forms</PackageTags>
+    <PackageReleaseNotes>https://github.com/BaseflowIT/XF-Material-Library/releases</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
 
     <RepositoryUrl>https://github.com/BaseflowIT/XF-Material-Library</RepositoryUrl>
