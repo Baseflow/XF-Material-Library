@@ -73,7 +73,7 @@ namespace XF.Material.UWP.Renderers
 
         private void UpdateSurfaceColor()
         {
-            _rectangle.Fill = new SolidColorBrush(this.Element.SurfaceColor.ToWindows());
+            _rectangle.Fill = new SolidColorBrush(this.Element.SurfaceColor.ToWindowsColor());
         }
 
         private void UpdateElevation()
