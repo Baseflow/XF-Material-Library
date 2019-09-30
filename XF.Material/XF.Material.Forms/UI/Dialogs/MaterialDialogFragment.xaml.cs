@@ -40,6 +40,12 @@ namespace XF.Material.Forms.UI.Dialogs
             this.InputTaskCompletionSource?.SetResult(null);
         }
 
+        protected override bool OnBackgroundClicked()
+        {
+            this.InputTaskCompletionSource?.SetResult(null);
+            return base.OnBackgroundClicked();
+        }
+
         protected override void OnAppearing()
         {
             base.OnAppearing();
