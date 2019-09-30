@@ -61,6 +61,7 @@
     <Compile Include="Material.cs" />
     <Compile Include="Renderers\Internals\MaterialBoxViewRenderer.cs" />
     <Compile Include="Renderers\Internals\MaterialElementRenderer.cs" />
+    <Compile Include="Renderers\Internals\MaterialDatePickerRenderer.cs" />
     <Compile Include="Renderers\Internals\MaterialEntryRenderer.cs" />
     <Compile Include="Renderers\MaterialButtonRenderer.cs" />
     <Compile Include="Renderers\MaterialCardRenderer.cs" />
