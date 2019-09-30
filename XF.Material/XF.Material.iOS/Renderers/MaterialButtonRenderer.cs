@@ -83,6 +83,7 @@ namespace XF.Material.iOS.Renderers
                 this.CreateStateAnimations();
                 this.UpdateButtonLayer();
                 this.UpdateState();
+                this.UpdateTextColor();
                 this.Control.TouchDown += this.Control_Pressed;
                 this.Control.TouchDragEnter += this.Control_Pressed;
                 this.Control.TouchUpInside += this.Control_Released;
@@ -136,6 +137,10 @@ namespace XF.Material.iOS.Renderers
 
                 case nameof(MaterialButton.Padding):
                     this.UpdatePadding();
+                    break;
+
+                case nameof(MaterialButton.TextColor):
+                    this.UpdateTextColor();
                     break;
             }
         }
@@ -529,6 +534,25 @@ namespace XF.Material.iOS.Renderers
 
             var inset = ((buttonWidth - textWidth) / 2) - 28;
             this.Control.TitleEdgeInsets = new UIEdgeInsets(0, inset, 0, -40);
+        }
+
+        private void UpdateTextColor()
+        {
+            if (this.Control == null || this.Control.CurrentAttributedTitle == null) return;
+
+            var title = new NSMutableAttributedString(this.Control.CurrentAttributedTitle);
+
+            title.EnumerateAttributes(new NSRange(0, title.Length), NSAttributedStringEnumeration.None,
+                (NSDictionary attrs, NSRange range, ref bool stop) =>
+                {
+                    title.BeginEditing();
+                    title.AddAttribute(UIStringAttributeKey.ForegroundColor, _materialButton.TextColor.ToUIColor(), range);
+                    title.EndEditing();
+                });
+
+            this.Control.SetAttributedTitle(title, UIControlState.Normal);
+            this.Control.SetAttributedTitle(title, UIControlState.Highlighted);
+            this.Control.SetAttributedTitle(title, UIControlState.Disabled);
         }
     }
 }
