@@ -24,6 +24,7 @@ namespace XF.Material.iOS.Renderers
 
             this.CheckIfSingleLine();
             this.UpdateLetterSpacing(this.Control, this.Element.LetterSpacing);
+            EnsureLineBreakMode();
         }
 
         private void CheckIfSingleLine()
@@ -43,6 +44,35 @@ namespace XF.Material.iOS.Renderers
                 this.Element.LineHeight = 1;
             }
         }
+        private void EnsureLineBreakMode()
+        {
+            if (Element == null || Control == null)
+                return;
+            var lbm = Element.LineBreakMode;
+            switch (lbm)
+            {
+                case Xamarin.Forms.LineBreakMode.NoWrap:
+                    Control.LineBreakMode = UIKit.UILineBreakMode.Clip;
+                    break;
+                case Xamarin.Forms.LineBreakMode.WordWrap:
+                    Control.LineBreakMode = UIKit.UILineBreakMode.WordWrap;
+                    break;
+                case Xamarin.Forms.LineBreakMode.CharacterWrap:
+                    Control.LineBreakMode = UIKit.UILineBreakMode.CharacterWrap;
+                    break;
+                case Xamarin.Forms.LineBreakMode.HeadTruncation:
+                    Control.LineBreakMode = UIKit.UILineBreakMode.HeadTruncation;
+                    break;
+                case Xamarin.Forms.LineBreakMode.TailTruncation:
+                    Control.LineBreakMode = UIKit.UILineBreakMode.TailTruncation;
+                    break;
+                case Xamarin.Forms.LineBreakMode.MiddleTruncation:
+                    Control.LineBreakMode = UIKit.UILineBreakMode.MiddleTruncation;
+                    break;
+                default:
+                    break;
+            }
+        }
 
         protected override void OnElementChanged(ElementChangedEventArgs<Label> e)
         {
@@ -51,6 +81,7 @@ namespace XF.Material.iOS.Renderers
             if(e?.NewElement != null)
             {
                 this.UpdateLetterSpacing(this.Control, this.Element.LetterSpacing);
+                EnsureLineBreakMode();
             }
         }
 
@@ -64,6 +95,7 @@ namespace XF.Material.iOS.Renderers
                 case nameof(Label.Text):
                     UpdateLetterSpacing(this.Control, this.Element.LetterSpacing);
                     this.CheckIfSingleLine();
+                    EnsureLineBreakMode();
                     break;
             }
         }

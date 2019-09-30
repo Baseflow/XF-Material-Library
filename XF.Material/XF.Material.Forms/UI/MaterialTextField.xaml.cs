@@ -1182,7 +1182,10 @@ namespace XF.Material.Forms.UI
             }
             else
             {
-                result = await MaterialDialog.Instance.SelectChoiceAsync(title, _choices, confirmingText, dismissiveText, configuration);
+                if (_choices?.Count > 0)
+                    result = await MaterialDialog.Instance.SelectChoiceAsync(title, _choices, 0, confirmingText, dismissiveText, configuration);
+                else
+                    result = await MaterialDialog.Instance.SelectChoiceAsync(title, _choices, confirmingText, dismissiveText, configuration);
             }
 
             if (result >= 0)

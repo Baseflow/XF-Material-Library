@@ -124,7 +124,7 @@ namespace XF.Material.Forms.UI
         /// For internal use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public void OnViewTouch(double x, double y)
+        public virtual void OnViewTouch(double x, double y)
         {
             if (this.Choices == null || this.Choices?.Count == 0)
             {
@@ -146,6 +146,10 @@ namespace XF.Material.Forms.UI
                 if (result >= 0)
                 {
                     this.OnMenuSelected(new MaterialMenuResult(result, this.CommandParameter));
+                }
+             else
+                {
+                    this.OnMenuSelected(new MaterialMenuResult(-1, null));
                 }
             });
         }
