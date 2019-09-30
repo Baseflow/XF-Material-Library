@@ -1,6 +1,5 @@
 ﻿using MaterialMvvmSample.Utilities;
 using MaterialMvvmSample.Views;
-using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

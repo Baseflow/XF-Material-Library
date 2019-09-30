@@ -35,7 +35,7 @@ namespace XF.Material.iOS.Utility
             else
                 statusBar = UIApplication.SharedApplication.ValueForKey(new NSString("statusBar")) as UIView;
 
-            if(statusBar != null)
+            if (statusBar != null)
                 statusBar.BackgroundColor = color.ToUIColor();
         }
     }

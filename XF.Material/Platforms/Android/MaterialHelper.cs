@@ -1,5 +1,4 @@
-﻿using Android.App;
-using Android.Content;
+﻿using System;
 using Android.Content.Res;
 using Android.Graphics;
 using Android.Graphics.Drawables;
@@ -8,9 +7,6 @@ using Android.Support.V4.Graphics;
 using Android.Support.V4.Graphics.Drawable;
 using Android.Support.V4.View;
 using Android.Util;
-using Android.Views.InputMethods;
-using Android.Widget;
-using System;
 using Xamarin.Forms.Platform.Android;
 
 namespace XF.Material.Droid

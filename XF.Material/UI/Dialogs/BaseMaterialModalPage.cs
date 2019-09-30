@@ -1,11 +1,11 @@
-﻿using Rg.Plugins.Popup.Animations;
-using Rg.Plugins.Popup.Pages;
-using Rg.Plugins.Popup.Services;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Rg.Plugins.Popup.Animations;
+using Rg.Plugins.Popup.Pages;
+using Rg.Plugins.Popup.Services;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 

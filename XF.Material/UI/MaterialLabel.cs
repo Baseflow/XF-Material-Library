@@ -31,7 +31,7 @@ namespace XF.Material.Forms.UI
             get => (double)this.GetValue(LetterSpacingProperty);
             set => this.SetValue(LetterSpacingProperty, value);
         }
-     
+
         /// <summary>
         /// Gets or sets the type scale used for this label.
         /// </summary>

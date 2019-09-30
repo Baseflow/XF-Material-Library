@@ -1,8 +1,8 @@
-﻿using MaterialMvvmSample.Utilities;
-using MaterialMvvmSample.ViewModels;
-using System;
+﻿using System;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using MaterialMvvmSample.Utilities;
+using MaterialMvvmSample.ViewModels;
 using Xamarin.Forms;
 using XF.Material.Forms.UI;
 

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using Xamarin.Forms;
 
 namespace XF.Material.Forms.UI.Internals

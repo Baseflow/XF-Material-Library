@@ -1,6 +1,6 @@
-﻿using Microsoft.Toolkit.Uwp.UI.Controls;
-using System;
+﻿using System;
 using System.ComponentModel;
+using Microsoft.Toolkit.Uwp.UI.Controls;
 using Windows.UI;
 using Windows.UI.Xaml.Media;
 using Xamarin.Forms;

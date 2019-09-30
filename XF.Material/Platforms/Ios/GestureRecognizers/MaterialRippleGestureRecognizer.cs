@@ -64,9 +64,9 @@ namespace XF.Material.iOS.GestureRecognizers
             _backgroundFadeOutAnimation.From = FromObject(0.20f);
             _backgroundFadeOutAnimation.To = FromObject(0.0f);
 
-            _rippleLayer = new CAShapeLayer {FillColor = rippleColor, MasksToBounds = true};
+            _rippleLayer = new CAShapeLayer { FillColor = rippleColor, MasksToBounds = true };
 
-            _backgroundLayer = new CALayer {BackgroundColor = rippleColor, MasksToBounds = true, Opacity = 0};
+            _backgroundLayer = new CALayer { BackgroundColor = rippleColor, MasksToBounds = true, Opacity = 0 };
 
             _isStarted = false;
             _touchView = view;
@@ -120,7 +120,7 @@ namespace XF.Material.iOS.GestureRecognizers
             _isStarted = true;
         }
 
-        
+
 
         private void AnimateComplete()
         {
@@ -150,9 +150,9 @@ namespace XF.Material.iOS.GestureRecognizers
             group.Duration = 1.7;
             group.RepeatCount = 1;
             group.TimingFunction = CAMediaTimingFunction.FromName(CAMediaTimingFunction.Linear);
-            group.Animations = new CAAnimation[] { 
-                _backgroundFadeInAnimation, 
-                _backgroundFadeInHoldAnimation, 
+            group.Animations = new CAAnimation[] {
+                _backgroundFadeInAnimation,
+                _backgroundFadeInHoldAnimation,
                 _backgroundFadeOutAfterHoldAnimation };
 
             _backgroundLayer.AddAnimation(group, "backgroundFadeInAnimation");
@@ -197,7 +197,7 @@ namespace XF.Material.iOS.GestureRecognizers
         /// <param name="indexToInsertLayer"></param>
         private static void SetupAnimationLayer(CALayer layer, UIView view, int indexToInsertLayer)
         {
-            layer.Frame = view is MaterialCardRenderer ? new CGRect(0, 0, view.Frame.Width, view.Frame.Height) : 
+            layer.Frame = view is MaterialCardRenderer ? new CGRect(0, 0, view.Frame.Width, view.Frame.Height) :
                 new CGRect(6, 6, view.Frame.Width - 12, view.Frame.Height - 12);
 
             layer.CornerRadius = view.Layer.CornerRadius;

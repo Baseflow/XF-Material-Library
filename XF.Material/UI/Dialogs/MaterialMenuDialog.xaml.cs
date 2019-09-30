@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -94,7 +93,7 @@ namespace XF.Material.Forms.UI.Dialogs
 
             if (newX + Container.Width >= width)
             {
-                newX -= (Container.Width / 2) + (_dimension.Width / 2) ;
+                newX -= (Container.Width / 2) + (_dimension.Width / 2);
             }
             else if (newX + Container.Width < width)
             {
@@ -152,7 +151,7 @@ namespace XF.Material.Forms.UI.Dialogs
                     TextColor = configuration.TextColor,
                     FontFamily = configuration.TextFontFamily
                 };
-                actionModel.SelectedCommand = new Command<int>(async(position) =>
+                actionModel.SelectedCommand = new Command<int>(async (position) =>
                 {
                     if (this.InputTaskCompletionSource?.Task.Status != TaskStatus.WaitingForActivation) return;
                     actionModel.IsSelected = true;

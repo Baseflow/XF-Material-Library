@@ -216,12 +216,12 @@ namespace XF.Material.Forms.UI
             switch (e.StatusType)
             {
                 case GestureStatus.Running:
-                {
-                    var newX = Math.Min(_x + e.TotalX, Placeholder.Width) >= 0 ? Math.Min(_x + e.TotalX, Placeholder.Width) : 0;
-                    var percentage = newX / Placeholder.Width;
-                    this.Value = (percentage * (this.MaxValue - this.MinValue)) + this.MinValue;
-                    break;
-                }
+                    {
+                        var newX = Math.Min(_x + e.TotalX, Placeholder.Width) >= 0 ? Math.Min(_x + e.TotalX, Placeholder.Width) : 0;
+                        var percentage = newX / Placeholder.Width;
+                        this.Value = (percentage * (this.MaxValue - this.MinValue)) + this.MinValue;
+                        break;
+                    }
                 case GestureStatus.Completed:
                     _x = Dragger.TranslationX;
                     break;

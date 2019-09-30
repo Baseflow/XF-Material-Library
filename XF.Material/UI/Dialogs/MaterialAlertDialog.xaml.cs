@@ -14,13 +14,13 @@ namespace XF.Material.Forms.UI.Dialogs
             Message.Text = message;
             DialogTitle.Text = title;
             PositiveButton.Text = action1Text;
-            PositiveButton.Command = new Command(async() =>
+            PositiveButton.Command = new Command(async () =>
             {
                 await this.DismissAsync();
                 this.InputTaskCompletionSource?.SetResult(true);
             });
             NegativeButton.Text = action2Text;
-            NegativeButton.Command = new Command(async() =>
+            NegativeButton.Command = new Command(async () =>
             {
                 await this.DismissAsync();
                 this.InputTaskCompletionSource?.SetResult(false);

@@ -1,14 +1,5 @@
 ﻿using MaterialMvvmSample.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Threading.Tasks;
-using Xamarin.Forms;
-using XF.Material.Forms;
 using Xamarin.Forms.Xaml;
-using XF.Material.Forms.UI;
-using XF.Material.Forms.UI.Dialogs;
-using Xamarin.Forms.Internals;
 
 namespace MaterialMvvmSample.Views
 {

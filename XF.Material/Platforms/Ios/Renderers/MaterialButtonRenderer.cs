@@ -1,10 +1,9 @@
-﻿using CoreAnimation;
+﻿using System;
+using System.ComponentModel;
+using System.Threading.Tasks;
+using CoreAnimation;
 using CoreGraphics;
 using Foundation;
-using System;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Threading.Tasks;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
@@ -248,7 +247,7 @@ namespace XF.Material.iOS.Renderers
             _colorResting.To = FromObject(_restingBackgroundColor.CGColor);
 
 
-            if(_rippleGestureRecognizer == null)
+            if (_rippleGestureRecognizer == null)
             {
                 _rippleGestureRecognizer = new UITapGestureRecognizer() { Delegate = new MaterialRippleGestureRecognizerDelegate(_rippleColor.CGColor) };
                 this.Control.AddGestureRecognizer(_rippleGestureRecognizer);

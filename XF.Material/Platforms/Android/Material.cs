@@ -1,11 +1,11 @@
-﻿using Android.App;
+﻿using System;
+using System.Linq;
+using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Support.V7.App;
 using Rg.Plugins.Popup;
 using Rg.Plugins.Popup.Services;
-using System;
-using System.Linq;
 using XF.Material.Forms.UI.Dialogs;
 
 namespace XF.Material.Droid

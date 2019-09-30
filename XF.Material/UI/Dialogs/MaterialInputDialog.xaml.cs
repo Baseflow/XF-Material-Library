@@ -43,7 +43,8 @@ namespace XF.Material.Forms.UI.Dialogs
         public static async Task<string> Show(string title = null, string message = null, string inputText = null, string inputPlaceholder = "Enter input", string confirmingText = "Ok", string dismissiveText = "Cancel", MaterialInputDialogConfiguration configuration = null)
         {
             var dialog = new MaterialInputDialog(title, message, inputText, inputPlaceholder, confirmingText,
-                dismissiveText, configuration) {PositiveButton = {IsEnabled = false}};
+                dismissiveText, configuration)
+            { PositiveButton = { IsEnabled = false } };
 
             await dialog.ShowAsync();
 

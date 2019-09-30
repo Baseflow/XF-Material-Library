@@ -3,8 +3,8 @@ using Lottie.Forms;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
-using XF.Material.iOS.Renderers;
 using XF.Material.Forms.UI;
+using XF.Material.iOS.Renderers;
 
 [assembly: ExportRenderer(typeof(MaterialCircularLoadingView), typeof(MaterialCircularLoadingViewRenderer))]
 namespace XF.Material.iOS.Renderers

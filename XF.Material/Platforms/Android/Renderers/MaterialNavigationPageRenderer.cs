@@ -1,6 +1,6 @@
-﻿using Android.Content;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
+using Android.Content;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using XF.Material.Droid.Renderers;

@@ -11,18 +11,18 @@ namespace XF.Material.Droid.Renderers.Internals
 {
     internal class MaterialElementRenderer : ViewRenderer<View, Android.Views.View>
     {
-        public MaterialElementRenderer(Context context): base(context) { }
+        public MaterialElementRenderer(Context context) : base(context) { }
 
         protected override void OnElementChanged(ElementChangedEventArgs<View> e)
         {
             base.OnElementChanged(e);
 
-            if(e?.OldElement != null)
+            if (e?.OldElement != null)
             {
                 (this.Element as IMaterialElementConfiguration)?.ElementChanged(false);
             }
 
-            if(e?.NewElement != null)
+            if (e?.NewElement != null)
             {
                 (this.Element as IMaterialElementConfiguration)?.ElementChanged(true);
             }

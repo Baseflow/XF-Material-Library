@@ -1,11 +1,11 @@
-﻿using Android.Animation;
+﻿using System;
+using System.Collections.Generic;
+using Android.Animation;
 using Android.Content.Res;
 using Android.Graphics;
 using Android.Graphics.Drawables;
 using Android.Support.V7.Widget;
 using Android.Views;
-using System;
-using System.Collections.Generic;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using XF.Material.Forms.UI;
@@ -113,7 +113,7 @@ namespace XF.Material.Droid.Renderers
 
             if (_button.ButtonType != MaterialButtonType.Text)
             {
-                shapeDrawable = _withIcon ? MaterialHelper.GetDrawableCopyFromResource<GradientDrawable>(Resource.Drawable.drawable_shape_with_icon) 
+                shapeDrawable = _withIcon ? MaterialHelper.GetDrawableCopyFromResource<GradientDrawable>(Resource.Drawable.drawable_shape_with_icon)
                                           : MaterialHelper.GetDrawableCopyFromResource<GradientDrawable>(Resource.Drawable.drawable_shape);
             }
             else

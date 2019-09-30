@@ -1,18 +1,10 @@
-﻿using Android.App;
+﻿using System.ComponentModel;
 using Android.Content;
 using Android.Graphics.Drawables;
-using Android.Runtime;
-using Android.Support.V4.Content;
-using Android.Views;
-using Android.Views.InputMethods;
-using Android.Widget;
-using System.ComponentModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using XF.Material.Droid.Renderers.Internals;
 using XF.Material.Forms.UI.Internals;
-using static Android.Text.TextUtils;
-using static Android.Widget.TextView;
 
 [assembly: ExportRenderer(typeof(MaterialDatePicker), typeof(MaterialDatePickerRenderer))]
 namespace XF.Material.Droid.Renderers.Internals
@@ -36,12 +28,12 @@ namespace XF.Material.Droid.Renderers.Internals
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            base.OnElementPropertyChanged(sender, e);  
+            base.OnElementPropertyChanged(sender, e);
         }
 
         private void SetControl()
         {
-            if(this.Control == null)
+            if (this.Control == null)
             {
                 return;
             }
@@ -53,7 +45,7 @@ namespace XF.Material.Droid.Renderers.Internals
 
             var layoutParams = new MarginLayoutParams(this.Control.LayoutParameters);
             layoutParams.SetMargins(0, 0, 0, 0);
-            this.Control.LayoutParameters = layoutParams;            
-        }        
+            this.Control.LayoutParameters = layoutParams;
+        }
     }
 }

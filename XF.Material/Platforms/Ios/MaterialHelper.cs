@@ -1,5 +1,5 @@
-﻿using CoreGraphics;
-using System;
+﻿using System;
+using CoreGraphics;
 using UIKit;
 
 namespace XF.Material.iOS
@@ -74,7 +74,7 @@ namespace XF.Material.iOS
 
             a = 0.38f;
 
-            return new UIColor(r, g,b,a);
+            return new UIColor(r, g, b, a);
         }
 
         internal static UIColor MixColor(this UIColor color1, UIColor color2)

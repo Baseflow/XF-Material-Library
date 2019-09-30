@@ -1,7 +1,7 @@
-﻿using CoreGraphics;
-using Foundation;
-using System;
+﻿using System;
 using System.ComponentModel;
+using CoreGraphics;
+using Foundation;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
@@ -78,7 +78,7 @@ namespace XF.Material.iOS.Renderers
         {
             base.OnElementChanged(e);
 
-            if(e?.NewElement != null)
+            if (e?.NewElement != null)
             {
                 this.UpdateLetterSpacing(this.Control, this.Element.LetterSpacing);
                 EnsureLineBreakMode();

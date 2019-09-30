@@ -1,6 +1,6 @@
-﻿using CoreGraphics;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
+using CoreGraphics;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;

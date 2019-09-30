@@ -23,11 +23,11 @@ namespace XF.Material.Forms.UI.Dialogs
         {
             var d = new MaterialDialogFragment(configuration)
             {
-                container = {Content = view ?? throw new ArgumentNullException(nameof(view))},
-                DialogTitle = {Text = title},
-                Message = {Text = message},
-                PositiveButton = {Text = positiveButtonText},
-                NegativeButton = {Text = negativeButtonText}
+                container = { Content = view ?? throw new ArgumentNullException(nameof(view)) },
+                DialogTitle = { Text = title },
+                Message = { Text = message },
+                PositiveButton = { Text = positiveButtonText },
+                NegativeButton = { Text = negativeButtonText }
             };
 
             await d.ShowAsync();

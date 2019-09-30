@@ -165,7 +165,7 @@ namespace XF.Material.Forms.Resources
             {
                 var color = (Color)this.GetValue(SecondaryProperty);
 
-                if(color.IsDefault && this.Primary.IsDefault)
+                if (color.IsDefault && this.Primary.IsDefault)
                 {
                     return Color.Accent;
                 }

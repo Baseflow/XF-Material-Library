@@ -1,9 +1,9 @@
-﻿using Android.Content;
+﻿using System.Linq;
+using Android.Content;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using XF.Material.Droid.Renderers;
 using XF.Material.Forms.UI;
-using System.Linq;
 
 [assembly: ExportRenderer(typeof(MaterialMenuButton), typeof(MaterialMenuRenderer))]
 namespace XF.Material.Droid.Renderers

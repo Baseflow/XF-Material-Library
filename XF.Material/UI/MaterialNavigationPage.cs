@@ -205,7 +205,7 @@ namespace XF.Material.Forms.UI
         {
             base.OnPropertyChanged(propertyName);
 
-            if(propertyName == nameof(this.CurrentPage) && this.CurrentPage != null)
+            if (propertyName == nameof(this.CurrentPage) && this.CurrentPage != null)
             {
                 this.CurrentPage.PropertyChanged += this.Page_PropertyChanged;
             }

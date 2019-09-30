@@ -124,26 +124,26 @@ namespace XF.Material.Forms.UI
                 case Array _:
                     throw new InvalidOperationException("The property 'SelectedIndices' is 'System.Array', please use a collection that has no fixed size");
                 default:
-                {
-                    if (!this.SelectedIndices.Any())
                     {
-                        foreach (var model in this.Models)
+                        if (!this.SelectedIndices.Any())
                         {
-                            model.IsSelected = false;
+                            foreach (var model in this.Models)
+                            {
+                                model.IsSelected = false;
+                            }
                         }
-                    }
 
-                    else
-                    {
-                        foreach (var index in this.SelectedIndices)
+                        else
                         {
-                            var model = this.Models.ElementAt(index);
-                            model.IsSelected = true;
+                            foreach (var index in this.SelectedIndices)
+                            {
+                                var model = this.Models.ElementAt(index);
+                                model.IsSelected = true;
+                            }
                         }
-                    }
 
-                    break;
-                }
+                        break;
+                    }
             }
 
             this.OnSelectedIndicesChanged(this.SelectedIndices);

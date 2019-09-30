@@ -114,21 +114,21 @@ namespace XF.Material.Forms.UI
                         ChipImage.Source = this.Image;
                         break;
                     case nameof(this.ActionImage):
-                    {
-                        ChipActionImage.Source = this.ActionImage;
-                        ChipActionImage.IsVisible = this.ActionImage != null;
-
-                        if (this.ActionImage != null && ChipActionImage.GestureRecognizers.Count <= 0)
                         {
-                            ChipActionImage.GestureRecognizers.Add(new TapGestureRecognizer { Command = new Command(this.ActionImageTapHandled, () => !_canExecute), NumberOfTapsRequired = 1 });
-                        }
-                        else if (this.ActionImage == null)
-                        {
-                            ChipActionImage.GestureRecognizers.Clear();
-                        }
+                            ChipActionImage.Source = this.ActionImage;
+                            ChipActionImage.IsVisible = this.ActionImage != null;
 
-                        break;
-                    }
+                            if (this.ActionImage != null && ChipActionImage.GestureRecognizers.Count <= 0)
+                            {
+                                ChipActionImage.GestureRecognizers.Add(new TapGestureRecognizer { Command = new Command(this.ActionImageTapHandled, () => !_canExecute), NumberOfTapsRequired = 1 });
+                            }
+                            else if (this.ActionImage == null)
+                            {
+                                ChipActionImage.GestureRecognizers.Clear();
+                            }
+
+                            break;
+                        }
                 }
             }
         }

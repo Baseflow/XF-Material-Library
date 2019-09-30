@@ -27,7 +27,8 @@ namespace XF.Material.Forms.UI.Dialogs
         {
             var dialog = new MaterialSimpleDialog(configuration)
             {
-                InputTaskCompletionSource = new TaskCompletionSource<int>(), DialogTitle = {Text = title}
+                InputTaskCompletionSource = new TaskCompletionSource<int>(),
+                DialogTitle = { Text = title }
             };
             dialog.CreateActions(actions.ToList(), configuration);
 
@@ -68,7 +69,7 @@ namespace XF.Material.Forms.UI.Dialogs
                         ? preferredConfig.TextFontFamily
                         : Material.FontFamily.Body1
                 };
-                actionModel.SelectedCommand = new Command<int>(async(position) =>
+                actionModel.SelectedCommand = new Command<int>(async (position) =>
                 {
                     if (this.InputTaskCompletionSource?.Task.Status != TaskStatus.WaitingForActivation) return;
                     actionModel.IsSelected = true;

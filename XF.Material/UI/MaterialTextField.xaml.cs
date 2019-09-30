@@ -30,7 +30,7 @@ namespace XF.Material.Forms.UI
 
         public static readonly BindableProperty ChoicesProperty = BindableProperty.Create(nameof(Choices), typeof(IList), typeof(MaterialTextField));
 
-        public static readonly BindableProperty SelectedChoiceProperty = BindableProperty.Create(nameof(SelectedChoice), typeof(object), typeof(MaterialTextField),null,BindingMode.TwoWay,null, propertyChanged: SelectedChoicePropertyChange);
+        public static readonly BindableProperty SelectedChoiceProperty = BindableProperty.Create(nameof(SelectedChoice), typeof(object), typeof(MaterialTextField), null, BindingMode.TwoWay, null, propertyChanged: SelectedChoicePropertyChange);
 
         static void SelectedChoicePropertyChange(BindableObject bindable, object oldValue, object newValue)
         {
@@ -46,12 +46,12 @@ namespace XF.Material.Forms.UI
                     // 1.1 Current selected index and get selected index should not same.
                     // 2. set control selected index
 
-                   // List<object> data = control.Choices as List<object>;
+                    // List<object> data = control.Choices as List<object>;
 
                     var index = control.Choices.IndexOf(newValue);
                     if (control._selectedIndex != index)
                     {
-                        control._selectedIndex  = index;
+                        control._selectedIndex = index;
                         control.Text = control._choices[index];
                         control.AnimateToInactiveOrFocusedStateOnStart(control);
 
@@ -61,7 +61,7 @@ namespace XF.Material.Forms.UI
 
                 }
             }
-            
+
         }
 
         public static readonly BindableProperty ErrorColorProperty = BindableProperty.Create(nameof(ErrorColor), typeof(Color), typeof(MaterialTextField), Material.Color.Error);
@@ -211,7 +211,7 @@ namespace XF.Material.Forms.UI
         /// <summary>
         /// Gets or sets the name of the property to display of each object in the <see cref="Choices"/> property. This will be ignored if the objects are strings.
         /// </summary>
-        
+
 
         /// <summary>
         /// Gets or sets the command that will execute if a choice was selected when the <see cref="InputType"/> is set to <see cref="MaterialTextFieldInputType.Choice"/>.
@@ -465,7 +465,7 @@ namespace XF.Material.Forms.UI
             set => this.SetValue(ShouldAnimateUnderlineProperty, value);
         }
 
-       public string ChoicesBindingName { get; set; }
+        public string ChoicesBindingName { get; set; }
 
         //public string ChoicesBindingName
         //{
@@ -492,7 +492,7 @@ namespace XF.Material.Forms.UI
                     placeholder.IsVisible = true;
                 }
 
-              this.SetValue(TextProperty, value);
+                this.SetValue(TextProperty, value);
             }
         }
 
@@ -1009,7 +1009,7 @@ namespace XF.Material.Forms.UI
             {
                 return null;
             }
-            
+
             return this.Choices[index];
         }
 
@@ -1242,7 +1242,7 @@ namespace XF.Material.Forms.UI
             {
                 _selectedIndex = result;
                 this.Text = _choices[result];
-               // entry.Text = Text;
+                // entry.Text = Text;
             }
         }
 
@@ -1265,11 +1265,11 @@ namespace XF.Material.Forms.UI
             else if (this.InputType == MaterialTextFieldInputType.Choice && string.IsNullOrEmpty(text))
             {
                 _selectedIndex = -1;
-                
+
             }
-           
-                entry.Text = text;
-           
+
+            entry.Text = text;
+
 
             this.AnimateToInactiveOrFocusedStateOnStart(this);
             this.UpdateCounter();

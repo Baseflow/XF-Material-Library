@@ -1,10 +1,10 @@
-﻿using UIKit;
+﻿using System.ComponentModel;
+using System.Drawing;
+using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
-using XF.Material.iOS.Renderers.Internals;
 using XF.Material.Forms.UI.Internals;
-using System.ComponentModel;
-using System.Drawing;
+using XF.Material.iOS.Renderers.Internals;
 
 [assembly: ExportRenderer(typeof(MaterialEntry), typeof(MaterialEntryRenderer))]
 namespace XF.Material.iOS.Renderers.Internals
@@ -25,7 +25,7 @@ namespace XF.Material.iOS.Renderers.Internals
 
         private void SetControl()
         {
-            if(this.Control == null)
+            if (this.Control == null)
             {
                 return;
             }
@@ -50,7 +50,7 @@ namespace XF.Material.iOS.Renderers.Internals
                 this.Control.TintColor = (this.Element as MaterialEntry)?.TintColor.ToUIColor();
             }
 
-            if(e?.PropertyName == nameof(MaterialEntry.IsNumericKeyboard))
+            if (e?.PropertyName == nameof(MaterialEntry.IsNumericKeyboard))
             {
                 this.AddRemoveReturnKeyToNumericInput((this.Element as MaterialEntry).IsNumericKeyboard);
             }
@@ -58,11 +58,11 @@ namespace XF.Material.iOS.Renderers.Internals
 
         private void AddRemoveReturnKeyToNumericInput(bool isNumeric)
         {
-            if(isNumeric)
+            if (isNumeric)
             {
                 UIToolbar toolbar = null;
 
-                if(!_returnButtonAdded)
+                if (!_returnButtonAdded)
                 {
                     toolbar = new UIToolbar(new RectangleF(0.0f, 0.0f, 50.0f, 44.0f));
 

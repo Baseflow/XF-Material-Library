@@ -147,7 +147,7 @@ namespace XF.Material.Forms.UI
                 {
                     this.OnMenuSelected(new MaterialMenuResult(result, this.CommandParameter));
                 }
-             else
+                else
                 {
                     this.OnMenuSelected(new MaterialMenuResult(-1, null));
                 }
@@ -181,7 +181,7 @@ namespace XF.Material.Forms.UI
             }
             else
             {
-                items.AddRange(from object item in this.Choices select new MaterialMenuItem {Text = item.ToString(), Index = this.Choices.IndexOf(item)});
+                items.AddRange(from object item in this.Choices select new MaterialMenuItem { Text = item.ToString(), Index = this.Choices.IndexOf(item) });
             }
 
             return items;

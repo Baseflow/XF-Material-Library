@@ -160,8 +160,8 @@ namespace XF.Material.Forms.UI
             }
 
             base.OnPropertyChanged(propertyName);
-            
-            if(propertyName == null) return;
+
+            if (propertyName == null) return;
 
             if (_propertyChangeActions != null && _propertyChangeActions.TryGetValue(propertyName, out var handlePropertyChange))
             {

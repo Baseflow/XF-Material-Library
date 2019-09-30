@@ -75,7 +75,7 @@ namespace XF.Material.Forms.UI.Internals
 
         protected override void OnPropertyChanged(string propertyName = null)
         {
-            base.OnPropertyChanged(propertyName);         
+            base.OnPropertyChanged(propertyName);
 
             if (propertyName == nameof(this.IsFocused) && !this.IsFocused && this.Date != this.NullableDate)
             {

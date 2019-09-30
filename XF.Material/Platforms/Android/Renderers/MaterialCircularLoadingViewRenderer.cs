@@ -7,7 +7,6 @@ using Xamarin.Forms.Platform.Android;
 using XF.Material.Droid.Renderers;
 using XF.Material.Forms.UI;
 using static Android.Widget.ImageView;
-using static Com.Airbnb.Lottie.LottieAnimationView;
 
 [assembly: ExportRenderer(typeof(MaterialCircularLoadingView), typeof(MaterialCircularLoadingViewRenderer))]
 namespace XF.Material.Droid.Renderers

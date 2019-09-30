@@ -13,7 +13,7 @@ namespace XF.Material.iOS.Renderers.Internals
         {
             base.OnElementChanged(e);
 
-            if(e?.NewElement != null)
+            if (e?.NewElement != null)
             {
                 this.NativeView?.AddGestureRecognizer(new UIGestureRecognizer() { Delegate = new BoxViewGestureRecognizerDelegate(this.Element as MaterialBoxView) });
             }
