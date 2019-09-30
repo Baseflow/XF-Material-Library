@@ -106,7 +106,7 @@ You can customize the appearance of the App Bar by using the `MaterialNavigation
 
 | Code | Android  | iOS |
 | ------------- | ------------- | ------------- |
-|`<ContentPage .... xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material.Forms" material:MaterialNavigationPage.AppBarColor="#2c3e50" material:MaterialNavigationPage.AppBarTitleTextFontFamily="Roboto" material:MaterialNavigationPage.AppBarTitleTextFontSize="14" material:MaterialNavigationPage.StatusBarColor="#1B3147" material:MaterialNavigationPage.AppBarTitleTextAlignment="Start" /* Content goes here * </ ContentPage>` |<img src="https://media.giphy.com/media/MU4IeOwCKtssPAmgNB/giphy.gif" alt="Android card" width="500" />|<img src="https://media.giphy.com/media/XJ1bwhVkWKPDU2UmKP/giphy.gif" alt="iOS card" width="500"/> |
+|`<ContentPage .... xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material" material:MaterialNavigationPage.AppBarColor="#2c3e50" material:MaterialNavigationPage.AppBarTitleTextFontFamily="Roboto" material:MaterialNavigationPage.AppBarTitleTextFontSize="14" material:MaterialNavigationPage.StatusBarColor="#1B3147" material:MaterialNavigationPage.AppBarTitleTextAlignment="Start" /* Content goes here * </ ContentPage>` |<img src="https://media.giphy.com/media/MU4IeOwCKtssPAmgNB/giphy.gif" alt="Android card" width="500" />|<img src="https://media.giphy.com/media/XJ1bwhVkWKPDU2UmKP/giphy.gif" alt="iOS card" width="500"/> |
 
 
 ##### Attached Properties
@@ -1249,8 +1249,8 @@ The code below shows a complete example on how to include the `MaterialColorConf
 <Application x:Class="XF.MaterialSample.App"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:mtrl="clr-namespace:XF.Material.Forms.Resources;assembly=XF.Material.Forms"
-    xmlns:mtrltypo="clr-namespace:XF.Material.Forms.Resources.Typography;assembly=XF.Material.Forms">
+    xmlns:mtrl="clr-namespace:XF.Material.Forms.Resources;assembly=XF.Material"
+    xmlns:mtrltypo="clr-namespace:XF.Material.Forms.Resources.Typography;assembly=XF.Material">
     <Application.Resources>
 
         <OnPlatform x:Key="FontFamily.RobotoRegular"

@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<local:BaseSecondView x:Class="MaterialMvvmSample.Views.SecondView"
+                      xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:local="clr-namespace:MaterialMvvmSample.Views"
+                      xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+                      Title="{Binding JobTitle}"
+                      material:MaterialNavigationPage.AppBarColor="Black"
+                      material:MaterialNavigationPage.AppBarTitleTextAlignment="Start"
+                      material:MaterialNavigationPage.AppBarTitleTextColor="White"
+                      material:MaterialNavigationPage.AppBarTitleTextFontSize="14"
+                      material:MaterialNavigationPage.StatusBarColor="Black">
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="CenterAndExpand">
+            <material:MaterialLabel HorizontalOptions="Center"
+                                    Text="Oops, there's nothing here! :("
+                                    TypeScale="Subtitle1"
+                                    VerticalOptions="Center" />
+        </StackLayout>
+    </ContentPage.Content>
+</local:BaseSecondView>
