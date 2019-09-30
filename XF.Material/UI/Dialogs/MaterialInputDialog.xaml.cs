@@ -11,7 +11,7 @@ namespace XF.Material.Forms.UI.Dialogs
     {
         internal MaterialInputDialog(string title = null, string message = null, string inputText = null, string inputPlaceholder = "Enter input", string confirmingText = "Ok", string dismissiveText = "Cancel", MaterialInputDialogConfiguration configuration = null) : this(configuration)
         {
-            this.InputTaskCompletionSource = new TaskCompletionSource<string>();
+            InputTaskCompletionSource = new TaskCompletionSource<string>();
             Message.Text = message;
             DialogTitle.Text = title;
             TextField.Placeholder = inputPlaceholder;
@@ -20,20 +20,20 @@ namespace XF.Material.Forms.UI.Dialogs
             NegativeButton.Text = dismissiveText;
             PositiveButton.Command = new Command(async () =>
             {
-                await this.DismissAsync();
-                this.InputTaskCompletionSource?.SetResult(TextField.Text);
+                await DismissAsync();
+                InputTaskCompletionSource?.SetResult(TextField.Text);
             });
             NegativeButton.Command = new Command(async () =>
             {
-                await this.DismissAsync();
-                this.InputTaskCompletionSource?.SetResult(string.Empty);
+                await DismissAsync();
+                InputTaskCompletionSource?.SetResult(string.Empty);
             });
         }
 
         internal MaterialInputDialog(MaterialInputDialogConfiguration configuration = null)
         {
-            this.InitializeComponent();
-            this.Configure(configuration);
+            InitializeComponent();
+            Configure(configuration);
         }
 
         public TaskCompletionSource<string> InputTaskCompletionSource { get; set; }
@@ -53,21 +53,21 @@ namespace XF.Material.Forms.UI.Dialogs
 
         protected override void OnBackButtonDismissed()
         {
-            this.InputTaskCompletionSource?.SetResult(string.Empty);
+            InputTaskCompletionSource?.SetResult(string.Empty);
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
 
-            TextField.TextChanged += this.TextField_TextChanged;
+            TextField.TextChanged += TextField_TextChanged;
 
-            this.ChangeLayout();
+            ChangeLayout();
         }
 
         protected override bool OnBackgroundClicked()
         {
-            this.InputTaskCompletionSource?.SetResult(string.Empty);
+            InputTaskCompletionSource?.SetResult(string.Empty);
 
             return base.OnBackgroundClicked();
         }
@@ -76,19 +76,19 @@ namespace XF.Material.Forms.UI.Dialogs
         {
             base.OnDisappearing();
 
-            TextField.TextChanged -= this.TextField_TextChanged;
+            TextField.TextChanged -= TextField_TextChanged;
         }
 
         protected override void OnOrientationChanged(DisplayOrientation orientation)
         {
             base.OnOrientationChanged(orientation);
 
-            this.ChangeLayout();
+            ChangeLayout();
         }
 
         private void ChangeLayout()
         {
-            switch (this.DisplayOrientation)
+            switch (DisplayOrientation)
             {
                 case DisplayOrientation.Landscape when Device.Idiom == TargetIdiom.Phone:
                     Container.WidthRequest = 560;
@@ -105,8 +105,12 @@ namespace XF.Material.Forms.UI.Dialogs
         {
             var preferredConfig = configuration ?? GlobalConfiguration;
 
-            if (preferredConfig == null) return;
-            this.BackgroundColor = preferredConfig.ScrimColor;
+            if (preferredConfig == null)
+            {
+                return;
+            }
+
+            BackgroundColor = preferredConfig.ScrimColor;
             Container.CornerRadius = preferredConfig.CornerRadius;
             Container.BackgroundColor = preferredConfig.BackgroundColor;
             DialogTitle.TextColor = preferredConfig.TitleTextColor;

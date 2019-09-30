@@ -17,7 +17,7 @@ namespace XF.Material.Forms.UI
 
         public static readonly BindableProperty AllCapsProperty = BindableProperty.Create(nameof(AllCaps), typeof(bool), typeof(MaterialButton), true);
 
-        public new static readonly BindableProperty BackgroundColorProperty = BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(MaterialButton), Material.Color.Secondary);
+        public static new readonly BindableProperty BackgroundColorProperty = BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(MaterialButton), Material.Color.Secondary);
 
         public static readonly BindableProperty ButtonTypeProperty = BindableProperty.Create(nameof(ButtonType), typeof(MaterialButtonType), typeof(MaterialButton), MaterialButtonType.Elevated);
 
@@ -33,20 +33,20 @@ namespace XF.Material.Forms.UI
 
         public MaterialButton()
         {
-            this.SetDynamicResource(FontFamilyProperty, MaterialConstants.FontFamily.BUTTON);
-            this.SetDynamicResource(FontSizeProperty, MaterialConstants.MATERIAL_FONTSIZE_BUTTON);
-            this.SetDynamicResource(FontAttributesProperty, MaterialConstants.MATERIAL_FONTATTRIBUTE_BOLD);
-            this.SetDynamicResource(CornerRadiusProperty, MaterialConstants.MATERIAL_BUTTON_CORNERRADIUS);
-            this.SetDynamicResource(BackgroundColorProperty, MaterialConstants.Color.SECONDARY);
-            this.SetDynamicResource(TextColorProperty, MaterialConstants.Color.ON_SECONDARY);
-            this.SetDynamicResource(HeightRequestProperty, MaterialConstants.MATERIAL_BUTTON_HEIGHT);
-            this.SetDynamicResource(FontAttributesProperty, MaterialConstants.MATERIAL_FONTATTRIBUTE_BOLD);
+            SetDynamicResource(FontFamilyProperty, MaterialConstants.FontFamily.BUTTON);
+            SetDynamicResource(FontSizeProperty, MaterialConstants.MATERIAL_FONTSIZE_BUTTON);
+            SetDynamicResource(FontAttributesProperty, MaterialConstants.MATERIAL_FONTATTRIBUTE_BOLD);
+            SetDynamicResource(CornerRadiusProperty, MaterialConstants.MATERIAL_BUTTON_CORNERRADIUS);
+            SetDynamicResource(BackgroundColorProperty, MaterialConstants.Color.SECONDARY);
+            SetDynamicResource(TextColorProperty, MaterialConstants.Color.ON_SECONDARY);
+            SetDynamicResource(HeightRequestProperty, MaterialConstants.MATERIAL_BUTTON_HEIGHT);
+            SetDynamicResource(FontAttributesProperty, MaterialConstants.MATERIAL_FONTATTRIBUTE_BOLD);
         }
 
         public MaterialElevation Elevation
         {
-            get => (MaterialElevation)this.GetValue(ElevationProperty);
-            set => this.SetValue(ElevationProperty, value);
+            get => (MaterialElevation)GetValue(ElevationProperty);
+            set => SetValue(ElevationProperty, value);
         }
 
         /// <summary>
@@ -54,8 +54,8 @@ namespace XF.Material.Forms.UI
         /// </summary>
         public bool AllCaps
         {
-            get => (bool)this.GetValue(AllCapsProperty);
-            set => this.SetValue(AllCapsProperty, value);
+            get => (bool)GetValue(AllCapsProperty);
+            set => SetValue(AllCapsProperty, value);
         }
 
         /// <summary>
@@ -63,8 +63,8 @@ namespace XF.Material.Forms.UI
         /// </summary>
         public double LetterSpacing
         {
-            get => (double)this.GetValue(LetterSpacingProperty);
-            set => this.SetValue(LetterSpacingProperty, value);
+            get => (double)GetValue(LetterSpacingProperty);
+            set => SetValue(LetterSpacingProperty, value);
         }
 
         /// <summary>
@@ -72,8 +72,8 @@ namespace XF.Material.Forms.UI
         /// </summary>
         public new Color BackgroundColor
         {
-            get => (Color)this.GetValue(BackgroundColorProperty);
-            set => this.SetValue(BackgroundColorProperty, value);
+            get => (Color)GetValue(BackgroundColorProperty);
+            set => SetValue(BackgroundColorProperty, value);
         }
 
         /// <summary>
@@ -81,20 +81,20 @@ namespace XF.Material.Forms.UI
         /// </summary>
         public virtual MaterialButtonType ButtonType
         {
-            get => (MaterialButtonType)this.GetValue(ButtonTypeProperty);
-            set => this.SetValue(ButtonTypeProperty, value);
+            get => (MaterialButtonType)GetValue(ButtonTypeProperty);
+            set => SetValue(ButtonTypeProperty, value);
         }
 
         public Color DisabledBackgroundColor
         {
-            get => (Color)this.GetValue(DisabledBackgroundColorProperty);
-            set => this.SetValue(DisabledBackgroundColorProperty, value);
+            get => (Color)GetValue(DisabledBackgroundColorProperty);
+            set => SetValue(DisabledBackgroundColorProperty, value);
         }
 
         public Color PressedBackgroundColor
         {
-            get => (Color)this.GetValue(PressedBackgroundColorProperty);
-            set => this.SetValue(PressedBackgroundColorProperty, value);
+            get => (Color)GetValue(PressedBackgroundColorProperty);
+            set => SetValue(PressedBackgroundColorProperty, value);
         }
 
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -109,11 +109,11 @@ namespace XF.Material.Forms.UI
 
                 switch (propertyName)
                 {
-                    case nameof(this.ButtonType):
-                        this.ButtonTypeChanged(this.ButtonType);
+                    case nameof(ButtonType):
+                        ButtonTypeChanged(ButtonType);
                         break;
-                    case nameof(this.Style):
-                        this.SetStyleValues(this.Style);
+                    case nameof(Style):
+                        SetStyleValues(Style);
                         break;
                 }
             }
@@ -125,31 +125,31 @@ namespace XF.Material.Forms.UI
             {
                 if (s.Value is DynamicResource d)
                 {
-                    this.SetDynamicResource(s.Property, d.Key);
+                    SetDynamicResource(s.Property, d.Key);
                 }
                 else
                 {
-                    this.SetValue(s.Property, s.Value);
+                    SetValue(s.Property, s.Value);
                 }
             });
         }
 
         private void ButtonTypeChanged(MaterialButtonType buttonType)
         {
-            if (buttonType == MaterialButtonType.Outlined && this.BorderColor.IsDefault)
+            if (buttonType == MaterialButtonType.Outlined && BorderColor.IsDefault)
             {
-                this.BorderColor = OutlinedBorderColor;
+                BorderColor = OutlinedBorderColor;
             }
 
-            if (buttonType == MaterialButtonType.Outlined && this.BorderWidth == (double)BorderWidthProperty.DefaultValue)
+            if (buttonType == MaterialButtonType.Outlined && BorderWidth == (double)BorderWidthProperty.DefaultValue)
             {
-                this.BorderWidth = 1;
+                BorderWidth = 1;
             }
 
             if (buttonType == MaterialButtonType.Text || buttonType == MaterialButtonType.Outlined)
             {
-                this.RemoveDynamicResource(TextColorProperty);
-                this.SetDynamicResource(TextColorProperty, MaterialConstants.Color.SECONDARY);
+                RemoveDynamicResource(TextColorProperty);
+                SetDynamicResource(TextColorProperty, MaterialConstants.Color.SECONDARY);
             }
         }
     }

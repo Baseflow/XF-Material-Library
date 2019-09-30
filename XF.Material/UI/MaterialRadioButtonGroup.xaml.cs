@@ -32,7 +32,7 @@ namespace XF.Material.Forms.UI
         /// </summary>
         public MaterialRadioButtonGroup()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         /// <summary>
@@ -41,8 +41,8 @@ namespace XF.Material.Forms.UI
         /// <param name="choices">The list of string which the user will choose from.</param>
         public MaterialRadioButtonGroup(IList<string> choices)
         {
-            this.InitializeComponent();
-            this.Choices = choices;
+            InitializeComponent();
+            Choices = choices;
         }
 
         /// <summary>
@@ -55,8 +55,8 @@ namespace XF.Material.Forms.UI
         /// </summary>
         public int SelectedIndex
         {
-            get => (int)this.GetValue(SelectedIndexProperty);
-            set => this.SetValue(SelectedIndexProperty, value);
+            get => (int)GetValue(SelectedIndexProperty);
+            set => SetValue(SelectedIndexProperty, value);
         }
 
         /// <summary>
@@ -64,8 +64,8 @@ namespace XF.Material.Forms.UI
         /// </summary>
         public Command<int> SelectedIndexChangedCommand
         {
-            get => (Command<int>)this.GetValue(SelectedIndexChangedCommandProperty);
-            set => this.SetValue(SelectedIndexChangedCommandProperty, value);
+            get => (Command<int>)GetValue(SelectedIndexChangedCommandProperty);
+            set => SetValue(SelectedIndexChangedCommandProperty, value);
         }
 
         internal override ObservableCollection<MaterialSelectionControlModel> Models => selectionList.GetValue(BindableLayout.ItemsSourceProperty) as ObservableCollection<MaterialSelectionControlModel>;
@@ -74,14 +74,14 @@ namespace XF.Material.Forms.UI
         {
             var models = new ObservableCollection<MaterialSelectionControlModel>();
 
-            for (var i = 0; i < this.Choices.Count; i++)
+            for (var i = 0; i < Choices.Count; i++)
             {
                 var model = new MaterialSelectionControlModel
                 {
                     Index = i,
-                    Text = this.Choices[i]
+                    Text = Choices[i]
                 };
-                model.SelectedChangeCommand = new Command<bool>((isSelected) => this.RadioButtonSelected(isSelected, model));
+                model.SelectedChangeCommand = new Command<bool>((isSelected) => RadioButtonSelected(isSelected, model));
 
                 models.Add(model);
             }
@@ -91,9 +91,9 @@ namespace XF.Material.Forms.UI
 
         protected override SizeRequest OnMeasure(double widthConstraint, double heightConstraint)
         {
-            if (Math.Abs(widthConstraint * heightConstraint) > float.MinValue && this.SelectedIndex >= 0)
+            if (Math.Abs(widthConstraint * heightConstraint) > float.MinValue && SelectedIndex >= 0)
             {
-                _selectedModel = this.Models[this.SelectedIndex];
+                _selectedModel = Models[SelectedIndex];
             }
 
             return base.OnMeasure(widthConstraint, heightConstraint);
@@ -103,14 +103,18 @@ namespace XF.Material.Forms.UI
         {
             base.OnPropertyChanged(propertyName);
 
-            if (propertyName != nameof(this.SelectedIndex)) return;
-            if (this.SelectedIndex >= 0 && this.Models?.Any() == true)
+            if (propertyName != nameof(SelectedIndex))
             {
-                var model = this.Models[this.SelectedIndex];
+                return;
+            }
+
+            if (SelectedIndex >= 0 && Models?.Any() == true)
+            {
+                var model = Models[SelectedIndex];
                 model.IsSelected = true;
             }
 
-            this.OnSelectedIndexChanged(this.SelectedIndex);
+            OnSelectedIndexChanged(SelectedIndex);
         }
 
         /// <summary>
@@ -119,15 +123,15 @@ namespace XF.Material.Forms.UI
         /// <param name="selectedIndex">The new selected index.</param>
         protected virtual void OnSelectedIndexChanged(int selectedIndex)
         {
-            this.SelectedIndexChangedCommand?.Execute(selectedIndex);
-            this.SelectedIndexChanged?.Invoke(this, new SelectedIndexChangedEventArgs(selectedIndex));
+            SelectedIndexChangedCommand?.Execute(selectedIndex);
+            SelectedIndexChanged?.Invoke(this, new SelectedIndexChangedEventArgs(selectedIndex));
         }
 
         private void RadioButtonSelected(bool isSelected, MaterialSelectionControlModel model)
         {
             if (isSelected)
             {
-                this.SelectedIndex = model.Index;
+                SelectedIndex = model.Index;
 
                 if (_selectedModel == model)
                 {

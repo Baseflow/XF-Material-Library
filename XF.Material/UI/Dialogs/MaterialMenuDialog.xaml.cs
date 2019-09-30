@@ -14,10 +14,10 @@ namespace XF.Material.Forms.UI.Dialogs
     {
         public MaterialMenuDimension(double rawX, double rawY, double width, double height)
         {
-            this.RawX = rawX;
-            this.RawY = rawY;
-            this.Width = width;
-            this.Height = height;
+            RawX = rawX;
+            RawY = rawY;
+            Width = width;
+            Height = height;
         }
 
         public double Height { get; }
@@ -42,9 +42,9 @@ namespace XF.Material.Forms.UI.Dialogs
         {
             _dimension = dimension;
             _choices = choices;
-            this.InitializeComponent();
-            this.CreateActions(configuration);
-            this.InputTaskCompletionSource = new TaskCompletionSource<int>();
+            InitializeComponent();
+            CreateActions(configuration);
+            InputTaskCompletionSource = new TaskCompletionSource<int>();
 
             Container.CornerRadius = configuration.CornerRadius;
             Container.BackgroundColor = configuration.BackgroundColor;
@@ -75,7 +75,7 @@ namespace XF.Material.Forms.UI.Dialogs
         {
             base.OnAppearing();
 
-            DeviceDisplay.MainDisplayInfoChanged += this.DeviceDisplay_MainDisplayInfoChanged;
+            DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
         }
 
         protected override void OnAppearingAnimationBegin()
@@ -84,8 +84,8 @@ namespace XF.Material.Forms.UI.Dialogs
 
             var newX = _dimension.RawX;
             var newY = _dimension.RawY;
-            var width = this.Width - 56;
-            var height = this.Height - 56;
+            var width = Width - 56;
+            var height = Height - 56;
 
             _maxWidth += 32;
             DialogActionList.WidthRequest = _maxWidth <= 112 ? 112 : _maxWidth;
@@ -111,12 +111,12 @@ namespace XF.Material.Forms.UI.Dialogs
 
         protected override void OnBackButtonDismissed()
         {
-            this.InputTaskCompletionSource.SetResult(-1);
+            InputTaskCompletionSource.SetResult(-1);
         }
 
         protected override bool OnBackgroundClicked()
         {
-            this.InputTaskCompletionSource.SetResult(-1);
+            InputTaskCompletionSource.SetResult(-1);
 
             return base.OnBackgroundClicked();
         }
@@ -125,12 +125,12 @@ namespace XF.Material.Forms.UI.Dialogs
         {
             base.OnDisappearing();
 
-            DeviceDisplay.MainDisplayInfoChanged -= this.DeviceDisplay_MainDisplayInfoChanged;
+            DeviceDisplay.MainDisplayInfoChanged -= DeviceDisplay_MainDisplayInfoChanged;
         }
 
         private async void DeviceDisplay_MainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
         {
-            await this.DismissAsync();
+            await DismissAsync();
         }
 
         private void CreateActions(MaterialMenuConfiguration configuration)
@@ -153,18 +153,22 @@ namespace XF.Material.Forms.UI.Dialogs
                 };
                 actionModel.SelectedCommand = new Command<int>(async (position) =>
                 {
-                    if (this.InputTaskCompletionSource?.Task.Status != TaskStatus.WaitingForActivation) return;
+                    if (InputTaskCompletionSource?.Task.Status != TaskStatus.WaitingForActivation)
+                    {
+                        return;
+                    }
+
                     actionModel.IsSelected = true;
-                    await this.DismissAsync();
-                    this.InputTaskCompletionSource?.SetResult(position);
+                    await DismissAsync();
+                    InputTaskCompletionSource?.SetResult(position);
                 });
-                actionModel.SizeChangeCommand = new Command<Dictionary<string, object>>(this.LabelSizeChanged);
+                actionModel.SizeChangeCommand = new Command<Dictionary<string, object>>(LabelSizeChanged);
 
                 actionModels.Add(actionModel);
                 actionModel.Index = actionModels.IndexOf(actionModel);
             });
 
-            this.SetList(actionModels);
+            SetList(actionModels);
         }
 
 

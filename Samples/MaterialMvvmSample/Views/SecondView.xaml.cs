@@ -8,7 +8,7 @@ namespace MaterialMvvmSample.Views
     {
         public SecondView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 

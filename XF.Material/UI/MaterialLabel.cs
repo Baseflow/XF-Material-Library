@@ -20,7 +20,7 @@ namespace XF.Material.Forms.UI
 
         public MaterialLabel()
         {
-            this.SetDynamicResource(LineHeightProperty, "Material.LineHeight");
+            SetDynamicResource(LineHeightProperty, "Material.LineHeight");
         }
 
         /// <summary>
@@ -28,8 +28,8 @@ namespace XF.Material.Forms.UI
         /// </summary>
         public double LetterSpacing
         {
-            get => (double)this.GetValue(LetterSpacingProperty);
-            set => this.SetValue(LetterSpacingProperty, value);
+            get => (double)GetValue(LetterSpacingProperty);
+            set => SetValue(LetterSpacingProperty, value);
         }
 
         /// <summary>
@@ -37,8 +37,8 @@ namespace XF.Material.Forms.UI
         /// </summary>
         public MaterialTypeScale TypeScale
         {
-            get => (MaterialTypeScale)this.GetValue(TypeScaleProperty);
-            set => this.SetValue(TypeScaleProperty, value);
+            get => (MaterialTypeScale)GetValue(TypeScaleProperty);
+            set => SetValue(TypeScaleProperty, value);
         }
 
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -47,19 +47,19 @@ namespace XF.Material.Forms.UI
 
             switch (propertyName)
             {
-                case nameof(this.TypeScale):
-                    this.OnTypeScaleChanged(this.TypeScale);
+                case nameof(TypeScale):
+                    OnTypeScaleChanged(TypeScale);
                     break;
-                case nameof(this.FontSize):
+                case nameof(FontSize):
                     _fontSizeChanged = true;
                     break;
-                case nameof(this.FontFamily):
+                case nameof(FontFamily):
                     _fontFamilyChanged = true;
                     break;
-                case nameof(this.LetterSpacing):
+                case nameof(LetterSpacing):
                     _letterSpacingChanged = true;
                     break;
-                case nameof(this.FontAttributes):
+                case nameof(FontAttributes):
                     _fontAttributeChanged = true;
                     break;
             }
@@ -74,26 +74,30 @@ namespace XF.Material.Forms.UI
             if (!_letterSpacingChanged)
             {
                 var letterSpacingKey = $"Material.LetterSpacing.{materialTypeScale.ToString()}";
-                this.LetterSpacing = Convert.ToDouble(Application.Current.Resources[letterSpacingKey]);
+                LetterSpacing = Convert.ToDouble(Application.Current.Resources[letterSpacingKey]);
             }
             if (!_fontFamilyChanged)
             {
                 var fontFamilyKey = $"Material.FontFamily.{materialTypeScale.ToString()}";
-                this.FontFamily = Application.Current.Resources[fontFamilyKey]?.ToString();
+                FontFamily = Application.Current.Resources[fontFamilyKey]?.ToString();
             }
             if (!_fontSizeChanged)
             {
                 var fontSizeKey = $"Material.FontSize.{materialTypeScale.ToString()}";
-                this.FontSize = Convert.ToDouble(Application.Current.Resources[fontSizeKey]);
+                FontSize = Convert.ToDouble(Application.Current.Resources[fontSizeKey]);
             }
 
-            if (_fontAttributeChanged) return;
+            if (_fontAttributeChanged)
+            {
+                return;
+            }
+
             switch (materialTypeScale)
             {
                 case MaterialTypeScale.H6:
                 case MaterialTypeScale.Subtitle2:
                 case MaterialTypeScale.Button:
-                    this.FontAttributes = FontAttributes.Bold;
+                    FontAttributes = FontAttributes.Bold;
                     break;
             }
         }

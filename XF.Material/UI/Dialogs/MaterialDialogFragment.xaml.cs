@@ -12,9 +12,9 @@ namespace XF.Material.Forms.UI.Dialogs
     {
         internal MaterialDialogFragment(MaterialAlertDialogConfiguration configuration)
         {
-            this.InitializeComponent();
-            this.Configure(configuration);
-            this.InputTaskCompletionSource = new TaskCompletionSource<bool?>();
+            InitializeComponent();
+            Configure(configuration);
+            InputTaskCompletionSource = new TaskCompletionSource<bool?>();
         }
 
         public TaskCompletionSource<bool?> InputTaskCompletionSource { get; set; }
@@ -37,12 +37,12 @@ namespace XF.Material.Forms.UI.Dialogs
 
         protected override void OnBackButtonDismissed()
         {
-            this.InputTaskCompletionSource?.SetResult(null);
+            InputTaskCompletionSource?.SetResult(null);
         }
 
         protected override bool OnBackgroundClicked()
         {
-            this.InputTaskCompletionSource?.SetResult(null);
+            InputTaskCompletionSource?.SetResult(null);
             return base.OnBackgroundClicked();
         }
 
@@ -50,30 +50,30 @@ namespace XF.Material.Forms.UI.Dialogs
         {
             base.OnAppearing();
 
-            PositiveButton.Clicked += this.PositiveButton_Clicked;
-            NegativeButton.Clicked += this.NegativeButton_Clicked;
+            PositiveButton.Clicked += PositiveButton_Clicked;
+            NegativeButton.Clicked += NegativeButton_Clicked;
 
-            this.ChangeLayout();
+            ChangeLayout();
         }
 
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
 
-            PositiveButton.Clicked -= this.PositiveButton_Clicked;
-            NegativeButton.Clicked -= this.NegativeButton_Clicked;
+            PositiveButton.Clicked -= PositiveButton_Clicked;
+            NegativeButton.Clicked -= NegativeButton_Clicked;
         }
 
         protected override void OnOrientationChanged(DisplayOrientation orientation)
         {
             base.OnOrientationChanged(orientation);
 
-            this.ChangeLayout();
+            ChangeLayout();
         }
 
         private void ChangeLayout()
         {
-            switch (this.DisplayOrientation)
+            switch (DisplayOrientation)
             {
                 case DisplayOrientation.Landscape when Device.Idiom == TargetIdiom.Phone:
                     Container.WidthRequest = 560;
@@ -92,8 +92,12 @@ namespace XF.Material.Forms.UI.Dialogs
         {
             var preferredConfig = configuration ?? GlobalConfiguration;
 
-            if (preferredConfig == null) return;
-            this.BackgroundColor = preferredConfig.ScrimColor;
+            if (preferredConfig == null)
+            {
+                return;
+            }
+
+            BackgroundColor = preferredConfig.ScrimColor;
             Container.CornerRadius = preferredConfig.CornerRadius;
             Container.BackgroundColor = preferredConfig.BackgroundColor;
             DialogTitle.TextColor = preferredConfig.TitleTextColor;
@@ -108,14 +112,14 @@ namespace XF.Material.Forms.UI.Dialogs
 
         private async void NegativeButton_Clicked(object sender, EventArgs e)
         {
-            await this.DismissAsync();
-            this.InputTaskCompletionSource?.SetResult(false);
+            await DismissAsync();
+            InputTaskCompletionSource?.SetResult(false);
         }
 
         private async void PositiveButton_Clicked(object sender, EventArgs e)
         {
-            await this.DismissAsync();
-            this.InputTaskCompletionSource?.SetResult(true);
+            await DismissAsync();
+            InputTaskCompletionSource?.SetResult(true);
         }
     }
 }

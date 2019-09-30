@@ -38,7 +38,7 @@ namespace XF.Material.Forms.UI
         /// </summary>
         public MaterialCard()
         {
-            this.SetDynamicResource(BackgroundColorProperty, MaterialConstants.Color.SURFACE);
+            SetDynamicResource(BackgroundColorProperty, MaterialConstants.Color.SURFACE);
         }
 
         /// <summary>
@@ -51,8 +51,8 @@ namespace XF.Material.Forms.UI
         /// </summary>
         public ICommand ClickCommand
         {
-            get => (ICommand)this.GetValue(ClickCommandProperty);
-            set => this.SetValue(ClickCommandProperty, value);
+            get => (ICommand)GetValue(ClickCommandProperty);
+            set => SetValue(ClickCommandProperty, value);
         }
 
         /// <summary>
@@ -60,8 +60,8 @@ namespace XF.Material.Forms.UI
         /// </summary>
         public object ClickCommandParameter
         {
-            get => this.GetValue(ClickCommandParameterProperty);
-            set => this.SetValue(ClickCommandParameterProperty, value);
+            get => GetValue(ClickCommandParameterProperty);
+            set => SetValue(ClickCommandParameterProperty, value);
         }
 
         /// <summary>
@@ -69,8 +69,8 @@ namespace XF.Material.Forms.UI
         /// </summary>
         public int Elevation
         {
-            get => (int)this.GetValue(ElevationProperty);
-            set => this.SetValue(ElevationProperty, value);
+            get => (int)GetValue(ElevationProperty);
+            set => SetValue(ElevationProperty, value);
         }
 
         /// <summary>
@@ -78,28 +78,28 @@ namespace XF.Material.Forms.UI
         /// </summary>
         public bool IsClickable
         {
-            get => (bool)this.GetValue(IsClickableProperty);
-            set => this.SetValue(IsClickableProperty, value);
+            get => (bool)GetValue(IsClickableProperty);
+            set => SetValue(IsClickableProperty, value);
         }
 
         protected virtual void OnClick()
         {
-            this.Clicked?.Invoke(this, EventArgs.Empty);
-            this.ClickCommand?.Execute(this.ClickCommandParameter);
+            Clicked?.Invoke(this, EventArgs.Empty);
+            ClickCommand?.Execute(ClickCommandParameter);
         }
 
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            if (propertyName == nameof(this.HasShadow))
+            if (propertyName == nameof(HasShadow))
             {
                 return;
             }
 
             base.OnPropertyChanged(propertyName);
 
-            if (propertyName == nameof(this.IsClickable))
+            if (propertyName == nameof(IsClickable))
             {
-                this.OnIsClickableChanged(this.IsClickable);
+                OnIsClickableChanged(IsClickable);
             }
         }
 
@@ -111,15 +111,15 @@ namespace XF.Material.Forms.UI
                 {
                     _tapGestureRecognizer = new TapGestureRecognizer
                     {
-                        Command = new Command(this.OnClick)
+                        Command = new Command(OnClick)
                     };
                 }
 
-                this.GestureRecognizers.Add(_tapGestureRecognizer);
+                GestureRecognizers.Add(_tapGestureRecognizer);
             }
             else
             {
-                this.GestureRecognizers.Remove(_tapGestureRecognizer);
+                GestureRecognizers.Remove(_tapGestureRecognizer);
             }
         }
     }

@@ -21,12 +21,12 @@ namespace XF.Material.Forms.UI.Internals
         {
             get
             {
-                return (Color)this.GetValue(TintColorProperty);
+                return (Color)GetValue(TintColorProperty);
             }
 
             set
             {
-                this.SetValue(TintColorProperty, value);
+                SetValue(TintColorProperty, value);
             }
         }
 
@@ -34,41 +34,41 @@ namespace XF.Material.Forms.UI.Internals
 
         public DateTime? NullableDate
         {
-            get { return (DateTime?)this.GetValue(NullableDateProperty); }
+            get { return (DateTime?)GetValue(NullableDateProperty); }
 
             set
             {
-                if (this.NullableDate != value)
+                if (NullableDate != value)
                 {
-                    this.SetValue(NullableDateProperty, value);
-                    this.UpdateDate();
+                    SetValue(NullableDateProperty, value);
+                    UpdateDate();
                 }
             }
         }
 
         private void UpdateDate()
         {
-            if (this.NullableDate.HasValue)
+            if (NullableDate.HasValue)
             {
-                if (this._color.HasValue)
+                if (_color.HasValue)
                 {
-                    this.TextColor = this._color.Value;
-                    this._color = null;
+                    TextColor = _color.Value;
+                    _color = null;
                 }
 
-                this.Date = this.NullableDate.Value;
+                Date = NullableDate.Value;
             }
             else
             {
-                this._color = this.TextColor;
-                this.TextColor = Color.Transparent;
+                _color = TextColor;
+                TextColor = Color.Transparent;
             }
         }
 
         protected override void OnBindingContextChanged()
         {
             base.OnBindingContextChanged();
-            this.UpdateDate();
+            UpdateDate();
         }
 
         public new EventHandler<NullableDateChangedEventArgs> DateSelected;
@@ -77,11 +77,11 @@ namespace XF.Material.Forms.UI.Internals
         {
             base.OnPropertyChanged(propertyName);
 
-            if (propertyName == nameof(this.IsFocused) && !this.IsFocused && this.Date != this.NullableDate)
+            if (propertyName == nameof(IsFocused) && !IsFocused && Date != NullableDate)
             {
-                DateTime? old = this.NullableDate;
-                this.NullableDate = this.Date;
-                this.DateSelected(this, new NullableDateChangedEventArgs(old, this.NullableDate));
+                var old = NullableDate;
+                NullableDate = Date;
+                DateSelected(this, new NullableDateChangedEventArgs(old, NullableDate));
             }
         }
     }

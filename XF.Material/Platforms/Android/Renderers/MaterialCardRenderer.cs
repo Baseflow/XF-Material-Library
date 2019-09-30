@@ -23,17 +23,21 @@ namespace XF.Material.Droid.Renderers
 
         public bool OnTouch(Android.Views.View v, MotionEvent e)
         {
-            if (_materialCard.GestureRecognizers.Count <= 0 || this.Control.Foreground == null) return false;
+            if (_materialCard.GestureRecognizers.Count <= 0 || Control.Foreground == null)
+            {
+                return false;
+            }
+
             switch (e.Action)
             {
                 case MotionEventActions.Down:
-                    this.Control.Foreground.SetHotspot(e.GetX(), e.GetY());
-                    this.Control.Pressed = true;
+                    Control.Foreground.SetHotspot(e.GetX(), e.GetY());
+                    Control.Pressed = true;
                     break;
                 case MotionEventActions.Up:
                 case MotionEventActions.Cancel:
                 case MotionEventActions.Outside:
-                    this.Control.Pressed = false;
+                    Control.Pressed = false;
                     break;
             }
             return false;
@@ -43,13 +47,17 @@ namespace XF.Material.Droid.Renderers
         {
             base.OnElementChanged(e);
 
-            if (e?.NewElement == null) return;
-            _materialCard = this.Element as MaterialCard;
+            if (e?.NewElement == null)
+            {
+                return;
+            }
 
-            this.UpdateStrokeColor();
-            this.Control.Elevate(_materialCard.Elevation);
-            this.SetClickable();
-            this.Control.SetOnTouchListener(this);
+            _materialCard = Element as MaterialCard;
+
+            UpdateStrokeColor();
+            Control.Elevate(_materialCard.Elevation);
+            SetClickable();
+            Control.SetOnTouchListener(this);
         }
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -59,13 +67,13 @@ namespace XF.Material.Droid.Renderers
             switch (e?.PropertyName)
             {
                 case nameof(MaterialCard.Elevation):
-                    this.Control.Elevate(_materialCard.Elevation);
+                    Control.Elevate(_materialCard.Elevation);
                     break;
                 case nameof(MaterialCard.IsClickable):
-                    this.SetClickable();
+                    SetClickable();
                     break;
                 case nameof(Frame.BackgroundColor):
-                    this.UpdateStrokeColor();
+                    UpdateStrokeColor();
                     break;
             }
         }
@@ -73,22 +81,22 @@ namespace XF.Material.Droid.Renderers
         private void SetClickable()
         {
             var clickable = _materialCard.IsClickable;
-            if (clickable && this.Control.Foreground == null)
+            if (clickable && Control.Foreground == null)
             {
                 var outValue = new TypedValue();
-                this.Context.Theme.ResolveAttribute(
+                Context.Theme.ResolveAttribute(
                     Android.Resource.Attribute.SelectableItemBackground, outValue, true);
-                this.Control.Foreground = this.Context.GetDrawable(outValue.ResourceId);
+                Control.Foreground = Context.GetDrawable(outValue.ResourceId);
             }
 
-            this.Control.Focusable = clickable;
-            this.Control.Clickable = clickable;
+            Control.Focusable = clickable;
+            Control.Clickable = clickable;
         }
 
         private void UpdateStrokeColor()
         {
             var borderColor = _materialCard.BorderColor.IsDefault ? _materialCard.BackgroundColor : _materialCard.BorderColor;
-            var drawable = (GradientDrawable)this.Control.Background;
+            var drawable = (GradientDrawable)Control.Background;
             drawable.SetStroke((int)MaterialHelper.ConvertToDp(1), borderColor.ToAndroid());
         }
     }

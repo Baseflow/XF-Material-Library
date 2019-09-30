@@ -12,21 +12,21 @@ namespace XF.Material.Forms.UI.Internals
 
         public ICommand SizeChangeCommand
         {
-            get => (ICommand)this.GetValue(SizeChangeCommandProperty);
-            set => this.SetValue(SizeChangeCommandProperty, value);
+            get => (ICommand)GetValue(SizeChangeCommandProperty);
+            set => SetValue(SizeChangeCommandProperty, value);
         }
 
-        public MenuDialogLabel() => this.SizeChanged += this.MenuDialogLabel_SizeChanged;
+        public MenuDialogLabel() => SizeChanged += MenuDialogLabel_SizeChanged;
 
         private void MenuDialogLabel_SizeChanged(object sender, EventArgs e)
         {
-            this.SizeChangeCommand?.Execute(new Dictionary<string, object>
+            SizeChangeCommand?.Execute(new Dictionary<string, object>
             {
-                {"width", this.Width },
-                {"parameter", Convert.ToInt32(this.GetValue(MaterialMenuDialog.ParameterProperty)) }
+                {"width", Width },
+                {"parameter", Convert.ToInt32(GetValue(MaterialMenuDialog.ParameterProperty)) }
             });
 
-            this.SizeChanged -= this.MenuDialogLabel_SizeChanged;
+            SizeChanged -= MenuDialogLabel_SizeChanged;
         }
     }
 }

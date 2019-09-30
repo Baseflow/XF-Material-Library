@@ -21,7 +21,11 @@ namespace XF.Material.Droid.Utilities
             var isColorDark = color.ToAndroid().IsColorDark();
             activity.SetStatusBarColor(color.ToAndroid());
 
-            if (Build.VERSION.SdkInt < BuildVersionCodes.M) return;
+            if (Build.VERSION.SdkInt < BuildVersionCodes.M)
+            {
+                return;
+            }
+
             if (!isColorDark)
             {
                 activity.Window.DecorView.SystemUiVisibility = (StatusBarVisibility)SystemUiFlags.LightStatusBar;

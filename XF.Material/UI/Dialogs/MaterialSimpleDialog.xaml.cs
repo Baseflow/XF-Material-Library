@@ -15,8 +15,8 @@ namespace XF.Material.Forms.UI.Dialogs
     {
         internal MaterialSimpleDialog(MaterialSimpleDialogConfiguration configuration)
         {
-            this.InitializeComponent();
-            this.Configure(configuration);
+            InitializeComponent();
+            Configure(configuration);
         }
 
         public TaskCompletionSource<int> InputTaskCompletionSource { get; set; }
@@ -41,8 +41,12 @@ namespace XF.Material.Forms.UI.Dialogs
         {
             var preferredConfig = configuration ?? GlobalConfiguration;
 
-            if (preferredConfig == null) return;
-            this.BackgroundColor = preferredConfig.ScrimColor;
+            if (preferredConfig == null)
+            {
+                return;
+            }
+
+            BackgroundColor = preferredConfig.ScrimColor;
             Container.CornerRadius = preferredConfig.CornerRadius;
             Container.BackgroundColor = preferredConfig.BackgroundColor;
             DialogTitle.TextColor = preferredConfig.TitleTextColor;
@@ -71,10 +75,14 @@ namespace XF.Material.Forms.UI.Dialogs
                 };
                 actionModel.SelectedCommand = new Command<int>(async (position) =>
                 {
-                    if (this.InputTaskCompletionSource?.Task.Status != TaskStatus.WaitingForActivation) return;
+                    if (InputTaskCompletionSource?.Task.Status != TaskStatus.WaitingForActivation)
+                    {
+                        return;
+                    }
+
                     actionModel.IsSelected = true;
-                    await this.DismissAsync();
-                    this.InputTaskCompletionSource?.SetResult(position);
+                    await DismissAsync();
+                    InputTaskCompletionSource?.SetResult(position);
                 });
 
                 actionModels.Add(actionModel);
@@ -88,19 +96,19 @@ namespace XF.Material.Forms.UI.Dialogs
         {
             base.OnAppearing();
 
-            this.ChangeLayout();
+            ChangeLayout();
         }
 
         protected override void OnOrientationChanged(DisplayOrientation orientation)
         {
             base.OnOrientationChanged(orientation);
 
-            this.ChangeLayout();
+            ChangeLayout();
         }
 
         private void ChangeLayout()
         {
-            switch (this.DisplayOrientation)
+            switch (DisplayOrientation)
             {
                 case DisplayOrientation.Landscape when Device.Idiom == TargetIdiom.Phone:
                     Container.WidthRequest = 560;
@@ -115,12 +123,12 @@ namespace XF.Material.Forms.UI.Dialogs
 
         protected override void OnBackButtonDismissed()
         {
-            this.InputTaskCompletionSource.SetResult(-1);
+            InputTaskCompletionSource.SetResult(-1);
         }
 
         protected override bool OnBackgroundClicked()
         {
-            this.InputTaskCompletionSource.SetResult(-1);
+            InputTaskCompletionSource.SetResult(-1);
 
             return base.OnBackgroundClicked();
         }

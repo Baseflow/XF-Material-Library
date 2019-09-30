@@ -70,7 +70,7 @@ namespace XF.Material.iOS.GestureRecognizers
 
             _isStarted = false;
             _touchView = view;
-            this.Delegate = this;
+            Delegate = this;
         }
 
         [Export("gestureRecognizer:shouldReceiveTouch:")]
@@ -84,14 +84,14 @@ namespace XF.Material.iOS.GestureRecognizers
         {
             base.TouchesBegan(touches, evt);
 
-            this.AnimateStart(touches.AnyObject as UITouch);
+            AnimateStart(touches.AnyObject as UITouch);
         }
 
         public override void TouchesEnded(NSSet touches, UIEvent evt)
         {
             base.TouchesEnded(touches, evt);
 
-            this.AnimateComplete();
+            AnimateComplete();
         }
 
 
@@ -99,7 +99,7 @@ namespace XF.Material.iOS.GestureRecognizers
         {
             base.TouchesMoved(touches, evt);
 
-            this.AnimateComplete();
+            AnimateComplete();
 
         }
 
@@ -107,15 +107,15 @@ namespace XF.Material.iOS.GestureRecognizers
         {
             base.TouchesCancelled(touches, evt);
 
-            this.AnimateComplete();
+            AnimateComplete();
         }
 
 
 
         private void AnimateStart(UITouch touch)
         {
-            this.AnimateBackgroundFadeIn();
-            this.AnimateRipple(touch);
+            AnimateBackgroundFadeIn();
+            AnimateRipple(touch);
 
             _isStarted = true;
         }
@@ -126,7 +126,7 @@ namespace XF.Material.iOS.GestureRecognizers
         {
             if (_isStarted)
             {
-                this.AnimateBackgroundFadeOut();
+                AnimateBackgroundFadeOut();
             }
         }
 
@@ -146,7 +146,7 @@ namespace XF.Material.iOS.GestureRecognizers
             // animations to ensure that we automatically fade out
             // the background layer after 1.5 seconds.
             //
-            CAAnimationGroup group = new CAAnimationGroup();
+            var group = new CAAnimationGroup();
             group.Duration = 1.7;
             group.RepeatCount = 1;
             group.TimingFunction = CAMediaTimingFunction.FromName(CAMediaTimingFunction.Linear);

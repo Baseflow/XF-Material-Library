@@ -47,7 +47,7 @@ namespace XF.Material.iOS.Delegates
             _rippleAnimation.To = FromObject(endPath.CGPath);
             view.Layer.InsertSublayer(_rippleLayer, 3);
 
-            this.AnimateRipple();
+            AnimateRipple();
 
             return false;
         }

@@ -69,10 +69,10 @@ namespace XF.Material.Forms.UI.Internals
 
         internal BaseMaterialSelectionControl(MaterialSelectionControlType controlType)
         {
-            this.InitializeComponent();
-            this.SetPropertyChangeHandler(ref _propertyChangeActions);
-            this.SetControlType(controlType);
-            this.SetControl();
+            InitializeComponent();
+            SetPropertyChangeHandler(ref _propertyChangeActions);
+            SetControlType(controlType);
+            SetControl();
         }
 
         /// <summary>
@@ -85,8 +85,8 @@ namespace XF.Material.Forms.UI.Internals
         /// </summary>
         public string FontFamily
         {
-            get => (string)this.GetValue(FontFamilyProperty);
-            set => this.SetValue(FontFamilyProperty, value);
+            get => (string)GetValue(FontFamilyProperty);
+            set => SetValue(FontFamilyProperty, value);
         }
 
         /// <summary>
@@ -94,8 +94,8 @@ namespace XF.Material.Forms.UI.Internals
         /// </summary>
         public double FontSize
         {
-            get => (double)this.GetValue(FontSizeProperty);
-            set => this.SetValue(FontSizeProperty, value);
+            get => (double)GetValue(FontSizeProperty);
+            set => SetValue(FontSizeProperty, value);
         }
 
         /// <summary>
@@ -103,8 +103,8 @@ namespace XF.Material.Forms.UI.Internals
         /// </summary>
         public double HorizontalSpacing
         {
-            get => (double)this.GetValue(HorizontalSpacingProperty);
-            set => this.SetValue(HorizontalSpacingProperty, value);
+            get => (double)GetValue(HorizontalSpacingProperty);
+            set => SetValue(HorizontalSpacingProperty, value);
         }
 
         /// <summary>
@@ -112,8 +112,8 @@ namespace XF.Material.Forms.UI.Internals
         /// </summary>
         public bool IsSelected
         {
-            get => (bool)this.GetValue(IsSelectedProperty);
-            set => this.SetValue(IsSelectedProperty, value);
+            get => (bool)GetValue(IsSelectedProperty);
+            set => SetValue(IsSelectedProperty, value);
         }
 
         /// <summary>
@@ -121,8 +121,8 @@ namespace XF.Material.Forms.UI.Internals
         /// </summary>
         public Command<bool> SelectedChangeCommand
         {
-            get => (Command<bool>)this.GetValue(SelectedChangeCommandProperty);
-            set => this.SetValue(SelectedChangeCommandProperty, value);
+            get => (Command<bool>)GetValue(SelectedChangeCommandProperty);
+            set => SetValue(SelectedChangeCommandProperty, value);
         }
 
         /// <summary>
@@ -130,8 +130,8 @@ namespace XF.Material.Forms.UI.Internals
         /// </summary>
         public Color SelectedColor
         {
-            get => (Color)this.GetValue(SelectedColorProperty);
-            set => this.SetValue(SelectedColorProperty, value);
+            get => (Color)GetValue(SelectedColorProperty);
+            set => SetValue(SelectedColorProperty, value);
         }
 
         /// <summary>
@@ -139,8 +139,8 @@ namespace XF.Material.Forms.UI.Internals
         /// </summary>
         public string Text
         {
-            get => (string)this.GetValue(TextProperty);
-            set => this.SetValue(TextProperty, value);
+            get => (string)GetValue(TextProperty);
+            set => SetValue(TextProperty, value);
         }
 
         /// <summary>
@@ -148,8 +148,8 @@ namespace XF.Material.Forms.UI.Internals
         /// </summary>
         public Color TextColor
         {
-            get => (Color)this.GetValue(TextColorProperty);
-            set => this.SetValue(TextColorProperty, value);
+            get => (Color)GetValue(TextColorProperty);
+            set => SetValue(TextColorProperty, value);
         }
 
         /// <summary>
@@ -157,21 +157,24 @@ namespace XF.Material.Forms.UI.Internals
         /// </summary>
         public Color UnselectedColor
         {
-            get => (Color)this.GetValue(UnselectedColorProperty);
-            set => this.SetValue(UnselectedColorProperty, value);
+            get => (Color)GetValue(UnselectedColorProperty);
+            set => SetValue(UnselectedColorProperty, value);
         }
 
         internal double VerticalSpacing
         {
-            get => (double)this.GetValue(VerticalSpacingProperty);
-            set => this.SetValue(VerticalSpacingProperty, value);
+            get => (double)GetValue(VerticalSpacingProperty);
+            set => SetValue(VerticalSpacingProperty, value);
         }
 
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             base.OnPropertyChanged(propertyName);
 
-            if (propertyName == null) return;
+            if (propertyName == null)
+            {
+                return;
+            }
 
             if (_propertyChangeActions != null && _propertyChangeActions.TryGetValue(propertyName, out var handlePropertyChange))
             {
@@ -181,7 +184,7 @@ namespace XF.Material.Forms.UI.Internals
 
         private void OnEnableChanged(bool isEnabled)
         {
-            this.Opacity = isEnabled ? 1.0 : 0.38;
+            Opacity = isEnabled ? 1.0 : 0.38;
         }
 
         private void OnFontFamilyChanged(string fontFamily)
@@ -202,41 +205,41 @@ namespace XF.Material.Forms.UI.Internals
         private void OnSelectedChanged(bool isSelected)
         {
             selectionIcon.Source = isSelected ? _selectedSource : _unselectedSource;
-            selectionIcon.TintColor = isSelected ? this.SelectedColor : this.UnselectedColor;
-            this.SelectedChanged?.Invoke(this, new SelectedChangedEventArgs(isSelected));
-            this.SelectedChangeCommand?.Execute(isSelected);
+            selectionIcon.TintColor = isSelected ? SelectedColor : UnselectedColor;
+            SelectedChanged?.Invoke(this, new SelectedChangedEventArgs(isSelected));
+            SelectedChangeCommand?.Execute(isSelected);
         }
 
         private void OnStateColorChanged(bool isSelected)
         {
-            selectionIcon.TintColor = isSelected ? this.SelectedColor : this.UnselectedColor;
+            selectionIcon.TintColor = isSelected ? SelectedColor : UnselectedColor;
         }
 
         private void OnTextChanged()
         {
-            selectionText.Text = this.Text;
+            selectionText.Text = Text;
         }
 
         private void OnTextColorChanged()
         {
-            selectionText.TextColor = this.TextColor;
+            selectionText.TextColor = TextColor;
         }
 
         private void OnVerticalSpacingChanged(double value)
         {
-            this.Margin = new Thickness(this.Margin.Left, this.Margin.Top, this.Margin.Right, value);
+            Margin = new Thickness(Margin.Left, Margin.Top, Margin.Right, value);
         }
 
         private void SetControl()
         {
-            selectionIcon.Source = this.IsSelected ? _selectedSource : _unselectedSource;
-            selectionIcon.TintColor = this.IsSelected ? this.SelectedColor : this.UnselectedColor;
+            selectionIcon.Source = IsSelected ? _selectedSource : _unselectedSource;
+            selectionIcon.TintColor = IsSelected ? SelectedColor : UnselectedColor;
             iconButton.Command = selectionButton.Command = new Command(() =>
             {
-                this.IsSelected = !this.IsSelected;
+                IsSelected = !IsSelected;
             });
 
-            selectionText.Text = this.Text;
+            selectionText.Text = Text;
         }
 
         private void SetControlType(MaterialSelectionControlType controlType)
@@ -260,16 +263,16 @@ namespace XF.Material.Forms.UI.Internals
         {
             propertyChangeActions = new Dictionary<string, Action>
             {
-                { nameof(this.Text), this.OnTextChanged },
-                { nameof(this.TextColor), this.OnTextColorChanged },
-                { nameof(this.IsSelected), () => this.OnSelectedChanged(this.IsSelected) },
-                { nameof(this.SelectedColor), () => this.OnStateColorChanged(this.IsSelected) },
-                { nameof(this.UnselectedColor), () => this.OnStateColorChanged(this.IsSelected) },
-                { nameof(this.IsEnabled), () => this.OnEnableChanged(this.IsEnabled) },
-                { nameof(this.FontFamily), () => this.OnFontFamilyChanged(this.FontFamily) },
-                { nameof(this.HorizontalSpacing), () => this.OnHorizontalSpacingChanged(this.HorizontalSpacing) },
-                { nameof(this.VerticalSpacing), () => this.OnVerticalSpacingChanged(this.VerticalSpacing) },
-                { nameof(this.FontSize), () => this.OnFontSizeChanged(this.FontSize) },
+                { nameof(Text), OnTextChanged },
+                { nameof(TextColor), OnTextColorChanged },
+                { nameof(IsSelected), () => OnSelectedChanged(IsSelected) },
+                { nameof(SelectedColor), () => OnStateColorChanged(IsSelected) },
+                { nameof(UnselectedColor), () => OnStateColorChanged(IsSelected) },
+                { nameof(IsEnabled), () => OnEnableChanged(IsEnabled) },
+                { nameof(FontFamily), () => OnFontFamilyChanged(FontFamily) },
+                { nameof(HorizontalSpacing), () => OnHorizontalSpacingChanged(HorizontalSpacing) },
+                { nameof(VerticalSpacing), () => OnVerticalSpacingChanged(VerticalSpacing) },
+                { nameof(FontSize), () => OnFontSizeChanged(FontSize) },
             };
         }
     }

@@ -11,8 +11,8 @@ namespace MaterialMvvmSample.ViewModels
 
         protected BaseViewModel()
         {
-            this.ServiceLocator = CommonServiceLocator.ServiceLocator.Current;
-            this.Navigation = this.ServiceLocator.GetInstance<INavigationService>();
+            ServiceLocator = CommonServiceLocator.ServiceLocator.Current;
+            Navigation = ServiceLocator.GetInstance<INavigationService>();
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace MaterialMvvmSample.ViewModels
         /// </summary>
         public virtual void OnViewPopped()
         {
-            this.CleanUp();
+            CleanUp();
         }
 
         public virtual void CleanUp() { }

@@ -17,26 +17,38 @@ namespace XF.Material.iOS.Renderers
         {
             base.OnElementChanged(e);
 
-            if (e?.NewElement == null || this.Control == null) return;
-            _materialIcon = this.Element as MaterialIcon;
-            _image = this.Control.Image?.ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate);
-            this.ChangeTintColor();
+            if (e?.NewElement == null || Control == null)
+            {
+                return;
+            }
+
+            _materialIcon = Element as MaterialIcon;
+            _image = Control.Image?.ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate);
+            ChangeTintColor();
         }
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             base.OnElementPropertyChanged(sender, e);
 
-            if (e?.PropertyName != nameof(MaterialIcon.TintColor) && e?.PropertyName != nameof(Image.Source) || this.Control == null) return;
-            _image = this.Control.Image?.ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate);
-            this.ChangeTintColor();
+            if (e?.PropertyName != nameof(MaterialIcon.TintColor) && e?.PropertyName != nameof(Image.Source) || Control == null)
+            {
+                return;
+            }
+
+            _image = Control.Image?.ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate);
+            ChangeTintColor();
         }
 
         private void ChangeTintColor()
         {
-            if (_materialIcon.TintColor.IsDefault || _image == null || this.Control == null) return;
-            this.Control.TintColor = _materialIcon.TintColor.ToUIColor();
-            this.Control.Image = _image;
+            if (_materialIcon.TintColor.IsDefault || _image == null || Control == null)
+            {
+                return;
+            }
+
+            Control.TintColor = _materialIcon.TintColor.ToUIColor();
+            Control.Image = _image;
         }
     }
 }

@@ -19,40 +19,43 @@ namespace XF.Material.iOS.Renderers.Internals
 
             if (e?.NewElement != null)
             {
-                this.SetControl();
+                SetControl();
             }
         }
 
         private void SetControl()
         {
-            if (this.Control == null)
+            if (Control == null)
             {
                 return;
             }
 
-            var heightConstraint = NSLayoutConstraint.Create(this.Control, NSLayoutAttribute.Height, NSLayoutRelation.Equal, 1, 20f);
-            this.Control.AddConstraint(heightConstraint);
-            this.Control.BackgroundColor = UIColor.Clear;
-            this.Control.TintColor = (this.Element as MaterialEntry)?.TintColor.ToUIColor();
-            this.Control.BorderStyle = UITextBorderStyle.None;
-            this.Control.TranslatesAutoresizingMaskIntoConstraints = false;
-            this.AddRemoveReturnKeyToNumericInput((this.Element as MaterialEntry).IsNumericKeyboard);
+            var heightConstraint = NSLayoutConstraint.Create(Control, NSLayoutAttribute.Height, NSLayoutRelation.Equal, 1, 20f);
+            Control.AddConstraint(heightConstraint);
+            Control.BackgroundColor = UIColor.Clear;
+            Control.TintColor = (Element as MaterialEntry)?.TintColor.ToUIColor();
+            Control.BorderStyle = UITextBorderStyle.None;
+            Control.TranslatesAutoresizingMaskIntoConstraints = false;
+            AddRemoveReturnKeyToNumericInput((Element as MaterialEntry).IsNumericKeyboard);
         }
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             base.OnElementPropertyChanged(sender, e);
 
-            if (this.Control == null) return;
+            if (Control == null)
+            {
+                return;
+            }
 
             if (e?.PropertyName == nameof(MaterialEntry.TintColor))
             {
-                this.Control.TintColor = (this.Element as MaterialEntry)?.TintColor.ToUIColor();
+                Control.TintColor = (Element as MaterialEntry)?.TintColor.ToUIColor();
             }
 
             if (e?.PropertyName == nameof(MaterialEntry.IsNumericKeyboard))
             {
-                this.AddRemoveReturnKeyToNumericInput((this.Element as MaterialEntry).IsNumericKeyboard);
+                AddRemoveReturnKeyToNumericInput((Element as MaterialEntry).IsNumericKeyboard);
             }
         }
 
@@ -69,7 +72,7 @@ namespace XF.Material.iOS.Renderers.Internals
                     var doneButton = new UIBarButtonItem(UIBarButtonSystemItem.Done, delegate
                     {
                         Control.ResignFirstResponder();
-                        this.Element.SendCompleted();
+                        Element.SendCompleted();
                     });
 
                     toolbar.Items = new[] { new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace), doneButton };
@@ -77,12 +80,12 @@ namespace XF.Material.iOS.Renderers.Internals
                     _returnButtonAdded = true;
                 }
 
-                this.Control.InputAccessoryView = toolbar;
+                Control.InputAccessoryView = toolbar;
             }
 
             else
             {
-                this.Control.InputAccessoryView = null;
+                Control.InputAccessoryView = null;
             }
 
         }

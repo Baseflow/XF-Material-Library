@@ -15,7 +15,7 @@ namespace XF.Material.Forms.UI.Internals
 
         public void OnTapped(double x, double y)
         {
-            this.Tapped?.Invoke(this, new TappedEventArgs(x, y));
+            Tapped?.Invoke(this, new TappedEventArgs(x, y));
         }
     }
 
@@ -31,8 +31,8 @@ namespace XF.Material.Forms.UI.Internals
 
         internal TappedEventArgs(double x, double y)
         {
-            this.X = x;
-            this.Y = y;
+            X = x;
+            Y = y;
         }
     }
 }

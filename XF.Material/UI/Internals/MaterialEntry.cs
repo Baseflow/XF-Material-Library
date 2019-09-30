@@ -18,14 +18,14 @@ namespace XF.Material.Forms.UI.Internals
 
         public bool IsNumericKeyboard
         {
-            get => (bool)this.GetValue(IsNumericKeyboardProperty);
-            set => this.SetValue(IsNumericKeyboardProperty, value);
+            get => (bool)GetValue(IsNumericKeyboardProperty);
+            set => SetValue(IsNumericKeyboardProperty, value);
         }
 
         public Color TintColor
         {
-            get => (Color)this.GetValue(TintColorProperty);
-            set => this.SetValue(TintColorProperty, value);
+            get => (Color)GetValue(TintColorProperty);
+            set => SetValue(TintColorProperty, value);
         }
     }
 }

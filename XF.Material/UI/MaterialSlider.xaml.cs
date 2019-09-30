@@ -55,7 +55,7 @@ namespace XF.Material.Forms.UI
         /// </summary>
         public MaterialSlider()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         /// <summary>
@@ -68,8 +68,8 @@ namespace XF.Material.Forms.UI
         /// </summary>
         public double MaxValue
         {
-            get => (double)this.GetValue(MaxValueProperty);
-            set => this.SetValue(MaxValueProperty, value);
+            get => (double)GetValue(MaxValueProperty);
+            set => SetValue(MaxValueProperty, value);
         }
 
         /// <summary>
@@ -77,8 +77,8 @@ namespace XF.Material.Forms.UI
         /// </summary>
         public double MinValue
         {
-            get => (double)this.GetValue(MinValueProperty);
-            set => this.SetValue(MinValueProperty, value);
+            get => (double)GetValue(MinValueProperty);
+            set => SetValue(MinValueProperty, value);
         }
 
         /// <summary>
@@ -86,8 +86,8 @@ namespace XF.Material.Forms.UI
         /// </summary>
         public Color ThumbColor
         {
-            get => (Color)this.GetValue(ThumbColorProperty);
-            set => this.SetValue(ThumbColorProperty, value);
+            get => (Color)GetValue(ThumbColorProperty);
+            set => SetValue(ThumbColorProperty, value);
         }
 
         /// <summary>
@@ -95,8 +95,8 @@ namespace XF.Material.Forms.UI
         /// </summary>
         public Color TrackColor
         {
-            get => (Color)this.GetValue(TrackColorProperty);
-            set => this.SetValue(TrackColorProperty, value);
+            get => (Color)GetValue(TrackColorProperty);
+            set => SetValue(TrackColorProperty, value);
         }
 
         /// <summary>
@@ -104,17 +104,17 @@ namespace XF.Material.Forms.UI
         /// </summary>
         public double Value
         {
-            get => (double)this.GetValue(ValueProperty);
+            get => (double)GetValue(ValueProperty);
             set
             {
-                var oldVal = (double)this.GetValue(ValueProperty);
+                var oldVal = (double)GetValue(ValueProperty);
 
                 if (Math.Abs(oldVal - value) > float.MinValue)
                 {
-                    this.OnValueChanged(oldVal, value);
+                    OnValueChanged(oldVal, value);
                 }
 
-                this.SetValue(ValueProperty, value);
+                SetValue(ValueProperty, value);
             }
         }
 
@@ -123,8 +123,8 @@ namespace XF.Material.Forms.UI
         /// </summary>
         public Command<double> ValueChangedCommand
         {
-            get => (Command<double>)this.GetValue(ValueChangedCommandProperty);
-            set => this.SetValue(ValueChangedCommandProperty, value);
+            get => (Command<double>)GetValue(ValueChangedCommandProperty);
+            set => SetValue(ValueChangedCommandProperty, value);
         }
 
         /// <inheritdoc />
@@ -137,16 +137,16 @@ namespace XF.Material.Forms.UI
             if (created)
             {
                 _pan = new PanGestureRecognizer();
-                _pan.PanUpdated += this.Pan_PanUpdated;
+                _pan.PanUpdated += Pan_PanUpdated;
 
-                this.GestureRecognizers.Add(_pan);
-                TapContainer.Tapped += this.TapContainer_Tapped;
+                GestureRecognizers.Add(_pan);
+                TapContainer.Tapped += TapContainer_Tapped;
             }
             else
             {
-                _pan.PanUpdated -= this.Pan_PanUpdated;
-                this.GestureRecognizers.Remove(_pan);
-                TapContainer.Tapped -= this.TapContainer_Tapped;
+                _pan.PanUpdated -= Pan_PanUpdated;
+                GestureRecognizers.Remove(_pan);
+                TapContainer.Tapped -= TapContainer_Tapped;
             }
         }
 
@@ -154,8 +154,12 @@ namespace XF.Material.Forms.UI
         {
             base.LayoutChildren(x, y, width, height);
 
-            if (Math.Abs(width * height) < float.MinValue || !(this.Value > 0) || _draggerTranslatedInitially) return;
-            this.AnimateDragger();
+            if (Math.Abs(width * height) < float.MinValue || !(Value > 0) || _draggerTranslatedInitially)
+            {
+                return;
+            }
+
+            AnimateDragger();
             _x = Dragger.TranslationX;
             _draggerTranslatedInitially = true;
         }
@@ -166,17 +170,17 @@ namespace XF.Material.Forms.UI
 
             switch (propertyName)
             {
-                case nameof(this.Value):
-                    this.AnimateDragger();
+                case nameof(Value):
+                    AnimateDragger();
                     break;
-                case nameof(this.ThumbColor):
-                    Dragger.BackgroundColor = this.ThumbColor;
+                case nameof(ThumbColor):
+                    Dragger.BackgroundColor = ThumbColor;
                     break;
-                case nameof(this.TrackColor):
-                    Indicator.Color = Placeholder.Color = this.TrackColor;
+                case nameof(TrackColor):
+                    Indicator.Color = Placeholder.Color = TrackColor;
                     break;
-                case nameof(this.IsEnabled):
-                    this.Opacity = this.IsEnabled ? 1.0 : 0.24;
+                case nameof(IsEnabled):
+                    Opacity = IsEnabled ? 1.0 : 0.24;
                     break;
             }
         }
@@ -185,11 +189,15 @@ namespace XF.Material.Forms.UI
         {
             base.OnSizeAllocated(width, height);
 
-            if (Math.Abs(_lastWidth - width) < float.MinValue && Math.Abs(_lastHeight - height) < float.MinValue) return;
+            if (Math.Abs(_lastWidth - width) < float.MinValue && Math.Abs(_lastHeight - height) < float.MinValue)
+            {
+                return;
+            }
+
             _lastWidth = width;
             _lastHeight = height;
 
-            this.AnimateDragger();
+            AnimateDragger();
             _x = Dragger.TranslationX;
         }
 
@@ -200,13 +208,13 @@ namespace XF.Material.Forms.UI
         /// <param name="newValue"></param>
         protected virtual void OnValueChanged(double oldValue, double newValue)
         {
-            this.ValueChanged?.Invoke(this, new ValueChangedEventArgs(oldValue, newValue));
-            this.ValueChangedCommand?.Execute(newValue);
+            ValueChanged?.Invoke(this, new ValueChangedEventArgs(oldValue, newValue));
+            ValueChangedCommand?.Execute(newValue);
         }
 
         private void AnimateDragger()
         {
-            var percentage = this.Value / (this.MaxValue - this.MinValue);
+            var percentage = Value / (MaxValue - MinValue);
             Dragger.TranslationX = percentage * Placeholder.Width;
             Indicator.WidthRequest = Dragger.TranslationX;
         }
@@ -219,7 +227,7 @@ namespace XF.Material.Forms.UI
                     {
                         var newX = Math.Min(_x + e.TotalX, Placeholder.Width) >= 0 ? Math.Min(_x + e.TotalX, Placeholder.Width) : 0;
                         var percentage = newX / Placeholder.Width;
-                        this.Value = (percentage * (this.MaxValue - this.MinValue)) + this.MinValue;
+                        Value = (percentage * (MaxValue - MinValue)) + MinValue;
                         break;
                     }
                 case GestureStatus.Completed:
@@ -230,14 +238,14 @@ namespace XF.Material.Forms.UI
 
         private void TapContainer_Tapped(object sender, Internals.TappedEventArgs e)
         {
-            if (!this.IsEnabled)
+            if (!IsEnabled)
             {
                 return;
             }
 
             var newX = Math.Min(e.X, Placeholder.Width) >= 0 ? Math.Min(e.X, Placeholder.Width) : 0;
             var percentage = newX / Placeholder.Width;
-            this.Value = (percentage * (this.MaxValue - this.MinValue)) + this.MinValue;
+            Value = (percentage * (MaxValue - MinValue)) + MinValue;
             _x = Dragger.TranslationX;
         }
     }

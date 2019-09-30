@@ -16,38 +16,41 @@ namespace XF.Material.iOS.Renderers
     {
         public new MaterialLabel Element => base.Element as MaterialLabel;
 
-        public NSMutableAttributedString AttributedString => this.Control?.AttributedText as NSMutableAttributedString;
+        public NSMutableAttributedString AttributedString => Control?.AttributedText as NSMutableAttributedString;
 
         public override void LayoutSubviews()
         {
             base.LayoutSubviews();
 
-            this.CheckIfSingleLine();
-            this.UpdateLetterSpacing(this.Control, this.Element.LetterSpacing);
+            CheckIfSingleLine();
+            UpdateLetterSpacing(Control, Element.LetterSpacing);
             EnsureLineBreakMode();
         }
 
         private void CheckIfSingleLine()
         {
-            if (this.Control == null || this.Control.Frame.Size.Height == 0)
+            if (Control == null || Control.Frame.Size.Height == 0)
             {
                 return;
             }
 
-            var textSize = new CGSize(this.Control.Frame.Size.Width, nfloat.MaxValue);
-            var rHeight = this.Control.SizeThatFits(textSize).Height;
-            var charSize = this.Control.Font.LineHeight;
+            var textSize = new CGSize(Control.Frame.Size.Width, nfloat.MaxValue);
+            var rHeight = Control.SizeThatFits(textSize).Height;
+            var charSize = Control.Font.LineHeight;
             var lines = Convert.ToInt32(rHeight / charSize);
 
             if (lines == 1)
             {
-                this.Element.LineHeight = 1;
+                Element.LineHeight = 1;
             }
         }
         private void EnsureLineBreakMode()
         {
             if (Element == null || Control == null)
+            {
                 return;
+            }
+
             var lbm = Element.LineBreakMode;
             switch (lbm)
             {
@@ -80,7 +83,7 @@ namespace XF.Material.iOS.Renderers
 
             if (e?.NewElement != null)
             {
-                this.UpdateLetterSpacing(this.Control, this.Element.LetterSpacing);
+                UpdateLetterSpacing(Control, Element.LetterSpacing);
                 EnsureLineBreakMode();
             }
         }
@@ -93,8 +96,8 @@ namespace XF.Material.iOS.Renderers
             {
                 case nameof(MaterialLabel.LetterSpacing):
                 case nameof(Label.Text):
-                    UpdateLetterSpacing(this.Control, this.Element.LetterSpacing);
-                    this.CheckIfSingleLine();
+                    UpdateLetterSpacing(Control, Element.LetterSpacing);
+                    CheckIfSingleLine();
                     EnsureLineBreakMode();
                     break;
             }
@@ -102,13 +105,16 @@ namespace XF.Material.iOS.Renderers
 
         private void UpdateLetterSpacing(UILabel uiLabel, double letterSpacing)
         {
-            if (uiLabel == null || this.AttributedString == null) return;
+            if (uiLabel == null || AttributedString == null)
+            {
+                return;
+            }
 
             var range = new NSRange(0, uiLabel.Text?.Length ?? 0);
-            var attr = new NSMutableAttributedString(this.Control.AttributedText);
+            var attr = new NSMutableAttributedString(Control.AttributedText);
             attr.AddAttribute(UIStringAttributeKey.KerningAdjustment, FromObject((float)letterSpacing), range);
 
-            this.Control.AttributedText = attr;
+            Control.AttributedText = attr;
         }
     }
 }

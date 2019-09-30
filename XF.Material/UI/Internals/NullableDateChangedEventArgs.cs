@@ -6,8 +6,8 @@ namespace XF.Material.Forms.UI.Internals
     {
         public NullableDateChangedEventArgs(DateTime? oldDate, DateTime? newDate)
         {
-            this.OldDate = oldDate;
-            this.NewDate = newDate;
+            OldDate = oldDate;
+            NewDate = newDate;
         }
 
         public DateTime? OldDate { get; set; }

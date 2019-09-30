@@ -12,7 +12,7 @@ namespace XF.Material.Forms.UI
 
         public SelectedIndicesChangedEventArgs(IList<int> indices)
         {
-            this.Indices = indices;
+            Indices = indices;
         }
     }
 }

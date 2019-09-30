@@ -17,8 +17,8 @@
 
         internal MaterialMenuResult(int index, object parameter)
         {
-            this.Index = index;
-            this.Parameter = parameter;
+            Index = index;
+            Parameter = parameter;
         }
     }
 }

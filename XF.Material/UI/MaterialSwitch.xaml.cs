@@ -28,47 +28,47 @@ namespace XF.Material.Forms.UI
 
         public MaterialSwitch()
         {
-            this.InitializeComponent();
-            _background.Color = this.IsActivated ? this.ActiveTrackColor : this.InactiveTrackColor;
+            InitializeComponent();
+            _background.Color = IsActivated ? ActiveTrackColor : InactiveTrackColor;
         }
 
         public event EventHandler<ActivatedEventArgs> Activated;
 
         public Color ActiveTrackColor
         {
-            get => (Color)this.GetValue(ActiveTrackColorProperty);
-            set => this.SetValue(ActiveTrackColorProperty, value);
+            get => (Color)GetValue(ActiveTrackColorProperty);
+            set => SetValue(ActiveTrackColorProperty, value);
         }
 
         public Color ActiveThumbColor
         {
-            get => (Color)this.GetValue(ActiveThumbColorProperty);
-            set => this.SetValue(ActiveThumbColorProperty, value);
+            get => (Color)GetValue(ActiveThumbColorProperty);
+            set => SetValue(ActiveThumbColorProperty, value);
         }
 
         public Color InactiveTrackColor
         {
-            get => (Color)this.GetValue(InactiveTrackColorProperty);
-            set => this.SetValue(InactiveTrackColorProperty, value);
+            get => (Color)GetValue(InactiveTrackColorProperty);
+            set => SetValue(InactiveTrackColorProperty, value);
         }
 
         public Color InactiveThumbColor
         {
-            get => (Color)this.GetValue(InactiveThumColorProperty);
-            set => this.SetValue(InactiveThumColorProperty, value);
+            get => (Color)GetValue(InactiveThumColorProperty);
+            set => SetValue(InactiveThumColorProperty, value);
         }
 
         public bool IsActivated
         {
-            get => (bool)this.GetValue(IsActivatedProperty);
-            set => this.SetValue(IsActivatedProperty, value);
+            get => (bool)GetValue(IsActivatedProperty);
+            set => SetValue(IsActivatedProperty, value);
         }
 
         protected virtual void OnActivatedChanged(bool isActivated)
         {
-            this.Activated?.Invoke(this, new ActivatedEventArgs(this.IsActivated));
+            Activated?.Invoke(this, new ActivatedEventArgs(IsActivated));
 
-            Device.BeginInvokeOnMainThread(async () => await this.AnimateSwitchAsync(this.IsActivated));
+            Device.BeginInvokeOnMainThread(async () => await AnimateSwitchAsync(IsActivated));
         }
 
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -77,45 +77,45 @@ namespace XF.Material.Forms.UI
 
             switch (propertyName)
             {
-                case nameof(this.IsActivated):
-                    this.OnActivatedChanged(this.IsActivated);
+                case nameof(IsActivated):
+                    OnActivatedChanged(IsActivated);
                     break;
-                case nameof(this.ActiveTrackColor):
-                case nameof(this.InactiveTrackColor):
-                    _background.Color = this.IsActivated ? this.ActiveTrackColor : this.InactiveTrackColor;
+                case nameof(ActiveTrackColor):
+                case nameof(InactiveTrackColor):
+                    _background.Color = IsActivated ? ActiveTrackColor : InactiveTrackColor;
                     break;
             }
         }
 
         private async Task AnimateSwitchAsync(bool isActivated)
         {
-            _background.Color = this.IsActivated ? this.ActiveTrackColor : this.InactiveTrackColor;
+            _background.Color = IsActivated ? ActiveTrackColor : InactiveTrackColor;
 
             if (isActivated)
             {
-                await this.AnimateToActivatedState();
+                await AnimateToActivatedState();
             }
             else
             {
-                await this.AnimateToUnactivatedState();
+                await AnimateToUnactivatedState();
             }
         }
 
         private async Task AnimateToActivatedState()
         {
-            _thumb.BackgroundColor = this.ActiveThumbColor;
+            _thumb.BackgroundColor = ActiveThumbColor;
             await _thumb.TranslateTo(16, 0, 150, Easing.SinOut);
         }
 
         private async Task AnimateToUnactivatedState()
         {
-            _thumb.BackgroundColor = this.InactiveThumbColor;
+            _thumb.BackgroundColor = InactiveThumbColor;
             await _thumb.TranslateTo(0, 0, 100, Easing.SinOut);
         }
 
         private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
         {
-            this.IsActivated = !this.IsActivated;
+            IsActivated = !IsActivated;
         }
     }
 }

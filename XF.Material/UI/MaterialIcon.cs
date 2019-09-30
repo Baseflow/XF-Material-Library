@@ -17,8 +17,8 @@ namespace XF.Material.Forms.UI
         /// </summary>
         public Color TintColor
         {
-            get => (Color)this.GetValue(TintColorProperty);
-            set => this.SetValue(TintColorProperty, value);
+            get => (Color)GetValue(TintColorProperty);
+            set => SetValue(TintColorProperty, value);
         }
     }
 }

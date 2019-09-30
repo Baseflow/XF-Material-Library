@@ -19,12 +19,12 @@ namespace XF.Material.Droid.Renderers.Internals
 
             if (e?.OldElement != null)
             {
-                (this.Element as IMaterialElementConfiguration)?.ElementChanged(false);
+                (Element as IMaterialElementConfiguration)?.ElementChanged(false);
             }
 
             if (e?.NewElement != null)
             {
-                (this.Element as IMaterialElementConfiguration)?.ElementChanged(true);
+                (Element as IMaterialElementConfiguration)?.ElementChanged(true);
             }
         }
     }

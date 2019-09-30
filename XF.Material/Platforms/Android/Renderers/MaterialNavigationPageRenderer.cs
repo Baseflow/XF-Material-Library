@@ -27,19 +27,27 @@ namespace XF.Material.Droid.Renderers
         {
             base.OnElementChanged(e);
 
-            if (e?.NewElement == null) return;
-            _navigationPage = this.Element as MaterialNavigationPage;
-            _toolbar = this.ViewGroup.GetChildAt(0) as Toolbar;
+            if (e?.NewElement == null)
+            {
+                return;
+            }
+
+            _navigationPage = Element as MaterialNavigationPage;
+            _toolbar = ViewGroup.GetChildAt(0) as Toolbar;
         }
 
         protected override Task<bool> OnPopViewAsync(Page page, bool animated)
         {
             var navStack = _navigationPage.Navigation.NavigationStack.ToList();
 
-            if (navStack.Count - 1 - navStack.IndexOf(page) < 0) return base.OnPopViewAsync(page, animated);
+            if (navStack.Count - 1 - navStack.IndexOf(page) < 0)
+            {
+                return base.OnPopViewAsync(page, animated);
+            }
+
             var previousPage = navStack[navStack.IndexOf(page) - 1];
             _navigationPage.InternalPagePop(previousPage, page);
-            this.ChangeHasShadow(previousPage);
+            ChangeHasShadow(previousPage);
 
             return base.OnPopViewAsync(page, animated);
         }
@@ -48,7 +56,7 @@ namespace XF.Material.Droid.Renderers
         {
             _navigationPage.InternalPagePush(view);
 
-            this.ChangeHasShadow(view);
+            ChangeHasShadow(view);
 
             return base.OnPushAsync(view, animated);
         }
@@ -57,7 +65,7 @@ namespace XF.Material.Droid.Renderers
         {
             var hasShadow = (bool)page.GetValue(MaterialNavigationPage.HasShadowProperty);
 
-            this.ChangeHasShadow(hasShadow);
+            ChangeHasShadow(hasShadow);
         }
     }
 }

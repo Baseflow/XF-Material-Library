@@ -1,5 +1,4 @@
-﻿using System;
-using Foundation;
+﻿using Foundation;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
@@ -23,7 +22,7 @@ namespace XF.Material.iOS.Utility
             UIView statusBar = null;
             if (UIDevice.CurrentDevice.CheckSystemVersion(13, 0))
             {
-                nint tag = (System.nint)38482458385;
+                var tag = (System.nint)38482458385;
                 statusBar = UIApplication.SharedApplication.KeyWindow?.ViewWithTag(tag);
                 if (statusBar == null)
                 {
@@ -33,10 +32,14 @@ namespace XF.Material.iOS.Utility
                 }
             }
             else
+            {
                 statusBar = UIApplication.SharedApplication.ValueForKey(new NSString("statusBar")) as UIView;
+            }
 
             if (statusBar != null)
+            {
                 statusBar.BackgroundColor = color.ToUIColor();
+            }
         }
     }
 }

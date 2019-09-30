@@ -75,49 +75,49 @@ namespace XF.Material.Forms.UI
         {
             InitializeComponent();
 
-            dropShadow.CornerRadius = this.CornerRadius;
-            dropShadow.OffsetX = this.OffsetX;
-            dropShadow.OffsetY = this.OffsetY;
-            dropShadow.BlurRadius = this.BlurRadius;
+            dropShadow.CornerRadius = CornerRadius;
+            dropShadow.OffsetX = OffsetX;
+            dropShadow.OffsetY = OffsetY;
+            dropShadow.BlurRadius = BlurRadius;
         }
 
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             base.OnPropertyChanged(propertyName);
 
-            if (propertyName == nameof(this.MainContent))
+            if (propertyName == nameof(MainContent))
             {
-                mainContent.Content = this.MainContent;
+                mainContent.Content = MainContent;
             }
 
-            if (propertyName == nameof(this.SurfaceColor))
+            if (propertyName == nameof(SurfaceColor))
             {
-                dropShadow.SurfaceColor = this.SurfaceColor;
+                dropShadow.SurfaceColor = SurfaceColor;
             }
 
-            if (propertyName == nameof(this.CornerRadius))
+            if (propertyName == nameof(CornerRadius))
             {
-                dropShadow.CornerRadius = this.CornerRadius;
+                dropShadow.CornerRadius = CornerRadius;
             }
 
-            if (propertyName == nameof(this.OffsetX))
+            if (propertyName == nameof(OffsetX))
             {
-                dropShadow.OffsetX = this.OffsetX;
+                dropShadow.OffsetX = OffsetX;
             }
 
-            if (propertyName == nameof(this.OffsetY))
+            if (propertyName == nameof(OffsetY))
             {
-                dropShadow.OffsetY = this.OffsetY;
+                dropShadow.OffsetY = OffsetY;
             }
 
-            if (propertyName == nameof(this.BlurRadius))
+            if (propertyName == nameof(BlurRadius))
             {
-                dropShadow.BlurRadius = this.BlurRadius;
+                dropShadow.BlurRadius = BlurRadius;
             }
 
-            if (propertyName == nameof(this.ContentPadding))
+            if (propertyName == nameof(ContentPadding))
             {
-                mainContent.Padding = this.ContentPadding;
+                mainContent.Padding = ContentPadding;
             }
         }
     }

@@ -86,18 +86,18 @@ namespace XF.Material.Forms.UI
         /// </summary>
         public MaterialDateField()
         {
-            this.InitializeComponent();
-            this.SetPropertyChangeHandler(ref this._propertyChangeActions);
-            this.SetControl();
+            InitializeComponent();
+            SetPropertyChangeHandler(ref _propertyChangeActions);
+            SetControl();
 
-            this.datePicker.PropertyChanged += this.DatePicker_PropertyChanged;
-            this.datePicker.DateSelected += this.DatePicker_DateChanged;
-            this.datePicker.SizeChanged += this.Entry_SizeChanged;
-            this.datePicker.Focused += this.DatePicker_Focused;
-            this.datePicker.Unfocused += this.DatePicker_Unfocused;
+            datePicker.PropertyChanged += DatePicker_PropertyChanged;
+            datePicker.DateSelected += DatePicker_DateChanged;
+            datePicker.SizeChanged += Entry_SizeChanged;
+            datePicker.Focused += DatePicker_Focused;
+            datePicker.Unfocused += DatePicker_Unfocused;
 
-            DeviceDisplay.MainDisplayInfoChanged += this.DeviceDisplay_MainDisplayInfoChanged;
-            this._lastDeviceDisplay = DeviceDisplay.MainDisplayInfo;
+            DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
+            _lastDeviceDisplay = DeviceDisplay.MainDisplayInfo;
         }
 
         public event EventHandler<SelectedItemChangedEventArgs> ChoiceSelected;
@@ -129,12 +129,12 @@ namespace XF.Material.Forms.UI
         {
             get
             {
-                return (bool)this.GetValue(AlwaysShowUnderlineProperty);
+                return (bool)GetValue(AlwaysShowUnderlineProperty);
             }
 
             set
             {
-                this.SetValue(AlwaysShowUnderlineProperty, value);
+                SetValue(AlwaysShowUnderlineProperty, value);
             }
         }
 
@@ -145,12 +145,12 @@ namespace XF.Material.Forms.UI
         {
             get
             {
-                return (Color)this.GetValue(BackgroundColorProperty);
+                return (Color)GetValue(BackgroundColorProperty);
             }
 
             set
             {
-                this.SetValue(BackgroundColorProperty, value);
+                SetValue(BackgroundColorProperty, value);
             }
         }
 
@@ -158,12 +158,12 @@ namespace XF.Material.Forms.UI
         {
             get
             {
-                return (string)this.GetValue(ClearIconProperty);
+                return (string)GetValue(ClearIconProperty);
             }
 
             set
             {
-                this.SetValue(ClearIconProperty, value);
+                SetValue(ClearIconProperty, value);
             }
         }
 
@@ -175,12 +175,12 @@ namespace XF.Material.Forms.UI
         {
             get
             {
-                return (Color)this.GetValue(ErrorColorProperty);
+                return (Color)GetValue(ErrorColorProperty);
             }
 
             set
             {
-                this.SetValue(ErrorColorProperty, value);
+                SetValue(ErrorColorProperty, value);
             }
         }
 
@@ -191,12 +191,12 @@ namespace XF.Material.Forms.UI
         {
             get
             {
-                return (string)this.GetValue(ErrorTextProperty);
+                return (string)GetValue(ErrorTextProperty);
             }
 
             set
             {
-                this.SetValue(ErrorTextProperty, value);
+                SetValue(ErrorTextProperty, value);
             }
         }
 
@@ -207,12 +207,12 @@ namespace XF.Material.Forms.UI
         {
             get
             {
-                return (Color)this.GetValue(FloatingPlaceholderColorProperty);
+                return (Color)GetValue(FloatingPlaceholderColorProperty);
             }
 
             set
             {
-                this.SetValue(FloatingPlaceholderColorProperty, value);
+                SetValue(FloatingPlaceholderColorProperty, value);
             }
         }
 
@@ -223,12 +223,12 @@ namespace XF.Material.Forms.UI
         {
             get
             {
-                return (bool)this.GetValue(FloatingPlaceholderEnabledProperty);
+                return (bool)GetValue(FloatingPlaceholderEnabledProperty);
             }
 
             set
             {
-                this.SetValue(FloatingPlaceholderEnabledProperty, value);
+                SetValue(FloatingPlaceholderEnabledProperty, value);
             }
         }
 
@@ -239,12 +239,12 @@ namespace XF.Material.Forms.UI
         {
             get
             {
-                return (double)this.GetValue(FloatingPlaceholderFontSizeProperty);
+                return (double)GetValue(FloatingPlaceholderFontSizeProperty);
             }
 
             set
             {
-                this.SetValue(FloatingPlaceholderFontSizeProperty, value);
+                SetValue(FloatingPlaceholderFontSizeProperty, value);
             }
         }
 
@@ -255,12 +255,12 @@ namespace XF.Material.Forms.UI
         {
             get
             {
-                return (Command<bool>)this.GetValue(FocusCommandProperty);
+                return (Command<bool>)GetValue(FocusCommandProperty);
             }
 
             set
             {
-                this.SetValue(FocusCommandProperty, value);
+                SetValue(FocusCommandProperty, value);
             }
         }
 
@@ -271,12 +271,12 @@ namespace XF.Material.Forms.UI
         {
             get
             {
-                return (bool)this.GetValue(HasErrorProperty);
+                return (bool)GetValue(HasErrorProperty);
             }
 
             set
             {
-                this.SetValue(HasErrorProperty, value);
+                SetValue(HasErrorProperty, value);
             }
         }
 
@@ -287,12 +287,12 @@ namespace XF.Material.Forms.UI
         {
             get
             {
-                return (string)this.GetValue(HelperTextProperty);
+                return (string)GetValue(HelperTextProperty);
             }
 
             set
             {
-                this.SetValue(HelperTextProperty, value);
+                SetValue(HelperTextProperty, value);
             }
         }
 
@@ -303,12 +303,12 @@ namespace XF.Material.Forms.UI
         {
             get
             {
-                return (Color)this.GetValue(HelperTextColorProperty);
+                return (Color)GetValue(HelperTextColorProperty);
             }
 
             set
             {
-                this.SetValue(HelperTextColorProperty, value);
+                SetValue(HelperTextColorProperty, value);
             }
         }
 
@@ -319,12 +319,12 @@ namespace XF.Material.Forms.UI
         {
             get
             {
-                return (string)this.GetValue(HelperTextFontFamilyProperty);
+                return (string)GetValue(HelperTextFontFamilyProperty);
             }
 
             set
             {
-                this.SetValue(HelperTextFontFamilyProperty, value);
+                SetValue(HelperTextFontFamilyProperty, value);
             }
         }
 
@@ -335,12 +335,12 @@ namespace XF.Material.Forms.UI
         {
             get
             {
-                return (MaterialHorizontalThickness)this.GetValue(HorizontalPaddingProperty);
+                return (MaterialHorizontalThickness)GetValue(HorizontalPaddingProperty);
             }
 
             set
             {
-                this.SetValue(HorizontalPaddingProperty, value);
+                SetValue(HorizontalPaddingProperty, value);
             }
         }
 
@@ -351,12 +351,12 @@ namespace XF.Material.Forms.UI
         {
             get
             {
-                return (string)this.GetValue(LeadingIconProperty);
+                return (string)GetValue(LeadingIconProperty);
             }
 
             set
             {
-                this.SetValue(LeadingIconProperty, value);
+                SetValue(LeadingIconProperty, value);
             }
         }
 
@@ -367,12 +367,12 @@ namespace XF.Material.Forms.UI
         {
             get
             {
-                return (Color)this.GetValue(LeadingIconTintColorProperty);
+                return (Color)GetValue(LeadingIconTintColorProperty);
             }
 
             set
             {
-                this.SetValue(LeadingIconTintColorProperty, value);
+                SetValue(LeadingIconTintColorProperty, value);
             }
         }
 
@@ -383,17 +383,17 @@ namespace XF.Material.Forms.UI
         {
             get
             {
-                return (string)this.GetValue(PlaceholderProperty);
+                return (string)GetValue(PlaceholderProperty);
             }
 
             set
             {
                 if (string.IsNullOrWhiteSpace(value))
                 {
-                    throw new ArgumentNullException($"{nameof(this.Placeholder)} must not be null, empty, or a white space.");
+                    throw new ArgumentNullException($"{nameof(Placeholder)} must not be null, empty, or a white space.");
                 }
 
-                this.SetValue(PlaceholderProperty, value);
+                SetValue(PlaceholderProperty, value);
             }
         }
 
@@ -404,12 +404,12 @@ namespace XF.Material.Forms.UI
         {
             get
             {
-                return (Color)this.GetValue(PlaceholderColorProperty);
+                return (Color)GetValue(PlaceholderColorProperty);
             }
 
             set
             {
-                this.SetValue(PlaceholderColorProperty, value);
+                SetValue(PlaceholderColorProperty, value);
             }
         }
 
@@ -420,12 +420,12 @@ namespace XF.Material.Forms.UI
         {
             get
             {
-                return (string)this.GetValue(PlaceholderFontFamilyProperty);
+                return (string)GetValue(PlaceholderFontFamilyProperty);
             }
 
             set
             {
-                this.SetValue(PlaceholderFontFamilyProperty, value);
+                SetValue(PlaceholderFontFamilyProperty, value);
             }
         }
 
@@ -436,12 +436,12 @@ namespace XF.Material.Forms.UI
         {
             get
             {
-                return (bool)this.GetValue(ShouldAnimateUnderlineProperty);
+                return (bool)GetValue(ShouldAnimateUnderlineProperty);
             }
 
             set
             {
-                this.SetValue(ShouldAnimateUnderlineProperty, value);
+                SetValue(ShouldAnimateUnderlineProperty, value);
             }
         }
 
@@ -452,21 +452,21 @@ namespace XF.Material.Forms.UI
         {
             get
             {
-                return (DateTime?)this.GetValue(DateProperty);
+                return (DateTime?)GetValue(DateProperty);
             }
 
             set
             {
-                if (value.HasValue && !this.FloatingPlaceholderEnabled)
+                if (value.HasValue && !FloatingPlaceholderEnabled)
                 {
-                    this.placeholder.IsVisible = false;
+                    placeholder.IsVisible = false;
                 }
-                else if (!value.HasValue && !this.FloatingPlaceholderEnabled)
+                else if (!value.HasValue && !FloatingPlaceholderEnabled)
                 {
-                    this.placeholder.IsVisible = true;
+                    placeholder.IsVisible = true;
                 }
 
-                this.SetValue(DateProperty, value);
+                SetValue(DateProperty, value);
             }
         }
 
@@ -477,12 +477,12 @@ namespace XF.Material.Forms.UI
         {
             get
             {
-                return (Command<DateTime?>)this.GetValue(DateChangeCommandProperty);
+                return (Command<DateTime?>)GetValue(DateChangeCommandProperty);
             }
 
             set
             {
-                this.SetValue(DateChangeCommandProperty, value);
+                SetValue(DateChangeCommandProperty, value);
             }
         }
 
@@ -493,12 +493,12 @@ namespace XF.Material.Forms.UI
         {
             get
             {
-                return (Color)this.GetValue(TextColorProperty);
+                return (Color)GetValue(TextColorProperty);
             }
 
             set
             {
-                this.SetValue(TextColorProperty, value);
+                SetValue(TextColorProperty, value);
             }
         }
 
@@ -509,12 +509,12 @@ namespace XF.Material.Forms.UI
         {
             get
             {
-                return (string)this.GetValue(TextFontFamilyProperty);
+                return (string)GetValue(TextFontFamilyProperty);
             }
 
             set
             {
-                this.SetValue(TextFontFamilyProperty, value);
+                SetValue(TextFontFamilyProperty, value);
             }
         }
 
@@ -525,12 +525,12 @@ namespace XF.Material.Forms.UI
         {
             get
             {
-                return (double)this.GetValue(TextFontSizeProperty);
+                return (double)GetValue(TextFontSizeProperty);
             }
 
             set
             {
-                this.SetValue(TextFontSizeProperty, value);
+                SetValue(TextFontSizeProperty, value);
             }
         }
 
@@ -542,12 +542,12 @@ namespace XF.Material.Forms.UI
         {
             get
             {
-                return (Color)this.GetValue(TintColorProperty);
+                return (Color)GetValue(TintColorProperty);
             }
 
             set
             {
-                this.SetValue(TintColorProperty, value);
+                SetValue(TintColorProperty, value);
             }
         }
 
@@ -558,12 +558,12 @@ namespace XF.Material.Forms.UI
         {
             get
             {
-                return (Color)this.GetValue(UnderlineColorProperty);
+                return (Color)GetValue(UnderlineColorProperty);
             }
 
             set
             {
-                this.SetValue(UnderlineColorProperty, value);
+                SetValue(UnderlineColorProperty, value);
             }
         }
 
@@ -582,7 +582,7 @@ namespace XF.Material.Forms.UI
         /// </summary>
         public new void Focus()
         {
-            this.datePicker.Focus();
+            datePicker.Focus();
         }
 
         /// <summary>
@@ -590,21 +590,21 @@ namespace XF.Material.Forms.UI
         /// </summary>
         public new void Unfocus()
         {
-            this.datePicker.Unfocus();
+            datePicker.Unfocus();
         }
 
         protected override void OnBindingContextChanged()
         {
             base.OnBindingContextChanged();
 
-            this.AnimateToInactiveOrFocusedStateOnStart(this.BindingContext);
+            AnimateToInactiveOrFocusedStateOnStart(BindingContext);
         }
 
         protected override void OnParentSet()
         {
             base.OnParentSet();
 
-            this.AnimateToInactiveOrFocusedStateOnStart(this.Parent);
+            AnimateToInactiveOrFocusedStateOnStart(Parent);
         }
 
         /// <inheritdoc />
@@ -621,7 +621,7 @@ namespace XF.Material.Forms.UI
                 return;
             }
 
-            if (this._propertyChangeActions != null && this._propertyChangeActions.TryGetValue(propertyName, out Action handlePropertyChange))
+            if (_propertyChangeActions != null && _propertyChangeActions.TryGetValue(propertyName, out var handlePropertyChange))
             {
                 handlePropertyChange();
             }
@@ -629,184 +629,184 @@ namespace XF.Material.Forms.UI
 
         private void AnimateToActivatedState()
         {
-            Animation anim = new Animation();
-            bool hasDate = this.Date.HasValue;
+            var anim = new Animation();
+            var hasDate = Date.HasValue;
 
-            if (this.datePicker.IsFocused)
+            if (datePicker.IsFocused)
             {
-                Color tintColor = this.HasError ? this.ErrorColor : this.TintColor;
+                var tintColor = HasError ? ErrorColor : TintColor;
 
-                if (this.ShouldAnimateUnderline)
+                if (ShouldAnimateUnderline)
                 {
-                    anim.Add(0.0, AnimationDuration, new Animation(v => this.underline.HeightRequest = v, 1, 2, this._animationCurve, () =>
+                    anim.Add(0.0, AnimationDuration, new Animation(v => underline.HeightRequest = v, 1, 2, _animationCurve, () =>
                     {
-                        this.underline.Color = tintColor;
+                        underline.Color = tintColor;
                     }));
                 }
 
-                this.placeholder.TextColor = tintColor;
+                placeholder.TextColor = tintColor;
             }
             else
             {
-                Color underlineColor = this.HasError ? this.ErrorColor : this.UnderlineColor;
-                Color placeholderColor = this.HasError ? this.ErrorColor : this.FloatingPlaceholderColor;
+                var underlineColor = HasError ? ErrorColor : UnderlineColor;
+                var placeholderColor = HasError ? ErrorColor : FloatingPlaceholderColor;
 
-                int endHeight = hasDate ? 1 : 0;
+                var endHeight = hasDate ? 1 : 0;
 
-                if (this.ShouldAnimateUnderline)
+                if (ShouldAnimateUnderline)
                 {
-                    anim.Add(0.0, AnimationDuration, new Animation(v => this.underline.HeightRequest = v, this.underline.HeightRequest, endHeight, this._animationCurve, () =>
+                    anim.Add(0.0, AnimationDuration, new Animation(v => underline.HeightRequest = v, underline.HeightRequest, endHeight, _animationCurve, () =>
                     {
-                        this.underline.Color = underlineColor;
+                        underline.Color = underlineColor;
                     }));
                 }
 
-                this.placeholder.TextColor = placeholderColor;
+                placeholder.TextColor = placeholderColor;
             }
 
-            anim.Commit(this, "UnfocusAnimation", rate: 2, length: (uint)(Device.RuntimePlatform == Device.iOS ? 500 : AnimationDuration * 1000), easing: this._animationCurve);
+            anim.Commit(this, "UnfocusAnimation", rate: 2, length: (uint)(Device.RuntimePlatform == Device.iOS ? 500 : AnimationDuration * 1000), easing: _animationCurve);
         }
 
         private void AnimateToInactiveOrFocusedState()
         {
             Color tintColor;
-            double preferredStartFont = this.FloatingPlaceholderFontSize == 0 ? this.datePicker.FontSize * 0.75 : this.FloatingPlaceholderFontSize;
-            double preferredEndFont = this.FloatingPlaceholderFontSize == 0 ? this.datePicker.FontSize * 0.75 : this.FloatingPlaceholderFontSize;
-            double startFont = this.datePicker.IsFocused ? this.datePicker.FontSize : preferredStartFont;
-            double endFOnt = this.datePicker.IsFocused ? preferredEndFont : this.datePicker.FontSize;
-            double startY = this.placeholder.TranslationY;
-            double endY = this.datePicker.IsFocused ? -(this.datePicker.FontSize * 0.8) : 0;
+            var preferredStartFont = FloatingPlaceholderFontSize == 0 ? datePicker.FontSize * 0.75 : FloatingPlaceholderFontSize;
+            var preferredEndFont = FloatingPlaceholderFontSize == 0 ? datePicker.FontSize * 0.75 : FloatingPlaceholderFontSize;
+            var startFont = datePicker.IsFocused ? datePicker.FontSize : preferredStartFont;
+            var endFOnt = datePicker.IsFocused ? preferredEndFont : datePicker.FontSize;
+            var startY = placeholder.TranslationY;
+            var endY = datePicker.IsFocused ? -(datePicker.FontSize * 0.8) : 0;
 
-            if (this.HasError)
+            if (HasError)
             {
-                tintColor = this.datePicker.IsFocused ? this.ErrorColor : this.PlaceholderColor;
+                tintColor = datePicker.IsFocused ? ErrorColor : PlaceholderColor;
             }
             else
             {
-                tintColor = this.datePicker.IsFocused ? this.TintColor : this.PlaceholderColor;
+                tintColor = datePicker.IsFocused ? TintColor : PlaceholderColor;
             }
 
-            Animation anim = this.FloatingPlaceholderEnabled ? new Animation
+            var anim = FloatingPlaceholderEnabled ? new Animation
             {
                 {
                     0.0,
                     AnimationDuration,
-                    new Animation(v => this.placeholder.FontSize = v, startFont, endFOnt, this._animationCurve)
+                    new Animation(v => placeholder.FontSize = v, startFont, endFOnt, _animationCurve)
                 },
                 {
                     0.0,
                     AnimationDuration,
-                    new Animation(v => this.placeholder.TranslationY = v, startY, endY, this._animationCurve, () =>
+                    new Animation(v => placeholder.TranslationY = v, startY, endY, _animationCurve, () =>
                     {
-                        if(this.HasError && this.datePicker.IsFocused)
+                        if(HasError && datePicker.IsFocused)
                         {
-                            this.placeholder.TextColor = this.ErrorColor;
+                            placeholder.TextColor = ErrorColor;
                         }
 
-                        this.placeholder.TextColor = tintColor;
+                        placeholder.TextColor = tintColor;
                     })
                 }
             } : new Animation();
 
-            if (this.datePicker.IsFocused)
+            if (datePicker.IsFocused)
             {
-                if (this.ShouldAnimateUnderline)
+                if (ShouldAnimateUnderline)
                 {
-                    this.underline.Color = this.HasError ? this.ErrorColor : this.TintColor;
+                    underline.Color = HasError ? ErrorColor : TintColor;
 
-                    anim.Add(0.0, AnimationDuration, new Animation(v => this.underline.WidthRequest = v, 0, this.Width, this._animationCurve, () =>
+                    anim.Add(0.0, AnimationDuration, new Animation(v => underline.WidthRequest = v, 0, Width, _animationCurve, () =>
                     {
-                        this.underline.WidthRequest = -1;
-                        this.underline.HorizontalOptions = LayoutOptions.FillAndExpand;
+                        underline.WidthRequest = -1;
+                        underline.HorizontalOptions = LayoutOptions.FillAndExpand;
                     }));
                 }
             }
             else
             {
-                if (this.ShouldAnimateUnderline)
+                if (ShouldAnimateUnderline)
                 {
-                    anim.Add(0.0, AnimationDuration, new Animation(v => this.underline.HeightRequest = v, this.underline.HeightRequest, 0, this._animationCurve, () =>
+                    anim.Add(0.0, AnimationDuration, new Animation(v => underline.HeightRequest = v, underline.HeightRequest, 0, _animationCurve, () =>
                     {
-                        this.underline.WidthRequest = 0;
-                        this.underline.HeightRequest = 2;
-                        this.underline.HorizontalOptions = LayoutOptions.Center;
+                        underline.WidthRequest = 0;
+                        underline.HeightRequest = 2;
+                        underline.HorizontalOptions = LayoutOptions.Center;
                     }));
                 }
             }
 
-            anim.Commit(this, "FocusAnimation", rate: 2, length: (uint)(Device.RuntimePlatform == Device.iOS ? 500 : AnimationDuration * 1000), easing: this._animationCurve);
+            anim.Commit(this, "FocusAnimation", rate: 2, length: (uint)(Device.RuntimePlatform == Device.iOS ? 500 : AnimationDuration * 1000), easing: _animationCurve);
         }
 
         private void AnimateToInactiveOrFocusedStateOnStart(object startObject)
         {
-            double placeholderEndY = -(this.datePicker.FontSize * 0.8);
-            double placeholderEndFont = this.datePicker.FontSize * 0.75;
+            var placeholderEndY = -(datePicker.FontSize * 0.8);
+            var placeholderEndFont = datePicker.FontSize * 0.75;
 
-            if (!this.FloatingPlaceholderEnabled && !this.datePicker.NullableDate.HasValue)
+            if (!FloatingPlaceholderEnabled && !datePicker.NullableDate.HasValue)
             {
-                this.placeholder.TextColor = this.PlaceholderColor;
+                placeholder.TextColor = PlaceholderColor;
             }
 
-            if (startObject != null && this.Date.HasValue /*&& !this._wasFocused*/)
+            if (startObject != null && Date.HasValue /*&& !this._wasFocused*/)
             {
-                this.datePicker.Opacity = 0;
+                datePicker.Opacity = 0;
 
                 Device.BeginInvokeOnMainThread(() =>
                 {
-                    Animation anim = new Animation();
+                    var anim = new Animation();
 
-                    if (this.FloatingPlaceholderEnabled)
+                    if (FloatingPlaceholderEnabled)
                     {
-                        anim.Add(0.0, AnimationDuration, new Animation(v => this.placeholder.FontSize = v, this.datePicker.FontSize, placeholderEndFont, this._animationCurve));
-                        anim.Add(0.0, AnimationDuration, new Animation(v => this.placeholder.TranslationY = v, this.placeholder.TranslationY, placeholderEndY, this._animationCurve, () =>
+                        anim.Add(0.0, AnimationDuration, new Animation(v => placeholder.FontSize = v, datePicker.FontSize, placeholderEndFont, _animationCurve));
+                        anim.Add(0.0, AnimationDuration, new Animation(v => placeholder.TranslationY = v, placeholder.TranslationY, placeholderEndY, _animationCurve, () =>
                         {
-                            this.placeholder.TextColor = this.HasError ? this.ErrorColor : this.FloatingPlaceholderColor;
-                            this.datePicker.Opacity = 1;
+                            placeholder.TextColor = HasError ? ErrorColor : FloatingPlaceholderColor;
+                            datePicker.Opacity = 1;
                         }));
                     }
 
-                    if (this.ShouldAnimateUnderline)
+                    if (ShouldAnimateUnderline)
                     {
-                        this.underline.Color = this.HasError ? this.ErrorColor : this.TintColor;
-                        this.underline.HeightRequest = 1;
-                        anim.Add(0.0, AnimationDuration, new Animation(v => this.underline.WidthRequest = v, 0, this.Width, this._animationCurve, () => this.underline.HorizontalOptions = LayoutOptions.FillAndExpand));
+                        underline.Color = HasError ? ErrorColor : TintColor;
+                        underline.HeightRequest = 1;
+                        anim.Add(0.0, AnimationDuration, new Animation(v => underline.WidthRequest = v, 0, Width, _animationCurve, () => underline.HorizontalOptions = LayoutOptions.FillAndExpand));
                     }
 
-                    anim.Commit(this, "Anim2", rate: 2, length: (uint)(AnimationDuration * 1000), easing: this._animationCurve);
+                    anim.Commit(this, "Anim2", rate: 2, length: (uint)(AnimationDuration * 1000), easing: _animationCurve);
                 });
 
-                this.datePicker.Opacity = 1;
+                datePicker.Opacity = 1;
 
                 return;
             }
 
-            if (startObject != null && !this.Date.HasValue && this.placeholder.TranslationY == placeholderEndY)
+            if (startObject != null && !Date.HasValue && placeholder.TranslationY == placeholderEndY)
             {
-                if (this.datePicker.IsFocused)
+                if (datePicker.IsFocused)
                 {
                     return;
                 }
 
                 Device.BeginInvokeOnMainThread(() =>
                 {
-                    Animation anim = new Animation();
+                    var anim = new Animation();
 
-                    if (this.FloatingPlaceholderEnabled)
+                    if (FloatingPlaceholderEnabled)
                     {
-                        anim.Add(0.0, AnimationDuration, new Animation(v => this.placeholder.FontSize = v, placeholderEndFont, this.datePicker.FontSize, this._animationCurve));
-                        anim.Add(0.0, AnimationDuration, new Animation(v => this.placeholder.TranslationY = v, this.placeholder.TranslationY, 0, this._animationCurve, () =>
+                        anim.Add(0.0, AnimationDuration, new Animation(v => placeholder.FontSize = v, placeholderEndFont, datePicker.FontSize, _animationCurve));
+                        anim.Add(0.0, AnimationDuration, new Animation(v => placeholder.TranslationY = v, placeholder.TranslationY, 0, _animationCurve, () =>
                         {
-                            this.placeholder.TextColor = this.PlaceholderColor;
-                            this.datePicker.Opacity = 1;
+                            placeholder.TextColor = PlaceholderColor;
+                            datePicker.Opacity = 1;
                         }));
                     }
 
-                    if (this.ShouldAnimateUnderline)
+                    if (ShouldAnimateUnderline)
                     {
-                        anim.Add(0.0, AnimationDuration, new Animation(v => this.underline.WidthRequest = v, this.Width, 0, this._animationCurve, () => this.underline.HorizontalOptions = LayoutOptions.Center));
+                        anim.Add(0.0, AnimationDuration, new Animation(v => underline.WidthRequest = v, Width, 0, _animationCurve, () => underline.HorizontalOptions = LayoutOptions.Center));
                     }
 
-                    anim.Commit(this, "Anim2", rate: 2, length: (uint)(AnimationDuration * 1000), easing: this._animationCurve);
+                    anim.Commit(this, "Anim2", rate: 2, length: (uint)(AnimationDuration * 1000), easing: _animationCurve);
                 });
             }
         }
@@ -815,27 +815,27 @@ namespace XF.Material.Forms.UI
         {
             const int animDuration = 250;
 
-            this.placeholder.TextColor = (this.FloatingPlaceholderEnabled && this.datePicker.IsFocused) || (this.FloatingPlaceholderEnabled && this.datePicker.NullableDate.HasValue) ? this.ErrorColor : this.PlaceholderColor;
-            this.counter.TextColor = this.ErrorColor;
-            this.underline.Color = this.ShouldAnimateUnderline ? this.ErrorColor : Color.Transparent;
-            this.persistentUnderline.Color = this.AlwaysShowUnderline ? this.ErrorColor : Color.Transparent;
-            this.trailingIcon.IsVisible = true;
-            this.trailingIcon.Source = "xf_error";
-            this.trailingIcon.TintColor = this.ErrorColor;
+            placeholder.TextColor = (FloatingPlaceholderEnabled && datePicker.IsFocused) || (FloatingPlaceholderEnabled && datePicker.NullableDate.HasValue) ? ErrorColor : PlaceholderColor;
+            counter.TextColor = ErrorColor;
+            underline.Color = ShouldAnimateUnderline ? ErrorColor : Color.Transparent;
+            persistentUnderline.Color = AlwaysShowUnderline ? ErrorColor : Color.Transparent;
+            trailingIcon.IsVisible = true;
+            trailingIcon.Source = "xf_error";
+            trailingIcon.TintColor = ErrorColor;
 
-            if (string.IsNullOrEmpty(this.ErrorText))
+            if (string.IsNullOrEmpty(ErrorText))
             {
-                this.helper.TextColor = this.ErrorColor;
+                helper.TextColor = ErrorColor;
             }
             else
             {
                 Device.BeginInvokeOnMainThread(async () =>
                 {
-                    await this.helper.FadeTo(0, animDuration / 2, this._animationCurve);
-                    this.helper.TranslationY = -4;
-                    this.helper.TextColor = this.ErrorColor;
-                    this.helper.Text = this.ErrorText;
-                    await Task.WhenAll(this.helper.FadeTo(1, animDuration / 2, this._animationCurve), this.helper.TranslateTo(0, 0, animDuration / 2, this._animationCurve));
+                    await helper.FadeTo(0, animDuration / 2, _animationCurve);
+                    helper.TranslationY = -4;
+                    helper.TextColor = ErrorColor;
+                    helper.Text = ErrorText;
+                    await Task.WhenAll(helper.FadeTo(1, animDuration / 2, _animationCurve), helper.TranslateTo(0, 0, animDuration / 2, _animationCurve));
                 });
             }
         }
@@ -844,286 +844,286 @@ namespace XF.Material.Forms.UI
         {
             const double opactiy = 1;
 
-            this.IsEnabled = true;
-            this.datePicker.Opacity = opactiy;
-            this.placeholder.Opacity = opactiy;
-            this.helper.Opacity = opactiy;
-            this.underline.Opacity = opactiy;
+            IsEnabled = true;
+            datePicker.Opacity = opactiy;
+            placeholder.Opacity = opactiy;
+            helper.Opacity = opactiy;
+            underline.Opacity = opactiy;
 
             Device.BeginInvokeOnMainThread(async () =>
             {
 
-                this.trailingIcon.IsVisible = false;
+                trailingIcon.IsVisible = false;
 
-                Color accentColor = this.TintColor;
-                this.placeholder.TextColor = accentColor;
-                this.counter.TextColor = this.HelperTextColor;
-                this.underline.Color = accentColor;
-                this.persistentUnderline.Color = this.UnderlineColor;
+                var accentColor = TintColor;
+                placeholder.TextColor = accentColor;
+                counter.TextColor = HelperTextColor;
+                underline.Color = accentColor;
+                persistentUnderline.Color = UnderlineColor;
 
-                if (string.IsNullOrEmpty(this.ErrorText))
+                if (string.IsNullOrEmpty(ErrorText))
                 {
-                    this.helper.TextColor = this.HelperTextColor;
+                    helper.TextColor = HelperTextColor;
                 }
                 else
                 {
-                    await this.helper.FadeTo(0, 150, this._animationCurve);
-                    this.helper.TranslationY = -4;
-                    this.helper.TextColor = this.HelperTextColor;
-                    this.helper.Text = this.HelperText;
-                    await Task.WhenAll(this.helper.FadeTo(1, 150, this._animationCurve), this.helper.TranslateTo(0, 0, 150, this._animationCurve));
+                    await helper.FadeTo(0, 150, _animationCurve);
+                    helper.TranslationY = -4;
+                    helper.TextColor = HelperTextColor;
+                    helper.Text = HelperText;
+                    await Task.WhenAll(helper.FadeTo(1, 150, _animationCurve), helper.TranslateTo(0, 0, 150, _animationCurve));
                 }
             });
         }
 
         private void DeviceDisplay_MainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
         {
-            if (e.DisplayInfo.Orientation != this._lastDeviceDisplay.Orientation)
+            if (e.DisplayInfo.Orientation != _lastDeviceDisplay.Orientation)
             {
-                if (this.datePicker.NullableDate.HasValue && this.ShouldAnimateUnderline)
+                if (datePicker.NullableDate.HasValue && ShouldAnimateUnderline)
                 {
-                    this.underline.WidthRequest = -1;
-                    this.underline.HorizontalOptions = LayoutOptions.FillAndExpand;
+                    underline.WidthRequest = -1;
+                    underline.HorizontalOptions = LayoutOptions.FillAndExpand;
                 }
 
-                this._lastDeviceDisplay = e.DisplayInfo;
+                _lastDeviceDisplay = e.DisplayInfo;
             }
         }
 
         private void Entry_Completed(object sender, EventArgs e)
         {
-            this.Completed?.Invoke(this, EventArgs.Empty);
+            Completed?.Invoke(this, EventArgs.Empty);
         }
 
         private void DatePicker_Focused(object sender, FocusEventArgs e)
         {
-            this._wasFocused = true;
-            this.FocusCommand?.Execute(this.datePicker.IsFocused);
-            this.Focused?.Invoke(this, e);
+            _wasFocused = true;
+            FocusCommand?.Execute(datePicker.IsFocused);
+            Focused?.Invoke(this, e);
         }
 
         private void DatePicker_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
-                case nameof(this.IsFocused) when !this.datePicker.NullableDate.HasValue:
-                    this.AnimateToInactiveOrFocusedState();
+                case nameof(IsFocused) when !datePicker.NullableDate.HasValue:
+                    AnimateToInactiveOrFocusedState();
                     break;
 
-                case nameof(this.IsFocused) when this.datePicker.NullableDate.HasValue:
-                    this.AnimateToActivatedState();
+                case nameof(IsFocused) when datePicker.NullableDate.HasValue:
+                    AnimateToActivatedState();
                     break;
             }
         }
 
         private void Entry_SizeChanged(object sender, EventArgs e)
         {
-            int baseHeight = this.FloatingPlaceholderEnabled ? 56 : 40;
-            double diff = this.datePicker.Height - 20;
-            double rawRowHeight = baseHeight + diff;
-            this._autoSizingRow.Height = new GridLength(rawRowHeight);
+            var baseHeight = FloatingPlaceholderEnabled ? 56 : 40;
+            var diff = datePicker.Height - 20;
+            var rawRowHeight = baseHeight + diff;
+            _autoSizingRow.Height = new GridLength(rawRowHeight);
 
-            double iconVerticalMargin = (this._autoSizingRow.Height.Value - 24) / 2;
+            var iconVerticalMargin = (_autoSizingRow.Height.Value - 24) / 2;
 
-            if (this.leadingIcon.IsVisible)
+            if (leadingIcon.IsVisible)
             {
-                this.leadingIcon.Margin = new Thickness(this.HorizontalPadding.Left, iconVerticalMargin, 0, iconVerticalMargin);
-                this.datePicker.Margin = new Thickness(12, this.datePicker.Margin.Top, this.HorizontalPadding.Right, this.datePicker.Margin.Bottom);
+                leadingIcon.Margin = new Thickness(HorizontalPadding.Left, iconVerticalMargin, 0, iconVerticalMargin);
+                datePicker.Margin = new Thickness(12, datePicker.Margin.Top, HorizontalPadding.Right, datePicker.Margin.Bottom);
             }
             else
             {
-                this.datePicker.Margin = new Thickness(this.HorizontalPadding.Left, this.datePicker.Margin.Top, this.HorizontalPadding.Right, this.datePicker.Margin.Bottom);
+                datePicker.Margin = new Thickness(HorizontalPadding.Left, datePicker.Margin.Top, HorizontalPadding.Right, datePicker.Margin.Bottom);
             }
 
-            if (this.trailingIcon.IsVisible)
+            if (trailingIcon.IsVisible)
             {
-                MaterialHorizontalThickness entryPaddingLeft = this.leadingIcon.IsVisible ? 12 : this.HorizontalPadding;
-                this.trailingIcon.Margin = new Thickness(12, iconVerticalMargin, this.HorizontalPadding.Right, iconVerticalMargin);
-                this.datePicker.Margin = new Thickness(entryPaddingLeft.Left, this.datePicker.Margin.Top, 0, this.datePicker.Margin.Bottom);
+                var entryPaddingLeft = leadingIcon.IsVisible ? 12 : HorizontalPadding;
+                trailingIcon.Margin = new Thickness(12, iconVerticalMargin, HorizontalPadding.Right, iconVerticalMargin);
+                datePicker.Margin = new Thickness(entryPaddingLeft.Left, datePicker.Margin.Top, 0, datePicker.Margin.Bottom);
             }
 
-            this.helper.Margin = new Thickness(this.HorizontalPadding.Left, this.helper.Margin.Top, 12, 0);
-            this.counter.Margin = new Thickness(0, this.counter.Margin.Top, this.HorizontalPadding.Right, 0);
+            helper.Margin = new Thickness(HorizontalPadding.Left, helper.Margin.Top, 12, 0);
+            counter.Margin = new Thickness(0, counter.Margin.Top, HorizontalPadding.Right, 0);
 
-            double placeholderLeftMargin = this.FloatingPlaceholderEnabled ? this.HorizontalPadding.Left : this.datePicker.Margin.Left;
-            this.placeholder.Margin = new Thickness(placeholderLeftMargin, 0, 0, 0);
+            var placeholderLeftMargin = FloatingPlaceholderEnabled ? HorizontalPadding.Left : datePicker.Margin.Left;
+            placeholder.Margin = new Thickness(placeholderLeftMargin, 0, 0, 0);
 
-            if (this.HasError)
+            if (HasError)
             {
-                this.underline.Color = this.ErrorColor;
+                underline.Color = ErrorColor;
             }
         }
 
         private void DatePicker_DateChanged(object sender, NullableDateChangedEventArgs e)
         {
-            this.Date = this.datePicker.NullableDate;
-            this.DateChangeCommand?.Execute(this.datePicker.NullableDate);
-            this.DateChanged?.Invoke(this, e);
+            Date = datePicker.NullableDate;
+            DateChangeCommand?.Execute(datePicker.NullableDate);
+            DateChanged?.Invoke(this, e);
         }
 
         private void DatePicker_Unfocused(object sender, FocusEventArgs e)
         {
-            this.FocusCommand?.Execute(this.datePicker.IsFocused);
-            this.Unfocused?.Invoke(this, e);
+            FocusCommand?.Execute(datePicker.IsFocused);
+            Unfocused?.Invoke(this, e);
         }
 
 
         private void OnAlwaysShowUnderlineChanged(bool isShown)
         {
-            this.persistentUnderline.IsVisible = isShown;
-            this.persistentUnderline.Color = this.UnderlineColor;
+            persistentUnderline.IsVisible = isShown;
+            persistentUnderline.Color = UnderlineColor;
         }
 
         private void OnBackgroundColorChanged(Color backgroundColor)
         {
-            this.backgroundCard.BackgroundColor = backgroundColor;
+            backgroundCard.BackgroundColor = backgroundColor;
         }
 
 
         private void OnEnabledChanged(bool isEnabled)
         {
-            this.Opacity = isEnabled ? 1 : 0.33;
-            this.helper.IsVisible = isEnabled && !string.IsNullOrEmpty(this.HelperText);
+            Opacity = isEnabled ? 1 : 0.33;
+            helper.IsVisible = isEnabled && !string.IsNullOrEmpty(HelperText);
         }
 
         private void OnErrorColorChanged(Color errorColor)
         {
-            this.trailingIcon.TintColor = errorColor;
+            trailingIcon.TintColor = errorColor;
         }
 
         private void OnErrorTextChanged()
         {
-            if (this.HasError)
+            if (HasError)
             {
-                this.ChangeToErrorState();
+                ChangeToErrorState();
             }
         }
 
         private void OnFloatingPlaceholderEnabledChanged(bool isEnabled)
         {
             double marginTopVariation = Device.RuntimePlatform == Device.iOS ? 18 : 20;
-            this.datePicker.Margin = isEnabled ? new Thickness(this.datePicker.Margin.Left, 24, this.datePicker.Margin.Right, 0) : new Thickness(this.datePicker.Margin.Left, marginTopVariation - 9, this.datePicker.Margin.Right, 0);
+            datePicker.Margin = isEnabled ? new Thickness(datePicker.Margin.Left, 24, datePicker.Margin.Right, 0) : new Thickness(datePicker.Margin.Left, marginTopVariation - 9, datePicker.Margin.Right, 0);
 
-            Thickness iconMargin = this.leadingIcon.Margin;
-            this.leadingIcon.Margin = isEnabled ? new Thickness(iconMargin.Left, 16, iconMargin.Right, 16) : new Thickness(iconMargin.Left, 8, iconMargin.Right, 8);
+            var iconMargin = leadingIcon.Margin;
+            leadingIcon.Margin = isEnabled ? new Thickness(iconMargin.Left, 16, iconMargin.Right, 16) : new Thickness(iconMargin.Left, 8, iconMargin.Right, 8);
 
-            Thickness trailingIconMargin = this.trailingIcon.Margin;
-            this.trailingIcon.Margin = isEnabled ? new Thickness(trailingIconMargin.Left, 16, trailingIconMargin.Right, 16) : new Thickness(trailingIconMargin.Left, 8, trailingIconMargin.Right, 8);
+            var trailingIconMargin = trailingIcon.Margin;
+            trailingIcon.Margin = isEnabled ? new Thickness(trailingIconMargin.Left, 16, trailingIconMargin.Right, 16) : new Thickness(trailingIconMargin.Left, 8, trailingIconMargin.Right, 8);
         }
 
         private void OnHasErrorChanged()
         {
-            if (this.HasError)
+            if (HasError)
             {
-                this.ChangeToErrorState();
+                ChangeToErrorState();
             }
             else
             {
-                this.ChangeToNormalState();
+                ChangeToNormalState();
             }
         }
 
         private void OnHelperTextChanged(string helperText)
         {
-            this.helper.Text = helperText;
-            this.helper.IsVisible = !string.IsNullOrEmpty(helperText);
+            helper.Text = helperText;
+            helper.IsVisible = !string.IsNullOrEmpty(helperText);
         }
 
         private void OnHelperTextColorChanged(Color textColor)
         {
-            this.helper.TextColor = this.counter.TextColor = textColor;
+            helper.TextColor = counter.TextColor = textColor;
         }
 
         private void OnHelpertTextFontFamilyChanged(string fontFamily)
         {
-            this.helper.FontFamily = this.counter.FontFamily = fontFamily;
+            helper.FontFamily = counter.FontFamily = fontFamily;
         }
 
         private void OnLeadingIconChanged(string icon)
         {
-            this.leadingIcon.Source = icon;
-            this.OnLeadingIconTintColorChanged(this.LeadingIconTintColor);
+            leadingIcon.Source = icon;
+            OnLeadingIconTintColorChanged(LeadingIconTintColor);
         }
 
         private void OnLeadingIconTintColorChanged(Color tintColor)
         {
-            this.leadingIcon.TintColor = tintColor;
+            leadingIcon.TintColor = tintColor;
         }
 
         private void OnPlaceholderChanged(string placeholderText)
         {
-            this.placeholder.Text = placeholderText;
+            placeholder.Text = placeholderText;
         }
 
         private void OnPlaceholderColorChanged(Color placeholderColor)
         {
-            this.placeholder.TextColor = placeholderColor;
+            placeholder.TextColor = placeholderColor;
         }
 
         private void OnPlaceholderFontFamilyChanged(string fontFamily)
         {
-            this.placeholder.FontFamily = fontFamily;
+            placeholder.FontFamily = fontFamily;
         }
 
         private void OnDateChanged(DateTime? date)
         {
-            this.datePicker.NullableDate = date;
-            this.clearIcon.IsVisible = date.HasValue;
-            this.AnimateToInactiveOrFocusedStateOnStart(this);
+            datePicker.NullableDate = date;
+            clearIcon.IsVisible = date.HasValue;
+            AnimateToInactiveOrFocusedStateOnStart(this);
         }
 
         private void OnTextColorChanged(Color textColor)
         {
-            this.datePicker.TextColor = this.trailingIcon.TintColor = textColor;
+            datePicker.TextColor = trailingIcon.TintColor = textColor;
         }
 
         private void OnTextFontFamilyChanged(string fontFamily)
         {
-            this.datePicker.FontFamily = fontFamily;
+            datePicker.FontFamily = fontFamily;
         }
 
         private void OnTextFontSizeChanged(double fontSize)
         {
-            this.placeholder.FontSize = this.datePicker.FontSize = fontSize;
+            placeholder.FontSize = datePicker.FontSize = fontSize;
         }
 
         private void OnTintColorChanged(Color tintColor)
         {
-            this.datePicker.TintColor = tintColor;
+            datePicker.TintColor = tintColor;
         }
 
         private void OnUnderlineColorChanged(Color underlineColor)
         {
-            if (this.AlwaysShowUnderline)
+            if (AlwaysShowUnderline)
             {
-                this.persistentUnderline.Color = underlineColor;
+                persistentUnderline.Color = underlineColor;
             }
         }
 
         private void SetControl()
         {
-            this.trailingIcon.TintColor = this.TextColor;
+            trailingIcon.TintColor = TextColor;
 
-            this.clearIcon.TintColor = this.TextColor;
-            this.clearIcon.Source = this.ClearIcon;
-            this.clearIcon.GestureRecognizers.Add(new TapGestureRecognizer()
+            clearIcon.TintColor = TextColor;
+            clearIcon.Source = ClearIcon;
+            clearIcon.GestureRecognizers.Add(new TapGestureRecognizer()
             {
                 Command = new Command(() =>
                 {
-                    if (this.Date != null)
+                    if (Date != null)
                     {
-                        this.Date = null;
+                        Date = null;
                     }
                 })
             });
 
-            this.persistentUnderline.Color = this.UnderlineColor;
+            persistentUnderline.Color = UnderlineColor;
 
-            this.tapGesture.Command = new Command(() =>
+            tapGesture.Command = new Command(() =>
             {
-                if (!this.datePicker.IsFocused)
+                if (!datePicker.IsFocused)
                 {
-                    this.datePicker.Focus();
+                    datePicker.Focus();
                 }
             });
         }
@@ -1132,27 +1132,27 @@ namespace XF.Material.Forms.UI
         {
             propertyChangeActions = new Dictionary<string, Action>
             {
-                { nameof(this.Date), () => this.OnDateChanged(this.Date) },
-                { nameof(this.TextColor), () => this.OnTextColorChanged(this.TextColor) },
-                { nameof(this.TextFontFamily), () => this.OnTextFontFamilyChanged(this.TextFontFamily) },
-                { nameof(this.TintColor), () => this.OnTintColorChanged(this.TintColor) },
-                { nameof(this.Placeholder), () => this.OnPlaceholderChanged(this.Placeholder) },
-                { nameof(this.PlaceholderColor), () => this.OnPlaceholderColorChanged(this.PlaceholderColor) },
-                { nameof(this.PlaceholderFontFamily), () => this.OnPlaceholderFontFamilyChanged(this.PlaceholderFontFamily) },
-                { nameof(this.HelperText), () => this.OnHelperTextChanged(this.HelperText) },
-                { nameof(this.HelperTextFontFamily), () => this.OnHelpertTextFontFamilyChanged(this.HelperTextFontFamily) },
-                { nameof(this.HelperTextColor), () => this.OnHelperTextColorChanged(this.HelperTextColor) },
-                { nameof(this.IsEnabled), () => this.OnEnabledChanged(this.IsEnabled) },
-                { nameof(this.BackgroundColor), () => this.OnBackgroundColorChanged(this.BackgroundColor) },
-                { nameof(this.AlwaysShowUnderline), () => this.OnAlwaysShowUnderlineChanged(this.AlwaysShowUnderline) },
-                { nameof(this.ErrorColor), () => this.OnErrorColorChanged(this.ErrorColor) },
-                { nameof(this.UnderlineColor), () => this.OnUnderlineColorChanged(this.UnderlineColor) },
-                { nameof(this.HasError), () => this.OnHasErrorChanged() },
-                { nameof(this.FloatingPlaceholderEnabled), () => this.OnFloatingPlaceholderEnabledChanged(this.FloatingPlaceholderEnabled) },
-                { nameof(this.LeadingIcon), () => this.OnLeadingIconChanged(this.LeadingIcon) },
-                { nameof(this.LeadingIconTintColor), () => this.OnLeadingIconTintColorChanged(this.LeadingIconTintColor) },
-                { nameof(this.TextFontSize), () => this.OnTextFontSizeChanged(this.TextFontSize) },
-                { nameof(this.ErrorText), () => this.OnErrorTextChanged() }
+                { nameof(Date), () => OnDateChanged(Date) },
+                { nameof(TextColor), () => OnTextColorChanged(TextColor) },
+                { nameof(TextFontFamily), () => OnTextFontFamilyChanged(TextFontFamily) },
+                { nameof(TintColor), () => OnTintColorChanged(TintColor) },
+                { nameof(Placeholder), () => OnPlaceholderChanged(Placeholder) },
+                { nameof(PlaceholderColor), () => OnPlaceholderColorChanged(PlaceholderColor) },
+                { nameof(PlaceholderFontFamily), () => OnPlaceholderFontFamilyChanged(PlaceholderFontFamily) },
+                { nameof(HelperText), () => OnHelperTextChanged(HelperText) },
+                { nameof(HelperTextFontFamily), () => OnHelpertTextFontFamilyChanged(HelperTextFontFamily) },
+                { nameof(HelperTextColor), () => OnHelperTextColorChanged(HelperTextColor) },
+                { nameof(IsEnabled), () => OnEnabledChanged(IsEnabled) },
+                { nameof(BackgroundColor), () => OnBackgroundColorChanged(BackgroundColor) },
+                { nameof(AlwaysShowUnderline), () => OnAlwaysShowUnderlineChanged(AlwaysShowUnderline) },
+                { nameof(ErrorColor), () => OnErrorColorChanged(ErrorColor) },
+                { nameof(UnderlineColor), () => OnUnderlineColorChanged(UnderlineColor) },
+                { nameof(HasError), () => OnHasErrorChanged() },
+                { nameof(FloatingPlaceholderEnabled), () => OnFloatingPlaceholderEnabledChanged(FloatingPlaceholderEnabled) },
+                { nameof(LeadingIcon), () => OnLeadingIconChanged(LeadingIcon) },
+                { nameof(LeadingIconTintColor), () => OnLeadingIconTintColorChanged(LeadingIconTintColor) },
+                { nameof(TextFontSize), () => OnTextFontSizeChanged(TextFontSize) },
+                { nameof(ErrorText), () => OnErrorTextChanged() }
             };
         }
     }

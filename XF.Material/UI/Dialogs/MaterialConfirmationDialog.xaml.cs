@@ -27,8 +27,8 @@ namespace XF.Material.Forms.UI.Dialogs
 
         internal MaterialConfirmationDialog(MaterialConfirmationDialogConfiguration configuration)
         {
-            this.InitializeComponent();
-            this.Configure(configuration);
+            InitializeComponent();
+            Configure(configuration);
         }
 
         public TaskCompletionSource<object> InputTaskCompletionSource { get; set; }
@@ -207,27 +207,27 @@ namespace XF.Material.Forms.UI.Dialogs
 
             if (_radioButtonGroup?.Choices != null && _radioButtonGroup.Choices.Any())
             {
-                _radioButtonGroup.SelectedIndexChanged += this.DialogActionList_SelectedIndexChanged;
+                _radioButtonGroup.SelectedIndexChanged += DialogActionList_SelectedIndexChanged;
             }
             else if (_checkboxGroup?.Choices != null && _checkboxGroup.Choices.Any())
             {
-                _checkboxGroup.SelectedIndicesChanged += this.CheckboxGroup_SelectedIndicesChanged;
+                _checkboxGroup.SelectedIndicesChanged += CheckboxGroup_SelectedIndicesChanged;
             }
 
-            PositiveButton.Clicked += this.PositiveButton_Clicked;
-            NegativeButton.Clicked += this.NegativeButton_Clicked;
+            PositiveButton.Clicked += PositiveButton_Clicked;
+            NegativeButton.Clicked += NegativeButton_Clicked;
 
-            this.ChangeLayout();
+            ChangeLayout();
         }
 
         protected override void OnBackButtonDismissed()
         {
-            this.InputTaskCompletionSource?.SetResult(_isMultiChoice ? null : -1 as object);
+            InputTaskCompletionSource?.SetResult(_isMultiChoice ? null : -1 as object);
         }
 
         protected override bool OnBackgroundClicked()
         {
-            this.InputTaskCompletionSource?.SetResult(_isMultiChoice ? null : -1 as object);
+            InputTaskCompletionSource?.SetResult(_isMultiChoice ? null : -1 as object);
 
             return base.OnBackgroundClicked();
         }
@@ -238,27 +238,27 @@ namespace XF.Material.Forms.UI.Dialogs
 
             if (_radioButtonGroup?.Choices != null && _radioButtonGroup.Choices.Any())
             {
-                _radioButtonGroup.SelectedIndexChanged -= this.DialogActionList_SelectedIndexChanged;
+                _radioButtonGroup.SelectedIndexChanged -= DialogActionList_SelectedIndexChanged;
             }
             else if (_checkboxGroup?.Choices != null && _checkboxGroup.Choices.Any())
             {
-                _checkboxGroup.SelectedIndicesChanged -= this.CheckboxGroup_SelectedIndicesChanged;
+                _checkboxGroup.SelectedIndicesChanged -= CheckboxGroup_SelectedIndicesChanged;
             }
 
-            PositiveButton.Clicked -= this.PositiveButton_Clicked;
-            NegativeButton.Clicked -= this.NegativeButton_Clicked;
+            PositiveButton.Clicked -= PositiveButton_Clicked;
+            NegativeButton.Clicked -= NegativeButton_Clicked;
         }
 
         protected override void OnOrientationChanged(DisplayOrientation orientation)
         {
             base.OnOrientationChanged(orientation);
 
-            this.ChangeLayout();
+            ChangeLayout();
         }
 
         private void ChangeLayout()
         {
-            switch (this.DisplayOrientation)
+            switch (DisplayOrientation)
             {
                 case DisplayOrientation.Landscape when Device.Idiom == TargetIdiom.Phone:
                     Container.WidthRequest = 560;
@@ -281,8 +281,12 @@ namespace XF.Material.Forms.UI.Dialogs
         {
             _preferredConfig = configuration ?? GlobalConfiguration;
 
-            if (_preferredConfig == null) return;
-            this.BackgroundColor = _preferredConfig.ScrimColor;
+            if (_preferredConfig == null)
+            {
+                return;
+            }
+
+            BackgroundColor = _preferredConfig.ScrimColor;
             Container.CornerRadius = _preferredConfig.CornerRadius;
             Container.BackgroundColor = _preferredConfig.BackgroundColor;
             DialogTitle.TextColor = _preferredConfig.TitleTextColor;
@@ -300,16 +304,16 @@ namespace XF.Material.Forms.UI.Dialogs
 
         private async void NegativeButton_Clicked(object sender, EventArgs e)
         {
-            await this.DismissAsync();
-            this.InputTaskCompletionSource.SetResult(_isMultiChoice ? null : -1 as object);
+            await DismissAsync();
+            InputTaskCompletionSource.SetResult(_isMultiChoice ? null : -1 as object);
             _checkboxGroup?.SelectedIndices.Clear();
         }
 
         private async void PositiveButton_Clicked(object sender, EventArgs e)
         {
-            await this.DismissAsync();
+            await DismissAsync();
             var result = (_radioButtonGroup?.SelectedIndex) ?? _checkboxGroup?.SelectedIndices.ToArray() as object;
-            this.InputTaskCompletionSource.SetResult(result);
+            InputTaskCompletionSource.SetResult(result);
             _checkboxGroup?.SelectedIndices.Clear();
         }
     }

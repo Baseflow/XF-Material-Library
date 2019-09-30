@@ -15,20 +15,20 @@ namespace XF.Material.iOS.Renderers
 
             if (e?.NewElement != null)
             {
-                this.Element.InternalCommand = new Command(this.OnClick);
+                Element.InternalCommand = new Command(OnClick);
             }
         }
 
         private void OnClick()
         {
-            var globalLocation = this.ConvertPointToView(this.GetContentRenderer().Frame.Location, null);
+            var globalLocation = ConvertPointToView(GetContentRenderer().Frame.Location, null);
 
-            this.Element.OnViewTouch(globalLocation.X, globalLocation.Y);
+            Element.OnViewTouch(globalLocation.X, globalLocation.Y);
         }
 
         private UIView GetContentRenderer()
         {
-            return Platform.GetRenderer(this.Element?.Content).NativeView;
+            return Platform.GetRenderer(Element?.Content).NativeView;
         }
     }
 }

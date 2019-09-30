@@ -8,7 +8,7 @@ namespace XF.Material.Forms.UI
 
         public SelectedChangedEventArgs(bool isSelected)
         {
-            this.IsSelected = isSelected;
+            IsSelected = isSelected;
         }
     }
 }

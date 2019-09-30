@@ -19,8 +19,8 @@ namespace XF.Material.Droid.Renderers.Internals
         {
             var percentageX = e.GetX() / v.Width;
             var percentageY = e.GetY() / v.Height;
-            var elementX = percentageX * this.Element.Width;
-            var elementY = percentageY * this.Element.Height;
+            var elementX = percentageX * Element.Width;
+            var elementY = percentageY * Element.Height;
 
             _boxView.OnTapped(elementX, elementY);
 
@@ -31,10 +31,14 @@ namespace XF.Material.Droid.Renderers.Internals
         {
             base.OnElementChanged(e);
 
-            if (e?.NewElement == null) return;
-            _boxView = this.Element as MaterialBoxView;
-            this.ViewGroup.SetOnTouchListener(null);
-            this.ViewGroup.SetOnTouchListener(this);
+            if (e?.NewElement == null)
+            {
+                return;
+            }
+
+            _boxView = Element as MaterialBoxView;
+            ViewGroup.SetOnTouchListener(null);
+            ViewGroup.SetOnTouchListener(this);
         }
     }
 }

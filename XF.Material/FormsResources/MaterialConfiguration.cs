@@ -24,8 +24,8 @@ namespace XF.Material.Forms.Resources
         /// </summary>
         public MaterialFontConfiguration FontConfiguration
         {
-            get => (MaterialFontConfiguration)this.GetValue(FontConfigurationProperty);
-            set => this.SetValue(FontConfigurationProperty, value);
+            get => (MaterialFontConfiguration)GetValue(FontConfigurationProperty);
+            set => SetValue(FontConfigurationProperty, value);
         }
 
         /// <summary>
@@ -33,8 +33,8 @@ namespace XF.Material.Forms.Resources
         /// </summary>
         public MaterialColorConfiguration ColorConfiguration
         {
-            get => (MaterialColorConfiguration)this.GetValue(ColorConfigurationProperty);
-            set => this.SetValue(ColorConfigurationProperty, value);
+            get => (MaterialColorConfiguration)GetValue(ColorConfigurationProperty);
+            set => SetValue(ColorConfigurationProperty, value);
         }
     }
 }

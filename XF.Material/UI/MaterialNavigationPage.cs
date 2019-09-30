@@ -59,9 +59,9 @@ namespace XF.Material.Forms.UI
                 rootPage.SetDynamicResource(BackgroundColorProperty, MaterialConstants.Color.BACKGROUND);
             }
 
-            this.ChangeFont(rootPage);
-            this.ChangeBarTextColor(rootPage);
-            this.ChangeBarBackgroundColor(rootPage);
+            ChangeFont(rootPage);
+            ChangeBarTextColor(rootPage);
+            ChangeBarBackgroundColor(rootPage);
         }
 
         /// <summary>
@@ -179,7 +179,7 @@ namespace XF.Material.Forms.UI
         [EditorBrowsable(EditorBrowsableState.Never)]
         public void InternalPagePop(Page previousPage, Page poppedPage)
         {
-            this.OnPagePop(previousPage, poppedPage);
+            OnPagePop(previousPage, poppedPage);
         }
 
         /// <summary>
@@ -188,16 +188,16 @@ namespace XF.Material.Forms.UI
         [EditorBrowsable(EditorBrowsableState.Never)]
         public void InternalPagePush(Page page)
         {
-            this.OnPagePush(page);
+            OnPagePush(page);
         }
 
         protected override void OnPropertyChanging([CallerMemberName] string propertyName = null)
         {
             base.OnPropertyChanging(propertyName);
 
-            if (propertyName == nameof(this.CurrentPage) && this.CurrentPage != null)
+            if (propertyName == nameof(CurrentPage) && CurrentPage != null)
             {
-                this.CurrentPage.PropertyChanged -= this.Page_PropertyChanged;
+                CurrentPage.PropertyChanged -= Page_PropertyChanged;
             }
         }
 
@@ -205,9 +205,9 @@ namespace XF.Material.Forms.UI
         {
             base.OnPropertyChanged(propertyName);
 
-            if (propertyName == nameof(this.CurrentPage) && this.CurrentPage != null)
+            if (propertyName == nameof(CurrentPage) && CurrentPage != null)
             {
-                this.CurrentPage.PropertyChanged += this.Page_PropertyChanged;
+                CurrentPage.PropertyChanged += Page_PropertyChanged;
             }
         }
 
@@ -215,7 +215,7 @@ namespace XF.Material.Forms.UI
         {
             var page = sender as Page;
 
-            if (e?.PropertyName == nameof(this.Title) && page?.GetValue(TitleViewProperty) is TitleLabel label)
+            if (e?.PropertyName == nameof(Title) && page?.GetValue(TitleViewProperty) is TitleLabel label)
             {
                 label.Text = page.Title;
             }
@@ -225,8 +225,12 @@ namespace XF.Material.Forms.UI
         {
             base.OnAppearing();
 
-            if (_firstLoad) return;
-            ChangeStatusBarColor(this.RootPage);
+            if (_firstLoad)
+            {
+                return;
+            }
+
+            ChangeStatusBarColor(RootPage);
 
             _firstLoad = true;
         }
@@ -243,9 +247,9 @@ namespace XF.Material.Forms.UI
                 previousPage.SetDynamicResource(BackgroundColorProperty, MaterialConstants.Color.BACKGROUND);
             }
 
-            this.ChangeBarTextColor(previousPage);
+            ChangeBarTextColor(previousPage);
             ChangeStatusBarColor(previousPage);
-            this.ChangeBarBackgroundColor(previousPage);
+            ChangeBarBackgroundColor(previousPage);
 
             previousPage.SetValue(BackButtonTitleProperty, string.Empty);
         }
@@ -261,10 +265,10 @@ namespace XF.Material.Forms.UI
                 page.SetDynamicResource(BackgroundColorProperty, MaterialConstants.Color.BACKGROUND);
             }
 
-            this.ChangeFont(page);
-            this.ChangeBarTextColor(page);
+            ChangeFont(page);
+            ChangeBarTextColor(page);
             ChangeStatusBarColor(page);
-            this.ChangeBarBackgroundColor(page);
+            ChangeBarBackgroundColor(page);
 
             page.SetValue(BackButtonTitleProperty, string.Empty);
         }
@@ -275,11 +279,11 @@ namespace XF.Material.Forms.UI
 
             if (barColor.IsDefault)
             {
-                this.SetDynamicResource(BarBackgroundColorProperty, MaterialConstants.Color.PRIMARY);
+                SetDynamicResource(BarBackgroundColorProperty, MaterialConstants.Color.PRIMARY);
             }
             else
             {
-                this.BarBackgroundColor = barColor;
+                BarBackgroundColor = barColor;
             }
         }
 
@@ -291,16 +295,16 @@ namespace XF.Material.Forms.UI
             {
                 if (barTextColor.IsDefault)
                 {
-                    this.BarTextColor = customTitleView.TextColor = Material.Color.OnPrimary;
+                    BarTextColor = customTitleView.TextColor = Material.Color.OnPrimary;
                 }
                 else
                 {
-                    this.BarTextColor = customTitleView.TextColor = barTextColor;
+                    BarTextColor = customTitleView.TextColor = barTextColor;
                 }
             }
             else
             {
-                this.BarTextColor = barTextColor.IsDefault ? Material.Color.OnPrimary : barTextColor;
+                BarTextColor = barTextColor.IsDefault ? Material.Color.OnPrimary : barTextColor;
             }
         }
 
@@ -327,9 +331,9 @@ namespace XF.Material.Forms.UI
             switch (Device.RuntimePlatform)
             {
                 case Device.iOS:
-                    _customTitleView.Margin = this.Navigation.NavigationStack.Count == 1 ? new Thickness(8, 0, 8, 0) : new Thickness(8, 0, 32, 0);
+                    _customTitleView.Margin = Navigation.NavigationStack.Count == 1 ? new Thickness(8, 0, 8, 0) : new Thickness(8, 0, 32, 0);
                     break;
-                case Device.Android when this.Navigation.NavigationStack.Count > 1 && page.ToolbarItems.Count == 0:
+                case Device.Android when Navigation.NavigationStack.Count > 1 && page.ToolbarItems.Count == 0:
                     _customTitleView.Margin = new Thickness(0, 0, 72, 0);
                     break;
             }

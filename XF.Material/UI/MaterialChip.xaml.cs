@@ -12,7 +12,7 @@ namespace XF.Material.Forms.UI
         public static readonly BindableProperty ActionImageProperty = BindableProperty.Create(nameof(ActionImage), typeof(ImageSource), typeof(MaterialChip), default(ImageSource));
         public static readonly BindableProperty ActionImageTappedCommandProperty = BindableProperty.Create(nameof(ActionImageTappedCommand), typeof(ICommand), typeof(MaterialChip), default(Command));
         public static readonly BindableProperty ActionImageTintColorProperty = BindableProperty.Create(nameof(ActionImageTintColor), typeof(Color), typeof(MaterialChip), default(Color));
-        public new static readonly BindableProperty BackgroundColorProperty = BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(MaterialChip), default(Color));
+        public static new readonly BindableProperty BackgroundColorProperty = BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(MaterialChip), default(Color));
         public static readonly BindableProperty FontFamilyProperty = BindableProperty.Create(nameof(FontFamily), typeof(string), typeof(MaterialChip), default(string));
         public static readonly BindableProperty ImageProperty = BindableProperty.Create(nameof(Image), typeof(ImageSource), typeof(MaterialChip), default(ImageSource));
         public static readonly BindableProperty ImageTintColorProperty = BindableProperty.Create(nameof(ImageTintColor), typeof(Color), typeof(MaterialChip), default(Color));
@@ -23,70 +23,70 @@ namespace XF.Material.Forms.UI
 
         public MaterialChip()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         public event EventHandler ActionImageTapped;
 
         public ImageSource ActionImage
         {
-            get => (ImageSource)this.GetValue(ActionImageProperty);
-            set => this.SetValue(ActionImageProperty, value);
+            get => (ImageSource)GetValue(ActionImageProperty);
+            set => SetValue(ActionImageProperty, value);
         }
 
         public Command ActionImageTappedCommand
         {
-            get => (Command)this.GetValue(ActionImageTappedCommandProperty);
-            set => this.SetValue(ActionImageTappedCommandProperty, value);
+            get => (Command)GetValue(ActionImageTappedCommandProperty);
+            set => SetValue(ActionImageTappedCommandProperty, value);
         }
 
         public Color ActionImageTintColor
         {
-            get => (Color)this.GetValue(ActionImageTintColorProperty);
-            set => this.SetValue(ActionImageTintColorProperty, value);
+            get => (Color)GetValue(ActionImageTintColorProperty);
+            set => SetValue(ActionImageTintColorProperty, value);
         }
 
         public new Color BackgroundColor
         {
-            get => (Color)this.GetValue(BackgroundColorProperty);
-            set => this.SetValue(BackgroundColorProperty, value);
+            get => (Color)GetValue(BackgroundColorProperty);
+            set => SetValue(BackgroundColorProperty, value);
         }
 
         public string FontFamily
         {
-            get => (string)this.GetValue(FontFamilyProperty);
-            set => this.SetValue(FontFamilyProperty, value);
+            get => (string)GetValue(FontFamilyProperty);
+            set => SetValue(FontFamilyProperty, value);
         }
 
         public ImageSource Image
         {
-            get => (ImageSource)this.GetValue(ImageProperty);
-            set => this.SetValue(ImageProperty, value);
+            get => (ImageSource)GetValue(ImageProperty);
+            set => SetValue(ImageProperty, value);
         }
 
         public Color ImageTintColor
         {
-            get => (Color)this.GetValue(ImageTintColorProperty);
-            set => this.SetValue(ImageTintColorProperty, value);
+            get => (Color)GetValue(ImageTintColorProperty);
+            set => SetValue(ImageTintColorProperty, value);
         }
 
         public string Text
         {
-            get => (string)this.GetValue(TextProperty);
-            set => this.SetValue(TextProperty, value);
+            get => (string)GetValue(TextProperty);
+            set => SetValue(TextProperty, value);
         }
 
         public Color TextColor
         {
-            get => (Color)this.GetValue(TextColorProperty);
-            set => this.SetValue(TextColorProperty, value);
+            get => (Color)GetValue(TextColorProperty);
+            set => SetValue(TextColorProperty, value);
         }
 
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            if (propertyName == nameof(this.BackgroundColor))
+            if (propertyName == nameof(BackgroundColor))
             {
-                ChipContainer.BackgroundColor = this.BackgroundColor;
+                ChipContainer.BackgroundColor = BackgroundColor;
             }
             else
             {
@@ -94,35 +94,35 @@ namespace XF.Material.Forms.UI
 
                 switch (propertyName)
                 {
-                    case nameof(this.Text):
-                        ChipLabel.Text = this.Text;
+                    case nameof(Text):
+                        ChipLabel.Text = Text;
                         break;
-                    case nameof(this.ActionImageTintColor):
-                        ChipActionImage.TintColor = this.ActionImageTintColor;
+                    case nameof(ActionImageTintColor):
+                        ChipActionImage.TintColor = ActionImageTintColor;
                         break;
-                    case nameof(this.ImageTintColor):
-                        ChipImage.TintColor = this.ImageTintColor;
+                    case nameof(ImageTintColor):
+                        ChipImage.TintColor = ImageTintColor;
                         break;
-                    case nameof(this.TextColor):
-                        ChipLabel.TextColor = this.TextColor;
+                    case nameof(TextColor):
+                        ChipLabel.TextColor = TextColor;
                         break;
-                    case nameof(this.FontFamily):
-                        ChipLabel.FontFamily = this.FontFamily;
+                    case nameof(FontFamily):
+                        ChipLabel.FontFamily = FontFamily;
                         break;
-                    case nameof(this.Image):
-                        ChipImageContainer.IsVisible = this.Image != null;
-                        ChipImage.Source = this.Image;
+                    case nameof(Image):
+                        ChipImageContainer.IsVisible = Image != null;
+                        ChipImage.Source = Image;
                         break;
-                    case nameof(this.ActionImage):
+                    case nameof(ActionImage):
                         {
-                            ChipActionImage.Source = this.ActionImage;
-                            ChipActionImage.IsVisible = this.ActionImage != null;
+                            ChipActionImage.Source = ActionImage;
+                            ChipActionImage.IsVisible = ActionImage != null;
 
-                            if (this.ActionImage != null && ChipActionImage.GestureRecognizers.Count <= 0)
+                            if (ActionImage != null && ChipActionImage.GestureRecognizers.Count <= 0)
                             {
-                                ChipActionImage.GestureRecognizers.Add(new TapGestureRecognizer { Command = new Command(this.ActionImageTapHandled, () => !_canExecute), NumberOfTapsRequired = 1 });
+                                ChipActionImage.GestureRecognizers.Add(new TapGestureRecognizer { Command = new Command(ActionImageTapHandled, () => !_canExecute), NumberOfTapsRequired = 1 });
                             }
-                            else if (this.ActionImage == null)
+                            else if (ActionImage == null)
                             {
                                 ChipActionImage.GestureRecognizers.Clear();
                             }
@@ -136,8 +136,8 @@ namespace XF.Material.Forms.UI
         private void ActionImageTapHandled()
         {
             _canExecute = true;
-            this.ActionImageTappedCommand?.Execute(null);
-            this.ActionImageTapped?.Invoke(this, new EventArgs());
+            ActionImageTappedCommand?.Execute(null);
+            ActionImageTapped?.Invoke(this, new EventArgs());
             _canExecute = false;
         }
     }

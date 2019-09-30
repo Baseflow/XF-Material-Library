@@ -10,15 +10,15 @@ namespace XF.Material.Forms.UI
     {
         public MaterialHorizontalThickness(double left, double right)
         {
-            this.Left = left;
-            this.Right = right;
+            Left = left;
+            Right = right;
         }
 
         public MaterialHorizontalThickness(double uniformSize) : this(uniformSize, uniformSize)
         {
         }
 
-        public bool IsUniformSize => this.Left == this.Right;
+        public bool IsUniformSize => Left == Right;
 
         public double Left { get; }
 
@@ -33,7 +33,10 @@ namespace XF.Material.Forms.UI
         public override object ConvertFromInvariantString(string value)
         {
             if (value == null)
+            {
                 throw new InvalidOperationException($"Cannot convert {value} to {typeof(MaterialHorizontalThickness)}");
+            }
+
             value = value.Trim();
 
             if (value.Contains(","))

@@ -33,7 +33,7 @@ namespace XF.Material.Forms.UI
         /// </summary>
         public MaterialCheckboxGroup()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         /// <summary>
@@ -42,8 +42,8 @@ namespace XF.Material.Forms.UI
         /// <param name="choices">The list of string which the user will choose from.</param>
         public MaterialCheckboxGroup(IList<string> choices)
         {
-            this.InitializeComponent();
-            this.Choices = choices;
+            InitializeComponent();
+            Choices = choices;
         }
 
         /// <summary>
@@ -56,8 +56,8 @@ namespace XF.Material.Forms.UI
         /// </summary>
         public IList<int> SelectedIndices
         {
-            get => (IList<int>)this.GetValue(SelectedIndicesProperty);
-            set => this.SetValue(SelectedIndicesProperty, value);
+            get => (IList<int>)GetValue(SelectedIndicesProperty);
+            set => SetValue(SelectedIndicesProperty, value);
         }
 
         /// <summary>
@@ -65,28 +65,28 @@ namespace XF.Material.Forms.UI
         /// </summary>
         public Command<int[]> SelectedIndicesChangedCommand
         {
-            get => (Command<int[]>)this.GetValue(SelectedIndicesChangedCommandProperty);
-            set => this.SetValue(SelectedIndicesChangedCommandProperty, value);
+            get => (Command<int[]>)GetValue(SelectedIndicesChangedCommandProperty);
+            set => SetValue(SelectedIndicesChangedCommandProperty, value);
         }
 
         protected override void CreateChoices()
         {
             var models = new ObservableCollection<MaterialSelectionControlModel>();
 
-            for (var i = 0; i < this.Choices.Count; i++)
+            for (var i = 0; i < Choices.Count; i++)
             {
                 var i1 = i;
                 var model = new MaterialSelectionControlModel
                 {
-                    SelectedChangeCommand = new Command<bool>((isSelected) => this.CheckboxSelected(isSelected, i1)),
-                    Text = this.Choices[i],
-                    HorizontalSpacing = this.HorizontalSpacing,
-                    FontFamily = this.FontFamily,
-                    FontSize = this.FontSize,
-                    SelectedColor = this.SelectedColor,
-                    UnselectedColor = this.UnselectedColor,
-                    TextColor = this.TextColor,
-                    VerticalSpacing = this.VerticalSpacing
+                    SelectedChangeCommand = new Command<bool>((isSelected) => CheckboxSelected(isSelected, i1)),
+                    Text = Choices[i],
+                    HorizontalSpacing = HorizontalSpacing,
+                    FontFamily = FontFamily,
+                    FontSize = FontSize,
+                    SelectedColor = SelectedColor,
+                    UnselectedColor = UnselectedColor,
+                    TextColor = TextColor,
+                    VerticalSpacing = VerticalSpacing
                 };
 
                 models.Add(model);
@@ -101,23 +101,23 @@ namespace XF.Material.Forms.UI
         /// <param name="selectedIndices">The collection of new selected indices.</param>
         protected virtual void OnSelectedIndicesChanged(IList<int> selectedIndices)
         {
-            this.SelectedIndicesChangedCommand?.Execute(selectedIndices.ToArray());
-            this.SelectedIndicesChanged?.Invoke(this, new SelectedIndicesChangedEventArgs(selectedIndices.ToArray()));
+            SelectedIndicesChangedCommand?.Execute(selectedIndices.ToArray());
+            SelectedIndicesChanged?.Invoke(this, new SelectedIndicesChangedEventArgs(selectedIndices.ToArray()));
         }
 
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             base.OnPropertyChanged(propertyName);
 
-            if (propertyName == nameof(this.SelectedIndices))
+            if (propertyName == nameof(SelectedIndices))
             {
-                this.OnSelectedIndicesChanged();
+                OnSelectedIndicesChanged();
             }
         }
 
         private void OnSelectedIndicesChanged()
         {
-            switch (this.SelectedIndices)
+            switch (SelectedIndices)
             {
                 case null:
                     throw new InvalidOperationException("The property 'SelectedIndices' was assigned with a null value.");
@@ -125,9 +125,9 @@ namespace XF.Material.Forms.UI
                     throw new InvalidOperationException("The property 'SelectedIndices' is 'System.Array', please use a collection that has no fixed size");
                 default:
                     {
-                        if (!this.SelectedIndices.Any())
+                        if (!SelectedIndices.Any())
                         {
-                            foreach (var model in this.Models)
+                            foreach (var model in Models)
                             {
                                 model.IsSelected = false;
                             }
@@ -135,9 +135,9 @@ namespace XF.Material.Forms.UI
 
                         else
                         {
-                            foreach (var index in this.SelectedIndices)
+                            foreach (var index in SelectedIndices)
                             {
-                                var model = this.Models.ElementAt(index);
+                                var model = Models.ElementAt(index);
                                 model.IsSelected = true;
                             }
                         }
@@ -146,23 +146,23 @@ namespace XF.Material.Forms.UI
                     }
             }
 
-            this.OnSelectedIndicesChanged(this.SelectedIndices);
+            OnSelectedIndicesChanged(SelectedIndices);
         }
 
         private void CheckboxSelected(bool isSelected, int index)
         {
             try
             {
-                if (isSelected && this.SelectedIndices.All(s => s != index))
+                if (isSelected && SelectedIndices.All(s => s != index))
                 {
-                    this.SelectedIndices.Add(index);
-                    this.OnSelectedIndicesChanged(this.SelectedIndices);
+                    SelectedIndices.Add(index);
+                    OnSelectedIndicesChanged(SelectedIndices);
                 }
 
-                else if (!isSelected && this.SelectedIndices.Any(s => s == index))
+                else if (!isSelected && SelectedIndices.Any(s => s == index))
                 {
-                    this.SelectedIndices.Remove(index);
-                    this.OnSelectedIndicesChanged(this.SelectedIndices);
+                    SelectedIndices.Remove(index);
+                    OnSelectedIndicesChanged(SelectedIndices);
                 }
             }
 

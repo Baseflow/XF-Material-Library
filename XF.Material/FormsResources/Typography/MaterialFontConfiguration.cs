@@ -77,8 +77,8 @@ namespace XF.Material.Forms.Resources.Typography
         /// </summary>
         public string Body1
         {
-            get => this.GetValue(Body1Property)?.ToString();
-            set => this.SetValue(Body1Property, value);
+            get => GetValue(Body1Property)?.ToString();
+            set => SetValue(Body1Property, value);
         }
 
         /// <summary>
@@ -86,8 +86,8 @@ namespace XF.Material.Forms.Resources.Typography
         /// </summary>
         public string Body2
         {
-            get => this.GetValue(H1Property)?.ToString();
-            set => this.SetValue(H1Property, value);
+            get => GetValue(H1Property)?.ToString();
+            set => SetValue(H1Property, value);
         }
 
         /// <summary>
@@ -95,8 +95,8 @@ namespace XF.Material.Forms.Resources.Typography
         /// </summary>
         public string Button
         {
-            get => this.GetValue(ButtonProperty)?.ToString();
-            set => this.SetValue(ButtonProperty, value);
+            get => GetValue(ButtonProperty)?.ToString();
+            set => SetValue(ButtonProperty, value);
         }
 
         /// <summary>
@@ -104,8 +104,8 @@ namespace XF.Material.Forms.Resources.Typography
         /// </summary>
         public string Caption
         {
-            get => this.GetValue(CaptionProperty)?.ToString();
-            set => this.SetValue(CaptionProperty, value);
+            get => GetValue(CaptionProperty)?.ToString();
+            set => SetValue(CaptionProperty, value);
         }
 
         /// <summary>
@@ -113,8 +113,8 @@ namespace XF.Material.Forms.Resources.Typography
         /// </summary>
         public string H1
         {
-            get => this.GetValue(H1Property)?.ToString();
-            set => this.SetValue(H1Property, value);
+            get => GetValue(H1Property)?.ToString();
+            set => SetValue(H1Property, value);
         }
 
         /// <summary>
@@ -122,8 +122,8 @@ namespace XF.Material.Forms.Resources.Typography
         /// </summary>
         public string H2
         {
-            get => this.GetValue(H2Property)?.ToString();
-            set => this.SetValue(H2Property, value);
+            get => GetValue(H2Property)?.ToString();
+            set => SetValue(H2Property, value);
         }
 
         /// <summary>
@@ -131,8 +131,8 @@ namespace XF.Material.Forms.Resources.Typography
         /// </summary>
         public string H3
         {
-            get => this.GetValue(H3Property)?.ToString();
-            set => this.SetValue(H3Property, value);
+            get => GetValue(H3Property)?.ToString();
+            set => SetValue(H3Property, value);
         }
 
         /// <summary>
@@ -140,8 +140,8 @@ namespace XF.Material.Forms.Resources.Typography
         /// </summary>
         public string H4
         {
-            get => this.GetValue(H4Property)?.ToString();
-            set => this.SetValue(H4Property, value);
+            get => GetValue(H4Property)?.ToString();
+            set => SetValue(H4Property, value);
         }
 
         /// <summary>
@@ -149,8 +149,8 @@ namespace XF.Material.Forms.Resources.Typography
         /// </summary>
         public string H5
         {
-            get => this.GetValue(H5Property)?.ToString();
-            set => this.SetValue(H5Property, value);
+            get => GetValue(H5Property)?.ToString();
+            set => SetValue(H5Property, value);
         }
 
         /// <summary>
@@ -158,8 +158,8 @@ namespace XF.Material.Forms.Resources.Typography
         /// </summary>
         public string H6
         {
-            get => this.GetValue(H6Property)?.ToString();
-            set => this.SetValue(H6Property, value);
+            get => GetValue(H6Property)?.ToString();
+            set => SetValue(H6Property, value);
         }
 
         /// <summary>
@@ -167,8 +167,8 @@ namespace XF.Material.Forms.Resources.Typography
         /// </summary>
         public string Overline
         {
-            get => this.GetValue(OverlineProperty)?.ToString();
-            set => this.SetValue(OverlineProperty, value);
+            get => GetValue(OverlineProperty)?.ToString();
+            set => SetValue(OverlineProperty, value);
         }
 
         /// <summary>
@@ -176,8 +176,8 @@ namespace XF.Material.Forms.Resources.Typography
         /// </summary>
         public string Subtitle1
         {
-            get => this.GetValue(Subtitle1Property)?.ToString();
-            set => this.SetValue(Subtitle1Property, value);
+            get => GetValue(Subtitle1Property)?.ToString();
+            set => SetValue(Subtitle1Property, value);
         }
 
         /// <summary>
@@ -185,8 +185,8 @@ namespace XF.Material.Forms.Resources.Typography
         /// </summary>
         public string Subtitle2
         {
-            get => this.GetValue(Subtitle2Property)?.ToString();
-            set => this.SetValue(Subtitle2Property, value);
+            get => GetValue(Subtitle2Property)?.ToString();
+            set => SetValue(Subtitle2Property, value);
         }
     }
 }

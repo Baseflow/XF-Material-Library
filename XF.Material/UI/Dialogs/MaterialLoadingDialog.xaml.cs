@@ -11,8 +11,8 @@ namespace XF.Material.Forms.UI.Dialogs
     {
         internal MaterialLoadingDialog(string message, MaterialLoadingDialogConfiguration configuration)
         {
-            this.InitializeComponent();
-            this.Configure(configuration);
+            InitializeComponent();
+            Configure(configuration);
             Message.Text = message;
         }
 
@@ -20,8 +20,8 @@ namespace XF.Material.Forms.UI.Dialogs
 
         public override string MessageText
         {
-            get { return this.Message.Text; }
-            set { this.Message.Text = value; }
+            get { return Message.Text; }
+            set { Message.Text = value; }
         }
 
         internal static MaterialLoadingDialogConfiguration GlobalConfiguration { get; set; }
@@ -40,19 +40,19 @@ namespace XF.Material.Forms.UI.Dialogs
 
             LoadingImage.Play();
 
-            this.ChangeLayout();
+            ChangeLayout();
         }
 
         protected override void OnOrientationChanged(DisplayOrientation orientation)
         {
             base.OnOrientationChanged(orientation);
 
-            this.ChangeLayout();
+            ChangeLayout();
         }
 
         private void ChangeLayout()
         {
-            switch (this.DisplayOrientation)
+            switch (DisplayOrientation)
             {
                 case DisplayOrientation.Landscape when Device.Idiom == TargetIdiom.Phone:
                     Container.WidthRequest = 560;
@@ -69,8 +69,12 @@ namespace XF.Material.Forms.UI.Dialogs
         {
             var preferredConfig = configuration ?? GlobalConfiguration;
 
-            if (preferredConfig == null) return;
-            this.BackgroundColor = preferredConfig.ScrimColor;
+            if (preferredConfig == null)
+            {
+                return;
+            }
+
+            BackgroundColor = preferredConfig.ScrimColor;
             Container.CornerRadius = preferredConfig.CornerRadius;
             Container.BackgroundColor = preferredConfig.BackgroundColor;
             Message.TextColor = preferredConfig.MessageTextColor;

@@ -21,7 +21,7 @@ namespace MaterialMvvmSample.ViewModels
         {
             _dialogService = dialogService;
 
-            this.Models = new ObservableCollection<TestModel>()
+            Models = new ObservableCollection<TestModel>()
             {
                 new TestModel
                 {
@@ -39,7 +39,7 @@ namespace MaterialMvvmSample.ViewModels
                     Id = Guid.NewGuid().ToString("N")
                 }
             };
-            this.SelectedFilters = new List<int>();
+            SelectedFilters = new List<int>();
         }
 
         public Color PrimaryColor => Color.Red;
@@ -62,8 +62,8 @@ namespace MaterialMvvmSample.ViewModels
             get => _selectedChoice;
             set
             {
-                this.HasError = string.Equals(value, Choices[0]);
-                this.Set(ref _selectedChoice, value);
+                HasError = string.Equals(value, Choices[0]);
+                Set(ref _selectedChoice, value);
             }
         }
 
@@ -71,16 +71,16 @@ namespace MaterialMvvmSample.ViewModels
         public bool HasError
         {
             get => _hasError;
-            set => this.Set(ref _hasError, value);
+            set => Set(ref _hasError, value);
         }
 
         public static string[] Filters => new string[] { "None", "Alhpabetical" };
 
         public string[] ListActions => new string[] { "Add job", "Sort" };
 
-        public ICommand ListMenuCommand => new Command<MaterialMenuResult>(async (s) => await this.ListMenuSelected(s));
+        public ICommand ListMenuCommand => new Command<MaterialMenuResult>(async (s) => await ListMenuSelected(s));
 
-        public ICommand MenuCommand => new Command<MaterialMenuResult>(async (s) => await this.MenuSelected(s));
+        public ICommand MenuCommand => new Command<MaterialMenuResult>(async (s) => await MenuSelected(s));
 
         public ICommand FiltersSelectedCommand => new Command<int[]>((s) =>
         {
@@ -98,18 +98,18 @@ namespace MaterialMvvmSample.ViewModels
             "ERNI Development Center Philippines, Inc., Bern, Switzerland"
         };
 
-        public ICommand JobSelectedCommand => new Command<string>(async (s) => await this.ViewItemSelected(s));
+        public ICommand JobSelectedCommand => new Command<string>(async (s) => await ViewItemSelected(s));
 
         public ICommand EmailFocusCommand => new Command<bool>((s) =>
         {
-            if (!s && this.Email?.Length > 3)
+            if (!s && Email?.Length > 3)
             {
-                this.EmailHasError = true;
+                EmailHasError = true;
             }
 
-            else if (!s && this.Email?.Length <= 3)
+            else if (!s && Email?.Length <= 3)
             {
-                this.EmailHasError = false;
+                EmailHasError = false;
             }
         });
 
@@ -117,28 +117,28 @@ namespace MaterialMvvmSample.ViewModels
         public bool EmailHasError
         {
             get => _emailHasError;
-            set => this.Set(ref _emailHasError, value);
+            set => Set(ref _emailHasError, value);
         }
 
         private string _email;
         public string Email
         {
             get => _email;
-            set => this.Set(ref _email, value);
+            set => Set(ref _email, value);
         }
 
         private ObservableCollection<TestModel> _models;
         public ObservableCollection<TestModel> Models
         {
             get => _models;
-            set => this.Set(ref _models, value);
+            set => Set(ref _models, value);
         }
 
         private List<int> _selectedFilters;
         public List<int> SelectedFilters
         {
             get => _selectedFilters;
-            set => this.Set(ref _selectedFilters, value);
+            set => Set(ref _selectedFilters, value);
         }
 
         private async Task ListMenuSelected(MaterialMenuResult s)
@@ -149,13 +149,13 @@ namespace MaterialMvvmSample.ViewModels
                     {
                         var result = await _dialogService.AddNewJob();
 
-                        if (this.Models.Any(m => m.Title == result))
+                        if (Models.Any(m => m.Title == result))
                         {
                             await _dialogService.AlertExistingJob(result);
                         }
                         else if (!string.IsNullOrEmpty(result))
                         {
-                            this.Models.Where(m => m.IsNew).ForEach(m => m.IsNew = false);
+                            Models.Where(m => m.IsNew).ForEach(m => m.IsNew = false);
 
                             var model = new TestModel
                             {
@@ -164,30 +164,30 @@ namespace MaterialMvvmSample.ViewModels
                                 IsNew = true
                             };
 
-                            this.Models.Add(model);
+                            Models.Add(model);
                         }
 
                         break;
                     }
                 case 1:
-                    this.Models = new ObservableCollection<TestModel>(this.Models.OrderBy(m => m.Title));
+                    Models = new ObservableCollection<TestModel>(Models.OrderBy(m => m.Title));
                     break;
                 case 2:
-                    this.SelectedFilters = new List<int>();
+                    SelectedFilters = new List<int>();
                     break;
             }
         }
 
         private async Task ViewItemSelected(string id)
         {
-            var selectedModel = this.Models.FirstOrDefault(m => m.Id == id);
+            var selectedModel = Models.FirstOrDefault(m => m.Id == id);
 
-            await this.Navigation.PushAsync(ViewNames.SecondView, selectedModel);
+            await Navigation.PushAsync(ViewNames.SecondView, selectedModel);
         }
 
         private async Task MenuSelected(MaterialMenuResult i)
         {
-            var model = this.Models.FirstOrDefault(m => m.Title == (string)i.Parameter);
+            var model = Models.FirstOrDefault(m => m.Title == (string)i.Parameter);
 
             switch (i.Index)
             {
@@ -213,7 +213,7 @@ namespace MaterialMvvmSample.ViewModels
 
                             if (confirmed == true)
                             {
-                                this.Models.Remove(model);
+                                Models.Remove(model);
 
                                 await _dialogService.JobDeleted();
                             }
@@ -234,19 +234,19 @@ namespace MaterialMvvmSample.ViewModels
         public string Id
         {
             get => _id;
-            set => this.Set(ref _id, value);
+            set => Set(ref _id, value);
         }
 
         public string Title
         {
             get => _title;
-            set => this.Set(ref _title, value);
+            set => Set(ref _title, value);
         }
 
         public bool IsNew
         {
             get => _isNew;
-            set => this.Set(ref _isNew, value);
+            set => Set(ref _isNew, value);
         }
     }
 }

@@ -15,8 +15,8 @@ namespace XF.Material.Forms.UI
 
         public MaterialElevation(int restingElevation, int pressedElevation)
         {
-            this.RestingElevation = restingElevation;
-            this.PressedElevation = pressedElevation;
+            RestingElevation = restingElevation;
+            PressedElevation = pressedElevation;
         }
 
         public static implicit operator MaterialElevation(int uniformElevation) => new MaterialElevation(uniformElevation);
@@ -28,7 +28,10 @@ namespace XF.Material.Forms.UI
         public override object ConvertFromInvariantString(string value)
         {
             if (value == null)
+            {
                 throw new InvalidOperationException($"Cannot convert {value} to {typeof(MaterialElevation)}");
+            }
+
             value = value.Trim();
 
             if (value.Contains(","))

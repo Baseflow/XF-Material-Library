@@ -33,12 +33,12 @@ namespace XF.Material.Forms.UI
         /// <summary>
         /// Backing field for the bindable property <see cref="CommandParameter"/>.
         /// </summary>
-        public new static readonly BindableProperty CommandParameterProperty = BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(MaterialMenuButton));
+        public static new readonly BindableProperty CommandParameterProperty = BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(MaterialMenuButton));
 
         /// <summary>
         /// Backing field for the bindable property <see cref="Command"/>.
         /// </summary>
-        public new static readonly BindableProperty CommandProperty = BindableProperty.Create(nameof(Command), typeof(Command<MaterialMenuResult>), typeof(MaterialMenuButton));
+        public static new readonly BindableProperty CommandProperty = BindableProperty.Create(nameof(Command), typeof(Command<MaterialMenuResult>), typeof(MaterialMenuButton));
 
         /// <summary>
         /// Backing field for the bindable property <see cref="MenuTextColor"/>.
@@ -60,8 +60,8 @@ namespace XF.Material.Forms.UI
         /// </summary>
         public IList Choices
         {
-            get => (IList)this.GetValue(ChoicesProperty);
-            set => this.SetValue(ChoicesProperty, value);
+            get => (IList)GetValue(ChoicesProperty);
+            set => SetValue(ChoicesProperty, value);
         }
 
         /// <summary>
@@ -69,8 +69,8 @@ namespace XF.Material.Forms.UI
         /// </summary>
         public Color MenuBackgroundColor
         {
-            get => (Color)this.GetValue(MenuBackgroundColorProperty);
-            set => this.SetValue(MenuBackgroundColorProperty, value);
+            get => (Color)GetValue(MenuBackgroundColorProperty);
+            set => SetValue(MenuBackgroundColorProperty, value);
         }
 
         /// <summary>
@@ -78,8 +78,8 @@ namespace XF.Material.Forms.UI
         /// </summary>
         public float MenuCornerRadius
         {
-            get => (float)this.GetValue(MenuCornerRadiusProperty);
-            set => this.SetValue(MenuCornerRadiusProperty, value);
+            get => (float)GetValue(MenuCornerRadiusProperty);
+            set => SetValue(MenuCornerRadiusProperty, value);
         }
 
         /// <summary>
@@ -87,8 +87,8 @@ namespace XF.Material.Forms.UI
         /// </summary>
         public new Command<MaterialMenuResult> Command
         {
-            get => (Command<MaterialMenuResult>)this.GetValue(CommandProperty);
-            set => this.SetValue(CommandProperty, value);
+            get => (Command<MaterialMenuResult>)GetValue(CommandProperty);
+            set => SetValue(CommandProperty, value);
         }
 
         /// <summary>
@@ -96,8 +96,8 @@ namespace XF.Material.Forms.UI
         /// </summary>
         public new object CommandParameter
         {
-            get => this.GetValue(CommandParameterProperty);
-            set => this.SetValue(CommandParameterProperty, value);
+            get => GetValue(CommandParameterProperty);
+            set => SetValue(CommandParameterProperty, value);
         }
 
         /// <summary>
@@ -105,14 +105,14 @@ namespace XF.Material.Forms.UI
         /// </summary>
         public Color MenuTextColor
         {
-            get => (Color)this.GetValue(MenuTextColorProperty);
-            set => this.SetValue(MenuTextColorProperty, value);
+            get => (Color)GetValue(MenuTextColorProperty);
+            set => SetValue(MenuTextColorProperty, value);
         }
 
         public string MenuTextFontFamily
         {
-            get => (string)this.GetValue(MenuTextFontFamilyProperty);
-            set => this.SetValue(MenuTextFontFamilyProperty, value);
+            get => (string)GetValue(MenuTextFontFamilyProperty);
+            set => SetValue(MenuTextFontFamilyProperty, value);
         }
 
         protected override void OnButtonClicked(bool handled)
@@ -126,30 +126,30 @@ namespace XF.Material.Forms.UI
         [EditorBrowsable(EditorBrowsableState.Never)]
         public virtual void OnViewTouch(double x, double y)
         {
-            if (this.Choices == null || this.Choices?.Count == 0)
+            if (Choices == null || Choices?.Count == 0)
             {
                 throw new InvalidOperationException("Cannot show menu, property Choices is null or has no items");
             }
 
-            var dimension = new MaterialMenuDimension(x, y, this.Width, this.Height);
+            var dimension = new MaterialMenuDimension(x, y, Width, Height);
 
             Device.BeginInvokeOnMainThread(async () =>
             {
-                var result = await MaterialMenuDialog.ShowAsync(this.CreateMenuItems(), dimension, new MaterialMenuConfiguration
+                var result = await MaterialMenuDialog.ShowAsync(CreateMenuItems(), dimension, new MaterialMenuConfiguration
                 {
-                    CornerRadius = this.MenuCornerRadius,
-                    BackgroundColor = this.MenuBackgroundColor,
-                    TextColor = this.MenuTextColor,
-                    TextFontFamily = this.MenuTextFontFamily
+                    CornerRadius = MenuCornerRadius,
+                    BackgroundColor = MenuBackgroundColor,
+                    TextColor = MenuTextColor,
+                    TextFontFamily = MenuTextFontFamily
                 });
 
                 if (result >= 0)
                 {
-                    this.OnMenuSelected(new MaterialMenuResult(result, this.CommandParameter));
+                    OnMenuSelected(new MaterialMenuResult(result, CommandParameter));
                 }
                 else
                 {
-                    this.OnMenuSelected(new MaterialMenuResult(-1, null));
+                    OnMenuSelected(new MaterialMenuResult(-1, null));
                 }
             });
         }
@@ -160,18 +160,22 @@ namespace XF.Material.Forms.UI
         /// <param name="result">The result of the selection.</param>
         protected virtual void OnMenuSelected(MaterialMenuResult result)
         {
-            this.Command?.Execute(result);
-            this.MenuSelected?.Invoke(this, new MenuSelectedEventArgs(result));
+            Command?.Execute(result);
+            MenuSelected?.Invoke(this, new MenuSelectedEventArgs(result));
         }
 
         private List<MaterialMenuItem> CreateMenuItems()
         {
             var items = new List<MaterialMenuItem>();
-            var collectionType = this.Choices.Cast<object>().FirstOrDefault()?.GetType();
+            var collectionType = Choices.Cast<object>().FirstOrDefault()?.GetType();
 
             if (collectionType == typeof(MaterialMenuItem))
             {
-                if (!(this.Choices is IList<MaterialMenuItem> result)) return default(List<MaterialMenuItem>);
+                if (!(Choices is IList<MaterialMenuItem> result))
+                {
+                    return default(List<MaterialMenuItem>);
+                }
+
                 items.AddRange(result);
 
                 foreach (var item in items)
@@ -181,7 +185,7 @@ namespace XF.Material.Forms.UI
             }
             else
             {
-                items.AddRange(from object item in this.Choices select new MaterialMenuItem { Text = item.ToString(), Index = this.Choices.IndexOf(item) });
+                items.AddRange(from object item in Choices select new MaterialMenuItem { Text = item.ToString(), Index = Choices.IndexOf(item) });
             }
 
             return items;

@@ -26,8 +26,8 @@ namespace XF.Material.Forms.UI.Dialogs.Internals
 
         public double ItemWidth
         {
-            get => (double)this.GetValue(ItemWidthProperty);
-            set => this.SetValue(ItemWidthProperty, value);
+            get => (double)GetValue(ItemWidthProperty);
+            set => SetValue(ItemWidthProperty, value);
         }
     }
 

@@ -11,9 +11,9 @@ namespace MaterialMvvmSample.Views
 
         protected BaseView()
         {
-            this.ViewModel = CommonServiceLocator.ServiceLocator.Current.GetInstance<TViewModel>();
-            this.BindingContext = this.ViewModel;
-            this.On<iOS>().SetUseSafeArea(true);
+            ViewModel = CommonServiceLocator.ServiceLocator.Current.GetInstance<TViewModel>();
+            BindingContext = ViewModel;
+            On<iOS>().SetUseSafeArea(true);
         }
     }
 }

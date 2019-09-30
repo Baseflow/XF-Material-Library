@@ -17,24 +17,27 @@ namespace XF.Material.iOS.Renderers
 
         private void ChangeHasShadow(bool hasShadow)
         {
-            if (this.NavigationBar == null || this.NavigationBar.Layer == null) return;
+            if (NavigationBar == null || NavigationBar.Layer == null)
+            {
+                return;
+            }
 
             if (hasShadow)
             {
-                this.NavigationBar.Layer.MasksToBounds = false;
-                this.NavigationBar.Layer.ShadowColor = UIColor.Black.CGColor;
-                this.NavigationBar.Layer.ShadowOffset = new CGSize(0, 3f);
-                this.NavigationBar.Layer.ShadowOpacity = 0.32f;
-                this.NavigationBar.Layer.ShadowRadius = 3f;
+                NavigationBar.Layer.MasksToBounds = false;
+                NavigationBar.Layer.ShadowColor = UIColor.Black.CGColor;
+                NavigationBar.Layer.ShadowOffset = new CGSize(0, 3f);
+                NavigationBar.Layer.ShadowOpacity = 0.32f;
+                NavigationBar.Layer.ShadowRadius = 3f;
             }
 
             else
             {
-                this.NavigationBar.Layer.MasksToBounds = false;
-                this.NavigationBar.Layer.ShadowColor = UIColor.Black.CGColor;
-                this.NavigationBar.Layer.ShadowOffset = new CGSize(0f, 0f);
-                this.NavigationBar.Layer.ShadowOpacity = 0f;
-                this.NavigationBar.Layer.ShadowRadius = 0f;
+                NavigationBar.Layer.MasksToBounds = false;
+                NavigationBar.Layer.ShadowColor = UIColor.Black.CGColor;
+                NavigationBar.Layer.ShadowOffset = new CGSize(0f, 0f);
+                NavigationBar.Layer.ShadowOpacity = 0f;
+                NavigationBar.Layer.ShadowRadius = 0f;
             }
         }
 
@@ -44,7 +47,7 @@ namespace XF.Material.iOS.Renderers
 
             if (e?.NewElement != null)
             {
-                _navigationPage = this.Element as MaterialNavigationPage;
+                _navigationPage = Element as MaterialNavigationPage;
             }
         }
 
@@ -53,10 +56,14 @@ namespace XF.Material.iOS.Renderers
             var pop = base.OnPopViewAsync(page, animated);
             var navStack = _navigationPage.Navigation.NavigationStack.ToList();
 
-            if (navStack.Count - 1 - navStack.IndexOf(_navigationPage.CurrentPage) < 0) return pop;
+            if (navStack.Count - 1 - navStack.IndexOf(_navigationPage.CurrentPage) < 0)
+            {
+                return pop;
+            }
+
             var previousPage = navStack[navStack.IndexOf(_navigationPage.CurrentPage) - 1];
             _navigationPage.InternalPagePop(previousPage, page);
-            this.ChangeHasShadow(previousPage);
+            ChangeHasShadow(previousPage);
 
             return pop;
         }
@@ -65,7 +72,7 @@ namespace XF.Material.iOS.Renderers
         {
             _navigationPage.InternalPagePush(page);
 
-            this.ChangeHasShadow(page);
+            ChangeHasShadow(page);
 
             return base.OnPushAsync(page, animated);
         }
@@ -74,7 +81,7 @@ namespace XF.Material.iOS.Renderers
         {
             var hasShadow = (bool)page.GetValue(MaterialNavigationPage.HasShadowProperty);
 
-            this.ChangeHasShadow(hasShadow);
+            ChangeHasShadow(hasShadow);
         }
     }
 }

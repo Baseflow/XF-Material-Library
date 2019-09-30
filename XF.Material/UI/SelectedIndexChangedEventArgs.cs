@@ -11,7 +11,7 @@ namespace XF.Material.Forms.UI
 
         public SelectedIndexChangedEventArgs(int index)
         {
-            this.Index = index;
+            Index = index;
         }
     }
 }

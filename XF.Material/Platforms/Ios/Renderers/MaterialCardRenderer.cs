@@ -20,12 +20,19 @@ namespace XF.Material.iOS.Renderers
         {
             base.OnElementChanged(e);
 
-            if (e?.NewElement == null) return;
-            _materialCard = this.Element as MaterialCard;
-            if (_materialCard != null) this.Elevate(_materialCard.Elevation);
+            if (e?.NewElement == null)
+            {
+                return;
+            }
 
-            this.SetupColors();
-            this.SetIsClickable();
+            _materialCard = Element as MaterialCard;
+            if (_materialCard != null)
+            {
+                this.Elevate(_materialCard.Elevation);
+            }
+
+            SetupColors();
+            SetIsClickable();
         }
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -43,19 +50,19 @@ namespace XF.Material.iOS.Renderers
                 // color is modified. So this fixes it.
                 //
                 case nameof(MaterialCard.BackgroundColor):
-                    this.SetupColors();
-                    this.SetIsClickable();
+                    SetupColors();
+                    SetIsClickable();
                     this.Elevate(_materialCard.Elevation);
                     break;
                 case nameof(MaterialCard.IsClickable):
-                    this.SetIsClickable();
+                    SetIsClickable();
                     break;
             }
         }
 
         private void SetupColors()
         {
-            _rippleColor = this.BackgroundColor.IsColorDark() ? Color.FromHex("#52FFFFFF").ToUIColor() : Color.FromHex("#52000000").ToUIColor();
+            _rippleColor = BackgroundColor.IsColorDark() ? Color.FromHex("#52FFFFFF").ToUIColor() : Color.FromHex("#52000000").ToUIColor();
         }
 
         private void SetIsClickable()
@@ -68,13 +75,15 @@ namespace XF.Material.iOS.Renderers
                     _rippleGestureRecognizerDelegate = new MaterialRippleGestureRecognizer(_rippleColor.CGColor, this);
                 }
                 else
-                    this.RemoveGestureRecognizer(_rippleGestureRecognizerDelegate);
+                {
+                    RemoveGestureRecognizer(_rippleGestureRecognizerDelegate);
+                }
 
-                this.AddGestureRecognizer(_rippleGestureRecognizerDelegate);
+                AddGestureRecognizer(_rippleGestureRecognizerDelegate);
             }
             else if (_rippleGestureRecognizerDelegate != null)
             {
-                this.RemoveGestureRecognizer(_rippleGestureRecognizerDelegate);
+                RemoveGestureRecognizer(_rippleGestureRecognizerDelegate);
             }
         }
     }

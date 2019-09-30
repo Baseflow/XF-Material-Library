@@ -26,15 +26,19 @@ namespace XF.Material.Forms.Utilities
         {
             if (!EqualityComparer<T>.Default.Equals(field, default(T)))
             {
-                if (field.Equals(newValue)) return;
+                if (field.Equals(newValue))
+                {
+                    return;
+                }
+
                 field = newValue;
-                this.OnPropertyChanged(propertyName);
+                OnPropertyChanged(propertyName);
             }
 
             else if (!EqualityComparer<T>.Default.Equals(newValue, default(T)))
             {
                 field = newValue;
-                this.OnPropertyChanged(propertyName);
+                OnPropertyChanged(propertyName);
             }
         }
 
@@ -44,7 +48,7 @@ namespace XF.Material.Forms.Utilities
         /// <param name="propertyName">The name of the property who's value has changed.</param>
         protected virtual void OnPropertyChanged([CallerMemberName]string propertyName = null)
         {
-            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

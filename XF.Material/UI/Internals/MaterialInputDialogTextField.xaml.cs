@@ -57,9 +57,9 @@ namespace XF.Material.Forms.UI.Internals
         /// </summary>
         internal MaterialInputDialogTextField()
         {
-            this.InitializeComponent();
-            this.SetPropertyChangeHandler(ref _propertyChangeActions);
-            this.SetControl();
+            InitializeComponent();
+            SetPropertyChangeHandler(ref _propertyChangeActions);
+            SetControl();
         }
 
         /// <summary>
@@ -77,8 +77,8 @@ namespace XF.Material.Forms.UI.Internals
         /// </summary>
         public bool AlwaysShowUnderline
         {
-            get => (bool)this.GetValue(AlwaysShowUnderlineProperty);
-            set => this.SetValue(AlwaysShowUnderlineProperty, value);
+            get => (bool)GetValue(AlwaysShowUnderlineProperty);
+            set => SetValue(AlwaysShowUnderlineProperty, value);
         }
 
         /// <summary>
@@ -86,8 +86,8 @@ namespace XF.Material.Forms.UI.Internals
         /// </summary>
         public new Color BackgroundColor
         {
-            get => (Color)this.GetValue(BackgroundColorProperty);
-            set => this.SetValue(BackgroundColorProperty, value);
+            get => (Color)GetValue(BackgroundColorProperty);
+            set => SetValue(BackgroundColorProperty, value);
         }
 
         /// <summary>
@@ -96,8 +96,8 @@ namespace XF.Material.Forms.UI.Internals
         /// </summary>
         public Color ErrorColor
         {
-            get => (Color)this.GetValue(ErrorColorProperty);
-            set => this.SetValue(ErrorColorProperty, value);
+            get => (Color)GetValue(ErrorColorProperty);
+            set => SetValue(ErrorColorProperty, value);
         }
 
         /// <summary>
@@ -105,8 +105,8 @@ namespace XF.Material.Forms.UI.Internals
         /// </summary>
         public string ErrorText
         {
-            get => (string)this.GetValue(ErrorTextProperty);
-            set => this.SetValue(ErrorTextProperty, value);
+            get => (string)GetValue(ErrorTextProperty);
+            set => SetValue(ErrorTextProperty, value);
         }
 
         /// <summary>
@@ -114,8 +114,8 @@ namespace XF.Material.Forms.UI.Internals
         /// </summary>
         public Command<bool> FocusCommand
         {
-            get => (Command<bool>)this.GetValue(FocusCommandProperty);
-            set => this.SetValue(FocusCommandProperty, value);
+            get => (Command<bool>)GetValue(FocusCommandProperty);
+            set => SetValue(FocusCommandProperty, value);
         }
 
         /// <summary>
@@ -123,8 +123,8 @@ namespace XF.Material.Forms.UI.Internals
         /// </summary>
         public bool HasError
         {
-            get => (bool)this.GetValue(HasErrorProperty);
-            set => this.SetValue(HasErrorProperty, value);
+            get => (bool)GetValue(HasErrorProperty);
+            set => SetValue(HasErrorProperty, value);
         }
 
         /// <summary>
@@ -132,8 +132,8 @@ namespace XF.Material.Forms.UI.Internals
         /// </summary>
         public string HelperText
         {
-            get => (string)this.GetValue(HelperTextProperty);
-            set => this.SetValue(HelperTextProperty, value);
+            get => (string)GetValue(HelperTextProperty);
+            set => SetValue(HelperTextProperty, value);
         }
 
         /// <summary>
@@ -141,8 +141,8 @@ namespace XF.Material.Forms.UI.Internals
         /// </summary>
         public Color HelperTextColor
         {
-            get => (Color)this.GetValue(HelperTextColorProperty);
-            set => this.SetValue(HelperTextColorProperty, value);
+            get => (Color)GetValue(HelperTextColorProperty);
+            set => SetValue(HelperTextColorProperty, value);
         }
 
         /// <summary>
@@ -150,8 +150,8 @@ namespace XF.Material.Forms.UI.Internals
         /// </summary>
         public string HelperTextFontFamily
         {
-            get => (string)this.GetValue(HelperTextFontFamilyProperty);
-            set => this.SetValue(HelperTextFontFamilyProperty, value);
+            get => (string)GetValue(HelperTextFontFamilyProperty);
+            set => SetValue(HelperTextFontFamilyProperty, value);
         }
 
         /// <summary>
@@ -159,8 +159,8 @@ namespace XF.Material.Forms.UI.Internals
         /// </summary>
         public string Icon
         {
-            get => (string)this.GetValue(IconProperty);
-            set => this.SetValue(IconProperty, value);
+            get => (string)GetValue(IconProperty);
+            set => SetValue(IconProperty, value);
         }
 
         /// <summary>
@@ -168,8 +168,8 @@ namespace XF.Material.Forms.UI.Internals
         /// </summary>
         public Color IconTintColor
         {
-            get => (Color)this.GetValue(IconTintColorProperty);
-            set => this.SetValue(IconTintColorProperty, value);
+            get => (Color)GetValue(IconTintColorProperty);
+            set => SetValue(IconTintColorProperty, value);
         }
 
         /// <summary>
@@ -177,8 +177,8 @@ namespace XF.Material.Forms.UI.Internals
         /// </summary>
         public MaterialTextFieldInputType InputType
         {
-            get => (MaterialTextFieldInputType)this.GetValue(InputTypeProperty);
-            set => this.SetValue(InputTypeProperty, value);
+            get => (MaterialTextFieldInputType)GetValue(InputTypeProperty);
+            set => SetValue(InputTypeProperty, value);
         }
 
         /// <summary>
@@ -186,8 +186,8 @@ namespace XF.Material.Forms.UI.Internals
         /// </summary>
         public int MaxLength
         {
-            get => (int)this.GetValue(MaxLengthProperty);
-            set => this.SetValue(MaxLengthProperty, value);
+            get => (int)GetValue(MaxLengthProperty);
+            set => SetValue(MaxLengthProperty, value);
         }
 
         /// <summary>
@@ -195,15 +195,15 @@ namespace XF.Material.Forms.UI.Internals
         /// </summary>
         public string Placeholder
         {
-            get => (string)this.GetValue(PlaceholderProperty);
+            get => (string)GetValue(PlaceholderProperty);
             set
             {
                 if (string.IsNullOrWhiteSpace(value))
                 {
-                    throw new ArgumentNullException($"{nameof(this.Placeholder)} must not be null, empty, or a white space.");
+                    throw new ArgumentNullException($"{nameof(Placeholder)} must not be null, empty, or a white space.");
                 }
 
-                this.SetValue(PlaceholderProperty, value);
+                SetValue(PlaceholderProperty, value);
             }
         }
 
@@ -212,8 +212,8 @@ namespace XF.Material.Forms.UI.Internals
         /// </summary>
         public Color PlaceholderColor
         {
-            get => (Color)this.GetValue(PlaceholderColorProperty);
-            set => this.SetValue(PlaceholderColorProperty, value);
+            get => (Color)GetValue(PlaceholderColorProperty);
+            set => SetValue(PlaceholderColorProperty, value);
         }
 
         /// <summary>
@@ -221,8 +221,8 @@ namespace XF.Material.Forms.UI.Internals
         /// </summary>
         public string PlaceholderFontFamily
         {
-            get => (string)this.GetValue(PlaceholderFontFamilyProperty);
-            set => this.SetValue(PlaceholderFontFamilyProperty, value);
+            get => (string)GetValue(PlaceholderFontFamilyProperty);
+            set => SetValue(PlaceholderFontFamilyProperty, value);
         }
 
         /// <summary>
@@ -230,8 +230,8 @@ namespace XF.Material.Forms.UI.Internals
         /// </summary>
         public ICommand ReturnCommand
         {
-            get => (ICommand)this.GetValue(ReturnCommandProperty);
-            set => this.SetValue(ReturnCommandProperty, value);
+            get => (ICommand)GetValue(ReturnCommandProperty);
+            set => SetValue(ReturnCommandProperty, value);
         }
 
         /// <summary>
@@ -239,8 +239,8 @@ namespace XF.Material.Forms.UI.Internals
         /// </summary>
         public object ReturnCommandParameter
         {
-            get => (Command<object>)this.GetValue(ReturnCommandParameterProperty);
-            set => this.SetValue(ReturnCommandParameterProperty, value);
+            get => (Command<object>)GetValue(ReturnCommandParameterProperty);
+            set => SetValue(ReturnCommandParameterProperty, value);
         }
 
         /// <summary>
@@ -248,8 +248,8 @@ namespace XF.Material.Forms.UI.Internals
         /// </summary>
         public ReturnType ReturnType
         {
-            get => (ReturnType)this.GetValue(ReturnTypeProperty);
-            set => this.SetValue(ReturnTypeProperty, value);
+            get => (ReturnType)GetValue(ReturnTypeProperty);
+            set => SetValue(ReturnTypeProperty, value);
         }
 
         /// <summary>
@@ -257,21 +257,21 @@ namespace XF.Material.Forms.UI.Internals
         /// </summary>
         public string Text
         {
-            get => (string)this.GetValue(TextProperty);
+            get => (string)GetValue(TextProperty);
             set
             {
-                if (!string.IsNullOrEmpty(value) && !this.FloatingPlaceholderEnabled)
+                if (!string.IsNullOrEmpty(value) && !FloatingPlaceholderEnabled)
                 {
                     placeholder.IsVisible = false;
                 }
-                else if (string.IsNullOrEmpty(value) && !this.FloatingPlaceholderEnabled)
+                else if (string.IsNullOrEmpty(value) && !FloatingPlaceholderEnabled)
                 {
                     placeholder.IsVisible = true;
                 }
 
-                this.TextChangeCommand?.Execute(value);
-                this.TextChanged?.Invoke(this, new TextChangedEventArgs((string)this.GetValue(TextProperty), value));
-                this.SetValue(TextProperty, value);
+                TextChangeCommand?.Execute(value);
+                TextChanged?.Invoke(this, new TextChangedEventArgs((string)GetValue(TextProperty), value));
+                SetValue(TextProperty, value);
             }
         }
 
@@ -280,8 +280,8 @@ namespace XF.Material.Forms.UI.Internals
         /// </summary>
         public Command<string> TextChangeCommand
         {
-            get => (Command<string>)this.GetValue(TextChangeCommandProperty);
-            set => this.SetValue(TextChangeCommandProperty, value);
+            get => (Command<string>)GetValue(TextChangeCommandProperty);
+            set => SetValue(TextChangeCommandProperty, value);
         }
 
         /// <summary>
@@ -289,8 +289,8 @@ namespace XF.Material.Forms.UI.Internals
         /// </summary>
         public Color TextColor
         {
-            get => (Color)this.GetValue(TextColorProperty);
-            set => this.SetValue(TextColorProperty, value);
+            get => (Color)GetValue(TextColorProperty);
+            set => SetValue(TextColorProperty, value);
         }
 
         /// <summary>
@@ -298,8 +298,8 @@ namespace XF.Material.Forms.UI.Internals
         /// </summary>
         public string TextFontFamily
         {
-            get => (string)this.GetValue(TextFontFamilyProperty);
-            set => this.SetValue(TextFontFamilyProperty, value);
+            get => (string)GetValue(TextFontFamilyProperty);
+            set => SetValue(TextFontFamilyProperty, value);
         }
 
         /// <summary>
@@ -308,8 +308,8 @@ namespace XF.Material.Forms.UI.Internals
         /// </summary>
         public Color TintColor
         {
-            get => (Color)this.GetValue(TintColorProperty);
-            set => this.SetValue(TintColorProperty, value);
+            get => (Color)GetValue(TintColorProperty);
+            set => SetValue(TintColorProperty, value);
         }
 
         /// <summary>
@@ -317,14 +317,14 @@ namespace XF.Material.Forms.UI.Internals
         /// </summary>
         public Color UnderlineColor
         {
-            get => (Color)this.GetValue(UnderlineColorProperty);
-            set => this.SetValue(UnderlineColorProperty, value);
+            get => (Color)GetValue(UnderlineColorProperty);
+            set => SetValue(UnderlineColorProperty, value);
         }
 
         internal bool FloatingPlaceholderEnabled
         {
-            get => (bool)this.GetValue(FloatingPlaceholderEnabledProperty);
-            set => this.SetValue(FloatingPlaceholderEnabledProperty, value);
+            get => (bool)GetValue(FloatingPlaceholderEnabledProperty);
+            set => SetValue(FloatingPlaceholderEnabledProperty, value);
         }
 
         /// <summary>
@@ -336,11 +336,11 @@ namespace XF.Material.Forms.UI.Internals
         {
             if (created)
             {
-                entry.PropertyChanged += this.Entry_PropertyChanged;
+                entry.PropertyChanged += Entry_PropertyChanged;
             }
             else
             {
-                entry.PropertyChanged -= this.Entry_PropertyChanged;
+                entry.PropertyChanged -= Entry_PropertyChanged;
             }
         }
 
@@ -348,14 +348,14 @@ namespace XF.Material.Forms.UI.Internals
         {
             base.OnBindingContextChanged();
 
-            this.AnimatePlaceHolderOnStart(this.BindingContext);
+            AnimatePlaceHolderOnStart(BindingContext);
         }
 
         protected override void OnParentSet()
         {
             base.OnParentSet();
 
-            this.AnimatePlaceHolderOnStart(this.Parent);
+            AnimatePlaceHolderOnStart(Parent);
         }
 
         /// <summary>
@@ -366,7 +366,7 @@ namespace XF.Material.Forms.UI.Internals
         {
             base.OnPropertyChanged(propertyName);
 
-            if (_propertyChangeActions != null && _propertyChangeActions.TryGetValue(propertyName, out Action handlePropertyChange))
+            if (_propertyChangeActions != null && _propertyChangeActions.TryGetValue(propertyName, out var handlePropertyChange))
             {
                 handlePropertyChange();
             }
@@ -378,10 +378,10 @@ namespace XF.Material.Forms.UI.Internals
             var endFOnt = entry.IsFocused ? 12 : 16;
             var startY = placeholder.TranslationY;
             var endY = entry.IsFocused ? -20 : 0;
-            var color = entry.IsFocused ? this.TintColor : this.PlaceholderColor;
-            Animation anim = new Animation();
+            var color = entry.IsFocused ? TintColor : PlaceholderColor;
+            var anim = new Animation();
 
-            if (this.FloatingPlaceholderEnabled)
+            if (FloatingPlaceholderEnabled)
             {
                 anim = new Animation
                 {
@@ -393,14 +393,14 @@ namespace XF.Material.Forms.UI.Internals
                     {
                         0.0,
                         AnimationDuration,
-                        new Animation(v => placeholder.TranslationY = v, startY, endY, animationCurve, () => placeholder.TextColor = this.HasError && entry.IsFocused ? this.ErrorColor : color)
+                        new Animation(v => placeholder.TranslationY = v, startY, endY, animationCurve, () => placeholder.TextColor = HasError && entry.IsFocused ? ErrorColor : color)
                     }
                 };
             }
 
             if (entry.IsFocused)
             {
-                anim.Add(0.0, AnimationDuration, new Animation(v => underline.WidthRequest = v, 0, this.Width, animationCurve, () => underline.HorizontalOptions = LayoutOptions.FillAndExpand));
+                anim.Add(0.0, AnimationDuration, new Animation(v => underline.WidthRequest = v, 0, Width, animationCurve, () => underline.HorizontalOptions = LayoutOptions.FillAndExpand));
             }
             else
             {
@@ -417,25 +417,25 @@ namespace XF.Material.Forms.UI.Internals
 
         private void AnimatePlaceHolderOnStart(object startObject)
         {
-            if (startObject != null && !string.IsNullOrEmpty(this.Text) && !_wasFocused)
+            if (startObject != null && !string.IsNullOrEmpty(Text) && !_wasFocused)
             {
                 Device.BeginInvokeOnMainThread(async () =>
                 {
                     await Task.Delay(250);
                     var anim = new Animation();
 
-                    if (this.FloatingPlaceholderEnabled)
+                    if (FloatingPlaceholderEnabled)
                     {
                         entry.Opacity = 0;
                         anim.Add(0.0, AnimationDuration, new Animation(v => placeholder.FontSize = v, 16, 12, animationCurve));
                         anim.Add(0.0, AnimationDuration, new Animation(v => placeholder.TranslationY = v, placeholder.TranslationY, -12, animationCurve, () =>
                         {
-                            placeholder.TextColor = this.TintColor;
+                            placeholder.TextColor = TintColor;
                             entry.Opacity = 1;
                         }));
                     }
 
-                    anim.Add(0.0, AnimationDuration, new Animation(v => underline.WidthRequest = v, 0, this.Width, animationCurve, () => underline.HorizontalOptions = LayoutOptions.FillAndExpand));
+                    anim.Add(0.0, AnimationDuration, new Animation(v => underline.WidthRequest = v, 0, Width, animationCurve, () => underline.HorizontalOptions = LayoutOptions.FillAndExpand));
                     anim.Commit(this, "Anim2", rate: 2, length: (uint)(AnimationDuration * 1000), easing: animationCurve);
                 });
             }
@@ -445,11 +445,11 @@ namespace XF.Material.Forms.UI.Internals
         {
             const int animDuration = 250;
             var shakeAnimTask = Task.CompletedTask;
-            placeholder.TextColor = string.IsNullOrEmpty(this.Text) ? this.PlaceholderColor : this.ErrorColor;
-            counter.TextColor = this.ErrorColor;
-            underline.Color = this.ErrorColor;
+            placeholder.TextColor = string.IsNullOrEmpty(Text) ? PlaceholderColor : ErrorColor;
+            counter.TextColor = ErrorColor;
+            underline.Color = ErrorColor;
 
-            if (!string.IsNullOrEmpty(this.Text))
+            if (!string.IsNullOrEmpty(Text))
             {
                 shakeAnimTask = Task.Run(() =>
                 {
@@ -471,8 +471,8 @@ namespace XF.Material.Forms.UI.Internals
                     Device.BeginInvokeOnMainThread(async () =>
                     {
                         helper.TranslationY = -4;
-                        helper.TextColor = this.ErrorColor;
-                        helper.Text = this.ErrorText;
+                        helper.TextColor = ErrorColor;
+                        helper.Text = ErrorText;
                         await Task.WhenAll(helper.FadeTo(1, animDuration / 2, animationCurve), helper.TranslateTo(0, 0, animDuration / 2, animationCurve));
                     });
                 }),
@@ -483,7 +483,7 @@ namespace XF.Material.Forms.UI.Internals
         private void ChangeToNormalState()
         {
             const double opactiy = 1;
-            this.IsEnabled = true;
+            IsEnabled = true;
             entry.Opacity = opactiy;
             placeholder.Opacity = opactiy;
             helper.Opacity = opactiy;
@@ -491,14 +491,14 @@ namespace XF.Material.Forms.UI.Internals
 
             Device.BeginInvokeOnMainThread(async () =>
             {
-                var accentColor = this.TintColor;
+                var accentColor = TintColor;
                 placeholder.TextColor = accentColor;
-                counter.TextColor = this.HelperTextColor;
+                counter.TextColor = HelperTextColor;
                 underline.Color = accentColor;
                 await helper.FadeTo(0, 150, animationCurve);
                 helper.TranslationY = -4;
-                helper.TextColor = this.HelperTextColor;
-                helper.Text = this.HelperText;
+                helper.TextColor = HelperTextColor;
+                helper.Text = HelperText;
                 await Task.WhenAll(helper.FadeTo(1, 150, animationCurve), helper.TranslateTo(0, 0, 150, animationCurve));
             });
         }
@@ -508,26 +508,26 @@ namespace XF.Material.Forms.UI.Internals
             if (e.PropertyName == nameof(Entry.IsFocused))
             {
                 _wasFocused = true;
-                this.FocusCommand?.Execute(entry.IsFocused);
-                this.Focused?.Invoke(this, new FocusEventArgs(entry, entry.IsFocused));
-                this.UpdateCounter();
+                FocusCommand?.Execute(entry.IsFocused);
+                Focused?.Invoke(this, new FocusEventArgs(entry, entry.IsFocused));
+                UpdateCounter();
             }
 
             if (e.PropertyName == nameof(Entry.IsFocused) && string.IsNullOrEmpty(entry.Text))
             {
-                this.AnimatePlaceHolder();
+                AnimatePlaceHolder();
             }
             else if (e.PropertyName == nameof(Entry.Text))
             {
-                this.Text = entry.Text;
-                this.UpdateCounter();
+                Text = entry.Text;
+                UpdateCounter();
             }
         }
 
         private void OnAlwaysShowUnderlineChanged(bool isShown)
         {
             persistentUnderline.IsVisible = isShown;
-            persistentUnderline.Color = this.UnderlineColor.MultiplyAlpha(0.6);
+            persistentUnderline.Color = UnderlineColor.MultiplyAlpha(0.6);
         }
 
         private void OnBackgroundColorChanged(Color backgroundColor)
@@ -537,8 +537,8 @@ namespace XF.Material.Forms.UI.Internals
 
         private void OnEnabledChanged(bool isEnabled)
         {
-            this.Opacity = isEnabled ? 1 : 0.33;
-            helper.IsVisible = isEnabled && !string.IsNullOrEmpty(this.HelperText);
+            Opacity = isEnabled ? 1 : 0.33;
+            helper.IsVisible = isEnabled && !string.IsNullOrEmpty(HelperText);
         }
 
         private void OnErrorColorChanged(Color errorColor)
@@ -548,9 +548,9 @@ namespace XF.Material.Forms.UI.Internals
 
         private async Task OnErrorTextChanged()
         {
-            if (this.HasError)
+            if (HasError)
             {
-                await this.ChangeToErrorState();
+                await ChangeToErrorState();
             }
         }
 
@@ -558,13 +558,13 @@ namespace XF.Material.Forms.UI.Internals
         {
             errorIcon.IsVisible = hasError;
 
-            if (this.HasError)
+            if (HasError)
             {
-                await this.ChangeToErrorState();
+                await ChangeToErrorState();
             }
             else
             {
-                this.ChangeToNormalState();
+                ChangeToNormalState();
             }
         }
 
@@ -588,7 +588,7 @@ namespace XF.Material.Forms.UI.Internals
         {
             icon.IsVisible = !string.IsNullOrEmpty(source);
             icon.Source = source;
-            icon.TintColor = this.IconTintColor;
+            icon.TintColor = IconTintColor;
         }
 
         private void OnIconTintColorChanged(Color tintColor)
@@ -683,8 +683,8 @@ namespace XF.Material.Forms.UI.Internals
         private void OnTextChanged(string text)
         {
             entry.Text = text;
-            this.AnimatePlaceHolderOnStart(this);
-            this.UpdateCounter();
+            AnimatePlaceHolderOnStart(this);
+            UpdateCounter();
         }
 
         private void OnTextColorChanged(Color textColor)
@@ -704,7 +704,7 @@ namespace XF.Material.Forms.UI.Internals
 
         private void OnUnderlineColorChanged(Color underlineColor)
         {
-            if (this.AlwaysShowUnderline)
+            if (AlwaysShowUnderline)
             {
                 persistentUnderline.Color = underlineColor.MultiplyAlpha(0.6);
             }
@@ -712,8 +712,8 @@ namespace XF.Material.Forms.UI.Internals
 
         private void SetControl()
         {
-            errorIcon.TintColor = this.ErrorColor;
-            persistentUnderline.Color = this.UnderlineColor;
+            errorIcon.TintColor = ErrorColor;
+            persistentUnderline.Color = UnderlineColor;
             tapGesture.Command = new Command(() =>
             {
                 if (!entry.IsFocused)
@@ -727,30 +727,30 @@ namespace XF.Material.Forms.UI.Internals
         {
             propertyChangeActions = new Dictionary<string, Action>
             {
-                { nameof(this.Text), () => this.OnTextChanged(this.Text) },
-                { nameof(this.TextColor), () => this.OnTextColorChanged(this.TextColor) },
-                { nameof(this.TextFontFamily), () => this.OnTextFontFamilyChanged(this.TextFontFamily) },
-                { nameof(this.TintColor), () => this.OnTintColorChanged(this.TintColor) },
-                { nameof(this.Placeholder), () => this.OnPlaceholderChanged(this.Placeholder) },
-                { nameof(this.PlaceholderColor), () => this.OnPlaceholderColorChanged(this.PlaceholderColor) },
-                { nameof(this.PlaceholderFontFamily), () => this.OnPlaceholderFontFamilyChanged(this.PlaceholderFontFamily) },
-                { nameof(this.HelperText), () => this.OnHelperTextChanged(this.HelperText) },
-                { nameof(this.HelperTextFontFamily), () => this.OnHelpertTextFontFamilyChanged(this.HelperTextFontFamily) },
-                { nameof(this.HelperTextColor), () => this.OnHelperTextColorChanged(this.HelperTextColor) },
-                { nameof(this.InputType), () => this.OnInputTypeChanged(this.InputType) },
-                { nameof(this.IsEnabled), () => this.OnEnabledChanged(this.IsEnabled) },
-                { nameof(this.BackgroundColor), () => this.OnBackgroundColorChanged(this.BackgroundColor) },
-                { nameof(this.AlwaysShowUnderline), () => this.OnAlwaysShowUnderlineChanged(this.AlwaysShowUnderline) },
-                { nameof(this.MaxLength), () => this.OnMaxLengthChanged(this.MaxLength) },
-                { nameof(this.Icon), () => this.OnIconChanged(this.Icon) },
-                { nameof(this.IconTintColor), () => this.OnIconTintColorChanged(this.IconTintColor) },
-                { nameof(this.ReturnCommand), () => this.OnReturnCommandChanged(this.ReturnCommand) },
-                { nameof(this.ReturnCommandParameter), () => this.OnReturnCommandParameterChanged(this.ReturnCommandParameter) },
-                { nameof(this.ReturnType), () => this.OnReturnTypeChangedd(this.ReturnType) },
-                { nameof(this.ErrorColor), () => this.OnErrorColorChanged(this.ErrorColor) },
-                { nameof(this.UnderlineColor), () => this.OnUnderlineColorChanged(this.UnderlineColor) },
-                { nameof(this.ErrorText), async () => await this.OnErrorTextChanged() },
-                { nameof(this.HasError), async () => await this.OnHasErrorChanged(this.HasError) },
+                { nameof(Text), () => OnTextChanged(Text) },
+                { nameof(TextColor), () => OnTextColorChanged(TextColor) },
+                { nameof(TextFontFamily), () => OnTextFontFamilyChanged(TextFontFamily) },
+                { nameof(TintColor), () => OnTintColorChanged(TintColor) },
+                { nameof(Placeholder), () => OnPlaceholderChanged(Placeholder) },
+                { nameof(PlaceholderColor), () => OnPlaceholderColorChanged(PlaceholderColor) },
+                { nameof(PlaceholderFontFamily), () => OnPlaceholderFontFamilyChanged(PlaceholderFontFamily) },
+                { nameof(HelperText), () => OnHelperTextChanged(HelperText) },
+                { nameof(HelperTextFontFamily), () => OnHelpertTextFontFamilyChanged(HelperTextFontFamily) },
+                { nameof(HelperTextColor), () => OnHelperTextColorChanged(HelperTextColor) },
+                { nameof(InputType), () => OnInputTypeChanged(InputType) },
+                { nameof(IsEnabled), () => OnEnabledChanged(IsEnabled) },
+                { nameof(BackgroundColor), () => OnBackgroundColorChanged(BackgroundColor) },
+                { nameof(AlwaysShowUnderline), () => OnAlwaysShowUnderlineChanged(AlwaysShowUnderline) },
+                { nameof(MaxLength), () => OnMaxLengthChanged(MaxLength) },
+                { nameof(Icon), () => OnIconChanged(Icon) },
+                { nameof(IconTintColor), () => OnIconTintColorChanged(IconTintColor) },
+                { nameof(ReturnCommand), () => OnReturnCommandChanged(ReturnCommand) },
+                { nameof(ReturnCommandParameter), () => OnReturnCommandParameterChanged(ReturnCommandParameter) },
+                { nameof(ReturnType), () => OnReturnTypeChangedd(ReturnType) },
+                { nameof(ErrorColor), () => OnErrorColorChanged(ErrorColor) },
+                { nameof(UnderlineColor), () => OnUnderlineColorChanged(UnderlineColor) },
+                { nameof(ErrorText), async () => await OnErrorTextChanged() },
+                { nameof(HasError), async () => await OnHasErrorChanged(HasError) },
             };
         }
 
@@ -759,7 +759,7 @@ namespace XF.Material.Forms.UI.Internals
             if (_counterEnabled)
             {
                 var count = entry.Text != null ? entry.Text.Length : 0;
-                counter.Text = entry.IsFocused ? $"{count}/{this.MaxLength}" : string.Empty;
+                counter.Text = entry.IsFocused ? $"{count}/{MaxLength}" : string.Empty;
             }
         }
     }

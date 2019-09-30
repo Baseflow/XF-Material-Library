@@ -8,7 +8,7 @@ namespace XF.Material.Forms.Resources
     {
         public MaterialSizes()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

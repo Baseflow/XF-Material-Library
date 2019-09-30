@@ -21,7 +21,7 @@ namespace XF.Material.Forms.UI.Dialogs
 
         protected BaseMaterialModalPage()
         {
-            this.Animation = new ScaleAnimation()
+            Animation = new ScaleAnimation()
             {
                 DurationIn = 150,
                 DurationOut = 100,
@@ -34,7 +34,7 @@ namespace XF.Material.Forms.UI.Dialogs
                 ScaleOut = 1
             };
 
-            this.DisplayOrientation = DeviceDisplay.MainDisplayInfo.Orientation;
+            DisplayOrientation = DeviceDisplay.MainDisplayInfo.Orientation;
         }
 
         public virtual bool Dismissable => true;
@@ -61,7 +61,7 @@ namespace XF.Material.Forms.UI.Dialogs
         [EditorBrowsable(EditorBrowsableState.Never)]
         public void Dispose()
         {
-            this.Dispose(true);
+            Dispose(true);
             GC.SuppressFinalize(this);
         }
 
@@ -71,24 +71,31 @@ namespace XF.Material.Forms.UI.Dialogs
         [EditorBrowsable(EditorBrowsableState.Never)]
         public void RaiseOnBackButtonDismissed()
         {
-            if (_dismissing || Device.RuntimePlatform == Device.iOS) return;
+            if (_dismissing || Device.RuntimePlatform == Device.iOS)
+            {
+                return;
+            }
 
             _dismissing = true;
 
-            this.OnBackButtonDismissed();
+            OnBackButtonDismissed();
         }
 
         protected virtual void OnBackButtonDismissed() { }
 
         protected virtual void Dispose(bool disposing)
         {
-            if (_disposed || !disposing) return;
+            if (_disposed || !disposing)
+            {
+                return;
+            }
+
             Device.BeginInvokeOnMainThread(async () =>
             {
                 try
                 {
-                    await this.DismissAsync();
-                    this.Content = null;
+                    await DismissAsync();
+                    Content = null;
                 }
                 catch (Exception ex)
                 {
@@ -103,20 +110,20 @@ namespace XF.Material.Forms.UI.Dialogs
         {
             base.OnAppearing();
 
-            DeviceDisplay.MainDisplayInfoChanged += this.DeviceDisplay_MainDisplayInfoChanged;
+            DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
         }
 
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
 
-            DeviceDisplay.MainDisplayInfoChanged -= this.DeviceDisplay_MainDisplayInfoChanged;
+            DeviceDisplay.MainDisplayInfoChanged -= DeviceDisplay_MainDisplayInfoChanged;
         }
 
         protected override void OnDisappearingAnimationEnd()
         {
             base.OnDisappearingAnimationEnd();
-            this.Dispose();
+            Dispose();
         }
 
         protected virtual void OnOrientationChanged(DisplayOrientation orientation)
@@ -128,13 +135,13 @@ namespace XF.Material.Forms.UI.Dialogs
         /// </summary>
         protected virtual async Task ShowAsync()
         {
-            if (this.CanShowPopup())
+            if (CanShowPopup())
             {
                 await PopupNavigation.Instance.PushAsync(this, true);
             }
             else
             {
-                await this.DismissAsync();
+                await DismissAsync();
             }
         }
 
@@ -144,14 +151,18 @@ namespace XF.Material.Forms.UI.Dialogs
                 .Instance
                 .PopupStack
                 .ToList()
-                .Exists(p => p.GetType() == this.GetType());
+                .Exists(p => p.GetType() == GetType());
         }
 
         private void DeviceDisplay_MainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
         {
-            if (this.DisplayOrientation == e.DisplayInfo.Orientation) return;
-            this.DisplayOrientation = e.DisplayInfo.Orientation;
-            this.OnOrientationChanged(this.DisplayOrientation);
+            if (DisplayOrientation == e.DisplayInfo.Orientation)
+            {
+                return;
+            }
+
+            DisplayOrientation = e.DisplayInfo.Orientation;
+            OnOrientationChanged(DisplayOrientation);
         }
     }
 }

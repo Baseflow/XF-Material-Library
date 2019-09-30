@@ -19,19 +19,19 @@ namespace XF.Material.Forms.UI.Dialogs
 
         internal MaterialSnackbar(string message, string actionButtonText, int msDuration = DurationLong, MaterialSnackbarConfiguration configuration = null)
         {
-            this.InitializeComponent();
-            this.Configure(configuration);
+            InitializeComponent();
+            Configure(configuration);
             Message.Text = message;
             _duration = msDuration;
             ActionButton.Text = actionButtonText;
             var primaryActionCommand = new Command(async () =>
             {
                 _primaryActionRunning = true;
-                await this.DismissAsync();
-                this.InputTaskCompletionSource?.SetResult(true);
+                await DismissAsync();
+                InputTaskCompletionSource?.SetResult(true);
             }, () => !_primaryActionRunning);
             ActionButton.Command = primaryActionCommand;
-            _hideAction = () => this.InputTaskCompletionSource?.SetResult(false);
+            _hideAction = () => InputTaskCompletionSource?.SetResult(false);
         }
 
         public TaskCompletionSource<bool> InputTaskCompletionSource { get; set; }
@@ -75,31 +75,39 @@ namespace XF.Material.Forms.UI.Dialogs
         {
             base.OnAppearing();
 
-            this.ChangeLayout();
+            ChangeLayout();
         }
 
         protected override async void OnAppearingAnimationEnd()
         {
             base.OnAppearingAnimationEnd();
 
-            if (_duration <= 0) return;
+            if (_duration <= 0)
+            {
+                return;
+            }
+
             await Task.Delay(_duration);
 
-            if (_primaryActionRunning) return;
+            if (_primaryActionRunning)
+            {
+                return;
+            }
+
             _hideAction?.Invoke();
-            await this.DismissAsync();
+            await DismissAsync();
         }
 
         protected override void OnOrientationChanged(DisplayOrientation orientation)
         {
             base.OnOrientationChanged(orientation);
 
-            this.ChangeLayout();
+            ChangeLayout();
         }
 
         private void ChangeLayout()
         {
-            switch (this.DisplayOrientation)
+            switch (DisplayOrientation)
             {
                 case DisplayOrientation.Landscape when Device.Idiom == TargetIdiom.Phone:
                     Container.WidthRequest = 344;
@@ -116,7 +124,11 @@ namespace XF.Material.Forms.UI.Dialogs
         {
             var preferredConfig = configuration ?? GlobalConfiguration;
 
-            if (preferredConfig == null) return;
+            if (preferredConfig == null)
+            {
+                return;
+            }
+
             Message.FontFamily = preferredConfig.MessageFontFamily;
             Message.TextColor = preferredConfig.MessageTextColor;
             Container.BackgroundColor = preferredConfig.BackgroundColor;

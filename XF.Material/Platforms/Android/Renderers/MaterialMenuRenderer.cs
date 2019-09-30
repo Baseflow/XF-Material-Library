@@ -18,16 +18,16 @@ namespace XF.Material.Droid.Renderers
 
             if (e?.NewElement != null)
             {
-                this.Element.InternalCommand = new Command(this.OnClick);
+                Element.InternalCommand = new Command(OnClick);
             }
         }
 
         private void OnClick()
         {
-            var displayDensity = this.Context.Resources.DisplayMetrics.Density;
+            var displayDensity = Context.Resources.DisplayMetrics.Density;
             var position = new int[2];
-            this.ViewGroup.GetChildAt(0).GetLocationInWindow(position);
-            this.Element.OnViewTouch(position.ElementAtOrDefault(0) / displayDensity, position.ElementAtOrDefault(1) / displayDensity);
+            ViewGroup.GetChildAt(0).GetLocationInWindow(position);
+            Element.OnViewTouch(position.ElementAtOrDefault(0) / displayDensity, position.ElementAtOrDefault(1) / displayDensity);
         }
     }
 }

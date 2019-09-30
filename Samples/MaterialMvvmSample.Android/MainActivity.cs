@@ -22,7 +22,7 @@ namespace MaterialMvvmSample.Droid
 
             var app = CommonServiceLocator.ServiceLocator.Current.GetInstance<App>();
 
-            this.LoadApplication(app);
+            LoadApplication(app);
         }
 
         public override void OnBackPressed()

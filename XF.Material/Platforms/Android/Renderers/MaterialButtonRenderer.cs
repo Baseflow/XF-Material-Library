@@ -25,45 +25,55 @@ namespace XF.Material.Droid.Renderers
         {
             base.OnElementChanged(e);
 
-            if (this.Control == null) return;
+            if (Control == null)
+            {
+                return;
+            }
 
             if (e?.OldElement != null)
             {
                 _helper.Clean();
             }
 
-            if (e?.NewElement == null) return;
-            _materialButton = this.Element as MaterialButton;
-            _helper = new MaterialDrawableHelper(_materialButton, this.Control);
+            if (e?.NewElement == null)
+            {
+                return;
+            }
+
+            _materialButton = Element as MaterialButton;
+            _helper = new MaterialDrawableHelper(_materialButton, Control);
             _helper.UpdateDrawable();
 
-            this.Control.SetMinimumWidth((int)MaterialHelper.ConvertToDp(64));
-            this.Control.SetAllCaps(_materialButton != null && _materialButton.AllCaps);
+            Control.SetMinimumWidth((int)MaterialHelper.ConvertToDp(64));
+            Control.SetAllCaps(_materialButton != null && _materialButton.AllCaps);
 
-            this.SetButtonIcon();
-            this.SetTextColors();
-            this.SetTextLetterSpacing();
+            SetButtonIcon();
+            SetTextColors();
+            SetTextLetterSpacing();
         }
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             base.OnElementPropertyChanged(sender, e);
 
-            if (this.Control == null) return;
+            if (Control == null)
+            {
+                return;
+            }
 
             switch (e?.PropertyName)
             {
                 case nameof(MaterialButton.Image):
-                    this.SetButtonIcon();
+                    SetButtonIcon();
                     break;
                 case nameof(MaterialButton.AllCaps):
-                    this.Control.SetAllCaps(_materialButton.AllCaps);
+                    Control.SetAllCaps(_materialButton.AllCaps);
                     break;
                 case nameof(Button.TextColor):
-                    this.SetTextColors();
+                    SetTextColors();
                     break;
                 case nameof(MaterialButton.LetterSpacing):
-                    this.SetTextLetterSpacing();
+                    SetTextLetterSpacing();
                     break;
             }
         }
@@ -73,11 +83,17 @@ namespace XF.Material.Droid.Renderers
             var withIcon = !string.IsNullOrEmpty(_materialButton.Image);
             _helper.UpdateHasIcon(withIcon);
 
-            if (!withIcon) return;
+            if (!withIcon)
+            {
+                return;
+            }
 
-            var drawable = this.Control.GetCompoundDrawables().FirstOrDefault(s => s != null);
+            var drawable = Control.GetCompoundDrawables().FirstOrDefault(s => s != null);
 
-            if (drawable == null) return;
+            if (drawable == null)
+            {
+                return;
+            }
 
             var drawableCopy = drawable.GetDrawableCopy();
             var width = _materialButton.ButtonType == MaterialButtonType.Text ? (int)MaterialHelper.ConvertToDp(18) : (int)MaterialHelper.ConvertToDp(18 + 4);
@@ -86,8 +102,8 @@ namespace XF.Material.Droid.Renderers
             drawableCopy.SetBounds(left, 0, width, height);
             drawableCopy.TintDrawable(_materialButton.TextColor.ToAndroid());
 
-            this.Control.SetCompoundDrawables(drawableCopy, null, null, null);
-            this.Control.CompoundDrawablePadding = 0;
+            Control.SetCompoundDrawables(drawableCopy, null, null, null);
+            Control.CompoundDrawablePadding = 0;
         }
         private void SetTextColors()
         {
@@ -109,13 +125,13 @@ namespace XF.Material.Droid.Renderers
                 _materialButton.TextColor.MultiplyAlpha(0.38).ToAndroid()
              };
 
-            this.Control.SetTextColor(new ColorStateList(states, colors));
+            Control.SetTextColor(new ColorStateList(states, colors));
         }
 
         private void SetTextLetterSpacing()
         {
-            var rawLetterSpacing = _materialButton.LetterSpacing / this.Control.TextSize;
-            this.Control.LetterSpacing = MaterialHelper.ConvertToSp(rawLetterSpacing);
+            var rawLetterSpacing = _materialButton.LetterSpacing / Control.TextSize;
+            Control.LetterSpacing = MaterialHelper.ConvertToSp(rawLetterSpacing);
         }
     }
 }

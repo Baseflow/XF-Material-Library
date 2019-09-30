@@ -21,7 +21,7 @@ namespace XF.Material.Forms.UI
         /// <param name="result">The result of the selection.</param>
         public MenuSelectedEventArgs(MaterialMenuResult result)
         {
-            this.Result = result;
+            Result = result;
         }
     }
 }

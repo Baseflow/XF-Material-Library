@@ -56,8 +56,8 @@ namespace XF.Material.Forms.UI.Internals
 
         internal bool ShouldShowScrollbar
         {
-            get => (bool)this.GetValue(ShouldShowScrollbarProperty);
-            set => this.SetValue(ShouldShowScrollbarProperty, value);
+            get => (bool)GetValue(ShouldShowScrollbarProperty);
+            set => SetValue(ShouldShowScrollbarProperty, value);
         }
 
         /// <summary>
@@ -65,8 +65,8 @@ namespace XF.Material.Forms.UI.Internals
         /// </summary>
         public IList<string> Choices
         {
-            get => (IList<string>)this.GetValue(ChoicesProperty);
-            set => this.SetValue(ChoicesProperty, value);
+            get => (IList<string>)GetValue(ChoicesProperty);
+            set => SetValue(ChoicesProperty, value);
         }
 
         /// <summary>
@@ -74,8 +74,8 @@ namespace XF.Material.Forms.UI.Internals
         /// </summary>
         public string FontFamily
         {
-            get => (string)this.GetValue(FontFamilyProperty);
-            set => this.SetValue(FontFamilyProperty, value);
+            get => (string)GetValue(FontFamilyProperty);
+            set => SetValue(FontFamilyProperty, value);
         }
 
         /// <summary>
@@ -83,8 +83,8 @@ namespace XF.Material.Forms.UI.Internals
         /// </summary>
         public double FontSize
         {
-            get => (double)this.GetValue(FontSizeProperty);
-            set => this.SetValue(FontSizeProperty, value);
+            get => (double)GetValue(FontSizeProperty);
+            set => SetValue(FontSizeProperty, value);
         }
 
         /// <summary>
@@ -92,8 +92,8 @@ namespace XF.Material.Forms.UI.Internals
         /// </summary>
         public double HorizontalSpacing
         {
-            get => (double)this.GetValue(HorizontalSpacingProperty);
-            set => this.SetValue(HorizontalSpacingProperty, value);
+            get => (double)GetValue(HorizontalSpacingProperty);
+            set => SetValue(HorizontalSpacingProperty, value);
         }
 
         /// <summary>
@@ -101,8 +101,8 @@ namespace XF.Material.Forms.UI.Internals
         /// </summary>
         public Color SelectedColor
         {
-            get => (Color)this.GetValue(SelectedColorProperty);
-            set => this.SetValue(SelectedColorProperty, value);
+            get => (Color)GetValue(SelectedColorProperty);
+            set => SetValue(SelectedColorProperty, value);
         }
 
         /// <summary>
@@ -110,8 +110,8 @@ namespace XF.Material.Forms.UI.Internals
         /// </summary>
         public Color TextColor
         {
-            get => (Color)this.GetValue(TextColorProperty);
-            set => this.SetValue(TextColorProperty, value);
+            get => (Color)GetValue(TextColorProperty);
+            set => SetValue(TextColorProperty, value);
         }
 
         /// <summary>
@@ -119,8 +119,8 @@ namespace XF.Material.Forms.UI.Internals
         /// </summary>
         public Color UnselectedColor
         {
-            get => (Color)this.GetValue(UnselectedColorProperty);
-            set => this.SetValue(UnselectedColorProperty, value);
+            get => (Color)GetValue(UnselectedColorProperty);
+            set => SetValue(UnselectedColorProperty, value);
         }
 
         /// <summary>
@@ -128,8 +128,8 @@ namespace XF.Material.Forms.UI.Internals
         /// </summary>
         public double VerticalSpacing
         {
-            get => (double)this.GetValue(VerticalSpacingProperty);
-            set => this.SetValue(VerticalSpacingProperty, value);
+            get => (double)GetValue(VerticalSpacingProperty);
+            set => SetValue(VerticalSpacingProperty, value);
         }
 
         internal abstract ObservableCollection<MaterialSelectionControlModel> Models { get; }
@@ -142,11 +142,11 @@ namespace XF.Material.Forms.UI.Internals
 
             switch (propertyName)
             {
-                case nameof(this.Choices) when this.Choices != null && this.Choices.Any():
-                    this.CreateChoices();
+                case nameof(Choices) when Choices != null && Choices.Any():
+                    CreateChoices();
                     break;
-                case nameof(this.IsEnabled):
-                    this.Opacity = this.IsEnabled ? 1.0 : 0.38;
+                case nameof(IsEnabled):
+                    Opacity = IsEnabled ? 1.0 : 0.38;
                     break;
             }
         }

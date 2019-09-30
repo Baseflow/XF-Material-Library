@@ -15,7 +15,7 @@ namespace MaterialMvvmSample.Core
         {
             var containerBuilder = new ContainerBuilder();
 
-            this.RegisterServices(containerBuilder);
+            RegisterServices(containerBuilder);
 
             var container = containerBuilder.Build();
 

@@ -10,7 +10,7 @@ namespace MaterialMvvmSample
     {
         public App(INavigationService navigationService)
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             XF.Material.Forms.Material.Init(this, "Material.Style");
 

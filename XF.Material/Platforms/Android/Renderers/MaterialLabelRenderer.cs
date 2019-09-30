@@ -20,9 +20,12 @@ namespace XF.Material.Droid.Renderers
         {
             base.OnElementChanged(e);
 
-            if (e?.NewElement == null) return;
+            if (e?.NewElement == null)
+            {
+                return;
+            }
 
-            this.OnLetterSpacingChanged(this.Control, this.Element.LetterSpacing);
+            OnLetterSpacingChanged(Control, Element.LetterSpacing);
         }
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -32,7 +35,7 @@ namespace XF.Material.Droid.Renderers
             switch (e?.PropertyName)
             {
                 case nameof(MaterialLabel.LetterSpacing):
-                    this.OnLetterSpacingChanged(this.Control, this.Element.LetterSpacing);
+                    OnLetterSpacingChanged(Control, Element.LetterSpacing);
                     break;
             }
         }

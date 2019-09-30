@@ -21,8 +21,8 @@ namespace XF.Material.Droid.Renderers.Internals
 
             if (e?.NewElement != null)
             {
-                _materialDatePicker = this.Element as MaterialDatePicker;
-                this.SetControl();
+                _materialDatePicker = Element as MaterialDatePicker;
+                SetControl();
             }
         }
 
@@ -33,19 +33,19 @@ namespace XF.Material.Droid.Renderers.Internals
 
         private void SetControl()
         {
-            if (this.Control == null)
+            if (Control == null)
             {
                 return;
             }
 
-            this.Control.Background = new ColorDrawable(Color.Transparent.ToAndroid());
-            this.Control.SetPadding(0, 0, 0, 0);
-            this.Control.SetIncludeFontPadding(false);
-            this.Control.SetMinimumHeight((int)MaterialHelper.ConvertToDp(20));
+            Control.Background = new ColorDrawable(Color.Transparent.ToAndroid());
+            Control.SetPadding(0, 0, 0, 0);
+            Control.SetIncludeFontPadding(false);
+            Control.SetMinimumHeight((int)MaterialHelper.ConvertToDp(20));
 
-            var layoutParams = new MarginLayoutParams(this.Control.LayoutParameters);
+            var layoutParams = new MarginLayoutParams(Control.LayoutParameters);
             layoutParams.SetMargins(0, 0, 0, 0);
-            this.Control.LayoutParameters = layoutParams;
+            Control.LayoutParameters = layoutParams;
         }
     }
 }

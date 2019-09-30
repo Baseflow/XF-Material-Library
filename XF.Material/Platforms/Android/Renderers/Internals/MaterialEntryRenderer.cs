@@ -27,9 +27,9 @@ namespace XF.Material.Droid.Renderers.Internals
 
             if (e?.NewElement != null)
             {
-                this.ChangeCursorColor();
-                _materialEntry = this.Element as MaterialEntry;
-                this.SetControl();
+                ChangeCursorColor();
+                _materialEntry = Element as MaterialEntry;
+                SetControl();
             }
         }
 
@@ -39,21 +39,21 @@ namespace XF.Material.Droid.Renderers.Internals
 
             if (e?.PropertyName == nameof(MaterialEntry.TintColor))
             {
-                this.ChangeCursorColor();
+                ChangeCursorColor();
             }
         }
 
         private void SetControl()
         {
-            if (this.Control == null)
+            if (Control == null)
             {
                 return;
             }
 
-            this.Control.Background = new ColorDrawable(Color.Transparent.ToAndroid());
-            this.Control.SetPadding(0, 0, 0, 0);
-            this.Control.SetIncludeFontPadding(false);
-            this.Control.SetMinimumHeight((int)MaterialHelper.ConvertToDp(20));
+            Control.Background = new ColorDrawable(Color.Transparent.ToAndroid());
+            Control.SetPadding(0, 0, 0, 0);
+            Control.SetIncludeFontPadding(false);
+            Control.SetMinimumHeight((int)MaterialHelper.ConvertToDp(20));
 
             //// DEV HINT: This will be used for the future control `MaterialTextArea`.
             //// This removes the 'Next' button and shows a 'Done' button when the device's orientation is in landscape.
@@ -64,7 +64,7 @@ namespace XF.Material.Droid.Renderers.Internals
 
         private void ChangeCursorColor()
         {
-            if (this.Control == null)
+            if (Control == null)
             {
                 return;
             }
@@ -73,15 +73,15 @@ namespace XF.Material.Droid.Renderers.Internals
             {
                 var field = Java.Lang.Class.FromType(typeof(Android.Widget.TextView)).GetDeclaredField("mCursorDrawableRes");
                 field.Accessible = true;
-                var resId = field.GetInt(this.Control);
+                var resId = field.GetInt(Control);
 
                 field = Java.Lang.Class.FromType(typeof(Android.Widget.TextView)).GetDeclaredField("mEditor");
                 field.Accessible = true;
 
-                var cursorDrawable = ContextCompat.GetDrawable(this.Context, resId);
-                cursorDrawable.SetColorFilter(((MaterialEntry)this.Element).TintColor.ToAndroid(), Android.Graphics.PorterDuff.Mode.SrcIn);
+                var cursorDrawable = ContextCompat.GetDrawable(Context, resId);
+                cursorDrawable.SetColorFilter(((MaterialEntry)Element).TintColor.ToAndroid(), Android.Graphics.PorterDuff.Mode.SrcIn);
 
-                var editor = field.Get(this.Control);
+                var editor = field.Get(Control);
                 field = editor.Class.GetDeclaredField("mCursorDrawable");
                 field.Accessible = true;
                 field.Set(editor, new[] { cursorDrawable, cursorDrawable });
@@ -94,11 +94,11 @@ namespace XF.Material.Droid.Renderers.Internals
 
         public bool OnEditorAction(TextView v, [GeneratedEnum] ImeAction actionId, KeyEvent e)
         {
-            var currentFocus = (this.Context as Activity).CurrentFocus;
+            var currentFocus = (Context as Activity).CurrentFocus;
 
             if (currentFocus != null)
             {
-                var inputMethodManager = (InputMethodManager)(this.Context as Activity).GetSystemService(Context.InputMethodService);
+                var inputMethodManager = (InputMethodManager)(Context as Activity).GetSystemService(Context.InputMethodService);
                 inputMethodManager.HideSoftInputFromWindow(currentFocus.WindowToken, HideSoftInputFlags.None);
             }
 
