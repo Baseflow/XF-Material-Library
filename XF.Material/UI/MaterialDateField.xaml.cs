@@ -574,7 +574,6 @@ namespace XF.Material.Forms.UI
         [EditorBrowsable(EditorBrowsableState.Never)]
         public void ElementChanged(bool created)
         {
-
         }
 
         /// <summary>
@@ -852,7 +851,6 @@ namespace XF.Material.Forms.UI
 
             Device.BeginInvokeOnMainThread(async () =>
             {
-
                 trailingIcon.IsVisible = false;
 
                 var accentColor = TintColor;

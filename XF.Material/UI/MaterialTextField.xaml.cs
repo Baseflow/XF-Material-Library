@@ -60,10 +60,8 @@ namespace XF.Material.Forms.UI
                         control.UpdateCounter();
                         // control.OnSelectChoices();
                     }
-
                 }
             }
-
         }
 
         public static readonly BindableProperty ErrorColorProperty = BindableProperty.Create(nameof(ErrorColor), typeof(Color), typeof(MaterialTextField), Material.Color.Error);
@@ -1270,7 +1268,6 @@ namespace XF.Material.Forms.UI
             else if (InputType == MaterialTextFieldInputType.Choice && string.IsNullOrEmpty(text))
             {
                 _selectedIndex = -1;
-
             }
 
             entry.Text = text;

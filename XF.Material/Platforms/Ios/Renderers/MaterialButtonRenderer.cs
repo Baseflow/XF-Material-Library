@@ -252,7 +252,6 @@ namespace XF.Material.iOS.Renderers
             _colorResting.RemovedOnCompletion = false;
             _colorResting.To = FromObject(_restingBackgroundColor.CGColor);
 
-
             if (_rippleGestureRecognizer == null)
             {
                 _rippleGestureRecognizer = new UITapGestureRecognizer() { Delegate = new MaterialRippleGestureRecognizerDelegate(_rippleColor.CGColor) };
