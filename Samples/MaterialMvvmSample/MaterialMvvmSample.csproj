@@ -20,7 +20,7 @@
   </ItemGroup>
   
   <ItemGroup>
-    <Compile Update="**\*.xaml.cs" DependentUpon="%(Filename)" />
+    <Compile Update="**\*.xaml.cs" DependentUpon="ChipFontSizeView.xaml" />
   </ItemGroup>
   
 </Project>
