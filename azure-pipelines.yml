@@ -13,7 +13,7 @@ pool:
 
 variables:
   solution: '**/XF.Material (No Sample Project).sln'
-  buildConfiguration: 'Publish'
+  buildConfiguration: 'Release'
   outputDirectory: '$(build.artifactStagingDirectory)/$(BuildConfiguration)'
 
 steps:
