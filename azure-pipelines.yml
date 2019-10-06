@@ -1,49 +1,43 @@
-# XF.Material
-# Build a Xamarin.Android project.
-# Build a Xamarin.iOS project.
+trigger:
+  batch: true
+  branches:
+    include:
+    - master
+  paths:
+    exclude:
+    - README.md
 
-jobs:
-- job: Android
-  pool:
-    vmImage: 'VS2017-Win2016'
-  variables:
-    buildConfiguration: 'Release'
-    outputDirectory: '$(build.binariesDirectory)/$(buildConfiguration)'
-  steps:
-  - task: NuGetToolInstaller@0
-  - task: NuGetCommand@2
-    inputs:
-      restoreSolution: '**/*.sln'
-  - task: XamarinAndroid@1
-    inputs:
-      projectFile: '**/*droid*.csproj'
-      outputDirectory: '$(build.binariesdirectory)/$(BuildConfiguration)'
-      configuration: '$(buildConfiguration)'
-      clean: true
-  - task: PublishBuildArtifacts@1
-    displayName: 'Publish Artifact: drop'
-    inputs:
-      PathtoPublish: '$(build.binariesdirectory)/$(BuildConfiguration)'
+pool:
+  name: Hosted macOS
+  demands: msbuild
 
-- job: iOS
-  pool:
-    vmImage: 'macOS-10.13'
-  variables:
-    buildConfiguration: 'Release'
-  steps:
-  - task: NuGetToolInstaller@0
-  - task: NuGetCommand@2
-    inputs:
-      restoreSolution: '**/*.sln'
-  - task: XamariniOS@2
-    inputs:
-      projectFile: '**/*iOS*.csproj'
-      outputDirectory: '$(build.binariesdirectory)/$(BuildConfiguration)'
-      configuration: '$(buildConfiguration)'
-      buildForSimulator: true
-      packageApp: false
-      clean: true
-  - task: PublishBuildArtifacts@1
-    displayName: 'Publish Artifact: drop'
-    inputs:
-      PathtoPublish: '$(build.binariesdirectory)/$(BuildConfiguration)'
+variables:
+  solution: '**/XF.Material (No Sample Project).sln'
+  buildConfiguration: 'Publish'
+  outputDirectory: '$(build.artifactStagingDirectory)/$(BuildConfiguration)'
+
+steps:
+- task: NuGetToolInstaller@1
+
+- task: NuGetCommand@2
+  inputs:
+    restoreSolution: '$(solution)'
+
+- task: MSBuild@1
+  displayName: 'Build solution XF.Material (No Sample Project).sln'
+  inputs:
+    solution: '$(solution)'
+    configuration: '$(buildConfiguration)'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
+
+- task: NuGetCommand@2
+  inputs:
+    command: 'pack'
+    packagesToPack: 'nuspec/XF.Material.nuspec'
+    versioningScheme: 'byBuildNumber'
+
