@@ -54,5 +54,5 @@ steps:
   inputs:
     command: 'pack'
     packagesToPack: 'nuspec/XF.Material.nuspec'
-    versioningScheme: 'byBuildNumber'
+    versioningScheme: 'off'
 
