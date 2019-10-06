@@ -29,10 +29,6 @@ steps:
 - script: echo '##vso[task.setvariable variable=MD_APPLE_SDK_ROOT;]'/Applications/Xcode_11.app;sudo xcode-select --switch /Applications/Xcode_11.app/Contents/Developer
   displayName: 'Select Xcode version'
 
-- task: NuGetToolInstaller@1
-  inputs:
-    versionSpec: '4.x'
-
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '$(solution)'
