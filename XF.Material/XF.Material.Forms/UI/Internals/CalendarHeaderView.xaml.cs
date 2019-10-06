@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using Plugin.DeviceOrientation.Abstractions;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 
@@ -54,15 +54,15 @@ namespace XF.Material.Forms.UI.Internals
             
         }
 
-        public void OnOrientationChanged(DeviceOrientations displayOrientation)
+        public void OnOrientationChanged(DisplayOrientation displayOrientation)
         {
-            if (displayOrientation == DeviceOrientations.Portrait || displayOrientation == DeviceOrientations.PortraitFlipped)
+            if (displayOrientation == DisplayOrientation.Portrait)
             {
                 //this.dateLabel.HeightRequest = 56;
                 this.HeightRequest = 120;
                 
             }
-            else if (displayOrientation == DeviceOrientations.Landscape || displayOrientation == DeviceOrientations.LandscapeFlipped)
+            else if (displayOrientation == DisplayOrientation.Landscape)
             {
                 this.dateLabel.HeightRequest = 120;
                 this.dateLabel.WidthRequest = 50;

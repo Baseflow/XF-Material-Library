@@ -4,8 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
-using Plugin.DeviceOrientation;
-using Plugin.DeviceOrientation.Abstractions;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace XF.Material.Forms.UI.Internals
@@ -92,7 +91,7 @@ namespace XF.Material.Forms.UI.Internals
             }
         }
 
-        protected DeviceOrientations DisplayOrientation { get; private set; }
+        protected DisplayOrientation DisplayOrientation { get; private set; }
 
         public double FontSize { get; internal set; } = 12;
 
@@ -224,9 +223,9 @@ namespace XF.Material.Forms.UI.Internals
             }
         }
 
-        public void OnOrientationChanged(DeviceOrientations displayOrientation)
+        public void OnOrientationChanged(DisplayOrientation displayOrientation)
         {
-            if (displayOrientation == DeviceOrientations.Portrait || displayOrientation == DeviceOrientations.PortraitFlipped)
+            if (displayOrientation == DisplayOrientation.Portrait)
             {
                 this.HeightRequest = 512;
                 this.WidthRequest = 328;
@@ -255,7 +254,7 @@ namespace XF.Material.Forms.UI.Internals
                 Grid.SetRow(this.MonthControl, 1);
                 Grid.SetRow(this.DaysGrid, 2);
             }
-            else if (displayOrientation == DeviceOrientations.Landscape || displayOrientation == DeviceOrientations.LandscapeFlipped)
+            else if (displayOrientation == DisplayOrientation.Landscape)
             {
                 this.HeightRequest = 328;
                 this.WidthRequest = 512;
@@ -339,11 +338,11 @@ namespace XF.Material.Forms.UI.Internals
         //{
         //    if (created)
         //    {
-        //        CrossDeviceOrientation.Current.OrientationChanged += this.CurrentOnOrientationChanged;
+        //        DeviceDisplay.MainDisplayInfoChanged += this.DeviceDisplay_MainDisplayInfoChanged;
         //    }
         //    else
         //    {
-        //        CrossDeviceOrientation.Current.OrientationChanged -= this.CurrentOnOrientationChanged;
+        //        DeviceDisplay.MainDisplayInfoChanged -= this.DeviceDisplay_MainDisplayInfoChanged;
         //    }
         //}
     }

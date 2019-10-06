@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using Plugin.DeviceOrientation;
-using Plugin.DeviceOrientation.Abstractions;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XF.Material.Forms.Models;
@@ -77,7 +76,7 @@ namespace XF.Material.Forms.UI.Dialogs
         {
             base.OnAppearing();
 
-            CrossDeviceOrientation.Current.OrientationChanged += this.CurrentOnOrientationChanged;
+            DeviceDisplay.MainDisplayInfoChanged += this.DeviceDisplay_MainDisplayInfoChanged;
         }
 
         protected override void OnAppearingAnimationBegin()
@@ -127,10 +126,10 @@ namespace XF.Material.Forms.UI.Dialogs
         {
             base.OnDisappearing();
 
-            CrossDeviceOrientation.Current.OrientationChanged -= this.CurrentOnOrientationChanged;
+            DeviceDisplay.MainDisplayInfoChanged -= this.DeviceDisplay_MainDisplayInfoChanged;
         }
 
-        private async void CurrentOnOrientationChanged(object sender, OrientationChangedEventArgs e)
+        private async void DeviceDisplay_MainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
         {
             await this.DismissAsync();
         }

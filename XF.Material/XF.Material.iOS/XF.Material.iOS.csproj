@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\..\..\..\packages\Xamarin.Forms.4.2.0.848062\build\Xamarin.Forms.props" Condition="Exists('..\..\..\..\packages\Xamarin.Forms.4.2.0.848062\build\Xamarin.Forms.props')" />
+  <Import Project="..\..\packages\Xamarin.Forms.4.2.0.848062\build\Xamarin.Forms.props" Condition="Exists('..\..\packages\Xamarin.Forms.4.2.0.848062\build\Xamarin.Forms.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -22,7 +22,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug</OutputPath>
+    <OutputPath>bin\$(Configuration)</OutputPath>
     <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -30,17 +30,17 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release</OutputPath>
+    <OutputPath>bin\$(Configuration)</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <DocumentationFile>bin\Release\XF.Material.iOS.xml</DocumentationFile>
+    <DocumentationFile>bin\$(Configuration)\XF.Material.iOS.xml</DocumentationFile>
     <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'iOS Release|AnyCPU'">
-    <OutputPath>bin\iOS Release\</OutputPath>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
     <DefineConstants>__IOS__;__MOBILE__;__UNIFIED__;</DefineConstants>
-    <DocumentationFile>bin\Release\XF.Material.iOS.xml</DocumentationFile>
+    <DocumentationFile>bin\$(Configuration)\XF.Material.iOS.xml</DocumentationFile>
     <Optimize>true</Optimize>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -49,17 +49,17 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Mock|AnyCPU' ">
-    <OutputPath>bin\Mock\</OutputPath>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AppStore|AnyCPU' ">
-    <OutputPath>bin\AppStore\</OutputPath>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Publish|AnyCPU' ">
     <Optimize>true</Optimize>
     <OutputPath>bin\Publish</OutputPath>
     <DefineConstants>__IOS__;__MOBILE__;__UNIFIED__;;DISABLE_XAMARINFORMSLIVE</DefineConstants>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Publish\XF.Material.iOS.xml</DocumentationFile>
+    <DocumentationFile>bin\$(Configuration)\XF.Material.iOS.xml</DocumentationFile>
     <CodesignKey>iPhone Developer</CodesignKey>
     <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
     <MtouchVerbosity></MtouchVerbosity>
@@ -70,39 +70,36 @@
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
-    <Reference Include="Xamarin.iOS" />
-    <Reference Include="Xamarin.Forms.Core">
-      <HintPath>..\..\..\..\packages\Xamarin.Forms.4.2.0.848062\lib\Xamarin.iOS10\Xamarin.Forms.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Forms.Platform">
-      <HintPath>..\..\..\..\packages\Xamarin.Forms.4.2.0.848062\lib\Xamarin.iOS10\Xamarin.Forms.Platform.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Forms.Platform.iOS">
-      <HintPath>..\..\..\..\packages\Xamarin.Forms.4.2.0.848062\lib\Xamarin.iOS10\Xamarin.Forms.Platform.iOS.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Forms.Xaml">
-      <HintPath>..\..\..\..\packages\Xamarin.Forms.4.2.0.848062\lib\Xamarin.iOS10\Xamarin.Forms.Xaml.dll</HintPath>
-    </Reference>
+    <Reference Include="OpenTK-1.0" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="Lottie.iOS">
       <HintPath>..\..\packages\Com.Airbnb.iOS.Lottie.2.5.9\lib\xamarinios10\Lottie.iOS.dll</HintPath>
     </Reference>
-    <Reference Include="OpenTK-1.0" />
-    <Reference Include="Lottie.Forms">
-      <HintPath>..\..\packages\Com.Airbnb.Xamarin.Forms.Lottie.3.0.1\lib\xamarinios10\Lottie.Forms.dll</HintPath>
+    <Reference Include="Xamarin.Forms.Core">
+      <HintPath>..\..\packages\Xamarin.Forms.4.2.0.848062\lib\Xamarin.iOS10\Xamarin.Forms.Core.dll</HintPath>
     </Reference>
-    <Reference Include="System.IO.Compression" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="Plugin.DeviceOrientation.Abstractions">
-      <HintPath>..\..\..\..\packages\Plugin.DeviceOrientation.1.0.7\lib\Xamarin.iOS10\Plugin.DeviceOrientation.Abstractions.dll</HintPath>
+    <Reference Include="Xamarin.Forms.Platform">
+      <HintPath>..\..\packages\Xamarin.Forms.4.2.0.848062\lib\Xamarin.iOS10\Xamarin.Forms.Platform.dll</HintPath>
     </Reference>
-    <Reference Include="Plugin.DeviceOrientation">
-      <HintPath>..\..\..\..\packages\Plugin.DeviceOrientation.1.0.7\lib\Xamarin.iOS10\Plugin.DeviceOrientation.dll</HintPath>
+    <Reference Include="Xamarin.Forms.Platform.iOS">
+      <HintPath>..\..\packages\Xamarin.Forms.4.2.0.848062\lib\Xamarin.iOS10\Xamarin.Forms.Platform.iOS.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Forms.Xaml">
+      <HintPath>..\..\packages\Xamarin.Forms.4.2.0.848062\lib\Xamarin.iOS10\Xamarin.Forms.Xaml.dll</HintPath>
     </Reference>
     <Reference Include="Rg.Plugins.Popup">
       <HintPath>..\..\packages\Rg.Plugins.Popup.1.2.0.223\lib\Xamarin.IOS\Rg.Plugins.Popup.dll</HintPath>
     </Reference>
     <Reference Include="Rg.Plugins.Popup.IOS">
       <HintPath>..\..\packages\Rg.Plugins.Popup.1.2.0.223\lib\Xamarin.IOS\Rg.Plugins.Popup.IOS.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.iOS" />
+    <Reference Include="Lottie.Forms">
+      <HintPath>..\..\packages\Com.Airbnb.Xamarin.Forms.Lottie.3.0.1\lib\xamarinios10\Lottie.Forms.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Essentials">
+      <HintPath>..\..\packages\Xamarin.Essentials.1.3.1\lib\xamarinios10\Xamarin.Essentials.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -135,12 +132,6 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\XF.Material.Forms\XF.Material.Forms.csproj">
-      <Project>{3C94928D-49F5-44DE-B044-868627824275}</Project>
-      <Name>XF.Material.Forms</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\xf_checkbox_unselected%403x.png" />
@@ -188,7 +179,12 @@
     <BundleResource Include="Resources\xf_arrow_dropdown%403x.png" />
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\XF.Material.Forms\XF.Material.Forms.csproj">
+      <Project>{8D5F7334-ADFF-4925-B1CA-47C199E39CC2}</Project>
+      <Name>XF.Material.Forms</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
-  <Import Project="..\..\..\..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\..\..\..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" />
-  <Import Project="..\..\..\..\packages\Xamarin.Forms.4.2.0.848062\build\Xamarin.Forms.targets" Condition="Exists('..\..\..\..\packages\Xamarin.Forms.4.2.0.848062\build\Xamarin.Forms.targets')" />
+  <Import Project="..\..\packages\Xamarin.Forms.4.2.0.848062\build\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.4.2.0.848062\build\Xamarin.Forms.targets')" />
 </Project>

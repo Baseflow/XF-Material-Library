@@ -1,6 +1,4 @@
-﻿using Plugin.DeviceOrientation;
-using Plugin.DeviceOrientation.Abstractions;
-using Rg.Plugins.Popup.Animations;
+﻿using Rg.Plugins.Popup.Animations;
 using Rg.Plugins.Popup.Pages;
 using Rg.Plugins.Popup.Services;
 using System;
@@ -8,6 +6,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace XF.Material.Forms.UI.Dialogs
@@ -17,6 +16,8 @@ namespace XF.Material.Forms.UI.Dialogs
     /// </summary>
     public abstract class BaseMaterialModalPage : PopupPage, IMaterialModalPage
     {
+        public Guid Identifier { get; } = Guid.NewGuid();
+
         private bool _disposed;
         private bool _dismissing;
 
@@ -35,7 +36,7 @@ namespace XF.Material.Forms.UI.Dialogs
                 ScaleOut = 1
             };
 
-            this.DisplayOrientation = Plugin.DeviceOrientation.CrossDeviceOrientation.Current.CurrentOrientation;
+            this.DisplayOrientation = DeviceDisplay.MainDisplayInfo.Orientation;
         }
 
         public virtual bool Dismissable => true;
@@ -46,7 +47,7 @@ namespace XF.Material.Forms.UI.Dialogs
             set { }
         }
 
-        protected DeviceOrientations DisplayOrientation { get; private set; }
+        protected DisplayOrientation DisplayOrientation { get; private set; }
 
         /// <summary>
         /// Dismisses this modal dialog asynchronously.
@@ -104,14 +105,14 @@ namespace XF.Material.Forms.UI.Dialogs
         {
             base.OnAppearing();
 
-            CrossDeviceOrientation.Current.OrientationChanged += this.CurrentOnOrientationChanged;
+            DeviceDisplay.MainDisplayInfoChanged += this.DeviceDisplay_MainDisplayInfoChanged;
         }
 
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
 
-            CrossDeviceOrientation.Current.OrientationChanged -= this.CurrentOnOrientationChanged;
+            DeviceDisplay.MainDisplayInfoChanged -= this.DeviceDisplay_MainDisplayInfoChanged;
         }
 
         protected override void OnDisappearingAnimationEnd()
@@ -120,7 +121,7 @@ namespace XF.Material.Forms.UI.Dialogs
             this.Dispose();
         }
 
-        protected virtual void OnOrientationChanged(DeviceOrientations orientation)
+        protected virtual void OnOrientationChanged(DisplayOrientation orientation)
         {
         }
 
@@ -148,10 +149,10 @@ namespace XF.Material.Forms.UI.Dialogs
                 .Exists(p => p.GetType() == this.GetType());
         }
 
-        private void CurrentOnOrientationChanged(object sender, OrientationChangedEventArgs e)
+        private void DeviceDisplay_MainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
         {
-            if (this.DisplayOrientation == e.Orientation) return;
-            this.DisplayOrientation = e.Orientation;
+            if (this.DisplayOrientation == e.DisplayInfo.Orientation) return;
+            this.DisplayOrientation = e.DisplayInfo.Orientation;
             this.OnOrientationChanged(this.DisplayOrientation);
         }
     }

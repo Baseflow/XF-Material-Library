@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Plugin.DeviceOrientation.Abstractions;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XF.Material.Forms.UI.Dialogs.Configurations;
@@ -58,7 +58,7 @@ namespace XF.Material.Forms.UI.Dialogs
             NegativeButton.Clicked -= this.NegativeButton_Clicked;
         }
 
-        protected override void OnOrientationChanged(DeviceOrientations orientation)
+        protected override void OnOrientationChanged(DisplayOrientation orientation)
         {
             base.OnOrientationChanged(orientation);
 
@@ -69,11 +69,11 @@ namespace XF.Material.Forms.UI.Dialogs
         {
             switch (this.DisplayOrientation)
             {
-                case DeviceOrientations.Landscape when Device.Idiom == TargetIdiom.Phone:
+                case DisplayOrientation.Landscape when Device.Idiom == TargetIdiom.Phone:
                     Container.WidthRequest = 560;
                     Container.HorizontalOptions = LayoutOptions.Center;
                     break;
-                case DeviceOrientations.Portrait when Device.Idiom == TargetIdiom.Phone:
+                case DisplayOrientation.Portrait when Device.Idiom == TargetIdiom.Phone:
                     Container.WidthRequest = -1;
                     Container.HorizontalOptions = LayoutOptions.FillAndExpand;
                     break;

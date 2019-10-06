@@ -7,8 +7,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Plugin.DeviceOrientation;
-using Plugin.DeviceOrientation.Abstractions;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XF.Material.Forms.Resources;
@@ -97,7 +96,7 @@ namespace XF.Material.Forms.UI
         private readonly Easing _animationCurve = Easing.SinOut;
         private readonly Dictionary<string, Action> _propertyChangeActions;
         private bool _counterEnabled;
-        private DeviceOrientations DisplayOrientation;
+        private DisplayOrientation DisplayOrientation;
         private List<int> _selectedIndicies = new List<int>();
         private bool _wasFocused;
 
@@ -109,7 +108,7 @@ namespace XF.Material.Forms.UI
             this.InitializeComponent();
             this.SetPropertyChangeHandler(ref _propertyChangeActions);
             this.SetControl();
-            this.DisplayOrientation = Plugin.DeviceOrientation.CrossDeviceOrientation.Current.CurrentOrientation;
+            this.DisplayOrientation = DeviceDisplay.MainDisplayInfo.Orientation;
         }
 
         public event EventHandler<SelectedItemChangedEventArgs> ChoiceSelected;
@@ -470,7 +469,7 @@ namespace XF.Material.Forms.UI
                 editor.Focused += this.Entry_Focused;
                 editor.Unfocused += this.Entry_Unfocused;
                 editor.Completed += this.Entry_Completed;
-                CrossDeviceOrientation.Current.OrientationChanged += this.CurrentOnOrientationChanged;
+                DeviceDisplay.MainDisplayInfoChanged += this.DeviceDisplay_MainDisplayInfoChanged;
             }
             else
             {
@@ -480,7 +479,7 @@ namespace XF.Material.Forms.UI
                 editor.Focused -= this.Entry_Focused;
                 editor.Unfocused -= this.Entry_Unfocused;
                 editor.Completed += this.Entry_Completed;
-                CrossDeviceOrientation.Current.OrientationChanged -= this.CurrentOnOrientationChanged;
+                DeviceDisplay.MainDisplayInfoChanged -= this.DeviceDisplay_MainDisplayInfoChanged;
             }
         }
 
@@ -783,9 +782,9 @@ namespace XF.Material.Forms.UI
             });
         }
 
-        private void CurrentOnOrientationChanged(object sender, OrientationChangedEventArgs e)
+        private void DeviceDisplay_MainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
         {
-            if (e.Orientation != this.DisplayOrientation)
+            if (e.DisplayInfo.Orientation != this.DisplayOrientation)
             {
                 if (!string.IsNullOrEmpty(editor.Text) && this.ShouldAnimateUnderline)
                 {
@@ -793,7 +792,7 @@ namespace XF.Material.Forms.UI
                     underline.HorizontalOptions = LayoutOptions.FillAndExpand;
                 }
 
-                this.DisplayOrientation = e.Orientation;
+                this.DisplayOrientation = e.DisplayInfo.Orientation;
             }
         }
 

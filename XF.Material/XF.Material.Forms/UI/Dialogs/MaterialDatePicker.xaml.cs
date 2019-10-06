@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Plugin.DeviceOrientation.Abstractions;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using XF.Material.Forms.UI.Dialogs.Configurations;
 
@@ -79,7 +79,7 @@ namespace XF.Material.Forms.UI.Dialogs
             this.Calendar.SelectionChanged -= this.Calendar_OnSelectionChanged;
         }
 
-        protected override void OnOrientationChanged(DeviceOrientations orientation)
+        protected override void OnOrientationChanged(DisplayOrientation orientation)
         {
             base.OnOrientationChanged(orientation);
 
@@ -90,13 +90,11 @@ namespace XF.Material.Forms.UI.Dialogs
         {
             switch (this.DisplayOrientation)
             {
-                case DeviceOrientations.Landscape:// when Device.Idiom == TargetIdiom.Phone:
-                case DeviceOrientations.LandscapeFlipped:
+                case Xamarin.Essentials.DisplayOrientation.Landscape:// when Device.Idiom == TargetIdiom.Phone:
                     this.Container.WidthRequest = 512;
                     this.Container.HorizontalOptions = LayoutOptions.Center;
                     break;
-                case DeviceOrientations.Portrait:// when Device.Idiom == TargetIdiom.Phone:
-                case DeviceOrientations.PortraitFlipped:
+                case Xamarin.Essentials.DisplayOrientation.Portrait:// when Device.Idiom == TargetIdiom.Phone:
                     this.Container.WidthRequest = 328;
                     this.Container.HorizontalOptions = LayoutOptions.Center;
                     break;

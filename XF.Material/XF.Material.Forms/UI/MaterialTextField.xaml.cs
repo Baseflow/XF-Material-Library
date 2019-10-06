@@ -7,8 +7,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Plugin.DeviceOrientation;
-using Plugin.DeviceOrientation.Abstractions;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XF.Material.Forms.Resources;
@@ -107,7 +106,7 @@ namespace XF.Material.Forms.UI
         private readonly Easing _animationCurve = Easing.SinOut;
         protected readonly Dictionary<string, Action> _propertyChangeActions;
         private bool _counterEnabled;
-        private DeviceOrientations DisplayOrientation;
+        private DisplayOrientation DisplayOrientation;
         private List<int> _selectedIndicies = new List<int>();
         private bool _wasFocused;
 
@@ -119,7 +118,7 @@ namespace XF.Material.Forms.UI
             this.InitializeComponent();
             this.SetPropertyChangeHandler(ref _propertyChangeActions);
             this.SetControl();
-            this.DisplayOrientation = Plugin.DeviceOrientation.CrossDeviceOrientation.Current.CurrentOrientation;
+            this.DisplayOrientation = DeviceDisplay.MainDisplayInfo.Orientation;
         }
 
         protected Entry Entry
@@ -544,7 +543,7 @@ namespace XF.Material.Forms.UI
                 entry.Focused += this.Entry_Focused;
                 entry.Unfocused += this.Entry_Unfocused;
                 entry.Completed += this.Entry_Completed;
-                CrossDeviceOrientation.Current.OrientationChanged += this.CurrentOnOrientationChanged;
+                DeviceDisplay.MainDisplayInfoChanged += this.CurrentOnOrientationChanged;
             }
             else
             {
@@ -554,7 +553,7 @@ namespace XF.Material.Forms.UI
                 entry.Focused -= this.Entry_Focused;
                 entry.Unfocused -= this.Entry_Unfocused;
                 entry.Completed += this.Entry_Completed;
-                CrossDeviceOrientation.Current.OrientationChanged -= this.CurrentOnOrientationChanged;
+                DeviceDisplay.MainDisplayInfoChanged -= this.CurrentOnOrientationChanged;
             }
         }
 
@@ -896,9 +895,9 @@ namespace XF.Material.Forms.UI
             });
         }
 
-        protected void CurrentOnOrientationChanged(object sender, OrientationChangedEventArgs e)
+        protected void CurrentOnOrientationChanged(object sender, DisplayInfoChangedEventArgs e)
         {
-            if (e.Orientation != this.DisplayOrientation)
+            if (e.DisplayInfo.Orientation != this.DisplayOrientation)
             {
                 if (!string.IsNullOrEmpty(entry.Text) && this.ShouldAnimateUnderline)
                 {
@@ -906,7 +905,7 @@ namespace XF.Material.Forms.UI
                     underline.HorizontalOptions = LayoutOptions.FillAndExpand;
                 }
 
-                this.DisplayOrientation = e.Orientation;
+                this.DisplayOrientation = e.DisplayInfo.Orientation;
             }
         }
 
@@ -935,8 +934,8 @@ namespace XF.Material.Forms.UI
                     this.AnimateToActivatedState();
                     break;
 
-                case nameof(Entry.Text):
-                    this.Text = entry.Text;
+                case nameof(this.Text):
+                    this.Text = this.entry.Text;
                     this.UpdateCounter();
                     break;
             }
@@ -1456,6 +1455,10 @@ namespace XF.Material.Forms.UI
 
         private void SetControl()
         {
+            if (this.RespondsToInputCycle(this.InputType))
+            {
+                this.OnInputTypeChanged(this.InputType);
+            }
             trailingIcon.TintColor = this.TrailingIconTintColor;
             persistentUnderline.Color = this.UnderlineColor;
             tapGesture.Command = new Command(() =>
