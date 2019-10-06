@@ -138,7 +138,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\XF.Material.Forms\XF.Material.Forms.csproj">
-      <Project>{6F94A7BF-456F-4B31-8542-765F4EB7C87C}</Project>
+      <Project>{3C94928D-49F5-44DE-B044-868627824275}</Project>
       <Name>XF.Material.Forms</Name>
     </ProjectReference>
   </ItemGroup>

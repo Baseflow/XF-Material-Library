@@ -15,7 +15,7 @@
     <FileAlignment>512</FileAlignment>
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
-    <TargetFrameworkVersion>v9.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v10.0</TargetFrameworkVersion>
     <ReleaseVersion>2.0</ReleaseVersion>
     <SynchReleaseVersion>false</SynchReleaseVersion>
   </PropertyGroup>
@@ -160,7 +160,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\XF.Material.Forms\XF.Material.Forms.csproj">
-      <Project>{6F94A7BF-456F-4B31-8542-765F4EB7C87C}</Project>
+      <Project>{8D5F7334-ADFF-4925-B1CA-47C199E39CC2}</Project>
       <Name>XF.Material.Forms</Name>
     </ProjectReference>
   </ItemGroup>
