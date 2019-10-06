@@ -522,7 +522,7 @@ namespace XF.Material.iOS.Renderers
                                                                 font: this.Control.Font,
                                                                 foregroundColor: this.Control.TitleColor(UIControlState.Disabled),
                                                                 kerning: (float)_materialButton.LetterSpacing);
-            this.Control.SetAttributedTitle(attributedString, UIControlState.Disabled);
+            this.Control.SetAttributedTitle(disabledAttributedString, UIControlState.Disabled);
         }
 
         private void UpdateTextSizing()
