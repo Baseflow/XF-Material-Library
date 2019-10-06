@@ -96,10 +96,10 @@
       <HintPath>..\..\..\..\packages\Plugin.DeviceOrientation.1.0.7\lib\Xamarin.iOS10\Plugin.DeviceOrientation.dll</HintPath>
     </Reference>
     <Reference Include="Rg.Plugins.Popup">
-      <HintPath>..\..\packages\Rg.Plugins.Popup.Pepsi1x1.2.0.0-CI-20190922-021550\lib\Xamarin.IOS\Rg.Plugins.Popup.dll</HintPath>
+      <HintPath>..\..\packages\Rg.Plugins.Popup.1.2.0.223\lib\Xamarin.IOS\Rg.Plugins.Popup.dll</HintPath>
     </Reference>
     <Reference Include="Rg.Plugins.Popup.IOS">
-      <HintPath>..\..\packages\Rg.Plugins.Popup.Pepsi1x1.2.0.0-CI-20190922-021550\lib\Xamarin.IOS\Rg.Plugins.Popup.IOS.dll</HintPath>
+      <HintPath>..\..\packages\Rg.Plugins.Popup.1.2.0.223\lib\Xamarin.IOS\Rg.Plugins.Popup.IOS.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

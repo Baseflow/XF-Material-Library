@@ -211,8 +211,8 @@
     <PackageReference Include="Plugin.DeviceOrientation">
       <Version>1.0.7</Version>
     </PackageReference>
-    <PackageReference Include="Rg.Plugins.Popup.Pepsi1x1">
-      <Version>2.0.0-CI-20190922-021550</Version>
+    <PackageReference Include="Rg.Plugins.Popup">
+      <Version>1.2.0.223</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

@@ -54,7 +54,7 @@
     <PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie" Version="3.0.1" />
     <PackageReference Include="Xamarin.Forms" Version="4.2.0.815419" />
     <PackageReference Include="Plugin.DeviceOrientation" Version="1.0.7" />
-    <PackageReference Include="Rg.Plugins.Popup.Pepsi1x1" Version="2.0.0-CI-20190922-021550" />
+    <PackageReference Include="Rg.Plugins.Popup" Version="1.2.0.223" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="UI\Dialogs\MaterialAlertDialog.xaml.cs">

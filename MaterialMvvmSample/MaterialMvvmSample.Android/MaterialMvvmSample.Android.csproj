@@ -86,8 +86,8 @@
     <PackageReference Include="Xamarin.Forms">
       <Version>4.2.0.815419</Version>
     </PackageReference>
-    <PackageReference Include="Rg.Plugins.Popup.Pepsi1x1">
-      <Version>2.0.0-CI-20190922-021550</Version>
+    <PackageReference Include="Rg.Plugins.Popup">
+      <Version>1.2.0.223</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

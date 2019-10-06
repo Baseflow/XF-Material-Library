@@ -140,6 +140,7 @@ namespace XF.Material.Forms.UI.Dialogs
             this._disposed = true;
         }
 
+
         /// <summary>
         /// Shows this modal dialog.
         /// </summary>
@@ -147,10 +148,7 @@ namespace XF.Material.Forms.UI.Dialogs
         {
             if (this.CanShowPopup())
             {
-                await Device.InvokeOnMainThreadAsync(async () =>
-                {
-                    await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(this, true);
-                }).ConfigureAwait(false);
+                await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(this, true);
 
             }
             else
@@ -159,8 +157,9 @@ namespace XF.Material.Forms.UI.Dialogs
                 {
                     await this.DismissAsync();
                 }
-                catch
+                catch(Exception ex)
                 {
+                    System.Diagnostics.Debug.WriteLine(ex.Message);
                     var mutable = Rg.Plugins.Popup.Services.PopupNavigation.Instance.PopupStack as List<Rg.Plugins.Popup.Pages.PopupPage>;
                     mutable?.Clear();
                 }

@@ -32,11 +32,11 @@ namespace XF.Material.Forms.UI
             this.InputType = MaterialTextFieldInputType.Date;
             base.TrailingIcon = "xf_arrow_dropdown";
             //base.entry.SetBinding(MaterialTextField.TextProperty, "Date", BindingMode.OneWay);
-            base.Focused += this.MaterialDateField_Focused;
         }
 
-        private async void MaterialDateField_Focused(object sender, FocusEventArgs e)
+        private async Task MaterialDateField_Focused()
         {
+            base.Focus();
             await this.PickDate();
             base.Unfocus();
         }
@@ -56,7 +56,7 @@ namespace XF.Material.Forms.UI
         {
             await base.OnPartcipatingInNonUserInteractiveInput();
 
-            base.Focus();
+            await this.MaterialDateField_Focused();
         }
 
         private async Task PickDate()

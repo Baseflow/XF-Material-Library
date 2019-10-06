@@ -523,6 +523,17 @@ namespace XF.Material.Forms.UI
         /// For internal use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
+        protected bool IsFocusedInternal
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
+        /// <summary>
+        /// For internal use only.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public void ElementChanged(bool created)
         {
             if (created)
@@ -550,12 +561,50 @@ namespace XF.Material.Forms.UI
         /// <summary>
         /// Requests to set focus on this text field.
         /// </summary>
-        public new void Focus() => entry.Focus();
+        public new void Focus()
+        {
+            this.IsFocusedInternal = true;
+            
+            if(this.RespondsToInputCycle(this.InputType))
+            {
+                this.entry.Focus();
+            }
+            else
+            {
+                if (string.IsNullOrEmpty(this.entry.Text))
+                {
+                    this.AnimateToInactiveOrFocusedState();
+                }
+                else
+                {
+                    this.AnimateToActivatedState();
+                }
+            }
+        }
 
         /// <summary>
         /// Requests to unset the focus on this text field.
         /// </summary>
-        public new void Unfocus() => entry.Unfocus();
+        public new void Unfocus()
+        {
+            this.IsFocusedInternal = false;
+
+            if (this.RespondsToInputCycle(this.InputType))
+            {
+                this.entry.Unfocus();
+            }
+            else
+            {
+                if(string.IsNullOrEmpty(this.entry.Text))
+                {
+                    this.AnimateToInactiveOrFocusedState();
+                }
+                else
+                {
+                    this.AnimateToActivatedState();
+                }
+            }
+        }
 
         protected override void OnBindingContextChanged()
         {
@@ -593,7 +642,7 @@ namespace XF.Material.Forms.UI
             var anim = new Animation();
             var hasText = !string.IsNullOrEmpty(this.Text);
 
-            if (entry.IsFocused)
+            if (IsFocusedInternal)
             {
                 var tintColor = this.HasError ? this.ErrorColor : this.TintColor;
 
@@ -633,18 +682,18 @@ namespace XF.Material.Forms.UI
             Color tintColor;
             double preferredStartFont = this.FloatingPlaceholderFontSize == 0 ? entry.FontSize * 0.75 : this.FloatingPlaceholderFontSize;
             double preferredEndFont = this.FloatingPlaceholderFontSize == 0 ? entry.FontSize * 0.75 : this.FloatingPlaceholderFontSize;
-            double startFont = entry.IsFocused ? entry.FontSize : preferredStartFont;
-            double endFOnt = entry.IsFocused ? preferredEndFont : entry.FontSize;
+            double startFont = IsFocusedInternal ? entry.FontSize : preferredStartFont;
+            double endFOnt = IsFocusedInternal ? preferredEndFont : entry.FontSize;
             var startY = placeholder.TranslationY;
-            double endY = entry.IsFocused ? -(entry.FontSize * 0.8) : 0;
+            double endY = IsFocusedInternal ? -(entry.FontSize * 0.8) : 0;
 
             if (this.HasError)
             {
-                tintColor = entry.IsFocused ? this.ErrorColor : this.PlaceholderColor;
+                tintColor = IsFocusedInternal ? this.ErrorColor : this.PlaceholderColor;
             }
             else
             {
-                tintColor = entry.IsFocused ? this.TintColor : this.PlaceholderColor;
+                tintColor = this.IsFocusedInternal ? this.TintColor : this.PlaceholderColor;
             }
 
             var anim = this.FloatingPlaceholderEnabled ? new Animation
@@ -669,7 +718,7 @@ namespace XF.Material.Forms.UI
                 }
             } : new Animation();
 
-            if (entry.IsFocused)
+            if (this.IsFocusedInternal)
             {
                 if (this.ShouldAnimateUnderline)
                 {
@@ -747,7 +796,7 @@ namespace XF.Material.Forms.UI
 
             if (startObject != null && string.IsNullOrEmpty(this.Text) && placeholder.TranslationY == placeholderEndY)
             {
-                if (entry.IsFocused)
+                if (this.IsFocusedInternal)
                 {
                     return;
                 }
@@ -779,7 +828,7 @@ namespace XF.Material.Forms.UI
         private void ChangeToErrorState()
         {
             const int animDuration = 250;
-            placeholder.TextColor = (this.FloatingPlaceholderEnabled && entry.IsFocused) || (this.FloatingPlaceholderEnabled && !string.IsNullOrEmpty(this.Text)) ? this.ErrorColor : this.PlaceholderColor;
+            placeholder.TextColor = (this.FloatingPlaceholderEnabled && this.IsFocusedInternal) || (this.FloatingPlaceholderEnabled && !string.IsNullOrEmpty(this.Text)) ? this.ErrorColor : this.PlaceholderColor;
             counter.TextColor = this.ErrorColor;
             underline.Color = this.ShouldAnimateUnderline ? this.ErrorColor : Color.Transparent;
             persistentUnderline.Color = this.AlwaysShowUnderline ? this.ErrorColor : Color.Transparent;
@@ -865,8 +914,9 @@ namespace XF.Material.Forms.UI
 
         private void Entry_Focused(object sender, FocusEventArgs e)
         {
+            this.IsFocusedInternal = true;
             _wasFocused = true;
-            this.FocusCommand?.Execute(entry.IsFocused);
+            this.FocusCommand?.Execute(this.IsFocusedInternal);
             this.Focused?.Invoke(this, e);
             this.UpdateCounter();
         }
@@ -876,10 +926,12 @@ namespace XF.Material.Forms.UI
             switch (e.PropertyName)
             {
                 case nameof(this.IsFocused) when string.IsNullOrEmpty(entry.Text):
+                    this.IsFocusedInternal = entry.IsFocused;
                     this.AnimateToInactiveOrFocusedState();
                     break;
 
                 case nameof(this.IsFocused) when !string.IsNullOrEmpty(entry.Text):
+                    this.IsFocusedInternal = entry.IsFocused;
                     this.AnimateToActivatedState();
                     break;
 
@@ -936,7 +988,8 @@ namespace XF.Material.Forms.UI
 
         private void Entry_Unfocused(object sender, FocusEventArgs e)
         {
-            this.FocusCommand?.Execute(entry.IsFocused);
+            this.IsFocusedInternal = false;
+            this.FocusCommand?.Execute(this.IsFocusedInternal);
             this.Unfocused?.Invoke(this, e);
             this.UpdateCounter();
         }
@@ -1136,7 +1189,7 @@ namespace XF.Material.Forms.UI
 
             // Hint: Will use this for MaterialTextArea
             // entry.AutoSize = inputType == MaterialTextFieldInputType.MultiLineText ? EditorAutoSizeOption.TextChanges : EditorAutoSizeOption.Disabled;
-            _gridContainer.InputTransparent = this.RespondsToInputCycle(inputType);
+            _gridContainer.InputTransparent = !this.RespondsToInputCycle(inputType);
             trailingIcon.IsVisible = this.ShowsTrailingIcon(inputType);
 
             entry.IsNumericKeyboard = inputType == MaterialTextFieldInputType.Telephone || inputType == MaterialTextFieldInputType.Numeric;
@@ -1150,7 +1203,7 @@ namespace XF.Material.Forms.UI
 
         private bool RespondsToInputCycle(MaterialTextFieldInputType inputType)
         {
-            return this.IsPickerInput(inputType) || this.IsChoiceInput(inputType);
+            return !this.IsPickerInput(inputType) && !this.IsChoiceInput(inputType);
         }
 
         private bool IsPickerInput(MaterialTextFieldInputType inputType)
@@ -1409,7 +1462,7 @@ namespace XF.Material.Forms.UI
             {
                 if (this.RespondsToInputCycle(this.InputType))
                 {
-                    if (!entry.IsFocused)
+                    if (!this.IsFocusedInternal)
                     {
                         entry.Focus();
                     }
@@ -1462,7 +1515,7 @@ namespace XF.Material.Forms.UI
         {
             if (!_counterEnabled) return;
             var count = entry.Text?.Length ?? 0;
-            counter.Text = entry.IsFocused ? $"{count}/{this.MaxLength}" : string.Empty;
+            counter.Text = this.IsFocusedInternal ? $"{count}/{this.MaxLength}" : string.Empty;
         }
     }
 }
