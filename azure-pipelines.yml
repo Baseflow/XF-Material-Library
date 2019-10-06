@@ -8,7 +8,7 @@ trigger:
     - README.md
 
 pool:
-  name: Hosted macOS
+  vmImage: 'macOS-10.14'
   demands: msbuild
 
 variables:
@@ -17,7 +17,21 @@ variables:
   outputDirectory: '$(build.artifactStagingDirectory)/$(BuildConfiguration)'
 
 steps:
+- task: UseDotNet@2
+  displayName: 'Select .Net Core version'
+  inputs:
+    packageType: sdk
+    version: 3.0.100
+    installationPath: $(Agent.ToolsDirectory)/dotnet
+
+- script: sudo $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh 6_4_0
+  displayName: 'Select Xamarin version'
+- script: echo '##vso[task.setvariable variable=MD_APPLE_SDK_ROOT;]'/Applications/Xcode_11.app;sudo xcode-select --switch /Applications/Xcode_11.app/Contents/Developer
+  displayName: 'Select Xcode version'
+
 - task: NuGetToolInstaller@1
+  inputs:
+    versionSpec: '4.x'
 
 - task: NuGetCommand@2
   inputs:
