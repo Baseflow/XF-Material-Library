@@ -1262,7 +1262,7 @@ namespace XF.Material.Forms.UI
             {
                 var selectedChoice = GetSelectedChoice(_selectedIndex);
                 SelectedChoice = selectedChoice;
-                ChoiceSelected?.Invoke(this, new SelectedItemChangedEventArgs(selectedChoice));
+                ChoiceSelected?.Invoke(this, new SelectedItemChangedEventArgs(selectedChoice, _selectedIndex));
                 ChoiceSelectedCommand?.Execute(selectedChoice);
             }
             else if (InputType == MaterialTextFieldInputType.Choice && string.IsNullOrEmpty(text))
