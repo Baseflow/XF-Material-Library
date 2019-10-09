@@ -11,6 +11,9 @@ namespace MaterialMvvmSample.ViewModels
 
         public ICommand GoToChipFontSizeViewCommand => this.GoToCommand(ViewNames.ChipFontSizeView);
 
+        public ICommand GoToCheckboxesSampleCommand => this.GoToCommand(ViewNames.CheckboxesView);
+
+
         private ICommand GoToCommand(string name) => new Command(() => this.Navigation.PushAsync(name));
     }
 }

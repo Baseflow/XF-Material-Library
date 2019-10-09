@@ -21,7 +21,7 @@
   </ItemGroup>
   
   <ItemGroup>
-    <Compile Update="**\*.xaml.cs" DependentUpon="MaterialDialogsView.xaml" />
+    <Compile Update="**\*.xaml.cs" DependentUpon="CheckboxesView.xaml" />
   </ItemGroup>
   
 </Project>

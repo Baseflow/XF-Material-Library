@@ -11,5 +11,8 @@
         public const string LandingView = nameof(Views.LandingView);
 
         public const string MaterialDialogsView = nameof(Views.MaterialDialogsView);
+
+        public const string CheckboxesView = nameof(Views.CheckboxesView);
+
     }
 }
