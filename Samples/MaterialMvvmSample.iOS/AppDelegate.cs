@@ -9,6 +9,7 @@ namespace MaterialMvvmSample.iOS
     {
         public override bool FinishedLaunching(UIApplication uiApplication, NSDictionary launchOptions)
         {
+            Rg.Plugins.Popup.Popup.Init();
             Xamarin.Forms.Forms.Init();
             XF.Material.iOS.Material.Init();
 
