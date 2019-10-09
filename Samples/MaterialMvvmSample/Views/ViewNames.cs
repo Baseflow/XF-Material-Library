@@ -7,5 +7,8 @@
         public const string ChipFontSizeView = nameof(Views.ChipFontSizeView);
 
         public const string SecondView = nameof(Views.SecondView);
+
+        public const string LandingView = nameof(Views.LandingView);
+
     }
 }
