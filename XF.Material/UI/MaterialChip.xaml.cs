@@ -18,6 +18,7 @@ namespace XF.Material.Forms.UI
         public static readonly BindableProperty ImageTintColorProperty = BindableProperty.Create(nameof(ImageTintColor), typeof(Color), typeof(MaterialChip), default(Color));
         public static readonly BindableProperty TextColorProperty = BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(MaterialChip), Color.FromHex("#DE000000"));
         public static readonly BindableProperty TextProperty = BindableProperty.Create(nameof(Text), typeof(string), typeof(MaterialChip), string.Empty);
+        public static readonly BindableProperty FontSizeProperty = BindableProperty.Create(nameof(FontSize), typeof(double), typeof(MaterialChip), 14.0);
 
         private bool _canExecute;
 
@@ -82,6 +83,12 @@ namespace XF.Material.Forms.UI
             set => SetValue(TextColorProperty, value);
         }
 
+        public double FontSize
+        {
+            get => (double)GetValue(FontSizeProperty);
+            set => SetValue(FontSizeProperty, value);
+        }
+
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             if (propertyName == nameof(BackgroundColor))
@@ -96,6 +103,9 @@ namespace XF.Material.Forms.UI
                 {
                     case nameof(Text):
                         ChipLabel.Text = Text;
+                        break;
+                    case nameof(FontSize):
+                        ChipLabel.FontSize = FontSize;
                         break;
                     case nameof(ActionImageTintColor):
                         ChipActionImage.TintColor = ActionImageTintColor;

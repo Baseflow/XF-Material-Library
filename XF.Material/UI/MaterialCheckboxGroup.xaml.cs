@@ -132,7 +132,6 @@ namespace XF.Material.Forms.UI
                                 model.IsSelected = false;
                             }
                         }
-
                         else
                         {
                             foreach (var index in SelectedIndices)
@@ -158,14 +157,12 @@ namespace XF.Material.Forms.UI
                     SelectedIndices.Add(index);
                     OnSelectedIndicesChanged(SelectedIndices);
                 }
-
                 else if (!isSelected && SelectedIndices.Any(s => s == index))
                 {
                     SelectedIndices.Remove(index);
                     OnSelectedIndicesChanged(SelectedIndices);
                 }
             }
-
             catch (NotSupportedException)
             {
                 throw new NotSupportedException("Please use a collection type that has no fixed size for the property SelectedIndices");

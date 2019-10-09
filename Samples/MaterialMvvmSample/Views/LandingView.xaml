@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<local:BaseLandingView xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       x:Class="MaterialMvvmSample.Views.LandingView"
+                       Title="Access all samples"
+                       xmlns:local="clr-namespace:MaterialMvvmSample.Views"
+                       xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material">
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical">
+            <material:MaterialButton Text="Go To MaterialChip sample"
+                                     Command="{Binding GoToChipFontSizeViewCommand}"
+                                     Margin="10" />
+
+            <material:MaterialButton Text="Go To Material Dialogs sample"
+                                     Command="{Binding GoToMaterialDialogsCommand}"
+                                     Margin="10" />
+
+            <material:MaterialButton Text="Go To Checkboxes sample"
+                                     Command="{Binding GoToCheckboxesSampleCommand}"
+                                     Margin="10" />
+
+            <!-- New sample shortcuts should be added here (Button + Associated command in the LandingViewModel) -->
+        </StackLayout>
+    </ContentPage.Content>
+</local:BaseLandingView>

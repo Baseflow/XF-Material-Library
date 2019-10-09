@@ -106,7 +106,6 @@ namespace MaterialMvvmSample.ViewModels
             {
                 EmailHasError = true;
             }
-
             else if (!s && Email?.Length <= 3)
             {
                 EmailHasError = false;

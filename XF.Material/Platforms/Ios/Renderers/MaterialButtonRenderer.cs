@@ -172,7 +172,7 @@ namespace XF.Material.iOS.Renderers
             _colorResting.From = _colorPressed.ValueForKeyPath(new NSString("backgroundColor"));
             _animationLayer.RemoveAnimation("backgroundColorPressed");
 
-            if (_materialButton.ButtonType == MaterialButtonType.Elevated)
+            if (_materialButton.ButtonType == MaterialButtonType.Elevated && Control?.Layer != null)
             {
                 var shadowOffsetAnim = Control.Layer.AnimationForKey("shadowOffsetPressed");
                 _shadowOffsetResting.From = shadowOffsetAnim.ValueForKeyPath(new NSString("shadowOffset"));
@@ -251,7 +251,6 @@ namespace XF.Material.iOS.Renderers
             _colorResting.FillMode = CAFillMode.Forwards;
             _colorResting.RemovedOnCompletion = false;
             _colorResting.To = FromObject(_restingBackgroundColor.CGColor);
-
 
             if (_rippleGestureRecognizer == null)
             {

@@ -196,7 +196,6 @@ namespace XF.Material.Droid.Renderers
                     rippleDrawable = MaterialHelper.GetDrawableCopyFromResource<RippleDrawable>(Resource.Drawable.drawable_ripple_text);
                 }
             }
-
             else
             {
                 rippleDrawable = _withIcon ? MaterialHelper.GetDrawableCopyFromResource<RippleDrawable>(Resource.Drawable.drawable_ripple_with_icon) : MaterialHelper.GetDrawableCopyFromResource<RippleDrawable>(Resource.Drawable.drawable_ripple);
@@ -332,7 +331,6 @@ namespace XF.Material.Droid.Renderers
             _aView.ClipToOutline = false;
 
             return stateListAnimator;
-
         }
 
         private void UpdatePressedColor(Xamarin.Forms.Color pressedColor)

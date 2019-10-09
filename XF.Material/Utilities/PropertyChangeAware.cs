@@ -34,7 +34,6 @@ namespace XF.Material.Forms.Utilities
                 field = newValue;
                 OnPropertyChanged(propertyName);
             }
-
             else if (!EqualityComparer<T>.Default.Equals(newValue, default(T)))
             {
                 field = newValue;

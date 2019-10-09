@@ -100,7 +100,6 @@ namespace XF.Material.iOS.GestureRecognizers
             base.TouchesMoved(touches, evt);
 
             AnimateComplete();
-
         }
 
         public override void TouchesCancelled(NSSet touches, UIEvent evt)
@@ -202,7 +201,6 @@ namespace XF.Material.iOS.GestureRecognizers
 
             layer.CornerRadius = view.Layer.CornerRadius;
             view.Layer.InsertSublayer(layer, indexToInsertLayer);
-
         }
     }
 }

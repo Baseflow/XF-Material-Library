@@ -82,12 +82,10 @@ namespace XF.Material.iOS.Renderers.Internals
 
                 Control.InputAccessoryView = toolbar;
             }
-
             else
             {
                 Control.InputAccessoryView = null;
             }
-
         }
     }
 }
