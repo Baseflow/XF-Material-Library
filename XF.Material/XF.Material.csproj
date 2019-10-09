@@ -66,8 +66,8 @@
     <Compile Include="Platforms\Apple\**\*.cs" />
     <Compile Include="Platforms\Ios\**\*.cs" />
     <Compile Include="Platforms\Xamarin\**\*.cs" />
-    <BundleResource Include="Platforms\Ios\Resources\**\*.png" />
-    <BundleResource Include="Platforms\Ios\Resources\**\*.json" />
+    <BundleResource Include="Resources\*.png" />
+    <BundleResource Include="Resources\*.json" />
   </ItemGroup>
 
   <ItemGroup Condition=" $(TargetFramework.StartsWith('xamarin.mac')) ">
