@@ -30,7 +30,6 @@ namespace XF.Material.iOS.Renderers
                 NavigationBar.Layer.ShadowOpacity = 0.32f;
                 NavigationBar.Layer.ShadowRadius = 3f;
             }
-
             else
             {
                 NavigationBar.Layer.MasksToBounds = false;

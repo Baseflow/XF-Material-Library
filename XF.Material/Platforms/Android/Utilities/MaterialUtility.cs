@@ -30,7 +30,6 @@ namespace XF.Material.Droid.Utilities
             {
                 activity.Window.DecorView.SystemUiVisibility = (StatusBarVisibility)SystemUiFlags.LightStatusBar;
             }
-
             else
             {
                 activity.Window.DecorView.SystemUiVisibility = StatusBarVisibility.Visible;

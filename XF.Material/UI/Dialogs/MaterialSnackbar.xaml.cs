@@ -137,6 +137,5 @@ namespace XF.Material.Forms.UI.Dialogs
             ActionButton.AllCaps = preferredConfig.ButtonAllCaps;
             Container.Margin = preferredConfig.Margin == default ? Material.GetResource<Thickness>("Material.Snackbar.Margin") : preferredConfig.Margin;
         }
-
     }
 }

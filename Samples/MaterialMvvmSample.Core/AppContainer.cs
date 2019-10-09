@@ -32,6 +32,7 @@ namespace MaterialMvvmSample.Core
             containerBuilder.RegisterType<JobDialogService>().As<IJobDialogService>().InstancePerDependency();
 
             containerBuilder.RegisterType<MainView>().Named<Page>(ViewNames.MainView).As<MainView>().InstancePerDependency();
+            containerBuilder.RegisterType<ChipFontSizeView>().Named<Page>(ViewNames.ChipFontSizeView).As<ChipFontSizeView>().InstancePerDependency();
             containerBuilder.RegisterType<SecondView>().Named<Page>(ViewNames.SecondView).As<SecondView>().InstancePerDependency();
 
             containerBuilder.RegisterType<MainViewModel>().InstancePerDependency();

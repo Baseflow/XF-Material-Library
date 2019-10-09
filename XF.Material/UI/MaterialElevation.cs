@@ -57,7 +57,6 @@ namespace XF.Material.Forms.UI
                         throw new InvalidOperationException($"Cannot convert {value} to {typeof(MaterialElevation)}");
                 }
             }
-
             else if (int.TryParse(value, NumberStyles.Number, CultureInfo.InvariantCulture, out var uE))
             {
                 return new MaterialElevation(uE);

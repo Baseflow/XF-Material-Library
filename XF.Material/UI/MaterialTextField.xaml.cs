@@ -60,10 +60,8 @@ namespace XF.Material.Forms.UI
                         control.UpdateCounter();
                         // control.OnSelectChoices();
                     }
-
                 }
             }
-
         }
 
         public static readonly BindableProperty ErrorColorProperty = BindableProperty.Create(nameof(ErrorColor), typeof(Color), typeof(MaterialTextField), Material.Color.Error);
@@ -1264,13 +1262,12 @@ namespace XF.Material.Forms.UI
             {
                 var selectedChoice = GetSelectedChoice(_selectedIndex);
                 SelectedChoice = selectedChoice;
-                ChoiceSelected?.Invoke(this, new SelectedItemChangedEventArgs(selectedChoice));
+                ChoiceSelected?.Invoke(this, new SelectedItemChangedEventArgs(selectedChoice, _selectedIndex));
                 ChoiceSelectedCommand?.Execute(selectedChoice);
             }
             else if (InputType == MaterialTextFieldInputType.Choice && string.IsNullOrEmpty(text))
             {
                 _selectedIndex = -1;
-
             }
 
             entry.Text = text;

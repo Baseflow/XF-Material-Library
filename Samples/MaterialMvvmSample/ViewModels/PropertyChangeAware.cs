@@ -35,7 +35,6 @@ namespace MaterialMvvmSample.ViewModels
                 field = newValue;
                 OnPropertyChanged(propertyName);
             }
-
             else if (!EqualityComparer<T>.Default.Equals(newValue, default(T)))
             {
                 field = newValue;
