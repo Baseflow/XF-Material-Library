@@ -8,6 +8,9 @@
         <StackLayout Orientation="Vertical">
             <material:MaterialButton Text="Open Dialog"
                                      x:Name="Opendialog" />
+
+            <material:MaterialLabel x:Name="DialogResult" />
+
         </StackLayout>
     </ContentPage.Content>
 </local:BaseMainView>
