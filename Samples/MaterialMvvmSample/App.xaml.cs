@@ -14,7 +14,7 @@ namespace MaterialMvvmSample
 
             XF.Material.Forms.Material.Init(this, "Material.Style");
 
-            navigationService.SetRootView(ViewNames.ChipFontSizeView);
+            navigationService.SetRootView(ViewNames.LandingView);
         }
 
         protected override void OnStart()
