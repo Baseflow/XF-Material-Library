@@ -7,11 +7,10 @@ namespace MaterialMvvmSample.ViewModels
 {
     public class LandingViewModel : BaseViewModel
     {
-        public LandingViewModel()
-        {
+        public ICommand GoToMaterialDialogsCommand => this.GoToCommand(ViewNames.MaterialDialogsView);
 
-        }
+        public ICommand GoToChipFontSizeViewCommand => this.GoToCommand(ViewNames.ChipFontSizeView);
 
-        public ICommand GoToChipFontSizeViewCommand => new Command(() => this.Navigation.PushAsync(ViewNames.ChipFontSizeView));
+        private ICommand GoToCommand(string name) => new Command(() => this.Navigation.PushAsync(name));
     }
 }

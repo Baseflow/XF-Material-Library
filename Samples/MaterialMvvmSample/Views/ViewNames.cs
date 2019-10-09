@@ -10,5 +10,6 @@
 
         public const string LandingView = nameof(Views.LandingView);
 
+        public const string MaterialDialogsView = nameof(Views.MaterialDialogsView);
     }
 }

@@ -14,6 +14,7 @@ namespace MaterialMvvmSample.Droid
             ToolbarResource = Resource.Layout.Toolbar;
 
             base.OnCreate(savedInstanceState);
+            Rg.Plugins.Popup.Popup.Init(this, bundle);
             Xamarin.Forms.Forms.Init(this, savedInstanceState);
             Material.Init(this, savedInstanceState);
 

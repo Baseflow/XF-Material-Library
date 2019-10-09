@@ -36,6 +36,9 @@ namespace MaterialMvvmSample.Core
             containerBuilder.RegisterType<SecondView>().Named<Page>(ViewNames.SecondView).As<SecondView>().InstancePerDependency();
 
             containerBuilder.RegisterType<LandingView>().Named<Page>(ViewNames.LandingView).As<LandingView>().InstancePerDependency();
+            containerBuilder.RegisterType<MaterialDialogsView>().Named<Page>(ViewNames.MaterialDialogsView).As<MaterialDialogsView>().InstancePerDependency();
+
+
 
             containerBuilder.RegisterType<MainViewModel>().InstancePerDependency();
             containerBuilder.RegisterType<SecondViewModel>().InstancePerDependency();
