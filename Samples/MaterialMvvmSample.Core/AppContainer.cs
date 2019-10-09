@@ -6,6 +6,7 @@ using MaterialMvvmSample.Utilities.Dialogs;
 using MaterialMvvmSample.ViewModels;
 using MaterialMvvmSample.Views;
 using Xamarin.Forms;
+using XF.Material.Forms.UI;
 
 namespace MaterialMvvmSample.Core
 {
@@ -36,6 +37,10 @@ namespace MaterialMvvmSample.Core
             containerBuilder.RegisterType<SecondView>().Named<Page>(ViewNames.SecondView).As<SecondView>().InstancePerDependency();
 
             containerBuilder.RegisterType<LandingView>().Named<Page>(ViewNames.LandingView).As<LandingView>().InstancePerDependency();
+            containerBuilder.RegisterType<MaterialDialogsView>().Named<Page>(ViewNames.MaterialDialogsView).As<MaterialDialogsView>().InstancePerDependency();
+            containerBuilder.RegisterType<CheckboxesView>().Named<Page>(ViewNames.CheckboxesView).As<CheckboxesView>().InstancePerDependency();
+
+
 
             containerBuilder.RegisterType<MainViewModel>().InstancePerDependency();
             containerBuilder.RegisterType<SecondViewModel>().InstancePerDependency();

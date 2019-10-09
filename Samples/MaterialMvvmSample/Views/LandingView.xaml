@@ -11,6 +11,14 @@
                                      Command="{Binding GoToChipFontSizeViewCommand}"
                                      Margin="10" />
 
+            <material:MaterialButton Text="Go To Material Dialogs sample"
+                                     Command="{Binding GoToMaterialDialogsCommand}"
+                                     Margin="10" />
+
+            <material:MaterialButton Text="Go To Checkboxes sample"
+                                     Command="{Binding GoToCheckboxesSampleCommand}"
+                                     Margin="10" />
+
             <!-- New sample shortcuts should be added here (Button + Associated command in the LandingViewModel) -->
         </StackLayout>
     </ContentPage.Content>

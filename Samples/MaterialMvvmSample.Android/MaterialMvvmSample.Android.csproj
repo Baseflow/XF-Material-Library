@@ -62,6 +62,9 @@
     <PackageReference Include="Xamarin.Forms">
       <Version>4.2.0.815419</Version>
     </PackageReference>
+    <PackageReference Include="Rg.Plugins.Popup">
+      <Version>1.2.0.223</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\PlatformContainer.cs" />
