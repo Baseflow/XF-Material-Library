@@ -6,21 +6,17 @@
     <ContentPage.Content>
         <StackLayout Orientation="Vertical">
             <material:MaterialCircularLoadingView WidthRequest="150"
-                                                  HeightRequest="150"
-                                                  AutoPlay="True" />
+                                                  HeightRequest="150" />
 
-            <material:MaterialCircularLoadingView AutoPlay="True"
-                                                  Margin="0,10,0,0"
+            <material:MaterialCircularLoadingView Margin="0,10,0,0"
                                                   WidthRequest="80"
                                                   HeightRequest="80" />
 
-            <material:MaterialCircularLoadingView AutoPlay="True"
-                                                  Margin="0,10,0,0"
+            <material:MaterialCircularLoadingView Margin="0,10,0,0"
                                                   WidthRequest="40"
                                                   HeightRequest="40" />
 
-            <material:MaterialCircularLoadingView AutoPlay="True"
-                                                  Margin="0,10,0,0" />
+            <material:MaterialCircularLoadingView Margin="0,10,0,0" />
 
         </StackLayout>
     </ContentPage.Content>
