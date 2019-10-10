@@ -5,6 +5,9 @@ namespace XF.Material.Forms.UI
 {
     public class MaterialCircularLoadingView : Lottie.Forms.AnimationView
     {
+        /// <summary>
+        /// Default value for Width and Height if none are specified after object creation
+        /// </summary>
         private const int DefaultSize = 30;
         private static LayoutOptions DefaultStretchBehavior = LayoutOptions.CenterAndExpand;
 
