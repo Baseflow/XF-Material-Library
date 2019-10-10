@@ -5,6 +5,9 @@ namespace XF.Material.Forms.UI
 {
     public class MaterialCircularLoadingView : Lottie.Forms.AnimationView
     {
+        private const int DefaultSize = 30;
+        private static LayoutOptions DefaultStretchBehavior = LayoutOptions.CenterAndExpand;
+
         public static readonly BindableProperty TintColorProperty = BindableProperty.Create(nameof(TintColor), typeof(Color), typeof(MaterialCircularLoadingView), Material.Color.Secondary);
 
         /// <summary>
@@ -20,6 +23,12 @@ namespace XF.Material.Forms.UI
         {
             SetDynamicResource(TintColorProperty, MaterialConstants.Color.SECONDARY);
             Loop = true;
+
+            this.HorizontalOptions = DefaultStretchBehavior;
+            this.VerticalOptions = DefaultStretchBehavior;
+
+            this.WidthRequest = DefaultSize;
+            this.HeightRequest = DefaultSize;
         }
     }
 }
