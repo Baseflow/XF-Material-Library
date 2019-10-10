@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+             x:Class="MaterialMvvmSample.Views.MaterialCircularView">
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical">
+            <material:MaterialCircularLoadingView WidthRequest="150"
+                                                  HeightRequest="150"
+                                                  AutoPlay="True" />
+
+            <material:MaterialCircularLoadingView AutoPlay="True"
+                                                  Margin="0,10,0,0"
+                                                  WidthRequest="80"
+                                                  HeightRequest="80" />
+
+            <material:MaterialCircularLoadingView AutoPlay="True"
+                                                  Margin="0,10,0,0"
+                                                  WidthRequest="40"
+                                                  HeightRequest="40" />
+
+            <material:MaterialCircularLoadingView AutoPlay="True"
+                                                  Margin="0,10,0,0" />
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
