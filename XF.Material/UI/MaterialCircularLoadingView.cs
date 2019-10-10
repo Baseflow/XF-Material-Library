@@ -9,7 +9,7 @@ namespace XF.Material.Forms.UI
         /// Default value for Width and Height if none are specified after object creation
         /// </summary>
         private const int DefaultSize = 30;
-        private static LayoutOptions DefaultStretchBehavior = LayoutOptions.CenterAndExpand;
+        private static LayoutOptions DefaultStretchBehavior = LayoutOptions.Center;
 
         public static readonly BindableProperty TintColorProperty = BindableProperty.Create(nameof(TintColor), typeof(Color), typeof(MaterialCircularLoadingView), Material.Color.Secondary);
 
