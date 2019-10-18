@@ -187,15 +187,15 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\XF.Material\XF.Material.csproj">
-      <Project>{b0f036a7-682a-4358-a317-afafc085947f}</Project>
+      <Project>{716C39E8-557F-4E2B-9B88-217E4C0EC5AF}</Project>
       <Name>XF.Material</Name>
     </ProjectReference>
     <ProjectReference Include="..\MaterialMvvmSample.Core\MaterialMvvmSample.Core.csproj">
-      <Project>{2b722ec5-8621-403b-b02c-2af518a06919}</Project>
+      <Project>{B4880A99-7161-48B8-8EAB-2054127142AB}</Project>
       <Name>MaterialMvvmSample.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\MaterialMvvmSample\MaterialMvvmSample.csproj">
-      <Project>{c0157c01-ed45-45d5-82bc-4316eb0afccd}</Project>
+      <Project>{AADF2788-B233-4EA1-9A3C-77AF05508226}</Project>
       <Name>MaterialMvvmSample</Name>
     </ProjectReference>
   </ItemGroup>
