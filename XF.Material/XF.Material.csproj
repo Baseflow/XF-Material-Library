@@ -64,10 +64,12 @@
     <None Remove="Platforms\Apple\**\*.cs" />
     <None Remove="Platforms\Ios\**\*.cs" />
     <None Remove="Platforms\Xamarin\**\*.cs" />
+    <None Remove="Resources\*.png" />
+    <None Remove="Resources\*.json" />
     <Compile Include="Platforms\Apple\**\*.cs" />
     <Compile Include="Platforms\Ios\**\*.cs" />
     <Compile Include="Platforms\Xamarin\**\*.cs" />
-    <ImageAsset Include="Resources\*.png" />
+    <BundleResource Include="Resources\*.png" />
     <BundleResource Include="Resources\*.json" />
     <None Include="Info.plist" />
   </ItemGroup>
