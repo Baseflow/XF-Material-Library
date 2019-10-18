@@ -2,7 +2,48 @@
 XF.Material
 ---------------------------------
 
+1. Download the current version through NuGet and install it in your Xamarin.Forms projects.
 
+2. Call the Material.Init() method in each project:
+
+//Xamarin.Forms
+public App()
+{
+    this.InitializeComponent();
+    XF.Material.Forms.Material.Init(this);
+}
+
+//Xamarin.Android
+protected override void OnCreate(Bundle savedInstanceState)
+{
+    TabLayoutResource = Resource.Layout.Tabbar;
+    ToolbarResource = Resource.Layout.Toolbar;
+
+    base.OnCreate(savedInstanceState);
+
+    Xamarin.Forms.Forms.Init(this, savedInstanceState);
+    XF.Material.Droid.Material.Init(this, savedInstanceState);
+
+    this.LoadApplication(new App());
+}
+
+//Xamarin.iOS
+public override bool FinishedLaunching(UIApplication app, NSDictionary options)
+{
+    Xamarin.Forms.Forms.Init();
+    XF.Material.iOS.Material.Init();
+    this.LoadApplication(new App());
+
+    return base.FinishedLaunching(app, options);
+}
+
+3. Configure your application's color and font resources.
+
+- Additional configuration for iOS
+In order to be able to change the status bar's colors using this or by setting your app colors here, add this to your info.plist file:
+
+<key>UIViewControllerBasedStatusBarAppearance</key>
+<false/>
 
 
 ---------------------------------

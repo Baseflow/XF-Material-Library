@@ -4,6 +4,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/BaseflowIT/XF-Material-Library</PackageProjectUrl>
     <PackageIconUrl>https://raw.githubusercontent.com/BaseflowIT/XF-Material-Library/develop/icon.png</PackageIconUrl>
+    <!--<PackageIcon>icon.png</PackageIcon>-->
     <Authors>Dustin Catap, Martijn van Dijk</Authors>
     <Owners>Dustin Catap, Martijn van Dijk</Owners>
     <PackageTags>xamarin, android, plugin, XF.Material, Material, Material Design, Xamarin.Forms, Forms</PackageTags>
@@ -14,7 +15,7 @@
     <RepositoryType>git</RepositoryType>
     <Product>$(AssemblyName) ($(TargetFramework))</Product>
     <NeutralLanguage>en</NeutralLanguage>
-    <Version>1.5.3</Version>
+    <Version>1.5.4</Version>
     <Platform>AnyCPU</Platform>
 
     <LangVersion>7.3</LangVersion>
@@ -47,7 +48,8 @@
   </PropertyGroup>
 
   <ItemGroup Condition="'$(IsLibraryProject)' == 'true'">
-    <None Include="$(MSBuildThisFileDirectory)\LICENSE.md" Pack="true" PackagePath=""/>
+    <None Include="$(MSBuildThisFileDirectory)\LICENSE.md" Pack="true" PackagePath="\" />
+    <None Include="$(MSBuildThisFileDirectory)\icon.png" Pack="true" PackagePath="\" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(IsTestProject)' != 'true' and '$(SourceLinkEnabled)' != 'false' and '$(IsLibraryProject)' == 'true'">
