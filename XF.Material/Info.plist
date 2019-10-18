@@ -23,7 +23,7 @@
 	<key>MinimumOSVersion</key>
 	<string>6.0</string>
 	<key>CFBundleDisplayName</key>
-	<string>MaterialMvvmSample</string>
+	<string>XF.Material</string>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>CFBundleName</key>
