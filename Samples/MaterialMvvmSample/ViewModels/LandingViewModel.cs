@@ -13,6 +13,7 @@ namespace MaterialMvvmSample.ViewModels
 
         public ICommand GoToCheckboxesSampleCommand => this.GoToCommand(ViewNames.CheckboxesView);
 
+        public ICommand GoToMaterialTextFieldSampleCommand => this.GoToCommand(ViewNames.MaterialTextFieldView);
 
         private ICommand GoToCommand(string name) => new Command(() => this.Navigation.PushAsync(name));
     }

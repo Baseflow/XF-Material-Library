@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<local:BaseMainView xmlns="http://xamarin.com/schemas/2014/forms"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:local="clr-namespace:MaterialMvvmSample.Views"
+                    xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+                    x:Class="MaterialMvvmSample.Views.MaterialTextFieldView">
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical">
+            <material:MaterialTextField Placeholder="Auto Capitalization"
+                                        IsAutoCapitalizationEnabled="True" />
+
+            <material:MaterialTextField Placeholder="ALL CAPS"
+                                        IsTextAllCaps="True" />
+
+            <material:MaterialTextField Placeholder="Auto Capitalization AND ALL CAPS"
+                                        IsTextAllCaps="True"
+                                        IsAutoCapitalizationEnabled="true" />
+
+        </StackLayout>
+    </ContentPage.Content>
+</local:BaseMainView>
