@@ -23,6 +23,10 @@
                                      Command="{Binding GoToMaterialCircularViewCommand}"
                                      Margin="10" />
 
+            <material:MaterialButton Text="Go To MaterialTextField sample"
+                                    Command="{Binding GoToMaterialTextFieldViewCommand}"
+                                    Margin="10" />
+
             <!-- New sample shortcuts should be added here (Button + Associated command in the LandingViewModel) -->
         </StackLayout>
     </ContentPage.Content>

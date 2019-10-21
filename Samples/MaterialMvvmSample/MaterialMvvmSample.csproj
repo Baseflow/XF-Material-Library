@@ -21,7 +21,7 @@
   </ItemGroup>
   
   <ItemGroup>
-     <Compile Update="**\*.xaml.cs" DependentUpon="%(Filename)" />
+     <Compile Update="**\*.xaml.cs" DependentUpon="MaterialTextFieldView.xaml" />
   </ItemGroup>
   
 </Project>

@@ -15,6 +15,9 @@ namespace MaterialMvvmSample.ViewModels
 
         public ICommand GoToMaterialCircularViewCommand => this.GoToCommand(ViewNames.MaterialCircularView);
 
+        public ICommand GoToMaterialTextFieldViewCommand => this.GoToCommand(ViewNames.MaterialTextFieldView);
+
+
         private ICommand GoToCommand(string name) => new Command(() => this.Navigation.PushAsync(name));
     }
 }
