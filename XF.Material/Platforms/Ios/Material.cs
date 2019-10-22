@@ -1,4 +1,5 @@
 ﻿using Lottie.Forms.iOS.Renderers;
+using Rg.Plugins.Popup;
 
 namespace XF.Material.iOS
 {
@@ -9,7 +10,7 @@ namespace XF.Material.iOS
         /// </summary>
         public static void Init()
         {
-            //Popup.Popup.Init();
+            Popup.Init();
             AnimationViewRenderer.Init();
         }
     }

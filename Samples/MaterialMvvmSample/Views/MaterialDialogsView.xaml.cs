@@ -27,6 +27,9 @@ namespace MaterialMvvmSample.Views
 
             var choice = await MaterialDialog.Instance.SelectChoiceAsync("Select choices", choices);
 
+            if (choice < 0)
+                return;
+
             this.DialogResult.Text = choices[choice];
         }
     }
