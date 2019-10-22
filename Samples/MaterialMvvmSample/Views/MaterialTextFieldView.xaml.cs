@@ -15,7 +15,6 @@ namespace MaterialMvvmSample.Views
 
         protected override void OnAppearing()
         {
-            base.OnAppearing();
 
             passwordEntry.Text = "foo";
 
@@ -24,7 +23,6 @@ namespace MaterialMvvmSample.Views
                     {
                 MainThread.BeginInvokeOnMainThread(() =>
                 {
-                    passwordEntry.Text = string.Empty;
                     passwordEntry.Unfocus();
                     passwordEntry.Text = "bar";
                 });
@@ -37,7 +35,10 @@ namespace MaterialMvvmSample.Views
                                 passwordEntry.Focus();
                             });
                         });
-            });
+                });
+
+            base.OnAppearing();
+
 
         }
     }
