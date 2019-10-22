@@ -90,6 +90,8 @@ namespace XF.Material.Forms.UI
 
         public static readonly BindableProperty IsAutoCapitalizationEnabledProperty = BindableProperty.Create(nameof(IsAutoCapitalizationEnabled), typeof(bool), typeof(MaterialTextField), false);
 
+        public static readonly BindableProperty IsTextAllCapsProperty = BindableProperty.Create(nameof(IsTextAllCaps), typeof(bool), typeof(MaterialTextField), false);
+
         public static readonly BindableProperty IsMaxLengthCounterVisibleProperty = BindableProperty.Create(nameof(IsMaxLengthCounterVisible), typeof(bool), typeof(MaterialTextField), true);
 
         public static readonly BindableProperty IsSpellCheckEnabledProperty = BindableProperty.Create(nameof(IsSpellCheckEnabled), typeof(bool), typeof(MaterialTextField), false);
@@ -338,6 +340,15 @@ namespace XF.Material.Forms.UI
         {
             get => (bool)GetValue(IsAutoCapitalizationEnabledProperty);
             set => SetValue(IsAutoCapitalizationEnabledProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets whether the input text should be in All Caps.
+        /// </summary>
+        public bool IsTextAllCaps
+        {
+            get => (bool)GetValue(IsTextAllCapsProperty);
+            set => SetValue(IsTextAllCapsProperty, value);
         }
 
         /// <summary>
@@ -1149,23 +1160,28 @@ namespace XF.Material.Forms.UI
             entry.IsPassword = inputType == MaterialTextFieldInputType.Password || inputType == MaterialTextFieldInputType.NumericPassword;
         }
 
-        private void OnKeyboardFlagsChanged(bool isAutoCapitalizationEnabled, bool isSpellCheckEnabled, bool isTextPredictionEnabled)
+        private void OnKeyboardFlagsChanged(bool isAutoCapitalizationEnabled, bool isSpellCheckEnabled, bool isTextPredictionEnabled, bool isTextAllCaps)
         {
-            var flags = KeyboardFlags.CapitalizeWord | KeyboardFlags.Spellcheck | KeyboardFlags.Suggestions;
+            var flags = KeyboardFlags.None;
 
-            if (!isAutoCapitalizationEnabled)
+            if (isTextAllCaps)
             {
-                flags &= ~KeyboardFlags.CapitalizeWord;
+                flags |= KeyboardFlags.CapitalizeCharacter;
             }
 
-            if (!isSpellCheckEnabled)
+            if (isAutoCapitalizationEnabled && !isTextAllCaps)
             {
-                flags &= ~KeyboardFlags.Spellcheck;
+                flags |= KeyboardFlags.CapitalizeWord;
             }
 
-            if (!isTextPredictionEnabled)
+            if (isSpellCheckEnabled)
             {
-                flags &= ~KeyboardFlags.Suggestions;
+                flags |= KeyboardFlags.Spellcheck;
+            }
+
+            if (isTextPredictionEnabled)
+            {
+                flags |= KeyboardFlags.Suggestions;
             }
 
             entry.Keyboard = Keyboard.Create(flags);
@@ -1322,6 +1338,12 @@ namespace XF.Material.Forms.UI
 
         private void SetPropertyChangeHandler(ref Dictionary<string, Action> propertyChangeActions)
         {
+            Action keyboardFlagsAction = () => OnKeyboardFlagsChanged(
+                IsAutoCapitalizationEnabled,
+                IsSpellCheckEnabled,
+                IsTextPredictionEnabled,
+                IsTextAllCaps);
+
             propertyChangeActions = new Dictionary<string, Action>
             {
                 { nameof(Text), () => OnTextChanged(Text) },
@@ -1349,9 +1371,10 @@ namespace XF.Material.Forms.UI
                 { nameof(Choices), () => OnChoicesChanged(Choices) },
                 { nameof(LeadingIcon), () => OnLeadingIconChanged(LeadingIcon) },
                 { nameof(LeadingIconTintColor), () => OnLeadingIconTintColorChanged(LeadingIconTintColor) },
-                { nameof(IsSpellCheckEnabled), () => OnKeyboardFlagsChanged(IsAutoCapitalizationEnabled, IsSpellCheckEnabled, IsTextPredictionEnabled) },
-                { nameof(IsTextPredictionEnabled), () => OnKeyboardFlagsChanged(IsAutoCapitalizationEnabled, IsSpellCheckEnabled, IsTextPredictionEnabled) },
-                { nameof(IsAutoCapitalizationEnabled), () => OnKeyboardFlagsChanged(IsAutoCapitalizationEnabled, IsSpellCheckEnabled, IsTextPredictionEnabled) },
+                { nameof(IsSpellCheckEnabled), keyboardFlagsAction },
+                { nameof(IsTextPredictionEnabled), keyboardFlagsAction },
+                { nameof(IsAutoCapitalizationEnabled), keyboardFlagsAction },
+                { nameof(IsTextAllCaps), keyboardFlagsAction },
                 { nameof(TextFontSize), () => OnTextFontSizeChanged(TextFontSize) },
                 { nameof(ErrorText), () => OnErrorTextChanged() }
             };

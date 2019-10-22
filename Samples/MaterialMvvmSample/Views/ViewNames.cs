@@ -14,6 +14,8 @@
 
         public const string CheckboxesView = nameof(Views.CheckboxesView);
 
+        public const string MaterialTextFieldView = nameof(Views.MaterialTextFieldView);
+
         public const string MaterialCircularView = nameof(Views.MaterialCircularView);
     }
 }
