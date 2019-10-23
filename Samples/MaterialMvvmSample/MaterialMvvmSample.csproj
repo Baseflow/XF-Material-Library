@@ -21,7 +21,7 @@
   </ItemGroup>
   
   <ItemGroup>
-     <Compile Update="**\*.xaml.cs" DependentUpon="%(Filename)" />
+     <Compile Update="**\*.xaml.cs" DependentUpon="MaterialMenuButtonView.xaml" />
   </ItemGroup>
   
 </Project>

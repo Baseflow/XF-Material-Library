@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using MaterialMvvmSample.Views;
 using Xamarin.Forms;
+using XF.Material.Forms.Models;
 
 namespace MaterialMvvmSample.ViewModels
 {
@@ -17,6 +18,9 @@ namespace MaterialMvvmSample.ViewModels
 
         public ICommand GoToMaterialTextFieldSampleCommand => this.GoToCommand(ViewNames.MaterialTextFieldView);
 
+        public ICommand GoToMaterialMenuButtonViewCommand => this.GoToCommand(ViewNames.MaterialMenuButtonView);
+
         private ICommand GoToCommand(string name) => new Command(() => this.Navigation.PushAsync(name));
+
     }
 }
