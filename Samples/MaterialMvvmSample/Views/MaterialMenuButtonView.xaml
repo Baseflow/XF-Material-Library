@@ -9,7 +9,7 @@
 
     <ContentPage.Content>
         <StackLayout>
-            <material:MaterialMenuButton ButtonType="Outlined" CornerRadius="24" Choices="{Binding Actions}" Margin="10" />
+            <material:MaterialMenuButton ButtonType="Outlined" CornerRadius="24" Choices="{Binding Actions}" Command="{Binding MenuCommand}" Margin="10" />
         </StackLayout>
 
     </ContentPage.Content>
