@@ -1,4 +1,4 @@
-﻿using Autofac;
+using Autofac;
 using Autofac.Extras.CommonServiceLocator;
 using CommonServiceLocator;
 using MaterialMvvmSample.Utilities;
@@ -41,12 +41,6 @@ namespace MaterialMvvmSample.Core
             containerBuilder.RegisterType<MaterialTextFieldView>().Named<Page>(ViewNames.MaterialTextFieldView).As<MaterialTextFieldView>().InstancePerDependency();
             containerBuilder.RegisterType<MaterialCircularView>().Named<Page>(ViewNames.MaterialCircularView).As<MaterialCircularView>().InstancePerDependency();
             containerBuilder.RegisterType<CheckboxesView>().Named<Page>(ViewNames.CheckboxesView).As<CheckboxesView>().InstancePerDependency();
-
-
-
-
-
-
 
             containerBuilder.RegisterType<MainViewModel>().InstancePerDependency();
             containerBuilder.RegisterType<SecondViewModel>().InstancePerDependency();

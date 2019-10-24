@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using MaterialMvvmSample.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XF.Material.Forms.UI.Dialogs;
@@ -7,11 +8,12 @@ using XF.Material.Forms.UI.Dialogs;
 namespace MaterialMvvmSample.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MaterialDialogsView : BaseMainView
+    public partial class MaterialDialogsView : ContentPage
     {
         public MaterialDialogsView()
         {
             InitializeComponent();
+            BindingContext = new MaterialDialogsViewModel();
 
             this.Opendialog.Clicked += Opendialog_Clicked;
         }
