@@ -38,15 +38,19 @@ namespace MaterialMvvmSample.Core
 
             containerBuilder.RegisterType<LandingView>().Named<Page>(ViewNames.LandingView).As<LandingView>().InstancePerDependency();
             containerBuilder.RegisterType<MaterialDialogsView>().Named<Page>(ViewNames.MaterialDialogsView).As<MaterialDialogsView>().InstancePerDependency();
-            containerBuilder.RegisterType<CheckboxesView>().Named<Page>(ViewNames.CheckboxesView).As<CheckboxesView>().InstancePerDependency();
             containerBuilder.RegisterType<MaterialTextFieldView>().Named<Page>(ViewNames.MaterialTextFieldView).As<MaterialTextFieldView>().InstancePerDependency();
             containerBuilder.RegisterType<MaterialCircularView>().Named<Page>(ViewNames.MaterialCircularView).As<MaterialCircularView>().InstancePerDependency();
-
-
+            containerBuilder.RegisterType<CheckboxesView>().Named<Page>(ViewNames.CheckboxesView).As<CheckboxesView>().InstancePerDependency();
 
             containerBuilder.RegisterType<MainViewModel>().InstancePerDependency();
             containerBuilder.RegisterType<SecondViewModel>().InstancePerDependency();
             containerBuilder.RegisterType<LandingViewModel>().InstancePerDependency();
+            containerBuilder.RegisterType<CheckboxesViewModel>().InstancePerDependency();
+            containerBuilder.RegisterType<ChipFontSizeViewModel>().InstancePerDependency();
+            containerBuilder.RegisterType<MaterialCircularViewModel>().InstancePerDependency();
+            containerBuilder.RegisterType<MaterialDialogsViewModel>().InstancePerDependency();
+            containerBuilder.RegisterType<MaterialTextFieldViewModel>().InstancePerDependency();
+
         }
     }
 }

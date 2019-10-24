@@ -1,16 +1,18 @@
 ﻿using MaterialMvvmSample.ViewModels;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace MaterialMvvmSample.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class SecondView : BaseSecondView
+    public partial class SecondView : ContentPage
     {
         public SecondView()
         {
             InitializeComponent();
+            BindingContext = new SecondViewModel();
+            
         }
     }
 
-    public abstract class BaseSecondView : BaseView<SecondViewModel> { }
 }

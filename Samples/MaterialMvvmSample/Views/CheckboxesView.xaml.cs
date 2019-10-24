@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.ComponentModel;
+using MaterialMvvmSample.ViewModels;
 using Xamarin.Forms;
 
 namespace MaterialMvvmSample.Views
@@ -10,6 +11,9 @@ namespace MaterialMvvmSample.Views
         public CheckboxesView()
         {
             InitializeComponent();
+            BindingContext = new CheckboxesViewModel();
+
         }
     }
 }
+
