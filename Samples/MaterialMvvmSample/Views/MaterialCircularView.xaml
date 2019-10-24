@@ -6,7 +6,8 @@
     <ContentPage.Content>
         <StackLayout Orientation="Vertical">
             <material:MaterialCircularLoadingView WidthRequest="150"
-                                                  HeightRequest="150" />
+                                                  HeightRequest="150"
+                                                  TintColor="DeepPink" />
 
             <material:MaterialCircularLoadingView Margin="0,10,0,0"
                                                   WidthRequest="80"
