@@ -44,18 +44,6 @@ namespace MaterialMvvmSample.ViewModels
 
         public Color PrimaryColor => Color.Red;
 
-        public MaterialMenuItem[] Actions => new MaterialMenuItem[]
-        {
-            new MaterialMenuItem
-            {
-                Text = "Edit"
-            },
-            new MaterialMenuItem
-            {
-                Text = "Delete"
-            }
-        };
-
         private string _selectedChoice;
         public string SelectedChoice
         {

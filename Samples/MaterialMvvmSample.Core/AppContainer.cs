@@ -1,4 +1,4 @@
-﻿using Autofac;
+using Autofac;
 using Autofac.Extras.CommonServiceLocator;
 using CommonServiceLocator;
 using MaterialMvvmSample.Utilities;
