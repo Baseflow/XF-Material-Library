@@ -46,6 +46,14 @@ namespace MaterialMvvmSample.Core
             containerBuilder.RegisterType<MainViewModel>().InstancePerDependency();
             containerBuilder.RegisterType<SecondViewModel>().InstancePerDependency();
             containerBuilder.RegisterType<LandingViewModel>().InstancePerDependency();
+
+
+
+
+
+
+            containerBuilder.RegisterType<MaterialMenuButtonViewModel>().InstancePerDependency();
+
         }
     }
 }
