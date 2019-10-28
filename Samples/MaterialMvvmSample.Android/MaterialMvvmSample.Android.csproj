@@ -110,6 +110,23 @@
       <Generator></Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-xxxhdpi\icon_more.png">
+
+    <AndroidResource Include="Resources\mipmap-hdpi\MaterialTextFieldView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-hdpi\icon_plus.png">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-xhdpi\icon_plus.png">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-xxhdpi\icon_plus.png">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\icon_plus.png">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
