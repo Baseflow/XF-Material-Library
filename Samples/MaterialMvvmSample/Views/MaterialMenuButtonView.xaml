@@ -1,16 +1,26 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage
+
+    x:Class="MaterialMvvmSample.Views.MaterialMenuButtonView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:views="clr-namespace:MaterialMvvmSample.Views"
+    xmlns:local="clr-namespace:MaterialMvvmSample.Views"
+    xmlns:matd="clr-namespace:XF.Material.Forms.UI.Dialogs;assembly=XF.Material"
+    xmlns:matdc="clr-namespace:XF.Material.Forms.UI.Dialogs.Configurations;assembly=XF.Material"
     xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
-    x:Class="MaterialMvvmSample.Views.MaterialMenuButtonView"
-    >
+    x:Name="Root"
+    Title="Material MVVM"
+    material:MaterialNavigationPage.AppBarColor="#2c3e50"
+    material:MaterialNavigationPage.AppBarTitleTextAlignment="Start"
+    material:MaterialNavigationPage.AppBarTitleTextFontFamily="{StaticResource FontFamily.RobotoMedium}"
+    material:MaterialNavigationPage.AppBarTitleTextFontSize="14"
+    material:MaterialNavigationPage.StatusBarColor="#1B3147">
 
-    <ContentPage.Content>
-        <StackLayout>
-            <material:MaterialMenuButton ButtonType="Outlined" CornerRadius="24" Choices="{Binding Actions}" Command="{Binding MenuCommand}" Margin="10" />
-        </StackLayout>
-
-    </ContentPage.Content>
+    <StackLayout Orientation="Horizontal"
+        Margin="16"
+        HorizontalOptions="StartAndExpand"
+        VerticalOptions="StartAndExpand" >
+        <material:MaterialMenuButton  Image="icon_more.png" TintColor="Black" ButtonType="Text" CornerRadius="24" Choices="{Binding Actions}" Command="{Binding MenuCommand}" />
+        <material:MaterialLabel Text="Edit or Delete" TextColor="Black" Margin="8" TypeScale="H6"/>
+    </StackLayout>
 </ContentPage>
