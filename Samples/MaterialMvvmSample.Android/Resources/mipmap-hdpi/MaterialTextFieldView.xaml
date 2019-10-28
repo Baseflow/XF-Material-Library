@@ -17,9 +17,9 @@
                                         IsTextAllCaps="True"
                                         IsAutoCapitalizationEnabled="true" />
 
-              <material:MaterialTextField Placeholder="With Icon"
-                                            LeadingIcon="icon_plus"/>
-
+                <material:MaterialTextField Placeholder="With Icon"
+                                            LeadingIcon="Icon"
+                                            LeadingIconTintColor="HotPink"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
