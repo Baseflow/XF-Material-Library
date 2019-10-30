@@ -1,18 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<local:BaseMainView x:Class="MaterialMvvmSample.Views.ChipFontSizeView"
-                    xmlns="http://xamarin.com/schemas/2014/forms"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                    xmlns:local="clr-namespace:MaterialMvvmSample.Views"
-                    xmlns:matd="clr-namespace:XF.Material.Forms.UI.Dialogs;assembly=XF.Material"
-                    xmlns:matdc="clr-namespace:XF.Material.Forms.UI.Dialogs.Configurations;assembly=XF.Material"
-                    xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
-                    x:Name="Root"
-                    Title="Material MVVM"
-                    material:MaterialNavigationPage.AppBarColor="#2c3e50"
-                    material:MaterialNavigationPage.AppBarTitleTextAlignment="Start"
-                    material:MaterialNavigationPage.AppBarTitleTextFontFamily="{StaticResource FontFamily.RobotoMedium}"
-                    material:MaterialNavigationPage.AppBarTitleTextFontSize="14"
-                    material:MaterialNavigationPage.StatusBarColor="#1B3147">
+<ContentPage
+    x:Class="MaterialMvvmSample.Views.ChipFontSizeView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:MaterialMvvmSample.Views"
+    xmlns:matd="clr-namespace:XF.Material.Forms.UI.Dialogs;assembly=XF.Material"
+    xmlns:matdc="clr-namespace:XF.Material.Forms.UI.Dialogs.Configurations;assembly=XF.Material"
+    xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+    x:Name="Root"
+    Title="Material MVVM"
+    material:MaterialNavigationPage.AppBarColor="#2c3e50"
+    material:MaterialNavigationPage.AppBarTitleTextAlignment="Start"
+    material:MaterialNavigationPage.AppBarTitleTextFontFamily="{StaticResource FontFamily.RobotoMedium}"
+    material:MaterialNavigationPage.AppBarTitleTextFontSize="14"
+    material:MaterialNavigationPage.StatusBarColor="#1B3147">
     <ContentPage.Content>
 
         <StackLayout Padding="32,16"
@@ -35,4 +36,4 @@
         </StackLayout>
 
     </ContentPage.Content>
-</local:BaseMainView>
+</ContentPage>

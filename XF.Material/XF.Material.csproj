@@ -17,7 +17,6 @@
     <PackageId>XF.Material</PackageId>
     <Description>A Xamarin.Forms library for Xamarin.Android and Xamarin.iOS to implement Google's Material Design.</Description>
     <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
-    <DisableExtraReferences>true</DisableExtraReferences>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(TargetFramework.StartsWith('uap')) And '$(OS)' == 'Windows_NT'">
@@ -64,11 +63,14 @@
     <None Remove="Platforms\Apple\**\*.cs" />
     <None Remove="Platforms\Ios\**\*.cs" />
     <None Remove="Platforms\Xamarin\**\*.cs" />
+    <None Remove="Resources\*.png" />
+    <None Remove="Resources\*.json" />
     <Compile Include="Platforms\Apple\**\*.cs" />
     <Compile Include="Platforms\Ios\**\*.cs" />
     <Compile Include="Platforms\Xamarin\**\*.cs" />
     <BundleResource Include="Resources\*.png" />
     <BundleResource Include="Resources\*.json" />
+    <None Include="Info.plist" />
   </ItemGroup>
 
   <ItemGroup Condition=" $(TargetFramework.StartsWith('xamarin.mac')) ">

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using MaterialMvvmSample.ViewModels;
 using Xamarin.Forms;
 
 namespace MaterialMvvmSample.Views
@@ -10,6 +10,7 @@ namespace MaterialMvvmSample.Views
         public MaterialCircularView()
         {
             InitializeComponent();
+            BindingContext = new MaterialCircularViewModel();
         }
     }
 }

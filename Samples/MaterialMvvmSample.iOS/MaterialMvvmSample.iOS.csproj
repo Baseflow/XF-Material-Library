@@ -154,6 +154,10 @@
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon20.png">
       <Visible>false</Visible>
     </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\icon_more.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\icon_more.imageset\icon_more.png" />
+    <ImageAsset Include="Assets.xcassets\icon_more.imageset\icon_more%402x.png" />
+    <ImageAsset Include="Assets.xcassets\icon_more.imageset\icon_more%403x.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -198,5 +202,8 @@
       <Project>{AADF2788-B233-4EA1-9A3C-77AF05508226}</Project>
       <Name>MaterialMvvmSample</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets.xcassets\icon_more.imageset\" />
   </ItemGroup>
 </Project>

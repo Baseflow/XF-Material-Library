@@ -1,19 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using MaterialMvvmSample.ViewModels;
 using Xamarin.Forms;
+using XF.Material.Forms.Models;
 
 namespace MaterialMvvmSample.Views
 {
-    public partial class CheckboxesView : ContentPage
+    public partial class MaterialMenuButtonView : ContentPage
     {
-        public CheckboxesView()
+        public MaterialMenuButtonView()
         {
             InitializeComponent();
-            BindingContext = new CheckboxesViewModel();
-
+            BindingContext = new MaterialMenuButtonViewModel();
         }
     }
 }
-

@@ -12,6 +12,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="$(TargetFramework.StartsWith('xamarin.ios'))">
     <DefineConstants>$(DefineConstants);MONO;UIKIT;COCOA;APPLE;IOS</DefineConstants>
+    <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
   </PropertyGroup>
   <PropertyGroup Condition="$(TargetFramework.StartsWith('xamarin.mac'))">
     <DefineConstants>$(DefineConstants);MONO;COCOA;APPLE;MAC</DefineConstants>
