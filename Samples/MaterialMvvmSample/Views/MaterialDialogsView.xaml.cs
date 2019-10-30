@@ -16,6 +16,15 @@ namespace MaterialMvvmSample.Views
             BindingContext = new MaterialDialogsViewModel();
 
             this.Opendialog.Clicked += Opendialog_Clicked;
+            this.OpenSimpleDialog.Clicked += OpenSimpleDialog_Clicked;
+        }
+
+        private async void OpenSimpleDialog_Clicked(object sender, EventArgs e)
+        {
+            await MaterialDialog.Instance.SelectActionAsync(new List<string>
+            {
+                "action"
+            });
         }
 
         private async void Opendialog_Clicked(object sender, EventArgs e)
