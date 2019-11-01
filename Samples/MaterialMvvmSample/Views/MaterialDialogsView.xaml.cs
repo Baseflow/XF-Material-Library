@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using MaterialMvvmSample.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -17,6 +18,13 @@ namespace MaterialMvvmSample.Views
 
             this.Opendialog.Clicked += Opendialog_Clicked;
             this.OpenSimpleDialog.Clicked += OpenSimpleDialog_Clicked;
+            OpenConfirmDialog();
+        }
+
+        private async Task OpenConfirmDialog()
+        {
+            await MaterialDialog.Instance.ConfirmAsync(message: "Do you want to sign in?",
+                                                         confirmingText: "Sign In");
         }
 
         private async void OpenSimpleDialog_Clicked(object sender, EventArgs e)
