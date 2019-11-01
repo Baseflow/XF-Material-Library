@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -13,6 +14,8 @@ namespace XF.Material.Forms.UI.Dialogs
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MaterialSimpleDialog : BaseMaterialModalPage, IMaterialAwaitableDialog<int>
     {
+        private static SemaphoreSlim SemaphoreSlim = new SemaphoreSlim(1, 1);
+
         internal MaterialSimpleDialog(MaterialSimpleDialogConfiguration configuration)
         {
             InitializeComponent();
@@ -75,14 +78,28 @@ namespace XF.Material.Forms.UI.Dialogs
                 };
                 actionModel.SelectedCommand = new Command<int>(async (position) =>
                 {
-                    if (InputTaskCompletionSource?.Task.Status != TaskStatus.WaitingForActivation)
-                    {
-                        return;
-                    }
+                    // Prevent any parrallel execution when clicking fast on the element
+                    await SemaphoreSlim.WaitAsync();
 
-                    actionModel.IsSelected = true;
-                    await DismissAsync();
-                    InputTaskCompletionSource?.SetResult(position);
+                    try
+                    {
+                        if (InputTaskCompletionSource?.Task.Status != TaskStatus.WaitingForActivation)
+                        {
+                            return;
+                        }
+
+                        actionModel.IsSelected = true;
+                        await DismissAsync();
+                        InputTaskCompletionSource?.SetResult(position);
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                    finally
+                    {
+                        SemaphoreSlim.Release();
+                    }
                 });
 
                 actionModels.Add(actionModel);

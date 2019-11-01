@@ -1,15 +1,18 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                    xmlns:local="clr-namespace:MaterialMvvmSample.Views"
-                    xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
-                    x:Class="MaterialMvvmSample.Views.MaterialDialogsView">
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:MaterialMvvmSample.Views"
+             xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+             x:Class="MaterialMvvmSample.Views.MaterialDialogsView">
     <ContentPage.Content>
         <StackLayout Orientation="Vertical">
             <material:MaterialButton Text="Open Dialog"
                                      x:Name="Opendialog" />
 
             <material:MaterialLabel x:Name="DialogResult" />
+
+            <material:MaterialButton Text="Open Simple Dialog"
+                                     x:Name="OpenSimpleDialog" />
 
         </StackLayout>
     </ContentPage.Content>
