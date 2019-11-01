@@ -19,5 +19,8 @@
         public const string MaterialCircularView = nameof(Views.MaterialCircularView);
 
         public const string MaterialMenuButtonView = nameof(Views.MaterialMenuButtonView);
+
+        public const string MaterialCardView = nameof(Views.MaterialCardView);
+
     }
 }

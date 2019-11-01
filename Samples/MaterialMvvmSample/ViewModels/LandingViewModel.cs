@@ -20,6 +20,8 @@ namespace MaterialMvvmSample.ViewModels
 
         public ICommand GoToMaterialMenuButtonViewCommand => this.GoToCommand(ViewNames.MaterialMenuButtonView);
 
+        public ICommand GoToMaterialCardViewCommand => this.GoToCommand(ViewNames.MaterialCardView);
+
         private ICommand GoToCommand(string name) => new Command(() => this.Navigation.PushAsync(name));
 
     }
