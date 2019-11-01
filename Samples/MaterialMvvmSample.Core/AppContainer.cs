@@ -41,6 +41,7 @@ namespace MaterialMvvmSample.Core
             containerBuilder.RegisterType<MaterialCircularView>().Named<Page>(ViewNames.MaterialCircularView).As<MaterialCircularView>().InstancePerDependency();
             containerBuilder.RegisterType<CheckboxesView>().Named<Page>(ViewNames.CheckboxesView).As<CheckboxesView>().InstancePerDependency();
             containerBuilder.RegisterType<MaterialMenuButtonView>().Named<Page>(ViewNames.MaterialMenuButtonView).As<MaterialMenuButtonView>().InstancePerDependency();
+            containerBuilder.RegisterType<MaterialCardView>().Named<Page>(ViewNames.MaterialCardView).As<MaterialCardView>().InstancePerDependency();
 
             containerBuilder.RegisterType<MainViewModel>().InstancePerDependency();
             containerBuilder.RegisterType<SecondViewModel>().InstancePerDependency();
@@ -50,6 +51,7 @@ namespace MaterialMvvmSample.Core
             containerBuilder.RegisterType<MaterialCircularViewModel>().InstancePerDependency();
             containerBuilder.RegisterType<MaterialDialogsViewModel>().InstancePerDependency();
             containerBuilder.RegisterType<MaterialTextFieldViewModel>().InstancePerDependency();
+            containerBuilder.RegisterType<MaterialCardViewModel>().InstancePerDependency();
 
         }
     }
