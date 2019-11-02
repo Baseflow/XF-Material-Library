@@ -50,6 +50,15 @@ namespace XF.Material.iOS.Renderers
             }
         }
 
+        protected override Task<bool> OnPopToRoot(Page page, bool animated)
+        {
+            _navigationPage.InternalPopToRoot(page);
+
+            ChangeHasShadow(page);
+
+            return base.OnPopToRoot(page, animated);
+        }
+
         protected override Task<bool> OnPopViewAsync(Page page, bool animated)
         {
             var pop = base.OnPopViewAsync(page, animated);

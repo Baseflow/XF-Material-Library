@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Xamarin.Forms;
 using XF.Material.Forms.Resources;
@@ -46,7 +47,6 @@ namespace XF.Material.Forms.UI
         public static readonly BindableProperty StatusBarColorProperty = BindableProperty.Create("StatusBarColor", typeof(Color), typeof(MaterialNavigationPage), Color.Default);
 
         private TitleLabel _customTitleView;
-        private bool _firstLoad;
 
         /// <summary>
         /// Initializes a new instance of <see cref="MaterialNavigationPage"/>.
@@ -177,6 +177,15 @@ namespace XF.Material.Forms.UI
         /// For internal use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
+        public void InternalPopToRoot(Page rootPage)
+        {
+            OnPopToRoot(rootPage);
+        }
+
+        /// <summary>
+        /// For internal use only.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public void InternalPagePop(Page previousPage, Page poppedPage)
         {
             OnPagePop(previousPage, poppedPage);
@@ -216,23 +225,35 @@ namespace XF.Material.Forms.UI
             var page = sender as Page;
 
             if (e?.PropertyName == nameof(Title) && page?.GetValue(TitleViewProperty) is TitleLabel label)
-            {
                 label.Text = page.Title;
-            }
+            else if (e?.PropertyName == "AppBarColor" && page != null)
+                UpdatePageProperties(page);
+            else if (e?.PropertyName == "AppBarTitleTextFontFamily" && page != null)
+                UpdatePageProperties(page);
+            else if (e?.PropertyName == "AppBarTitleTextFontSize" && page != null)
+                UpdatePageProperties(page);
+            else if (e?.PropertyName == "StatusBarColor" && page != null)
+                UpdatePageProperties(page);
+            else if (e?.PropertyName == "AppBarTitleTextAlignment" && page != null)
+                UpdatePageProperties(page);
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
 
-            if (_firstLoad)
-            {
-                return;
-            }
+            ChangeStatusBarColor(CurrentPage);
+        }
 
-            ChangeStatusBarColor(RootPage);
+        /// <summary>
+        /// Called when all pages are being popped.
+        /// </summary>
+        /// <param name="rootPage">The root page.</param>
+        protected virtual void OnPopToRoot(Page rootPage)
+        {
+            UpdatePageProperties(rootPage);
 
-            _firstLoad = true;
+            rootPage.SetValue(BackButtonTitleProperty, string.Empty);
         }
 
         /// <summary>
@@ -242,14 +263,7 @@ namespace XF.Material.Forms.UI
         /// <param name="poppedPage">The page that will be popped.</param>
         protected virtual void OnPagePop(Page previousPage, Page poppedPage)
         {
-            if (previousPage.BackgroundColor.IsDefault)
-            {
-                previousPage.SetDynamicResource(BackgroundColorProperty, MaterialConstants.Color.BACKGROUND);
-            }
-
-            ChangeBarTextColor(previousPage);
-            ChangeStatusBarColor(previousPage);
-            ChangeBarBackgroundColor(previousPage);
+            UpdatePageProperties(previousPage);
 
             previousPage.SetValue(BackButtonTitleProperty, string.Empty);
         }
@@ -260,6 +274,13 @@ namespace XF.Material.Forms.UI
         /// <param name="page">The page that is being pushed.</param>
         protected virtual void OnPagePush(Page page)
         {
+            UpdatePageProperties(page);
+
+            page.SetValue(BackButtonTitleProperty, string.Empty);
+        }
+
+        private void UpdatePageProperties(Page page)
+        {
             if (page.BackgroundColor.IsDefault)
             {
                 page.SetDynamicResource(BackgroundColorProperty, MaterialConstants.Color.BACKGROUND);
@@ -269,8 +290,6 @@ namespace XF.Material.Forms.UI
             ChangeBarTextColor(page);
             ChangeStatusBarColor(page);
             ChangeBarBackgroundColor(page);
-
-            page.SetValue(BackButtonTitleProperty, string.Empty);
         }
 
         private void ChangeBarBackgroundColor(Page page)
@@ -310,16 +329,19 @@ namespace XF.Material.Forms.UI
 
         private void ChangeFont(Page page)
         {
-            var currentValue = page.GetValue(TitleViewProperty);
-
-            if (currentValue != null)
-            {
-                return;
-            }
+            var currentTitleView = (TitleLabel)page.GetValue(TitleViewProperty);
 
             var textAlignment = (TextAlignment)page.GetValue(AppBarTitleTextAlignmentProperty);
             var fontFamily = (string)page.GetValue(AppBarTitleTextFontFamilyProperty);
             var fontSize = (double)page.GetValue(AppBarTitleTextFontSizeProperty);
+
+            if (currentTitleView != null)
+            {
+                currentTitleView.HorizontalTextAlignment = textAlignment;
+                currentTitleView.FontFamily = fontFamily;
+                currentTitleView.FontSize = fontSize;
+                return;
+            }
 
             if (string.IsNullOrEmpty(fontFamily))
             {
