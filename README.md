@@ -493,7 +493,7 @@ Menus can be dismissed by tapping outside, when an item was selected, or when th
 
 Be sure to always match the width and height of the child view to the width and height of the menu.
 
-De menu is a button by default. In the menu sample shown above an image is added to show how it could look like.
+De menu is by default a button. In the menu sample shown above the 3 dots is an added image. This is one of the possibilities how the menu can look like.
 
 #### Slider
 Sliders allow users to make selections from a range of values.
