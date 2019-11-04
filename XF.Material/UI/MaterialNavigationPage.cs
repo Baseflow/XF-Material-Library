@@ -226,16 +226,16 @@ namespace XF.Material.Forms.UI
 
             if (e?.PropertyName == nameof(Title) && page?.GetValue(TitleViewProperty) is TitleLabel label)
                 label.Text = page.Title;
-            else if (e?.PropertyName == "AppBarColor" && page != null)
-                UpdatePageProperties(page);
-            else if (e?.PropertyName == "AppBarTitleTextFontFamily" && page != null)
-                UpdatePageProperties(page);
-            else if (e?.PropertyName == "AppBarTitleTextFontSize" && page != null)
-                UpdatePageProperties(page);
             else if (e?.PropertyName == "StatusBarColor" && page != null)
-                UpdatePageProperties(page);
+                ChangeStatusBarColor(page);
+            else if (e?.PropertyName == "AppBarColor" && page != null)
+                ChangeBarBackgroundColor(page);
+            else if (e?.PropertyName == "AppBarTitleTextFontFamily" && page != null)
+                ChangeFont(page);
+            else if (e?.PropertyName == "AppBarTitleTextFontSize" && page != null)
+                ChangeFont(page);
             else if (e?.PropertyName == "AppBarTitleTextAlignment" && page != null)
-                UpdatePageProperties(page);
+                ChangeFont(page);
         }
 
         protected override void OnAppearing()
@@ -251,7 +251,7 @@ namespace XF.Material.Forms.UI
         /// <param name="rootPage">The root page.</param>
         protected virtual void OnPopToRoot(Page rootPage)
         {
-            UpdatePageProperties(rootPage);
+            UpdatePage(rootPage);
 
             rootPage.SetValue(BackButtonTitleProperty, string.Empty);
         }
@@ -263,7 +263,7 @@ namespace XF.Material.Forms.UI
         /// <param name="poppedPage">The page that will be popped.</param>
         protected virtual void OnPagePop(Page previousPage, Page poppedPage)
         {
-            UpdatePageProperties(previousPage);
+            UpdatePage(previousPage);
 
             previousPage.SetValue(BackButtonTitleProperty, string.Empty);
         }
@@ -274,12 +274,12 @@ namespace XF.Material.Forms.UI
         /// <param name="page">The page that is being pushed.</param>
         protected virtual void OnPagePush(Page page)
         {
-            UpdatePageProperties(page);
+            UpdatePage(page);
 
             page.SetValue(BackButtonTitleProperty, string.Empty);
         }
 
-        private void UpdatePageProperties(Page page)
+        private void UpdatePage(Page page)
         {
             if (page.BackgroundColor.IsDefault)
             {
