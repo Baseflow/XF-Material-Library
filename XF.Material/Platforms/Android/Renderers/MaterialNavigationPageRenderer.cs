@@ -36,6 +36,15 @@ namespace XF.Material.Droid.Renderers
             _toolbar = ViewGroup.GetChildAt(0) as Toolbar;
         }
 
+        protected override Task<bool> OnPopToRootAsync(Page page, bool animated)
+        {
+            _navigationPage.InternalPopToRoot(page);
+
+            ChangeHasShadow(page);
+
+            return base.OnPopToRootAsync(page, animated);
+        }
+
         protected override Task<bool> OnPopViewAsync(Page page, bool animated)
         {
             var navStack = _navigationPage.Navigation.NavigationStack.ToList();
