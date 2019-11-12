@@ -1212,21 +1212,21 @@ This library offers the same type scales, each can be applied and reused in your
 
 <img src="images/typescale.jpg" width="400" /><br />
 
-| TypeScale | Font Size | Font Attribute | Letter Spacing |
-| -------------- | ------------- | ----------- | ---------------- | --------------|
-|`MaterialTypeScale.H1` | 96 | Regular | -1.5 |
-|`MaterialTypeScale.H2` | 60 | Regular | -0.5 |
-|`MaterialTypeScale.H3` | 48 | Regular | 0 |
-|`MaterialTypeScale.H4` | 34 | Regular | 0.25|
-|`MaterialTypeScale.H5` | 24 | Regular | 0 |
-|`MaterialTypeScale.H6` | 20 | Bold | 0.15 |
-|`MaterialTypeScale.Subtitle1` | 16 | Regular | 0.15 |
-|`MaterialTypeScale.Subtitle2` | 14 | Bold | 0.1 |
-|`MaterialTypeScale.Body1` | 16 | Regular | 0.5 |
-|`MaterialTypeScale.Body2` | 14 | Regular | 0.25 |
-|`MaterialTypeScale.Button` | 14 | Bold | 0.75 |
-|`MaterialTypeScale.Caption`| 12 | Regular | 0.4 |
-|`MaterialTypeScale.Overline`| 10 | Regular | 1.5 |
+| TypeScale                     | Font Size | Font Attribute | Letter Spacing |
+| ----------------------------- | --------- | -------------- | -------------- |
+| `MaterialTypeScale.H1`        | 96        | Regular        | -1.5           |
+| `MaterialTypeScale.H2`        | 60        | Regular        | -0.5           |
+| `MaterialTypeScale.H3`        | 48        | Regular        | 0              |
+| `MaterialTypeScale.H4`        | 34        | Regular        | 0.25           |
+| `MaterialTypeScale.H5`        | 24        | Regular        | 0              |
+| `MaterialTypeScale.H6`        | 20        | Bold           | 0.15           |
+| `MaterialTypeScale.Subtitle1` | 16        | Regular        | 0.15           |
+| `MaterialTypeScale.Subtitle2` | 14        | Bold           | 0.1            |
+| `MaterialTypeScale.Body1`     | 16        | Regular        | 0.5            |
+| `MaterialTypeScale.Body2`     | 14        | Regular        | 0.25           |
+| `MaterialTypeScale.Button`    | 14        | Bold           | 0.75           |
+| `MaterialTypeScale.Caption`   | 12        | Regular        | 0.4            |
+| `MaterialTypeScale.Overline`  | 10        | Regular        | 1.5            |
 
 
 - <b>Headlines</b> - The largest text on the screen, and used for short, important text or numerals.
