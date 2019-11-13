@@ -50,30 +50,28 @@ namespace XF.Material.iOS.Renderers
             }
         }
 
-        protected override Task<bool> OnPopToRoot(Page page, bool animated)
+        public override UIViewController[] PopToRootViewController(bool animated)
         {
-            _navigationPage.InternalPopToRoot(page);
-
-            ChangeHasShadow(page);
-
-            return base.OnPopToRoot(page, animated);
+            _navigationPage.InternalPopToRoot(_navigationPage.RootPage);
+            ChangeHasShadow(_navigationPage.RootPage);
+            return base.PopToRootViewController(animated);
         }
 
-        protected override Task<bool> OnPopViewAsync(Page page, bool animated)
+        public override UIViewController PopViewController(bool animated)
         {
-            var pop = base.OnPopViewAsync(page, animated);
             var navStack = _navigationPage.Navigation.NavigationStack.ToList();
 
             if (navStack.Count - 1 - navStack.IndexOf(_navigationPage.CurrentPage) < 0)
             {
-                return pop;
+                return base.PopViewController(animated);
             }
 
+            var currentPage = _navigationPage.CurrentPage;
             var previousPage = navStack[navStack.IndexOf(_navigationPage.CurrentPage) - 1];
-            _navigationPage.InternalPagePop(previousPage, page);
+            _navigationPage.InternalPagePop(previousPage, currentPage);
             ChangeHasShadow(previousPage);
 
-            return pop;
+            return base.PopViewController(animated);
         }
 
         protected override Task<bool> OnPushAsync(Page page, bool animated)
