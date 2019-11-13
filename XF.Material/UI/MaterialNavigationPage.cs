@@ -200,6 +200,15 @@ namespace XF.Material.Forms.UI
             OnPagePush(page);
         }
 
+        /// <summary>
+        /// For internal use only.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public void ForceUpdateCurrentPage()
+        {
+            UpdatePage(CurrentPage);
+        }
+
         protected override void OnPropertyChanging([CallerMemberName] string propertyName = null)
         {
             base.OnPropertyChanging(propertyName);

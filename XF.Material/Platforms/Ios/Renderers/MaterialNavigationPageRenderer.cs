@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using CoreGraphics;
+using ObjCRuntime;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
@@ -47,6 +48,7 @@ namespace XF.Material.iOS.Renderers
             if (e?.NewElement != null)
             {
                 _navigationPage = Element as MaterialNavigationPage;
+                Delegate = new NavigationControllerDelegate(this, _navigationPage);
             }
         }
 
@@ -88,6 +90,34 @@ namespace XF.Material.iOS.Renderers
             var hasShadow = (bool)page.GetValue(MaterialNavigationPage.HasShadowProperty);
 
             ChangeHasShadow(hasShadow);
+        }
+
+        class NavigationControllerDelegate : UINavigationControllerDelegate
+        {
+            private UINavigationController _navigationController;
+            private MaterialNavigationPage _navigationPage;
+
+            public NavigationControllerDelegate(UINavigationController uINavigationController, MaterialNavigationPage navigationPage)
+            {
+                _navigationController = uINavigationController;
+                _navigationPage = navigationPage;
+            }
+
+            public override void WillShowViewController(UINavigationController navigationController, [Transient] UIViewController viewController, bool animated)
+            {
+                var coordinator = _navigationController?.TopViewController?.GetTransitionCoordinator();
+
+                if (coordinator == null)
+                    return;
+
+                coordinator.NotifyWhenInteractionChanges((context) =>
+                {
+                    if (context.IsCancelled)
+                    {
+                        _navigationPage.ForceUpdateCurrentPage();
+                    }
+                });
+            }
         }
     }
 }
