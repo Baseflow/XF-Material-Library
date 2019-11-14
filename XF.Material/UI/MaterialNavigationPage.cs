@@ -200,6 +200,15 @@ namespace XF.Material.Forms.UI
             OnPagePush(page);
         }
 
+        /// <summary>
+        /// For internal use only.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public void ForceUpdateCurrentPage()
+        {
+            UpdatePage(CurrentPage);
+        }
+
         protected override void OnPropertyChanging([CallerMemberName] string propertyName = null)
         {
             base.OnPropertyChanging(propertyName);
@@ -224,17 +233,20 @@ namespace XF.Material.Forms.UI
         {
             var page = sender as Page;
 
-            if (e?.PropertyName == nameof(Title) && page?.GetValue(TitleViewProperty) is TitleLabel label)
+            if (page == null)
+                return;
+
+            if (e.PropertyName == nameof(Title) && page.GetValue(TitleViewProperty) is TitleLabel label)
                 label.Text = page.Title;
-            else if (e?.PropertyName == "StatusBarColor" && page != null)
+            else if (e.PropertyName == StatusBarColorProperty.PropertyName)
                 ChangeStatusBarColor(page);
-            else if (e?.PropertyName == "AppBarColor" && page != null)
+            else if (e.PropertyName == AppBarColorProperty.PropertyName)
                 ChangeBarBackgroundColor(page);
-            else if (e?.PropertyName == "AppBarTitleTextFontFamily" && page != null)
+            else if (e.PropertyName == AppBarTitleTextFontFamilyProperty.PropertyName)
                 ChangeFont(page);
-            else if (e?.PropertyName == "AppBarTitleTextFontSize" && page != null)
+            else if (e.PropertyName == AppBarTitleTextFontSizeProperty.PropertyName)
                 ChangeFont(page);
-            else if (e?.PropertyName == "AppBarTitleTextAlignment" && page != null)
+            else if (e.PropertyName == AppBarTitleTextAlignmentProperty.PropertyName)
                 ChangeFont(page);
         }
 

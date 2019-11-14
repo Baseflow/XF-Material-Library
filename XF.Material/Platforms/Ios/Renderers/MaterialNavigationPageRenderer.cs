@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using CoreGraphics;
+using ObjCRuntime;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
@@ -47,33 +48,32 @@ namespace XF.Material.iOS.Renderers
             if (e?.NewElement != null)
             {
                 _navigationPage = Element as MaterialNavigationPage;
+                Delegate = new NavigationControllerDelegate(this, _navigationPage);
             }
         }
 
-        protected override Task<bool> OnPopToRoot(Page page, bool animated)
+        public override UIViewController[] PopToRootViewController(bool animated)
         {
-            _navigationPage.InternalPopToRoot(page);
-
-            ChangeHasShadow(page);
-
-            return base.OnPopToRoot(page, animated);
+            _navigationPage.InternalPopToRoot(_navigationPage.RootPage);
+            ChangeHasShadow(_navigationPage.RootPage);
+            return base.PopToRootViewController(animated);
         }
 
-        protected override Task<bool> OnPopViewAsync(Page page, bool animated)
+        public override UIViewController PopViewController(bool animated)
         {
-            var pop = base.OnPopViewAsync(page, animated);
             var navStack = _navigationPage.Navigation.NavigationStack.ToList();
 
             if (navStack.Count - 1 - navStack.IndexOf(_navigationPage.CurrentPage) < 0)
             {
-                return pop;
+                return base.PopViewController(animated);
             }
 
+            var currentPage = _navigationPage.CurrentPage;
             var previousPage = navStack[navStack.IndexOf(_navigationPage.CurrentPage) - 1];
-            _navigationPage.InternalPagePop(previousPage, page);
+            _navigationPage.InternalPagePop(previousPage, currentPage);
             ChangeHasShadow(previousPage);
 
-            return pop;
+            return base.PopViewController(animated);
         }
 
         protected override Task<bool> OnPushAsync(Page page, bool animated)
@@ -90,6 +90,34 @@ namespace XF.Material.iOS.Renderers
             var hasShadow = (bool)page.GetValue(MaterialNavigationPage.HasShadowProperty);
 
             ChangeHasShadow(hasShadow);
+        }
+
+        class NavigationControllerDelegate : UINavigationControllerDelegate
+        {
+            private UINavigationController _navigationController;
+            private MaterialNavigationPage _navigationPage;
+
+            public NavigationControllerDelegate(UINavigationController uINavigationController, MaterialNavigationPage navigationPage)
+            {
+                _navigationController = uINavigationController;
+                _navigationPage = navigationPage;
+            }
+
+            public override void WillShowViewController(UINavigationController navigationController, [Transient] UIViewController viewController, bool animated)
+            {
+                var coordinator = _navigationController?.TopViewController?.GetTransitionCoordinator();
+
+                if (coordinator == null)
+                    return;
+
+                coordinator.NotifyWhenInteractionChanges((context) =>
+                {
+                    if (context.IsCancelled)
+                    {
+                        _navigationPage.ForceUpdateCurrentPage();
+                    }
+                });
+            }
         }
     }
 }
