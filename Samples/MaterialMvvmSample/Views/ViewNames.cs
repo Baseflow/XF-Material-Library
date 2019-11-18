@@ -22,5 +22,7 @@
 
         public const string MaterialCardView = nameof(Views.MaterialCardView);
 
+        public const string MaterialButtonView = nameof(Views.MaterialButtonView);
+
     }
 }
