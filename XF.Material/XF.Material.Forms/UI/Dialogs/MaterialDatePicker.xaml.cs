@@ -23,8 +23,8 @@ namespace XF.Material.Forms.UI.Dialogs
             this.InputTaskCompletionSource = new TaskCompletionSource<DateTime?>();
 
             this.Calendar.Title = title;
-            this.PositiveButton.Text = confirmingText;
-            this.NegativeButton.Text = dismissiveText;
+            this.PositiveButton.Text = confirmingText.ToUpper();
+            this.NegativeButton.Text = dismissiveText.ToUpper();
             this.PositiveButton.Command = new Command(async () =>
             {
                 await this.DismissAsync();
@@ -43,7 +43,7 @@ namespace XF.Material.Forms.UI.Dialogs
 
         public static async Task<DateTime?> Show(string title = "Select Date", string confirmingText = "Ok", string dismissiveText = "Cancel", MaterialConfirmationDialogConfiguration configuration = null)
         {
-            using (MaterialDatePicker dialog = new MaterialDatePicker(title, confirmingText, dismissiveText, configuration) { PositiveButton = { IsEnabled = false } })
+            using (MaterialDatePicker dialog = new MaterialDatePicker(title, confirmingText.ToUpper(), dismissiveText.ToUpper(), configuration) { PositiveButton = { IsEnabled = false } })
             {
                 await dialog.ShowAsync();
 

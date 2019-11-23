@@ -103,8 +103,8 @@ namespace XF.Material.Forms.UI.Dialogs
             dialog._radioButtonGroup.ShouldShowScrollbar = true;
             dialog.DialogTitle.Text = !string.IsNullOrEmpty(title) ? title : throw new ArgumentNullException(nameof(title));
             dialog.PositiveButton.IsEnabled = false;
-            dialog.PositiveButton.Text = confirmingText;
-            dialog.NegativeButton.Text = dismissiveText;
+            dialog.PositiveButton.Text = confirmingText.ToUpper();
+            dialog.NegativeButton.Text = dismissiveText.ToUpper();
             dialog.container.Content = dialog._radioButtonGroup;
             await dialog.ShowAsync();
 
@@ -140,8 +140,8 @@ namespace XF.Material.Forms.UI.Dialogs
             dialog.DialogTitle.Text = !string.IsNullOrEmpty(title) ? title : throw new ArgumentNullException(nameof(title));
             dialog.container.Content = dialog._radioButtonGroup;
             dialog.PositiveButton.IsEnabled = true;
-            dialog.PositiveButton.Text = confirmingText;
-            dialog.NegativeButton.Text = dismissiveText;
+            dialog.PositiveButton.Text = confirmingText.ToUpper();
+            dialog.NegativeButton.Text = dismissiveText.ToUpper();
             await dialog.ShowAsync();
 
             return await dialog.InputTaskCompletionSource.Task;
@@ -175,8 +175,8 @@ namespace XF.Material.Forms.UI.Dialogs
             dialog.DialogTitle.Text = !string.IsNullOrEmpty(title) ? title : throw new ArgumentNullException(nameof(title));
             dialog.container.Content = dialog._checkboxGroup;
             dialog.PositiveButton.IsEnabled = false;
-            dialog.PositiveButton.Text = confirmingText;
-            dialog.NegativeButton.Text = dismissiveText;
+            dialog.PositiveButton.Text = confirmingText.ToUpper();
+            dialog.NegativeButton.Text = dismissiveText.ToUpper();
             await dialog.ShowAsync();
 
             return await dialog.InputTaskCompletionSource.Task;
@@ -211,8 +211,8 @@ namespace XF.Material.Forms.UI.Dialogs
             dialog.DialogTitle.Text = !string.IsNullOrEmpty(title) ? title : throw new ArgumentNullException(nameof(title));
             dialog.container.Content = dialog._checkboxGroup;
             dialog.PositiveButton.IsEnabled = true;
-            dialog.PositiveButton.Text = confirmingText;
-            dialog.NegativeButton.Text = dismissiveText;
+            dialog.PositiveButton.Text = confirmingText.ToUpper();
+            dialog.NegativeButton.Text = dismissiveText.ToUpper();
             await dialog.ShowAsync();
 
             return await dialog.InputTaskCompletionSource.Task;

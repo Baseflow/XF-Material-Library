@@ -16,8 +16,8 @@ namespace XF.Material.Forms.UI.Dialogs
             DialogTitle.Text = title;
             TextField.Placeholder = inputPlaceholder;
             TextField.Text = inputText;
-            PositiveButton.Text = confirmingText;
-            NegativeButton.Text = dismissiveText;
+            PositiveButton.Text = confirmingText.ToUpper();
+            NegativeButton.Text = dismissiveText.ToUpper();
             PositiveButton.Command = new Command(async () =>
             {
                 await this.DismissAsync();
@@ -42,8 +42,8 @@ namespace XF.Material.Forms.UI.Dialogs
 
         public static async Task<string> Show(string title = null, string message = null, string inputText = null, string inputPlaceholder = "Enter input", string confirmingText = "Ok", string dismissiveText = "Cancel", MaterialInputDialogConfiguration configuration = null)
         {
-            var dialog = new MaterialInputDialog(title, message, inputText, inputPlaceholder, confirmingText,
-                dismissiveText, configuration) {PositiveButton = {IsEnabled = false}};
+            var dialog = new MaterialInputDialog(title, message, inputText, inputPlaceholder, confirmingText.ToUpper(),
+                dismissiveText.ToUpper(), configuration) {PositiveButton = {IsEnabled = false}};
 
             await dialog.ShowAsync();
 

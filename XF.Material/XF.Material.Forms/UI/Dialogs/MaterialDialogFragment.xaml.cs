@@ -26,8 +26,8 @@ namespace XF.Material.Forms.UI.Dialogs
                 container = {Content = view ?? throw new ArgumentNullException(nameof(view))},
                 DialogTitle = {Text = title},
                 Message = {Text = message},
-                PositiveButton = {Text = positiveButtonText},
-                NegativeButton = {Text = negativeButtonText}
+                PositiveButton = {Text = positiveButtonText.ToUpper()},
+                NegativeButton = {Text = negativeButtonText.ToUpper()}
             };
 
             await d.ShowAsync();
