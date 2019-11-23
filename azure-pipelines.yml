@@ -47,7 +47,7 @@ steps:
 - task: NuGetCommand@2
   inputs:
     command: 'pack'
-    packagesToPack: 'nuspec/XF.Material.nuspec'
+    packagesToPack: 'XF.Material.nuspec'
     versioningScheme: 'off'
 
 - task: CopyFiles@2
