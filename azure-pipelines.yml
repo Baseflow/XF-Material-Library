@@ -49,6 +49,11 @@ steps:
     command: 'pack'
     packagesToPack: 'nuspec/XF.Material.nuspec'
     versioningScheme: 'off'
+
+- task: CopyFiles@2
+  inputs:
+    Contents: '**'
+    TargetFolder: '$(build.artifactstagingdirectory)'
     
 - task: PublishBuildArtifacts@1
   inputs:
