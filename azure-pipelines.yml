@@ -52,7 +52,8 @@ steps:
 
 - task: CopyFiles@2
   inputs:
-    Contents: '**'
+    SourceFolder: '$(agent.builddirectory)'
+    Contents: '/**/*.nupkg'
     TargetFolder: '$(build.artifactstagingdirectory)'
     
 - task: PublishBuildArtifacts@1
