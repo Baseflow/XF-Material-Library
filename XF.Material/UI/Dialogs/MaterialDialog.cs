@@ -72,6 +72,11 @@ namespace XF.Material.Forms.UI.Dialogs
             return MaterialLoadingDialog.Loading(message, configuration);
         }
 
+        public Task<IMaterialModalPage> LoadingDialogAsync(string message, string lottieAnimation, MaterialLoadingDialogConfiguration configuration = null)
+        {
+            return MaterialLoadingDialog.Loading(message, lottieAnimation, configuration);
+        }
+
         public Task<IMaterialModalPage> LoadingSnackbarAsync(
             string message,
             MaterialSnackbarConfiguration configuration = null)

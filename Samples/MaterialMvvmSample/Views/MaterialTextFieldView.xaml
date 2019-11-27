@@ -6,7 +6,8 @@
     xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
     x:Class="MaterialMvvmSample.Views.MaterialTextFieldView">
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical">
+        <StackLayout Orientation="Vertical"
+                     Padding="20">
             <material:MaterialTextField Placeholder="Auto Capitalization"
                                         IsAutoCapitalizationEnabled="True" />
 
