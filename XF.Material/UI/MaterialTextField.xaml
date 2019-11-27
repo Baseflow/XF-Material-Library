@@ -19,7 +19,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition x:Name="_autoSizingRow"
                                Height="56" />
-                <RowDefinition Height="20" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
