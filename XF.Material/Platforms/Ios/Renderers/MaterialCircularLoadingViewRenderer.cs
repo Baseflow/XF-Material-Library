@@ -24,7 +24,7 @@ namespace XF.Material.iOS.Renderers
             }
 
             _materialElement = e?.NewElement as MaterialCircularLoadingView;
-            if (_materialElement != null)
+            if (_materialElement != null && string.IsNullOrEmpty(_materialElement.Animation))
             {
                 _materialElement.Animation = "loading_animation.json";
             }

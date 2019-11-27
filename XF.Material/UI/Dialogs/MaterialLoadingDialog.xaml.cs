@@ -16,6 +16,14 @@ namespace XF.Material.Forms.UI.Dialogs
             Message.Text = message;
         }
 
+        internal MaterialLoadingDialog(string message, string lottieAnimation, MaterialLoadingDialogConfiguration configuration)
+        {
+            InitializeComponent();
+            Configure(configuration);
+            Message.Text = message;
+            LoadingImage.Animation = lottieAnimation;
+        }
+
         public override bool Dismissable => false;
 
         public override string MessageText
@@ -29,6 +37,14 @@ namespace XF.Material.Forms.UI.Dialogs
         internal static async Task<IMaterialModalPage> Loading(string message, MaterialLoadingDialogConfiguration configuration = null)
         {
             var dialog = new MaterialLoadingDialog(message, configuration);
+            await dialog.ShowAsync();
+
+            return dialog;
+        }
+
+        internal static async Task<IMaterialModalPage> Loading(string message, string lottieAnimation, MaterialLoadingDialogConfiguration configuration = null)
+        {
+            var dialog = new MaterialLoadingDialog(message, lottieAnimation, configuration);
             await dialog.ShowAsync();
 
             return dialog;

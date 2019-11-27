@@ -109,6 +109,7 @@
     <BundleResource Include="Resources\Fonts\Roboto-Regular.ttf" />
     <BundleResource Include="Resources\Fonts\Roboto-Bold.ttf" />
     <BundleResource Include="Resources\Fonts\Roboto-Medium.ttf" />
+    <BundleResource Include="LottieLogo1.json" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
