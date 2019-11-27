@@ -52,7 +52,14 @@ namespace XF.Material.Forms.UI.Dialogs
         /// </summary>
         public async Task DismissAsync()
         {
-            await PopupNavigation.Instance.RemovePageAsync(this, true);
+            try
+            {
+                await PopupNavigation.Instance.RemovePageAsync(this, true);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+            }
         }
 
         /// <summary>
