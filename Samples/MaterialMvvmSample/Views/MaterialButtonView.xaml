@@ -8,6 +8,14 @@
         <StackLayout Padding="20">
             <material:MaterialButton Text="Welkom" Clicked="Btn_Clicked"/>
 
+            <material:MaterialButton AllCaps="True"
+                                     ButtonType="Elevated"
+                                     Elevation="2"
+                                     PressedBackgroundColor="Red"
+                                     HorizontalOptions="Center"
+                                     Text="Open Dialog"
+                                     VerticalOptions="Center"
+                                     Clicked="MaterialButton_Clicked"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
