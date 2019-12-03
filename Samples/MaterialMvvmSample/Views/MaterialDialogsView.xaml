@@ -14,6 +14,9 @@
             <material:MaterialButton Text="Open Simple Dialog"
                                      x:Name="OpenSimpleDialog" />
 
+            <material:MaterialButton Text="Open Alert Dialog"
+                                     Clicked="OpenAlertDialog_Clicked"/>
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
