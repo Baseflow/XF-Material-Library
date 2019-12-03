@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using MaterialMvvmSample.ViewModels;
 using Xamarin.Forms;
@@ -51,5 +52,15 @@ namespace MaterialMvvmSample.Views
 
             this.DialogResult.Text = choices[choice];
         }
+
+        private async void OpenAlertDialog_Clicked(object sender, EventArgs e)
+        {
+            if ((bool)await MaterialDialog.Instance.ConfirmAsync("Message", "Title", "Confirm", "Dismiss"))
+                Debug.WriteLine("Confirm");
+            else
+                Debug.WriteLine("Dimiss");
+        }
+
+     
     }
 }
