@@ -21,7 +21,9 @@
             <material:MaterialTextField Placeholder="With Icon"
                                         LeadingIcon="icon_plus"/>
 
-            <material:MaterialTextField InputType="Choice"/>
+            <material:MaterialTextField Placeholder="Choices"
+                                        InputType="Choice"
+                                        Choices="{Binding Choices}"/>
 
         </StackLayout>
     </ContentPage.Content>

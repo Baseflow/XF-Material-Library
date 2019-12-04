@@ -10,35 +10,13 @@ namespace MaterialMvvmSample.ViewModels
         {
         }
 
-        private string _selectedChoice;
-        public string SelectedChoice
+        public IList<string> Choices => new List<string>
         {
-            get => _selectedChoice;
-            set => Set(ref _selectedChoice, value);
-        }
+            "Ayala Corporation",
+            "San Miguel Corporation",
+            "YNGEN Holdings Inc.",
+            "ERNI Development Center Philippines, Inc., Bern, Switzerland"
+        };
 
-        private List<string> _selectChoise;
-        public List<string> SelectChoise
-        {
-            get
-                
-        }
-
-        private async void SelectChoises()
-        {
-            var choices = new List<string>
-            {
-                "choice 1",
-                "choice 2",
-                "choice 3",
-            };
-
-            var choice = await MaterialDialog.Instance.SelectChoiceAsync("Select choices", choices);
-
-            if (choice < 0)
-                return;
-
-            this.DialogResult.Text = choices[choice];
-        }
     }
 }
