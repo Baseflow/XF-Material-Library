@@ -10,8 +10,7 @@ namespace MaterialMvvmSample.Views
         public MaterialTextFieldView()
         {
             InitializeComponent();
-            BindingContext = new MaterialDialogsViewModel();
-
+            BindingContext = new MaterialTextFieldViewModel();
         }
     }
 }

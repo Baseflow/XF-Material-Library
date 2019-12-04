@@ -18,8 +18,10 @@
                                         IsTextAllCaps="True"
                                         IsAutoCapitalizationEnabled="true" />
 
-              <material:MaterialTextField Placeholder="With Icon"
-                                            LeadingIcon="icon_plus"/>
+            <material:MaterialTextField Placeholder="With Icon"
+                                        LeadingIcon="icon_plus"/>
+
+            <material:MaterialTextField InputType="Choice"/>
 
         </StackLayout>
     </ContentPage.Content>
