@@ -55,12 +55,18 @@ namespace MaterialMvvmSample.Views
 
         private async void OpenAlertDialog_Clicked(object sender, EventArgs e)
         {
-            if ((bool)await MaterialDialog.Instance.ConfirmAsync("Message", "Title", "Confirm", "Dismiss"))
-                Debug.WriteLine("Confirm");
+            var result = await MaterialDialog.Instance.ConfirmAsync("Message", "Title", "Confirm", "Dismiss");
+            if (result.HasValue)
+            {
+                if (result.Value)
+                    Debug.WriteLine("Confirm");
+                else
+                    Debug.WriteLine("Dimiss");
+            }
             else
-                Debug.WriteLine("Dimiss");
+            {
+                Debug.WriteLine("Closed");
+            }
         }
-
-     
     }
 }
