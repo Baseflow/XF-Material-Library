@@ -20,7 +20,24 @@ namespace MaterialMvvmSample.Views
             this.Opendialog.Clicked += Opendialog_Clicked;
             this.OpenSimpleDialog.Clicked += OpenSimpleDialog_Clicked;
             OpenConfirmDialog();
+
+            MaterialDailogMultipleMessage();
         }
+
+        private async Task MaterialDailogMultipleMessage()
+        {
+            using (var dialog = await MaterialDialog.Instance.LoadingDialogAsync(message: "Something is running"))
+            {
+                await Task.Delay(5000); // Represents a task that is running.
+                dialog.MessageText = "Something else is running now!";
+                await Task.Delay(5000); // Represents a task that is running.
+                dialog.MessageText = "Something else is running now aswell!";
+                await Task.Delay(5000); // Represents a task that is running.
+                dialog.MessageText = "Something else is running now last time!";
+                await Task.Delay(5000); // Represents a task that is running.
+            };
+        }
+
 
         private async Task OpenConfirmDialog()
         {
