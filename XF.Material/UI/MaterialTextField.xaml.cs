@@ -102,6 +102,8 @@ namespace XF.Material.Forms.UI
 
         public static readonly BindableProperty LeadingIconTintColorProperty = BindableProperty.Create(nameof(LeadingIconTintColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#99000000"));
 
+        public static readonly BindableProperty ErrorIconProperty = BindableProperty.Create(nameof(ErrorIcon), typeof(string), typeof(MaterialTextField), "xf_error");
+
         public static readonly BindableProperty MaxLengthProperty = BindableProperty.Create(nameof(MaxLength), typeof(int), typeof(MaterialTextField), 0);
 
         public static readonly BindableProperty PlaceholderColorProperty = BindableProperty.Create(nameof(PlaceholderColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#99000000"));
@@ -394,6 +396,15 @@ namespace XF.Material.Forms.UI
         {
             get => (Color)GetValue(LeadingIconTintColorProperty);
             set => SetValue(LeadingIconTintColorProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the image source of the icon to be showed at the left side of this text field.
+        /// </summary>
+        public string ErrorIcon
+        {
+            get => (string)GetValue(ErrorIconProperty);
+            set => SetValue(ErrorIconProperty, value);
         }
 
         /// <summary>
@@ -733,6 +744,8 @@ namespace XF.Material.Forms.UI
             {
                 if (ShouldAnimateUnderline)
                 {
+                    underline.Color = HasError ? ErrorColor : UnderlineColor;
+
                     anim.Add(0.0, AnimationDuration, new Animation(v => underline.HeightRequest = v, underline.HeightRequest, 0, _animationCurve, () =>
                     {
                         underline.WidthRequest = 0;
@@ -831,7 +844,7 @@ namespace XF.Material.Forms.UI
             underline.Color = ShouldAnimateUnderline ? ErrorColor : Color.Transparent;
             persistentUnderline.Color = AlwaysShowUnderline ? ErrorColor : Color.Transparent;
             trailingIcon.IsVisible = true;
-            trailingIcon.Source = "xf_error";
+            trailingIcon.Source = ErrorIcon;
             trailingIcon.TintColor = ErrorColor;
 
             if (string.IsNullOrEmpty(ErrorText))
@@ -1295,7 +1308,7 @@ namespace XF.Material.Forms.UI
 
         private void OnTextColorChanged(Color textColor)
         {
-            entry.TextColor = trailingIcon.TintColor = textColor;
+            entry.TextColor = textColor;
         }
 
         private void OnTextFontFamilyChanged(string fontFamily)
