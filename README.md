@@ -289,69 +289,71 @@ Text fields allow users to enter and edit text.
 
 4. `ErrorText` - The text that will show to indicate an error in this text field. This will replace `HelperText` when `HasError` is set to `true`.
 
-5. `FocusCommand` - The command that will be executed when this text field receives or loses focus.
+5. `ErrorIcon` - The icon that will show to indicate an error in this text field. Will show when `HasError` is set to `true`.
 
-6. `HasError` - Boolean flag that indicates whether an error has occurred or not in this text field.
+6. `FocusCommand` - The command that will be executed when this text field receives or loses focus.
 
-7. `HelperText` - The text that appears below the text field to indicate additional hints for the text field.
+7. `HasError` - Boolean flag that indicates whether an error has occurred or not in this text field.
 
-8. `HelperTextColor` - The color of the helper text. The default hex color value is `#99000000`.
+8. `HelperText` - The text that appears below the text field to indicate additional hints for the text field.
 
-9. `HelperTextFontFamily` - The font family of the helper text. The `ErrorText` will use this as its font family.
+9. `HelperTextColor` - The color of the helper text. The default hex color value is `#99000000`.
 
-10. `LeadingIcon` - The image icon that will show on the left side of this text field.
+10. `HelperTextFontFamily` - The font family of the helper text. The `ErrorText` will use this as its font family.
 
-11. `LeadingIconTintColor` - The color to be used to tint the icon image of this text field. The default hex color value is `#99000000`.
+11. `LeadingIcon` - The image icon that will show on the left side of this text field.
 
-12. `InputType` - The keyboard input type to be used for this text field.
+12. `LeadingIconTintColor` - The color to be used to tint the icon image of this text field. The default hex color value is `#99000000`.
 
-13. `MaxLength` - The maximum allowed number of characters in this text field.
+13. `InputType` - The keyboard input type to be used for this text field.
 
-14. `Placeholder` - The placeholder text of this text field. This property must never be null or empty.
+14. `MaxLength` - The maximum allowed number of characters in this text field.
 
-15. `PlaceholderColor` - The color of the placeholder text. The default hex color value is `#99000000`.
+15. `Placeholder` - The placeholder text of this text field. This property must never be null or empty.
 
-16. `ReturnType` -  The appearance of the return button of the keyboard.
+16. `PlaceholderColor` - The color of the placeholder text. The default hex color value is `#99000000`.
 
-17. `ReturnCommand` - The command that will run when the user returns the input.
+17. `ReturnType` -  The appearance of the return button of the keyboard.
 
-18. `ReturnCommandParameter` - The parameter to be passed in `ReturnCommand` property when it is executed.
+18. `ReturnCommand` - The command that will run when the user returns the input.
 
-19. `Text` - The input text of this text field.
+19. `ReturnCommandParameter` - The parameter to be passed in `ReturnCommand` property when it is executed.
 
-20. `TextChangeCommand` - The command that executes when there is a change in this text field's input text.
+20. `Text` - The input text of this text field.
 
-21. `TextColor` - The color of the input text. The default hex color value is `#D0000000`.
+21. `TextChangeCommand` - The command that executes when there is a change in this text field's input text.
 
-22. `TextFontFamily` - The font family of the input text. By default, it uses the `MaterialFontConfiguration.Body2` font family.
+22. `TextColor` - The color of the input text. The default hex color value is `#D0000000`.
 
-23. `TintColor` - The tint color of the underline accent and the placeholder of this text field when focused. The default color is set to the value of `MaterialColorConfiguration.SecondaryColor`.
+23. `TextFontFamily` - The font family of the input text. By default, it uses the `MaterialFontConfiguration.Body2` font family.
 
-24. `FloatingPlaceholderEnabled` - Determines whether the placeholder should float above when the text field is focused.
+24. `TintColor` - The tint color of the underline accent and the placeholder of this text field when focused. The default color is set to the value of `MaterialColorConfiguration.SecondaryColor`.
 
-25. `Choices` - When the `InputType` property is set to `MaterialInputType.Choice`, provides the list of choices from which the user will select one.
+25. `FloatingPlaceholderEnabled` - Determines whether the placeholder should float above when the text field is focused.
 
-26. `ChoicesBindingName` - The name of the property of the items in the `Choices` property to display.
+26. `Choices` - When the `InputType` property is set to `MaterialInputType.Choice`, provides the list of choices from which the user will select one.
 
-27. `ChoiceSelectedCommand` - The command that will execute when an item is selected using the input type `Choice`. The parameter that will be passed to this command is the selected item.
+27. `ChoicesBindingName` - The name of the property of the items in the `Choices` property to display.
 
-28. `HorizontalPadding` - The value that determines the left and right padding of the text field.
+28. `ChoiceSelectedCommand` - The command that will execute when an item is selected using the input type `Choice`. The parameter that will be passed to this command is the selected item.
 
-29. `IsSpellCheckEnabled` - Boolean flag determines whether spell checking is enabled in this text field.
+29. `HorizontalPadding` - The value that determines the left and right padding of the text field.
 
-30. `IsTextPredictionEnabled` - Boolean flag determines whether text prediction is enabled in this field.
+30. `IsSpellCheckEnabled` - Boolean flag determines whether spell checking is enabled in this text field.
 
-31. `TextFontSize` - The font size of the text field's input text.
+31. `IsTextPredictionEnabled` - Boolean flag determines whether text prediction is enabled in this field.
 
-32. `FloatingPlaceholderFontSize` - The font size of the text field's floating placeholder.
+32. `TextFontSize` - The font size of the text field's input text.
 
-33. `FloatingPlaceholderColor` - The color of the text field's floating placeholder.
+33. `FloatingPlaceholderFontSize` - The font size of the text field's floating placeholder.
 
-34. `IsAutocapitalizationEnabled` - Boolean value that determines whether to autocapitalize the input text or not.
+34. `FloatingPlaceholderColor` - The color of the text field's floating placeholder.
 
-35. `IsMaxLengthCounterVisible` - Boolean value that determines whether to show the max input length counter on not.
+35. `IsAutocapitalizationEnabled` - Boolean value that determines whether to autocapitalize the input text or not.
 
-36. `ShouldAnimateUnderline` - Boolean value that determines whether to anumate the underline indicator or not.
+36. `IsMaxLengthCounterVisible` - Boolean value that determines whether to show the max input length counter on not.
+
+37. `ShouldAnimateUnderline` - Boolean value that determines whether to anumate the underline indicator or not.
 
 ##### Events
 
