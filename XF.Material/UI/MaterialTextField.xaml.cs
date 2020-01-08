@@ -1308,7 +1308,7 @@ namespace XF.Material.Forms.UI
 
         private void OnTextColorChanged(Color textColor)
         {
-            entry.TextColor = textColor;
+            entry.TextColor = trailingIcon.TintColor = textColor;
         }
 
         private void OnTextFontFamilyChanged(string fontFamily)
