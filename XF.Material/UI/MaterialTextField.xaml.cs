@@ -779,7 +779,7 @@ namespace XF.Material.Forms.UI
 
                     if (ShouldAnimateUnderline)
                     {
-                        underline.Color = HasError ? ErrorColor : TintColor;
+                        underline.Color = HasError ? ErrorColor : UnderlineColor;
                         underline.HeightRequest = 1;
                         anim.Add(0.0, AnimationDuration, new Animation(v => underline.WidthRequest = v, 0, Width, _animationCurve, () => underline.HorizontalOptions = LayoutOptions.FillAndExpand));
                     }
