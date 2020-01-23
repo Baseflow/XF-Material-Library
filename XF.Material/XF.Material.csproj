@@ -30,6 +30,12 @@
     <Compile Remove="Resources\*.cs" />
     <Compile Update="**\*.xaml.cs" DependentUpon="%(Filename)" />
     <None Include="readme.txt" pack="true" PackagePath="." />
+    <Compile Update="UI\MaterialTimePicker.cs">
+      <SubType></SubType>
+    </Compile>
+    <Compile Update="UI\MaterialDatePicker.cs">
+      <SubType></SubType>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) ">

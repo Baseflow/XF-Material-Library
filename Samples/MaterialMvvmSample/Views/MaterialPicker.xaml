@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MaterialMvvmSample.Views.MaterialPicker"
+             xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material" >
+    <ContentPage.Content>
+        <StackLayout>
+           <material:MaterialTimePicker  x:Name="_timePicker"
+                                          Time="11:00:00" />
+            <material:MaterialDatePicker MinimumDate="01/01/2000"
+                                         MaximumDate="12/31/2024"
+                                         Date="06/21/2020" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
