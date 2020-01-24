@@ -341,7 +341,12 @@ namespace XF.Material.Forms.UI
 
         private void ChangeFont(Page page)
         {
-            var currentTitleView = (TitleLabel)page.GetValue(TitleViewProperty);
+            var titleView = page.GetValue(TitleViewProperty);
+
+            if (titleView != null && !(titleView is TitleLabel))
+                return;
+
+            var currentTitleView = titleView as TitleLabel;
 
             var textAlignment = (TextAlignment)page.GetValue(AppBarTitleTextAlignmentProperty);
             var fontFamily = (string)page.GetValue(AppBarTitleTextFontFamilyProperty);
