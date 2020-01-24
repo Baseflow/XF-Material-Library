@@ -36,8 +36,12 @@
                                      Command="{Binding GoToMaterialCardViewCommand}"
                                      Margin="10" />
 
-             <material:MaterialButton Text="Go To Material Button sample"
+            <material:MaterialButton Text="Go To Material Button sample"
                                      Command="{Binding GoToMaterialButtonViewCommand}"
+                                     Margin="10" />
+
+             <material:MaterialButton Text="Go To Material Picker sample"
+                                     Command="{Binding GoToMaterialPickerViewCommand}"
                                      Margin="10" />
 
           <!-- New sample shortcuts should be added here (Button + Associated command in the LandingViewModel) -->
