@@ -343,16 +343,16 @@ namespace XF.Material.Forms.UI
         {
             var titleView = page.GetValue(TitleViewProperty);
 
-            if (titleView != null && !(titleView is TitleLabel))
+            if (titleView != null && titleView.GetType() != typeof(TitleLabel))
+            {
                 return;
-
-            var currentTitleView = titleView as TitleLabel;
+            }
 
             var textAlignment = (TextAlignment)page.GetValue(AppBarTitleTextAlignmentProperty);
             var fontFamily = (string)page.GetValue(AppBarTitleTextFontFamilyProperty);
             var fontSize = (double)page.GetValue(AppBarTitleTextFontSizeProperty);
 
-            if (currentTitleView != null)
+            if (titleView is TitleLabel currentTitleView)
             {
                 currentTitleView.HorizontalTextAlignment = textAlignment;
                 currentTitleView.FontFamily = fontFamily;
