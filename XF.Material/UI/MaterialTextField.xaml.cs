@@ -894,6 +894,7 @@ namespace XF.Material.Forms.UI
                 if (string.IsNullOrEmpty(ErrorText))
                 {
                     helper.TextColor = HelperTextColor;
+                    helper.Text = HelperText;
                 }
                 else
                 {
