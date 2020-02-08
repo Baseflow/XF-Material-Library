@@ -242,6 +242,8 @@ namespace XF.Material.Forms.UI
                 ChangeStatusBarColor(page);
             else if (e.PropertyName == AppBarColorProperty.PropertyName)
                 ChangeBarBackgroundColor(page);
+            else if (e.PropertyName == AppBarTitleTextColorProperty.PropertyName)
+                ChangeBarTextColor(page);
             else if (e.PropertyName == AppBarTitleTextFontFamilyProperty.PropertyName)
                 ChangeFont(page);
             else if (e.PropertyName == AppBarTitleTextFontSizeProperty.PropertyName)
