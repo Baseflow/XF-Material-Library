@@ -343,22 +343,20 @@ namespace XF.Material.Forms.UI
 
         private void ChangeFont(Page page)
         {
-            var titleView = page.GetValue(TitleViewProperty);
-
-            if (titleView != null && titleView.GetType() != typeof(TitleLabel))
-            {
-                return;
-            }
+            var currentTitleView = page.GetValue(TitleViewProperty);
 
             var textAlignment = (TextAlignment)page.GetValue(AppBarTitleTextAlignmentProperty);
             var fontFamily = (string)page.GetValue(AppBarTitleTextFontFamilyProperty);
             var fontSize = (double)page.GetValue(AppBarTitleTextFontSizeProperty);
 
-            if (titleView is TitleLabel currentTitleView)
+            if (currentTitleView != null)
             {
-                currentTitleView.HorizontalTextAlignment = textAlignment;
-                currentTitleView.FontFamily = fontFamily;
-                currentTitleView.FontSize = fontSize;
+                if (currentTitleView is TitleLabel titleLabelView)
+                {
+                    titleLabelView.HorizontalTextAlignment = textAlignment;
+                    titleLabelView.FontFamily = fontFamily;
+                    titleLabelView.FontSize = fontSize;
+                }
                 return;
             }
 
