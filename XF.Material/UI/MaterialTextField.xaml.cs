@@ -1165,6 +1165,10 @@ namespace XF.Material.Forms.UI
                     break;
             }
 
+            //Need to reset the keyboard flags after the entry Keyboard is set.
+            //Otherwise it will ignore those flags settings.
+            OnKeyboardFlagsChanged(IsAutoCapitalizationEnabled, IsSpellCheckEnabled, IsTextPredictionEnabled, IsTextAllCaps);
+
             // Hint: Will use this for MaterialTextArea
             // entry.AutoSize = inputType == MaterialTextFieldInputType.MultiLine ? EditorAutoSizeOption.TextChanges : EditorAutoSizeOption.Disabled;
             _gridContainer.InputTransparent = inputType == MaterialTextFieldInputType.Choice;
