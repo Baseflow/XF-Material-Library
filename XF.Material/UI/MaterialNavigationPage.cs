@@ -242,6 +242,8 @@ namespace XF.Material.Forms.UI
                 ChangeStatusBarColor(page);
             else if (e.PropertyName == AppBarColorProperty.PropertyName)
                 ChangeBarBackgroundColor(page);
+            else if (e.PropertyName == AppBarTitleTextColorProperty.PropertyName)
+                ChangeBarTextColor(page);
             else if (e.PropertyName == AppBarTitleTextFontFamilyProperty.PropertyName)
                 ChangeFont(page);
             else if (e.PropertyName == AppBarTitleTextFontSizeProperty.PropertyName)
@@ -341,7 +343,7 @@ namespace XF.Material.Forms.UI
 
         private void ChangeFont(Page page)
         {
-            var currentTitleView = (TitleLabel)page.GetValue(TitleViewProperty);
+            var currentTitleView = page.GetValue(TitleViewProperty);
 
             var textAlignment = (TextAlignment)page.GetValue(AppBarTitleTextAlignmentProperty);
             var fontFamily = (string)page.GetValue(AppBarTitleTextFontFamilyProperty);
@@ -349,9 +351,12 @@ namespace XF.Material.Forms.UI
 
             if (currentTitleView != null)
             {
-                currentTitleView.HorizontalTextAlignment = textAlignment;
-                currentTitleView.FontFamily = fontFamily;
-                currentTitleView.FontSize = fontSize;
+                if (currentTitleView is TitleLabel titleLabelView)
+                {
+                    titleLabelView.HorizontalTextAlignment = textAlignment;
+                    titleLabelView.FontFamily = fontFamily;
+                    titleLabelView.FontSize = fontSize;
+                }
                 return;
             }
 
