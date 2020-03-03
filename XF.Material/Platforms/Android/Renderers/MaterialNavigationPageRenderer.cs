@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.ComponentModel;
+using System.Linq;
 using System.Threading.Tasks;
 using Android.Content;
 using Xamarin.Forms;
@@ -15,32 +16,72 @@ namespace XF.Material.Droid.Renderers
     {
         private MaterialNavigationPage _navigationPage;
         private Toolbar _toolbar;
+        private Page _childPage;
+
+        private Page ChildPage
+        {
+            set
+            {
+                if (_childPage == value)
+                    return;
+
+                if (_childPage != null)
+                    _childPage.PropertyChanged -= ChildPage_PropertyChanged;
+
+                _childPage = value;
+
+                if (_childPage != null)
+                    _childPage.PropertyChanged += ChildPage_PropertyChanged;
+            }
+        }
 
         public MaterialNavigationPageRenderer(Context context) : base(context) { }
-
-        public void ChangeHasShadow(bool hasShadow)
-        {
-            _toolbar.Elevate(hasShadow ? 8 : 0);
-        }
 
         protected override void OnElementChanged(ElementChangedEventArgs<NavigationPage> e)
         {
             base.OnElementChanged(e);
 
-            if (e?.NewElement == null)
+            if (e?.NewElement != null)
             {
-                return;
+                _navigationPage = Element as MaterialNavigationPage;
+
+                _toolbar = ViewGroup.GetChildAt(0) as Toolbar;
+
+                ChildPage = _navigationPage.CurrentPage;
             }
 
-            _navigationPage = Element as MaterialNavigationPage;
-            _toolbar = ViewGroup.GetChildAt(0) as Toolbar;
+            if(e?.OldElement != null)
+            {
+                ChildPage = null;
+            }
+        }
+
+        protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            base.OnElementPropertyChanged(sender, e);
+
+            if (e.PropertyName == NavigationPage.CurrentPageProperty.PropertyName)
+            {
+                ChildPage = _navigationPage.CurrentPage;
+            }
+        }
+
+        private void ChildPage_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (!(sender is Page page))
+                return;
+
+            if (e.PropertyName == MaterialNavigationPage.AppBarElevationProperty.PropertyName)
+            {
+                ChangeElevation(page);
+            }
         }
 
         protected override Task<bool> OnPopToRootAsync(Page page, bool animated)
         {
             _navigationPage.InternalPopToRoot(page);
 
-            ChangeHasShadow(page);
+            ChangeElevation(page);
 
             return base.OnPopToRootAsync(page, animated);
         }
@@ -56,7 +97,7 @@ namespace XF.Material.Droid.Renderers
 
             var previousPage = navStack[navStack.IndexOf(page) - 1];
             _navigationPage.InternalPagePop(previousPage, page);
-            ChangeHasShadow(previousPage);
+            ChangeElevation(previousPage);
 
             return base.OnPopViewAsync(page, animated);
         }
@@ -65,16 +106,28 @@ namespace XF.Material.Droid.Renderers
         {
             _navigationPage.InternalPagePush(view);
 
-            ChangeHasShadow(view);
+            ChangeElevation(view);
 
             return base.OnPushAsync(view, animated);
         }
 
-        private void ChangeHasShadow(Page page)
+        private void ChangeElevation(Page page)
         {
-            var hasShadow = (bool)page.GetValue(MaterialNavigationPage.HasShadowProperty);
+            var elevation = (double)page.GetValue(MaterialNavigationPage.AppBarElevationProperty);
 
-            ChangeHasShadow(hasShadow);
+            ChangeElevation(elevation);
+        }
+
+        public void ChangeElevation(double elevation)
+        {
+            if (elevation >= 0)
+            {
+                _toolbar.Elevate(elevation);
+            }
+            else
+            {
+                _toolbar.Elevate(0);
+            }
         }
     }
 }

@@ -47,7 +47,7 @@ namespace XF.Material.Droid
             return Color.Argb(Convert.ToInt32(Math.Round(Color.GetAlphaComponent(color) * disabledOpacity)), r, g, b);
         }
 
-        internal static void Elevate(this Android.Views.View view, int elevation)
+        internal static void Elevate(this Android.Views.View view, double elevation)
         {
             var elevationInDp = ConvertToDp(elevation);
             ViewCompat.SetElevation(view, elevationInDp);

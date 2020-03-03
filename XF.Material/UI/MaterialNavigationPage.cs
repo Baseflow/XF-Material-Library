@@ -37,9 +37,9 @@ namespace XF.Material.Forms.UI
         public static readonly BindableProperty AppBarTitleTextFontSizeProperty = BindableProperty.Create("AppBarTitleTextFontSize", typeof(double), typeof(MaterialNavigationPage), 24.0);
 
         /// <summary>
-        /// Attached property that is used by <see cref="Page"/>s to determine whether the app bar will draw a shadow.
+        /// Attached property that is used by <see cref="Page"/>s to determine the size of the shadow below the app bar.
         /// </summary>
-        public static readonly BindableProperty HasShadowProperty = BindableProperty.Create("HasShadow", typeof(bool), typeof(MaterialNavigationPage), true);
+        public static readonly BindableProperty AppBarElevationProperty = BindableProperty.Create("AppBarElevation", typeof(double), typeof(MaterialNavigationPage), 4.0);
 
         /// <summary>
         /// Attached property that is used by <see cref="Page"/>s to determine the status bar color.
@@ -104,9 +104,9 @@ namespace XF.Material.Forms.UI
         /// <summary>
         /// For binding use only.
         /// </summary>
-        public static bool GetHasShadow(BindableObject view)
+        public static double GetAppBarElevation(BindableObject view)
         {
-            return (bool)view.GetValue(HasShadowProperty);
+            return (double)view.GetValue(AppBarElevationProperty);
         }
 
         /// <summary>
@@ -160,9 +160,9 @@ namespace XF.Material.Forms.UI
         /// <summary>
         /// For binding use only.
         /// </summary>
-        public static void SetHasShadow(BindableObject view, bool hasShadow)
+        public static void SetAppBarElevation(BindableObject view, double elevation)
         {
-            view.SetValue(HasShadowProperty, hasShadow);
+            view.SetValue(AppBarElevationProperty, elevation);
         }
 
         /// <summary>
@@ -231,9 +231,7 @@ namespace XF.Material.Forms.UI
 
         private void Page_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            var page = sender as Page;
-
-            if (page == null)
+            if (!(sender is Page page))
                 return;
 
             if (e.PropertyName == nameof(Title) && page.GetValue(TitleViewProperty) is TitleLabel label)

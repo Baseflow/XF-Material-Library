@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.ComponentModel;
+using System.Linq;
 using System.Threading.Tasks;
 using CoreGraphics;
 using ObjCRuntime;
@@ -15,29 +17,22 @@ namespace XF.Material.iOS.Renderers
     public class MaterialNavigationPageRenderer : NavigationRenderer
     {
         private MaterialNavigationPage _navigationPage;
+        private Page _child;
 
-        private void ChangeHasShadow(bool hasShadow)
+        private Page ChildPage
         {
-            if (NavigationBar == null || NavigationBar.Layer == null)
+            set
             {
-                return;
-            }
+                if (_child == value)
+                    return;
 
-            if (hasShadow)
-            {
-                NavigationBar.Layer.MasksToBounds = false;
-                NavigationBar.Layer.ShadowColor = UIColor.Black.CGColor;
-                NavigationBar.Layer.ShadowOffset = new CGSize(0, 3f);
-                NavigationBar.Layer.ShadowOpacity = 0.32f;
-                NavigationBar.Layer.ShadowRadius = 3f;
-            }
-            else
-            {
-                NavigationBar.Layer.MasksToBounds = false;
-                NavigationBar.Layer.ShadowColor = UIColor.Black.CGColor;
-                NavigationBar.Layer.ShadowOffset = new CGSize(0f, 0f);
-                NavigationBar.Layer.ShadowOpacity = 0f;
-                NavigationBar.Layer.ShadowRadius = 0f;
+                if (_child != null)
+                    _child.PropertyChanged -= ChildPage_PropertyChanged;
+
+                _child = value;
+
+                if (_child != null)
+                    _child.PropertyChanged += ChildPage_PropertyChanged;
             }
         }
 
@@ -48,14 +43,45 @@ namespace XF.Material.iOS.Renderers
             if (e?.NewElement != null)
             {
                 _navigationPage = Element as MaterialNavigationPage;
+
+                _navigationPage.PropertyChanged += MaterialNavigationPage_PropertyChanged;
+
+                ChildPage = _navigationPage.CurrentPage;
+
                 Delegate = new NavigationControllerDelegate(this, _navigationPage);
+            }
+
+            if (e?.OldElement != null)
+            {
+                _navigationPage.PropertyChanged -= MaterialNavigationPage_PropertyChanged;
+
+                ChildPage = null;
+            }
+        }
+
+        private void MaterialNavigationPage_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == NavigationPage.CurrentPageProperty.PropertyName)
+            {
+                ChildPage = _navigationPage.CurrentPage;
+            }
+        }
+
+        private void ChildPage_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (!(sender is Page page))
+                return;
+
+            if (e.PropertyName == MaterialNavigationPage.AppBarElevationProperty.PropertyName)
+            {
+                ChangeElevation(page);
             }
         }
 
         public override UIViewController[] PopToRootViewController(bool animated)
         {
             _navigationPage.InternalPopToRoot(_navigationPage.RootPage);
-            ChangeHasShadow(_navigationPage.RootPage);
+            ChangeElevation(_navigationPage.RootPage);
             return base.PopToRootViewController(animated);
         }
 
@@ -71,7 +97,7 @@ namespace XF.Material.iOS.Renderers
             var currentPage = _navigationPage.CurrentPage;
             var previousPage = navStack[navStack.IndexOf(_navigationPage.CurrentPage) - 1];
             _navigationPage.InternalPagePop(previousPage, currentPage);
-            ChangeHasShadow(previousPage);
+            ChangeElevation(previousPage);
 
             return base.PopViewController(animated);
         }
@@ -80,16 +106,41 @@ namespace XF.Material.iOS.Renderers
         {
             _navigationPage.InternalPagePush(page);
 
-            ChangeHasShadow(page);
+            ChangeElevation(page);
 
             return base.OnPushAsync(page, animated);
         }
 
-        private void ChangeHasShadow(Page page)
+        private void ChangeElevation(Page page)
         {
-            var hasShadow = (bool)page.GetValue(MaterialNavigationPage.HasShadowProperty);
+            var elevation = (double)page.GetValue(MaterialNavigationPage.AppBarElevationProperty);
 
-            ChangeHasShadow(hasShadow);
+            ChangeElevation(elevation);
+        }
+
+        private void ChangeElevation(double elevation)
+        {
+            if (NavigationBar == null || NavigationBar.Layer == null)
+            {
+                return;
+            }
+
+            if (elevation > 0)
+            {
+                NavigationBar.Layer.MasksToBounds = false;
+                NavigationBar.Layer.ShadowColor = UIColor.Black.CGColor;
+                NavigationBar.Layer.ShadowOffset = new CGSize(0, (nfloat)elevation);
+                NavigationBar.Layer.ShadowOpacity = 0.24f;
+                NavigationBar.Layer.ShadowRadius = (nfloat)elevation;
+            }
+            else
+            {
+                NavigationBar.Layer.MasksToBounds = false;
+                NavigationBar.Layer.ShadowColor = UIColor.Black.CGColor;
+                NavigationBar.Layer.ShadowOffset = new CGSize(0f, 0f);
+                NavigationBar.Layer.ShadowOpacity = 0f;
+                NavigationBar.Layer.ShadowRadius = 0f;
+            }
         }
 
         class NavigationControllerDelegate : UINavigationControllerDelegate
