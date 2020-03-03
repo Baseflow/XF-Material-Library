@@ -98,7 +98,7 @@ namespace XF.Material.Forms.UI
 
         public static readonly BindableProperty IsTextPredictionEnabledProperty = BindableProperty.Create(nameof(IsTextPredictionEnabled), typeof(bool), typeof(MaterialTextField), false);
 
-        public static readonly BindableProperty LeadingIconProperty = BindableProperty.Create(nameof(LeadingIcon), typeof(string), typeof(MaterialTextField));
+        public static readonly BindableProperty LeadingIconProperty = BindableProperty.Create(nameof(LeadingIcon), typeof(ImageSource), typeof(MaterialTextField));
 
         public static readonly BindableProperty LeadingIconTintColorProperty = BindableProperty.Create(nameof(LeadingIconTintColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#99000000"));
 
@@ -383,9 +383,9 @@ namespace XF.Material.Forms.UI
         /// <summary>
         /// Gets or sets the image source of the icon to be showed at the left side of this text field.
         /// </summary>
-        public string LeadingIcon
+        public ImageSource LeadingIcon
         {
-            get => (string)GetValue(LeadingIconProperty);
+            get => (ImageSource)GetValue(LeadingIconProperty);
             set => SetValue(LeadingIconProperty, value);
         }
 
@@ -894,6 +894,7 @@ namespace XF.Material.Forms.UI
                 if (string.IsNullOrEmpty(ErrorText))
                 {
                     helper.TextColor = HelperTextColor;
+                    helper.Text = HelperText;
                 }
                 else
                 {
@@ -1164,6 +1165,10 @@ namespace XF.Material.Forms.UI
                     break;
             }
 
+            //Need to reset the keyboard flags after the entry Keyboard is set.
+            //Otherwise it will ignore those flags settings.
+            OnKeyboardFlagsChanged(IsAutoCapitalizationEnabled, IsSpellCheckEnabled, IsTextPredictionEnabled, IsTextAllCaps);
+
             // Hint: Will use this for MaterialTextArea
             // entry.AutoSize = inputType == MaterialTextFieldInputType.MultiLine ? EditorAutoSizeOption.TextChanges : EditorAutoSizeOption.Disabled;
             _gridContainer.InputTransparent = inputType == MaterialTextFieldInputType.Choice;
@@ -1200,9 +1205,9 @@ namespace XF.Material.Forms.UI
             entry.Keyboard = Keyboard.Create(flags);
         }
 
-        private void OnLeadingIconChanged(string icon)
+        private void OnLeadingIconChanged(ImageSource imageSource)
         {
-            leadingIcon.Source = icon;
+            leadingIcon.Source = imageSource;
             OnLeadingIconTintColorChanged(LeadingIconTintColor);
         }
 
