@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel;
 using Android.Content;
 using Android.Graphics.Drawables;
-using Android.Support.V4.Graphics.Drawable;
 using AndroidX.Core.Graphics.Drawable;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;

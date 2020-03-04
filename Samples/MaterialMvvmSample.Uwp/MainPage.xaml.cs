@@ -12,7 +12,7 @@ namespace MaterialMvvmSample.Uwp
     {
         public MainPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             Rg.Plugins.Popup.Popup.Init();
             XF.Material.Uwp.Material.Init();

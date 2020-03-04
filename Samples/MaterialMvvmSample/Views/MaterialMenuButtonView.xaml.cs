@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using MaterialMvvmSample.ViewModels;
+﻿using MaterialMvvmSample.ViewModels;
 using Xamarin.Forms;
-using XF.Material.Forms.Models;
 
 namespace MaterialMvvmSample.Views
 {

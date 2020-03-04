@@ -6,7 +6,6 @@ using MaterialMvvmSample.Utilities.Dialogs;
 using MaterialMvvmSample.ViewModels;
 using MaterialMvvmSample.Views;
 using Xamarin.Forms;
-using XF.Material.Forms.UI;
 
 namespace MaterialMvvmSample.Core
 {

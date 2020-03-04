@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using MaterialMvvmSample.ViewModels;
+﻿using MaterialMvvmSample.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

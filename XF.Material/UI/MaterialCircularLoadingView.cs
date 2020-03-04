@@ -27,11 +27,11 @@ namespace XF.Material.Forms.UI
             SetDynamicResource(TintColorProperty, MaterialConstants.Color.SECONDARY);
             Loop = true;
 
-            this.HorizontalOptions = DefaultStretchBehavior;
-            this.VerticalOptions = DefaultStretchBehavior;
+            HorizontalOptions = DefaultStretchBehavior;
+            VerticalOptions = DefaultStretchBehavior;
 
-            this.WidthRequest = DefaultSize;
-            this.HeightRequest = DefaultSize;
+            WidthRequest = DefaultSize;
+            HeightRequest = DefaultSize;
         }
     }
 }

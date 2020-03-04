@@ -92,7 +92,7 @@ namespace XF.Material.iOS.Renderers
             ChangeHasShadow(hasShadow);
         }
 
-        class NavigationControllerDelegate : UINavigationControllerDelegate
+        private class NavigationControllerDelegate : UINavigationControllerDelegate
         {
             private UINavigationController _navigationController;
             private MaterialNavigationPage _navigationPage;
@@ -108,7 +108,9 @@ namespace XF.Material.iOS.Renderers
                 var coordinator = _navigationController?.TopViewController?.GetTransitionCoordinator();
 
                 if (coordinator == null)
+                {
                     return;
+                }
 
                 coordinator.NotifyWhenInteractionChanges((context) =>
                 {

@@ -1,5 +1,4 @@
-﻿using System;
-using XF.Material.Forms.Models;
+﻿using XF.Material.Forms.Models;
 
 namespace MaterialMvvmSample.ViewModels
 {

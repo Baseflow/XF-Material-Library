@@ -11,7 +11,7 @@ namespace MaterialMvvmSample.Views
         {
             InitializeComponent();
             BindingContext = new SecondViewModel();
-            
+
         }
     }
 
