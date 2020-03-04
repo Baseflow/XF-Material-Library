@@ -2,16 +2,16 @@
   <PropertyGroup>
     <Copyright>Copyright (c) Martijn van Dijk</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/BaseflowIT/XF-Material-Library</PackageProjectUrl>
-    <PackageIconUrl>https://raw.githubusercontent.com/BaseflowIT/XF-Material-Library/develop/icon.png</PackageIconUrl>
+    <PackageProjectUrl>https://github.com/Baseflow/XF-Material-Library</PackageProjectUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/Baseflow/XF-Material-Library/develop/icon.png</PackageIconUrl>
     <!--<PackageIcon>icon.png</PackageIcon>-->
     <Authors>Dustin Catap, Martijn van Dijk</Authors>
     <Owners>Dustin Catap, Martijn van Dijk</Owners>
     <PackageTags>xamarin, android, plugin, XF.Material, Material, Material Design, Xamarin.Forms, Forms</PackageTags>
-    <PackageReleaseNotes>https://github.com/BaseflowIT/XF-Material-Library/releases</PackageReleaseNotes>
+    <PackageReleaseNotes>https://github.com/Baseflow/XF-Material-Library/releases</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
 
-    <RepositoryUrl>https://github.com/BaseflowIT/XF-Material-Library</RepositoryUrl>
+    <RepositoryUrl>https://github.com/Baseflow/XF-Material-Library</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <Product>$(AssemblyName) ($(TargetFramework))</Product>
     <NeutralLanguage>en</NeutralLanguage>
