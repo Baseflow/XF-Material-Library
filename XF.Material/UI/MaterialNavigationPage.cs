@@ -247,71 +247,7 @@ namespace XF.Material.Forms.UI
             }
             else if (e.PropertyName == AppBarColorProperty.PropertyName)
             {
-
-/* Unmerged change from project 'XF.Material (netstandard2.0)'
-Before:
                 ChangeBarBackgroundColor(page);
-            else if (e.PropertyName == AppBarTitleTextColorProperty.PropertyName)
-After:
-                ChangeBarBackgroundColor(page);
-            else if (e.PropertyName == AppBarTitleTextColorProperty.PropertyName)
-*/
-
-/* Unmerged change from project 'XF.Material (tizen40)'
-Before:
-                ChangeBarBackgroundColor(page);
-            else if (e.PropertyName == AppBarTitleTextColorProperty.PropertyName)
-After:
-                ChangeBarBackgroundColor(page);
-            else if (e.PropertyName == AppBarTitleTextColorProperty.PropertyName)
-*/
-
-/* Unmerged change from project 'XF.Material (monoandroid10.0)'
-Before:
-                ChangeBarBackgroundColor(page);
-            else if (e.PropertyName == AppBarTitleTextColorProperty.PropertyName)
-After:
-                ChangeBarBackgroundColor(page);
-            else if (e.PropertyName == AppBarTitleTextColorProperty.PropertyName)
-*/
-
-/* Unmerged change from project 'XF.Material (xamarin.tvos10)'
-Before:
-                ChangeBarBackgroundColor(page);
-            else if (e.PropertyName == AppBarTitleTextColorProperty.PropertyName)
-After:
-                ChangeBarBackgroundColor(page);
-            else if (e.PropertyName == AppBarTitleTextColorProperty.PropertyName)
-*/
-
-/* Unmerged change from project 'XF.Material (net472)'
-Before:
-                ChangeBarBackgroundColor(page);
-            else if (e.PropertyName == AppBarTitleTextColorProperty.PropertyName)
-After:
-                ChangeBarBackgroundColor(page);
-            else if (e.PropertyName == AppBarTitleTextColorProperty.PropertyName)
-*/
-
-/* Unmerged change from project 'XF.Material (xamarin.mac20)'
-Before:
-                ChangeBarBackgroundColor(page);
-            else if (e.PropertyName == AppBarTitleTextColorProperty.PropertyName)
-After:
-                ChangeBarBackgroundColor(page);
-            else if (e.PropertyName == AppBarTitleTextColorProperty.PropertyName)
-*/
-
-/* Unmerged change from project 'XF.Material (xamarin.ios10)'
-Before:
-                ChangeBarBackgroundColor(page);
-            else if (e.PropertyName == AppBarTitleTextColorProperty.PropertyName)
-After:
-                ChangeBarBackgroundColor(page);
-            else if (e.PropertyName == AppBarTitleTextColorProperty.PropertyName)
-*/
-                ChangeBarBackgroundColor(page);
-            }
             }
             else if (e.PropertyName == AppBarTitleTextColorProperty.PropertyName)
             {
