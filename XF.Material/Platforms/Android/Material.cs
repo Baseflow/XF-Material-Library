@@ -3,7 +3,7 @@ using System.Linq;
 using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Support.V7.App;
+using AndroidX.AppCompat.App;
 using Rg.Plugins.Popup;
 using Rg.Plugins.Popup.Services;
 using XF.Material.Forms.UI.Dialogs;

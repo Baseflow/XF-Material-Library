@@ -155,10 +155,18 @@
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon20.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\icon_more.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\icon_more.imageset\icon_more.png" />
-    <ImageAsset Include="Assets.xcassets\icon_more.imageset\icon_more%402x.png" />
-    <ImageAsset Include="Assets.xcassets\icon_more.imageset\icon_more%403x.png" />
+    <ImageAsset Include="Assets.xcassets\icon_more.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\icon_more.imageset\icon_more.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\icon_more.imageset\icon_more%402x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\icon_more.imageset\icon_more%403x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -168,13 +176,13 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Autofac">
-      <Version>4.9.4</Version>
+      <Version>5.1.2</Version>
     </PackageReference>
     <PackageReference Include="Autofac.Extras.CommonServiceLocator">
-      <Version>5.0.0</Version>
+      <Version>6.0.0</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms">
-      <Version>4.2.0.815419</Version>
+      <Version>4.5.0.356</Version>
     </PackageReference>
     <PackageReference Include="Rg.Plugins.Popup">
       <Version>1.2.0.223</Version>
