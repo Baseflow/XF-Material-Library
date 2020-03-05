@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Xamarin.Forms;
 using XF.Material.Forms.Resources;
@@ -231,23 +230,41 @@ namespace XF.Material.Forms.UI
 
         private void Page_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (!(sender is Page page))
+            var page = sender as Page;
+
+            if (page == null)
+            {
                 return;
+            }
 
             if (e.PropertyName == nameof(Title) && page.GetValue(TitleViewProperty) is TitleLabel label)
+            {
                 label.Text = page.Title;
+            }
             else if (e.PropertyName == StatusBarColorProperty.PropertyName)
+            {
                 ChangeStatusBarColor(page);
+            }
             else if (e.PropertyName == AppBarColorProperty.PropertyName)
+            {
                 ChangeBarBackgroundColor(page);
+            }
             else if (e.PropertyName == AppBarTitleTextColorProperty.PropertyName)
+            {
                 ChangeBarTextColor(page);
+            }
             else if (e.PropertyName == AppBarTitleTextFontFamilyProperty.PropertyName)
+            {
                 ChangeFont(page);
+            }
             else if (e.PropertyName == AppBarTitleTextFontSizeProperty.PropertyName)
+            {
                 ChangeFont(page);
+            }
             else if (e.PropertyName == AppBarTitleTextAlignmentProperty.PropertyName)
+            {
                 ChangeFont(page);
+            }
         }
 
         protected override void OnAppearing()

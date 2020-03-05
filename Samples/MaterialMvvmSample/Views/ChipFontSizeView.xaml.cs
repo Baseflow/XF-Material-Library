@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using MaterialMvvmSample.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -17,12 +16,12 @@ namespace MaterialMvvmSample.Views
 
         public void IncreaseChipFontSize_Clicked(object sender, EventArgs e)
         {
-            this.TheChip.FontSize = this.TheChip.FontSize + 1;
+            TheChip.FontSize = TheChip.FontSize + 1;
         }
 
         public void DecreaseChipFontSize_Clicked(object sender, EventArgs e)
         {
-            this.TheChip.FontSize = this.TheChip.FontSize - 1;
+            TheChip.FontSize = TheChip.FontSize - 1;
         }
     }
 }

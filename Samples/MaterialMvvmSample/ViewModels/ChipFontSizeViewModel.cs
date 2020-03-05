@@ -1,5 +1,4 @@
-﻿using System;
-namespace MaterialMvvmSample.ViewModels
+﻿namespace MaterialMvvmSample.ViewModels
 {
     public class ChipFontSizeViewModel : BaseViewModel
     {

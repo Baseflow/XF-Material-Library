@@ -1,32 +1,30 @@
-﻿using System;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using MaterialMvvmSample.Views;
 using Xamarin.Forms;
-using XF.Material.Forms.Models;
 
 namespace MaterialMvvmSample.ViewModels
 {
     public class LandingViewModel : BaseViewModel
     {
-        public ICommand GoToMaterialDialogsCommand => this.GoToCommand(ViewNames.MaterialDialogsView);
+        public ICommand GoToMaterialDialogsCommand => GoToCommand(ViewNames.MaterialDialogsView);
 
-        public ICommand GoToChipFontSizeViewCommand => this.GoToCommand(ViewNames.ChipFontSizeView);
+        public ICommand GoToChipFontSizeViewCommand => GoToCommand(ViewNames.ChipFontSizeView);
 
-        public ICommand GoToCheckboxesSampleCommand => this.GoToCommand(ViewNames.CheckboxesView);
+        public ICommand GoToCheckboxesSampleCommand => GoToCommand(ViewNames.CheckboxesView);
 
-        public ICommand GoToMaterialCircularViewCommand => this.GoToCommand(ViewNames.MaterialCircularView);
+        public ICommand GoToMaterialCircularViewCommand => GoToCommand(ViewNames.MaterialCircularView);
 
-        public ICommand GoToMaterialTextFieldSampleCommand => this.GoToCommand(ViewNames.MaterialTextFieldView);
+        public ICommand GoToMaterialTextFieldSampleCommand => GoToCommand(ViewNames.MaterialTextFieldView);
 
-        public ICommand GoToMaterialMenuButtonViewCommand => this.GoToCommand(ViewNames.MaterialMenuButtonView);
+        public ICommand GoToMaterialMenuButtonViewCommand => GoToCommand(ViewNames.MaterialMenuButtonView);
 
-        public ICommand GoToMaterialCardViewCommand => this.GoToCommand(ViewNames.MaterialCardView);
+        public ICommand GoToMaterialCardViewCommand => GoToCommand(ViewNames.MaterialCardView);
 
-        public ICommand GoToMaterialButtonViewCommand => this.GoToCommand(ViewNames.MaterialButtonView);
+        public ICommand GoToMaterialButtonViewCommand => GoToCommand(ViewNames.MaterialButtonView);
 
-        public ICommand GoToMaterialPickerViewCommand => this.GoToCommand(ViewNames.MaterialPicker);
+        public ICommand GoToMaterialPickerViewCommand => GoToCommand(ViewNames.MaterialPicker);
 
-        private ICommand GoToCommand(string name) => new Command(() => this.Navigation.PushAsync(name));
+        private ICommand GoToCommand(string name) => new Command(() => Navigation.PushAsync(name));
 
     }
 }

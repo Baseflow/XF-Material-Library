@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using XF.Material.Forms.UI.Dialogs;
+﻿using System.Collections.Generic;
 
 namespace MaterialMvvmSample.ViewModels
 {

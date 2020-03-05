@@ -17,8 +17,8 @@ namespace MaterialMvvmSample.Views
             InitializeComponent();
             BindingContext = new MaterialDialogsViewModel();
 
-            this.Opendialog.Clicked += Opendialog_Clicked;
-            this.OpenSimpleDialog.Clicked += OpenSimpleDialog_Clicked;
+            Opendialog.Clicked += Opendialog_Clicked;
+            OpenSimpleDialog.Clicked += OpenSimpleDialog_Clicked;
             OpenConfirmDialog();
 
             MaterialDailogMultipleMessage();
@@ -65,9 +65,11 @@ namespace MaterialMvvmSample.Views
             var choice = await MaterialDialog.Instance.SelectChoiceAsync("Select choices", choices);
 
             if (choice < 0)
+            {
                 return;
+            }
 
-            this.DialogResult.Text = choices[choice];
+            DialogResult.Text = choices[choice];
         }
 
         private async void OpenAlertDialog_Clicked(object sender, EventArgs e)
@@ -76,9 +78,13 @@ namespace MaterialMvvmSample.Views
             if (result.HasValue)
             {
                 if (result.Value)
+                {
                     Debug.WriteLine("Confirm");
+                }
                 else
+                {
                     Debug.WriteLine("Dimiss");
+                }
             }
             else
             {
