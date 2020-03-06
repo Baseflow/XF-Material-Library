@@ -17,24 +17,7 @@ namespace XF.Material.iOS.Renderers
     public class MaterialNavigationPageRenderer : NavigationRenderer
     {
         private MaterialNavigationPage _navigationPage;
-        private Page _child;
-
-        private Page ChildPage
-        {
-            set
-            {
-                if (_child == value)
-                    return;
-
-                if (_child != null)
-                    _child.PropertyChanged -= ChildPage_PropertyChanged;
-
-                _child = value;
-
-                if (_child != null)
-                    _child.PropertyChanged += ChildPage_PropertyChanged;
-            }
-        }
+        private Page _childPage;
 
         protected override void OnElementChanged(VisualElementChangedEventArgs e)
         {
@@ -46,16 +29,19 @@ namespace XF.Material.iOS.Renderers
 
                 _navigationPage.PropertyChanged += MaterialNavigationPage_PropertyChanged;
 
-                ChildPage = _navigationPage.CurrentPage;
-
                 Delegate = new NavigationControllerDelegate(this, _navigationPage);
+
+                HandleChildPage(_navigationPage.CurrentPage);
             }
 
             if (e?.OldElement != null)
             {
                 _navigationPage.PropertyChanged -= MaterialNavigationPage_PropertyChanged;
 
-                ChildPage = null;
+                if(_childPage != null)
+                {
+                    _childPage.PropertyChanged -= ChildPage_PropertyChanged;
+                }
             }
         }
 
@@ -63,14 +49,33 @@ namespace XF.Material.iOS.Renderers
         {
             if (e.PropertyName == NavigationPage.CurrentPageProperty.PropertyName)
             {
-                ChildPage = _navigationPage.CurrentPage;
+                HandleChildPage(_navigationPage.CurrentPage);
+            }
+        }
+
+        private void HandleChildPage(Page page)
+        {
+            if (_childPage != null)
+            {
+                _childPage.PropertyChanged -= ChildPage_PropertyChanged;
+            }
+
+            _childPage = page;
+
+            if (_childPage != null)
+            {
+                _childPage.PropertyChanged += ChildPage_PropertyChanged;
             }
         }
 
         private void ChildPage_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (!(sender is Page page))
+            var page = sender as Page;
+
+            if(page == null)
+            {
                 return;
+            }
 
             if (e.PropertyName == MaterialNavigationPage.AppBarElevationProperty.PropertyName)
             {

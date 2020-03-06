@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Android.Content;
@@ -18,23 +19,6 @@ namespace XF.Material.Droid.Renderers
         private Toolbar _toolbar;
         private Page _childPage;
 
-        private Page ChildPage
-        {
-            set
-            {
-                if (_childPage == value)
-                    return;
-
-                if (_childPage != null)
-                    _childPage.PropertyChanged -= ChildPage_PropertyChanged;
-
-                _childPage = value;
-
-                if (_childPage != null)
-                    _childPage.PropertyChanged += ChildPage_PropertyChanged;
-            }
-        }
-
         public MaterialNavigationPageRenderer(Context context) : base(context) { }
 
         protected override void OnElementChanged(ElementChangedEventArgs<NavigationPage> e)
@@ -47,12 +31,12 @@ namespace XF.Material.Droid.Renderers
 
                 _toolbar = ViewGroup.GetChildAt(0) as Toolbar;
 
-                ChildPage = _navigationPage.CurrentPage;
+                HandleChildPage(_navigationPage.CurrentPage);
             }
 
-            if(e?.OldElement != null)
+            if (e?.OldElement != null && _childPage != null)
             {
-                ChildPage = null;
+                _childPage.PropertyChanged -= ChildPage_PropertyChanged;
             }
         }
 
@@ -62,14 +46,33 @@ namespace XF.Material.Droid.Renderers
 
             if (e.PropertyName == NavigationPage.CurrentPageProperty.PropertyName)
             {
-                ChildPage = _navigationPage.CurrentPage;
+                HandleChildPage(_navigationPage.CurrentPage);
+            }
+        }
+
+        private void HandleChildPage(Page page)
+        {
+            if (_childPage != null)
+            {
+                _childPage.PropertyChanged -= ChildPage_PropertyChanged;
+            }
+
+            _childPage = page;
+
+            if (_childPage != null)
+            {
+                _childPage.PropertyChanged += ChildPage_PropertyChanged;
             }
         }
 
         private void ChildPage_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (!(sender is Page page))
+            var page = sender as Page;
+
+            if(page == null)
+            {
                 return;
+            }
 
             if (e.PropertyName == MaterialNavigationPage.AppBarElevationProperty.PropertyName)
             {
@@ -102,13 +105,13 @@ namespace XF.Material.Droid.Renderers
             return base.OnPopViewAsync(page, animated);
         }
 
-        protected override Task<bool> OnPushAsync(Page view, bool animated)
+        protected override Task<bool> OnPushAsync(Page page, bool animated)
         {
-            _navigationPage.InternalPagePush(view);
+            _navigationPage.InternalPagePush(page);
 
-            ChangeElevation(view);
+            ChangeElevation(page);
 
-            return base.OnPushAsync(view, animated);
+            return base.OnPushAsync(page, animated);
         }
 
         private void ChangeElevation(Page page)
@@ -120,7 +123,7 @@ namespace XF.Material.Droid.Renderers
 
         public void ChangeElevation(double elevation)
         {
-            if (elevation >= 0)
+            if (elevation > 0)
             {
                 _toolbar.Elevate(elevation);
             }
