@@ -54,7 +54,7 @@ namespace XF.Material.Forms.UI
                     if (control._selectedIndex != index)
                     {
                         control._selectedIndex = index;
-                        control.Text = control._choices[index];
+                        control.Text = control._choicesResults[index];
                         control.AnimateToInactiveOrFocusedStateOnStart(control);
 
                         control.UpdateCounter();
@@ -140,6 +140,7 @@ namespace XF.Material.Forms.UI
         private readonly Easing _animationCurve = Easing.SinOut;
         private readonly Dictionary<string, Action> _propertyChangeActions;
         private IList<string> _choices;
+        private IList<string> _choicesResults;
         private bool _counterEnabled;
         private DisplayInfo _lastDeviceDisplay;
         private int _selectedIndex = -1;
@@ -488,6 +489,8 @@ namespace XF.Material.Forms.UI
         }
 
         public string ChoicesBindingName { get; set; }
+
+        public string ChoicesResultBindingName { get; set; }
 
         //public string ChoicesBindingName
         //{
@@ -1001,31 +1004,40 @@ namespace XF.Material.Forms.UI
             UpdateCounter();
         }
 
-        private IList<string> GetChoices()
+        private IList<string> GetChoices(out IList<string> choicesResults)
         {
             var choiceStrings = new List<string>(Choices.Count);
+            choicesResults = new List<string>(Choices.Count);
             var listType = Choices[0].GetType();
             foreach (var item in Choices)
             {
+                string choice = item.ToString();
                 if (!string.IsNullOrEmpty(ChoicesBindingName))
                 {
                     var propInfo = listType.GetProperty(ChoicesBindingName);
 
-                    if (propInfo == null)
-                    {
-                        System.Diagnostics.Debug.WriteLine($"Property {ChoicesBindingName} was not found for item in {Choices}.");
-                        choiceStrings.Add(item.ToString());
+                    if (propInfo != null)
+                    { 
+                        var propValue = propInfo.GetValue(item);
+                        choice =propValue.ToString();
                     }
-                    else
+                }
+
+                choiceStrings.Add(choice);
+
+                string choiceResult = choice;
+                if (!string.IsNullOrEmpty(ChoicesResultBindingName))
+                {
+                    var propInfo = listType.GetProperty(ChoicesResultBindingName);
+
+                    if (propInfo != null)
                     {
                         var propValue = propInfo.GetValue(item);
-                        choiceStrings.Add(propValue.ToString());
+                        choiceResult = propValue.ToString();
                     }
                 }
-                else
-                {
-                    choiceStrings.Add(item.ToString());
-                }
+
+                choicesResults.Add(choiceResult);
             }
 
             return choiceStrings;
@@ -1054,7 +1066,15 @@ namespace XF.Material.Forms.UI
 
         private void OnChoicesChanged(ICollection choices)
         {
-            _choices = choices?.Count > 0 ? GetChoices() : null;
+            if (choices?.Count > 0)
+            {
+                _choices = GetChoices(out _choicesResults);
+            }
+            else
+            {
+                _choices = null;
+                _choicesResults = null;
+            }
         }
 
         private void OnEnabledChanged(bool isEnabled)
@@ -1258,7 +1278,7 @@ namespace XF.Material.Forms.UI
             {
                 throw new InvalidOperationException("The property `Choices` is null or empty");
             }
-            _choices = GetChoices();
+            _choices = GetChoices(out _choicesResults);
 
             var title = MaterialConfirmationDialog.GetDialogTitle(this);
             var confirmingText = MaterialConfirmationDialog.GetDialogConfirmingText(this);
@@ -1278,14 +1298,14 @@ namespace XF.Material.Forms.UI
             if (result >= 0)
             {
                 _selectedIndex = result;
-                Text = _choices[result];
+                Text = _choicesResults[result];
                 // entry.Text = Text;
             }
         }
 
         private void OnTextChanged(string text)
         {
-            if (InputType == MaterialTextFieldInputType.Choice && !string.IsNullOrEmpty(text) && _choices?.Contains(text) == false)
+            if (InputType == MaterialTextFieldInputType.Choice && !string.IsNullOrEmpty(text) && _choicesResults?.Contains(text) == false)
             {
                 Debug.WriteLine($"The `Text` property value `{Text}` does not match any item in the collection `Choices`.");
                 Text = null;
