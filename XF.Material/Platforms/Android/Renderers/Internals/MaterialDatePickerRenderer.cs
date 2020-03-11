@@ -41,7 +41,7 @@ namespace XF.Material.Droid.Renderers.Internals
             Control.Background = new ColorDrawable(Color.Transparent.ToAndroid());
             Control.SetPadding(0, 0, 0, 0);
             Control.SetIncludeFontPadding(false);
-            Control.SetMinimumHeight((int)MaterialHelper.ConvertToDp(20));
+            Control.SetMinimumHeight((int)MaterialHelper.ConvertDpToPx(20));
 
             var layoutParams = new MarginLayoutParams(Control.LayoutParameters);
             layoutParams.SetMargins(0, 0, 0, 0);

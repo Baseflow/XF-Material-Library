@@ -244,7 +244,7 @@ namespace XF.Material.Droid.Renderers
                 return;
             }
 
-            _borderWidth = (int)MaterialHelper.ConvertToDp(_button.BorderWidth);
+            _borderWidth = (int)MaterialHelper.ConvertDpToPx(_button.BorderWidth);
         }
 
         private void UpdateColors()
@@ -268,7 +268,7 @@ namespace XF.Material.Droid.Renderers
 
         private void UpdateCornerRadius()
         {
-            _cornerRadius = (int)MaterialHelper.ConvertToDp(_button.CornerRadius);
+            _cornerRadius = (int)MaterialHelper.ConvertDpToPx(_button.CornerRadius);
         }
 
         private void UpdateDisabledColor(Xamarin.Forms.Color disabledColor)
@@ -295,17 +295,17 @@ namespace XF.Material.Droid.Renderers
 
             var stateListAnimator = new StateListAnimator();
 
-            var objAnimTransZEnabled = ObjectAnimator.OfFloat(_aView, "translationZ", MaterialHelper.ConvertToDp(_button.Elevation.RestingElevation))
+            var objAnimTransZEnabled = ObjectAnimator.OfFloat(_aView, "translationZ", MaterialHelper.ConvertDpToPx(_button.Elevation.RestingElevation))
                 .SetDuration(100);
             objAnimTransZEnabled.StartDelay = 100;
 
-            var objAnimElevationEnabled = ObjectAnimator.OfFloat(_aView, "elevation", MaterialHelper.ConvertToDp(_button.Elevation.RestingElevation))
+            var objAnimElevationEnabled = ObjectAnimator.OfFloat(_aView, "elevation", MaterialHelper.ConvertDpToPx(_button.Elevation.RestingElevation))
                 .SetDuration(0);
 
-            var objAnimTransZPressed = ObjectAnimator.OfFloat(_aView, "translationZ", MaterialHelper.ConvertToDp(_button.Elevation.PressedElevation))
+            var objAnimTransZPressed = ObjectAnimator.OfFloat(_aView, "translationZ", MaterialHelper.ConvertDpToPx(_button.Elevation.PressedElevation))
                 .SetDuration(100);
 
-            var objAnimElevationPressed = ObjectAnimator.OfFloat(_aView, "elevation", MaterialHelper.ConvertToDp(_button.Elevation.RestingElevation))
+            var objAnimElevationPressed = ObjectAnimator.OfFloat(_aView, "elevation", MaterialHelper.ConvertDpToPx(_button.Elevation.RestingElevation))
                 .SetDuration(0);
 
             var b = new AnimatorSet();
@@ -356,8 +356,8 @@ namespace XF.Material.Droid.Renderers
 
             public override void GetOutline(Android.Views.View view, Outline outline)
             {
-                var inset = (int)MaterialHelper.ConvertToDp(6);
-                var cornerRadius = (int)MaterialHelper.ConvertToDp(_cornerRadius);
+                var inset = (int)MaterialHelper.ConvertDpToPx(6);
+                var cornerRadius = (int)MaterialHelper.ConvertDpToPx(_cornerRadius);
 
                 outline.SetRoundRect(inset, inset, view.Width - inset, view.Height - inset, cornerRadius);
             }

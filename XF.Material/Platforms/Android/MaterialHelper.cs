@@ -15,12 +15,12 @@ namespace XF.Material.Droid
     {
         private static DisplayMetrics DisplayMetrics => Material.Context.Resources.DisplayMetrics;
 
-        internal static float ConvertToDp(double value)
+        internal static float ConvertDpToPx(double value)
         {
             return TypedValue.ApplyDimension(ComplexUnitType.Dip, (float)value, DisplayMetrics);
         }
 
-        internal static float ConvertToSp(double value)
+        internal static float ConvertSpToPx(double value)
         {
             return TypedValue.ApplyDimension(ComplexUnitType.Sp, (float)value, DisplayMetrics);
         }
@@ -49,8 +49,8 @@ namespace XF.Material.Droid
 
         internal static void Elevate(this Android.Views.View view, double elevation)
         {
-            var elevationInDp = ConvertToDp(elevation);
-            ViewCompat.SetElevation(view, elevationInDp);
+            var elevationInPixels = ConvertDpToPx(elevation);
+            ViewCompat.SetElevation(view, elevationInPixels);
         }
 
         internal static Drawable GetDrawableCopy(this Drawable drawable)
