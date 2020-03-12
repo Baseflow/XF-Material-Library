@@ -12,7 +12,7 @@
                                BackgroundColor="White"
                                CornerRadius="4"
                                Elevation="8"
-                               HasShadow="True"
+                               HasShadow="False"
                                HorizontalOptions="Start"
                                IsClippedToBounds="True"
                                VerticalOptions="Start">
