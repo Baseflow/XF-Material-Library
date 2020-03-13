@@ -8,42 +8,33 @@
     xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material">
     <ContentPage.Content>
         <ScrollView>
-            <StackLayout>
-                <material:MaterialButton Text="Go To MaterialChip sample"
-                                         Command="{Binding GoToChipFontSizeViewCommand}"
-                                         Margin="10" />
+            <StackLayout Padding="16" Spacing="16">
+                <material:MaterialButton Text="MaterialChip sample"
+                                         Command="{Binding GoToChipFontSizeViewCommand}"/>
 
-                <material:MaterialButton Text="Go To Material Dialogs sample"
-                                         Command="{Binding GoToMaterialDialogsCommand}"
-                                         Margin="10" />
+                <material:MaterialButton Text="Material Dialogs sample"
+                                         Command="{Binding GoToMaterialDialogsCommand}"/>
 
-                <material:MaterialButton Text="Go To Checkboxes sample"
-                                         Command="{Binding GoToCheckboxesSampleCommand}"
-                                         Margin="10" />
+                <material:MaterialButton Text="Checkboxes sample"
+                                         Command="{Binding GoToCheckboxesSampleCommand}"/>
 
-                <material:MaterialButton Text="Go To MaterialTextField sample"
-                                         Command="{Binding GoToMaterialTextFieldSampleCommand}"
-									     Margin="10" />
+                <material:MaterialButton Text="MaterialTextField sample"
+                                         Command="{Binding GoToMaterialTextFieldSampleCommand}"/>
 
-                <material:MaterialButton Text="Go To MaterialCircularView sample"
-                                         Command="{Binding GoToMaterialCircularViewCommand}"
-                                         Margin="10" />
+                <material:MaterialButton Text="MaterialCircularView sample"
+                                         Command="{Binding GoToMaterialCircularViewCommand}"/>
 
-                <material:MaterialButton Text="Go To MaterialMenuButton sample"
-                                         Command="{Binding GoToMaterialMenuButtonViewCommand}"
-                                         Margin="10" />
+                <material:MaterialButton Text="MaterialMenuButton sample"
+                                         Command="{Binding GoToMaterialMenuButtonViewCommand}"/>
 
-                <material:MaterialButton Text="Go To MaterialCard sample"
-                                         Command="{Binding GoToMaterialCardViewCommand}"
-                                         Margin="10" />
+                <material:MaterialButton Text="MaterialCard sample"
+                                         Command="{Binding GoToMaterialCardViewCommand}"/>
 
-                <material:MaterialButton Text="Go To Material Button sample"
-                                         Command="{Binding GoToMaterialButtonViewCommand}"
-                                         Margin="10" />
+                <material:MaterialButton Text="Material Button sample"
+                                         Command="{Binding GoToMaterialButtonViewCommand}"/>
 
-                 <material:MaterialButton Text="Go To Material Picker sample"
-                                         Command="{Binding GoToMaterialPickerViewCommand}"
-                                         Margin="10" />
+                 <material:MaterialButton Text="Material Picker sample"
+                                         Command="{Binding GoToMaterialPickerViewCommand}"/>
 
               <!-- New sample shortcuts should be added here (Button + Associated command in the LandingViewModel) -->
             </StackLayout>
