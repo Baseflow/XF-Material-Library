@@ -39,6 +39,7 @@ namespace XF.Material.Forms.UI
         public MaterialCard()
         {
             SetDynamicResource(BackgroundColorProperty, MaterialConstants.Color.SURFACE);
+            DisableHasShadow();
         }
 
         /// <summary>
@@ -90,17 +91,21 @@ namespace XF.Material.Forms.UI
 
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            if (propertyName == nameof(HasShadow))
-            {
-                return;
-            }
-
             base.OnPropertyChanged(propertyName);
 
-            if (propertyName == nameof(IsClickable))
+            if (propertyName == nameof(HasShadow) && HasShadow)
+            {
+                DisableHasShadow();
+            }
+            else if (propertyName == nameof(IsClickable))
             {
                 OnIsClickableChanged(IsClickable);
             }
+        }
+
+        private void DisableHasShadow()
+        {
+            HasShadow = false;
         }
 
         private void OnIsClickableChanged(bool isClickable)
