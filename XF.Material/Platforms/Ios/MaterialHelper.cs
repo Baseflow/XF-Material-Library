@@ -25,13 +25,24 @@ namespace XF.Material.iOS
             return UIColor.FromRGBA((float)Math.Max(red - 0.2, 0), (float)Math.Max(green - 0.2, 0), (float)Math.Max(blue - 0.2, 0), alpha);
         }
 
-        internal static void Elevate(this UIView view, int elevation)
+        internal static void Elevate(this UIView view, double elevation)
         {
-            view.Layer.MasksToBounds = false;
-            view.Layer.ShadowColor = UIColor.Black.CGColor;
-            view.Layer.ShadowOffset = new CGSize(0, (nfloat)elevation);
-            view.Layer.ShadowOpacity = 0.24f;
-            view.Layer.ShadowRadius = Math.Abs(elevation);
+            if(elevation > 0)
+            {
+                view.Layer.MasksToBounds = false;
+                view.Layer.ShadowColor = UIColor.Black.CGColor;
+                view.Layer.ShadowOffset = new CGSize(0, (nfloat)elevation);
+                view.Layer.ShadowOpacity = 0.24f;
+                view.Layer.ShadowRadius = (nfloat)elevation;
+            }
+            else
+            {
+                view.Layer.MasksToBounds = false;
+                view.Layer.ShadowColor = UIColor.Black.CGColor;
+                view.Layer.ShadowOffset = new CGSize(0f, 0f);
+                view.Layer.ShadowOpacity = 0f;
+                view.Layer.ShadowRadius = 0f;
+            }
         }
 
         internal static bool IsColorDark(this UIColor color)

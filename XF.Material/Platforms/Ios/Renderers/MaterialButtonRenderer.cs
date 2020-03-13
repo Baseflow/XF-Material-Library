@@ -225,7 +225,7 @@ namespace XF.Material.iOS.Renderers
                 _shadowRadiusPressed.Duration = 0.150;
                 _shadowRadiusPressed.FillMode = CAFillMode.Forwards;
                 _shadowRadiusPressed.RemovedOnCompletion = false;
-                _shadowRadiusPressed.To = NSNumber.FromFloat(_materialButton.Elevation.PressedElevation);
+                _shadowRadiusPressed.To = NSNumber.FromDouble(_materialButton.Elevation.PressedElevation);
 
                 _shadowOffsetResting = CABasicAnimation.FromKeyPath("shadowOffset");
                 _shadowOffsetResting.Duration = 0.150;
@@ -237,7 +237,7 @@ namespace XF.Material.iOS.Renderers
                 _shadowRadiusResting.Duration = 0.150;
                 _shadowRadiusResting.FillMode = CAFillMode.Forwards;
                 _shadowRadiusResting.RemovedOnCompletion = false;
-                _shadowRadiusResting.To = NSNumber.FromFloat(_materialButton.Elevation.RestingElevation);
+                _shadowRadiusResting.To = NSNumber.FromDouble(_materialButton.Elevation.RestingElevation);
             }
 
             _colorPressed = CABasicAnimation.FromKeyPath("backgroundColor");

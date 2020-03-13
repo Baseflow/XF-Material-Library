@@ -130,22 +130,7 @@ namespace XF.Material.iOS.Renderers
                 return;
             }
 
-            if (elevation > 0)
-            {
-                NavigationBar.Layer.MasksToBounds = false;
-                NavigationBar.Layer.ShadowColor = UIColor.Black.CGColor;
-                NavigationBar.Layer.ShadowOffset = new CGSize(0, (nfloat)elevation);
-                NavigationBar.Layer.ShadowOpacity = 0.24f;
-                NavigationBar.Layer.ShadowRadius = (nfloat)elevation;
-            }
-            else
-            {
-                NavigationBar.Layer.MasksToBounds = false;
-                NavigationBar.Layer.ShadowColor = UIColor.Black.CGColor;
-                NavigationBar.Layer.ShadowOffset = new CGSize(0f, 0f);
-                NavigationBar.Layer.ShadowOpacity = 0f;
-                NavigationBar.Layer.ShadowRadius = 0f;
-            }
+            NavigationBar.Elevate(elevation);
         }
 
         private class NavigationControllerDelegate : UINavigationControllerDelegate

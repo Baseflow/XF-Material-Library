@@ -24,7 +24,7 @@ namespace XF.Material.Forms.UI
         /// <summary>
         /// Backing field for the bindable property <see cref="Elevation"/>.
         /// </summary>
-        public static readonly BindableProperty ElevationProperty = BindableProperty.Create(nameof(Elevation), typeof(int), typeof(MaterialCard), 1);
+        public static readonly BindableProperty ElevationProperty = BindableProperty.Create(nameof(Elevation), typeof(double), typeof(MaterialCard), 1.0);
 
         /// <summary>
         /// Backing field for the bindable property <see cref="IsClickable"/>.
@@ -67,9 +67,9 @@ namespace XF.Material.Forms.UI
         /// <summary>
         /// Gets or sets the virtual distance along the z-axis for emphasis.
         /// </summary>
-        public int Elevation
+        public double Elevation
         {
-            get => (int)GetValue(ElevationProperty);
+            get => (double)GetValue(ElevationProperty);
             set => SetValue(ElevationProperty, value);
         }
 
