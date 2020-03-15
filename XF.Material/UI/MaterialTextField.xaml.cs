@@ -1136,9 +1136,9 @@ namespace XF.Material.Forms.UI
             helper.FontFamily = counter.FontFamily = fontFamily;
         }
 
-        private void OnInputTypeChanged(MaterialTextFieldInputType inputType)
+        private void OnInputTypeChanged()
         {
-            switch (inputType)
+            switch (InputType)
             {
                 case MaterialTextFieldInputType.Chat:
                     entry.Keyboard = Keyboard.Chat;
@@ -1156,8 +1156,31 @@ namespace XF.Material.Forms.UI
                     entry.Keyboard = Keyboard.Numeric;
                     break;
 
+                //Only when plain type of keyboard we need consider the keyboard flags
+                //Same as Xamarin.Forms.Entry control
                 case MaterialTextFieldInputType.Plain:
-                    entry.Keyboard = Keyboard.Plain;
+                    var flags = KeyboardFlags.None;
+                    if (IsTextAllCaps)
+                    {
+                        flags |= KeyboardFlags.CapitalizeCharacter;
+                    }
+
+                    if (IsAutoCapitalizationEnabled && !IsTextAllCaps)
+                    {
+                        flags |= KeyboardFlags.CapitalizeWord;
+                    }
+
+                    if (IsSpellCheckEnabled)
+                    {
+                        flags |= KeyboardFlags.Spellcheck;
+                    }
+
+                    if (IsTextPredictionEnabled)
+                    {
+                        flags |= KeyboardFlags.Suggestions;
+                    }
+
+                    entry.Keyboard = Keyboard.Create(flags);
                     break;
 
                 case MaterialTextFieldInputType.Telephone:
@@ -1187,38 +1210,11 @@ namespace XF.Material.Forms.UI
 
             // Hint: Will use this for MaterialTextArea
             // entry.AutoSize = inputType == MaterialTextFieldInputType.MultiLine ? EditorAutoSizeOption.TextChanges : EditorAutoSizeOption.Disabled;
-            _gridContainer.InputTransparent = inputType == MaterialTextFieldInputType.Choice;
-            trailingIcon.IsVisible = inputType == MaterialTextFieldInputType.Choice;
+            _gridContainer.InputTransparent = InputType == MaterialTextFieldInputType.Choice;
+            trailingIcon.IsVisible = InputType == MaterialTextFieldInputType.Choice;
 
-            entry.IsNumericKeyboard = inputType == MaterialTextFieldInputType.Telephone || inputType == MaterialTextFieldInputType.Numeric;
-            entry.IsPassword = inputType == MaterialTextFieldInputType.Password || inputType == MaterialTextFieldInputType.NumericPassword;
-        }
-
-        private void OnKeyboardFlagsChanged(bool isAutoCapitalizationEnabled, bool isSpellCheckEnabled, bool isTextPredictionEnabled, bool isTextAllCaps)
-        {
-            var flags = KeyboardFlags.None;
-
-            if (isTextAllCaps)
-            {
-                flags |= KeyboardFlags.CapitalizeCharacter;
-            }
-
-            if (isAutoCapitalizationEnabled && !isTextAllCaps)
-            {
-                flags |= KeyboardFlags.CapitalizeWord;
-            }
-
-            if (isSpellCheckEnabled)
-            {
-                flags |= KeyboardFlags.Spellcheck;
-            }
-
-            if (isTextPredictionEnabled)
-            {
-                flags |= KeyboardFlags.Suggestions;
-            }
-
-            entry.Keyboard = Keyboard.Create(flags);
+            entry.IsNumericKeyboard = InputType == MaterialTextFieldInputType.Telephone || InputType == MaterialTextFieldInputType.Numeric;
+            entry.IsPassword = InputType == MaterialTextFieldInputType.Password || InputType == MaterialTextFieldInputType.NumericPassword;
         }
 
         private void OnLeadingIconChanged(ImageSource imageSource)
@@ -1372,12 +1368,6 @@ namespace XF.Material.Forms.UI
 
         private void SetPropertyChangeHandler(ref Dictionary<string, Action> propertyChangeActions)
         {
-            Action keyboardFlagsAction = () => OnKeyboardFlagsChanged(
-                IsAutoCapitalizationEnabled,
-                IsSpellCheckEnabled,
-                IsTextPredictionEnabled,
-                IsTextAllCaps);
-
             propertyChangeActions = new Dictionary<string, Action>
             {
                 { nameof(Text), () => OnTextChanged(Text) },
@@ -1390,7 +1380,6 @@ namespace XF.Material.Forms.UI
                 { nameof(HelperText), () => OnHelperTextChanged(HelperText) },
                 { nameof(HelperTextFontFamily), () => OnHelpertTextFontFamilyChanged(HelperTextFontFamily) },
                 { nameof(HelperTextColor), () => OnHelperTextColorChanged(HelperTextColor) },
-                { nameof(InputType), () => OnInputTypeChanged(InputType) },
                 { nameof(IsEnabled), () => OnEnabledChanged(IsEnabled) },
                 { nameof(BackgroundColor), () => OnBackgroundColorChanged(BackgroundColor) },
                 { nameof(AlwaysShowUnderline), () => OnAlwaysShowUnderlineChanged(AlwaysShowUnderline) },
@@ -1405,10 +1394,11 @@ namespace XF.Material.Forms.UI
                 { nameof(Choices), () => OnChoicesChanged(Choices) },
                 { nameof(LeadingIcon), () => OnLeadingIconChanged(LeadingIcon) },
                 { nameof(LeadingIconTintColor), () => OnLeadingIconTintColorChanged(LeadingIconTintColor) },
-                { nameof(IsSpellCheckEnabled), keyboardFlagsAction },
-                { nameof(IsTextPredictionEnabled), keyboardFlagsAction },
-                { nameof(IsAutoCapitalizationEnabled), keyboardFlagsAction },
-                { nameof(IsTextAllCaps), keyboardFlagsAction },
+                { nameof(InputType), () => OnInputTypeChanged() },
+                { nameof(IsSpellCheckEnabled), () => OnInputTypeChanged() },
+                { nameof(IsTextPredictionEnabled), () => OnInputTypeChanged() },
+                { nameof(IsAutoCapitalizationEnabled), () => OnInputTypeChanged() },
+                { nameof(IsTextAllCaps), () => OnInputTypeChanged() },
                 { nameof(TextFontSize), () => OnTextFontSizeChanged(TextFontSize) },
                 { nameof(ErrorText), () => OnErrorTextChanged() }
             };
