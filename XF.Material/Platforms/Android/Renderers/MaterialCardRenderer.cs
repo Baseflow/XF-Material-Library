@@ -97,7 +97,7 @@ namespace XF.Material.Droid.Renderers
         {
             var borderColor = _materialCard.BorderColor.IsDefault ? _materialCard.BackgroundColor : _materialCard.BorderColor;
             var drawable = (GradientDrawable)Control.Background;
-            drawable.SetStroke((int)MaterialHelper.ConvertToDp(1), borderColor.ToAndroid());
+            drawable.SetStroke((int)MaterialHelper.ConvertDpToPx(1), borderColor.ToAndroid());
         }
     }
 }

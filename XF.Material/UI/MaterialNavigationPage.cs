@@ -36,9 +36,9 @@ namespace XF.Material.Forms.UI
         public static readonly BindableProperty AppBarTitleTextFontSizeProperty = BindableProperty.Create("AppBarTitleTextFontSize", typeof(double), typeof(MaterialNavigationPage), 24.0);
 
         /// <summary>
-        /// Attached property that is used by <see cref="Page"/>s to determine whether the app bar will draw a shadow.
+        /// Attached property that is used by <see cref="Page"/>s to determine the size of the shadow below the app bar.
         /// </summary>
-        public static readonly BindableProperty HasShadowProperty = BindableProperty.Create("HasShadow", typeof(bool), typeof(MaterialNavigationPage), true);
+        public static readonly BindableProperty AppBarElevationProperty = BindableProperty.Create("AppBarElevation", typeof(double), typeof(MaterialNavigationPage), 4.0);
 
         /// <summary>
         /// Attached property that is used by <see cref="Page"/>s to determine the status bar color.
@@ -103,9 +103,9 @@ namespace XF.Material.Forms.UI
         /// <summary>
         /// For binding use only.
         /// </summary>
-        public static bool GetHasShadow(BindableObject view)
+        public static double GetAppBarElevation(BindableObject view)
         {
-            return (bool)view.GetValue(HasShadowProperty);
+            return (double)view.GetValue(AppBarElevationProperty);
         }
 
         /// <summary>
@@ -159,9 +159,9 @@ namespace XF.Material.Forms.UI
         /// <summary>
         /// For binding use only.
         /// </summary>
-        public static void SetHasShadow(BindableObject view, bool hasShadow)
+        public static void SetAppBarElevation(BindableObject view, double elevation)
         {
-            view.SetValue(HasShadowProperty, hasShadow);
+            view.SetValue(AppBarElevationProperty, elevation);
         }
 
         /// <summary>
@@ -241,10 +241,6 @@ namespace XF.Material.Forms.UI
             {
                 label.Text = page.Title;
             }
-            else if (e.PropertyName == StatusBarColorProperty.PropertyName)
-            {
-                ChangeStatusBarColor(page);
-            }
             else if (e.PropertyName == AppBarColorProperty.PropertyName)
             {
                 ChangeBarBackgroundColor(page);
@@ -265,13 +261,6 @@ namespace XF.Material.Forms.UI
             {
                 ChangeFont(page);
             }
-        }
-
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-
-            ChangeStatusBarColor(CurrentPage);
         }
 
         /// <summary>
@@ -317,7 +306,6 @@ namespace XF.Material.Forms.UI
 
             ChangeFont(page);
             ChangeBarTextColor(page);
-            ChangeStatusBarColor(page);
             ChangeBarBackgroundColor(page);
         }
 
@@ -402,12 +390,6 @@ namespace XF.Material.Forms.UI
             _customTitleView.FontFamily = fontFamily;
             _customTitleView.FontSize = fontSize;
             _customTitleView.Text = page.Title;
-        }
-
-        private static void ChangeStatusBarColor(Page page)
-        {
-            var statusBarColor = (Color)page.GetValue(StatusBarColorProperty);
-            Material.PlatformConfiguration.ChangeStatusBarColor(statusBarColor.IsDefault ? Material.Color.PrimaryVariant : statusBarColor);
         }
     }
 

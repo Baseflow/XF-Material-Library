@@ -44,7 +44,7 @@ namespace XF.Material.Droid.Renderers
             _helper = new MaterialDrawableHelper(_materialButton, Control);
             _helper.UpdateDrawable();
 
-            Control.SetMinimumWidth((int)MaterialHelper.ConvertToDp(64));
+            Control.SetMinimumWidth((int)MaterialHelper.ConvertDpToPx(64));
             Control.SetAllCaps(_materialButton != null && _materialButton.AllCaps);
 
             SetButtonIcon();
@@ -96,9 +96,9 @@ namespace XF.Material.Droid.Renderers
             }
 
             var drawableCopy = drawable.GetDrawableCopy();
-            var width = _materialButton.ButtonType == MaterialButtonType.Text ? (int)MaterialHelper.ConvertToDp(18) : (int)MaterialHelper.ConvertToDp(18 + 4);
-            var height = (int)MaterialHelper.ConvertToDp(18);
-            var left = _materialButton.ButtonType == MaterialButtonType.Text ? 0 : (int)MaterialHelper.ConvertToDp(4);
+            var width = _materialButton.ButtonType == MaterialButtonType.Text ? (int)MaterialHelper.ConvertDpToPx(18) : (int)MaterialHelper.ConvertDpToPx(18 + 4);
+            var height = (int)MaterialHelper.ConvertDpToPx(18);
+            var left = _materialButton.ButtonType == MaterialButtonType.Text ? 0 : (int)MaterialHelper.ConvertDpToPx(4);
             drawableCopy.SetBounds(left, 0, width, height);
             drawableCopy.TintDrawable(_materialButton.TextColor.ToAndroid());
 
@@ -131,7 +131,7 @@ namespace XF.Material.Droid.Renderers
         private void SetTextLetterSpacing()
         {
             var rawLetterSpacing = _materialButton.LetterSpacing / Control.TextSize;
-            Control.LetterSpacing = MaterialHelper.ConvertToSp(rawLetterSpacing);
+            Control.LetterSpacing = MaterialHelper.ConvertSpToPx(rawLetterSpacing);
         }
     }
 }

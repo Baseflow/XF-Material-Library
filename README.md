@@ -123,18 +123,15 @@ These are attached properties that can be used on pages that are navigated throu
 
 4. `AppBarTitleFontFamily` - The font family of the app bar title. The default value is `Material.FontFamily.H6`.
 
-5. `AppBarTitleFontSize` - The font size of the app bar title. The default value is  `20`.
+5. `AppBarTitleFontSize` - The font size of the app bar title. The default value is  `24`.
 
-6. `StatusBarColor` - The color of the status bar.
+6. `AppBarElevation` - The size of the shadow below the app bar. The default value is  `4`.
 
-7. `HasShadow` - The `boolean` value whether the App Bar will draw a shadow or not.
+7. `StatusBarColor` - The color of the status bar.
 
 ##### Usage and Behavior
 This control uses the new feature of Xamarin 3.3, the `TitleView` property, to be able to change the appearance of the app bar title.
 But when the `TitleView` property is set on a page, the attached properties will not work.
-
-It is also important to note that when the attached properties are used, any change in these properties will only be detected during before pushing and popping of pages.
-
 
 #### Cards
 

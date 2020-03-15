@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.ComponentModel;
+using System.Linq;
 using System.Threading.Tasks;
 using Android.Content;
 using Xamarin.Forms;
@@ -14,33 +16,139 @@ namespace XF.Material.Droid.Renderers
     public class MaterialNavigationPageRenderer : Xamarin.Forms.Platform.Android.AppCompat.NavigationPageRenderer
     {
         private MaterialNavigationPage _navigationPage;
+        private MultiPage<Page> _multiPageParent;
         private Toolbar _toolbar;
+        private Page _childPage;
 
         public MaterialNavigationPageRenderer(Context context) : base(context) { }
-
-        public void ChangeHasShadow(bool hasShadow)
-        {
-            _toolbar.Elevate(hasShadow ? 8 : 0);
-        }
 
         protected override void OnElementChanged(ElementChangedEventArgs<NavigationPage> e)
         {
             base.OnElementChanged(e);
 
-            if (e?.NewElement == null)
+            if (e?.NewElement != null)
+            {
+                _navigationPage = Element as MaterialNavigationPage;
+
+                _toolbar = ViewGroup.GetChildAt(0) as Toolbar;
+
+                HandleParent(_navigationPage.Parent);
+
+                HandleChildPage(_navigationPage.CurrentPage);
+            }
+
+            if (e?.OldElement != null)
+            {
+                if (_childPage != null)
+                {
+                    _childPage.PropertyChanged -= ChildPage_PropertyChanged;
+                }
+
+                if (_multiPageParent != null)
+                {
+                    _multiPageParent.CurrentPageChanged -= MultiPageParent_CurrentPageChanged;
+                }
+            }
+        }
+
+        protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            base.OnElementPropertyChanged(sender, e);
+
+            if (e.PropertyName == NavigationPage.CurrentPageProperty.PropertyName)
+            {
+                HandleChildPage(_navigationPage.CurrentPage);
+            }
+            else if (e.PropertyName == nameof(_navigationPage.Parent))
+            {
+                HandleParent(_navigationPage.Parent);
+            }
+        }
+
+        private void HandleParent(Element parent)
+        {
+            if (parent is MultiPage<Page>)
+            {
+                if (_multiPageParent != null)
+                {
+                    _multiPageParent.CurrentPageChanged -= MultiPageParent_CurrentPageChanged;
+                }
+
+                _multiPageParent = parent as MultiPage<Page>;
+
+                if (_multiPageParent != null)
+                {
+                    _multiPageParent.CurrentPageChanged += MultiPageParent_CurrentPageChanged;
+                }
+            }
+            else if (_multiPageParent != null)
+            {
+                _multiPageParent.CurrentPageChanged -= MultiPageParent_CurrentPageChanged;
+
+                _multiPageParent = null;
+            }
+        }
+
+        private void MultiPageParent_CurrentPageChanged(object sender, EventArgs e)
+        {
+            var multiPage = sender as MultiPage<Page>;
+
+            if (multiPage == null)
             {
                 return;
             }
 
-            _navigationPage = Element as MaterialNavigationPage;
-            _toolbar = ViewGroup.GetChildAt(0) as Toolbar;
+            if (multiPage.CurrentPage is NavigationPage navPage)
+            {
+                ChangeStatusBarColor(navPage.CurrentPage);
+            }
+            else
+            {
+                ChangeStatusBarColor(multiPage.CurrentPage);
+            }
+        }
+
+        private void HandleChildPage(Page page)
+        {
+            if (_childPage != null)
+            {
+                _childPage.PropertyChanged -= ChildPage_PropertyChanged;
+            }
+
+            _childPage = page;
+
+            if (_childPage != null)
+            {
+                _childPage.PropertyChanged += ChildPage_PropertyChanged;
+            }
+        }
+
+        private void ChildPage_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            var page = sender as Page;
+
+            if(page == null)
+            {
+                return;
+            }
+
+            if (e.PropertyName == MaterialNavigationPage.AppBarElevationProperty.PropertyName)
+            {
+                ChangeElevation(page);
+            }
+            else if (e.PropertyName == MaterialNavigationPage.StatusBarColorProperty.PropertyName)
+            {
+                ChangeStatusBarColor(page);
+            }
         }
 
         protected override Task<bool> OnPopToRootAsync(Page page, bool animated)
         {
             _navigationPage.InternalPopToRoot(page);
 
-            ChangeHasShadow(page);
+            ChangeElevation(page);
+
+            ChangeStatusBarColor(page);
 
             return base.OnPopToRootAsync(page, animated);
         }
@@ -55,26 +163,61 @@ namespace XF.Material.Droid.Renderers
             }
 
             var previousPage = navStack[navStack.IndexOf(page) - 1];
+
             _navigationPage.InternalPagePop(previousPage, page);
-            ChangeHasShadow(previousPage);
+
+            ChangeElevation(previousPage);
+
+            ChangeStatusBarColor(previousPage);
 
             return base.OnPopViewAsync(page, animated);
         }
 
-        protected override Task<bool> OnPushAsync(Page view, bool animated)
+        protected override Task<bool> OnPushAsync(Page page, bool animated)
         {
-            _navigationPage.InternalPagePush(view);
+            _navigationPage.InternalPagePush(page);
 
-            ChangeHasShadow(view);
+            ChangeElevation(page);
 
-            return base.OnPushAsync(view, animated);
+            if (_navigationPage.Parent is MultiPage<Page> parent)
+            {
+                if (parent.CurrentPage == _navigationPage)
+                {
+                    ChangeStatusBarColor(page);
+                }
+            }
+            else
+            {
+                ChangeStatusBarColor(page);
+            }
+
+            return base.OnPushAsync(page, animated);
         }
 
-        private void ChangeHasShadow(Page page)
+        private void ChangeElevation(Page page)
         {
-            var hasShadow = (bool)page.GetValue(MaterialNavigationPage.HasShadowProperty);
+            var elevation = (double)page.GetValue(MaterialNavigationPage.AppBarElevationProperty);
 
-            ChangeHasShadow(hasShadow);
+            ChangeElevation(elevation);
+        }
+
+        public void ChangeElevation(double elevation)
+        {
+            if (elevation > 0)
+            {
+                _toolbar.Elevate(elevation);
+            }
+            else
+            {
+                _toolbar.Elevate(0);
+            }
+        }
+
+        private void ChangeStatusBarColor(Page page)
+        {
+            var statusBarColor = (Color)page.GetValue(MaterialNavigationPage.StatusBarColorProperty);
+
+            Forms.Material.PlatformConfiguration.ChangeStatusBarColor(statusBarColor.IsDefault ? Forms.Material.Color.PrimaryVariant : statusBarColor);
         }
     }
 }
