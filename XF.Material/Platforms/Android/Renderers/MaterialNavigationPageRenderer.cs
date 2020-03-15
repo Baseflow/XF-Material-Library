@@ -16,6 +16,7 @@ namespace XF.Material.Droid.Renderers
     public class MaterialNavigationPageRenderer : Xamarin.Forms.Platform.Android.AppCompat.NavigationPageRenderer
     {
         private MaterialNavigationPage _navigationPage;
+        private MultiPage<Page> _multiPageParent;
         private Toolbar _toolbar;
         private Page _childPage;
 
@@ -31,12 +32,22 @@ namespace XF.Material.Droid.Renderers
 
                 _toolbar = ViewGroup.GetChildAt(0) as Toolbar;
 
+                HandleParent(_navigationPage.Parent);
+
                 HandleChildPage(_navigationPage.CurrentPage);
             }
 
-            if (e?.OldElement != null && _childPage != null)
+            if (e?.OldElement != null)
             {
-                _childPage.PropertyChanged -= ChildPage_PropertyChanged;
+                if (_childPage != null)
+                {
+                    _childPage.PropertyChanged -= ChildPage_PropertyChanged;
+                }
+
+                if (_multiPageParent != null)
+                {
+                    _multiPageParent.CurrentPageChanged -= MultiPageParent_CurrentPageChanged;
+                }
             }
         }
 
@@ -47,6 +58,53 @@ namespace XF.Material.Droid.Renderers
             if (e.PropertyName == NavigationPage.CurrentPageProperty.PropertyName)
             {
                 HandleChildPage(_navigationPage.CurrentPage);
+            }
+            else if (e.PropertyName == nameof(_navigationPage.Parent))
+            {
+                HandleParent(_navigationPage.Parent);
+            }
+        }
+
+        private void HandleParent(Element parent)
+        {
+            if (parent is MultiPage<Page>)
+            {
+                if (_multiPageParent != null)
+                {
+                    _multiPageParent.CurrentPageChanged -= MultiPageParent_CurrentPageChanged;
+                }
+
+                _multiPageParent = parent as MultiPage<Page>;
+
+                if (_multiPageParent != null)
+                {
+                    _multiPageParent.CurrentPageChanged += MultiPageParent_CurrentPageChanged;
+                }
+            }
+            else if (_multiPageParent != null)
+            {
+                _multiPageParent.CurrentPageChanged -= MultiPageParent_CurrentPageChanged;
+
+                _multiPageParent = null;
+            }
+        }
+
+        private void MultiPageParent_CurrentPageChanged(object sender, EventArgs e)
+        {
+            var multiPage = sender as MultiPage<Page>;
+
+            if (multiPage == null)
+            {
+                return;
+            }
+
+            if (multiPage.CurrentPage is NavigationPage navPage)
+            {
+                ChangeStatusBarColor(navPage.CurrentPage);
+            }
+            else
+            {
+                ChangeStatusBarColor(multiPage.CurrentPage);
             }
         }
 
@@ -78,6 +136,10 @@ namespace XF.Material.Droid.Renderers
             {
                 ChangeElevation(page);
             }
+            else if (e.PropertyName == MaterialNavigationPage.StatusBarColorProperty.PropertyName)
+            {
+                ChangeStatusBarColor(page);
+            }
         }
 
         protected override Task<bool> OnPopToRootAsync(Page page, bool animated)
@@ -85,6 +147,8 @@ namespace XF.Material.Droid.Renderers
             _navigationPage.InternalPopToRoot(page);
 
             ChangeElevation(page);
+
+            ChangeStatusBarColor(page);
 
             return base.OnPopToRootAsync(page, animated);
         }
@@ -99,8 +163,12 @@ namespace XF.Material.Droid.Renderers
             }
 
             var previousPage = navStack[navStack.IndexOf(page) - 1];
+
             _navigationPage.InternalPagePop(previousPage, page);
+
             ChangeElevation(previousPage);
+
+            ChangeStatusBarColor(previousPage);
 
             return base.OnPopViewAsync(page, animated);
         }
@@ -110,6 +178,18 @@ namespace XF.Material.Droid.Renderers
             _navigationPage.InternalPagePush(page);
 
             ChangeElevation(page);
+
+            if (_navigationPage.Parent is MultiPage<Page> parent)
+            {
+                if (parent.CurrentPage == _navigationPage)
+                {
+                    ChangeStatusBarColor(page);
+                }
+            }
+            else
+            {
+                ChangeStatusBarColor(page);
+            }
 
             return base.OnPushAsync(page, animated);
         }
@@ -131,6 +211,13 @@ namespace XF.Material.Droid.Renderers
             {
                 _toolbar.Elevate(0);
             }
+        }
+
+        private void ChangeStatusBarColor(Page page)
+        {
+            var statusBarColor = (Color)page.GetValue(MaterialNavigationPage.StatusBarColorProperty);
+
+            Forms.Material.PlatformConfiguration.ChangeStatusBarColor(statusBarColor.IsDefault ? Forms.Material.Color.PrimaryVariant : statusBarColor);
         }
     }
 }

@@ -241,10 +241,6 @@ namespace XF.Material.Forms.UI
             {
                 label.Text = page.Title;
             }
-            else if (e.PropertyName == StatusBarColorProperty.PropertyName)
-            {
-                ChangeStatusBarColor(page);
-            }
             else if (e.PropertyName == AppBarColorProperty.PropertyName)
             {
                 ChangeBarBackgroundColor(page);
@@ -265,13 +261,6 @@ namespace XF.Material.Forms.UI
             {
                 ChangeFont(page);
             }
-        }
-
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-
-            ChangeStatusBarColor(CurrentPage);
         }
 
         /// <summary>
@@ -317,7 +306,6 @@ namespace XF.Material.Forms.UI
 
             ChangeFont(page);
             ChangeBarTextColor(page);
-            ChangeStatusBarColor(page);
             ChangeBarBackgroundColor(page);
         }
 
@@ -402,12 +390,6 @@ namespace XF.Material.Forms.UI
             _customTitleView.FontFamily = fontFamily;
             _customTitleView.FontSize = fontSize;
             _customTitleView.Text = page.Title;
-        }
-
-        private static void ChangeStatusBarColor(Page page)
-        {
-            var statusBarColor = (Color)page.GetValue(StatusBarColorProperty);
-            Material.PlatformConfiguration.ChangeStatusBarColor(statusBarColor.IsDefault ? Material.Color.PrimaryVariant : statusBarColor);
         }
     }
 

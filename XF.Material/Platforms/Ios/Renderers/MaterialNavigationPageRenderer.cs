@@ -29,6 +29,8 @@ namespace XF.Material.iOS.Renderers
 
                 _navigationPage.PropertyChanged += MaterialNavigationPage_PropertyChanged;
 
+                _navigationPage.Appearing += MaterialNavigationPage_Appearing;
+
                 Delegate = new NavigationControllerDelegate(this, _navigationPage);
 
                 HandleChildPage(_navigationPage.CurrentPage);
@@ -38,11 +40,18 @@ namespace XF.Material.iOS.Renderers
             {
                 _navigationPage.PropertyChanged -= MaterialNavigationPage_PropertyChanged;
 
-                if(_childPage != null)
+                _navigationPage.Appearing -= MaterialNavigationPage_Appearing;
+
+                if (_childPage != null)
                 {
                     _childPage.PropertyChanged -= ChildPage_PropertyChanged;
                 }
             }
+        }
+
+        private void MaterialNavigationPage_Appearing(object sender, EventArgs e)
+        {
+            ChangeStatusBarColor(_navigationPage.CurrentPage);
         }
 
         private void MaterialNavigationPage_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -81,12 +90,20 @@ namespace XF.Material.iOS.Renderers
             {
                 ChangeElevation(page);
             }
+            else if (e.PropertyName == MaterialNavigationPage.StatusBarColorProperty.PropertyName)
+            {
+                ChangeStatusBarColor(page);
+            }
         }
 
         public override UIViewController[] PopToRootViewController(bool animated)
         {
             _navigationPage.InternalPopToRoot(_navigationPage.RootPage);
+
             ChangeElevation(_navigationPage.RootPage);
+
+            ChangeStatusBarColor(_navigationPage.RootPage);
+
             return base.PopToRootViewController(animated);
         }
 
@@ -100,9 +117,14 @@ namespace XF.Material.iOS.Renderers
             }
 
             var currentPage = _navigationPage.CurrentPage;
+
             var previousPage = navStack[navStack.IndexOf(_navigationPage.CurrentPage) - 1];
+
             _navigationPage.InternalPagePop(previousPage, currentPage);
+
             ChangeElevation(previousPage);
+
+            ChangeStatusBarColor(previousPage);
 
             return base.PopViewController(animated);
         }
@@ -112,6 +134,8 @@ namespace XF.Material.iOS.Renderers
             _navigationPage.InternalPagePush(page);
 
             ChangeElevation(page);
+
+            ChangeStatusBarColor(page);
 
             return base.OnPushAsync(page, animated);
         }
@@ -131,6 +155,13 @@ namespace XF.Material.iOS.Renderers
             }
 
             NavigationBar.Elevate(elevation);
+        }
+
+        private static void ChangeStatusBarColor(Page page)
+        {
+            var statusBarColor = (Color)page.GetValue(MaterialNavigationPage.StatusBarColorProperty);
+
+            Forms.Material.PlatformConfiguration.ChangeStatusBarColor(statusBarColor.IsDefault ? Forms.Material.Color.PrimaryVariant : statusBarColor);
         }
 
         private class NavigationControllerDelegate : UINavigationControllerDelegate
@@ -158,6 +189,7 @@ namespace XF.Material.iOS.Renderers
                     if (context.IsCancelled)
                     {
                         _navigationPage.ForceUpdateCurrentPage();
+                        ChangeStatusBarColor(_navigationPage.CurrentPage);
                     }
                 });
             }
