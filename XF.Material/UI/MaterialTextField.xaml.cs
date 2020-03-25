@@ -600,7 +600,7 @@ namespace XF.Material.Forms.UI
                 entry.SizeChanged -= Entry_SizeChanged;
                 entry.Focused -= Entry_Focused;
                 entry.Unfocused -= Entry_Unfocused;
-                entry.Completed += Entry_Completed;
+                entry.Completed -= Entry_Completed;
                 DeviceDisplay.MainDisplayInfoChanged -= DeviceDisplay_MainDisplayInfoChanged;
             }
         }
