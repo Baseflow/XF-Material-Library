@@ -144,7 +144,6 @@ namespace XF.Material.Forms.UI
         private bool _counterEnabled;
         private DisplayInfo _lastDeviceDisplay;
         private int _selectedIndex = -1;
-        private bool _wasFocused;
 
         /// <summary>
         /// Initializes a new instance of <see cref="MaterialTextField"/>.
@@ -771,7 +770,7 @@ namespace XF.Material.Forms.UI
                 placeholder.TextColor = PlaceholderColor;
             }
 
-            if (startObject != null && !string.IsNullOrEmpty(Text) && !_wasFocused)
+            if (startObject != null && !string.IsNullOrEmpty(Text))
             {
                 if (placeholder.TranslationY == placeholderEndY)
                 {
@@ -928,7 +927,6 @@ namespace XF.Material.Forms.UI
 
         private void Entry_Focused(object sender, FocusEventArgs e)
         {
-            _wasFocused = true;
             FocusCommand?.Execute(entry.IsFocused);
             Focused?.Invoke(this, e);
             UpdateCounter();
