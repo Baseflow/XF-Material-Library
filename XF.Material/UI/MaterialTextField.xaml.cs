@@ -497,19 +497,7 @@ namespace XF.Material.Forms.UI
         public string Text
         {
             get => (string)GetValue(TextProperty);
-            set
-            {
-                if (!string.IsNullOrEmpty(value) && !FloatingPlaceholderEnabled)
-                {
-                    placeholder.IsVisible = false;
-                }
-                else if (string.IsNullOrEmpty(value) && !FloatingPlaceholderEnabled)
-                {
-                    placeholder.IsVisible = true;
-                }
-
-                SetValue(TextProperty, value);
-            }
+            set => SetValue(TextProperty, value);
         }
 
         /// <summary>
@@ -1096,6 +1084,8 @@ namespace XF.Material.Forms.UI
 
             var trailingIconMargin = trailingIcon.Margin;
             trailingIcon.Margin = isEnabled ? new Thickness(trailingIconMargin.Left, 16, trailingIconMargin.Right, 16) : new Thickness(trailingIconMargin.Left, 8, trailingIconMargin.Right, 8);
+
+            UpdatePlaceholderVisibility();
         }
 
         private void OnHasErrorChanged()
@@ -1226,7 +1216,8 @@ namespace XF.Material.Forms.UI
 
         private void OnPlaceholderChanged(string placeholderText)
         {
-            placeholder.Text = placeholderText ?? "";
+            placeholder.Text = placeholderText ?? string.Empty;
+            UpdatePlaceholderVisibility();
         }
 
         private void OnPlaceholderColorChanged(Color placeholderColor)
@@ -1308,8 +1299,8 @@ namespace XF.Material.Forms.UI
 
             entry.Text = text;
 
-
             AnimateToInactiveOrFocusedStateOnStart(this);
+            UpdatePlaceholderVisibility();
             UpdateCounter();
         }
 
@@ -1392,6 +1383,18 @@ namespace XF.Material.Forms.UI
                 { nameof(TextFontSize), () => OnTextFontSizeChanged(TextFontSize) },
                 { nameof(ErrorText), () => OnErrorTextChanged() }
             };
+        }
+
+        private void UpdatePlaceholderVisibility()
+        {
+            if (!string.IsNullOrEmpty(Text) && !FloatingPlaceholderEnabled)
+            {
+                placeholder.IsVisible = false;
+            }
+            else if (string.IsNullOrEmpty(Text) && !FloatingPlaceholderEnabled)
+            {
+                placeholder.IsVisible = true;
+            }
         }
 
         private void UpdateCounter()
