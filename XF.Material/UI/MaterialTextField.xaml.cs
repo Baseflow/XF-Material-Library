@@ -422,15 +422,7 @@ namespace XF.Material.Forms.UI
         public string Placeholder
         {
             get => (string)GetValue(PlaceholderProperty);
-            set
-            {
-                if (string.IsNullOrWhiteSpace(value))
-                {
-                    throw new ArgumentNullException($"{nameof(Placeholder)} must not be null, empty, or a white space.");
-                }
-
-                SetValue(PlaceholderProperty, value);
-            }
+            set => SetValue(PlaceholderProperty, value);
         }
 
         /// <summary>
@@ -1234,7 +1226,7 @@ namespace XF.Material.Forms.UI
 
         private void OnPlaceholderChanged(string placeholderText)
         {
-            placeholder.Text = placeholderText;
+            placeholder.Text = placeholderText ?? "";
         }
 
         private void OnPlaceholderColorChanged(Color placeholderColor)
