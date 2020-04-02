@@ -50,7 +50,7 @@
                                     Margin="12,0,12,0"
                                     FontSize="{Binding Source={x:Reference entry}, Path=FontSize}"
                                     InputTransparent="True"
-                                    Text="Placeholder"
+                                    Text=""
                                     TextColor="#99000000"
                                     TypeScale="Body2"
                                     VerticalOptions="Center"
