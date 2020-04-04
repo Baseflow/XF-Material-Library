@@ -1376,5 +1376,5 @@ If targeted below Android 5.0, the following issues can be seen:
 ## Thanks and Appreciation
 Special thanks to the following libraries I used for this project:
 - [Rg.Plugins.Popup](https://github.com/rotorgames/Rg.Plugins.Popup)
-- [LottieXamarin](https://github.com/martijn00/LottieXamarin)
+- [LottieXamarin](https://github.com/Baseflow/LottieXamarin)
 - [Xamarin.Essentials](https://github.com/xamarin/Essentials)
