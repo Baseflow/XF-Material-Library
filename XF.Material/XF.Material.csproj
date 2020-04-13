@@ -42,7 +42,7 @@
     <None Remove="Platforms\Wpf\**\*.cs" />
     <Compile Include="Platforms\Net\**\*.cs" />
     <Compile Include="Platforms\Wpf\**\*.cs" />
-    <PackageReference Include="Xamarin.Forms.Platform.WPF" Version="4.5.0.356" />
+    <PackageReference Include="Xamarin.Forms.Platform.WPF" Version="4.5.0.530" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)'!='netstandard2.0'">
@@ -117,9 +117,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Rg.Plugins.Popup" Version="1.2.0.223" />
-    <PackageReference Include="Xamarin.Essentials" Version="1.5.0" />
-    <PackageReference Include="Xamarin.Forms" Version="4.5.0.356" />
+    <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.1" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.5.2" />
+    <PackageReference Include="Xamarin.Forms" Version="4.5.0.530" />
     <PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie" Version="3.1.0" />
   </ItemGroup>
   

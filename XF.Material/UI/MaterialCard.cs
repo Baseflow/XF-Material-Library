@@ -24,7 +24,7 @@ namespace XF.Material.Forms.UI
         /// <summary>
         /// Backing field for the bindable property <see cref="Elevation"/>.
         /// </summary>
-        public static readonly BindableProperty ElevationProperty = BindableProperty.Create(nameof(Elevation), typeof(int), typeof(MaterialCard), 1);
+        public static readonly BindableProperty ElevationProperty = BindableProperty.Create(nameof(Elevation), typeof(double), typeof(MaterialCard), 1.0);
 
         /// <summary>
         /// Backing field for the bindable property <see cref="IsClickable"/>.
@@ -39,6 +39,7 @@ namespace XF.Material.Forms.UI
         public MaterialCard()
         {
             SetDynamicResource(BackgroundColorProperty, MaterialConstants.Color.SURFACE);
+            DisableHasShadow();
         }
 
         /// <summary>
@@ -67,9 +68,9 @@ namespace XF.Material.Forms.UI
         /// <summary>
         /// Gets or sets the virtual distance along the z-axis for emphasis.
         /// </summary>
-        public int Elevation
+        public double Elevation
         {
-            get => (int)GetValue(ElevationProperty);
+            get => (double)GetValue(ElevationProperty);
             set => SetValue(ElevationProperty, value);
         }
 
@@ -90,17 +91,21 @@ namespace XF.Material.Forms.UI
 
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            if (propertyName == nameof(HasShadow))
-            {
-                return;
-            }
-
             base.OnPropertyChanged(propertyName);
 
-            if (propertyName == nameof(IsClickable))
+            if (propertyName == nameof(HasShadow) && HasShadow)
+            {
+                DisableHasShadow();
+            }
+            else if (propertyName == nameof(IsClickable))
             {
                 OnIsClickableChanged(IsClickable);
             }
+        }
+
+        private void DisableHasShadow()
+        {
+            HasShadow = false;
         }
 
         private void OnIsClickableChanged(bool isClickable)

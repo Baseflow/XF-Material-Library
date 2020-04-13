@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.ComponentModel;
+using System.Linq;
 using System.Threading.Tasks;
 using CoreGraphics;
 using ObjCRuntime;
@@ -15,31 +17,7 @@ namespace XF.Material.iOS.Renderers
     public class MaterialNavigationPageRenderer : NavigationRenderer
     {
         private MaterialNavigationPage _navigationPage;
-
-        private void ChangeHasShadow(bool hasShadow)
-        {
-            if (NavigationBar == null || NavigationBar.Layer == null)
-            {
-                return;
-            }
-
-            if (hasShadow)
-            {
-                NavigationBar.Layer.MasksToBounds = false;
-                NavigationBar.Layer.ShadowColor = UIColor.Black.CGColor;
-                NavigationBar.Layer.ShadowOffset = new CGSize(0, 3f);
-                NavigationBar.Layer.ShadowOpacity = 0.32f;
-                NavigationBar.Layer.ShadowRadius = 3f;
-            }
-            else
-            {
-                NavigationBar.Layer.MasksToBounds = false;
-                NavigationBar.Layer.ShadowColor = UIColor.Black.CGColor;
-                NavigationBar.Layer.ShadowOffset = new CGSize(0f, 0f);
-                NavigationBar.Layer.ShadowOpacity = 0f;
-                NavigationBar.Layer.ShadowRadius = 0f;
-            }
-        }
+        private Page _childPage;
 
         protected override void OnElementChanged(VisualElementChangedEventArgs e)
         {
@@ -48,14 +26,84 @@ namespace XF.Material.iOS.Renderers
             if (e?.NewElement != null)
             {
                 _navigationPage = Element as MaterialNavigationPage;
+
+                _navigationPage.PropertyChanged += MaterialNavigationPage_PropertyChanged;
+
+                _navigationPage.Appearing += MaterialNavigationPage_Appearing;
+
                 Delegate = new NavigationControllerDelegate(this, _navigationPage);
+
+                HandleChildPage(_navigationPage.CurrentPage);
+            }
+
+            if (e?.OldElement != null)
+            {
+                _navigationPage.PropertyChanged -= MaterialNavigationPage_PropertyChanged;
+
+                _navigationPage.Appearing -= MaterialNavigationPage_Appearing;
+
+                if (_childPage != null)
+                {
+                    _childPage.PropertyChanged -= ChildPage_PropertyChanged;
+                }
+            }
+        }
+
+        private void MaterialNavigationPage_Appearing(object sender, EventArgs e)
+        {
+            ChangeStatusBarColor(_navigationPage.CurrentPage);
+        }
+
+        private void MaterialNavigationPage_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == NavigationPage.CurrentPageProperty.PropertyName)
+            {
+                HandleChildPage(_navigationPage.CurrentPage);
+            }
+        }
+
+        private void HandleChildPage(Page page)
+        {
+            if (_childPage != null)
+            {
+                _childPage.PropertyChanged -= ChildPage_PropertyChanged;
+            }
+
+            _childPage = page;
+
+            if (_childPage != null)
+            {
+                _childPage.PropertyChanged += ChildPage_PropertyChanged;
+            }
+        }
+
+        private void ChildPage_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            var page = sender as Page;
+
+            if(page == null)
+            {
+                return;
+            }
+
+            if (e.PropertyName == MaterialNavigationPage.AppBarElevationProperty.PropertyName)
+            {
+                ChangeElevation(page);
+            }
+            else if (e.PropertyName == MaterialNavigationPage.StatusBarColorProperty.PropertyName)
+            {
+                ChangeStatusBarColor(page);
             }
         }
 
         public override UIViewController[] PopToRootViewController(bool animated)
         {
             _navigationPage.InternalPopToRoot(_navigationPage.RootPage);
-            ChangeHasShadow(_navigationPage.RootPage);
+
+            ChangeElevation(_navigationPage.RootPage);
+
+            ChangeStatusBarColor(_navigationPage.RootPage);
+
             return base.PopToRootViewController(animated);
         }
 
@@ -69,9 +117,14 @@ namespace XF.Material.iOS.Renderers
             }
 
             var currentPage = _navigationPage.CurrentPage;
+
             var previousPage = navStack[navStack.IndexOf(_navigationPage.CurrentPage) - 1];
+
             _navigationPage.InternalPagePop(previousPage, currentPage);
-            ChangeHasShadow(previousPage);
+
+            ChangeElevation(previousPage);
+
+            ChangeStatusBarColor(previousPage);
 
             return base.PopViewController(animated);
         }
@@ -80,16 +133,35 @@ namespace XF.Material.iOS.Renderers
         {
             _navigationPage.InternalPagePush(page);
 
-            ChangeHasShadow(page);
+            ChangeElevation(page);
+
+            ChangeStatusBarColor(page);
 
             return base.OnPushAsync(page, animated);
         }
 
-        private void ChangeHasShadow(Page page)
+        private void ChangeElevation(Page page)
         {
-            var hasShadow = (bool)page.GetValue(MaterialNavigationPage.HasShadowProperty);
+            var elevation = (double)page.GetValue(MaterialNavigationPage.AppBarElevationProperty);
 
-            ChangeHasShadow(hasShadow);
+            ChangeElevation(elevation);
+        }
+
+        private void ChangeElevation(double elevation)
+        {
+            if (NavigationBar == null || NavigationBar.Layer == null)
+            {
+                return;
+            }
+
+            NavigationBar.Elevate(elevation);
+        }
+
+        private static void ChangeStatusBarColor(Page page)
+        {
+            var statusBarColor = (Color)page.GetValue(MaterialNavigationPage.StatusBarColorProperty);
+
+            Forms.Material.PlatformConfiguration.ChangeStatusBarColor(statusBarColor.IsDefault ? Forms.Material.Color.PrimaryVariant : statusBarColor);
         }
 
         private class NavigationControllerDelegate : UINavigationControllerDelegate
@@ -117,6 +189,7 @@ namespace XF.Material.iOS.Renderers
                     if (context.IsCancelled)
                     {
                         _navigationPage.ForceUpdateCurrentPage();
+                        ChangeStatusBarColor(_navigationPage.CurrentPage);
                     }
                 });
             }

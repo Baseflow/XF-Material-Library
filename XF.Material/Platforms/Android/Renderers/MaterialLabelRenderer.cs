@@ -47,7 +47,7 @@ namespace XF.Material.Droid.Renderers
                 return;
             }
 
-            textView.LetterSpacing = MaterialHelper.ConvertToSp(letterSpacing) / textView.TextSize;
+            textView.LetterSpacing = MaterialHelper.ConvertSpToPx(letterSpacing) / textView.TextSize;
         }
     }
 }
