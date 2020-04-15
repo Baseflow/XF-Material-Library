@@ -44,7 +44,7 @@ namespace XF.Material.Forms.UI.Dialogs
         {
             var dialog = new MaterialInputDialog(title, message, inputText, inputPlaceholder, confirmingText,
                 dismissiveText, configuration)
-            { PositiveButton = { IsEnabled = false } };
+            { PositiveButton = { IsEnabled = !string.IsNullOrEmpty(inputText) } };
 
             await dialog.ShowAsync();
 
