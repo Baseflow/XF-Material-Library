@@ -1180,7 +1180,7 @@ namespace XF.Material.Forms.UI
                     break;
 
                 case MaterialTextFieldInputType.Password:
-                    entry.Keyboard = Keyboard.Text;
+                    entry.Keyboard = Keyboard.Plain;
                     break;
 
                 case MaterialTextFieldInputType.Choice:
