@@ -134,6 +134,8 @@ namespace XF.Material.Forms.UI
 
         public static readonly BindableProperty UnderlineColorProperty = BindableProperty.Create(nameof(UnderlineColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#99000000"));
 
+        public static readonly BindableProperty PlaceholderLineBreakModeProperty = BindableProperty.Create(nameof(PlaceholderLineBreakMode), typeof(LineBreakMode), typeof(MaterialTextField), LineBreakMode.WordWrap);
+
         //public static readonly BindableProperty ChoicesBindingNameProperty = BindableProperty.Create(nameof(Text), typeof(string), typeof(MaterialTextField), string.Empty, BindingMode.TwoWay);
 
         private const double AnimationDuration = 0.35;
@@ -553,6 +555,15 @@ namespace XF.Material.Forms.UI
         {
             get => (Color)GetValue(UnderlineColorProperty);
             set => SetValue(UnderlineColorProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the line break mode for the placeholder
+        /// </summary>
+        public LineBreakMode PlaceholderLineBreakMode
+        {
+            get { return (LineBreakMode)GetValue(PlaceholderLineBreakModeProperty); }
+            set { SetValue(PlaceholderLineBreakModeProperty, value); }
         }
 
         /// <inheritdoc />
@@ -1074,6 +1085,11 @@ namespace XF.Material.Forms.UI
             }
         }
 
+        private void OnPlaceholderLineBreakModeChanged()
+        {
+            placeholder.LineBreakMode = PlaceholderLineBreakMode;
+        }
+
         private void OnFloatingPlaceholderEnabledChanged(bool isEnabled)
         {
             double marginTopVariation = Device.RuntimePlatform == Device.iOS ? 18 : 20;
@@ -1381,7 +1397,8 @@ namespace XF.Material.Forms.UI
                 { nameof(IsAutoCapitalizationEnabled), () => OnInputTypeChanged() },
                 { nameof(IsTextAllCaps), () => OnInputTypeChanged() },
                 { nameof(TextFontSize), () => OnTextFontSizeChanged(TextFontSize) },
-                { nameof(ErrorText), () => OnErrorTextChanged() }
+                { nameof(ErrorText), () => OnErrorTextChanged() },
+                { nameof(PlaceholderLineBreakMode), () => OnPlaceholderLineBreakModeChanged()}
             };
         }
 
