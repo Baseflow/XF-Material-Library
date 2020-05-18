@@ -10,10 +10,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="5.1.2" />
+    <PackageReference Include="Autofac" Version="5.2.0" />
     <PackageReference Include="Autofac.Extras.CommonServiceLocator" Version="6.0.0" />
     <PackageReference Include="Xamarin.Forms" Version="4.5.0.530" />
-    <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.1" />
+    <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.2" />
   </ItemGroup>
 
   <ItemGroup>
