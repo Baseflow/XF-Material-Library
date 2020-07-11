@@ -71,7 +71,7 @@ namespace XF.Material.iOS.Renderers
 
                 if (_materialButton != null)
                 {
-                    _withIcon = _materialButton.Image != null;
+                    _withIcon = _materialButton.Image != null || _materialButton.ImageSource != null && !_materialButton.ImageSource.IsEmpty;
 
                     if (_materialButton.AllCaps)
                     {
@@ -118,6 +118,7 @@ namespace XF.Material.iOS.Renderers
                     await UpdateBackgroundColor();
                     break;
 
+                case nameof(MaterialButton.ImageSource):
                 case nameof(MaterialButton.Image):
                     SetupIcon();
                     UpdateButtonLayer();
@@ -305,8 +306,34 @@ namespace XF.Material.iOS.Renderers
 
                 try
                 {
-                    image = UIImage.FromFile(_materialButton.Image.File) ?? UIImage.FromBundle(_materialButton.Image.File);
-
+                    if (_materialButton.Image != null)
+                    {
+                        image = UIImage.FromFile(_materialButton.Image.File) ?? UIImage.FromBundle(_materialButton.Image.File);
+                    }
+                    else if(!(_materialButton.ImageSource?.IsEmpty ?? true))
+                    {
+                        IImageSourceHandler imageSourceHandler = null;
+                        if (_materialButton.ImageSource is UriImageSource)
+                        {
+                            imageSourceHandler = new ImageLoaderSourceHandler();
+                            image = imageSourceHandler.LoadImageAsync(_materialButton.ImageSource).Result;
+                        }
+                        else if(_materialButton.ImageSource is FileImageSource)
+                        {
+                            imageSourceHandler = new FileImageSourceHandler();
+                            image = imageSourceHandler.LoadImageAsync(_materialButton.ImageSource).Result;
+                        }
+                        else if (_materialButton.ImageSource is StreamImageSource)
+                        {
+                            imageSourceHandler = new StreamImagesourceHandler();
+                            image = imageSourceHandler.LoadImageAsync(_materialButton.ImageSource).Result;
+                        }
+                        else if(_materialButton.ImageSource is FontImageSource)
+                        {
+                            imageSourceHandler = new FontImageSourceHandler();
+                            image = imageSourceHandler.LoadImageAsync(_materialButton.ImageSource).Result;
+                        }
+                    }
                     UIGraphics.BeginImageContextWithOptions(new CGSize(18, 18), false, 0f);
                     image?.Draw(new CGRect(0, 0, 18, 18));
 

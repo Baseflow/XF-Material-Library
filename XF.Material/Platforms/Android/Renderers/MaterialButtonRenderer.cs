@@ -63,6 +63,7 @@ namespace XF.Material.Droid.Renderers
 
             switch (e?.PropertyName)
             {
+                case nameof(MaterialButton.ImageSource):
                 case nameof(MaterialButton.Image):
                     SetButtonIcon();
                     break;
@@ -80,7 +81,7 @@ namespace XF.Material.Droid.Renderers
 
         private void SetButtonIcon()
         {
-            var withIcon = !string.IsNullOrEmpty(_materialButton.Image);
+            var withIcon = !string.IsNullOrEmpty(_materialButton.Image) || !(_materialButton.ImageSource?.IsEmpty ?? true);
             _helper.UpdateHasIcon(withIcon);
 
             if (!withIcon)

@@ -176,7 +176,7 @@ namespace XF.Material.Forms.UI.Dialogs
         {
             var width = Convert.ToDouble(param["width"]);
             var index = Convert.ToInt32(param["parameter"]);
-            var maxWidth = string.IsNullOrEmpty(_choices[index].Image) ? width : width + 40;
+            var maxWidth = (_choices[index].Image?.IsEmpty ?? true) ? width : width + 40;
             _itemChecker++;
 
             if (_maxWidth < maxWidth)
