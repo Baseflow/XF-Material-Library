@@ -298,7 +298,7 @@ namespace XF.Material.iOS.Renderers
             _disabledTextColor = _normalTextColor.GetDisabledColor();
         }
 
-        private void SetupIcon()
+        private async void SetupIcon()
         {
             if (_withIcon)
             {
@@ -312,27 +312,8 @@ namespace XF.Material.iOS.Renderers
                     }
                     else if(!(_materialButton.ImageSource?.IsEmpty ?? true))
                     {
-                        IImageSourceHandler imageSourceHandler = null;
-                        if (_materialButton.ImageSource is UriImageSource)
-                        {
-                            imageSourceHandler = new ImageLoaderSourceHandler();
-                            image = imageSourceHandler.LoadImageAsync(_materialButton.ImageSource).Result;
-                        }
-                        else if(_materialButton.ImageSource is FileImageSource)
-                        {
-                            imageSourceHandler = new FileImageSourceHandler();
-                            image = imageSourceHandler.LoadImageAsync(_materialButton.ImageSource).Result;
-                        }
-                        else if (_materialButton.ImageSource is StreamImageSource)
-                        {
-                            imageSourceHandler = new StreamImagesourceHandler();
-                            image = imageSourceHandler.LoadImageAsync(_materialButton.ImageSource).Result;
-                        }
-                        else if(_materialButton.ImageSource is FontImageSource)
-                        {
-                            imageSourceHandler = new FontImageSourceHandler();
-                            image = imageSourceHandler.LoadImageAsync(_materialButton.ImageSource).Result;
-                        }
+                        IImageSourceHandler imageSourceHandler = _materialButton.ImageSource.GetImageSourceHandler();
+                        image = await imageSourceHandler.LoadImageAsync(_materialButton.ImageSource);
                     }
                     UIGraphics.BeginImageContextWithOptions(new CGSize(18, 18), false, 0f);
                     image?.Draw(new CGRect(0, 0, 18, 18));

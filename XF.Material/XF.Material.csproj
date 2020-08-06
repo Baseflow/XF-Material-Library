@@ -117,6 +117,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Platforms\Uap\ImageSourceExtensions.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.3" />
     <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
     <PackageReference Include="Xamarin.Forms" Version="4.5.0.530" />
