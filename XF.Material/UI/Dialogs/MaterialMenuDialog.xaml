@@ -42,7 +42,6 @@
                                 <material:MaterialIcon x:Name="Icon"
                                                        HeightRequest="24"
                                                        Source="{Binding Image}"
-                                                       TintColor="{Binding Source={x:Reference Label}, Path=TextColor}"
                                                        VerticalOptions="Center"
                                                        WidthRequest="24">
                                     <View.Triggers>
@@ -54,7 +53,6 @@
                                 <internal:MenuDialogLabel x:Name="Label"
                                                           Grid.Column="1"
                                                           local:MaterialMenuDialog.Parameter="{Binding Index}"
-                                                          HeightRequest="{Binding Source={x:Reference DialogActionList}, Path=RowHeight}"
                                                           HorizontalOptions="StartAndExpand"
                                                           LineBreakMode="TailTruncation"
                                                           LineHeight="0"
