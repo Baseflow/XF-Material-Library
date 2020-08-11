@@ -30,7 +30,7 @@ namespace XF.Material.Forms.UI
 
         public static readonly BindableProperty ElevationProperty = BindableProperty.Create(nameof(Elevation), typeof(MaterialElevation), typeof(MaterialIconButton), new MaterialElevation(2, 8));
 
-        public static readonly BindableProperty ImageProperty = BindableProperty.Create(nameof(Image), typeof(string), typeof(MaterialIconButton));
+        public static readonly BindableProperty ImageProperty = BindableProperty.Create(nameof(Image), typeof(ImageSource), typeof(MaterialIconButton));
 
         public static readonly BindableProperty PressedBackgroundColorProperty = BindableProperty.Create(nameof(PressedBackgroundColor), typeof(Color), typeof(MaterialIconButton), default(Color));
 
@@ -115,9 +115,9 @@ namespace XF.Material.Forms.UI
             set => SetValue(ElevationProperty, value);
         }
 
-        public string Image
+        public ImageSource Image
         {
-            get => (string)GetValue(ImageProperty);
+            get => (ImageSource)GetValue(ImageProperty);
             set => SetValue(ImageProperty, value);
         }
 
@@ -202,7 +202,7 @@ namespace XF.Material.Forms.UI
             _button.Elevation = elevation;
         }
 
-        private void OnImageChanged(string image)
+        private void OnImageChanged(ImageSource image)
         {
             _icon.Source = image;
         }
