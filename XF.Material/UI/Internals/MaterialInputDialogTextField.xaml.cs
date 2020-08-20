@@ -7,6 +7,7 @@ using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XF.Material.Forms.Resources;
+using Keyboard = Xamarin.Forms.Keyboard;
 
 namespace XF.Material.Forms.UI.Internals
 {

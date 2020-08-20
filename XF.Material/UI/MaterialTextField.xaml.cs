@@ -12,6 +12,7 @@ using Xamarin.Forms.Xaml;
 using XF.Material.Forms.Resources;
 using XF.Material.Forms.UI.Dialogs;
 using XF.Material.Forms.UI.Internals;
+using Keyboard = Xamarin.Forms.Keyboard;
 
 namespace XF.Material.Forms.UI
 {
