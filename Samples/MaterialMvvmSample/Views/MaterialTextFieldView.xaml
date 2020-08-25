@@ -2,10 +2,10 @@
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:MaterialMvvmSample.Views"
     xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
     x:Class="MaterialMvvmSample.Views.MaterialTextFieldView">
-    <ContentPage.Content>
+    
+    <ScrollView>
         <StackLayout Orientation="Vertical"
                      Padding="20">
             <material:MaterialTextField Placeholder="Auto Capitalization"
@@ -24,7 +24,14 @@
             <material:MaterialTextField Placeholder="Choices"
                                         InputType="Choice"
                                         Choices="{Binding Choices}"/>
+            <material:MaterialDateField Placeholder="Date" />
+            <material:MaterialDateField Placeholder="Date and tips"
+                                        HelperText="Your birthday"
+                                        />
+            <material:MaterialDateField Placeholder="Error"
+                                        ErrorText="some error"
+                                        HasError="True" />
 
         </StackLayout>
-    </ContentPage.Content>
+    </ScrollView>
 </ContentPage>

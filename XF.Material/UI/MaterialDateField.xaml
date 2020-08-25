@@ -8,10 +8,10 @@
         <TapGestureRecognizer x:Name="mainTapGesture"
                               NumberOfTapsRequired="1" />
     </View.GestureRecognizers>
-    <ContentView.Content>
-        <Grid x:Name="_gridContainer"
-              ColumnSpacing="0"
-              RowSpacing="0">
+
+    <Grid x:Name="_gridContainer"
+          ColumnSpacing="0"
+          RowSpacing="0">
             <View.GestureRecognizers>
                 <TapGestureRecognizer x:Name="tapGesture"
                                       NumberOfTapsRequired="1" />
@@ -19,7 +19,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition x:Name="_autoSizingRow"
                                Height="56" />
-                <RowDefinition Height="20" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -120,6 +120,7 @@
                                    WidthRequest="24" />
             
             <material:MaterialLabel x:Name="helper"
+                                    HeightRequest="20"
                                     Grid.Row="1"
                                     Grid.Column="0"
                                     Grid.ColumnSpan="3"
@@ -141,6 +142,7 @@
                 </Label.Triggers>
             </material:MaterialLabel>
             <material:MaterialLabel x:Name="counter"
+                                    HeightRequest="20"
                                     Grid.Row="1"
                                     Grid.Column="2"
                                     Margin="0,4,12,0"
@@ -157,5 +159,5 @@
                 </Label.Triggers>
             </material:MaterialLabel>
         </Grid>
-    </ContentView.Content>
+
 </ContentView>
