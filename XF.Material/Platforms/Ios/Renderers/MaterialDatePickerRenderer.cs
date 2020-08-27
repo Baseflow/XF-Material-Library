@@ -1,4 +1,4 @@
-﻿using MaterialMvvmSample.iOS.Renderers;
+﻿using XF.Material.iOS.Renderers;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
@@ -6,7 +6,7 @@ using XF.Material.Forms.UI.Internals;
 
 [assembly:ExportRenderer(typeof(MaterialDatePicker), typeof(MaterialDatePickerRenderer))]
 
-namespace MaterialMvvmSample.iOS.Renderers
+namespace XF.Material.iOS.Renderers
 {
     /// <summary>
     /// Remove border
