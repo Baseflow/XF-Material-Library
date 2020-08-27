@@ -10,31 +10,36 @@ namespace XF.Material.Forms.UI.Internals
     public class MaterialDatePicker : DatePicker
     {
         public static readonly BindableProperty TintColorProperty = BindableProperty.Create(nameof(TintColor), typeof(Color), typeof(MaterialDatePicker), Material.Color.Secondary);
+        public static readonly BindableProperty NullableDateProperty = BindableProperty.Create(nameof(NullableDate), typeof(DateTime?), typeof(MaterialDatePicker));
+        public static readonly BindableProperty IgnoreCancelProperty = BindableProperty.Create(nameof(IgnoreCancel), typeof(bool), typeof(MaterialDatePicker), true);
 
-        public static readonly BindableProperty NullableDateProperty = BindableProperty.Create(nameof(NullableDate), typeof(DateTime?), typeof(MaterialDatePicker), null);
+        private Color? _color;
+        public new EventHandler<NullableDateChangedEventArgs> DateSelected;
 
         internal MaterialDatePicker()
         {
+            base.DateSelected += (sender, args) =>
+            {
+                if (!IgnoreCancel)
+                    TriggerDateSelected(args.NewDate);
+            };
         }
 
         public Color TintColor
         {
-            get
-            {
-                return (Color)GetValue(TintColorProperty);
-            }
-
-            set
-            {
-                SetValue(TintColorProperty, value);
-            }
+            get => (Color)GetValue(TintColorProperty);
+            set => SetValue(TintColorProperty, value);
         }
 
-        private Color? _color = null;
+        public bool IgnoreCancel
+        {
+            get => (bool)GetValue(IgnoreCancelProperty);
+            set => SetValue(IgnoreCancelProperty, value);
+        }
 
         public DateTime? NullableDate
         {
-            get { return (DateTime?)GetValue(NullableDateProperty); }
+            get => (DateTime?)GetValue(NullableDateProperty);
 
             set
             {
@@ -71,17 +76,24 @@ namespace XF.Material.Forms.UI.Internals
             UpdateDate();
         }
 
-        public new EventHandler<NullableDateChangedEventArgs> DateSelected;
-
         protected override void OnPropertyChanged(string propertyName = null)
         {
             base.OnPropertyChanged(propertyName);
 
-            if (propertyName == nameof(IsFocused) && !IsFocused && Date != NullableDate)
+            if (propertyName == nameof(IsFocused) && !IsFocused && IgnoreCancel)
+            {
+                //Called even if cancel is selected. Except if IgnoreCancel is false.
+                TriggerDateSelected(Date);
+            }
+        }
+
+        private void TriggerDateSelected(DateTime date)
+        {
+            if (date != NullableDate)
             {
                 var old = NullableDate;
-                NullableDate = Date;
-                DateSelected(this, new NullableDateChangedEventArgs(old, NullableDate));
+                NullableDate = date;
+                DateSelected?.Invoke(this, new NullableDateChangedEventArgs(old, date));
             }
         }
     }
