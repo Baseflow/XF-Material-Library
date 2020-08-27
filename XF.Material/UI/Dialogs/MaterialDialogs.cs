@@ -140,9 +140,9 @@ namespace XF.Material.Forms.Dialogs
         /// <param name="title">The title of the confirmation dialog. This parameter must not be null or empty.</param>
         /// <param name="choices">The list of choices the user will choose from.</param>
         /// <exception cref="ArgumentNullException" />
-        public static async Task<int> ShowSelectChoiceAsync(string title, IList<string> choices, MaterialConfirmationDialogConfiguration configuration = null)
+        public static async Task<int> ShowSelectChoiceAsync(string title, IList<string> choices, MaterialConfirmationDialogConfiguration configuration = null, bool closeOnSelection = false)
         {
-            return (int)await MaterialConfirmationDialog.ShowSelectChoiceAsync(title, choices, null, null, configuration);
+            return (int)await MaterialConfirmationDialog.ShowSelectChoiceAsync(title, choices, null, null, configuration, closeOnSelection);
         }
 
         /// <summary>

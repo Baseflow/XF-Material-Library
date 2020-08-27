@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -75,9 +76,9 @@ namespace XF.Material.Forms.UI.Dialogs
             bindable.SetValue(DialogTitleProperty, title);
         }
 
-        public static async Task<object> ShowSelectChoiceAsync(string title, IList<string> choices, string confirmingText = "Ok", string dismissiveText = "Cancel", MaterialConfirmationDialogConfiguration configuration = null)
+        public static async Task<object> ShowSelectChoiceAsync(string title, IList<string> choices, string confirmingText = "Ok", string dismissiveText = "Cancel", MaterialConfirmationDialogConfiguration configuration = null, bool closeOnSelection = false)
         {
-            var dialog = new MaterialConfirmationDialog(configuration)
+            using var dialog = new MaterialConfirmationDialog(configuration)
             {
                 InputTaskCompletionSource = new TaskCompletionSource<object>(),
                 _radioButtonGroup = new MaterialRadioButtonGroup
@@ -95,19 +96,25 @@ namespace XF.Material.Forms.UI.Dialogs
                 dialog._radioButtonGroup.TextColor = dialog._preferredConfig.TextColor;
             }
 
+            if (closeOnSelection)
+            {
+                dialog.PositiveButton.IsVisible = false;
+                dialog._radioButtonGroup.SelectedIndexChanged += (sender, args) => dialog.PositiveButton_Clicked(sender, EventArgs.Empty);
+            }
+
             dialog._radioButtonGroup.ShouldShowScrollbar = true;
             dialog.DialogTitle.Text = !string.IsNullOrEmpty(title) ? title : throw new ArgumentNullException(nameof(title));
             dialog.PositiveButton.Text = confirmingText;
             dialog.NegativeButton.Text = dismissiveText;
             dialog.container.Content = dialog._radioButtonGroup;
-            await dialog.ShowAsync();
+            await dialog.ShowAsync().ConfigureAwait(false);
 
-            return await dialog.InputTaskCompletionSource.Task;
+            return await dialog.InputTaskCompletionSource.Task.ConfigureAwait(false);
         }
 
-        public static async Task<object> ShowSelectChoiceAsync(string title, IList<string> choices, int selectedIndex, string confirmingText = "Ok", string dismissiveText = "Cancel", MaterialConfirmationDialogConfiguration configuration = null)
+        public static async Task<object> ShowSelectChoiceAsync(string title, IList<string> choices, int selectedIndex, string confirmingText = "Ok", string dismissiveText = "Cancel", MaterialConfirmationDialogConfiguration configuration = null, bool closeOnSelection = false)
         {
-            var dialog = new MaterialConfirmationDialog(configuration)
+            using var dialog = new MaterialConfirmationDialog(configuration)
             {
                 InputTaskCompletionSource = new TaskCompletionSource<object>(),
                 _radioButtonGroup = new MaterialRadioButtonGroup
@@ -126,15 +133,21 @@ namespace XF.Material.Forms.UI.Dialogs
                 dialog._radioButtonGroup.TextColor = dialog._preferredConfig.TextColor;
             }
 
+            if (closeOnSelection)
+            {
+                dialog.PositiveButton.IsVisible = false;
+                dialog._radioButtonGroup.SelectedIndexChanged += (sender, args) => dialog.PositiveButton_Clicked(sender, EventArgs.Empty);
+            }
+
             dialog._radioButtonGroup.ShouldShowScrollbar = true;
             dialog.DialogTitle.Text = !string.IsNullOrEmpty(title) ? title : throw new ArgumentNullException(nameof(title));
             dialog.container.Content = dialog._radioButtonGroup;
             dialog.PositiveButton.IsEnabled = true;
             dialog.PositiveButton.Text = confirmingText;
             dialog.NegativeButton.Text = dismissiveText;
-            await dialog.ShowAsync();
+            await dialog.ShowAsync().ConfigureAwait(false);
 
-            return await dialog.InputTaskCompletionSource.Task;
+            return await dialog.InputTaskCompletionSource.Task.ConfigureAwait(false);
         }
 
         public static async Task<object> ShowSelectChoicesAsync(string title, IList<string> choices, string confirmingText = "Ok", string dismissiveText = "Cancel", MaterialConfirmationDialogConfiguration configuration = null)

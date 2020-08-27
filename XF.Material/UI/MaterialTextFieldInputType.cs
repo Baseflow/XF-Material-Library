@@ -15,6 +15,7 @@
         Url,
         Password,
         NumericPassword,
-        Choice
+        Choice,
+        SingleImmediateChoice
     }
 }

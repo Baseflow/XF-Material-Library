@@ -200,7 +200,7 @@ namespace XF.Material.Forms.UI
         }
 
         /// <summary>
-        /// Gets or sets the collection of objects which the user will choose from. This is required when <see cref="InputType"/> is set to <see cref="MaterialTextFieldInputType.Choice"/>.
+        /// Gets or sets the collection of objects which the user will choose from. This is required when <see cref="InputType"/> is set to <see cref="MaterialTextFieldInputType.Choice"/> or <see cref="MaterialTextFieldInputType.SingleImmediateChoice"/>.
         /// </summary>
         public IList Choices
         {
@@ -221,7 +221,7 @@ namespace XF.Material.Forms.UI
 
 
         /// <summary>
-        /// Gets or sets the command that will execute if a choice was selected when the <see cref="InputType"/> is set to <see cref="MaterialTextFieldInputType.Choice"/>.
+        /// Gets or sets the command that will execute if a choice was selected when the <see cref="InputType"/> is set to <see cref="MaterialTextFieldInputType.Choice"/> or <see cref="MaterialTextFieldInputType.SingleImmediateChoice"/>.
         /// </summary>
         public ICommand ChoiceSelectedCommand
         {
@@ -869,7 +869,7 @@ namespace XF.Material.Forms.UI
 
             Device.BeginInvokeOnMainThread(async () =>
             {
-                if (InputType == MaterialTextFieldInputType.Choice)
+                if (InputType == MaterialTextFieldInputType.Choice || InputType == MaterialTextFieldInputType.SingleImmediateChoice)
                 {
                     trailingIcon.Source = "xf_arrow_dropdown";
                     trailingIcon.TintColor = TextColor;
@@ -1201,14 +1201,15 @@ namespace XF.Material.Forms.UI
                     break;
 
                 case MaterialTextFieldInputType.Choice:
-
+                case MaterialTextFieldInputType.SingleImmediateChoice:
                     break;
             }
 
             // Hint: Will use this for MaterialTextArea
             // entry.AutoSize = inputType == MaterialTextFieldInputType.MultiLine ? EditorAutoSizeOption.TextChanges : EditorAutoSizeOption.Disabled;
-            _gridContainer.InputTransparent = InputType == MaterialTextFieldInputType.Choice;
-            trailingIcon.IsVisible = InputType == MaterialTextFieldInputType.Choice;
+            var isChoice = InputType == MaterialTextFieldInputType.Choice || InputType == MaterialTextFieldInputType.SingleImmediateChoice;
+            _gridContainer.InputTransparent = isChoice;
+            trailingIcon.IsVisible = isChoice;
 
             entry.IsNumericKeyboard = InputType == MaterialTextFieldInputType.Telephone || InputType == MaterialTextFieldInputType.Numeric;
             entry.IsPassword = InputType == MaterialTextFieldInputType.Password || InputType == MaterialTextFieldInputType.NumericPassword;
@@ -1278,11 +1279,11 @@ namespace XF.Material.Forms.UI
 
             if (_selectedIndex >= 0)
             {
-                result = await MaterialDialog.Instance.SelectChoiceAsync(title, _choices, _selectedIndex, confirmingText, dismissiveText, configuration);
+                result = await MaterialDialog.Instance.SelectChoiceAsync(title, _choices, _selectedIndex, confirmingText, dismissiveText, configuration, InputType == MaterialTextFieldInputType.SingleImmediateChoice);
             }
             else
             {
-                result = await MaterialDialog.Instance.SelectChoiceAsync(title, _choices, confirmingText, dismissiveText, configuration);
+                result = await MaterialDialog.Instance.SelectChoiceAsync(title, _choices, confirmingText, dismissiveText, configuration, InputType == MaterialTextFieldInputType.SingleImmediateChoice);
             }
 
             if (result >= 0)
@@ -1295,21 +1296,23 @@ namespace XF.Material.Forms.UI
 
         private void OnTextChanged(string text)
         {
-            if (InputType == MaterialTextFieldInputType.Choice && !string.IsNullOrEmpty(text) && _choicesResults?.Contains(text) == false)
+            var isChoice = InputType == MaterialTextFieldInputType.Choice || InputType == MaterialTextFieldInputType.SingleImmediateChoice;
+
+            if (isChoice && !string.IsNullOrEmpty(text) && _choicesResults?.Contains(text) == false)
             {
                 Debug.WriteLine($"The `Text` property value `{Text}` does not match any item in the collection `Choices`.");
                 Text = null;
                 return;
             }
 
-            if (InputType == MaterialTextFieldInputType.Choice && !string.IsNullOrEmpty(text))
+            if (isChoice && !string.IsNullOrEmpty(text))
             {
                 var selectedChoice = GetSelectedChoice(_selectedIndex);
                 SelectedChoice = selectedChoice;
                 ChoiceSelected?.Invoke(this, new SelectedItemChangedEventArgs(selectedChoice, _selectedIndex));
                 ChoiceSelectedCommand?.Execute(selectedChoice);
             }
-            else if (InputType == MaterialTextFieldInputType.Choice && string.IsNullOrEmpty(text))
+            else if (isChoice && string.IsNullOrEmpty(text))
             {
                 _selectedIndex = -1;
             }

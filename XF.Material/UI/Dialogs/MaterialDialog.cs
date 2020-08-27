@@ -104,9 +104,10 @@ namespace XF.Material.Forms.UI.Dialogs
             IList<string> choices,
             string confirmingText = "Ok",
             string dismissiveText = "Cancel",
-            MaterialConfirmationDialogConfiguration configuration = null)
+            MaterialConfirmationDialogConfiguration configuration = null,
+            bool closeOnSelection = false)
         {
-            return (int)await MaterialConfirmationDialog.ShowSelectChoiceAsync(title, choices, confirmingText, dismissiveText, configuration);
+            return (int) await MaterialConfirmationDialog.ShowSelectChoiceAsync(title, choices, confirmingText, dismissiveText, configuration, closeOnSelection);
         }
 
         public async Task<int> SelectChoiceAsync(
@@ -115,9 +116,10 @@ namespace XF.Material.Forms.UI.Dialogs
             int selectedIndex,
             string confirmingText = "Ok",
             string dismissiveText = "Cancel",
-            MaterialConfirmationDialogConfiguration configuration = null)
+            MaterialConfirmationDialogConfiguration configuration = null,
+            bool closeOnSelection = false)
         {
-            return (int)await MaterialConfirmationDialog.ShowSelectChoiceAsync(title, choices, selectedIndex, confirmingText, dismissiveText, configuration);
+            return (int)await MaterialConfirmationDialog.ShowSelectChoiceAsync(title, choices, selectedIndex, confirmingText, dismissiveText, configuration, closeOnSelection);
         }
 
         public async Task<int[]> SelectChoicesAsync(

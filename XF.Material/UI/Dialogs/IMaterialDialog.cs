@@ -103,8 +103,9 @@ namespace XF.Material.Forms.UI.Dialogs
         /// <param name="confirmingText">The text of the confirmation button.</param>
         /// <param name="dismissiveText">The text of the dismissive button</param>
         /// <param name="configuration">The style of the confirmation dialog.</param>
+        /// <param name="closeOnSelection">If true, no buttons are displayed and validation occurs when clicking an item</param>
         /// <exception cref="ArgumentNullException" />
-        Task<int> SelectChoiceAsync(string title, IList<string> choices, string confirmingText = "Ok", string dismissiveText = "Cancel", MaterialConfirmationDialogConfiguration configuration = null);
+        Task<int> SelectChoiceAsync(string title, IList<string> choices, string confirmingText = "Ok", string dismissiveText = "Cancel", MaterialConfirmationDialogConfiguration configuration = null, bool closeOnSelection = false);
 
         /// <summary>
         /// Shows a confirmation dialog that allows the user to select one of the listed choices. Returns the index of the selected choice. If none was selected, returns -1.
@@ -115,9 +116,10 @@ namespace XF.Material.Forms.UI.Dialogs
         /// <param name="confirmingText">The text of the confirmation button.</param>
         /// <param name="dismissiveText">The text of the dismissive button</param>
         /// <param name="configuration">The style of the confirmation dialog.</param>
+        /// <param name="closeOnSelection">If true, no buttons are displayed and validation occurs when clicking an item</param>
         /// <exception cref="ArgumentNullException" />
         /// <exception cref="IndexOutOfRangeException" />
-        Task<int> SelectChoiceAsync(string title, IList<string> choices, int selectedIndex, string confirmingText = "Ok", string dismissiveText = "Cancel", MaterialConfirmationDialogConfiguration configuration = null);
+        Task<int> SelectChoiceAsync(string title, IList<string> choices, int selectedIndex, string confirmingText = "Ok", string dismissiveText = "Cancel", MaterialConfirmationDialogConfiguration configuration = null, bool closeOnSelection = false);
 
         /// <summary>
         /// Shows a confirmation dialog that allows the user to select any of the listed choices. Returns the indices of the selected choices. If none was selected, returns an empty array.
