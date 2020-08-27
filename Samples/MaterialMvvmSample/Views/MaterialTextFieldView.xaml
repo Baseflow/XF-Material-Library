@@ -24,6 +24,9 @@
             <material:MaterialTextField Placeholder="Choices"
                                         InputType="Choice"
                                         Choices="{Binding Choices}"/>
+            <material:MaterialTextField Placeholder="Quick single choice"
+                                        InputType="SingleImmediateChoice"
+                                        Choices="{Binding Choices}"/>
             <material:MaterialDateField Placeholder="Date" />
             <material:MaterialDateField Placeholder="Date and tips"
                                         HelperText="Your birthday"
