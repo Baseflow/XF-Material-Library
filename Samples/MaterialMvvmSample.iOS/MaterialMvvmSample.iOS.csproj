@@ -102,7 +102,6 @@
     <Compile Include="Core\PlatformContainer.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="Renderers\MaterialDatePickerRenderer.cs" />
     <Compile Include="Renderers\MViewCellRenderer.cs" />
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
