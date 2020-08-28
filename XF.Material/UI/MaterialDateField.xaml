@@ -112,7 +112,7 @@
                                    HeightRequest="24"
                                    IsVisible="False"
                                    TintColor="{Binding TintColor,Source={x:Reference ThisControl}}"
-                                   Source="xf_arrow_dropdown"
+                                   Source="{Binding DropDrownArrowIcon,Source={x:Reference ThisControl}}"
                                    VerticalOptions="Start"
                                    WidthRequest="24" />
             
