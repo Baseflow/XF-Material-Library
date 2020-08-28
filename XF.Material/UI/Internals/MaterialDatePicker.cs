@@ -16,7 +16,10 @@ namespace XF.Material.Forms.UI.Internals
         private Color? _color;
         public new EventHandler<NullableDateChangedEventArgs> DateSelected;
 
-        internal MaterialDatePicker()
+        /// <summary>
+        /// Public constructor required for xamarin hot reload
+        /// </summary>
+        public MaterialDatePicker()
         {
             base.DateSelected += (sender, args) =>
             {

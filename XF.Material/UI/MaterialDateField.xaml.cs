@@ -33,7 +33,7 @@ namespace XF.Material.Forms.UI
         public static readonly BindableProperty HelperTextFontFamilyProperty = BindableProperty.Create(nameof(HelperTextFontFamily), typeof(string), typeof(MaterialDateField));
         public static readonly BindableProperty HelperTextProperty = BindableProperty.Create(nameof(HelperText), typeof(string), typeof(MaterialDateField), string.Empty);
         public static readonly BindableProperty HorizontalPaddingProperty = BindableProperty.Create(nameof(HorizontalPadding), typeof(MaterialHorizontalThickness), typeof(MaterialDateField), new MaterialHorizontalThickness(12d), defaultBindingMode: BindingMode.OneTime);
-        public static readonly BindableProperty LeadingIconProperty = BindableProperty.Create(nameof(LeadingIcon), typeof(string), typeof(MaterialDateField));
+        public static readonly BindableProperty LeadingIconProperty = BindableProperty.Create(nameof(LeadingIcon), typeof(ImageSource), typeof(MaterialDateField));
         public static readonly BindableProperty LeadingIconTintColorProperty = BindableProperty.Create(nameof(LeadingIconTintColor), typeof(Color), typeof(MaterialDateField), Color.FromHex("#99000000"));
         public static readonly BindableProperty PlaceholderColorProperty = BindableProperty.Create(nameof(PlaceholderColor), typeof(Color), typeof(MaterialDateField), Color.FromHex("#99000000"));
         public static readonly BindableProperty PlaceholderFontFamilyProperty = BindableProperty.Create(nameof(PlaceholderFontFamily), typeof(string), typeof(MaterialDateField));
@@ -45,7 +45,9 @@ namespace XF.Material.Forms.UI
         public static readonly BindableProperty TextFontSizeProperty = BindableProperty.Create(nameof(TextFontSize), typeof(double), typeof(MaterialDateField), 16d);
         public static readonly BindableProperty DateProperty = BindableProperty.Create(nameof(Date), typeof(DateTime?), typeof(MaterialDateField), null, BindingMode.TwoWay);
         public static readonly BindableProperty TintColorProperty = BindableProperty.Create(nameof(TintColor), typeof(Color), typeof(MaterialDateField), Material.Color.Secondary);
-        public static readonly BindableProperty ClearIconProperty = BindableProperty.Create(nameof(ClearIcon), typeof(string), typeof(MaterialDateField), "xf_clear");
+        public static readonly BindableProperty ClearIconProperty = BindableProperty.Create(nameof(ClearIcon), typeof(ImageSource), typeof(MaterialDateField), new FileImageSource { File = "xf_clear"});
+        public static readonly BindableProperty ErrorIconProperty = BindableProperty.Create(nameof(ErrorIcon), typeof(ImageSource), typeof(MaterialDateField), new FileImageSource { File = "xf_error"});
+        public static readonly BindableProperty DropDrownArrowIconProperty = BindableProperty.Create(nameof(DropDrownArrowIcon), typeof(ImageSource), typeof(MaterialDateField), new FileImageSource { File = "xf_arrow_dropdown"});
         public static readonly BindableProperty UnderlineColorProperty = BindableProperty.Create(nameof(UnderlineColor), typeof(Color), typeof(MaterialDateField), Color.FromHex("#99000000"));
         public new static readonly BindableProperty BackgroundColorProperty = BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(MaterialDateField), Color.FromHex("#DCDCDC"));
 
@@ -118,8 +120,20 @@ namespace XF.Material.Forms.UI
 
         public ImageSource ClearIcon
         {
-            get => (string)GetValue(ClearIconProperty);
+            get => (ImageSource)GetValue(ClearIconProperty);
             set => SetValue(ClearIconProperty, value);
+        }
+
+        public ImageSource ErrorIcon
+        {
+            get => (ImageSource)GetValue(ErrorIconProperty);
+            set => SetValue(ErrorIconProperty, value);
+        }
+
+        public ImageSource DropDrownArrowIcon
+        {
+            get => (ImageSource)GetValue(DropDrownArrowIconProperty);
+            set => SetValue(DropDrownArrowIconProperty, value);
         }
 
         /// <summary>
@@ -225,7 +239,7 @@ namespace XF.Material.Forms.UI
         /// <summary>
         /// Gets or sets the image source of the icon to be showed at the left side of this text field.
         /// </summary>
-        public string LeadingIcon
+        public ImageSource LeadingIcon
         {
             get => (string)GetValue(LeadingIconProperty);
             set => SetValue(LeadingIconProperty, value);
@@ -461,7 +475,7 @@ namespace XF.Material.Forms.UI
             if (HasError)
             {
                 trailingIcon.IsVisible = true;
-                trailingIcon.Source = "xf_error";
+                trailingIcon.Source = ErrorIcon;
 
                 placeholder.TextColor = tintColor;
                 counter.TextColor = ErrorColor;
@@ -485,7 +499,7 @@ namespace XF.Material.Forms.UI
             else
             {
                 trailingIcon.IsVisible = false;
-                trailingIcon.Source = "xf_arrow_dropdown";
+                trailingIcon.Source = DropDrownArrowIcon;
 
                 placeholder.TextColor = tintColor;
                 counter.TextColor = HelperTextColor;
