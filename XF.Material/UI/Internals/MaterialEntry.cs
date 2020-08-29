@@ -12,7 +12,10 @@ namespace XF.Material.Forms.UI.Internals
 
         public static readonly BindableProperty IsNumericKeyboardProperty = BindableProperty.Create(nameof(IsNumericKeyboard), typeof(bool), typeof(MaterialEntry), false);
 
-        internal MaterialEntry()
+        /// <summary>
+        /// Hot reload requires a public constructor
+        /// </summary>
+        public MaterialEntry()
         {
         }
 

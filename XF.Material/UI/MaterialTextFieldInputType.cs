@@ -16,6 +16,13 @@
         Password,
         NumericPassword,
         Choice,
-        SingleImmediateChoice
+        /// <summary>
+        /// Same as Choice, but without OK button. Clicking an item will simulate a click on the OK button and close the dialog.
+        /// </summary>
+        SingleImmediateChoice,
+        /// <summary>
+        /// Triggers the command when clicked instead of focusing the input field
+        /// </summary>
+        CommandChoice
     }
 }
