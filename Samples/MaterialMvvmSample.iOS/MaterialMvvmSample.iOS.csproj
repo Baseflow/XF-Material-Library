@@ -215,4 +215,13 @@
   <ItemGroup>
     <Folder Include="Assets.xcassets\icon_more.imageset\" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\xf_checkbox_selected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\xf_checkbox_selected%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\xf_checkbox_selected%403x.png" />
+  </ItemGroup>
 </Project>

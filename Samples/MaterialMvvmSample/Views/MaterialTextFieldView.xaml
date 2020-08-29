@@ -3,7 +3,9 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
-    x:Class="MaterialMvvmSample.Views.MaterialTextFieldView">
+    xmlns:viewModels="clr-namespace:MaterialMvvmSample.ViewModels;assembly=MaterialMvvmSample"
+    x:Class="MaterialMvvmSample.Views.MaterialTextFieldView"
+    x:DataType="viewModels:MaterialTextFieldViewModel">
     
     <ScrollView>
         <StackLayout Orientation="Vertical"
@@ -18,8 +20,12 @@
                                         IsTextAllCaps="True"
                                         IsAutoCapitalizationEnabled="true" />
 
-            <material:MaterialTextField Placeholder="With Icon"
-                                        LeadingIcon="icon_plus"/>
+            <StackLayout Orientation="Horizontal">
+                <material:MaterialTextField Placeholder="With Icon"
+                                            LeadingIcon="icon_plus"
+                                            HorizontalOptions="FillAndExpand" />
+                <material:MaterialButton Text="OK" HorizontalOptions="Start" />
+            </StackLayout>
 
             <material:MaterialTextField Placeholder="Choices"
                                         InputType="Choice"
@@ -27,10 +33,15 @@
             <material:MaterialTextField Placeholder="Quick single choice"
                                         InputType="SingleImmediateChoice"
                                         Choices="{Binding Choices}"/>
+            <material:MaterialTextField Placeholder="Custom command choice"
+                                        Text="Jean Dupond"
+                                        InputType="CommandChoice"
+                                        ChoiceSelectedCommand="{Binding OpenCustomChoiceCommand}" />
             <material:MaterialDateField Placeholder="Date" />
             <material:MaterialDateField Placeholder="Date and tips"
                                         HelperText="Your birthday"
-                                        />
+                                        Date="2020/08/28" 
+            />
             <material:MaterialDateField Placeholder="Error"
                                         ErrorText="some error"
                                         HasError="True" />
