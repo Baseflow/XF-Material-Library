@@ -52,7 +52,7 @@
                                     VerticalTextAlignment="Center" />
 
             <internal:MaterialDatePicker x:Name="datePicker" IgnoreCancel="False"
-                Grid.Column="1" Grid.ColumnSpan="2" 
+                Grid.Column="1" 
                 Margin="12,28,12,0"
                 FontFamily="{Binding TextFontFamily,Source={x:Reference ThisControl}}"
                 FontSize="{Binding TextFontSize,Source={x:Reference ThisControl}}"
@@ -60,15 +60,7 @@
                 TextColor="{Binding TextColor,Source={x:Reference ThisControl}}"
                 VerticalOptions="Start"
                 TintColor="{Binding TintColor,Source={x:Reference ThisControl}}"
-                BackgroundColor="Transparent">
-                <internal:MaterialDatePicker.Triggers>
-                    <DataTrigger Binding="{Binding Source={x:Reference trailingIcon}, Path=IsVisible}"
-                                 TargetType="internal:MaterialDatePicker"
-                                 Value="True">
-                        <Setter Property="Grid.ColumnSpan" Value="1" />
-                    </DataTrigger>
-                </internal:MaterialDatePicker.Triggers>
-            </internal:MaterialDatePicker>
+                BackgroundColor="Transparent" />
             
             <!-- persistentUnderline -->
             <BoxView
@@ -110,7 +102,6 @@
                                    Grid.Column="3"
                                    Margin="0,16,12,16"
                                    HeightRequest="24"
-                                   IsVisible="False"
                                    TintColor="{Binding TintColor,Source={x:Reference ThisControl}}"
                                    Source="{Binding DropDrownArrowIcon,Source={x:Reference ThisControl}}"
                                    VerticalOptions="Start"
