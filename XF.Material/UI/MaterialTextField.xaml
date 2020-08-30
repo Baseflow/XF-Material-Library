@@ -4,12 +4,13 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:internal="clr-namespace:XF.Material.Forms.UI.Internals"
-    xmlns:material="clr-namespace:XF.Material.Forms.UI">
+    xmlns:material="clr-namespace:XF.Material.Forms.UI"
+    x:Name="ThisControl">
     <View.GestureRecognizers>
         <TapGestureRecognizer x:Name="mainTapGesture" NumberOfTapsRequired="1" />
     </View.GestureRecognizers>
-    <ContentView.Content>
-        <Grid
+        
+    <Grid
             x:Name="_gridContainer"
             ColumnSpacing="0"
             RowSpacing="0">
@@ -29,7 +30,7 @@
                 x:Name="backgroundCard"
                 Grid.Row="0"
                 Grid.ColumnSpan="3"
-                BackgroundColor="#DCDCDC"
+                BackgroundColor="{Binding RealBackgroundColor,Source={x:Reference ThisControl}}"
                 CornerRadius="4,4,0,0" />
             <material:MaterialIcon
                 x:Name="leadingIcon"
@@ -153,5 +154,5 @@
                 </Label.Triggers>
             </material:MaterialLabel>
         </Grid>
-    </ContentView.Content>
+
 </ContentView>
