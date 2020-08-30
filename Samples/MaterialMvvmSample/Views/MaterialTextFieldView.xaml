@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
     xmlns:viewModels="clr-namespace:MaterialMvvmSample.ViewModels;assembly=MaterialMvvmSample"
+    xmlns:xamForms="clr-namespace:XamSvg.XamForms;assembly=XamSvg.XamForms"
     x:Class="MaterialMvvmSample.Views.MaterialTextFieldView"
     x:DataType="viewModels:MaterialTextFieldViewModel">
     
@@ -29,7 +30,7 @@
 
             <material:MaterialTextField Placeholder="Choices"
                                         InputType="Choice"
-                                        Choices="{Binding Choices}"/>
+                                        Choices="{Binding Choices}" />
             <material:MaterialTextField Placeholder="Quick single choice"
                                         InputType="SingleImmediateChoice"
                                         Choices="{Binding Choices}"/>
@@ -38,10 +39,16 @@
                                         InputType="CommandChoice"
                                         ChoiceSelectedCommand="{Binding OpenCustomChoiceCommand}" />
             <material:MaterialDateField Placeholder="Date" />
-            <material:MaterialDateField Placeholder="Date and tips"
+            <material:MaterialDateField Placeholder="Date, bottom tip, leading and trailing icons"
                                         HelperText="Your birthday"
-                                        Date="2020/08/28" 
-            />
+                                        Date="2020/08/28">
+                <material:MaterialDateField.LeadingIcon>
+                    <xamForms:SvgImageSource Svg="res:images.slideshow-black-18dp" Height="200" />
+                </material:MaterialDateField.LeadingIcon>
+                <material:MaterialDateField.DropDrownArrowIcon>
+                    <xamForms:SvgImageSource Svg="res:images.slideshow-black-18dp" Height="200" />
+                </material:MaterialDateField.DropDrownArrowIcon>
+            </material:MaterialDateField>
             <material:MaterialDateField Placeholder="Error"
                                         ErrorText="some error"
                                         HasError="True" />

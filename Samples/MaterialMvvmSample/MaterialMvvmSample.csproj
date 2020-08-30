@@ -10,9 +10,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Images\slideshow-black-18dp.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Autofac" Version="5.2.0" />
     <PackageReference Include="Autofac.Extras.CommonServiceLocator" Version="6.0.0" />
-    <PackageReference Include="Xamarin.Forms" Version="4.5.0.530" />
+    <PackageReference Include="Vapolia.Xamarin.Svg.Forms" Version="3.2.9" />
+    <PackageReference Include="Xamarin.Forms" Version="4.5.0.617" />
     <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.4" />
   </ItemGroup>
 

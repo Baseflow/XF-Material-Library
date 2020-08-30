@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
@@ -12,6 +13,15 @@ using TypeConverterAttribute = Xamarin.Forms.TypeConverterAttribute;
 
 namespace XF.Material.Forms.UI
 {
+    internal class NullImageSourceToBoolConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) 
+            => value != null && value is ImageSource imageSource && !imageSource.IsEmpty;
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+            => throw new NotSupportedException();
+    }
+
     /// <inheritdoc cref="ContentView" />
     /// <summary>
     /// A control that let users enter and edit text.
@@ -247,7 +257,7 @@ namespace XF.Material.Forms.UI
         [TypeConverter(typeof(ImageSourceConverter))]
         public ImageSource LeadingIcon
         {
-            get => (string)GetValue(LeadingIconProperty);
+            get => (ImageSource)GetValue(LeadingIconProperty);
             set => SetValue(LeadingIconProperty, value);
         }
 
@@ -433,7 +443,7 @@ namespace XF.Material.Forms.UI
             var isFloating = FloatingPlaceholderEnabled && (Date.HasValue || isFocused);
             var tintColor = isFocused ? (HasError ? ErrorColor : TintColor) : (isFloating ? FloatingPlaceholderColor : PlaceholderColor);
 
-            //Update icons on startup (detected by !animated)
+            //Update trailing icon on startup (detected by !animated)
             if (!animated)
                 _ = UpdateErrorState(false); //It's fully sync
 
