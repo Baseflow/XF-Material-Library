@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using XF.Material.Forms;
 using XF.Material.Forms.Resources;
-using XF.Material.Forms.UI;
 using XF.Material.Forms.UI.Internals;
+using TypeConverterAttribute = Xamarin.Forms.TypeConverterAttribute;
 
 namespace XF.Material.Forms.UI
 {
@@ -73,6 +71,9 @@ namespace XF.Material.Forms.UI
                 { nameof(Date), () => OnDateChanged(Date) },
                 { nameof(IsEnabled), () => OnEnabledChanged(IsEnabled) },
                 { nameof(HasError), () => UpdateErrorState() },
+                { nameof(ErrorIcon), () => UpdateErrorState() },
+                { nameof(DropDrownArrowIcon), () => UpdateErrorState() },
+
                 { nameof(FloatingPlaceholderEnabled), () => OnFloatingPlaceholderEnabledChanged() },
             };
 
@@ -100,6 +101,7 @@ namespace XF.Material.Forms.UI
         /// </summary>
         public event EventHandler<NullableDateChangedEventArgs> DateChanged;
 
+        #region properties
         /// <summary>
         /// Gets or sets whether the underline accent of this text field should always show or not.
         /// </summary>
@@ -118,18 +120,21 @@ namespace XF.Material.Forms.UI
             set => SetValue(BackgroundColorProperty, value);
         }
 
+        [TypeConverter(typeof(ImageSourceConverter))]
         public ImageSource ClearIcon
         {
             get => (ImageSource)GetValue(ClearIconProperty);
             set => SetValue(ClearIconProperty, value);
         }
 
+        [TypeConverter(typeof(ImageSourceConverter))]
         public ImageSource ErrorIcon
         {
             get => (ImageSource)GetValue(ErrorIconProperty);
             set => SetValue(ErrorIconProperty, value);
         }
 
+        [TypeConverter(typeof(ImageSourceConverter))]
         public ImageSource DropDrownArrowIcon
         {
             get => (ImageSource)GetValue(DropDrownArrowIconProperty);
@@ -239,6 +244,7 @@ namespace XF.Material.Forms.UI
         /// <summary>
         /// Gets or sets the image source of the icon to be showed at the left side of this text field.
         /// </summary>
+        [TypeConverter(typeof(ImageSourceConverter))]
         public ImageSource LeadingIcon
         {
             get => (string)GetValue(LeadingIconProperty);
@@ -369,6 +375,7 @@ namespace XF.Material.Forms.UI
             get => (Color)GetValue(UnderlineColorProperty);
             set => SetValue(UnderlineColorProperty, value);
         }
+        #endregion
 
         public string SmallText => HasError ? ErrorText : HelperText;
         public bool IsHelperVisible => IsEnabled && !string.IsNullOrEmpty(HelperText);
@@ -426,6 +433,10 @@ namespace XF.Material.Forms.UI
             var isFloating = FloatingPlaceholderEnabled && (Date.HasValue || isFocused);
             var tintColor = isFocused ? (HasError ? ErrorColor : TintColor) : (isFloating ? FloatingPlaceholderColor : PlaceholderColor);
 
+            //Update icons on startup (detected by !animated)
+            if (!animated)
+                _ = UpdateErrorState(false); //It's fully sync
+
             UnderlineSetColorState();
             var anim = new Animation();
 
@@ -466,7 +477,7 @@ namespace XF.Material.Forms.UI
                 anim.Commit(this, Guid.NewGuid().ToString(), 1, 1);
         }
 
-        private async Task UpdateErrorState()
+        private async Task UpdateErrorState(bool animated = true)
         {
             var isFocused = datePicker.IsFocused;
             var isFloating = FloatingPlaceholderEnabled && (Date.HasValue || isFocused);
@@ -474,14 +485,13 @@ namespace XF.Material.Forms.UI
 
             if (HasError)
             {
-                trailingIcon.IsVisible = true;
                 trailingIcon.Source = ErrorIcon;
 
                 placeholder.TextColor = tintColor;
                 counter.TextColor = ErrorColor;
                 UnderlineSetColorState();
 
-                if (string.IsNullOrEmpty(ErrorText))
+                if (string.IsNullOrEmpty(ErrorText) || !animated)
                 {
                     helper.TextColor = ErrorColor;
                 }
@@ -498,14 +508,13 @@ namespace XF.Material.Forms.UI
             }
             else
             {
-                trailingIcon.IsVisible = false;
                 trailingIcon.Source = DropDrownArrowIcon;
 
                 placeholder.TextColor = tintColor;
                 counter.TextColor = HelperTextColor;
                 UnderlineSetColorState();
 
-                if (string.IsNullOrEmpty(ErrorText))
+                if (string.IsNullOrEmpty(ErrorText) || !animated)
                 {
                     helper.TextColor = HelperTextColor;
                 }
