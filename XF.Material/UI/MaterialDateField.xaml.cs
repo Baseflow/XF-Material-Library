@@ -1,19 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using XF.Material.Forms;
 using XF.Material.Forms.Resources;
-using XF.Material.Forms.UI;
 using XF.Material.Forms.UI.Internals;
+using TypeConverterAttribute = Xamarin.Forms.TypeConverterAttribute;
 
 namespace XF.Material.Forms.UI
 {
+    internal class NullImageSourceToBoolConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) 
+            => value != null && value is ImageSource imageSource && !imageSource.IsEmpty;
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+            => throw new NotSupportedException();
+    }
+
     /// <inheritdoc cref="ContentView" />
     /// <summary>
     /// A control that let users enter and edit text.
@@ -33,7 +41,7 @@ namespace XF.Material.Forms.UI
         public static readonly BindableProperty HelperTextFontFamilyProperty = BindableProperty.Create(nameof(HelperTextFontFamily), typeof(string), typeof(MaterialDateField));
         public static readonly BindableProperty HelperTextProperty = BindableProperty.Create(nameof(HelperText), typeof(string), typeof(MaterialDateField), string.Empty);
         public static readonly BindableProperty HorizontalPaddingProperty = BindableProperty.Create(nameof(HorizontalPadding), typeof(MaterialHorizontalThickness), typeof(MaterialDateField), new MaterialHorizontalThickness(12d), defaultBindingMode: BindingMode.OneTime);
-        public static readonly BindableProperty LeadingIconProperty = BindableProperty.Create(nameof(LeadingIcon), typeof(string), typeof(MaterialDateField));
+        public static readonly BindableProperty LeadingIconProperty = BindableProperty.Create(nameof(LeadingIcon), typeof(ImageSource), typeof(MaterialDateField));
         public static readonly BindableProperty LeadingIconTintColorProperty = BindableProperty.Create(nameof(LeadingIconTintColor), typeof(Color), typeof(MaterialDateField), Color.FromHex("#99000000"));
         public static readonly BindableProperty PlaceholderColorProperty = BindableProperty.Create(nameof(PlaceholderColor), typeof(Color), typeof(MaterialDateField), Color.FromHex("#99000000"));
         public static readonly BindableProperty PlaceholderFontFamilyProperty = BindableProperty.Create(nameof(PlaceholderFontFamily), typeof(string), typeof(MaterialDateField));
@@ -45,7 +53,9 @@ namespace XF.Material.Forms.UI
         public static readonly BindableProperty TextFontSizeProperty = BindableProperty.Create(nameof(TextFontSize), typeof(double), typeof(MaterialDateField), 16d);
         public static readonly BindableProperty DateProperty = BindableProperty.Create(nameof(Date), typeof(DateTime?), typeof(MaterialDateField), null, BindingMode.TwoWay);
         public static readonly BindableProperty TintColorProperty = BindableProperty.Create(nameof(TintColor), typeof(Color), typeof(MaterialDateField), Material.Color.Secondary);
-        public static readonly BindableProperty ClearIconProperty = BindableProperty.Create(nameof(ClearIcon), typeof(string), typeof(MaterialDateField), "xf_clear");
+        public static readonly BindableProperty ClearIconProperty = BindableProperty.Create(nameof(ClearIcon), typeof(ImageSource), typeof(MaterialDateField), new FileImageSource { File = "xf_clear"});
+        public static readonly BindableProperty ErrorIconProperty = BindableProperty.Create(nameof(ErrorIcon), typeof(ImageSource), typeof(MaterialDateField), new FileImageSource { File = "xf_error"});
+        public static readonly BindableProperty DropDrownArrowIconProperty = BindableProperty.Create(nameof(DropDrownArrowIcon), typeof(ImageSource), typeof(MaterialDateField), new FileImageSource { File = "xf_arrow_dropdown"});
         public static readonly BindableProperty UnderlineColorProperty = BindableProperty.Create(nameof(UnderlineColor), typeof(Color), typeof(MaterialDateField), Color.FromHex("#99000000"));
         public new static readonly BindableProperty BackgroundColorProperty = BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(MaterialDateField), Color.FromHex("#DCDCDC"));
 
@@ -71,6 +81,9 @@ namespace XF.Material.Forms.UI
                 { nameof(Date), () => OnDateChanged(Date) },
                 { nameof(IsEnabled), () => OnEnabledChanged(IsEnabled) },
                 { nameof(HasError), () => UpdateErrorState() },
+                { nameof(ErrorIcon), () => UpdateErrorState() },
+                { nameof(DropDrownArrowIcon), () => UpdateErrorState() },
+
                 { nameof(FloatingPlaceholderEnabled), () => OnFloatingPlaceholderEnabledChanged() },
             };
 
@@ -98,6 +111,7 @@ namespace XF.Material.Forms.UI
         /// </summary>
         public event EventHandler<NullableDateChangedEventArgs> DateChanged;
 
+        #region properties
         /// <summary>
         /// Gets or sets whether the underline accent of this text field should always show or not.
         /// </summary>
@@ -116,10 +130,25 @@ namespace XF.Material.Forms.UI
             set => SetValue(BackgroundColorProperty, value);
         }
 
+        [TypeConverter(typeof(ImageSourceConverter))]
         public ImageSource ClearIcon
         {
-            get => (string)GetValue(ClearIconProperty);
+            get => (ImageSource)GetValue(ClearIconProperty);
             set => SetValue(ClearIconProperty, value);
+        }
+
+        [TypeConverter(typeof(ImageSourceConverter))]
+        public ImageSource ErrorIcon
+        {
+            get => (ImageSource)GetValue(ErrorIconProperty);
+            set => SetValue(ErrorIconProperty, value);
+        }
+
+        [TypeConverter(typeof(ImageSourceConverter))]
+        public ImageSource DropDrownArrowIcon
+        {
+            get => (ImageSource)GetValue(DropDrownArrowIconProperty);
+            set => SetValue(DropDrownArrowIconProperty, value);
         }
 
         /// <summary>
@@ -225,9 +254,10 @@ namespace XF.Material.Forms.UI
         /// <summary>
         /// Gets or sets the image source of the icon to be showed at the left side of this text field.
         /// </summary>
-        public string LeadingIcon
+        [TypeConverter(typeof(ImageSourceConverter))]
+        public ImageSource LeadingIcon
         {
-            get => (string)GetValue(LeadingIconProperty);
+            get => (ImageSource)GetValue(LeadingIconProperty);
             set => SetValue(LeadingIconProperty, value);
         }
 
@@ -355,6 +385,7 @@ namespace XF.Material.Forms.UI
             get => (Color)GetValue(UnderlineColorProperty);
             set => SetValue(UnderlineColorProperty, value);
         }
+        #endregion
 
         public string SmallText => HasError ? ErrorText : HelperText;
         public bool IsHelperVisible => IsEnabled && !string.IsNullOrEmpty(HelperText);
@@ -412,6 +443,10 @@ namespace XF.Material.Forms.UI
             var isFloating = FloatingPlaceholderEnabled && (Date.HasValue || isFocused);
             var tintColor = isFocused ? (HasError ? ErrorColor : TintColor) : (isFloating ? FloatingPlaceholderColor : PlaceholderColor);
 
+            //Update trailing icon on startup (detected by !animated)
+            if (!animated)
+                _ = UpdateErrorState(false); //It's fully sync
+
             UnderlineSetColorState();
             var anim = new Animation();
 
@@ -452,7 +487,7 @@ namespace XF.Material.Forms.UI
                 anim.Commit(this, Guid.NewGuid().ToString(), 1, 1);
         }
 
-        private async Task UpdateErrorState()
+        private async Task UpdateErrorState(bool animated = true)
         {
             var isFocused = datePicker.IsFocused;
             var isFloating = FloatingPlaceholderEnabled && (Date.HasValue || isFocused);
@@ -460,14 +495,13 @@ namespace XF.Material.Forms.UI
 
             if (HasError)
             {
-                trailingIcon.IsVisible = true;
-                trailingIcon.Source = "xf_error";
+                trailingIcon.Source = ErrorIcon;
 
                 placeholder.TextColor = tintColor;
                 counter.TextColor = ErrorColor;
                 UnderlineSetColorState();
 
-                if (string.IsNullOrEmpty(ErrorText))
+                if (string.IsNullOrEmpty(ErrorText) || !animated)
                 {
                     helper.TextColor = ErrorColor;
                 }
@@ -484,14 +518,13 @@ namespace XF.Material.Forms.UI
             }
             else
             {
-                trailingIcon.IsVisible = false;
-                trailingIcon.Source = "xf_arrow_dropdown";
+                trailingIcon.Source = DropDrownArrowIcon;
 
                 placeholder.TextColor = tintColor;
                 counter.TextColor = HelperTextColor;
                 UnderlineSetColorState();
 
-                if (string.IsNullOrEmpty(ErrorText))
+                if (string.IsNullOrEmpty(ErrorText) || !animated)
                 {
                     helper.TextColor = HelperTextColor;
                 }

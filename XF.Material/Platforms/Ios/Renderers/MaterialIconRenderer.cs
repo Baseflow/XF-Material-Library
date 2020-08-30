@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Threading.Tasks;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
@@ -10,20 +11,18 @@ namespace XF.Material.iOS.Renderers
 {
     public class MaterialIconRenderer : ImageRenderer
     {
-        private MaterialIcon _materialIcon;
-        private UIImage _image;
+        private MaterialIcon _materialIcon => Element as MaterialIcon;
+
+        protected override async Task TrySetImage(Image previous = null)
+        {
+            await base.TrySetImage(previous);
+            Control.Image = Control.Image?.ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate);
+        }
 
         protected override void OnElementChanged(ElementChangedEventArgs<Image> e)
         {
             base.OnElementChanged(e);
 
-            if (e?.NewElement == null || Control == null)
-            {
-                return;
-            }
-
-            _materialIcon = Element as MaterialIcon;
-            _image = Control.Image?.ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate);
             ChangeTintColor();
         }
 
@@ -31,24 +30,21 @@ namespace XF.Material.iOS.Renderers
         {
             base.OnElementPropertyChanged(sender, e);
 
-            if (e?.PropertyName != nameof(MaterialIcon.TintColor) && e?.PropertyName != nameof(Image.Source) || Control == null)
-            {
-                return;
-            }
-
-            _image = Control.Image?.ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate);
-            ChangeTintColor();
+            if (e.PropertyName == MaterialIcon.TintColorProperty.PropertyName)
+                ChangeTintColor();
         }
 
         private void ChangeTintColor()
         {
-            if (_materialIcon.TintColor.IsDefault || _image == null || Control == null)
-            {
+            var control = Control;
+            var element = _materialIcon;
+            if(control == null || element == null)
                 return;
-            }
 
-            Control.TintColor = _materialIcon.TintColor.ToUIColor();
-            Control.Image = _image;
+            if (element.TintColor.IsDefault)
+                control.TintColor = null;
+            else
+                control.TintColor =  element.TintColor.ToUIColor();
         }
     }
 }

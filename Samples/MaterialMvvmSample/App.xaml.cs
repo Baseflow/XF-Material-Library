@@ -13,6 +13,7 @@ namespace MaterialMvvmSample
             InitializeComponent();
 
             XF.Material.Forms.Material.Init(this, "Material.Style");
+            XamSvg.Shared.Config.ResourceAssembly = typeof(App).Assembly;
 
             navigationService.SetRootView(ViewNames.LandingView);
         }
