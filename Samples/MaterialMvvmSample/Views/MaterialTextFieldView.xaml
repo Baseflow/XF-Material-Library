@@ -24,6 +24,7 @@
             <StackLayout Orientation="Horizontal">
                 <material:MaterialTextField Placeholder="With Icon"
                                             LeadingIcon="icon_plus"
+                                            Style="{StaticResource GreenField}"
                                             HorizontalOptions="FillAndExpand" />
                 <material:MaterialButton Text="OK" HorizontalOptions="Start" />
             </StackLayout>

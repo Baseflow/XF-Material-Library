@@ -3,7 +3,8 @@
              xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:mtrl="clr-namespace:XF.Material.Forms.Resources;assembly=XF.Material"
-             xmlns:mtrltypo="clr-namespace:XF.Material.Forms.Resources.Typography;assembly=XF.Material">
+             xmlns:mtrltypo="clr-namespace:XF.Material.Forms.Resources.Typography;assembly=XF.Material"
+             xmlns:ui="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material">
     <Application.Resources>
 
         <OnPlatform x:Key="FontFamily.Exo2Regular"
@@ -63,5 +64,11 @@
         <mtrl:MaterialConfiguration x:Key="Material.Style"
                                     ColorConfiguration="{StaticResource Material.Color}"
                                     FontConfiguration="{StaticResource Material.Font}" />
+
+        <Style x:Key="GreenField" TargetType="ui:MaterialTextField">
+            <Setter Property="ReturnType" Value="Next" />
+            <Setter Property="BackgroundColor" Value="#e0f0e0" />
+        </Style>
+
     </Application.Resources>
 </Application>
