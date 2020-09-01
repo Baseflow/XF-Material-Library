@@ -776,26 +776,20 @@ namespace XF.Material.Forms.UI
 
                 Device.BeginInvokeOnMainThread(() =>
                 {
-                    var anim = new Animation();
 
                     if (FloatingPlaceholderEnabled)
                     {
-                        anim.Add(0.0, AnimationDuration, new Animation(v => placeholder.FontSize = v, entry.FontSize, placeholderEndFont, _animationCurve));
-                        anim.Add(0.0, AnimationDuration, new Animation(v => placeholder.TranslationY = v, placeholder.TranslationY, placeholderEndY, _animationCurve, () =>
-                        {
-                            placeholder.TextColor = HasError ? ErrorColor : FloatingPlaceholderColor;
-                            entry.Opacity = 1;
-                        }));
+                        placeholder.TranslationY = placeholderEndY;
+                        placeholder.TextColor = HasError ? ErrorColor : FloatingPlaceholderColor;
+                        entry.Opacity = 1;
                     }
 
                     if (ShouldAnimateUnderline)
                     {
                         underline.Color = HasError ? ErrorColor : TintColor;
                         underline.HeightRequest = 1;
-                        anim.Add(0.0, AnimationDuration, new Animation(v => underline.WidthRequest = v, 0, Width, _animationCurve, () => underline.HorizontalOptions = LayoutOptions.FillAndExpand));
+                        underline.HorizontalOptions = LayoutOptions.FillAndExpand;
                     }
-
-                    anim.Commit(this, "Anim2", rate: 2, length: (uint)(AnimationDuration * 1000), easing: _animationCurve);
                 });
 
                 entry.Opacity = 1;
