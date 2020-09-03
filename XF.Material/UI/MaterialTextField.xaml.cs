@@ -927,9 +927,17 @@ namespace XF.Material.Forms.UI
 
         private void Entry_Focused(object sender, FocusEventArgs e)
         {
-            FocusCommand?.Execute(entry.IsFocused);
-            Focused?.Invoke(this, e);
-            UpdateCounter();
+            if (InputType == MaterialTextFieldInputType.Choice || InputType == MaterialTextFieldInputType.SingleImmediateChoice
+                                                               || InputType == MaterialTextFieldInputType.CommandChoice)
+            {
+                ((View) sender).Unfocus();
+            }
+            else
+            {
+                FocusCommand?.Execute(entry.IsFocused);
+                Focused?.Invoke(this, e);
+                UpdateCounter();
+            }
         }
 
         private void Entry_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -1017,7 +1025,7 @@ namespace XF.Material.Forms.UI
                     if (propInfo != null)
                     { 
                         var propValue = propInfo.GetValue(item);
-                        choice =propValue.ToString();
+                        choice =propValue?.ToString();
                     }
                 }
 
