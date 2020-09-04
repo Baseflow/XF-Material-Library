@@ -110,8 +110,10 @@ namespace XF.Material.Forms.UI
 
             if (SelectedIndex >= 0 && Models?.Any() == true)
             {
-                var model = Models[SelectedIndex];
-                model.IsSelected = true;
+                for (var i = 0; i < Models.Count; i++)
+                {
+                    Models[i].IsSelected = i == SelectedIndex;
+                }
             }
 
             OnSelectedIndexChanged(SelectedIndex);
