@@ -6,8 +6,8 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{5419A661-3FAA-4768-9C11-0531BDFAA3E8}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
-		Directory.build.props = Directory.build.props
-		Directory.build.targets = Directory.build.targets
+		Directory.Build.props = Directory.Build.props
+		Directory.Build.targets = Directory.Build.targets
 		global.json = global.json
 		LICENSE.md = LICENSE.md
 		README.md = README.md
@@ -16,8 +16,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{FFBBBA05-A99D-4D52-8950-3F61A8D25401}"
 	ProjectSection(SolutionItems) = preProject
-		Samples\Directory.build.props = Samples\Directory.build.props
-		Samples\Directory.build.targets = Samples\Directory.build.targets
+		Samples\Directory.Build.props = Samples\Directory.Build.props
+		Samples\Directory.Build.targets = Samples\Directory.Build.targets
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaterialMvvmSample.Android", "Samples\MaterialMvvmSample.Android\MaterialMvvmSample.Android.csproj", "{E05550C8-072A-4E3D-8D2B-B2D4B9C47C13}"
