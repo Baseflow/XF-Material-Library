@@ -1296,7 +1296,9 @@ namespace XF.Material.Forms.UI
 
             if (Choices == null || Choices?.Count <= 0)
             {
-                throw new InvalidOperationException("The property `Choices` is null or empty");
+                //throw new InvalidOperationException("The property `Choices` is null or empty");
+                Console.WriteLine("Error in MaterialTextField: the property `Choices` is null or empty");
+                return;
             }
             _choices = GetChoices(out _choicesResults);
 
