@@ -55,7 +55,7 @@ namespace XF.Material.Forms.UI
                     if (control._selectedIndex != index)
                     {
                         control._selectedIndex = index;
-                        control.Text = control._choicesResults[index];
+                        control.Text = index>=0 ? control._choicesResults[index] : null;
                         control.AnimateToInactiveOrFocusedStateOnStart(control, false);
 
                         control.UpdateCounter();
