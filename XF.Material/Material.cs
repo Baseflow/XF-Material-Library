@@ -13,7 +13,7 @@ namespace XF.Material.Forms
     {
         private static readonly Lazy<IMaterialUtility> MaterialUtilityInstance = new Lazy<IMaterialUtility>(() => DependencyService.Get<IMaterialUtility>());
         private readonly MaterialConfiguration _config;
-        private readonly ResourceDictionary _res;
+        private static ResourceDictionary _res;
 
         internal Material(Application app, MaterialConfiguration materialResource) : this(app)
         {
@@ -49,7 +49,7 @@ namespace XF.Material.Forms
         /// <exception cref="ArgumentNullException" />
         public static T GetResource<T>(string key)
         {
-            Application.Current.Resources.TryGetValue(key ?? throw new ArgumentNullException(nameof(key)), out var value);
+            _res.TryGetValue(key ?? throw new ArgumentNullException(nameof(key)), out var value);
 
             if (value is T resource)
             {
