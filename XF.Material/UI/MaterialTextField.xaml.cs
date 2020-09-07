@@ -35,33 +35,32 @@ namespace XF.Material.Forms.UI
 
         private static void SelectedChoicePropertyChange(BindableObject bindable, object oldValue, object newValue)
         {
-            var control = bindable as MaterialTextField;
-            if (control == null)
-            {
-                return;
-            }
+            if(bindable is MaterialTextField control)
+                control.SetSelectedChoice(newValue);
+        }
 
-            if (control.Choices?.Count > 0)
+        private void SetSelectedChoice(object selectedChoice)
+        {
+            var choices = Choices;
+            if (choices?.Count > 0)
             {
-                if (newValue != null)
+                // 1. Get selected value index
+                // 1.1 Current selected index and get selected index should not same.
+                // 2. set control selected index
+
+                var index = choices.IndexOf(selectedChoice);
+                if (_selectedIndex != index)
                 {
-                    // 1. Get selected value index
-                    // 1.1 Current selected index and get selected index should not same.
-                    // 2. set control selected index
+                    _selectedIndex = index;
+                    Text = index>=0 ? _choicesResults[index] : null;
+                    AnimateToInactiveOrFocusedStateOnStart(this, false);
 
-                    // List<object> data = control.Choices as List<object>;
-
-                    var index = control.Choices.IndexOf(newValue);
-                    if (control._selectedIndex != index)
-                    {
-                        control._selectedIndex = index;
-                        control.Text = index>=0 ? control._choicesResults[index] : null;
-                        control.AnimateToInactiveOrFocusedStateOnStart(control, false);
-
-                        control.UpdateCounter();
-                        // control.OnSelectChoices();
-                    }
+                    UpdateCounter();
                 }
+            }
+            else
+            {
+                Text = null;
             }
         }
 
@@ -1086,6 +1085,8 @@ namespace XF.Material.Forms.UI
                 _choices = null;
                 _choicesResults = null;
             }
+
+            SetSelectedChoice(SelectedChoice);
         }
 
         private void OnEnabledChanged(bool isEnabled)
@@ -1280,7 +1281,7 @@ namespace XF.Material.Forms.UI
             entry.ReturnCommandParameter = parameter;
         }
 
-        private void OnReturnTypeChangedd(ReturnType returnType)
+        private void OnReturnTypeChanged(ReturnType returnType)
         {
             entry.ReturnType = returnType;
         }
@@ -1421,7 +1422,7 @@ namespace XF.Material.Forms.UI
                 { nameof(MaxLength), () => OnMaxLengthChanged(MaxLength, IsMaxLengthCounterVisible) },
                 { nameof(ReturnCommand), () => OnReturnCommandChanged(ReturnCommand) },
                 { nameof(ReturnCommandParameter), () => OnReturnCommandParameterChanged(ReturnCommandParameter) },
-                { nameof(ReturnType), () => OnReturnTypeChangedd(ReturnType) },
+                { nameof(ReturnType), () => OnReturnTypeChanged(ReturnType) },
                 { nameof(ErrorColor), () => OnErrorColorChanged(ErrorColor) },
                 { nameof(UnderlineColor), () => OnUnderlineColorChanged(UnderlineColor) },
                 { nameof(HasError), () => OnHasErrorChanged() },
