@@ -74,17 +74,17 @@ namespace XF.Material.Forms.UI
             if (!_letterSpacingChanged)
             {
                 var letterSpacingKey = $"Material.LetterSpacing.{materialTypeScale.ToString()}";
-                LetterSpacing = Convert.ToDouble(Application.Current.Resources[letterSpacingKey]);
+                LetterSpacing = Material.GetResource<double>(letterSpacingKey);
             }
             if (!_fontFamilyChanged)
             {
                 var fontFamilyKey = $"Material.FontFamily.{materialTypeScale.ToString()}";
-                FontFamily = Application.Current.Resources[fontFamilyKey]?.ToString();
+                FontFamily = Material.GetResource<string>(fontFamilyKey);
             }
             if (!_fontSizeChanged)
             {
                 var fontSizeKey = $"Material.FontSize.{materialTypeScale.ToString()}";
-                FontSize = Convert.ToDouble(Application.Current.Resources[fontSizeKey]);
+                FontSize = Material.GetResource<double>(fontSizeKey);
             }
 
             if (_fontAttributeChanged)
