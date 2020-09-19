@@ -12,17 +12,21 @@ namespace XF.Material.Forms
     public class Material
     {
         private static readonly Lazy<IMaterialUtility> MaterialUtilityInstance = new Lazy<IMaterialUtility>(() => DependencyService.Get<IMaterialUtility>());
-        private readonly MaterialConfiguration _config;
+        private MaterialConfiguration _config;
         private static ResourceDictionary _res;
+
+        private static Material Instance;
 
         internal Material(Application app, MaterialConfiguration materialResource) : this(app)
         {
             _config = materialResource;
+            Instance = this;
         }
 
         internal Material(Application app, string key) : this(app)
         {
             _config = GetResource<MaterialConfiguration>(key);
+            Instance = this;
         }
 
         internal Material(Application app)
@@ -33,6 +37,15 @@ namespace XF.Material.Forms
                 ColorConfiguration = new MaterialColorConfiguration(),
                 FontConfiguration = new MaterialFontConfiguration()
             };
+            Instance = this;
+        }
+
+        public static void Use(string key)
+        {
+            if (Instance == null)
+                Init(Application.Current);
+            // ReSharper disable once PossibleNullReferenceException
+            Instance._config = GetResource<MaterialConfiguration>(key);
         }
 
         /// <summary>
@@ -49,6 +62,9 @@ namespace XF.Material.Forms
         /// <exception cref="ArgumentNullException" />
         public static T GetResource<T>(string key)
         {
+            if(_res == null)
+                throw new Exception("You must call one of the Init() methods in App.xaml.cs before InitializeComponent()");
+
             _res.TryGetValue(key ?? throw new ArgumentNullException(nameof(key)), out var value);
 
             if (value is T resource)
@@ -76,17 +92,17 @@ namespace XF.Material.Forms
             material.MergeMaterialDictionaries();
         }
 
-        /// <summary>
-        /// Configure's the current app's resources by merging pre-defined Material resources and creating new resources based on the <see cref="MaterialConfiguration"/>'s properties.
-        /// </summary>
-        /// <param name="app">The cross-platform mobile application that is running.</param>
-        /// <param name="key">The key of the <see cref="MaterialConfiguration"/> object in the current app's resource dictionary.</param>
-        /// <exception cref="ArgumentNullException" />
-        public static void Init(Application app, string key)
-        {
-            var material = new Material(app ?? throw new ArgumentNullException(nameof(app)), key ?? throw new ArgumentNullException(nameof(key)));
-            material.MergeMaterialDictionaries();
-        }
+        ///// <summary>
+        ///// Configure's the current app's resources by merging pre-defined Material resources and creating new resources based on the <see cref="MaterialConfiguration"/>'s properties.
+        ///// </summary>
+        ///// <param name="app">The cross-platform mobile application that is running.</param>
+        ///// <param name="key">The key of the <see cref="MaterialConfiguration"/> object in the current app's resource dictionary.</param>
+        ///// <exception cref="ArgumentNullException" />
+        //public static void Init(Application app, string key)
+        //{
+        //    var material = new Material(app ?? throw new ArgumentNullException(nameof(app)), key ?? throw new ArgumentNullException(nameof(key)));
+        //    material.MergeMaterialDictionaries();
+        //}
 
         /// <summary>
         /// Configure's the current app's resources by merging pre-defined Material resources.
