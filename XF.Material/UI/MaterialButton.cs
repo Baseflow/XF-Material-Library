@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using System.Runtime.CompilerServices;
 using Xamarin.Forms;
-using Xamarin.Forms.Internals;
 using XF.Material.Forms.Resources;
 
 namespace XF.Material.Forms.UI
@@ -16,9 +15,6 @@ namespace XF.Material.Forms.UI
         private static readonly Color OutlinedBorderColor = Color.FromHex("#1E000000");
 
         public static readonly BindableProperty AllCapsProperty = BindableProperty.Create(nameof(AllCaps), typeof(bool), typeof(MaterialButton), true);
-
-        public static new readonly BindableProperty BackgroundColorProperty = BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(MaterialButton), Material.Color.Secondary);
-
         public static readonly BindableProperty ButtonTypeProperty = BindableProperty.Create(nameof(ButtonType), typeof(MaterialButtonType), typeof(MaterialButton), MaterialButtonType.Elevated);
 
         public static readonly BindableProperty DisabledBackgroundColorProperty = BindableProperty.Create(nameof(DisabledBackgroundColor), typeof(Color), typeof(MaterialButton), default(Color));
@@ -40,9 +36,9 @@ namespace XF.Material.Forms.UI
             SetDynamicResource(BackgroundColorProperty, MaterialConstants.Color.SECONDARY);
             SetDynamicResource(TextColorProperty, MaterialConstants.Color.ON_SECONDARY);
             SetDynamicResource(HeightRequestProperty, MaterialConstants.MATERIAL_BUTTON_HEIGHT);
-            SetDynamicResource(FontAttributesProperty, MaterialConstants.MATERIAL_FONTATTRIBUTE_BOLD);
         }
 
+        #region Dependency properties
         public MaterialElevation Elevation
         {
             get => (MaterialElevation)GetValue(ElevationProperty);
@@ -68,15 +64,6 @@ namespace XF.Material.Forms.UI
         }
 
         /// <summary>
-        /// Gets or sets the background color. The default value is based on the Color value of <see cref="MaterialColorConfiguration.Secondary"/> if you are using a Material resource, otherwise the default value is <see cref="Color.Accent"/>
-        /// </summary>
-        public new Color BackgroundColor
-        {
-            get => (Color)GetValue(BackgroundColorProperty);
-            set => SetValue(BackgroundColorProperty, value);
-        }
-
-        /// <summary>
         /// Gets or sets the type of this button. The default value is <see cref="MaterialButtonType.Elevated"/>
         /// </summary>
         public virtual MaterialButtonType ButtonType
@@ -96,6 +83,7 @@ namespace XF.Material.Forms.UI
             get => (Color)GetValue(PressedBackgroundColorProperty);
             set => SetValue(PressedBackgroundColorProperty, value);
         }
+        #endregion
 
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
@@ -112,26 +100,8 @@ namespace XF.Material.Forms.UI
                     case nameof(ButtonType):
                         ButtonTypeChanged(ButtonType);
                         break;
-                    case nameof(Style):
-                        SetStyleValues(Style);
-                        break;
                 }
             }
-        }
-
-        private void SetStyleValues(Style style)
-        {
-            style?.Setters.ForEach(s =>
-            {
-                if (s.Value is DynamicResource d)
-                {
-                    SetDynamicResource(s.Property, d.Key);
-                }
-                else
-                {
-                    SetValue(s.Property, s.Value);
-                }
-            });
         }
 
         private void ButtonTypeChanged(MaterialButtonType buttonType)

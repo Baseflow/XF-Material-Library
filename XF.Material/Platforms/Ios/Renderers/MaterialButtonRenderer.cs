@@ -42,7 +42,6 @@ namespace XF.Material.iOS.Renderers
 
             UpdateLayerFrame();
             UpdateCornerRadius();
-            UpdateTextSizing();
             UpdateButtonLayer();
             UpdateState();
         }
@@ -72,20 +71,13 @@ namespace XF.Material.iOS.Renderers
                 if (_materialButton != null)
                 {
                     _withIcon = _materialButton.Image != null || _materialButton.ImageSource != null && !_materialButton.ImageSource.IsEmpty;
-
-                    if (_materialButton.AllCaps)
-                    {
-                        _materialButton.Text = _materialButton.Text?.ToUpper();
-                    }
                 }
 
-                SetupIcon();
                 SetupColors();
-                UpdateText();
                 CreateStateAnimations();
                 UpdateButtonLayer();
                 UpdateState();
-                UpdateTextColor();
+                UpdateText();
                 Control.TouchDown += Control_Pressed;
                 Control.TouchDragEnter += Control_Pressed;
                 Control.TouchUpInside += Control_Released;
@@ -120,33 +112,19 @@ namespace XF.Material.iOS.Renderers
 
                 case nameof(MaterialButton.ImageSource):
                 case nameof(MaterialButton.Image):
-                    SetupIcon();
                     UpdateButtonLayer();
-                    break;
-
-                case nameof(MaterialButton.AllCaps):
-                    _materialButton.Text = _materialButton.AllCaps ? _materialButton.Text.ToUpper() : _materialButton.Text.ToLower();
+                    SetupIcon();
                     break;
 
                 case nameof(MaterialButton.CornerRadius):
                     UpdateCornerRadius();
                     break;
 
+                case nameof(MaterialButton.Text):
+                case nameof(MaterialButton.TextColor):
+                case nameof(MaterialButton.AllCaps):
                 case nameof(MaterialButton.LetterSpacing):
                     UpdateText();
-                    break;
-
-                case nameof(MaterialButton.Text):
-                    UpdateText();
-                    UpdateTextSizing();
-                    break;
-
-                case nameof(MaterialButton.Padding):
-                    UpdatePadding();
-                    break;
-
-                case nameof(MaterialButton.TextColor):
-                    UpdateTextColor();
                     break;
             }
         }
@@ -298,48 +276,44 @@ namespace XF.Material.iOS.Renderers
             _disabledTextColor = _normalTextColor.GetDisabledColor();
         }
 
-        private async void SetupIcon()
+        private void SetupIcon()
         {
             if (_withIcon)
             {
-                UIImage image = null;
+                var control = Control;
+                control.TintColor = _materialButton.TextColor.ToUIColor();
 
-                try
+                if (Element.ContentLayout.Position == Button.ButtonContentLayout.ImagePosition.Right)
                 {
-                    if (_materialButton.Image != null)
-                    {
-                        image = UIImage.FromFile(_materialButton.Image.File) ?? UIImage.FromBundle(_materialButton.Image.File);
-                    }
-                    else if(!(_materialButton.ImageSource?.IsEmpty ?? true))
-                    {
-                        IImageSourceHandler imageSourceHandler = _materialButton.ImageSource.GetImageSourceHandler();
-                        image = await imageSourceHandler.LoadImageAsync(_materialButton.ImageSource);
-                    }
-                    UIGraphics.BeginImageContextWithOptions(new CGSize(18, 18), false, 0f);
-                    image?.Draw(new CGRect(0, 0, 18, 18));
+                    //XF does not compute correctly the text's width
+                    var imageSize = control.CurrentImage.Size;
 
-                    using (var newImage = UIGraphics.GetImageFromCurrentImageContext())
+                    if (imageSize.Width > 0 && imageSize.Height > 0)
                     {
-                        UIGraphics.EndImageContext();
-
-                        Control.SetImage(newImage, UIControlState.Normal);
-                        Control.SetImage(newImage, UIControlState.Disabled);
-
-                        Control.HorizontalAlignment = UIControlContentHorizontalAlignment.Left;
-                        Control.ImageEdgeInsets = new UIEdgeInsets(0f, 0f, 0f, 0f);
-                        Control.TintColor = _materialButton.TextColor.ToUIColor();
+                        var insets = Control.ImageEdgeInsets;
+                        var margin = (nfloat)Element.ContentLayout.Spacing;
+                        var deltaX = Control.CurrentAttributedTitle.Size.Width + Control.TitleEdgeInsets.Left + Control.TitleEdgeInsets.Right + margin;
+                        Control.ImageEdgeInsets = new UIEdgeInsets(insets.Top, deltaX, insets.Bottom, -deltaX);
                     }
                 }
-                finally
-                {
-                    image?.Dispose();
-                }
             }
-            else
-            {
-                Control.TitleEdgeInsets = new UIEdgeInsets(0, 0, 0, 0);
-                Control.HorizontalAlignment = UIControlContentHorizontalAlignment.Center;
-            }
+        }
+
+        /// <summary>
+        /// Computes the intrinsic content size
+        /// </summary>
+        /// <param name="size"></param>
+        /// <remarks>
+        /// Because LetterSpacing is non standard, the width is incorrectly computed,
+        /// leading to the button's width being too small.
+        /// Adding 2x14 seems to fit all situations.
+        /// </remarks>
+        public override CGSize SizeThatFits(CGSize size)
+        {
+            size = base.SizeThatFits(size);
+            if(size.Width > 0) //A negative value means "whatever"
+                size.Width += 28;
+            return size;
         }
 
         private Task<bool> UpdateBackgroundColor()
@@ -383,51 +357,6 @@ namespace XF.Material.iOS.Renderers
                 case MaterialButtonType.Text:
                     CreateTextButtonLayer();
                     break;
-            }
-
-            UpdatePadding();
-        }
-
-        private void UpdatePadding()
-        {
-            if (Control == null)
-            {
-                return;
-            }
-
-            var additionalPadding = Element.Padding;
-
-            if (_materialButton.ButtonType != MaterialButtonType.Text && _withIcon)
-            {
-                Control.ContentEdgeInsets = new UIEdgeInsets(
-                    10f + (nfloat)additionalPadding.Top,
-                    18f + (nfloat)additionalPadding.Left,
-                    10f + (nfloat)additionalPadding.Bottom,
-                    22f + (nfloat)additionalPadding.Right);
-            }
-            else if (_materialButton.ButtonType != MaterialButtonType.Text && !_withIcon)
-            {
-                Control.ContentEdgeInsets = new UIEdgeInsets(
-                    10f + (nfloat)additionalPadding.Top,
-                    22f + (nfloat)additionalPadding.Left,
-                    10f + (nfloat)additionalPadding.Bottom,
-                    22f + (nfloat)additionalPadding.Right);
-            }
-            else if (_materialButton.ButtonType is MaterialButtonType.Text && _withIcon)
-            {
-                Control.ContentEdgeInsets = new UIEdgeInsets(
-                    10f + (nfloat)additionalPadding.Top,
-                    18f + (nfloat)additionalPadding.Left,
-                    10f + (nfloat)additionalPadding.Bottom,
-                    22f + (nfloat)additionalPadding.Right);
-            }
-            else if (_materialButton.ButtonType is MaterialButtonType.Text && !_withIcon)
-            {
-                Control.ContentEdgeInsets = new UIEdgeInsets(
-                    10f + (nfloat)additionalPadding.Top,
-                    14f + (nfloat)additionalPadding.Left,
-                    10f + (nfloat)additionalPadding.Bottom,
-                    14f + (nfloat)additionalPadding.Right);
             }
         }
 
@@ -518,74 +447,17 @@ namespace XF.Material.iOS.Renderers
 
         private void UpdateText()
         {
-            if (Control == null || Control.TitleLabel.AttributedText == null)
-            {
-                return;
-            }
 
-            var text = Element.Text;
-            text = _materialButton.AllCaps ? text?.ToUpper() : text;
-            Control.TitleLabel.Text = text;
+            var text = Element.Text ?? String.Empty;
+            if (_materialButton.AllCaps)
+                text = text.ToUpper();
 
-            var range = new NSRange(0, text?.Length ?? 0);
-            var newAttr = new NSMutableAttributedString(Control.TitleLabel.AttributedText);
-            newAttr.AddAttribute(UIStringAttributeKey.KerningAdjustment, FromObject((float)_materialButton.LetterSpacing), range);
-
-            Control.SetAttributedTitle(newAttr, UIControlState.Normal);
-        }
-
-        private void UpdateTextSizing()
-        {
-            if (Control == null)
-            {
-                return;
-            }
-
-            if (string.IsNullOrEmpty(_materialButton.Text) || !_withIcon)
-            {
-                Control.TitleEdgeInsets = new UIEdgeInsets(0, 0, 0, 0);
-                return;
-            }
-
-            // We have to set the button title insets to make the button look
-            // like Android's material buttons. (icon on left, text is centralized)
-
-            var textToMeasure = (NSString)(_materialButton.Text ?? "");
-
-            var labelRect = textToMeasure.GetBoundingRect(
-                new CGSize(Frame.Width - 40, nfloat.MaxValue),
-                NSStringDrawingOptions.UsesLineFragmentOrigin,
-                new UIStringAttributes() { Font = Control.Font },
-                new NSStringDrawingContext()
-            );
-
-            var textWidth = (float)labelRect.Size.Width;
-            var buttonWidth = (float)Control.Frame.Width;
-
-            var inset = ((buttonWidth - textWidth) / 2) - 28;
-            Control.TitleEdgeInsets = new UIEdgeInsets(0, inset, 0, -40);
-        }
-
-        private void UpdateTextColor()
-        {
-            if (Control == null || Control.CurrentAttributedTitle == null)
-            {
-                return;
-            }
-
-            var title = new NSMutableAttributedString(Control.CurrentAttributedTitle);
-
-            title.EnumerateAttributes(new NSRange(0, title.Length), NSAttributedStringEnumeration.None,
-                (NSDictionary attrs, NSRange range, ref bool stop) =>
-                {
-                    title.BeginEditing();
-                    title.AddAttribute(UIStringAttributeKey.ForegroundColor, _materialButton.TextColor.ToUIColor(), range);
-                    title.EndEditing();
-                });
-
+            var title = new NSMutableAttributedString(text, kerning: (float)_materialButton.LetterSpacing, foregroundColor: _materialButton.TextColor.ToUIColor());
             Control.SetAttributedTitle(title, UIControlState.Normal);
             Control.SetAttributedTitle(title, UIControlState.Highlighted);
             Control.SetAttributedTitle(title, UIControlState.Disabled);
+
+            SetupIcon();
         }
     }
 }
