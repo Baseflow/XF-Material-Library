@@ -7,6 +7,7 @@
              xmlns:ui="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material">
     <Application.Resources>
 
+        <!-- Breaks hot reload -->
         <OnPlatform x:Key="FontFamily.Exo2Regular"
                     x:TypeArguments="x:String"
                     Android="Fonts/Exo2-Regular.ttf#Exo2-Regular"
@@ -56,11 +57,12 @@
                                          OnPrimary="#FFFFFF"
                                          OnSecondary="#FFFFFF"
                                          OnSurface="#000000"
-                                         Primary="#6200EE"
-                                         PrimaryVariant="#6200EE"
+                                         Primary="#6250EE"
+                                         PrimaryVariant="#6280EE"
                                          Secondary="#00377b"
                                          Surface="#FFFFFF" />
 
+        <!-- Does not support DynamicResource (why?) -->
         <mtrl:MaterialConfiguration x:Key="Material.Style"
                                     ColorConfiguration="{StaticResource Material.Color}"
                                     FontConfiguration="{StaticResource Material.Font}" />
