@@ -358,6 +358,9 @@ namespace XF.Material.iOS.Renderers
                     CreateTextButtonLayer();
                     break;
             }
+            
+            _animationLayer.SetNeedsDisplay();
+            SetNeedsDisplay();
         }
 
         private void UpdateCornerRadius()

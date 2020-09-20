@@ -5,14 +5,26 @@
     x:Class="MaterialMvvmSample.Views.MaterialButtonView"
     xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
     xmlns:xamForms="clr-namespace:XamSvg.XamForms;assembly=XamSvg.XamForms">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="material:MaterialButton" x:Key="TestStyle" CanCascade="True">
+                <Setter Property="BackgroundColor" Value="DarkSlateGray" />
+                <Setter Property="TextColor" Value="GreenYellow" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     
     <StackLayout Padding="20">
-        <material:MaterialButton Text="Welkom" Clicked="Btn_Clicked"/>
+        <material:MaterialButton Text="Welcome XF.Material" Clicked="Btn_Clicked" Style="{StaticResource TestStyle}" />
 
         <material:MaterialButton AllCaps="True"
                                  ButtonType="Elevated"
                                  Elevation="2"
                                  PressedBackgroundColor="Red"
+                                 BackgroundColor="GreenYellow"
+                                 TextColor="DarkGreen"
+                                 BorderColor="DarkGreen"
+                                 BorderWidth="1"
                                  HorizontalOptions="Center"
                                  Text="Open Dialog"
                                  VerticalOptions="Center"
