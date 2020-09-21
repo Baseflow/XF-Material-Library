@@ -58,7 +58,7 @@
         </Grid>
 
         <Label Text="With icons:"/>
-        <material:MaterialButton Text="Left svg icon" ContentLayout="Left,10" HorizontalOptions="Start" Padding="0,0,35,0">
+        <material:MaterialButton Text="Left svg icon" ContentLayout="Left,10" HorizontalOptions="Start">
             <Button.ImageSource>
                 <xamForms:SvgImageSource Svg="images.slideshow-black-18dp.svg" Height="45" ColorMapping="000000=FFFFFF" />
             </Button.ImageSource>

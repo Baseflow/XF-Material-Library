@@ -21,31 +21,36 @@ namespace XF.Material.Droid.Renderers
         {
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _helper.Clean();
+            }
+            
+            base.Dispose(disposing);
+        }
+
         protected override void OnElementChanged(ElementChangedEventArgs<Button> e)
         {
             base.OnElementChanged(e);
 
             if (Control == null)
-            {
                 return;
-            }
 
             if (e?.OldElement != null)
-            {
                 _helper.Clean();
-            }
 
             if (e?.NewElement == null)
-            {
                 return;
-            }
 
-            _materialButton = Element as MaterialButton;
+            _materialButton = (MaterialButton)Element;
             _helper = new MaterialDrawableHelper(_materialButton, Control);
             _helper.UpdateDrawable();
 
             Control.SetMinimumWidth((int)MaterialHelper.ConvertDpToPx(64));
             Control.SetAllCaps(_materialButton != null && _materialButton.AllCaps);
+            Control.SetMaxLines(1);
 
             SetButtonIcon();
             SetTextColors();
@@ -84,27 +89,27 @@ namespace XF.Material.Droid.Renderers
             var withIcon = !string.IsNullOrEmpty(_materialButton.Image) || !(_materialButton.ImageSource?.IsEmpty ?? true);
             _helper.UpdateHasIcon(withIcon);
 
-            if (!withIcon)
-            {
-                return;
-            }
+             if (!withIcon)
+                 return;
 
-            var drawable = Control.GetCompoundDrawables().FirstOrDefault(s => s != null);
-
-            if (drawable == null)
-            {
-                return;
-            }
-
-            var drawableCopy = drawable.GetDrawableCopy();
-            var width = _materialButton.ButtonType == MaterialButtonType.Text ? (int)MaterialHelper.ConvertDpToPx(18) : (int)MaterialHelper.ConvertDpToPx(18 + 4);
-            var height = (int)MaterialHelper.ConvertDpToPx(18);
-            var left = _materialButton.ButtonType == MaterialButtonType.Text ? 0 : (int)MaterialHelper.ConvertDpToPx(4);
-            drawableCopy.SetBounds(left, 0, width, height);
-            drawableCopy.TintDrawable(_materialButton.TextColor.ToAndroid());
-
-            Control.SetCompoundDrawables(drawableCopy, null, null, null);
-            Control.CompoundDrawablePadding = 0;
+             var drawable = Control.GetCompoundDrawables().FirstOrDefault(s => s != null);
+            
+             if (drawable == null)
+             {
+                 return;
+             }
+            
+             var drawableCopy = drawable.GetDrawableCopy();
+             var width = _materialButton.ButtonType == MaterialButtonType.Text ? (int)MaterialHelper.ConvertDpToPx(18) : (int)MaterialHelper.ConvertDpToPx(18 + 4);
+             var height = (int)MaterialHelper.ConvertDpToPx(18);
+             var left = _materialButton.ButtonType == MaterialButtonType.Text ? 0 : (int)MaterialHelper.ConvertDpToPx(4);
+             drawableCopy.SetBounds(left, 0, width, height);
+             drawableCopy.TintDrawable(_materialButton.TextColor.ToAndroid());
+            
+             Control.SetCompoundDrawables(drawableCopy, null, null, null);
+             Control.CompoundDrawablePadding = 0;
+             
+             Control.RequestLayout();
         }
         private void SetTextColors()
         {
@@ -129,10 +134,31 @@ namespace XF.Material.Droid.Renderers
             Control.SetTextColor(new ColorStateList(states, colors));
         }
 
+        /// <summary>
+        /// TODO: obsolete. Replaced by Button.CharacterSpacing.
+        /// </summary>
         private void SetTextLetterSpacing()
         {
             var rawLetterSpacing = _materialButton.LetterSpacing / Control.TextSize;
             Control.LetterSpacing = MaterialHelper.ConvertSpToPx(rawLetterSpacing);
+        }
+        
+        public override SizeRequest GetDesiredSize(int widthConstraint, int heightConstraint)
+        {
+            var size = base.GetDesiredSize(widthConstraint, heightConstraint);
+            if (size.Request.Width > 0)
+            {
+                var withIcon = !string.IsNullOrEmpty(_materialButton.Image) || !(_materialButton.ImageSource?.IsEmpty ?? true);
+
+                var sr = size.Request;
+                if(withIcon)
+                    sr.Width += (int)MaterialHelper.ConvertDpToPx(18);
+                // if(_materialButton != null && !_materialButton.Padding.IsEmpty)
+                //     sr.Width += MaterialHelper.ConvertDpToPx(_materialButton.Padding.HorizontalThickness);
+                size.Request = sr;
+            }
+
+            return size;
         }
     }
 }

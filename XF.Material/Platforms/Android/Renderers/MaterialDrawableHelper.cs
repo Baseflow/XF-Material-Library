@@ -98,39 +98,11 @@ namespace XF.Material.Droid.Renderers
 
         private void BindableButton_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            var prop = e?.PropertyName;
-
-            if (prop == null)
-            {
-                return;
-            }
-
-            if (_propertyChangeActions != null && _propertyChangeActions.TryGetValue(prop, out var handlePropertyChange))
-            {
+            var prop = e.PropertyName;
+            if (prop != null && _propertyChangeActions.TryGetValue(prop, out var handlePropertyChange))
                 handlePropertyChange();
-            }
         }
 
-        private GradientDrawable CreateShapeDrawable(float cornerRadius, int borderWidth, Color backgroundColor, Color borderColor)
-        {
-            GradientDrawable shapeDrawable;
-
-            if (_button.ButtonType != MaterialButtonType.Text)
-            {
-                shapeDrawable = _withIcon ? MaterialHelper.GetDrawableCopyFromResource<GradientDrawable>(Resource.Drawable.drawable_shape_with_icon)
-                                          : MaterialHelper.GetDrawableCopyFromResource<GradientDrawable>(Resource.Drawable.drawable_shape);
-            }
-            else
-            {
-                shapeDrawable = MaterialHelper.GetDrawableCopyFromResource<GradientDrawable>(Resource.Drawable.drawable_shape_text);
-            }
-
-            shapeDrawable.SetCornerRadius(cornerRadius);
-            shapeDrawable.SetColor(backgroundColor);
-            shapeDrawable.SetStroke(borderWidth, borderColor);
-
-            return shapeDrawable;
-        }
 
         private Drawable GetDrawable()
         {
@@ -146,15 +118,7 @@ namespace XF.Material.Droid.Renderers
                     SetStates(stateListDrawable, normalStateDrawable, normalStateDrawable, disabledStateDrawable);
                 }
 
-                rippleDrawable.SetColor(new ColorStateList(new[]
-                    {
-                    new int[]{}
-                },
-                new int[]
-                {
-                    _pressedColor
-                }));
-
+                rippleDrawable.SetColor(new ColorStateList(new[] {new int[]{}}, new int[] {_pressedColor}));
                 return rippleDrawable;
             }
             else
@@ -179,6 +143,28 @@ namespace XF.Material.Droid.Renderers
 
                 return backgroundDrawable;
             }
+        }
+        
+        
+        private GradientDrawable CreateShapeDrawable(float cornerRadius, int borderWidth, Color backgroundColor, Color borderColor)
+        {
+            GradientDrawable shapeDrawable;
+
+            if (_button.ButtonType != MaterialButtonType.Text)
+            {
+                shapeDrawable = _withIcon ? MaterialHelper.GetDrawableCopyFromResource<GradientDrawable>(Resource.Drawable.drawable_shape_with_icon)
+                    : MaterialHelper.GetDrawableCopyFromResource<GradientDrawable>(Resource.Drawable.drawable_shape);
+            }
+            else
+            {
+                shapeDrawable = MaterialHelper.GetDrawableCopyFromResource<GradientDrawable>(Resource.Drawable.drawable_shape_text);
+            }
+
+            shapeDrawable.SetCornerRadius(cornerRadius);
+            shapeDrawable.SetColor(backgroundColor);
+            shapeDrawable.SetStroke(borderWidth, borderColor);
+
+            return shapeDrawable;
         }
 
         private RippleDrawable GetRippleDrawable()

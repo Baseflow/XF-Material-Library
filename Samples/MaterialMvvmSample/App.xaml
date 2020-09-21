@@ -58,7 +58,7 @@
                                          OnSurface="#000000"
                                          Primary="#6200EE"
                                          PrimaryVariant="#6200EE"
-                                         Secondary="#00377b"
+                                         Secondary="#00407b"
                                          Surface="#FFFFFF" />
 
         <mtrl:MaterialConfiguration x:Key="Material.Style"
