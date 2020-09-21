@@ -30,7 +30,7 @@
                 x:Name="backgroundCard"
                 Grid.Row="0"
                 Grid.ColumnSpan="3"
-                BackgroundColor="{Binding CardBackgroudColor,Source={x:Reference ThisControl}}"
+                BackgroundColor="{Binding CardBackgroundColor,Source={x:Reference ThisControl}}"
                 CornerRadius="4,4,0,0" />
             <material:MaterialIcon
                 x:Name="leadingIcon"
