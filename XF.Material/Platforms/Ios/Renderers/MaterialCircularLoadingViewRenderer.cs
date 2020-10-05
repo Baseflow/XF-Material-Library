@@ -1,5 +1,6 @@
 ﻿using Airbnb.Lottie;
 using Lottie.Forms;
+using Lottie.Forms.Platforms.Ios;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
@@ -9,7 +10,7 @@ using XF.Material.iOS.Renderers;
 [assembly: ExportRenderer(typeof(MaterialCircularLoadingView), typeof(MaterialCircularLoadingViewRenderer))]
 namespace XF.Material.iOS.Renderers
 {
-    public class MaterialCircularLoadingViewRenderer : Lottie.Forms.iOS.Renderers.AnimationViewRenderer
+    public class MaterialCircularLoadingViewRenderer : AnimationViewRenderer
     {
         private MaterialCircularLoadingView _materialElement;
         private LOTColorValueCallback _valueCallback;
@@ -24,7 +25,7 @@ namespace XF.Material.iOS.Renderers
             }
 
             _materialElement = e?.NewElement as MaterialCircularLoadingView;
-            if (_materialElement != null && string.IsNullOrEmpty(_materialElement.Animation))
+            if (_materialElement != null && _materialElement.Animation == null)
             {
                 _materialElement.Animation = "loading_animation.json";
             }

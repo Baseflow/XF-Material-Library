@@ -1,7 +1,7 @@
 ﻿using Android.Graphics;
 using Com.Airbnb.Lottie;
 using Lottie.Forms;
-using Lottie.Forms.Droid;
+using Lottie.Forms.Platforms.Android;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using XF.Material.Droid.Renderers;

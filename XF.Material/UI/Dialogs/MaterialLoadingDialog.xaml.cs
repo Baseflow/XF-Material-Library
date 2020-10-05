@@ -54,7 +54,7 @@ namespace XF.Material.Forms.UI.Dialogs
         {
             base.OnAppearing();
 
-            LoadingImage.Play();
+            LoadingImage.PlayAnimation();
 
             ChangeLayout();
         }

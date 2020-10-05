@@ -1,5 +1,4 @@
-﻿using Lottie.Forms.UWP.Renderers;
-using Rg.Plugins.Popup;
+﻿using Rg.Plugins.Popup;
 
 namespace XF.Material.Uwp
 {
@@ -11,7 +10,6 @@ namespace XF.Material.Uwp
         public static void Init()
         {
             Popup.Init();
-            AnimationViewRenderer.Init();
         }
     }
 }

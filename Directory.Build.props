@@ -1,14 +1,14 @@
 ﻿<Project>
   <PropertyGroup>
-    <Copyright>Copyright (c) Martijn van Dijk</Copyright>
+    <Copyright>Copyright (c) Baseflow</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/Baseflow/XF-Material-Library</PackageProjectUrl>
     <PackageIconUrl>https://raw.githubusercontent.com/Baseflow/XF-Material-Library/develop/icon.png</PackageIconUrl>
     <!--<PackageIcon>icon.png</PackageIcon>
     <PackageIconFullPath>$(MSBuildThisFileDirectory)icon.png</PackageIconFullPath>-->
-    <Authors>Dustin Catap, Martijn van Dijk</Authors>
-    <Owners>Dustin Catap, Martijn van Dijk</Owners>
-    <PackageTags>xamarin, android, plugin, XF.Material, Material, Material Design, Xamarin.Forms, Forms</PackageTags>
+    <Authors>Dustin Catap, Martijn van Dijk, Baseflow</Authors>
+    <Owners>Dustin Catap, Martijn van Dijk, Baseflow</Owners>
+    <PackageTags>xamarin, android, plugin, XF.Material, Material, Material Design, Xamarin.Forms, Forms, Baseflow</PackageTags>
     <PackageReleaseNotes>https://github.com/Baseflow/XF-Material-Library/releases</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <NeutralLanguage>en-US</NeutralLanguage>
@@ -18,7 +18,7 @@
     <RepositoryUrl>https://github.com/Baseflow/XF-Material-Library</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <Product>$(AssemblyName) ($(TargetFramework))</Product>
-    <Version>1.7.3</Version>
+    <Version>1.7.5</Version>
     <Platform>AnyCPU</Platform>
 
     <!--<Nullable>enable</Nullable>-->
@@ -85,7 +85,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Roslynator.Analyzers" Version="2.3.0">
+    <PackageReference Include="Roslynator.Analyzers" Version="3.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -93,7 +93,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="IDisposableAnalyzers" Version="3.4.1">
+    <PackageReference Include="IDisposableAnalyzers" Version="3.4.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

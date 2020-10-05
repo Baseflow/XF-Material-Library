@@ -25,7 +25,7 @@ namespace XF.Material.Forms.UI
         public MaterialCircularLoadingView()
         {
             SetDynamicResource(TintColorProperty, MaterialConstants.Color.SECONDARY);
-            Loop = true;
+            RepeatMode = Lottie.Forms.RepeatMode.Infinite;
 
             HorizontalOptions = DefaultStretchBehavior;
             VerticalOptions = DefaultStretchBehavior;

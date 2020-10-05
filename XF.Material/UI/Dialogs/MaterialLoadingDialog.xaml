@@ -29,7 +29,7 @@
                 <material:MaterialCircularLoadingView x:Name="LoadingImage"
                                                       Grid.Column="0"
                                                       HeightRequest="56"
-                                                      Loop="True"
+                                                      RepeatMode="Infinite"
                                                       VerticalOptions="Center"
                                                       WidthRequest="56" />
                 <material:MaterialLabel x:Name="Message"
