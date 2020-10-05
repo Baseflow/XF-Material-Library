@@ -27,7 +27,7 @@ namespace XF.Material.iOS
 
         internal static void Elevate(this UIView view, double elevation)
         {
-            if(elevation > 0)
+            if (elevation > 0)
             {
                 view.Layer.MasksToBounds = false;
                 view.Layer.ShadowColor = UIColor.Black.CGColor;

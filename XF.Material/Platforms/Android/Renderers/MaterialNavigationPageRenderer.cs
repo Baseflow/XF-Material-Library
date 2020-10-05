@@ -127,7 +127,7 @@ namespace XF.Material.Droid.Renderers
         {
             var page = sender as Page;
 
-            if(page == null)
+            if (page == null)
             {
                 return;
             }

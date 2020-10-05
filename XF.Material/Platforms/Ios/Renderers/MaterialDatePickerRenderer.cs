@@ -1,10 +1,10 @@
-﻿using XF.Material.iOS.Renderers;
-using UIKit;
+﻿using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 using XF.Material.Forms.UI.Internals;
+using XF.Material.iOS.Renderers;
 
-[assembly:ExportRenderer(typeof(MaterialDatePicker), typeof(MaterialDatePickerRenderer))]
+[assembly: ExportRenderer(typeof(MaterialDatePicker), typeof(MaterialDatePickerRenderer))]
 
 namespace XF.Material.iOS.Renderers
 {

@@ -310,7 +310,7 @@ namespace XF.Material.iOS.Renderers
                     {
                         image = UIImage.FromFile(_materialButton.Image.File) ?? UIImage.FromBundle(_materialButton.Image.File);
                     }
-                    else if(!(_materialButton.ImageSource?.IsEmpty ?? true))
+                    else if (!(_materialButton.ImageSource?.IsEmpty ?? true))
                     {
                         IImageSourceHandler imageSourceHandler = _materialButton.ImageSource.GetImageSourceHandler();
                         image = await imageSourceHandler.LoadImageAsync(_materialButton.ImageSource);

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using Xamarin.Forms;
 using XF.Material.Forms.Resources.Typography;
 

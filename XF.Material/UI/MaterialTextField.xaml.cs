@@ -35,7 +35,7 @@ namespace XF.Material.Forms.UI
 
         private static void SelectedChoicePropertyChange(BindableObject bindable, object oldValue, object newValue)
         {
-            if(bindable is MaterialTextField control)
+            if (bindable is MaterialTextField control)
                 control.SetSelectedChoice(newValue);
         }
 
@@ -52,7 +52,7 @@ namespace XF.Material.Forms.UI
                 if (_selectedIndex != index)
                 {
                     _selectedIndex = index;
-                    Text = index>=0 ? _choicesResults[index] : null;
+                    Text = index >= 0 ? _choicesResults[index] : null;
                     AnimateToInactiveOrFocusedStateOnStart(this, false);
 
                     UpdateCounter();
@@ -929,7 +929,7 @@ namespace XF.Material.Forms.UI
             if (InputType == MaterialTextFieldInputType.Choice || InputType == MaterialTextFieldInputType.SingleImmediateChoice
                                                                || InputType == MaterialTextFieldInputType.CommandChoice)
             {
-                ((View) sender).Unfocus();
+                ((View)sender).Unfocus();
             }
             else
             {
@@ -1022,9 +1022,9 @@ namespace XF.Material.Forms.UI
                     var propInfo = listType.GetProperty(ChoicesBindingName);
 
                     if (propInfo != null)
-                    { 
+                    {
                         var propValue = propInfo.GetValue(item);
-                        choice =propValue?.ToString();
+                        choice = propValue?.ToString();
                     }
                 }
 
@@ -1068,7 +1068,7 @@ namespace XF.Material.Forms.UI
         {
             if (base.BackgroundColor != Color.Transparent)
             {
-                if(base.BackgroundColor != Color.Default)
+                if (base.BackgroundColor != Color.Default)
                     CardBackgroundColor = base.BackgroundColor;
                 base.BackgroundColor = Color.Transparent;
             }

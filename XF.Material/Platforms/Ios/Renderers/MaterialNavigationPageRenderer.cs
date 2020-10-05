@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
-using CoreGraphics;
 using ObjCRuntime;
 using UIKit;
 using Xamarin.Forms;
@@ -81,7 +80,7 @@ namespace XF.Material.iOS.Renderers
         {
             var page = sender as Page;
 
-            if(page == null)
+            if (page == null)
             {
                 return;
             }

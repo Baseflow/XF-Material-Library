@@ -15,7 +15,7 @@ namespace XF.Material.Forms.UI
 {
     internal class NullImageSourceToBoolConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) 
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
             => value != null && value is ImageSource imageSource && !imageSource.IsEmpty;
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -53,9 +53,9 @@ namespace XF.Material.Forms.UI
         public static readonly BindableProperty TextFontSizeProperty = BindableProperty.Create(nameof(TextFontSize), typeof(double), typeof(MaterialDateField), 16d);
         public static readonly BindableProperty DateProperty = BindableProperty.Create(nameof(Date), typeof(DateTime?), typeof(MaterialDateField), null, BindingMode.TwoWay);
         public static readonly BindableProperty TintColorProperty = BindableProperty.Create(nameof(TintColor), typeof(Color), typeof(MaterialDateField), Material.Color.Secondary);
-        public static readonly BindableProperty ClearIconProperty = BindableProperty.Create(nameof(ClearIcon), typeof(ImageSource), typeof(MaterialDateField), new FileImageSource { File = "xf_clear"});
-        public static readonly BindableProperty ErrorIconProperty = BindableProperty.Create(nameof(ErrorIcon), typeof(ImageSource), typeof(MaterialDateField), new FileImageSource { File = "xf_error"});
-        public static readonly BindableProperty DropDrownArrowIconProperty = BindableProperty.Create(nameof(DropDrownArrowIcon), typeof(ImageSource), typeof(MaterialDateField), new FileImageSource { File = "xf_arrow_dropdown"});
+        public static readonly BindableProperty ClearIconProperty = BindableProperty.Create(nameof(ClearIcon), typeof(ImageSource), typeof(MaterialDateField), new FileImageSource { File = "xf_clear" });
+        public static readonly BindableProperty ErrorIconProperty = BindableProperty.Create(nameof(ErrorIcon), typeof(ImageSource), typeof(MaterialDateField), new FileImageSource { File = "xf_error" });
+        public static readonly BindableProperty DropDrownArrowIconProperty = BindableProperty.Create(nameof(DropDrownArrowIcon), typeof(ImageSource), typeof(MaterialDateField), new FileImageSource { File = "xf_arrow_dropdown" });
         public static readonly BindableProperty UnderlineColorProperty = BindableProperty.Create(nameof(UnderlineColor), typeof(Color), typeof(MaterialDateField), Color.FromHex("#99000000"));
         public new static readonly BindableProperty BackgroundColorProperty = BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(MaterialDateField), Color.FromHex("#DCDCDC"));
 
@@ -63,7 +63,7 @@ namespace XF.Material.Forms.UI
         private readonly Dictionary<string, Action> _propertyChangeActions;
         private DisplayInfo _lastDeviceDisplay;
         const uint AnimDurationMs = 350; //250/2;
-        const double AnimDurationS = AnimDurationMs/1000.0;
+        const double AnimDurationS = AnimDurationMs / 1000.0;
         private bool? IsFloating = null;
 
         /// <summary>
@@ -410,14 +410,14 @@ namespace XF.Material.Forms.UI
         protected override void OnBindingContextChanged()
         {
             base.OnBindingContextChanged();
-            if(BindingContext != null)
+            if (BindingContext != null)
                 Device.BeginInvokeOnMainThread(() => UpdateState(false));
         }
 
         protected override void OnParentSet()
         {
             base.OnParentSet();
-            if(Parent != null)
+            if (Parent != null)
                 Device.BeginInvokeOnMainThread(() => UpdateState(false));
         }
 
@@ -453,7 +453,7 @@ namespace XF.Material.Forms.UI
             if (isFloating != IsFloating)
             {
                 IsFloating = isFloating;
-                
+
                 if (FloatingPlaceholderEnabled)
                 {
                     var normalPlaceholderFontSize = datePicker.FontSize;
@@ -481,7 +481,7 @@ namespace XF.Material.Forms.UI
 
             UnderlineSetState(anim);
 
-            if(animated)
+            if (animated)
                 anim.Commit(this, Guid.NewGuid().ToString(), rate: 2, length: AnimDurationMs, easing: _animationCurve);
             else
                 anim.Commit(this, Guid.NewGuid().ToString(), 1, 1);
@@ -535,7 +535,7 @@ namespace XF.Material.Forms.UI
                     OnPropertyChanged(nameof(SmallText));
                     helper.TranslationY = -4;
                     await Task.WhenAll(
-                        helper.FadeTo(1, AnimDurationMs, _animationCurve), 
+                        helper.FadeTo(1, AnimDurationMs, _animationCurve),
                         helper.TranslateTo(0, 0, AnimDurationMs, _animationCurve));
                 }
             }
@@ -545,7 +545,7 @@ namespace XF.Material.Forms.UI
         {
             var isFocused = datePicker.IsFocused;
             var hasValue = Date.HasValue;
-            
+
             var hasLine = hasValue || isFocused;
             var hasThickLine = isFocused;
 
@@ -557,7 +557,7 @@ namespace XF.Material.Forms.UI
                 {
                     underline.WidthRequest = -1;
                     underline.HorizontalOptions = LayoutOptions.FillAndExpand;
-                    if(hasThickLine)
+                    if (hasThickLine)
                         underline.HeightRequest = 2;
                 }
                 else
@@ -578,7 +578,7 @@ namespace XF.Material.Forms.UI
                     }));
                     anim.Add(0, AnimDurationS, new Animation(v => underline.HeightRequest = v, underline.HeightRequest, hasThickLine ? 2 : 1, _animationCurve));
                 }
-                else if(isLineVisible)
+                else if (isLineVisible)
                 {
                     anim.Add(0, AnimDurationS, new Animation(v => underline.WidthRequest = v, Width, 0, _animationCurve, () =>
                     {
@@ -595,11 +595,11 @@ namespace XF.Material.Forms.UI
             var isFocused = datePicker.IsFocused;
             var hasValue = Date.HasValue;
 
-            if(HasError)
+            if (HasError)
                 underline.Color = ErrorColor;
-            else if(isFocused || hasValue)
+            else if (isFocused || hasValue)
                 underline.Color = TintColor;
-            else if(AlwaysShowUnderline)
+            else if (AlwaysShowUnderline)
                 underline.Color = UnderlineColor;
             else
                 underline.Color = Color.Transparent;
@@ -630,40 +630,40 @@ namespace XF.Material.Forms.UI
 
         //private void Entry_SizeChanged(object sender, EventArgs e)
         //{
-            //var baseHeight = FloatingPlaceholderEnabled ? 56 : 40;
-            //var diff = datePicker.Height - 20;
-            //var rawRowHeight = baseHeight + diff;
-            //_autoSizingRow.Height = new GridLength(rawRowHeight);
+        //var baseHeight = FloatingPlaceholderEnabled ? 56 : 40;
+        //var diff = datePicker.Height - 20;
+        //var rawRowHeight = baseHeight + diff;
+        //_autoSizingRow.Height = new GridLength(rawRowHeight);
 
-            //var iconVerticalMargin = (_autoSizingRow.Height.Value - 24) / 2;
+        //var iconVerticalMargin = (_autoSizingRow.Height.Value - 24) / 2;
 
-            //if (leadingIcon.IsVisible)
-            //{
-            //    leadingIcon.Margin = new Thickness(HorizontalPadding.Left, iconVerticalMargin, 0, iconVerticalMargin);
-            //    datePicker.Margin = new Thickness(12, datePicker.Margin.Top, HorizontalPadding.Right, datePicker.Margin.Bottom);
-            //}
-            //else
-            //{
-            //    datePicker.Margin = new Thickness(HorizontalPadding.Left, datePicker.Margin.Top, HorizontalPadding.Right, datePicker.Margin.Bottom);
-            //}
+        //if (leadingIcon.IsVisible)
+        //{
+        //    leadingIcon.Margin = new Thickness(HorizontalPadding.Left, iconVerticalMargin, 0, iconVerticalMargin);
+        //    datePicker.Margin = new Thickness(12, datePicker.Margin.Top, HorizontalPadding.Right, datePicker.Margin.Bottom);
+        //}
+        //else
+        //{
+        //    datePicker.Margin = new Thickness(HorizontalPadding.Left, datePicker.Margin.Top, HorizontalPadding.Right, datePicker.Margin.Bottom);
+        //}
 
-            //if (trailingIcon.IsVisible)
-            //{
-            //    var entryPaddingLeft = leadingIcon.IsVisible ? 12 : HorizontalPadding;
-            //    trailingIcon.Margin = new Thickness(12, iconVerticalMargin, HorizontalPadding.Right, iconVerticalMargin);
-            //    datePicker.Margin = new Thickness(entryPaddingLeft.Left, datePicker.Margin.Top, 0, datePicker.Margin.Bottom);
-            //}
+        //if (trailingIcon.IsVisible)
+        //{
+        //    var entryPaddingLeft = leadingIcon.IsVisible ? 12 : HorizontalPadding;
+        //    trailingIcon.Margin = new Thickness(12, iconVerticalMargin, HorizontalPadding.Right, iconVerticalMargin);
+        //    datePicker.Margin = new Thickness(entryPaddingLeft.Left, datePicker.Margin.Top, 0, datePicker.Margin.Bottom);
+        //}
 
-            //helper.Margin = new Thickness(HorizontalPadding.Left, helper.Margin.Top, 12, 0);
-            //counter.Margin = new Thickness(0, counter.Margin.Top, HorizontalPadding.Right, 0);
+        //helper.Margin = new Thickness(HorizontalPadding.Left, helper.Margin.Top, 12, 0);
+        //counter.Margin = new Thickness(0, counter.Margin.Top, HorizontalPadding.Right, 0);
 
-            //var placeholderLeftMargin = FloatingPlaceholderEnabled ? HorizontalPadding.Left : datePicker.Margin.Left;
-            //placeholder.Margin = new Thickness(placeholderLeftMargin, 0, 0, 0);
+        //var placeholderLeftMargin = FloatingPlaceholderEnabled ? HorizontalPadding.Left : datePicker.Margin.Left;
+        //placeholder.Margin = new Thickness(placeholderLeftMargin, 0, 0, 0);
 
-            //if (HasError)
-            //{
-            //    underline.Color = ErrorColor;
-            //}
+        //if (HasError)
+        //{
+        //    underline.Color = ErrorColor;
+        //}
         //}
 
         private void DatePicker_DateChanged(object sender, NullableDateChangedEventArgs e)
@@ -689,14 +689,14 @@ namespace XF.Material.Forms.UI
             _autoSizingRow.Height = FloatingPlaceholderEnabled ? new GridLength(54) : GridLength.Auto;
             UpdateState(false);
 
-        //    double marginTopVariation = Device.RuntimePlatform == Device.iOS ? 18 : 20;
-        //    datePicker.Margin = isEnabled ? new Thickness(datePicker.Margin.Left, 24, datePicker.Margin.Right, 0) : new Thickness(datePicker.Margin.Left, marginTopVariation - 9, datePicker.Margin.Right, 0);
+            //    double marginTopVariation = Device.RuntimePlatform == Device.iOS ? 18 : 20;
+            //    datePicker.Margin = isEnabled ? new Thickness(datePicker.Margin.Left, 24, datePicker.Margin.Right, 0) : new Thickness(datePicker.Margin.Left, marginTopVariation - 9, datePicker.Margin.Right, 0);
 
-        //    var iconMargin = leadingIcon.Margin;
-        //    leadingIcon.Margin = isEnabled ? new Thickness(iconMargin.Left, 16, iconMargin.Right, 16) : new Thickness(iconMargin.Left, 8, iconMargin.Right, 8);
+            //    var iconMargin = leadingIcon.Margin;
+            //    leadingIcon.Margin = isEnabled ? new Thickness(iconMargin.Left, 16, iconMargin.Right, 16) : new Thickness(iconMargin.Left, 8, iconMargin.Right, 8);
 
-        //    var trailingIconMargin = trailingIcon.Margin;
-        //    trailingIcon.Margin = isEnabled ? new Thickness(trailingIconMargin.Left, 16, trailingIconMargin.Right, 16) : new Thickness(trailingIconMargin.Left, 8, trailingIconMargin.Right, 8);
+            //    var trailingIconMargin = trailingIcon.Margin;
+            //    trailingIcon.Margin = isEnabled ? new Thickness(trailingIconMargin.Left, 16, trailingIconMargin.Right, 16) : new Thickness(trailingIconMargin.Left, 8, trailingIconMargin.Right, 8);
         }
 
         private void OnHelperTextChanged()

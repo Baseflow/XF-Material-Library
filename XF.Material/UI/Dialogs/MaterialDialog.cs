@@ -107,7 +107,7 @@ namespace XF.Material.Forms.UI.Dialogs
             MaterialConfirmationDialogConfiguration configuration = null,
             bool closeOnSelection = false)
         {
-            return (int) await MaterialConfirmationDialog.ShowSelectChoiceAsync(title, choices, confirmingText, dismissiveText, configuration, closeOnSelection);
+            return (int)await MaterialConfirmationDialog.ShowSelectChoiceAsync(title, choices, confirmingText, dismissiveText, configuration, closeOnSelection);
         }
 
         public async Task<int> SelectChoiceAsync(

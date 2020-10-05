@@ -22,7 +22,7 @@ namespace XF.Material.Forms.Utilities
         /// <param name="field">The field containing the current property's value.</param>
         /// <param name="newValue">The new value to be assigned.</param>
         /// <param name="propertyName">The name of the property.</param>
-        protected void Set<T>(ref T field, T newValue = default(T), [CallerMemberName]string propertyName = null)
+        protected void Set<T>(ref T field, T newValue = default(T), [CallerMemberName] string propertyName = null)
         {
             if (!EqualityComparer<T>.Default.Equals(field, default(T)))
             {
@@ -45,7 +45,7 @@ namespace XF.Material.Forms.Utilities
         /// Method called to raise the <see cref="INotifyPropertyChanged.PropertyChanged" /> event if there was a change in any property.
         /// </summary>
         /// <param name="propertyName">The name of the property who's value has changed.</param>
-        protected virtual void OnPropertyChanged([CallerMemberName]string propertyName = null)
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

@@ -38,13 +38,13 @@ namespace XF.Material.iOS.Renderers
         {
             var control = Control;
             var element = _materialIcon;
-            if(control == null || element == null)
+            if (control == null || element == null)
                 return;
 
             if (element.TintColor.IsDefault)
                 control.TintColor = null;
             else
-                control.TintColor =  element.TintColor.ToUIColor();
+                control.TintColor = element.TintColor.ToUIColor();
         }
     }
 }

@@ -36,7 +36,7 @@ namespace XF.Material.Forms
             //Replace instance
             //new Material(Application.Current, GetResource<MaterialConfiguration>(key));
             var config = GetResource<MaterialConfiguration>(key);
-            if(config != null)
+            if (config != null)
                 Instance.MergeMaterialDictionaries(config, false);
         }
 
@@ -54,7 +54,7 @@ namespace XF.Material.Forms
         /// <exception cref="ArgumentNullException" />
         public static T GetResource<T>(string key)
         {
-            if(Instance._res == null)
+            if (Instance._res == null)
                 throw new Exception("You must call one of the Init() methods in App.xaml.cs before InitializeComponent()");
 
             if (Instance._res.TryGetValue(key ?? throw new ArgumentNullException(nameof(key)), out var value)
@@ -103,17 +103,17 @@ namespace XF.Material.Forms
         Lazy<MaterialColors> defaultColors = new Lazy<MaterialColors>(() => new MaterialColors(new MaterialColorConfiguration()));
         Lazy<MaterialTypography> defaultTypos = new Lazy<MaterialTypography>(() => new MaterialTypography(new MaterialFontConfiguration()));
         Lazy<MaterialSizes> defaultSizes = new Lazy<MaterialSizes>(() => new MaterialSizes());
-        
+
         private void MergeMaterialDictionaries(MaterialConfiguration config, bool addDefaults)
         {
-            if(config != null)
+            if (config != null)
             {
                 if (config.ColorConfiguration != null)
                 {
                     _res.MergedDictionaries.Remove(defaultColors.Value);
                     _res.MergedDictionaries.Add(new MaterialColors(config.ColorConfiguration));
                 }
-                else if(addDefaults &&!_res.MergedDictionaries.Contains((defaultColors.Value)))
+                else if (addDefaults && !_res.MergedDictionaries.Contains((defaultColors.Value)))
                     _res.MergedDictionaries.Add(defaultColors.Value);
 
                 if (config.FontConfiguration != null)
@@ -121,7 +121,7 @@ namespace XF.Material.Forms
                     _res.MergedDictionaries.Remove(defaultTypos.Value);
                     _res.MergedDictionaries.Add(new MaterialTypography(config.FontConfiguration));
                 }
-                else if(addDefaults &&!_res.MergedDictionaries.Contains((defaultTypos.Value)))
+                else if (addDefaults && !_res.MergedDictionaries.Contains((defaultTypos.Value)))
                     _res.MergedDictionaries.Add(defaultTypos.Value);
             }
 
@@ -129,13 +129,13 @@ namespace XF.Material.Forms
             {
                 if (config == null)
                 {
-                    if(!_res.MergedDictionaries.Contains((defaultColors.Value)))
+                    if (!_res.MergedDictionaries.Contains((defaultColors.Value)))
                         _res.MergedDictionaries.Add(defaultColors.Value);
-                    if(!_res.MergedDictionaries.Contains((defaultTypos.Value)))
+                    if (!_res.MergedDictionaries.Contains((defaultTypos.Value)))
                         _res.MergedDictionaries.Add(defaultTypos.Value);
                 }
 
-                if(!_res.MergedDictionaries.Contains((defaultSizes.Value)))
+                if (!_res.MergedDictionaries.Contains((defaultSizes.Value)))
                     _res.MergedDictionaries.Add(defaultSizes.Value);
             }
         }
@@ -219,7 +219,7 @@ namespace XF.Material.Forms
         /// <summary>
         /// Static class that contains the current Material font family values.
         /// </summary>
-        public static class  FontFamily
+        public static class FontFamily
         {
             /// <summary>
             /// Body 1 font family, used for long-form writing and small text sizes.
