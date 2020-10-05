@@ -25,7 +25,7 @@ namespace XF.Material.Forms.UI
     {
         public static readonly BindableProperty AlwaysShowUnderlineProperty = BindableProperty.Create(nameof(AlwaysShowUnderline), typeof(bool), typeof(MaterialTextField), false);
 
-        public static readonly BindableProperty CardBackgroundColorProperty = BindableProperty.Create(nameof(CardBackgroudColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#DCDCDC"));
+        public static readonly BindableProperty CardBackgroundColorProperty = BindableProperty.Create(nameof(CardBackgroundColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#DCDCDC"));
 
         public static readonly BindableProperty ChoiceSelectedCommandProperty = BindableProperty.Create(nameof(ChoiceSelectedCommand), typeof(ICommand), typeof(MaterialTextField));
 
@@ -192,7 +192,7 @@ namespace XF.Material.Forms.UI
         /// <summary>
         /// Gets or sets the background color of this text field.
         /// </summary>
-        public Color CardBackgroudColor
+        public Color CardBackgroundColor
         {
             get => (Color)GetValue(CardBackgroundColorProperty);
             set => SetValue(CardBackgroundColorProperty, value);
@@ -1069,7 +1069,7 @@ namespace XF.Material.Forms.UI
             if (base.BackgroundColor != Color.Transparent)
             {
                 if(base.BackgroundColor != Color.Default)
-                    CardBackgroudColor = base.BackgroundColor;
+                    CardBackgroundColor = base.BackgroundColor;
                 base.BackgroundColor = Color.Transparent;
             }
         }
