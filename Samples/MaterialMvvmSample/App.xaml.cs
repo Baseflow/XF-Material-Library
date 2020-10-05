@@ -10,10 +10,9 @@ namespace MaterialMvvmSample
     {
         public App(INavigationService navigationService)
         {
+            XF.Material.Forms.Material.Init(this);
             InitializeComponent();
-
-            XF.Material.Forms.Material.Init(this, "Material.Style");
-            XamSvg.Shared.Config.ResourceAssembly = typeof(App).Assembly;
+            XF.Material.Forms.Material.Use("Material.Style");
 
             navigationService.SetRootView(ViewNames.LandingView);
         }

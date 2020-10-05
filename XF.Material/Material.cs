@@ -12,27 +12,32 @@ namespace XF.Material.Forms
     public class Material
     {
         private static readonly Lazy<IMaterialUtility> MaterialUtilityInstance = new Lazy<IMaterialUtility>(() => DependencyService.Get<IMaterialUtility>());
-        private readonly MaterialConfiguration _config;
-        private static ResourceDictionary _res;
+        private static Material Instance;
 
-        internal Material(Application app, MaterialConfiguration materialResource) : this(app)
-        {
-            _config = materialResource;
-        }
+        private ResourceDictionary _res;
 
-        internal Material(Application app, string key) : this(app)
-        {
-            _config = GetResource<MaterialConfiguration>(key);
-        }
-
-        internal Material(Application app)
+        internal Material(Application app, MaterialConfiguration config = null)
         {
             _res = app.Resources;
-            _config = new MaterialConfiguration
-            {
-                ColorConfiguration = new MaterialColorConfiguration(),
-                FontConfiguration = new MaterialFontConfiguration()
-            };
+            Instance = this;
+            MergeMaterialDictionaries(config, config == null);
+        }
+
+        // internal Material(Application app, string key) : this(app)
+        // {
+        //     _res = app.Resources;
+        //     Instance = this;
+        //     var config = GetResource<MaterialConfiguration>(key);
+        //     MergeMaterialDictionaries(config, config == null);
+        // }
+
+        public static void Use(string key)
+        {
+            //Replace instance
+            //new Material(Application.Current, GetResource<MaterialConfiguration>(key));
+            var config = GetResource<MaterialConfiguration>(key);
+            if(config != null)
+                Instance.MergeMaterialDictionaries(config, false);
         }
 
         /// <summary>
@@ -49,17 +54,15 @@ namespace XF.Material.Forms
         /// <exception cref="ArgumentNullException" />
         public static T GetResource<T>(string key)
         {
-            _res.TryGetValue(key ?? throw new ArgumentNullException(nameof(key)), out var value);
+            if(Instance._res == null)
+                throw new Exception("You must call one of the Init() methods in App.xaml.cs before InitializeComponent()");
 
-            if (value is T resource)
-            {
+            if (Instance._res.TryGetValue(key ?? throw new ArgumentNullException(nameof(key)), out var value)
+                && value is T resource)
                 return resource;
-            }
 
             if (value != null)
-            {
                 throw new InvalidCastException($"The resource retrieved was not of the type {typeof(T)}. Use {value.GetType()} instead.");
-            }
 
             return default;
         }
@@ -72,21 +75,20 @@ namespace XF.Material.Forms
         /// <exception cref="ArgumentNullException" />
         public static void Init(Application app, MaterialConfiguration materialResource)
         {
-            var material = new Material(app ?? throw new ArgumentNullException(nameof(app)), materialResource ?? throw new ArgumentNullException(nameof(materialResource)));
-            material.MergeMaterialDictionaries();
+            new Material(app ?? throw new ArgumentNullException(nameof(app)), materialResource ?? throw new ArgumentNullException(nameof(materialResource)));
         }
 
-        /// <summary>
-        /// Configure's the current app's resources by merging pre-defined Material resources and creating new resources based on the <see cref="MaterialConfiguration"/>'s properties.
-        /// </summary>
-        /// <param name="app">The cross-platform mobile application that is running.</param>
-        /// <param name="key">The key of the <see cref="MaterialConfiguration"/> object in the current app's resource dictionary.</param>
-        /// <exception cref="ArgumentNullException" />
-        public static void Init(Application app, string key)
-        {
-            var material = new Material(app ?? throw new ArgumentNullException(nameof(app)), key ?? throw new ArgumentNullException(nameof(key)));
-            material.MergeMaterialDictionaries();
-        }
+        ///// <summary>
+        ///// Configure's the current app's resources by merging pre-defined Material resources and creating new resources based on the <see cref="MaterialConfiguration"/>'s properties.
+        ///// </summary>
+        ///// <param name="app">The cross-platform mobile application that is running.</param>
+        ///// <param name="key">The key of the <see cref="MaterialConfiguration"/> object in the current app's resource dictionary.</param>
+        ///// <exception cref="ArgumentNullException" />
+        //public static void Init(Application app, string key)
+        //{
+        //    var material = new Material(app ?? throw new ArgumentNullException(nameof(app)), key ?? throw new ArgumentNullException(nameof(key)));
+        //    material.MergeMaterialDictionaries();
+        //}
 
         /// <summary>
         /// Configure's the current app's resources by merging pre-defined Material resources.
@@ -95,15 +97,47 @@ namespace XF.Material.Forms
         /// <exception cref="ArgumentNullException" />
         public static void Init(Application app)
         {
-            var material = new Material(app ?? throw new ArgumentNullException(nameof(app)));
-            material.MergeMaterialDictionaries();
+            new Material(app ?? throw new ArgumentNullException(nameof(app)));
         }
 
-        private void MergeMaterialDictionaries()
+        Lazy<MaterialColors> defaultColors = new Lazy<MaterialColors>(() => new MaterialColors(new MaterialColorConfiguration()));
+        Lazy<MaterialTypography> defaultTypos = new Lazy<MaterialTypography>(() => new MaterialTypography(new MaterialFontConfiguration()));
+        Lazy<MaterialSizes> defaultSizes = new Lazy<MaterialSizes>(() => new MaterialSizes());
+        
+        private void MergeMaterialDictionaries(MaterialConfiguration config, bool addDefaults)
         {
-            _res.MergedDictionaries.Add(new MaterialColors(_config.ColorConfiguration ?? new MaterialColorConfiguration()));
-            _res.MergedDictionaries.Add(new MaterialTypography(_config.FontConfiguration ?? new MaterialFontConfiguration()));
-            _res.MergedDictionaries.Add(new MaterialSizes());
+            if(config != null)
+            {
+                if (config.ColorConfiguration != null)
+                {
+                    _res.MergedDictionaries.Remove(defaultColors.Value);
+                    _res.MergedDictionaries.Add(new MaterialColors(config.ColorConfiguration));
+                }
+                else if(addDefaults &&!_res.MergedDictionaries.Contains((defaultColors.Value)))
+                    _res.MergedDictionaries.Add(defaultColors.Value);
+
+                if (config.FontConfiguration != null)
+                {
+                    _res.MergedDictionaries.Remove(defaultTypos.Value);
+                    _res.MergedDictionaries.Add(new MaterialTypography(config.FontConfiguration));
+                }
+                else if(addDefaults &&!_res.MergedDictionaries.Contains((defaultTypos.Value)))
+                    _res.MergedDictionaries.Add(defaultTypos.Value);
+            }
+
+            if (addDefaults)
+            {
+                if (config == null)
+                {
+                    if(!_res.MergedDictionaries.Contains((defaultColors.Value)))
+                        _res.MergedDictionaries.Add(defaultColors.Value);
+                    if(!_res.MergedDictionaries.Contains((defaultTypos.Value)))
+                        _res.MergedDictionaries.Add(defaultTypos.Value);
+                }
+
+                if(!_res.MergedDictionaries.Contains((defaultSizes.Value)))
+                    _res.MergedDictionaries.Add(defaultSizes.Value);
+            }
         }
 
         /// <summary>
@@ -185,7 +219,7 @@ namespace XF.Material.Forms
         /// <summary>
         /// Static class that contains the current Material font family values.
         /// </summary>
-        public static class FontFamily
+        public static class  FontFamily
         {
             /// <summary>
             /// Body 1 font family, used for long-form writing and small text sizes.
