@@ -283,7 +283,7 @@ namespace XF.Material.Droid.Renderers
                 return;
             }
 
-            _aView.StateListAnimator = CreateStateListAnimator();
+            _aView.StateListAnimator ??= CreateStateListAnimator();
         }
 
         private StateListAnimator CreateStateListAnimator()
