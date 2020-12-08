@@ -69,7 +69,7 @@ namespace XF.Material.Droid
             IsJellyBean = Build.VERSION.SdkInt < BuildVersionCodes.Kitkat;
 
             AppCompatDelegate.CompatVectorFromResourcesEnabled = true;
-            Popup.Init(context, bundle);
+            Popup.Init(context);
         }
     }
 }

@@ -14,11 +14,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="6.0.0" />
+    <PackageReference Include="Autofac" Version="6.1.0" />
     <PackageReference Include="Autofac.Extras.CommonServiceLocator" Version="6.0.1" />
     <PackageReference Include="Vapolia.Xamarin.Svg.Forms" Version="3.3.0" />
     <PackageReference Include="Xamarin.Forms" Version="4.5.0.657" />
-    <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.7" />
+    <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.8" />
   </ItemGroup>
 
   <ItemGroup>
