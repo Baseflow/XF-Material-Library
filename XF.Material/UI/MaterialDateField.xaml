@@ -62,7 +62,9 @@
                                          TextColor="{Binding TextColor,Source={x:Reference ThisControl}}"
                                          VerticalOptions="Start"
                                          TintColor="{Binding TintColor,Source={x:Reference ThisControl}}"
-                                         BackgroundColor="Transparent" />
+                                         BackgroundColor="Transparent"
+                                         Format="{Binding Format}"
+                                         />
 
             <!-- persistentUnderline -->
             <BoxView
