@@ -221,4 +221,9 @@
   <ItemGroup>
     <BundleResource Include="Resources\xf_checkbox_selected%403x.png" />
   </ItemGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties TriggeredFromHotReload="False" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

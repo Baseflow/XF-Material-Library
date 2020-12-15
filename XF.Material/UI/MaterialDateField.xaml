@@ -63,7 +63,7 @@
                                          VerticalOptions="Start"
                                          TintColor="{Binding TintColor,Source={x:Reference ThisControl}}"
                                          BackgroundColor="Transparent"
-                                         Format="{Binding Format}"
+                                         Format="{Binding Format,Source={x:Reference ThisControl}}"
                                          />
 
             <!-- persistentUnderline -->

@@ -58,7 +58,7 @@ namespace XF.Material.Forms.UI
         public static readonly BindableProperty DropDrownArrowIconProperty = BindableProperty.Create(nameof(DropDrownArrowIcon), typeof(ImageSource), typeof(MaterialDateField), new FileImageSource { File = "xf_arrow_dropdown" });
         public static readonly BindableProperty UnderlineColorProperty = BindableProperty.Create(nameof(UnderlineColor), typeof(Color), typeof(MaterialDateField), Color.FromHex("#99000000"));
         public new static readonly BindableProperty BackgroundColorProperty = BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(MaterialDateField), Color.FromHex("#DCDCDC"));
-        public static readonly BindableProperty FormatProperty = BindableProperty.Create(nameof(Format), typeof(string), typeof(MaterialDateField));
+        public static readonly BindableProperty FormatProperty = BindableProperty.Create(nameof(Format), typeof(string), typeof(MaterialDateField), "d");
 
         private readonly Easing _animationCurve = Easing.SinOut;
         private readonly Dictionary<string, Action> _propertyChangeActions;
