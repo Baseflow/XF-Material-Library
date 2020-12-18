@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -28,6 +28,8 @@ namespace XF.Material.Forms.UI
         public static readonly BindableProperty CardBackgroundColorProperty = BindableProperty.Create(nameof(CardBackgroundColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#DCDCDC"));
 
         public static readonly BindableProperty ChoiceSelectedCommandProperty = BindableProperty.Create(nameof(ChoiceSelectedCommand), typeof(ICommand), typeof(MaterialTextField));
+
+        public static readonly BindableProperty ChoiceSelectedCommandParameterProperty = BindableProperty.Create(nameof(ChoiceSelectedCommandParameter), typeof(object), typeof(MaterialTextField));
 
         public static readonly BindableProperty ChoicesProperty = BindableProperty.Create(nameof(Choices), typeof(IList), typeof(MaterialTextField));
 
@@ -461,6 +463,15 @@ namespace XF.Material.Forms.UI
         {
             get => GetValue(ReturnCommandParameterProperty);
             set => SetValue(ReturnCommandParameterProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the parameter of <see cref="ChoiceSelectedCommand"/>.
+        /// </summary>
+        public object ChoiceSelectedCommandParameter
+        {
+            get => GetValue(ChoiceSelectedCommandParameterProperty);
+            set => SetValue(ChoiceSelectedCommandParameterProperty, value);
         }
 
         /// <summary>
@@ -1290,8 +1301,8 @@ namespace XF.Material.Forms.UI
         {
             if (InputType == MaterialTextFieldInputType.CommandChoice)
             {
-                ChoiceSelected?.Invoke(this, new SelectedItemChangedEventArgs(null, -1));
-                ChoiceSelectedCommand?.Execute(null);
+                ChoiceSelected?.Invoke(this, new SelectedItemChangedEventArgs(ChoiceSelectedCommandParameter, -1));
+                ChoiceSelectedCommand?.Execute(ChoiceSelectedCommandParameter);
                 return;
             }
 
