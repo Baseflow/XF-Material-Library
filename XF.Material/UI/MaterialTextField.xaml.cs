@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -28,6 +28,12 @@ namespace XF.Material.Forms.UI
         public static readonly BindableProperty CardBackgroundColorProperty = BindableProperty.Create(nameof(CardBackgroundColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#DCDCDC"));
 
         public static readonly BindableProperty ChoiceSelectedCommandProperty = BindableProperty.Create(nameof(ChoiceSelectedCommand), typeof(ICommand), typeof(MaterialTextField));
+
+        public static readonly BindableProperty ChoiceSelectedCommandParameterProperty = BindableProperty.Create(nameof(ChoiceSelectedCommandParameter), typeof(object), typeof(MaterialTextField));
+
+        public static readonly BindableProperty TrailingIconCommandProperty = BindableProperty.Create(nameof(TrailingIconCommand), typeof(ICommand), typeof(MaterialTextField));
+
+        public static readonly BindableProperty TrailingIconCommandParameterProperty = BindableProperty.Create(nameof(TrailingIconCommandParameter), typeof(object), typeof(MaterialTextField));
 
         public static readonly BindableProperty ChoicesProperty = BindableProperty.Create(nameof(Choices), typeof(IList), typeof(MaterialTextField));
 
@@ -102,8 +108,10 @@ namespace XF.Material.Forms.UI
 
         public static readonly BindableProperty LeadingIconTintColorProperty = BindableProperty.Create(nameof(LeadingIconTintColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#99000000"));
 
-        public static readonly BindableProperty ErrorIconProperty = BindableProperty.Create(nameof(ErrorIcon), typeof(string), typeof(MaterialTextField), "xf_error");
+        public static readonly BindableProperty ErrorIconProperty = BindableProperty.Create(nameof(ErrorIcon), typeof(ImageSource), typeof(MaterialDateField), new FileImageSource { File = "xf_error" });
 
+        public static readonly BindableProperty TrailingIconProperty = BindableProperty.Create(nameof(TrailingIcon), typeof(ImageSource), typeof(MaterialDateField), null);
+        
         public static readonly BindableProperty MaxLengthProperty = BindableProperty.Create(nameof(MaxLength), typeof(int), typeof(MaterialTextField), 0);
 
         public static readonly BindableProperty PlaceholderColorProperty = BindableProperty.Create(nameof(PlaceholderColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#99000000"));
@@ -159,6 +167,7 @@ namespace XF.Material.Forms.UI
         }
 
         public event EventHandler<SelectedItemChangedEventArgs> ChoiceSelected;
+        public event EventHandler<EventArgs> TrailingIconSelected;
 
         /// <summary>
         /// Raised when this text field receives focus.
@@ -226,6 +235,15 @@ namespace XF.Material.Forms.UI
         {
             get => (ICommand)GetValue(ChoiceSelectedCommandProperty);
             set => SetValue(ChoiceSelectedCommandProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the command for TrailingIcon />.
+        /// </summary>
+        public ICommand TrailingIconCommand
+        {
+            get => (ICommand)GetValue(TrailingIconCommandProperty);
+            set => SetValue(TrailingIconCommandProperty, value);
         }
 
         /// <summary>
@@ -403,10 +421,21 @@ namespace XF.Material.Forms.UI
         /// <summary>
         /// Gets or sets the image source of the icon to be showed at the left side of this text field.
         /// </summary>
-        public string ErrorIcon
+        [Xamarin.Forms.TypeConverter(typeof(ImageSourceConverter))]
+        public ImageSource ErrorIcon
         {
-            get => (string)GetValue(ErrorIconProperty);
+            get => (ImageSource)GetValue(ErrorIconProperty);
             set => SetValue(ErrorIconProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the image source of the icon to be showed at the left side of this text field.
+        /// </summary>
+        [Xamarin.Forms.TypeConverter(typeof(ImageSourceConverter))]
+        public ImageSource TrailingIcon
+        {
+            get => (ImageSource)GetValue(TrailingIconProperty);
+            set => SetValue(TrailingIconProperty, value);
         }
 
         /// <summary>
@@ -461,6 +490,24 @@ namespace XF.Material.Forms.UI
         {
             get => GetValue(ReturnCommandParameterProperty);
             set => SetValue(ReturnCommandParameterProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the parameter of <see cref="ChoiceSelectedCommand"/>.
+        /// </summary>
+        public object ChoiceSelectedCommandParameter
+        {
+            get => GetValue(ChoiceSelectedCommandParameterProperty);
+            set => SetValue(ChoiceSelectedCommandParameterProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the parameter of <see cref="ChoiceSelectedCommand"/>.
+        /// </summary>
+        public object TrailingIconCommandParameter
+        {
+            get => GetValue(TrailingIconCommandParameterProperty);
+            set => SetValue(TrailingIconCommandParameterProperty, value);
         }
 
         /// <summary>
@@ -867,6 +914,7 @@ namespace XF.Material.Forms.UI
             Device.BeginInvokeOnMainThread(async () =>
             {
                 SetTrailingIcon();
+                
 
                 var accentColor = TintColor;
                 placeholder.TextColor = accentColor;
@@ -892,19 +940,30 @@ namespace XF.Material.Forms.UI
 
         private void SetTrailingIcon()
         {
-            if (InputType == MaterialTextFieldInputType.Choice || InputType == MaterialTextFieldInputType.SingleImmediateChoice)
+
+            if (TrailingIcon == null)
             {
-                trailingIcon.Source = "xf_arrow_dropdown";
-                trailingIcon.TintColor = TextColor;
-            }
-            if (InputType == MaterialTextFieldInputType.CommandChoice)
-            {
-                trailingIcon.Source = "xf_arrow_right";
-                trailingIcon.TintColor = TextColor;
+
+                if (InputType == MaterialTextFieldInputType.Choice || InputType == MaterialTextFieldInputType.SingleImmediateChoice)
+                {
+                    trailingIcon.Source = "xf_arrow_dropdown";
+                    trailingIcon.TintColor = TextColor;
+                }
+                if (InputType == MaterialTextFieldInputType.CommandChoice)
+                {
+                    trailingIcon.Source = "xf_arrow_right";
+                    trailingIcon.TintColor = TextColor;
+                }
+                else
+                {
+                    trailingIcon.IsVisible = false;
+                }
             }
             else
             {
-                trailingIcon.IsVisible = false;
+                trailingIcon.Source = TrailingIcon;
+                trailingIcon.TintColor = TextColor;
+                trailingIcon.IsVisible = true;
             }
         }
 
@@ -1063,6 +1122,13 @@ namespace XF.Material.Forms.UI
             persistentUnderline.IsVisible = isShown;
             persistentUnderline.Color = UnderlineColor;
         }
+
+        private void OnTrailingIconSelected(object sender, EventArgs e)
+        {
+            TrailingIconSelected?.Invoke(this, e);
+            TrailingIconCommand?.Execute(TrailingIconCommandParameter);
+        }
+
 
         private void OnBackgroundColorChanged()
         {
@@ -1228,11 +1294,17 @@ namespace XF.Material.Forms.UI
                     break;
             }
 
+
+
             // Hint: Will use this for MaterialTextArea
             // entry.AutoSize = inputType == MaterialTextFieldInputType.MultiLine ? EditorAutoSizeOption.TextChanges : EditorAutoSizeOption.Disabled;
             var isChoice = InputType == MaterialTextFieldInputType.Choice || InputType == MaterialTextFieldInputType.SingleImmediateChoice || InputType == MaterialTextFieldInputType.CommandChoice;
-            _gridContainer.InputTransparent = isChoice;
-            trailingIcon.IsVisible = isChoice;
+
+            if (isChoice)
+            {
+                _gridContainer.InputTransparent = isChoice;
+                trailingIcon.IsVisible = isChoice;
+            }
 
             entry.IsNumericKeyboard = InputType == MaterialTextFieldInputType.Telephone || InputType == MaterialTextFieldInputType.Numeric;
             entry.IsPassword = InputType == MaterialTextFieldInputType.Password || InputType == MaterialTextFieldInputType.NumericPassword;
@@ -1290,8 +1362,8 @@ namespace XF.Material.Forms.UI
         {
             if (InputType == MaterialTextFieldInputType.CommandChoice)
             {
-                ChoiceSelected?.Invoke(this, new SelectedItemChangedEventArgs(null, -1));
-                ChoiceSelectedCommand?.Execute(null);
+                ChoiceSelected?.Invoke(this, new SelectedItemChangedEventArgs(ChoiceSelectedCommandParameter, -1));
+                ChoiceSelectedCommand?.Execute(ChoiceSelectedCommandParameter);
                 return;
             }
 
