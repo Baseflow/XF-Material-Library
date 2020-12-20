@@ -107,6 +107,8 @@ namespace XF.Material.Forms.UI
         public static readonly BindableProperty LeadingIconProperty = BindableProperty.Create(nameof(LeadingIcon), typeof(ImageSource), typeof(MaterialTextField));
 
         public static readonly BindableProperty LeadingIconTintColorProperty = BindableProperty.Create(nameof(LeadingIconTintColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#99000000"));
+        
+        public static readonly BindableProperty TrailingIconTintColorProperty = BindableProperty.Create(nameof(TrailingIconTintColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#99000000"));
 
         public static readonly BindableProperty ErrorIconProperty = BindableProperty.Create(nameof(ErrorIcon), typeof(ImageSource), typeof(MaterialDateField), new FileImageSource { File = "xf_error" });
 
@@ -436,6 +438,16 @@ namespace XF.Material.Forms.UI
         {
             get => (ImageSource)GetValue(TrailingIconProperty);
             set => SetValue(TrailingIconProperty, value);
+        }
+
+
+        /// <summary>
+        /// Gets or sets the tint color of the trailing icon of this text field.
+        /// </summary>
+        public Color TrailingIconTintColor
+        {
+            get => (Color)GetValue(TrailingIconTintColorProperty);
+            set => SetValue(TrailingIconTintColorProperty, value);
         }
 
         /// <summary>
@@ -947,12 +959,12 @@ namespace XF.Material.Forms.UI
                 if (InputType == MaterialTextFieldInputType.Choice || InputType == MaterialTextFieldInputType.SingleImmediateChoice)
                 {
                     trailingIcon.Source = "xf_arrow_dropdown";
-                    trailingIcon.TintColor = TextColor;
+                    trailingIcon.TintColor = TrailingIconTintColor;
                 }
                 if (InputType == MaterialTextFieldInputType.CommandChoice)
                 {
                     trailingIcon.Source = "xf_arrow_right";
-                    trailingIcon.TintColor = TextColor;
+                    trailingIcon.TintColor = TrailingIconTintColor;
                 }
                 else
                 {
@@ -962,7 +974,7 @@ namespace XF.Material.Forms.UI
             else
             {
                 trailingIcon.Source = TrailingIcon;
-                trailingIcon.TintColor = TextColor;
+                trailingIcon.TintColor = TrailingIconTintColor;
                 trailingIcon.IsVisible = true;
             }
         }
@@ -1321,6 +1333,17 @@ namespace XF.Material.Forms.UI
             leadingIcon.TintColor = tintColor;
         }
 
+        private void OnTrailingIconChanged(ImageSource imageSource)
+        {
+            trailingIcon.Source = imageSource;
+            OnTrailingIconTintColorChanged(TrailingIconTintColor);
+        }
+
+        private void OnTrailingIconTintColorChanged(Color tintColor)
+        {
+            trailingIcon.TintColor = tintColor;
+        }
+
         private void OnMaxLengthChanged(int maxLength, bool isMaxLengthCounterVisible)
         {
             _counterEnabled = maxLength > 0 && isMaxLengthCounterVisible;
@@ -1502,6 +1525,8 @@ namespace XF.Material.Forms.UI
                 { nameof(Choices), () => OnChoicesChanged(Choices) },
                 { nameof(LeadingIcon), () => OnLeadingIconChanged(LeadingIcon) },
                 { nameof(LeadingIconTintColor), () => OnLeadingIconTintColorChanged(LeadingIconTintColor) },
+                { nameof(TrailingIcon), () => OnTrailingIconChanged(TrailingIcon) },
+                { nameof(TrailingIconTintColor), () => OnTrailingIconTintColorChanged(TrailingIconTintColor) },
                 { nameof(InputType), () => OnInputTypeChanged() },
                 { nameof(IsSpellCheckEnabled), () => OnInputTypeChanged() },
                 { nameof(IsTextPredictionEnabled), () => OnInputTypeChanged() },
