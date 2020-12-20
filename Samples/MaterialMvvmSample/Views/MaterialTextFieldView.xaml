@@ -1,58 +1,86 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <ContentPage
+    x:Class="MaterialMvvmSample.Views.MaterialTextFieldView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
     xmlns:viewModels="clr-namespace:MaterialMvvmSample.ViewModels;assembly=MaterialMvvmSample"
     xmlns:xamForms="clr-namespace:XamSvg.XamForms;assembly=XamSvg.XamForms"
-    x:Class="MaterialMvvmSample.Views.MaterialTextFieldView"
     x:DataType="viewModels:MaterialTextFieldViewModel">
-    
+
     <ScrollView>
-        <StackLayout Orientation="Vertical"
-                     Padding="20">
-            <material:MaterialTextField Placeholder="Auto Capitalization"
-                                        IsAutoCapitalizationEnabled="True" />
+        <StackLayout Padding="20" Orientation="Vertical">
+            <material:MaterialTextField IsAutoCapitalizationEnabled="True" Placeholder="Auto Capitalization" />
 
-            <material:MaterialTextField Placeholder="ALL CAPS"
-                                        IsTextAllCaps="True" />
+            <material:MaterialTextField IsTextAllCaps="True" Placeholder="ALL CAPS" />
 
-            <material:MaterialTextField Placeholder="Auto Capitalization AND ALL CAPS"
-                                        IsTextAllCaps="True"
-                                        IsAutoCapitalizationEnabled="true" />
+            <material:MaterialTextField
+                IsAutoCapitalizationEnabled="true"
+                IsTextAllCaps="True"
+                Placeholder="Auto Capitalization AND ALL CAPS" />
 
             <StackLayout Orientation="Horizontal">
-                <material:MaterialTextField Placeholder="With Icon"
-                                            LeadingIcon="icon_plus"
-                                            Style="{StaticResource GreenField}"
-                                            HorizontalOptions="FillAndExpand" />
-                <material:MaterialButton Text="OK" HorizontalOptions="Start" />
+                <material:MaterialTextField
+                    HorizontalOptions="FillAndExpand"
+                    LeadingIcon="icon_plus"
+                    Placeholder="With Icon"
+                    Style="{StaticResource GreenField}" />
+                <material:MaterialButton HorizontalOptions="Start" Text="OK" />
             </StackLayout>
 
-            <material:MaterialTextField Placeholder="Choices"
-                                        InputType="Choice"
-                                        Choices="{Binding Choices}" />
-            <material:MaterialTextField Placeholder="Quick single choice"
-                                        InputType="SingleImmediateChoice"
-                                        Choices="{Binding Choices}"/>
-            <material:MaterialTextField Placeholder="Custom command choice"
-                                        Text="Jean Dupond"
-                                        InputType="CommandChoice"
-                                        ChoiceSelectedCommand="{Binding OpenCustomChoiceCommand}" />
+            <material:MaterialTextField
+                Choices="{Binding Choices}"
+                InputType="Choice"
+                Placeholder="Choices" />
+            <material:MaterialTextField
+                Choices="{Binding Choices}"
+                InputType="SingleImmediateChoice"
+                Placeholder="Quick single choice" />
+            <material:MaterialTextField
+                ChoiceSelectedCommand="{Binding OpenCustomChoiceCommand}"
+                ChoiceSelectedCommandParameter="choice-selected-command-parameter"
+                InputType="CommandChoice"
+                Placeholder="Custom command choice"
+                Text="Jean Dupond" />
             <material:MaterialDateField Placeholder="Date" />
-            <material:MaterialDateField Placeholder="Date, bottom tip, leading and trailing icons"
-                                        HelperText="Your birthday"
-                                        Date="2020/08/28">
+            <material:MaterialDateField
+                Date="2020/08/28"
+                HelperText="Your birthday"
+                Placeholder="Date, bottom tip, leading and trailing icons">
                 <material:MaterialDateField.LeadingIcon>
-                    <xamForms:SvgImageSource Svg="res:images.slideshow-black-18dp" Height="200" />
+                    <xamForms:SvgImageSource Height="200" Svg="res:images.slideshow-black-18dp" />
                 </material:MaterialDateField.LeadingIcon>
                 <material:MaterialDateField.DropDrownArrowIcon>
-                    <xamForms:SvgImageSource Svg="res:images.slideshow-black-18dp" Height="200" />
+                    <xamForms:SvgImageSource Height="200" Svg="res:images.slideshow-black-18dp" />
                 </material:MaterialDateField.DropDrownArrowIcon>
             </material:MaterialDateField>
-            <material:MaterialDateField Placeholder="Error"
-                                        ErrorText="some error"
-                                        HasError="True" />
+            <material:MaterialDateField
+                ErrorText="some error"
+                HasError="True"
+                Placeholder="Error" />
+
+            <material:MaterialTextField
+                Placeholder="Trailing Icon Command"
+                TrailingIconCommand="{Binding OpenCustomChoiceCommand}"
+                TrailingIconCommandParameter="traling-icon-command-parameter">
+                <material:MaterialTextField.TrailingIcon>
+                    <xamForms:SvgImageSource Height="200" Svg="res:images.remove_red_eye-black-18dp" />
+                </material:MaterialTextField.TrailingIcon>
+
+            </material:MaterialTextField>
+
+            <material:MaterialTextField
+                ErrorText="Error Test"
+                HasError="False"
+                InputType="Password"
+                Placeholder="Trailing Icon Selected"
+                Text="password"
+                TrailingIconSelected="MaterialTextField_TrailingIconSelected">
+                <material:MaterialTextField.TrailingIcon>
+                    <xamForms:SvgImageSource Height="200" Svg="res:images.remove_red_eye-black-18dp" />
+                </material:MaterialTextField.TrailingIcon>
+
+            </material:MaterialTextField>
 
         </StackLayout>
     </ScrollView>
