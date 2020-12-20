@@ -75,7 +75,8 @@
                 InputType="Password"
                 Placeholder="Trailing Icon Selected"
                 Text="password"
-                TrailingIconSelected="MaterialTextField_TrailingIconSelected">
+                TrailingIconSelected="MaterialTextField_TrailingIconSelected"
+                TrailingIconTintColor="Blue">
                 <material:MaterialTextField.TrailingIcon>
                     <xamForms:SvgImageSource Height="200" Svg="res:images.remove_red_eye-black-18dp" />
                 </material:MaterialTextField.TrailingIcon>
