@@ -110,8 +110,6 @@
             Margin="0,16,12,16"
             HeightRequest="24"
             IsVisible="False"
-            Source="{Binding TrailingIcon, Source={x:Reference ThisControl}}"
-            TintColor="{Binding TintColor, Source={x:Reference ThisControl}}"
             VerticalOptions="Start"
             WidthRequest="24">
             <material:MaterialIcon.GestureRecognizers>
