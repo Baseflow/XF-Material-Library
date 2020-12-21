@@ -53,7 +53,6 @@
             Margin="12,0,12,0"
             FontSize="{Binding Source={x:Reference entry}, Path=FontSize}"
             InputTransparent="True"
-            Text=""
             TextColor="#99000000"
             TypeScale="Body2"
             VerticalOptions="Center"
@@ -145,6 +144,7 @@
             Grid.Column="2"
             Margin="0,4,12,0"
             HorizontalOptions="End"
+            IsVisible="False"
             TextColor="#99000000"
             TypeScale="Caption">
             <Label.Triggers>
