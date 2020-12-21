@@ -837,6 +837,7 @@ namespace XF.Material.Forms.UI
 
                     if (FloatingPlaceholderEnabled)
                     {
+                        placeholder.FontSize = placeholderEndFont;
                         placeholder.TranslationY = placeholderEndY;
                         placeholder.TextColor = HasError ? ErrorColor : FloatingPlaceholderColor;
                         entry.Opacity = 1;
@@ -1557,6 +1558,7 @@ namespace XF.Material.Forms.UI
                 return;
             }
 
+            counter.IsVisible = true;
             var count = entry.Text?.Length ?? 0;
             counter.Text = entry.IsFocused ? $"{count}/{MaxLength}" : string.Empty;
         }
