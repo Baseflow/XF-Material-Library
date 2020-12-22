@@ -20,6 +20,13 @@ namespace XF.Material.iOS.Renderers
             {
                 Control.Layer.BorderWidth = 0;
                 Control.BorderStyle = UITextBorderStyle.None;
+
+                if (UIDevice.CurrentDevice.CheckSystemVersion(14, 0))
+                {
+                    var picker = Control?.InputView as UIDatePicker;
+                    if (picker != null)
+                        picker.PreferredDatePickerStyle = UIDatePickerStyle.Wheels;
+                }
             }
         }
 

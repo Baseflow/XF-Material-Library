@@ -42,7 +42,8 @@
             <material:MaterialDateField Placeholder="Date" />
             <material:MaterialDateField Placeholder="Date, bottom tip, leading and trailing icons"
                                         HelperText="Your birthday"
-                                        Date="2020/08/28">
+                                        Date="2020/08/28"
+                                        Format="yyyy/MM/dd">
                 <material:MaterialDateField.LeadingIcon>
                     <xamForms:SvgImageSource Svg="res:images.slideshow-black-18dp" Height="200" />
                 </material:MaterialDateField.LeadingIcon>
