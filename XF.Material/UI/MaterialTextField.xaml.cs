@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -107,13 +107,13 @@ namespace XF.Material.Forms.UI
         public static readonly BindableProperty LeadingIconProperty = BindableProperty.Create(nameof(LeadingIcon), typeof(ImageSource), typeof(MaterialTextField));
 
         public static readonly BindableProperty LeadingIconTintColorProperty = BindableProperty.Create(nameof(LeadingIconTintColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#99000000"));
-        
+
         public static readonly BindableProperty TrailingIconTintColorProperty = BindableProperty.Create(nameof(TrailingIconTintColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#99000000"));
 
         public static readonly BindableProperty ErrorIconProperty = BindableProperty.Create(nameof(ErrorIcon), typeof(ImageSource), typeof(MaterialDateField), new FileImageSource { File = "xf_error" });
 
         public static readonly BindableProperty TrailingIconProperty = BindableProperty.Create(nameof(TrailingIcon), typeof(ImageSource), typeof(MaterialDateField), null);
-        
+
         public static readonly BindableProperty MaxLengthProperty = BindableProperty.Create(nameof(MaxLength), typeof(int), typeof(MaterialTextField), 0);
 
         public static readonly BindableProperty PlaceholderColorProperty = BindableProperty.Create(nameof(PlaceholderColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#99000000"));
@@ -145,6 +145,10 @@ namespace XF.Material.Forms.UI
         public static readonly BindableProperty UnderlineColorProperty = BindableProperty.Create(nameof(UnderlineColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#99000000"));
 
         public static readonly BindableProperty PlaceholderLineBreakModeProperty = BindableProperty.Create(nameof(PlaceholderLineBreakMode), typeof(LineBreakMode), typeof(MaterialTextField), LineBreakMode.WordWrap);
+
+        public static readonly BindableProperty LeadingIconSizeProperty = BindableProperty.Create(nameof(LeadingIconSize), typeof(double), typeof(MaterialTextField), 24.0);
+
+        public static readonly BindableProperty TrailingIconSizeProperty = BindableProperty.Create(nameof(TrailingIconSize), typeof(double), typeof(MaterialTextField), 24.0);
 
         //public static readonly BindableProperty ChoicesBindingNameProperty = BindableProperty.Create(nameof(Text), typeof(string), typeof(MaterialTextField), string.Empty, BindingMode.TwoWay);
 
@@ -625,6 +629,24 @@ namespace XF.Material.Forms.UI
             set { SetValue(PlaceholderLineBreakModeProperty, value); }
         }
 
+        /// <summary>
+        /// Gets or sets the icon size. Maximum value should be 24.0
+        /// </summary>
+        public double LeadingIconSize
+        {
+            get { return (double)GetValue(LeadingIconSizeProperty); }
+            set { SetValue(LeadingIconSizeProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the icon size. Maximum value should be 24.0
+        /// </summary>
+        public double TrailingIconSize
+        {
+            get { return (double)GetValue(TrailingIconSizeProperty); }
+            set { SetValue(TrailingIconSizeProperty, value); }
+        }
+
         /// <inheritdoc />
         /// <summary>
         /// For internal use only.
@@ -830,25 +852,37 @@ namespace XF.Material.Forms.UI
                 {
                     return;
                 }
+
                 entry.Opacity = 0;
 
                 Device.BeginInvokeOnMainThread(() =>
                 {
+                    var anim = new Animation();
+
 
                     if (FloatingPlaceholderEnabled)
                     {
-                        placeholder.FontSize = placeholderEndFont;
-                        placeholder.TranslationY = placeholderEndY;
-                        placeholder.TextColor = HasError ? ErrorColor : FloatingPlaceholderColor;
-                        entry.Opacity = 1;
+
+                        anim.Add(0.0, AnimationDuration, new Animation(v => placeholder.FontSize = v, entry.FontSize, placeholderEndFont, _animationCurve));
+
+                        anim.Add(0.0, AnimationDuration, new Animation(v => placeholder.TranslationY = v, 0, placeholderEndY, _animationCurve, () =>
+                       {
+                           placeholder.TextColor = HasError ? ErrorColor : FloatingPlaceholderColor;
+                           entry.Opacity = 1;
+                           UpdateCounter();
+                       }));
+
                     }
 
                     if (ShouldAnimateUnderline)
                     {
-                        underline.Color = HasError ? ErrorColor : TintColor;
+                        underline.Color = HasError ? ErrorColor : UnderlineColor;
                         underline.HeightRequest = 1;
                         underline.HorizontalOptions = LayoutOptions.FillAndExpand;
                     }
+
+                    anim.Commit(this, "Anim1", rate: 2, length: (uint)(AnimationDuration * 1000), easing: _animationCurve);
+
                 });
 
                 entry.Opacity = 1;
@@ -927,7 +961,7 @@ namespace XF.Material.Forms.UI
             Device.BeginInvokeOnMainThread(async () =>
             {
                 SetTrailingIcon();
-                
+
 
                 var accentColor = TintColor;
                 placeholder.TextColor = accentColor;
@@ -1027,6 +1061,8 @@ namespace XF.Material.Forms.UI
                     Text = entry.Text;
                     UpdateCounter();
                     break;
+
+
             }
         }
 
@@ -1190,6 +1226,18 @@ namespace XF.Material.Forms.UI
         private void OnPlaceholderLineBreakModeChanged()
         {
             placeholder.LineBreakMode = PlaceholderLineBreakMode;
+        }
+
+        private void OnLeadingIconSizeChanged()
+        {
+            leadingIcon.WidthRequest = LeadingIconSize;
+            leadingIcon.HeightRequest = LeadingIconSize;
+        }
+
+        private void OnTrailingIconSizeChanged()
+        {
+            trailingIcon.WidthRequest = TrailingIconSize;
+            trailingIcon.HeightRequest = TrailingIconSize;
         }
 
         private void OnFloatingPlaceholderEnabledChanged(bool isEnabled)
@@ -1535,7 +1583,9 @@ namespace XF.Material.Forms.UI
                 { nameof(IsTextAllCaps), () => OnInputTypeChanged() },
                 { nameof(TextFontSize), () => OnTextFontSizeChanged(TextFontSize) },
                 { nameof(ErrorText), () => OnErrorTextChanged() },
-                { nameof(PlaceholderLineBreakMode), () => OnPlaceholderLineBreakModeChanged()}
+                { nameof(PlaceholderLineBreakMode), () => OnPlaceholderLineBreakModeChanged()},
+                { nameof(LeadingIconSize), () => OnLeadingIconSizeChanged()},
+                { nameof(TrailingIconSize), () => OnTrailingIconSizeChanged()}
             };
         }
 
@@ -1558,9 +1608,18 @@ namespace XF.Material.Forms.UI
                 return;
             }
 
-            counter.IsVisible = true;
+
             var count = entry.Text?.Length ?? 0;
             counter.Text = entry.IsFocused ? $"{count}/{MaxLength}" : string.Empty;
+
+            if (!string.IsNullOrEmpty(counter.Text))
+            {
+                counter.IsVisible = true;
+            }
+            else
+            {
+                counter.IsVisible = false;
+            }
         }
     }
 }

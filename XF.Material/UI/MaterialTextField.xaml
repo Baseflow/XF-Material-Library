@@ -38,7 +38,8 @@
             Grid.Column="0"
             Margin="12,16,0,16"
             HeightRequest="24"
-            VerticalOptions="Start"
+            VerticalOptions="Center"
+            HorizontalOptions="Start"
             WidthRequest="24">
             <View.Triggers>
                 <Trigger TargetType="material:MaterialIcon" Property="Source" Value="{x:Null}">
@@ -108,8 +109,9 @@
             Grid.Column="2"
             Margin="0,16,12,16"
             HeightRequest="24"
+            HorizontalOptions="Center"
             IsVisible="False"
-            VerticalOptions="Start"
+            VerticalOptions="Center"
             WidthRequest="24">
             <material:MaterialIcon.GestureRecognizers>
                 <TapGestureRecognizer Tapped="OnTrailingIconSelected" />

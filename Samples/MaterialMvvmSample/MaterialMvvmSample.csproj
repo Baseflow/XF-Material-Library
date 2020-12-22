@@ -10,6 +10,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\remove_red_eye-black-18dp.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Images\remove_red_eye-black-18dp.svg" />
     <EmbeddedResource Include="Images\slideshow-black-18dp.svg" />
   </ItemGroup>
 
