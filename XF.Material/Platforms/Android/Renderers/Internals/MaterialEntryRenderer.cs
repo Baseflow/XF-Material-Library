@@ -15,7 +15,7 @@ using XF.Material.Forms.UI.Internals;
 [assembly: ExportRenderer(typeof(MaterialEntry), typeof(MaterialEntryRenderer))]
 namespace XF.Material.Droid.Renderers.Internals
 {
-    internal class MaterialEntryRenderer : EntryRenderer
+    public class MaterialEntryRenderer : EntryRenderer
     {
         private MaterialEntry _materialEntry;
 
