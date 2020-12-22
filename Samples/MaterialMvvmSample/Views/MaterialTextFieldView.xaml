@@ -60,11 +60,14 @@
                 Placeholder="Error" />
 
             <material:MaterialTextField
+                InputType="Password"
                 Placeholder="Trailing Icon Command"
-                TrailingIconCommand="{Binding OpenCustomChoiceCommand}"
-                TrailingIconCommandParameter="traling-icon-command-parameter">
+                Text="password"
+                TrailingIconCommand="{Binding CustomChoiceParameterUsingCommand}"
+                TrailingIconCommandParameter="{Binding Source={x:RelativeSource Mode=Self}}"
+                TrailingIconTintColor="Black">
                 <material:MaterialTextField.TrailingIcon>
-                    <xamForms:SvgImageSource Height="200" Svg="res:images.remove_red_eye-black-18dp" />
+                    <xamForms:SvgImageSource Height="200" Svg="res:images.eye-slash-solid-18dp" />
                 </material:MaterialTextField.TrailingIcon>
 
             </material:MaterialTextField>
@@ -76,9 +79,10 @@
                 Placeholder="Trailing Icon Selected"
                 Text="password"
                 TrailingIconSelected="MaterialTextField_TrailingIconSelected"
-                TrailingIconTintColor="Blue">
+                TrailingIconSize="18"
+                TrailingIconTintColor="DodgerBlue">
                 <material:MaterialTextField.TrailingIcon>
-                    <xamForms:SvgImageSource Height="200" Svg="res:images.remove_red_eye-black-18dp" />
+                    <xamForms:SvgImageSource Height="200" Svg="res:images.eye-slash-solid-18dp" />
                 </material:MaterialTextField.TrailingIcon>
 
             </material:MaterialTextField>

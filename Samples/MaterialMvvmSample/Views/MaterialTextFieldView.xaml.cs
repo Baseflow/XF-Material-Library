@@ -1,6 +1,7 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using MaterialMvvmSample.ViewModels;
 using Xamarin.Forms;
+using XamSvg.XamForms;
 using XF.Material.Forms.UI;
 
 namespace MaterialMvvmSample.Views
@@ -17,17 +18,27 @@ namespace MaterialMvvmSample.Views
         {
 
             var s = sender as MaterialTextField;
-           
-            s.HasError = !s.HasError;
 
-            if (s.HasError)
+
+            if (s.InputType == MaterialTextFieldInputType.Password)
             {
-                s.InputType = MaterialTextFieldInputType.Text;
+                s.InputType = MaterialTextFieldInputType.Plain;
+                s.TrailingIcon = new SvgImageSource()
+                {
+                    Svg = "res:images.eye-solid-18dp"
+                };
             }
             else
             {
                 s.InputType = MaterialTextFieldInputType.Password;
+                s.TrailingIcon = new SvgImageSource()
+                {
+                    Svg = "res:images.eye-slash-solid-18dp"
+                };
             }
+
+
+          
 
 
             Debug.WriteLine(e);
