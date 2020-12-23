@@ -21,35 +21,38 @@ namespace XF.Material.Droid.Renderers
         {
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _helper.Clean();
+            }
+            
+            base.Dispose(disposing);
+        }
+
         protected override void OnElementChanged(ElementChangedEventArgs<Button> e)
         {
             base.OnElementChanged(e);
 
             if (Control == null)
-            {
                 return;
-            }
 
             if (e?.OldElement != null)
-            {
                 _helper.Clean();
-            }
 
             if (e?.NewElement == null)
-            {
                 return;
-            }
 
-            _materialButton = Element as MaterialButton;
+            _materialButton = (MaterialButton)Element;
             _helper = new MaterialDrawableHelper(_materialButton, Control);
             _helper.UpdateDrawable();
 
             Control.SetMinimumWidth((int)MaterialHelper.ConvertDpToPx(64));
             Control.SetAllCaps(_materialButton != null && _materialButton.AllCaps);
+            Control.SetMaxLines(1);
 
-            SetButtonIcon();
             SetTextColors();
-            SetTextLetterSpacing();
         }
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -63,49 +66,15 @@ namespace XF.Material.Droid.Renderers
 
             switch (e?.PropertyName)
             {
-                case nameof(MaterialButton.ImageSource):
-                case nameof(MaterialButton.Image):
-                    SetButtonIcon();
-                    break;
                 case nameof(MaterialButton.AllCaps):
                     Control.SetAllCaps(_materialButton.AllCaps);
                     break;
                 case nameof(Button.TextColor):
                     SetTextColors();
                     break;
-                case nameof(MaterialButton.LetterSpacing):
-                    SetTextLetterSpacing();
-                    break;
             }
         }
 
-        private void SetButtonIcon()
-        {
-            var withIcon = !string.IsNullOrEmpty(_materialButton.Image) || !(_materialButton.ImageSource?.IsEmpty ?? true);
-            _helper.UpdateHasIcon(withIcon);
-
-            if (!withIcon)
-            {
-                return;
-            }
-
-            var drawable = Control.GetCompoundDrawables().FirstOrDefault(s => s != null);
-
-            if (drawable == null)
-            {
-                return;
-            }
-
-            var drawableCopy = drawable.GetDrawableCopy();
-            var width = _materialButton.ButtonType == MaterialButtonType.Text ? (int)MaterialHelper.ConvertDpToPx(18) : (int)MaterialHelper.ConvertDpToPx(18 + 4);
-            var height = (int)MaterialHelper.ConvertDpToPx(18);
-            var left = _materialButton.ButtonType == MaterialButtonType.Text ? 0 : (int)MaterialHelper.ConvertDpToPx(4);
-            drawableCopy.SetBounds(left, 0, width, height);
-            drawableCopy.TintDrawable(_materialButton.TextColor.ToAndroid());
-
-            Control.SetCompoundDrawables(drawableCopy, null, null, null);
-            Control.CompoundDrawablePadding = 0;
-        }
         private void SetTextColors()
         {
             var states = new[]
@@ -127,12 +96,6 @@ namespace XF.Material.Droid.Renderers
              };
 
             Control.SetTextColor(new ColorStateList(states, colors));
-        }
-
-        private void SetTextLetterSpacing()
-        {
-            var rawLetterSpacing = _materialButton.LetterSpacing / Control.TextSize;
-            Control.LetterSpacing = MaterialHelper.ConvertSpToPx(rawLetterSpacing);
         }
     }
 }

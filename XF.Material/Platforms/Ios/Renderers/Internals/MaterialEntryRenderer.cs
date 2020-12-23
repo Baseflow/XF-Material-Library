@@ -9,7 +9,7 @@ using XF.Material.iOS.Renderers.Internals;
 [assembly: ExportRenderer(typeof(MaterialEntry), typeof(MaterialEntryRenderer))]
 namespace XF.Material.iOS.Renderers.Internals
 {
-    internal class MaterialEntryRenderer : EntryRenderer
+    public class MaterialEntryRenderer : EntryRenderer
     {
         private bool _returnButtonAdded;
 

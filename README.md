@@ -550,11 +550,9 @@ A view that displays a text. Allows customizations to conform with the typograph
 ##### Properties
 `MaterialLabel` inherits the `Label` class.
 
-1. `LetterSpacing` - The spacing between the letters of each word in the text.
+1. `TypeScale` - In material design, these are categories on how the text are displayed. Each type scale has its own font family, font weight, font size, and letter spacing. For more info about type scale, read [here](#type-scale).
 
-2. `TypeScale` - In material design, these are categories on how the text are displayed. Each type scale has its own font family, font weight, font size, and letter spacing. For more info about type scale, read [here](#type-scale).
-
-3. `LineHeight` - The factor to multiply that will identify the distance between the base of a line of text to another. The default value is `1.4`.
+2. `LineHeight` - The factor to multiply that will identify the distance between the base of a line of text to another. The default value is `1.4`.
 
 #### Chips
 Chips are compact elements that represent an input, attribute, or action.
