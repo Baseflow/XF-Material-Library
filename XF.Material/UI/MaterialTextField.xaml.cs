@@ -26,6 +26,8 @@ namespace XF.Material.Forms.UI
         public static readonly BindableProperty AlwaysShowUnderlineProperty = BindableProperty.Create(nameof(AlwaysShowUnderline), typeof(bool), typeof(MaterialTextField), false);
 
         public static readonly BindableProperty CardBackgroundColorProperty = BindableProperty.Create(nameof(CardBackgroundColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#DCDCDC"));
+        
+        public static readonly BindableProperty CardCornerRadiusProperty = BindableProperty.Create(nameof(CardCornerRadius), typeof(CornerRadius), typeof(MaterialTextField), new CornerRadius(4, 4, 0, 0));
 
         public static readonly BindableProperty ChoiceSelectedCommandProperty = BindableProperty.Create(nameof(ChoiceSelectedCommand), typeof(ICommand), typeof(MaterialTextField));
 
@@ -211,6 +213,15 @@ namespace XF.Material.Forms.UI
         {
             get => (Color)GetValue(CardBackgroundColorProperty);
             set => SetValue(CardBackgroundColorProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the corner radius of this text field.
+        /// </summary>
+        public CornerRadius CardCornerRadius
+        {
+            get => (CornerRadius)GetValue(CardCornerRadiusProperty);
+            set => SetValue(CardCornerRadiusProperty, value);
         }
 
         /// <summary>
@@ -1242,8 +1253,8 @@ namespace XF.Material.Forms.UI
 
         private void OnFloatingPlaceholderEnabledChanged(bool isEnabled)
         {
-            double marginTopVariation = Device.RuntimePlatform == Device.iOS ? 18 : 20;
-            entry.Margin = isEnabled ? new Thickness(entry.Margin.Left, 24, entry.Margin.Right, 0) : new Thickness(entry.Margin.Left, marginTopVariation - 9, entry.Margin.Right, 0);
+          
+            entry.Margin = isEnabled ? new Thickness(entry.Margin.Left, 24, entry.Margin.Right, 0) : new Thickness(entry.Margin.Left, 0, entry.Margin.Right, 0);
 
             var iconMargin = leadingIcon.Margin;
             leadingIcon.Margin = isEnabled ? new Thickness(iconMargin.Left, 16, iconMargin.Right, 16) : new Thickness(iconMargin.Left, 8, iconMargin.Right, 8);

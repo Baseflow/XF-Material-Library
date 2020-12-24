@@ -31,15 +31,15 @@
             Grid.Row="0"
             Grid.ColumnSpan="3"
             BackgroundColor="{Binding CardBackgroundColor, Source={x:Reference ThisControl}}"
-            CornerRadius="4,4,0,0" />
+            CornerRadius="{Binding CardCornerRadius, Source={x:Reference ThisControl}}" />
         <material:MaterialIcon
             x:Name="leadingIcon"
             Grid.Row="0"
             Grid.Column="0"
             Margin="12,16,0,16"
             HeightRequest="24"
-            VerticalOptions="Center"
             HorizontalOptions="Start"
+            VerticalOptions="Center"
             WidthRequest="24">
             <View.Triggers>
                 <Trigger TargetType="material:MaterialIcon" Property="Source" Value="{x:Null}">
@@ -74,7 +74,15 @@
                 IsSpellCheckEnabled="False"
                 IsTextPredictionEnabled="False"
                 TextColor="#D0000000"
-                VerticalOptions="FillAndExpand" />
+                VerticalOptions="FillAndExpand">
+
+                <!--
+                <internal:MaterialEntry.BackgroundColor>
+                    <Color>#8000ffff</Color>
+                </internal:MaterialEntry.BackgroundColor>
+                -->
+
+            </internal:MaterialEntry>
             <ContentView.Triggers>
                 <DataTrigger
                     Binding="{Binding Source={x:Reference trailingIcon}, Path=IsVisible}"

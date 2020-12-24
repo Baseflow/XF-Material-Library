@@ -17,7 +17,7 @@
     <PackageId>XF.Material</PackageId>
     <Description>A Xamarin.Forms library for Xamarin.Android and Xamarin.iOS to implement Google's Material Design.</Description>
     <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
-    <Version>1.7.7.3</Version>
+    <Version>1.7.7.1</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(TargetFramework.StartsWith('uap')) And '$(OS)' == 'Windows_NT'">

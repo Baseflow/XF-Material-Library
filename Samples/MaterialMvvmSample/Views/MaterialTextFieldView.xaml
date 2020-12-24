@@ -10,7 +10,20 @@
 
     <ScrollView>
         <StackLayout Padding="20" Orientation="Vertical">
-            <material:MaterialTextField IsAutoCapitalizationEnabled="True" Placeholder="Auto Capitalization" />
+
+            <material:MaterialTextField
+                AlwaysShowUnderline="False"
+                CardCornerRadius="8,4"
+                FloatingPlaceholderEnabled="False"
+                LeadingIcon="icon_plus"
+                Placeholder="PlaceHolder = False"
+                ShouldAnimateUnderline="False"
+                TextFontSize="12" />
+
+            <material:MaterialTextField
+                CardCornerRadius="0"
+                FloatingPlaceholderEnabled="False"
+                Placeholder="PlaceHolder = False" />
 
             <material:MaterialTextField IsTextAllCaps="True" Placeholder="ALL CAPS" />
 
@@ -44,10 +57,11 @@
                 Text="Jean Dupond" />
             <material:MaterialDateField Placeholder="Date" />
 
-            <material:MaterialDateField Placeholder="Date, bottom tip, leading and trailing icons"
-                                        HelperText="Your birthday"
-                                        Date="2020/08/28"
-                                        Format="yyyy/MM/dd">
+            <material:MaterialDateField
+                Date="2020/08/28"
+                Format="yyyy/MM/dd"
+                HelperText="Your birthday"
+                Placeholder="Date, bottom tip, leading and trailing icons">
                 <material:MaterialDateField.LeadingIcon>
                     <xamForms:SvgImageSource Height="200" Svg="res:images.slideshow-black-18dp" />
                 </material:MaterialDateField.LeadingIcon>
