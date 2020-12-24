@@ -62,6 +62,19 @@ namespace XF.Material.Forms.UI.Internals
         /// Backing field for the bindable property <see cref="VerticalSpacing"/>.
         /// </summary>
         public static readonly BindableProperty VerticalSpacingProperty = BindableProperty.Create(nameof(VerticalSpacing), typeof(double), typeof(BaseMaterialSelectionControlGroup), 0.0);
+        
+        /// <summary> 
+        /// Text filling size to parent view
+        /// </summary>
+        public static readonly BindableProperty TextSizeProperty = BindableProperty.Create(nameof(TextSize), typeof(MaterialSelectionSizeType), typeof(BaseMaterialSelectionControlGroup), MaterialSelectionSizeType.Fill);
+
+        /// <summary> 
+        /// Text letter spacing value
+        /// </summary>
+        public static readonly BindableProperty TextLetterSpacingProperty = BindableProperty.Create(nameof(TextLetterSpacing), typeof(double), typeof(BaseMaterialSelectionControlGroup), 0.0);
+
+
+
 
         private readonly Dictionary<string, Action> _propertyChangeActions;
         private string _selectedSource;
@@ -135,6 +148,15 @@ namespace XF.Material.Forms.UI.Internals
         }
 
         /// <summary>
+        /// Gets or sets the color of the text filling parent size.
+        /// </summary>
+        public MaterialSelectionSizeType TextSize
+        {
+            get => (MaterialSelectionSizeType)GetValue(TextSizeProperty);
+            set => SetValue(TextSizeProperty, value);
+        }
+
+        /// <summary>
         /// Gets or sets the selection control's text.
         /// </summary>
         public string Text
@@ -159,6 +181,15 @@ namespace XF.Material.Forms.UI.Internals
         {
             get => (Color)GetValue(UnselectedColorProperty);
             set => SetValue(UnselectedColorProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets letter spacing of text
+        /// </summary>
+        public double TextLetterSpacing
+        {
+            get => (double)GetValue(TextLetterSpacingProperty);
+            set => SetValue(TextLetterSpacingProperty, value);
         }
 
         internal double VerticalSpacing
@@ -199,7 +230,7 @@ namespace XF.Material.Forms.UI.Internals
 
         private void OnHorizontalSpacingChanged(double value)
         {
-            selectionText.Margin = new Thickness(value, 16, 0, 16);
+            selectionText.Margin = new Thickness(value, 16, value, 16);
         }
 
         private void OnSelectedChanged(bool isSelected)
@@ -224,6 +255,23 @@ namespace XF.Material.Forms.UI.Internals
         {
             selectionText.TextColor = TextColor;
         }
+        private void OnTextLetterSpacingChanged()
+        {
+            selectionText.LetterSpacing = TextLetterSpacing;
+        }
+
+        private void OnTextSizeChanged()
+        {
+
+            if (TextSize == MaterialSelectionSizeType.Fill)
+            {
+                _autoSizingColumn.Width = GridLength.Star;
+            }
+            else
+            {
+                _autoSizingColumn.Width = GridLength.Auto;
+            }
+        }
 
         private void OnVerticalSpacingChanged(double value)
         {
@@ -232,6 +280,9 @@ namespace XF.Material.Forms.UI.Internals
 
         private void SetControl()
         {
+
+            var o = (BaseMaterialSelectionControl)this;
+
             selectionIcon.Source = IsSelected ? _selectedSource : _unselectedSource;
             selectionIcon.TintColor = IsSelected ? SelectedColor : UnselectedColor;
             iconButton.Command = selectionButton.Command = new Command(() =>
@@ -273,6 +324,8 @@ namespace XF.Material.Forms.UI.Internals
                 { nameof(HorizontalSpacing), () => OnHorizontalSpacingChanged(HorizontalSpacing) },
                 { nameof(VerticalSpacing), () => OnVerticalSpacingChanged(VerticalSpacing) },
                 { nameof(FontSize), () => OnFontSizeChanged(FontSize) },
+                { nameof(TextSize), () => OnTextSizeChanged() },
+                { nameof(TextLetterSpacing), () => OnTextLetterSpacingChanged() },
             };
         }
     }
