@@ -62,11 +62,11 @@ namespace XF.Material.Forms.UI.Internals
         /// Backing field for the bindable property <see cref="VerticalSpacing"/>.
         /// </summary>
         public static readonly BindableProperty VerticalSpacingProperty = BindableProperty.Create(nameof(VerticalSpacing), typeof(double), typeof(BaseMaterialSelectionControlGroup), 0.0);
-        
+
         /// <summary> 
-        /// Text filling size to parent view
+        /// Horizontal filling size to parent view
         /// </summary>
-        public static readonly BindableProperty TextSizeProperty = BindableProperty.Create(nameof(TextSize), typeof(MaterialSelectionSizeType), typeof(BaseMaterialSelectionControlGroup), MaterialSelectionSizeType.Fill);
+        public static readonly BindableProperty HorizontalSizeProperty = BindableProperty.Create(nameof(HorizontalSize), typeof(MaterialSelectionHorizontalSizeType), typeof(BaseMaterialSelectionControlGroup), MaterialSelectionHorizontalSizeType.Fill);
 
         /// <summary> 
         /// Text letter spacing value
@@ -79,6 +79,8 @@ namespace XF.Material.Forms.UI.Internals
         private readonly Dictionary<string, Action> _propertyChangeActions;
         private string _selectedSource;
         private string _unselectedSource;
+
+        
 
         internal BaseMaterialSelectionControl(MaterialSelectionControlType controlType)
         {
@@ -148,12 +150,12 @@ namespace XF.Material.Forms.UI.Internals
         }
 
         /// <summary>
-        /// Gets or sets the color of the text filling parent size.
+        /// Gets or sets the color of the horizontal filling parent size.
         /// </summary>
-        public MaterialSelectionSizeType TextSize
+        public MaterialSelectionHorizontalSizeType HorizontalSize
         {
-            get => (MaterialSelectionSizeType)GetValue(TextSizeProperty);
-            set => SetValue(TextSizeProperty, value);
+            get => (MaterialSelectionHorizontalSizeType)GetValue(HorizontalSizeProperty);
+            set => SetValue(HorizontalSizeProperty, value);
         }
 
         /// <summary>
@@ -260,10 +262,10 @@ namespace XF.Material.Forms.UI.Internals
             selectionText.LetterSpacing = TextLetterSpacing;
         }
 
-        private void OnTextSizeChanged()
+        private void OnHorizontalSizeChanged()
         {
 
-            if (TextSize == MaterialSelectionSizeType.Fill)
+            if (HorizontalSize == MaterialSelectionHorizontalSizeType.Fill)
             {
                 _autoSizingColumn.Width = GridLength.Star;
             }
@@ -324,7 +326,7 @@ namespace XF.Material.Forms.UI.Internals
                 { nameof(HorizontalSpacing), () => OnHorizontalSpacingChanged(HorizontalSpacing) },
                 { nameof(VerticalSpacing), () => OnVerticalSpacingChanged(VerticalSpacing) },
                 { nameof(FontSize), () => OnFontSizeChanged(FontSize) },
-                { nameof(TextSize), () => OnTextSizeChanged() },
+                { nameof(HorizontalSize), () => OnHorizontalSizeChanged() },
                 { nameof(TextLetterSpacing), () => OnTextLetterSpacingChanged() },
             };
         }

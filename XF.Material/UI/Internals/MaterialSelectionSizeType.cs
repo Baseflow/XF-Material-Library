@@ -4,7 +4,7 @@ namespace XF.Material.Forms.UI.Internals
     /// <summary>
     /// Enumeration of the types of <see cref="BaseMaterialSelection"/>.
     /// </summary>
-    public enum MaterialSelectionSizeType
+    public enum MaterialSelectionHorizontalSizeType
     {
         /// <summary>
         /// This button will cast a shadow.
