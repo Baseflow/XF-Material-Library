@@ -25,7 +25,13 @@
                 FloatingPlaceholderEnabled="False"
                 Placeholder="PlaceHolder = False" />
 
-            <material:MaterialTextField IsTextAllCaps="True" Placeholder="ALL CAPS" />
+            <material:MaterialTextField
+                ErrorText="You should write CAPS"
+                HasError="True"
+                HasErrorFalseOnTextChanged="True"
+                IsTextAllCaps="True"
+                Placeholder="ALL CAPS"
+                Unfocused="MaterialTextField_Unfocused" />
 
             <material:MaterialTextField
                 IsAutoCapitalizationEnabled="true"
@@ -44,6 +50,9 @@
             <material:MaterialTextField
                 Choices="{Binding Choices}"
                 InputType="Choice"
+                HasError="True"
+                ErrorText="Some Error"
+                HasErrorFalseOnTextChanged="True"
                 Placeholder="Choices" />
             <material:MaterialTextField
                 Choices="{Binding Choices}"

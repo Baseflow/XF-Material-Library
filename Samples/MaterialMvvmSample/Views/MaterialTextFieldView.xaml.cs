@@ -43,5 +43,15 @@ namespace MaterialMvvmSample.Views
 
             Debug.WriteLine(e);
         }
+
+        private void MaterialTextField_Unfocused(object sender, FocusEventArgs e)
+        {
+            var s = sender as MaterialTextField;
+
+            if (s.Text != "CAPS")
+            {
+                s.HasError = true;
+            }
+        }
     }
 }

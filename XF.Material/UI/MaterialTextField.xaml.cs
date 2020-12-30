@@ -151,6 +151,8 @@ namespace XF.Material.Forms.UI
         public static readonly BindableProperty LeadingIconSizeProperty = BindableProperty.Create(nameof(LeadingIconSize), typeof(double), typeof(MaterialTextField), 24.0);
 
         public static readonly BindableProperty TrailingIconSizeProperty = BindableProperty.Create(nameof(TrailingIconSize), typeof(double), typeof(MaterialTextField), 24.0);
+        
+        public static readonly BindableProperty HasErrorFalseOnTextChangedProperty = BindableProperty.Create(nameof(HasErrorFalseOnTextChanged), typeof(bool), typeof(MaterialTextField), false);
 
         //public static readonly BindableProperty ChoicesBindingNameProperty = BindableProperty.Create(nameof(Text), typeof(string), typeof(MaterialTextField), string.Empty, BindingMode.TwoWay);
 
@@ -650,12 +652,21 @@ namespace XF.Material.Forms.UI
         }
 
         /// <summary>
-        /// Gets or sets the icon size. Maximum value should be 24.0
+        /// Gets or sets the error and cutom trailing icon size. Maximum value should be 24.0
         /// </summary>
         public double TrailingIconSize
         {
             get { return (double)GetValue(TrailingIconSizeProperty); }
             set { SetValue(TrailingIconSizeProperty, value); }
+        }
+
+        /// <summary>
+        /// Sets for has error false when has error true on text changed. Default value is false
+        /// </summary>
+        public bool HasErrorFalseOnTextChanged
+        {
+            get { return (bool)GetValue(HasErrorFalseOnTextChangedProperty); }
+            set { SetValue(HasErrorFalseOnTextChangedProperty, value); }
         }
 
         /// <inheritdoc />
@@ -1483,6 +1494,12 @@ namespace XF.Material.Forms.UI
 
         private void OnTextChanged(string text)
         {
+
+            if (HasError && HasErrorFalseOnTextChanged)
+            {
+                HasError = false;
+            }
+
             var isChoice = InputType == MaterialTextFieldInputType.Choice || InputType == MaterialTextFieldInputType.SingleImmediateChoice;
 
             if (isChoice)
