@@ -26,7 +26,7 @@ namespace XF.Material.Forms.UI
         public static readonly BindableProperty AlwaysShowUnderlineProperty = BindableProperty.Create(nameof(AlwaysShowUnderline), typeof(bool), typeof(MaterialTextField), false);
 
         public static readonly BindableProperty CardBackgroundColorProperty = BindableProperty.Create(nameof(CardBackgroundColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#DCDCDC"));
-        
+
         public static readonly BindableProperty CardCornerRadiusProperty = BindableProperty.Create(nameof(CardCornerRadius), typeof(CornerRadius), typeof(MaterialTextField), new CornerRadius(4, 4, 0, 0));
 
         public static readonly BindableProperty ChoiceSelectedCommandProperty = BindableProperty.Create(nameof(ChoiceSelectedCommand), typeof(ICommand), typeof(MaterialTextField));
@@ -151,7 +151,7 @@ namespace XF.Material.Forms.UI
         public static readonly BindableProperty LeadingIconSizeProperty = BindableProperty.Create(nameof(LeadingIconSize), typeof(double), typeof(MaterialTextField), 24.0);
 
         public static readonly BindableProperty TrailingIconSizeProperty = BindableProperty.Create(nameof(TrailingIconSize), typeof(double), typeof(MaterialTextField), 24.0);
-        
+
         public static readonly BindableProperty HasErrorFalseOnTextChangedProperty = BindableProperty.Create(nameof(HasErrorFalseOnTextChanged), typeof(bool), typeof(MaterialTextField), false);
 
         //public static readonly BindableProperty ChoicesBindingNameProperty = BindableProperty.Create(nameof(Text), typeof(string), typeof(MaterialTextField), string.Empty, BindingMode.TwoWay);
@@ -1229,6 +1229,16 @@ namespace XF.Material.Forms.UI
         private void OnEnabledChanged(bool isEnabled)
         {
             Opacity = isEnabled ? 1 : 0.33;
+
+            if (AlwaysShowUnderline)
+            {
+                persistentUnderline.Margin = new Thickness(0);
+            }
+            else
+            {
+                persistentUnderline.Margin = new Thickness(0, 0, 0, -1);
+            }
+
             helper.IsVisible = isEnabled && !string.IsNullOrEmpty(HelperText);
         }
 
@@ -1264,7 +1274,7 @@ namespace XF.Material.Forms.UI
 
         private void OnFloatingPlaceholderEnabledChanged(bool isEnabled)
         {
-          
+
             entry.Margin = isEnabled ? new Thickness(entry.Margin.Left, 24, entry.Margin.Right, 0) : new Thickness(entry.Margin.Left, 0, entry.Margin.Right, 0);
 
             var iconMargin = leadingIcon.Margin;
