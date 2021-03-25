@@ -18,7 +18,7 @@
     <RepositoryUrl>https://github.com/Baseflow/XF-Material-Library</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <Product>$(AssemblyName) ($(TargetFramework))</Product>
-    <Version>1.7.7</Version>
+    <Version>1.7.8</Version>
     <Platform>AnyCPU</Platform>
 
     <!--<Nullable>enable</Nullable>-->
