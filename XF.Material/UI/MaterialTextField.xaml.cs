@@ -1157,6 +1157,9 @@ namespace XF.Material.Forms.UI
 
         private void OnInputTypeChanged()
         {
+            entry.IsReadOnly = false;
+            entry.Keyboard = Keyboard.Default;
+
             switch (InputType)
             {
                 case MaterialTextFieldInputType.Chat:
@@ -1225,6 +1228,10 @@ namespace XF.Material.Forms.UI
                 case MaterialTextFieldInputType.Choice:
                 case MaterialTextFieldInputType.SingleImmediateChoice:
                 case MaterialTextFieldInputType.CommandChoice:
+                    break;
+
+                case MaterialTextFieldInputType.ReadOnly:
+                    entry.IsReadOnly = true;
                     break;
             }
 

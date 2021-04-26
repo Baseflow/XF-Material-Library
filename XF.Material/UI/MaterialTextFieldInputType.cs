@@ -23,6 +23,10 @@
         /// <summary>
         /// Triggers the command when clicked instead of focusing the input field
         /// </summary>
-        CommandChoice
+        CommandChoice,
+        /// <summary>
+        /// Does not allow changes, and does not gray out the control
+        /// </summary>
+        ReadOnly
     }
 }
