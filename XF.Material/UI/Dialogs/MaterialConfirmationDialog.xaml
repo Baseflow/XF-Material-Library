@@ -74,6 +74,12 @@
                                              ButtonType="Text"
                                              Text="Cancel"
                                              VerticalOptions="Center">
+                        <material:MaterialButton.Margin>
+                            <OnPlatform x:TypeArguments="Thickness">
+                                <On Platform="iOS"
+                                    Value="0,0,10,0" />
+                            </OnPlatform>
+                        </material:MaterialButton.Margin>
                         <material:MaterialButton.Triggers>
                             <Trigger TargetType="Button" Property="Text" Value="{x:Null}">
                                 <Setter Property="IsVisible" Value="False" />
