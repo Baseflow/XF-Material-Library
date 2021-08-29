@@ -91,5 +91,21 @@ namespace MaterialMvvmSample.Views
                 Debug.WriteLine("Closed");
             }
         }
+
+        private async void OpenInputDialog_Clicked(object sender, EventArgs e)
+        {
+            await MaterialDialog.Instance.InputAsync("Message", "Title", "Confirm", "Dismiss");
+        }
+
+        private async void OpenSelectDialog_Clicked(object sender, EventArgs e)
+        {
+            var choices = new List<string>()
+            {
+                "Choice 1",
+                "Choice 1",
+                "Choice 3",
+            };
+            await MaterialDialog.Instance.SelectChoiceAsync("Title", choices, "Confirm", "Dismiss");
+        }
     }
 }
