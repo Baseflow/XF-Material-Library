@@ -99,6 +99,8 @@ In order to be able to change the status bar's colors using [this](#changing-the
 <false/>
 ```
 
+**Note**: If some of the controls like progressbar, checkbox and radio buttons are not showing in iOS then add all the files from <u>[here](https://github.com/Baseflow/XF-Material-Library/tree/master/XF.Material/Platforms/Ios/Resources)</u> to 	    iOS project's <u>Resources</u> folder.
+
 ## Features
 
 ### Material UI
@@ -689,11 +691,11 @@ There are two common parameters in this method:
     ```c#
     await MaterialDialog.Instance.ConfirmAsync(message: "Do you want to sign in?", 
                                         confirmingText: "Sign In");
-
+    
     await MaterialDialog.Instance.ConfirmAsync(message: "Do you want to sign in?", 
                                         confirmingText: "Sign In", 
                                         dismissiveText: "No");
-
+    
     await MaterialDialog.Instance.ConfirmAsync(message: "Discard draft?", 
                                         title: "Confirm", 
                                         confirmingText: "Yes", 
@@ -913,7 +915,7 @@ Both methods have this default parameter `message`, which is the message that wi
     ```c#
     await MaterialDialog.Instance.SnackbarAsync(message: "This is a snackbar.", 
                                                 msDuration: MaterialSnackbar.DurationLong);
-    ``` 
+    ```
     - `msDuration` -  The duration, in milliseconds, before the snackbar will disappear. There are pre-defined constants which you can use  in the `MaterialSnackbar` class.
         - `MaterialSnackbar.DurationShort` - Snackbar will show for 1500 milliseconds.
         
