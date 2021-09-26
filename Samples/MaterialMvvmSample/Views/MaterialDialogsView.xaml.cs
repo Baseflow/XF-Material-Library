@@ -105,7 +105,7 @@ namespace MaterialMvvmSample.Views
                 "Choice 1",
                 "Choice 3",
             };
-            await MaterialDialog.Instance.SelectChoiceAsync("Title", choices, "Confirm", "Dismiss");
+            await MaterialDialog.Instance.SelectChoiceAsync("Title", choices, "ok", "Cancel");
         }
     }
 }
