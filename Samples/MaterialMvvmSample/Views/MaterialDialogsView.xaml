@@ -16,6 +16,12 @@
 
             <material:MaterialButton Text="Open Alert Dialog"
                                      Clicked="OpenAlertDialog_Clicked"/>
+            
+            <material:MaterialButton Text="Open Input Dialog"
+                                     Clicked="OpenInputDialog_Clicked"/>
+            
+            <material:MaterialButton Text="Open select Dialog"
+                                     Clicked="OpenSelectDialog_Clicked"/>
 
         </StackLayout>
     </ContentPage.Content>
