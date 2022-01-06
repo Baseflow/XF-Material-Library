@@ -111,12 +111,12 @@ namespace XF.Material.Forms.UI.Dialogs
 
         protected override void OnBackButtonDismissed()
         {
-            InputTaskCompletionSource.SetResult(-1);
+            InputTaskCompletionSource.TrySetResult(-1);
         }
 
         protected override bool OnBackgroundClicked()
         {
-            InputTaskCompletionSource.SetResult(-1);
+            InputTaskCompletionSource.TrySetResult(-1);
 
             return base.OnBackgroundClicked();
         }
@@ -160,7 +160,7 @@ namespace XF.Material.Forms.UI.Dialogs
 
                     actionModel.IsSelected = true;
                     await DismissAsync();
-                    InputTaskCompletionSource?.SetResult(position);
+                    InputTaskCompletionSource?.TrySetResult(position);
                 });
                 actionModel.SizeChangeCommand = new Command<Dictionary<string, object>>(LabelSizeChanged);
 
