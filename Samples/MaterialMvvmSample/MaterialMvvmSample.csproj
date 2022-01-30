@@ -17,8 +17,8 @@
     <PackageReference Include="Autofac" Version="6.1.0" />
     <PackageReference Include="Autofac.Extras.CommonServiceLocator" Version="6.0.1" />
     <PackageReference Include="Vapolia.Xamarin.Svg.Forms" Version="4.0.0-pre7" />
-    <PackageReference Include="Xamarin.Forms" Version="4.5.0.657" />
-    <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.11" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
+    <PackageReference Include="Rg.Plugins.Popup" Version="2.1.0" />
   </ItemGroup>
 
   <ItemGroup>
