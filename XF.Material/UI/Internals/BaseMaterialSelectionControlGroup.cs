@@ -52,6 +52,16 @@ namespace XF.Material.Forms.UI.Internals
         /// </summary>
         public static readonly BindableProperty VerticalSpacingProperty = BindableProperty.Create(nameof(VerticalSpacing), typeof(double), typeof(BaseMaterialSelectionControlGroup), 0.0);
 
+        /// <summary> 
+        /// Orientation for childeren
+        /// </summary>
+        public static readonly BindableProperty OrientationProperty = BindableProperty.Create(nameof(Orientation), typeof(StackOrientation), typeof(BaseMaterialSelectionControlGroup), StackOrientation.Vertical);
+        /// <summary> 
+        /// Text letter spacing value
+        /// </summary>
+        public static readonly BindableProperty TextLetterSpacingProperty = BindableProperty.Create(nameof(TextLetterSpacing), typeof(double), typeof(BaseMaterialSelectionControlGroup), 0.0);
+
+
         internal static readonly BindableProperty ShouldShowScrollbarProperty = BindableProperty.Create(nameof(ShouldShowScrollbar), typeof(bool), typeof(BaseMaterialSelectionControlGroup), false);
 
         internal bool ShouldShowScrollbar
@@ -130,6 +140,24 @@ namespace XF.Material.Forms.UI.Internals
         {
             get => (double)GetValue(VerticalSpacingProperty);
             set => SetValue(VerticalSpacingProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the orientation of childeren.
+        /// </summary>
+        public StackOrientation Orientation
+        {
+            get => (StackOrientation)GetValue(OrientationProperty);
+            set => SetValue(OrientationProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets letter spacing of text
+        /// </summary>
+        public double TextLetterSpacing
+        {
+            get => (double)GetValue(TextLetterSpacingProperty);
+            set => SetValue(TextLetterSpacingProperty, value);
         }
 
         internal abstract ObservableCollection<MaterialSelectionControlModel> Models { get; }

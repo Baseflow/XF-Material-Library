@@ -27,7 +27,15 @@ namespace XF.Material.Forms.UI
 
         public static readonly BindableProperty CardBackgroundColorProperty = BindableProperty.Create(nameof(CardBackgroundColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#DCDCDC"));
 
+        public static readonly BindableProperty CardCornerRadiusProperty = BindableProperty.Create(nameof(CardCornerRadius), typeof(CornerRadius), typeof(MaterialTextField), new CornerRadius(4, 4, 0, 0));
+
         public static readonly BindableProperty ChoiceSelectedCommandProperty = BindableProperty.Create(nameof(ChoiceSelectedCommand), typeof(ICommand), typeof(MaterialTextField));
+
+        public static readonly BindableProperty ChoiceSelectedCommandParameterProperty = BindableProperty.Create(nameof(ChoiceSelectedCommandParameter), typeof(object), typeof(MaterialTextField));
+
+        public static readonly BindableProperty TrailingIconCommandProperty = BindableProperty.Create(nameof(TrailingIconCommand), typeof(ICommand), typeof(MaterialTextField));
+
+        public static readonly BindableProperty TrailingIconCommandParameterProperty = BindableProperty.Create(nameof(TrailingIconCommandParameter), typeof(object), typeof(MaterialTextField));
 
         public static readonly BindableProperty ChoicesProperty = BindableProperty.Create(nameof(Choices), typeof(IList), typeof(MaterialTextField));
 
@@ -102,7 +110,11 @@ namespace XF.Material.Forms.UI
 
         public static readonly BindableProperty LeadingIconTintColorProperty = BindableProperty.Create(nameof(LeadingIconTintColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#99000000"));
 
-        public static readonly BindableProperty ErrorIconProperty = BindableProperty.Create(nameof(ErrorIcon), typeof(string), typeof(MaterialTextField), "xf_error");
+        public static readonly BindableProperty TrailingIconTintColorProperty = BindableProperty.Create(nameof(TrailingIconTintColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#99000000"));
+
+        public static readonly BindableProperty ErrorIconProperty = BindableProperty.Create(nameof(ErrorIcon), typeof(ImageSource), typeof(MaterialDateField), new FileImageSource { File = "xf_error" });
+
+        public static readonly BindableProperty TrailingIconProperty = BindableProperty.Create(nameof(TrailingIcon), typeof(ImageSource), typeof(MaterialDateField), null);
 
         public static readonly BindableProperty MaxLengthProperty = BindableProperty.Create(nameof(MaxLength), typeof(int), typeof(MaterialTextField), 0);
 
@@ -136,6 +148,12 @@ namespace XF.Material.Forms.UI
 
         public static readonly BindableProperty PlaceholderLineBreakModeProperty = BindableProperty.Create(nameof(PlaceholderLineBreakMode), typeof(LineBreakMode), typeof(MaterialTextField), LineBreakMode.WordWrap);
 
+        public static readonly BindableProperty LeadingIconSizeProperty = BindableProperty.Create(nameof(LeadingIconSize), typeof(double), typeof(MaterialTextField), 24.0);
+
+        public static readonly BindableProperty TrailingIconSizeProperty = BindableProperty.Create(nameof(TrailingIconSize), typeof(double), typeof(MaterialTextField), 24.0);
+
+        public static readonly BindableProperty HasErrorFalseOnTextChangedProperty = BindableProperty.Create(nameof(HasErrorFalseOnTextChanged), typeof(bool), typeof(MaterialTextField), false);
+
         //public static readonly BindableProperty ChoicesBindingNameProperty = BindableProperty.Create(nameof(Text), typeof(string), typeof(MaterialTextField), string.Empty, BindingMode.TwoWay);
 
         private const double AnimationDuration = 0.35;
@@ -159,6 +177,7 @@ namespace XF.Material.Forms.UI
         }
 
         public event EventHandler<SelectedItemChangedEventArgs> ChoiceSelected;
+        public event EventHandler<EventArgs> TrailingIconSelected;
 
         /// <summary>
         /// Raised when this text field receives focus.
@@ -199,6 +218,15 @@ namespace XF.Material.Forms.UI
         }
 
         /// <summary>
+        /// Gets or sets the corner radius of this text field.
+        /// </summary>
+        public CornerRadius CardCornerRadius
+        {
+            get => (CornerRadius)GetValue(CardCornerRadiusProperty);
+            set => SetValue(CardCornerRadiusProperty, value);
+        }
+
+        /// <summary>
         /// Gets or sets the collection of objects which the user will choose from. This is required when <see cref="InputType"/> is set to <see cref="MaterialTextFieldInputType.Choice"/> or <see cref="MaterialTextFieldInputType.SingleImmediateChoice"/>.
         /// </summary>
         public IList Choices
@@ -226,6 +254,15 @@ namespace XF.Material.Forms.UI
         {
             get => (ICommand)GetValue(ChoiceSelectedCommandProperty);
             set => SetValue(ChoiceSelectedCommandProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the command for TrailingIcon />.
+        /// </summary>
+        public ICommand TrailingIconCommand
+        {
+            get => (ICommand)GetValue(TrailingIconCommandProperty);
+            set => SetValue(TrailingIconCommandProperty, value);
         }
 
         /// <summary>
@@ -403,10 +440,31 @@ namespace XF.Material.Forms.UI
         /// <summary>
         /// Gets or sets the image source of the icon to be showed at the left side of this text field.
         /// </summary>
-        public string ErrorIcon
+        [Xamarin.Forms.TypeConverter(typeof(ImageSourceConverter))]
+        public ImageSource ErrorIcon
         {
-            get => (string)GetValue(ErrorIconProperty);
+            get => (ImageSource)GetValue(ErrorIconProperty);
             set => SetValue(ErrorIconProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the image source of the icon to be showed at the left side of this text field.
+        /// </summary>
+        [Xamarin.Forms.TypeConverter(typeof(ImageSourceConverter))]
+        public ImageSource TrailingIcon
+        {
+            get => (ImageSource)GetValue(TrailingIconProperty);
+            set => SetValue(TrailingIconProperty, value);
+        }
+
+
+        /// <summary>
+        /// Gets or sets the tint color of the trailing icon of this text field.
+        /// </summary>
+        public Color TrailingIconTintColor
+        {
+            get => (Color)GetValue(TrailingIconTintColorProperty);
+            set => SetValue(TrailingIconTintColorProperty, value);
         }
 
         /// <summary>
@@ -461,6 +519,24 @@ namespace XF.Material.Forms.UI
         {
             get => GetValue(ReturnCommandParameterProperty);
             set => SetValue(ReturnCommandParameterProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the parameter of <see cref="ChoiceSelectedCommand"/>.
+        /// </summary>
+        public object ChoiceSelectedCommandParameter
+        {
+            get => GetValue(ChoiceSelectedCommandParameterProperty);
+            set => SetValue(ChoiceSelectedCommandParameterProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the parameter of <see cref="ChoiceSelectedCommand"/>.
+        /// </summary>
+        public object TrailingIconCommandParameter
+        {
+            get => GetValue(TrailingIconCommandParameterProperty);
+            set => SetValue(TrailingIconCommandParameterProperty, value);
         }
 
         /// <summary>
@@ -564,6 +640,33 @@ namespace XF.Material.Forms.UI
         {
             get { return (LineBreakMode)GetValue(PlaceholderLineBreakModeProperty); }
             set { SetValue(PlaceholderLineBreakModeProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the icon size. Maximum value should be 24.0
+        /// </summary>
+        public double LeadingIconSize
+        {
+            get { return (double)GetValue(LeadingIconSizeProperty); }
+            set { SetValue(LeadingIconSizeProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the error and cutom trailing icon size. Maximum value should be 24.0
+        /// </summary>
+        public double TrailingIconSize
+        {
+            get { return (double)GetValue(TrailingIconSizeProperty); }
+            set { SetValue(TrailingIconSizeProperty, value); }
+        }
+
+        /// <summary>
+        /// Sets for has error false when has error true on text changed. Default value is false
+        /// </summary>
+        public bool HasErrorFalseOnTextChanged
+        {
+            get { return (bool)GetValue(HasErrorFalseOnTextChangedProperty); }
+            set { SetValue(HasErrorFalseOnTextChangedProperty, value); }
         }
 
         /// <inheritdoc />
@@ -771,24 +874,37 @@ namespace XF.Material.Forms.UI
                 {
                     return;
                 }
+
                 entry.Opacity = 0;
 
                 Device.BeginInvokeOnMainThread(() =>
                 {
+                    var anim = new Animation();
+
 
                     if (FloatingPlaceholderEnabled)
                     {
-                        placeholder.TranslationY = placeholderEndY;
-                        placeholder.TextColor = HasError ? ErrorColor : FloatingPlaceholderColor;
-                        entry.Opacity = 1;
+
+                        anim.Add(0.0, AnimationDuration, new Animation(v => placeholder.FontSize = v, entry.FontSize, placeholderEndFont, _animationCurve));
+
+                        anim.Add(0.0, AnimationDuration, new Animation(v => placeholder.TranslationY = v, 0, placeholderEndY, _animationCurve, () =>
+                       {
+                           placeholder.TextColor = HasError ? ErrorColor : FloatingPlaceholderColor;
+                           entry.Opacity = 1;
+                           UpdateCounter();
+                       }));
+
                     }
 
                     if (ShouldAnimateUnderline)
                     {
-                        underline.Color = HasError ? ErrorColor : TintColor;
+                        underline.Color = HasError ? ErrorColor : UnderlineColor;
                         underline.HeightRequest = 1;
                         underline.HorizontalOptions = LayoutOptions.FillAndExpand;
                     }
+
+                    anim.Commit(this, "Anim1", rate: 2, length: (uint)(AnimationDuration * 1000), easing: _animationCurve);
+
                 });
 
                 entry.Opacity = 1;
@@ -868,6 +984,7 @@ namespace XF.Material.Forms.UI
             {
                 SetTrailingIcon();
 
+
                 var accentColor = TintColor;
                 placeholder.TextColor = accentColor;
                 counter.TextColor = HelperTextColor;
@@ -892,19 +1009,30 @@ namespace XF.Material.Forms.UI
 
         private void SetTrailingIcon()
         {
-            if (InputType == MaterialTextFieldInputType.Choice || InputType == MaterialTextFieldInputType.SingleImmediateChoice)
+
+            if (TrailingIcon == null)
             {
-                trailingIcon.Source = "xf_arrow_dropdown";
-                trailingIcon.TintColor = TextColor;
-            }
-            if (InputType == MaterialTextFieldInputType.CommandChoice)
-            {
-                trailingIcon.Source = "xf_arrow_right";
-                trailingIcon.TintColor = TextColor;
+
+                if (InputType == MaterialTextFieldInputType.Choice || InputType == MaterialTextFieldInputType.SingleImmediateChoice)
+                {
+                    trailingIcon.Source = "xf_arrow_dropdown";
+                    trailingIcon.TintColor = TrailingIconTintColor;
+                }
+                if (InputType == MaterialTextFieldInputType.CommandChoice)
+                {
+                    trailingIcon.Source = "xf_arrow_right";
+                    trailingIcon.TintColor = TrailingIconTintColor;
+                }
+                else
+                {
+                    trailingIcon.IsVisible = false;
+                }
             }
             else
             {
-                trailingIcon.IsVisible = false;
+                trailingIcon.Source = TrailingIcon;
+                trailingIcon.TintColor = TrailingIconTintColor;
+                trailingIcon.IsVisible = true;
             }
         }
 
@@ -955,6 +1083,8 @@ namespace XF.Material.Forms.UI
                     Text = entry.Text;
                     UpdateCounter();
                     break;
+
+
             }
         }
 
@@ -1064,6 +1194,13 @@ namespace XF.Material.Forms.UI
             persistentUnderline.Color = UnderlineColor;
         }
 
+        private void OnTrailingIconSelected(object sender, EventArgs e)
+        {
+            TrailingIconSelected?.Invoke(this, e);
+            TrailingIconCommand?.Execute(TrailingIconCommandParameter);
+        }
+
+
         private void OnBackgroundColorChanged()
         {
             if (base.BackgroundColor != Color.Transparent)
@@ -1092,6 +1229,16 @@ namespace XF.Material.Forms.UI
         private void OnEnabledChanged(bool isEnabled)
         {
             Opacity = isEnabled ? 1 : 0.33;
+
+            if (AlwaysShowUnderline)
+            {
+                persistentUnderline.Margin = new Thickness(0);
+            }
+            else
+            {
+                persistentUnderline.Margin = new Thickness(0, 0, 0, -1);
+            }
+
             helper.IsVisible = isEnabled && !string.IsNullOrEmpty(HelperText);
         }
 
@@ -1113,10 +1260,22 @@ namespace XF.Material.Forms.UI
             placeholder.LineBreakMode = PlaceholderLineBreakMode;
         }
 
+        private void OnLeadingIconSizeChanged()
+        {
+            leadingIcon.WidthRequest = LeadingIconSize;
+            leadingIcon.HeightRequest = LeadingIconSize;
+        }
+
+        private void OnTrailingIconSizeChanged()
+        {
+            trailingIcon.WidthRequest = TrailingIconSize;
+            trailingIcon.HeightRequest = TrailingIconSize;
+        }
+
         private void OnFloatingPlaceholderEnabledChanged(bool isEnabled)
         {
-            double marginTopVariation = Device.RuntimePlatform == Device.iOS ? 18 : 20;
-            entry.Margin = isEnabled ? new Thickness(entry.Margin.Left, 24, entry.Margin.Right, 0) : new Thickness(entry.Margin.Left, marginTopVariation - 9, entry.Margin.Right, 0);
+
+            entry.Margin = isEnabled ? new Thickness(entry.Margin.Left, 24, entry.Margin.Right, 0) : new Thickness(entry.Margin.Left, 0, entry.Margin.Right, 0);
 
             var iconMargin = leadingIcon.Margin;
             leadingIcon.Margin = isEnabled ? new Thickness(iconMargin.Left, 16, iconMargin.Right, 16) : new Thickness(iconMargin.Left, 8, iconMargin.Right, 8);
@@ -1235,11 +1394,17 @@ namespace XF.Material.Forms.UI
                     break;
             }
 
+
+
             // Hint: Will use this for MaterialTextArea
             // entry.AutoSize = inputType == MaterialTextFieldInputType.MultiLine ? EditorAutoSizeOption.TextChanges : EditorAutoSizeOption.Disabled;
             var isChoice = InputType == MaterialTextFieldInputType.Choice || InputType == MaterialTextFieldInputType.SingleImmediateChoice || InputType == MaterialTextFieldInputType.CommandChoice;
-            _gridContainer.InputTransparent = isChoice;
-            trailingIcon.IsVisible = isChoice;
+
+            if (isChoice)
+            {
+                _gridContainer.InputTransparent = isChoice;
+                trailingIcon.IsVisible = isChoice;
+            }
 
             entry.IsNumericKeyboard = InputType == MaterialTextFieldInputType.Telephone || InputType == MaterialTextFieldInputType.Numeric;
             entry.IsPassword = InputType == MaterialTextFieldInputType.Password || InputType == MaterialTextFieldInputType.NumericPassword;
@@ -1254,6 +1419,17 @@ namespace XF.Material.Forms.UI
         private void OnLeadingIconTintColorChanged(Color tintColor)
         {
             leadingIcon.TintColor = tintColor;
+        }
+
+        private void OnTrailingIconChanged(ImageSource imageSource)
+        {
+            trailingIcon.Source = imageSource;
+            OnTrailingIconTintColorChanged(TrailingIconTintColor);
+        }
+
+        private void OnTrailingIconTintColorChanged(Color tintColor)
+        {
+            trailingIcon.TintColor = tintColor;
         }
 
         private void OnMaxLengthChanged(int maxLength, bool isMaxLengthCounterVisible)
@@ -1297,8 +1473,8 @@ namespace XF.Material.Forms.UI
         {
             if (InputType == MaterialTextFieldInputType.CommandChoice)
             {
-                ChoiceSelected?.Invoke(this, new SelectedItemChangedEventArgs(null, -1));
-                ChoiceSelectedCommand?.Execute(null);
+                ChoiceSelected?.Invoke(this, new SelectedItemChangedEventArgs(ChoiceSelectedCommandParameter, -1));
+                ChoiceSelectedCommand?.Execute(ChoiceSelectedCommandParameter);
                 return;
             }
 
@@ -1335,6 +1511,12 @@ namespace XF.Material.Forms.UI
 
         private void OnTextChanged(string text)
         {
+
+            if (HasError && HasErrorFalseOnTextChanged)
+            {
+                HasError = false;
+            }
+
             var isChoice = InputType == MaterialTextFieldInputType.Choice || InputType == MaterialTextFieldInputType.SingleImmediateChoice;
 
             if (isChoice)
@@ -1437,6 +1619,8 @@ namespace XF.Material.Forms.UI
                 { nameof(Choices), () => OnChoicesChanged(Choices) },
                 { nameof(LeadingIcon), () => OnLeadingIconChanged(LeadingIcon) },
                 { nameof(LeadingIconTintColor), () => OnLeadingIconTintColorChanged(LeadingIconTintColor) },
+                { nameof(TrailingIcon), () => OnTrailingIconChanged(TrailingIcon) },
+                { nameof(TrailingIconTintColor), () => OnTrailingIconTintColorChanged(TrailingIconTintColor) },
                 { nameof(InputType), () => OnInputTypeChanged() },
                 { nameof(IsSpellCheckEnabled), () => OnInputTypeChanged() },
                 { nameof(IsTextPredictionEnabled), () => OnInputTypeChanged() },
@@ -1444,7 +1628,9 @@ namespace XF.Material.Forms.UI
                 { nameof(IsTextAllCaps), () => OnInputTypeChanged() },
                 { nameof(TextFontSize), () => OnTextFontSizeChanged(TextFontSize) },
                 { nameof(ErrorText), () => OnErrorTextChanged() },
-                { nameof(PlaceholderLineBreakMode), () => OnPlaceholderLineBreakModeChanged()}
+                { nameof(PlaceholderLineBreakMode), () => OnPlaceholderLineBreakModeChanged()},
+                { nameof(LeadingIconSize), () => OnLeadingIconSizeChanged()},
+                { nameof(TrailingIconSize), () => OnTrailingIconSizeChanged()}
             };
         }
 
@@ -1467,8 +1653,18 @@ namespace XF.Material.Forms.UI
                 return;
             }
 
+
             var count = entry.Text?.Length ?? 0;
             counter.Text = entry.IsFocused ? $"{count}/{MaxLength}" : string.Empty;
+
+            if (!string.IsNullOrEmpty(counter.Text))
+            {
+                counter.IsVisible = true;
+            }
+            else
+            {
+                counter.IsVisible = false;
+            }
         }
     }
 }

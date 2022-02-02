@@ -1,11 +1,56 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
-             x:Class="MaterialMvvmSample.Views.CheckboxesView">
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="MaterialMvvmSample.Views.CheckboxesView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material">
     <ContentPage.Content>
         <StackLayout Orientation="Vertical">
-            <material:MaterialCheckbox Text="My Material Checkbox" />
+
+            <material:MaterialCheckbox
+                HorizontalOptions="Center"
+                HorizontalSize="Auto"
+                Text="My Material Checkbox Horizontal Size Auto" />
+
+            <material:MaterialCheckbox
+                HorizontalSize="Fill"
+                Text="My Material Checkbox Letter Spacing"
+                TextLetterSpacing="5" />
+
+            <material:MaterialRadioButtonGroup
+                BackgroundColor="Bisque"
+                HorizontalOptions="Fill"
+                Orientation="Vertical"
+                TextLetterSpacing="5">
+
+                <material:MaterialRadioButtonGroup.Choices>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Radio 1</x:String>
+                        <x:String>Radio 2</x:String>
+                    </x:Array>
+                </material:MaterialRadioButtonGroup.Choices>
+
+            </material:MaterialRadioButtonGroup>
+
+            <material:MaterialCheckboxGroup
+                BackgroundColor="LightYellow"
+                HorizontalOptions="Center"
+                Orientation="Horizontal">
+
+                <material:MaterialCheckboxGroup.Choices>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Checkbox 1</x:String>
+                        <x:String>Checkbox 2</x:String>
+                    </x:Array>
+                </material:MaterialCheckboxGroup.Choices>
+
+            </material:MaterialCheckboxGroup>
+
+
         </StackLayout>
+
+
+
+
     </ContentPage.Content>
 </ContentPage>
