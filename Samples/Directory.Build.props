@@ -6,14 +6,14 @@
     <Product>$(AssemblyName) ($(TargetFramework))</Product>
     <NeutralLanguage>en</NeutralLanguage>
     <Version>1.0.0</Version>
-    
+
     <LangVersion>10.0</LangVersion>
     <NoWarn>$(NoWarn);1591;1701;1702;1705;VSX1000;NU1603</NoWarn>
 
     <Platform>AnyCPU</Platform>
     <DebugType>full</DebugType>
-  
+
     <IsLibraryProject>$(MSBuildProjectName.Contains('XF.Material'))</IsLibraryProject>
-    <IsXamarinForms>$(MSBuildProjectName.Contains('.Forms'))</IsXamarinForms>
+    <IsMaui>$(MSBuildProjectName.Contains('.Maui'))</IsMaui>
   </PropertyGroup>
 </Project>
