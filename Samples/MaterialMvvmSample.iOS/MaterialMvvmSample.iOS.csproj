@@ -37,36 +37,6 @@
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <None Remove="Resources\Default%402x.png" />
-	  <None Remove="Resources\Default-568h%402x.png" />
-	  <None Remove="Resources\Default-Portrait%402x.png" />
-	  <None Remove="Resources\Default-Portrait.png" />
-	  <None Remove="Resources\Default.png" />
-	  <None Remove="Resources\ic_overflow%402x.png" />
-	  <None Remove="Resources\ic_overflow%403x.png" />
-	  <None Remove="Resources\ic_overflow.png" />
-	  <None Remove="Resources\LaunchScreen.storyboard" />
-	  <None Remove="Resources\xf_checkbox_selected%402x.png" />
-	  <None Remove="Resources\xf_checkbox_selected%403x.png" />
-	  <None Remove="Resources\xf_checkbox_selected.png" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <AndroidResource Include="Resources\Default-568h@2x.png" />
-	  <AndroidResource Include="Resources\Default-Portrait.png" />
-	  <AndroidResource Include="Resources\Default-Portrait@2x.png" />
-	  <AndroidResource Include="Resources\Default.png" />
-	  <AndroidResource Include="Resources\Default@2x.png" />
-	  <AndroidResource Include="Resources\ic_overflow.png" />
-	  <AndroidResource Include="Resources\ic_overflow@2x.png" />
-	  <AndroidResource Include="Resources\ic_overflow@3x.png" />
-	  <AndroidResource Include="Resources\LaunchScreen.storyboard" />
-	  <AndroidResource Include="Resources\xf_checkbox_selected.png" />
-	  <AndroidResource Include="Resources\xf_checkbox_selected@2x.png" />
-	  <AndroidResource Include="Resources\xf_checkbox_selected@3x.png" />
-	</ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="Autofac" Version="6.4.0" />
     <PackageReference Include="Autofac.Extras.CommonServiceLocator" Version="6.0.1" />

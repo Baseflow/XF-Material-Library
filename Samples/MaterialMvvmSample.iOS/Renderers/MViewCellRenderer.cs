@@ -1,7 +1,7 @@
 ﻿using MaterialMvvmSample.iOS.Renderers;
+using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.iOS;
 using UIKit;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.iOS;
 
 [assembly: ExportRenderer(typeof(ViewCell), typeof(MViewCellRenderer))]
 namespace MaterialMvvmSample.iOS.Renderers
