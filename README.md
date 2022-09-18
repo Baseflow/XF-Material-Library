@@ -5,7 +5,7 @@
 
 [![NuGet](https://img.shields.io/nuget/v/XF.Material?color=orange)](https://www.nuget.org/packages/XF.Material/) [![Build status](https://dev.azure.com/compiledevops/XF.Material/_apis/build/status/XF.Material-CI%20NuGet)](https://dev.azure.com/compiledevops/XF.Material/_build/latest?definitionId=20)
 
-A Xamarin.Forms library for Xamarin.Android and Xamarin.iOS to implement [Google's Material Design](https://material.io/design).
+A Maui library for Maui.Android and Maui.iOS to implement [Google's Material Design](https://material.io/design).
 
 # Support
 
@@ -48,19 +48,19 @@ A Xamarin.Forms library for Xamarin.Android and Xamarin.iOS to implement [Google
 - [Thanks and Appreciation](#thanks-and-appreciation)
 
 ## Getting Started
-1. Download the current version through [NuGet](https://www.nuget.org/packages/XF.Material) and install it in your Xamarin.Forms projects.
+1. Download the current version through [NuGet](https://www.nuget.org/packages/XF.Material) and install it in your Maui projects.
 2. Call the `Material.Init()` method in each project:
 
 ```c#
-//Xamarin.Forms
+// Maui
 
 public App()
 {
     this.InitializeComponent();
-    XF.Material.Forms.Material.Init(this);
+    XF.Material.Maui.Material.Init(this);
 }
 
-//Xamarin.Android
+// Maui.Android
 
 protected override void OnCreate(Bundle savedInstanceState)
 {
@@ -75,7 +75,7 @@ protected override void OnCreate(Bundle savedInstanceState)
     this.LoadApplication(new App());
 }
 
-//Xamarin.iOS
+// Maui.iOS
 
 public override bool FinishedLaunching(UIApplication app, NSDictionary options)
 {
@@ -104,14 +104,14 @@ In order to be able to change the status bar's colors using [this](#changing-the
 ## Features
 
 ### Material UI
-Under the `XF.Material.Forms.UI` namespace, the library offers a number of controls available.
+Under the `XF.Material.Maui.UI` namespace, the library offers a number of controls available.
 
 #### App Bar Customization
 You can customize the appearance of the App Bar by using the `MaterialNavigationPage` control.
 
 | Code | Android  | iOS |
 | ------------- | ------------- | ------------- |
-|`<ContentPage .... xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material" material:MaterialNavigationPage.AppBarColor="#2c3e50" material:MaterialNavigationPage.AppBarTitleTextFontFamily="Roboto" material:MaterialNavigationPage.AppBarTitleTextFontSize="14" material:MaterialNavigationPage.StatusBarColor="#1B3147" material:MaterialNavigationPage.AppBarTitleTextAlignment="Start" /* Content goes here * </ ContentPage>` |<img src="https://media.giphy.com/media/MU4IeOwCKtssPAmgNB/giphy.gif" alt="Android card" width="500" />|<img src="https://media.giphy.com/media/XJ1bwhVkWKPDU2UmKP/giphy.gif" alt="iOS card" width="500"/> |
+|`<ContentPage .... xmlns:material="clr-namespace:XF.Material.Maui.UI;assembly=XF.Material" material:MaterialNavigationPage.AppBarColor="#2c3e50" material:MaterialNavigationPage.AppBarTitleTextFontFamily="Roboto" material:MaterialNavigationPage.AppBarTitleTextFontSize="14" material:MaterialNavigationPage.StatusBarColor="#1B3147" material:MaterialNavigationPage.AppBarTitleTextAlignment="Start" /* Content goes here * </ ContentPage>` |<img src="https://media.giphy.com/media/MU4IeOwCKtssPAmgNB/giphy.gif" alt="Android card" width="500" />|<img src="https://media.giphy.com/media/XJ1bwhVkWKPDU2UmKP/giphy.gif" alt="iOS card" width="500"/> |
 
 
 ##### Attached Properties
@@ -467,7 +467,7 @@ Menus display a list of choices on temporary surfaces.
 
 ##### Properties
 
-`MaterialMenuButton` inherits the `XF.Material.Forms.UI.MaterialIconButton` class.
+`MaterialMenuButton` inherits the `XF.Material.Maui.UI.MaterialIconButton` class.
 
 1. `Choices` - The list of items from which the user will choose from. You can either assign a collection of `string` or `MaterialMenuItem`.
 
@@ -635,7 +635,7 @@ A tintable image view.
 
 ### Material Dialogs
 
-Under the `XF.Material.Forms.UI.Dialogs` namespace, you can display modal views to notify users by using `MaterialDialog.Instance`.
+Under the `XF.Material.Maui.UI.Dialogs` namespace, you can display modal views to notify users by using `MaterialDialog.Instance`.
 
 **Handling the Back Button on Android**
 
@@ -1006,15 +1006,15 @@ The properties of `MaterialAlertDialogConfiguration` class are:
 ```C#
 var alertDialogConfiguration = new MaterialAlertDialogConfiguration
 {
-    BackgroundColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.PRIMARY),
-    TitleTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ONPRIMARY),
-    TitleFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.Exo2Bold"),
-    MessageTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ONPRIMARY).MultiplyAlpha(0.8),
-    MessageFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansRegular"),
-    TintColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ONPRIMARY),
-    ButtonFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansSemiBold"),
+    BackgroundColor = XF.Material.Maui.Material.GetResource<Color>(MaterialConstants.Color.PRIMARY),
+    TitleTextColor = XF.Material.Maui.Material.GetResource<Color>(MaterialConstants.Color.ONPRIMARY),
+    TitleFontFamily = XF.Material.Maui.Material.GetResource<OnPlatform<string>>("FontFamily.Exo2Bold"),
+    MessageTextColor = XF.Material.Maui.Material.GetResource<Color>(MaterialConstants.Color.ONPRIMARY).MultiplyAlpha(0.8),
+    MessageFontFamily = XF.Material.Maui.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansRegular"),
+    TintColor = XF.Material.Maui.Material.GetResource<Color>(MaterialConstants.Color.ONPRIMARY),
+    ButtonFontFamily = XF.Material.Maui.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansSemiBold"),
     CornerRadius = 8,
-    ScrimColor = Color.FromHex("#232F34").MultiplyAlpha(0.32),
+    ScrimColor = Color.FromArgb("#232F34").MultiplyAlpha(0.32),
     ButtonAllCaps = false
 };
 
@@ -1037,13 +1037,13 @@ have to update also the style of the custom view separately.
 ```c#
 var simpleDialogConfiguration = new MaterialSimpleDialogConfiguration
 {
-    BackgroundColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.PRIMARY),
-    TitleTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_PRIMARY),
-    TitleFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansSemiBold"),
-    TextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_PRIMARY).MultiplyAlpha(0.8),
-    TextFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansRegular"),
+    BackgroundColor = XF.Material.Maui.Material.GetResource<Color>(MaterialConstants.Color.PRIMARY),
+    TitleTextColor = XF.Material.Maui.Material.GetResource<Color>(MaterialConstants.Color.ON_PRIMARY),
+    TitleFontFamily = XF.Material.Maui.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansSemiBold"),
+    TextColor = XF.Material.Maui.Material.GetResource<Color>(MaterialConstants.Color.ON_PRIMARY).MultiplyAlpha(0.8),
+    TextFontFamily = XF.Material.Maui.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansRegular"),
     CornerRadius = 8,
-    ScrimColor = Color.FromHex("#232F34").MultiplyAlpha(0.32)
+    ScrimColor = Color.FromArgb("#232F34").MultiplyAlpha(0.32)
 };
 
 var result = await MaterialDialog.Instance.SelectActionAsync(title: "Select an action",
@@ -1060,18 +1060,18 @@ var result = await MaterialDialog.Instance.SelectActionAsync(title: "Select an a
 ```c#
 var confirmationDialogConfiguration = new MaterialConfirmationDialogConfiguration
 {
-    BackgroundColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.PRIMARY).AddLuminosity(-0.1),
-    TitleTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_PRIMARY),
-    TitleFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansSemiBold"),
-    TextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_PRIMARY).MultiplyAlpha(0.8),
-    TextFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansRegular"),
+    BackgroundColor = XF.Material.Maui.Material.GetResource<Color>(MaterialConstants.Color.PRIMARY).AddLuminosity(-0.1),
+    TitleTextColor = XF.Material.Maui.Material.GetResource<Color>(MaterialConstants.Color.ON_PRIMARY),
+    TitleFontFamily = XF.Material.Maui.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansSemiBold"),
+    TextColor = XF.Material.Maui.Material.GetResource<Color>(MaterialConstants.Color.ON_PRIMARY).MultiplyAlpha(0.8),
+    TextFontFamily = XF.Material.Maui.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansRegular"),
     CornerRadius = 8,
     ButtonAllCaps = false,
-    ButtonFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansSemiBold"),
+    ButtonFontFamily = XF.Material.Maui.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansSemiBold"),
     ControlSelectedColor = Color.White,
     ControlUnselectedColor = Color.White.MultiplyAlpha(0.66),
     TintColor = Color.White,
-    ScrimColor = Color.FromHex("#232F34").MultiplyAlpha(0.32)
+    ScrimColor = Color.FromArgb("#232F34").MultiplyAlpha(0.32)
 };
 
 var result = await MaterialDialog.Instance.SelectChoiceAsync(title: "Select a  job",
@@ -1093,12 +1093,12 @@ var config = new MaterialInputDialogConfiguration()
 {
     InputType = MaterialTextFieldInputType.Password,
     CornerRadius = 8,
-    BackgroundColor = Color.FromHex("#2c3e50"),
+    BackgroundColor = Color.FromArgb("#2c3e50"),
     InputTextColor = Color.White,
     InputPlaceholderColor = Color.White.MultiplyAlpha(0.6),
     TintColor = Color.White,
     TitleTextColor = Color.White,
-    MessageTextColor = Color.FromHex("#DEFFFFFF")
+    MessageTextColor = Color.FromArgb("#DEFFFFFF")
 };
 
 var input = await MaterialDialog.Instance.InputAsync(title: "Deactivate account",
@@ -1118,12 +1118,12 @@ var input = await MaterialDialog.Instance.InputAsync(title: "Deactivate account"
 ```c#
 var loadingDialogConfiguration = new MaterialLoadingDialogConfiguration()
 {
-    BackgroundColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.PRIMARY),
-    MessageTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ONPRIMARY).MultiplyAlpha(0.8),
-    MessageFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansRegular"),
-    TintColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ONPRIMARY),
+    BackgroundColor = XF.Material.Maui.Material.GetResource<Color>(MaterialConstants.Color.PRIMARY),
+    MessageTextColor = XF.Material.Maui.Material.GetResource<Color>(MaterialConstants.Color.ONPRIMARY).MultiplyAlpha(0.8),
+    MessageFontFamily = XF.Material.Maui.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansRegular"),
+    TintColor = XF.Material.Maui.Material.GetResource<Color>(MaterialConstants.Color.ONPRIMARY),
     CornerRadius = 8,
-    ScrimColor = Color.FromHex("#232F34").MultiplyAlpha(0.32)
+    ScrimColor = Color.FromArgb("#232F34").MultiplyAlpha(0.32)
 };
 
 await MaterialDialog.Instance.LoadingDialogAsync(message: "Something is running...",
@@ -1139,12 +1139,12 @@ await MaterialDialog.Instance.LoadingDialogAsync(message: "Something is running.
 ```c#
 var snackbarConfiguration = new MaterialSnackbarConfiguration()            
 {
-    BackgroundColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.PRIMARY),
-    MessageFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansRegular"),
+    BackgroundColor = XF.Material.Maui.Material.GetResource<Color>(MaterialConstants.Color.PRIMARY),
+    MessageFontFamily = XF.Material.Maui.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansRegular"),
     ButtonAllCaps = true,
-    ButtonFontFamily = XF.Material.Forms.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansSemiBold"),
+    ButtonFontFamily = XF.Material.Maui.Material.GetResource<OnPlatform<string>>("FontFamily.OpenSansSemiBold"),
     TintColor = Color.White,
-    MessageTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ONPRIMARY).MultiplyAlpha(0.8)
+    MessageTextColor = XF.Material.Maui.Material.GetResource<Color>(MaterialConstants.Color.ONPRIMARY).MultiplyAlpha(0.8)
 }
 
 await MaterialDialog.Instance.SnackbarAsync(message: "This is a snackbar."
@@ -1251,20 +1251,21 @@ The code below shows a complete example on how to include the `MaterialColorConf
 
 ```xml
 <Application x:Class="XF.MaterialSample.App"
-    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:mtrl="clr-namespace:XF.Material.Forms.Resources;assembly=XF.Material"
-    xmlns:mtrltypo="clr-namespace:XF.Material.Forms.Resources.Typography;assembly=XF.Material">
+    xmlns:mtrl="clr-namespace:XF.Material.Maui.Resources;assembly=XF.Material"
+    xmlns:mtrltypo="clr-namespace:XF.Material.Maui.Resources.Typography;assembly=XF.Material">
     <Application.Resources>
 
-        <OnPlatform x:Key="FontFamily.RobotoRegular"
-            x:TypeArguments="x:String"
-            Android="Fonts/Roboto-Regular.ttf#Roboto-Regular"
-            iOS="Roboto-Regular" />
-        <OnPlatform x:Key="FontFamily.RobotoMedium"
-            x:TypeArguments="x:String"
-            Android="Fonts/Roboto-Medium.ttf#Roboto-Medium"
-            iOS="Roboto-Medium" />
+        <OnPlatform x:Key="FontFamily.RobotoRegular" x:TypeArguments="x:String">
+            <On Platform="iOS" Value="Roboto-Regular" />
+            <On Platform="Android" Value="Fonts/Roboto-Regular.ttf#Roboto-Regular" />
+        </OnPlatform>
+        
+        <OnPlatform x:Key="FontFamily.RobotoMedium" x:TypeArguments="x:String">
+            <On Platform="iOS" Value="Roboto-Medium" />
+            <On Platform="Android" Value="Fonts/Roboto-Medium.ttf#Roboto-Medium" />
+        </OnPlatform>
 
         <mtrltypo:MaterialFontConfiguration x:Key="Material.Font"
             Body1="{StaticResource FontFamily.RobotoRegular}"
@@ -1308,12 +1309,12 @@ Then in your `App.xaml.cs`, pass the resource key of the `MaterialConfiguration`
 `MaterialFontConfiguration`'s and `MaterialColorConfiguration`'s properties are optional, they always have a default value. For `MaterialFontConfiguration` the default font is the system font. 
 
 ```c#
-// Xamarin.Forms
+// Maui
 
 public App()
 {
     InitializeComponent();
-    XF.Material.Forms.Material.Init(this, "Material.Configuration");
+    XF.Material.Maui.Material.Init(this, "Material.Configuration");
 }
 
 ```
@@ -1321,12 +1322,12 @@ public App()
 You can also instantiate the `MaterialConfiguration` object via C# code.
 
 ```c#
-// Xamarin.Forms
+// Maui
 
 public App()
 {
     InitializeComponent();
-    XF.Material.Forms.Material.Init(this, new MaterialConfiguration
+    XF.Material.Maui.Material.Init(this, new MaterialConfiguration
     {
         ColorConfiguration = new MaterialColorConfiguration
         {
@@ -1345,18 +1346,18 @@ public App()
 
 The static properties `ColorConfiguration` and `FontConfiguration` of `Material` class allows you to retrieve the resource values that you have set.
 
-You can also use`XF.Material.Forms.Material.GetResource<T>(string key)` method that allows you to get a resource value of the specified type.
+You can also use`XF.Material.Maui.Material.GetResource<T>(string key)` method that allows you to get a resource value of the specified type.
 
 The static `MaterialConstants` class provides a list of constant Material resource keys.
 
 ```c#
 //Get color resource, use either
-Color primaryColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.PRIMARY);
-Color primaryColor = XF.Material.Forms.Material.Color.Primary;
+Color primaryColor = XF.Material.Maui.Material.GetResource<Color>(MaterialConstants.Color.PRIMARY);
+Color primaryColor = XF.Material.Maui.Material.Color.Primary;
 
 //Get font family resource, use either
-string body1Font = XF.Material.Forms.Material.GetResource<string>(MaterialConstants.FontFamily.BODY1);
-string body1Font = XF.Material.Forms.Material.FontFamily.Body1;
+string body1Font = XF.Material.Maui.Material.GetResource<string>(MaterialConstants.FontFamily.BODY1);
+string body1Font = XF.Material.Maui.Material.FontFamily.Body1;
 ```
 
 ### Changing the Status Bar Color
@@ -1375,6 +1376,4 @@ If targeted below Android 5.0, the following issues can be seen:
 
 ## Thanks and Appreciation
 Special thanks to the following libraries I used for this project:
-- [Rg.Plugins.Popup](https://github.com/rotorgames/Rg.Plugins.Popup)
-- [LottieXamarin](https://github.com/Baseflow/LottieXamarin)
-- [Xamarin.Essentials](https://github.com/xamarin/Essentials)
+- [Mopups](https://github.com/LuckyDucko/Mopups)
