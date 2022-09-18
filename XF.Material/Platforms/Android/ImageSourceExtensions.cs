@@ -1,5 +1,5 @@
-﻿using Xamarin.Forms;
-using Xamarin.Forms.Platform.Android;
+﻿using Microsoft.Maui;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android;
 
 namespace XF.Material.Droid
 {

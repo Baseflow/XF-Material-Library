@@ -1,10 +1,9 @@
 ﻿using System.Linq;
 using System.Runtime.CompilerServices;
-using Xamarin.Forms;
-using Xamarin.Forms.Internals;
-using XF.Material.Forms.Resources;
+using Microsoft.Maui;
+using XF.Material.Maui.Resources;
 
-namespace XF.Material.Forms.UI
+namespace XF.Material.Maui.UI
 {
     /// <summary>
     /// A control that allow users to take actions, and make choices, with a single tap.
@@ -13,7 +12,7 @@ namespace XF.Material.Forms.UI
     {
         public const string MaterialButtonColorChanged = "BackgroundColorChanged";
 
-        private static readonly Color OutlinedBorderColor = Color.FromHex("#1E000000");
+        private static readonly Color OutlinedBorderColor = Color.FromArgb("#1E000000");
         private readonly string[] _colorPropertyNames = { nameof(BackgroundColor), nameof(PressedBackgroundColor), nameof(DisabledBackgroundColor) };
 
         public static readonly BindableProperty AllCapsProperty = BindableProperty.Create(nameof(AllCaps), typeof(bool), typeof(MaterialButton), true);
@@ -96,22 +95,23 @@ namespace XF.Material.Forms.UI
 
         private void SetStyleValues(Style style)
         {
-            style?.Setters.ForEach(s =>
+            foreach (var s in style?.Setters)
             {
-                if (s.Value is DynamicResource d)
-                {
-                    SetDynamicResource(s.Property, d.Key);
-                }
-                else
-                {
-                    SetValue(s.Property, s.Value);
-                }
-            });
+                // TODO: DynamicResource
+                //if (s.Value is DynamicResource d)
+                //{
+                //    SetDynamicResource(s.Property, d.Key);
+                //}
+                //else
+                //{
+                //    SetValue(s.Property, s.Value);
+                //}
+            }
         }
 
         private void ButtonTypeChanged(MaterialButtonType buttonType)
         {
-            if (buttonType == MaterialButtonType.Outlined && BorderColor.IsDefault)
+            if (buttonType == MaterialButtonType.Outlined && BorderColor.IsDefault())
             {
                 BorderColor = OutlinedBorderColor;
             }

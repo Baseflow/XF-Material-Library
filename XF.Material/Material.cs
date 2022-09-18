@@ -1,10 +1,10 @@
 ﻿using System;
-using Xamarin.Forms;
-using XF.Material.Forms.Resources;
-using XF.Material.Forms.Resources.Typography;
-using XF.Material.Forms.Utilities;
+using Microsoft.Maui;
+using XF.Material.Maui.Resources;
+using XF.Material.Maui.Resources.Typography;
+using XF.Material.Maui.Utilities;
 
-namespace XF.Material.Forms
+namespace XF.Material.Maui
 {
     /// <summary>
     /// Class that provides static methods and properties for configuring Material resources.
@@ -149,71 +149,71 @@ namespace XF.Material.Forms
             /// The underlying color of an app’s content.
             /// Typically the background color of scrollable content.
             /// </summary>
-            public static Xamarin.Forms.Color Background => GetResource<Xamarin.Forms.Color>(MaterialConstants.Color.BACKGROUND);
+            public static Microsoft.Maui.Graphics.Color Background => GetResource<Microsoft.Maui.Graphics.Color>(MaterialConstants.Color.BACKGROUND);
 
             /// <summary>
             /// The color used to indicate error status.
             /// </summary>
-            public static Xamarin.Forms.Color Error => GetResource<Xamarin.Forms.Color>(MaterialConstants.Color.ERROR);
+            public static Microsoft.Maui.Graphics.Color Error => GetResource<Microsoft.Maui.Graphics.Color>(MaterialConstants.Color.ERROR);
 
             /// <summary>
             /// A color that passes accessibility guidelines for text/iconography when drawn on top of <see cref="MaterialColorConfiguration.Background"/>.
             /// </summary>
-            public static Xamarin.Forms.Color OnBackground => GetResource<Xamarin.Forms.Color>(MaterialConstants.Color.ON_BACKGROUND);
+            public static Microsoft.Maui.Graphics.Color OnBackground => GetResource<Microsoft.Maui.Graphics.Color>(MaterialConstants.Color.ON_BACKGROUND);
 
             /// <summary>
             /// A color that passes accessibility guidelines for text/iconography when drawn on top of <see cref="MaterialColorConfiguration.Error"/>.
             /// </summary>
-            public static Xamarin.Forms.Color OnError => GetResource<Xamarin.Forms.Color>(MaterialConstants.Color.ON_ERROR);
+            public static Microsoft.Maui.Graphics.Color OnError => GetResource<Microsoft.Maui.Graphics.Color>(MaterialConstants.Color.ON_ERROR);
 
             /// <summary>
             /// A color that passes accessibility guidelines for text/iconography when drawn on top of <see cref="MaterialColorConfiguration.Primary"/>.
             /// </summary>
-            public static Xamarin.Forms.Color OnPrimary => GetResource<Xamarin.Forms.Color>(MaterialConstants.Color.ON_PRIMARY);
+            public static Microsoft.Maui.Graphics.Color OnPrimary => GetResource<Microsoft.Maui.Graphics.Color>(MaterialConstants.Color.ON_PRIMARY);
 
             /// <summary>
             /// 	A color that passes accessibility guidelines for text/iconography when drawn on top of <see cref="MaterialColorConfiguration.Secondary"/>.
             /// </summary>
-            public static Xamarin.Forms.Color OnSecondary => GetResource<Xamarin.Forms.Color>(MaterialConstants.Color.ON_SECONDARY);
+            public static Microsoft.Maui.Graphics.Color OnSecondary => GetResource<Microsoft.Maui.Graphics.Color>(MaterialConstants.Color.ON_SECONDARY);
 
             /// <summary>
             /// A color that passes accessibility guidelines for text/iconography when drawn on top of <see cref="MaterialColorConfiguration.Surface"/>
             /// </summary>
-            public static Xamarin.Forms.Color OnSurface => GetResource<Xamarin.Forms.Color>(MaterialConstants.Color.ON_SURFACE);
+            public static Microsoft.Maui.Graphics.Color OnSurface => GetResource<Microsoft.Maui.Graphics.Color>(MaterialConstants.Color.ON_SURFACE);
 
             /// <summary>
             /// Displayed most frequently across your app.
             /// </summary>
-            public static Xamarin.Forms.Color Primary => GetResource<Xamarin.Forms.Color>(MaterialConstants.Color.PRIMARY);
+            public static Microsoft.Maui.Graphics.Color Primary => GetResource<Microsoft.Maui.Graphics.Color>(MaterialConstants.Color.PRIMARY);
 
             /// <summary>
             /// A tonal variation of <see cref="MaterialColorConfiguration.Primary"/>.
             /// </summary>
-            public static Xamarin.Forms.Color PrimaryVariant => GetResource<Xamarin.Forms.Color>(MaterialConstants.Color.PRIMARY_VARIANT);
+            public static Microsoft.Maui.Graphics.Color PrimaryVariant => GetResource<Microsoft.Maui.Graphics.Color>(MaterialConstants.Color.PRIMARY_VARIANT);
 
             /// <summary>
             /// Accents select parts of your UI.
             /// If not provided, use <see cref="MaterialColorConfiguration.Primary"/>.
             /// </summary>
-            public static Xamarin.Forms.Color Secondary => GetSecondaryColor();
+            public static Microsoft.Maui.Graphics.Color Secondary => GetSecondaryColor();
 
             //TODO: Make configurations bindable.
-            private static Xamarin.Forms.Color GetSecondaryColor()
+            private static Microsoft.Maui.Graphics.Color GetSecondaryColor()
             {
-                var color = GetResource<Xamarin.Forms.Color>(MaterialConstants.Color.SECONDARY);
+                var color = GetResource<Microsoft.Maui.Graphics.Color>(MaterialConstants.Color.SECONDARY);
 
-                return color.IsDefault ? Xamarin.Forms.Color.FromHex("#6200EE") : color;
+                return Color.Secondary.IsDefault() ? Microsoft.Maui.Graphics.Color.FromArgb("#6200EE") : color;
             }
 
             /// <summary>
             /// A tonal variation of <see cref="MaterialColorConfiguration.Secondary"/>.
             /// </summary>
-            public static Xamarin.Forms.Color SecondaryVariant => GetResource<Xamarin.Forms.Color>(MaterialConstants.Color.SECONDARY_VARIANT);
+            public static Microsoft.Maui.Graphics.Color SecondaryVariant => GetResource<Microsoft.Maui.Graphics.Color>(MaterialConstants.Color.SECONDARY_VARIANT);
 
             /// <summary>
             /// The color of surfaces such as cards, sheets, menus.
             /// </summary>
-            public static Xamarin.Forms.Color Surface => GetResource<Xamarin.Forms.Color>(MaterialConstants.Color.SURFACE);
+            public static Microsoft.Maui.Graphics.Color Surface => GetResource<Microsoft.Maui.Graphics.Color>(MaterialConstants.Color.SURFACE);
         }
 
         /// <summary>

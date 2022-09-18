@@ -1,10 +1,12 @@
 ﻿using System.ComponentModel;
 using Android.Content;
 using Android.Graphics.Drawables;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.Android;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android;
+using Microsoft.Maui.Controls.Platform;
 using XF.Material.Droid.Renderers.Internals;
-using XF.Material.Forms.UI.Internals;
+using XF.Material.Maui.UI.Internals;
 
 [assembly: ExportRenderer(typeof(MaterialDatePicker), typeof(MaterialDatePickerRenderer))]
 namespace XF.Material.Droid.Renderers.Internals
@@ -15,7 +17,7 @@ namespace XF.Material.Droid.Renderers.Internals
 
         public MaterialDatePickerRenderer(Context context) : base(context) { }
 
-        protected override void OnElementChanged(ElementChangedEventArgs<Xamarin.Forms.DatePicker> e)
+        protected override void OnElementChanged(ElementChangedEventArgs<DatePicker> e)
         {
             base.OnElementChanged(e);
 
@@ -38,7 +40,7 @@ namespace XF.Material.Droid.Renderers.Internals
                 return;
             }
 
-            Control.Background = new ColorDrawable(Color.Transparent.ToAndroid());
+            Control.Background = new ColorDrawable(Colors.Transparent.ToAndroid());
             Control.SetPadding(0, 0, 0, 0);
             Control.SetIncludeFontPadding(false);
             Control.SetMinimumHeight((int)MaterialHelper.ConvertDpToPx(20));

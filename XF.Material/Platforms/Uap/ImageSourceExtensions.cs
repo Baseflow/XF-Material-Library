@@ -1,5 +1,4 @@
-﻿using Xamarin.Forms;
-using Xamarin.Forms.Platform.UWP;
+﻿using Microsoft.Maui;
 
 namespace XF.Material.Uwp
 {

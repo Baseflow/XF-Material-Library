@@ -1,6 +1,6 @@
-﻿using Xamarin.Forms;
+﻿using Microsoft.Maui;
 
-namespace XF.Material.Forms.Models
+namespace XF.Material.Maui.Models
 {
     public class MaterialMenuItem
     {

@@ -1,4 +1,4 @@
-﻿namespace XF.Material.Forms.Models
+﻿namespace XF.Material.Maui.Models
 {
     /// <summary>
     /// Contains data of a <see cref="UI.MaterialMenuButton"/> selection.

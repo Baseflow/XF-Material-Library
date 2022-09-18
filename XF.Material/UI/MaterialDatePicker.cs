@@ -1,6 +1,6 @@
-﻿using Xamarin.Forms;
+﻿using Microsoft.Maui;
 
-namespace XF.Material.Forms.UI
+namespace XF.Material.Maui.UI
 {
     public class MaterialDatePicker : DatePicker
     {

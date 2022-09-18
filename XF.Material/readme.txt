@@ -2,18 +2,18 @@
 XF.Material
 ---------------------------------
 
-1. Download the current version through NuGet and install it in your Xamarin.Forms projects.
+1. Download the current version through NuGet and install it in your Maui projects.
 
 2. Call the Material.Init() method in each project:
 
-//Xamarin.Forms
+// Maui
 public App()
 {
     this.InitializeComponent();
-    XF.Material.Forms.Material.Init(this);
+    XF.Material.Maui.Material.Init(this);
 }
 
-//Xamarin.Android
+// Maui.Android
 protected override void OnCreate(Bundle savedInstanceState)
 {
     TabLayoutResource = Resource.Layout.Tabbar;
@@ -27,7 +27,7 @@ protected override void OnCreate(Bundle savedInstanceState)
     this.LoadApplication(new App());
 }
 
-//Xamarin.iOS
+// Maui.iOS
 public override bool FinishedLaunching(UIApplication app, NSDictionary options)
 {
     Xamarin.Forms.Forms.Init();

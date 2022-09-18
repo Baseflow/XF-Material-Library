@@ -1,6 +1,6 @@
-﻿using Xamarin.Forms;
+﻿using Microsoft.Maui;
 
-namespace XF.Material.Forms.UI.Dialogs.Configurations
+namespace XF.Material.Maui.UI.Dialogs.Configurations
 {
     /// <inheritdoc />
     /// <summary>
@@ -16,7 +16,7 @@ namespace XF.Material.Forms.UI.Dialogs.Configurations
         /// <summary>
         /// Gets or sets the color of the textfield's placeholder.
         /// </summary>
-        public Color InputPlaceholderColor { get; set; } = Color.FromHex("#99000000");
+        public Color InputPlaceholderColor { get; set; } = Color.FromArgb("#99000000");
 
         /// <summary>
         /// Gets or sets the font family of the textfield's placeholder.
@@ -26,7 +26,7 @@ namespace XF.Material.Forms.UI.Dialogs.Configurations
         /// <summary>
         /// Gets or sets the color of the textfield's text.
         /// </summary>
-        public Color InputTextColor { get; set; } = Color.FromHex("#D0000000");
+        public Color InputTextColor { get; set; } = Color.FromArgb("#D0000000");
 
         /// <summary>
         /// Gets or sets the font family of the textfield's text.

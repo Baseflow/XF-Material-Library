@@ -3,12 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using Xamarin.Forms;
-using XF.Material.Forms.Models;
-using XF.Material.Forms.UI.Dialogs;
-using XF.Material.Forms.UI.Dialogs.Configurations;
+using Microsoft.Maui;
+using XF.Material.Maui.Models;
+using XF.Material.Maui.UI.Dialogs;
+using XF.Material.Maui.UI.Dialogs.Configurations;
 
-namespace XF.Material.Forms.UI
+namespace XF.Material.Maui.UI
 {
     /// <summary>
     /// A control that allow users to select a single choice on a temporary surface.

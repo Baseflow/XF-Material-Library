@@ -1,4 +1,4 @@
-﻿namespace XF.Material.Forms.Resources
+﻿namespace XF.Material.Maui.Resources
 {
     /// <summary>
     /// Static class that contains constant key values of Material resources.

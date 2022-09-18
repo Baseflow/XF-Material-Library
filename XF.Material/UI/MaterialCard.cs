@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
-using Xamarin.Forms;
-using XF.Material.Forms.Resources;
+using Microsoft.Maui;
+using XF.Material.Maui.Resources;
 
-namespace XF.Material.Forms.UI
+namespace XF.Material.Maui.UI
 {
     /// <summary>
     /// A container that display content and actions on a single topic.

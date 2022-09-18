@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Xamarin.Forms;
-using XF.Material.Forms.Resources;
+using Microsoft.Maui;
+using XF.Material.Maui.Resources;
 
-namespace XF.Material.Forms.UI
+namespace XF.Material.Maui.UI
 {
     /// <summary>
     /// A <see cref="NavigationPage"/> that applies Material theming to a page.
@@ -13,7 +13,7 @@ namespace XF.Material.Forms.UI
         /// <summary>
         /// Attached property that is used by <see cref="Page"/>s to determine the app bar color.
         /// </summary>
-        public static readonly BindableProperty AppBarColorProperty = BindableProperty.Create("AppBarColor", typeof(Color), typeof(MaterialNavigationPage), Color.Default);
+        public static readonly BindableProperty AppBarColorProperty = BindableProperty.Create("AppBarColor", typeof(Color), typeof(MaterialNavigationPage), null);
 
         /// <summary>
         /// Attached property that is used by <see cref="Page"/>s to determine the app bar text alignment.
@@ -23,7 +23,7 @@ namespace XF.Material.Forms.UI
         /// <summary>
         /// Attached property that is used by <see cref="Page"/>s to determine the app bar title text color.
         /// </summary>
-        public static readonly BindableProperty AppBarTitleTextColorProperty = BindableProperty.Create("AppBarTitleTextColor", typeof(Color), typeof(MaterialNavigationPage), Color.Default);
+        public static readonly BindableProperty AppBarTitleTextColorProperty = BindableProperty.Create("AppBarTitleTextColor", typeof(Color), typeof(MaterialNavigationPage), null);
 
         /// <summary>
         /// Attached property that is used by <see cref="Page"/>s to determine the app bar title text font family.
@@ -43,7 +43,7 @@ namespace XF.Material.Forms.UI
         /// <summary>
         /// Attached property that is used by <see cref="Page"/>s to determine the status bar color.
         /// </summary>
-        public static readonly BindableProperty StatusBarColorProperty = BindableProperty.Create("StatusBarColor", typeof(Color), typeof(MaterialNavigationPage), Color.Default);
+        public static readonly BindableProperty StatusBarColorProperty = BindableProperty.Create("StatusBarColor", typeof(Color), typeof(MaterialNavigationPage), null);
 
         private TitleLabel _customTitleView;
 
@@ -53,7 +53,7 @@ namespace XF.Material.Forms.UI
         /// <param name="rootPage">The root page.</param>
         public MaterialNavigationPage(Page rootPage) : base(rootPage)
         {
-            if (rootPage.BackgroundColor.IsDefault)
+            if (rootPage.BackgroundColor.IsDefault())
             {
                 rootPage.SetDynamicResource(BackgroundColorProperty, MaterialConstants.Color.BACKGROUND);
             }
@@ -299,7 +299,7 @@ namespace XF.Material.Forms.UI
 
         private void UpdatePage(Page page)
         {
-            if (page.BackgroundColor.IsDefault)
+            if (page.BackgroundColor.IsDefault())
             {
                 page.SetDynamicResource(BackgroundColorProperty, MaterialConstants.Color.BACKGROUND);
             }
@@ -313,7 +313,7 @@ namespace XF.Material.Forms.UI
         {
             var barColor = (Color)page.GetValue(AppBarColorProperty);
 
-            if (barColor.IsDefault)
+            if (barColor.IsDefault())
             {
                 SetDynamicResource(BarBackgroundColorProperty, MaterialConstants.Color.PRIMARY);
             }
@@ -329,7 +329,7 @@ namespace XF.Material.Forms.UI
 
             if (page.GetValue(TitleViewProperty) is TitleLabel customTitleView)
             {
-                if (barTextColor.IsDefault)
+                if (barTextColor.IsDefault())
                 {
                     BarTextColor = customTitleView.TextColor = Material.Color.OnPrimary;
                 }
@@ -340,7 +340,7 @@ namespace XF.Material.Forms.UI
             }
             else
             {
-                BarTextColor = barTextColor.IsDefault ? Material.Color.OnPrimary : barTextColor;
+                BarTextColor = barTextColor.IsDefault() ? Material.Color.OnPrimary : barTextColor;
             }
         }
 
@@ -386,7 +386,7 @@ namespace XF.Material.Forms.UI
             _customTitleView.VerticalOptions = LayoutOptions.FillAndExpand;
             _customTitleView.HorizontalOptions = LayoutOptions.FillAndExpand;
             _customTitleView.HorizontalTextAlignment = textAlignment;
-            _customTitleView.TypeScale = Forms.Resources.Typography.MaterialTypeScale.H6;
+            _customTitleView.TypeScale = Maui.Resources.Typography.MaterialTypeScale.H6;
             _customTitleView.FontFamily = fontFamily;
             _customTitleView.FontSize = fontSize;
             _customTitleView.Text = page.Title;

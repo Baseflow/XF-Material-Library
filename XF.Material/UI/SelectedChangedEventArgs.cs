@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace XF.Material.Forms.UI
+namespace XF.Material.Maui.UI
 {
     public class SelectedChangedEventArgs : EventArgs
     {

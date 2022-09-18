@@ -1,6 +1,7 @@
-﻿using Xamarin.Forms;
+﻿using Microsoft.Maui;
+using Microsoft.Maui.Graphics;
 
-namespace XF.Material.Forms.Resources
+namespace XF.Material.Maui.Resources
 {
     /// <summary>
     /// Class that provides color theme configuration based on https://material.io/design/color.
@@ -10,47 +11,47 @@ namespace XF.Material.Forms.Resources
         /// <summary>
         /// Backing field for the bindable property <see cref="Background"/>.
         /// </summary>
-        public static readonly BindableProperty BackgroundProperty = BindableProperty.Create(nameof(Background), typeof(Color), typeof(Color), Color.FromHex("#EAEAEA"));
+        public static readonly BindableProperty BackgroundProperty = BindableProperty.Create(nameof(Background), typeof(Color), typeof(Color), Color.FromArgb("#EAEAEA"));
 
         /// <summary>
         /// Backing field for the bindable property <see cref="Error"/>.
         /// </summary>
-        public static readonly BindableProperty ErrorProperty = BindableProperty.Create(nameof(Error), typeof(Color), typeof(Color), Color.FromHex("#B00020"));
+        public static readonly BindableProperty ErrorProperty = BindableProperty.Create(nameof(Error), typeof(Color), typeof(Color), Color.FromArgb("#B00020"));
 
         /// <summary>
         /// Backing field for the bindable property <see cref="OnBackground"/>.
         /// </summary>
-        public static readonly BindableProperty OnBackgroundProperty = BindableProperty.Create(nameof(OnBackground), typeof(Color), typeof(Color), Color.FromHex("#000000"));
+        public static readonly BindableProperty OnBackgroundProperty = BindableProperty.Create(nameof(OnBackground), typeof(Color), typeof(Color), Color.FromArgb("#000000"));
 
         /// <summary>
         /// Backing field for the bindable property <see cref="OnError"/>.
         /// </summary>
-        public static readonly BindableProperty OnErrorProperty = BindableProperty.Create(nameof(OnError), typeof(Color), typeof(Color), Color.FromHex("#FFFFFF"));
+        public static readonly BindableProperty OnErrorProperty = BindableProperty.Create(nameof(OnError), typeof(Color), typeof(Color), Color.FromArgb("#FFFFFF"));
 
         /// <summary>
         /// Backing field for the bindable property <see cref="OnPrimary"/>.
         /// </summary>
-        public static readonly BindableProperty OnPrimaryProperty = BindableProperty.Create(nameof(OnPrimary), typeof(Color), typeof(Color), Color.FromHex("#FFFFFF"));
+        public static readonly BindableProperty OnPrimaryProperty = BindableProperty.Create(nameof(OnPrimary), typeof(Color), typeof(Color), Color.FromArgb("#FFFFFF"));
 
         /// <summary>
         /// Backing field for the bindable property <see cref="OnSecondary"/>.
         /// </summary>
-        public static readonly BindableProperty OnSecondaryProperty = BindableProperty.Create(nameof(OnSecondary), typeof(Color), typeof(Color), Color.FromHex("#FFFFFF"));
+        public static readonly BindableProperty OnSecondaryProperty = BindableProperty.Create(nameof(OnSecondary), typeof(Color), typeof(Color), Color.FromArgb("#FFFFFF"));
 
         /// <summary>
         /// Backing field for the bindable property <see cref="OnSurface"/>.
         /// </summary>
-        public static readonly BindableProperty OnSurfaceProperty = BindableProperty.Create(nameof(OnSurface), typeof(Color), typeof(Color), Color.FromHex("#000000"));
+        public static readonly BindableProperty OnSurfaceProperty = BindableProperty.Create(nameof(OnSurface), typeof(Color), typeof(Color), Color.FromArgb("#000000"));
 
         /// <summary>
         /// Backing field for the bindable property <see cref="Primary"/>.
         /// </summary>
-        public static readonly BindableProperty PrimaryProperty = BindableProperty.Create(nameof(Primary), typeof(Color), typeof(Color), Color.FromHex("#6200EE"));
+        public static readonly BindableProperty PrimaryProperty = BindableProperty.Create(nameof(Primary), typeof(Color), typeof(Color), Color.FromArgb("#6200EE"));
 
         /// <summary>
         /// Backing field for the bindable property <see cref="PrimaryVariant"/>.
         /// </summary>
-        public static readonly BindableProperty PrimaryVariantProperty = BindableProperty.Create(nameof(PrimaryVariant), typeof(Color), typeof(Color), Color.FromHex("#6200EE"));
+        public static readonly BindableProperty PrimaryVariantProperty = BindableProperty.Create(nameof(PrimaryVariant), typeof(Color), typeof(Color), Color.FromArgb("#6200EE"));
 
         /// <summary>
         /// Backing field for the bindable property <see cref="Secondary"/>.
@@ -60,12 +61,12 @@ namespace XF.Material.Forms.Resources
         /// <summary>
         /// Backing field for the bindable property <see cref="SecondaryVariant"/>.
         /// </summary>
-        public static readonly BindableProperty SecondaryVariantProperty = BindableProperty.Create(nameof(SecondaryVariant), typeof(Color), typeof(Color), Color.FromHex("#0400BA"));
+        public static readonly BindableProperty SecondaryVariantProperty = BindableProperty.Create(nameof(SecondaryVariant), typeof(Color), typeof(Color), Color.FromArgb("#0400BA"));
 
         /// <summary>
         /// Backing field for the bindable property <see cref="Surface"/>.
         /// </summary>
-        public static readonly BindableProperty SurfaceProperty = BindableProperty.Create(nameof(Surface), typeof(Color), typeof(Color), Color.FromHex("#FFFFFF"));
+        public static readonly BindableProperty SurfaceProperty = BindableProperty.Create(nameof(Surface), typeof(Color), typeof(Color), Color.FromArgb("#FFFFFF"));
 
         /// <summary>
         /// The underlying color of an app’s content.
@@ -122,7 +123,7 @@ namespace XF.Material.Forms.Resources
             {
                 var color = (Color)GetValue(OnSecondaryProperty);
 
-                return color.IsDefault ? OnPrimary : color;
+                return color.IsDefault() ? OnPrimary : color;
             }
 
             set => SetValue(OnSecondaryProperty, value);
@@ -165,12 +166,13 @@ namespace XF.Material.Forms.Resources
             {
                 var color = (Color)GetValue(SecondaryProperty);
 
-                if (color.IsDefault && Primary.IsDefault)
+                if (color.IsDefault() && Primary.IsDefault())
                 {
-                    return Color.Accent;
+                    // TODO: Color.Accent?
+                    return Secondary;
                 }
 
-                return color.IsDefault ? Primary : color;
+                return color.IsDefault() ? Primary : color;
             }
             set => SetValue(SecondaryProperty, value);
         }

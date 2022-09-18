@@ -3,17 +3,19 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Android.Content;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.Android;
+using Android.Views;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android.AppCompat;
+using Microsoft.Maui.Controls.Platform;
 using XF.Material.Droid.Renderers;
-using XF.Material.Forms.UI;
+using XF.Material.Maui.UI;
 using Toolbar = AndroidX.AppCompat.Widget.Toolbar;
 
 [assembly: ExportRenderer(typeof(MaterialNavigationPage), typeof(MaterialNavigationPageRenderer))]
-
 namespace XF.Material.Droid.Renderers
 {
-    public class MaterialNavigationPageRenderer : Xamarin.Forms.Platform.Android.AppCompat.NavigationPageRenderer
+    public class MaterialNavigationPageRenderer : NavigationPageRenderer
     {
         private MaterialNavigationPage _navigationPage;
         private MultiPage<Page> _multiPageParent;
@@ -30,7 +32,7 @@ namespace XF.Material.Droid.Renderers
             {
                 _navigationPage = Element as MaterialNavigationPage;
 
-                _toolbar = ViewGroup.GetChildAt(0) as Toolbar;
+                // TODO: _toolbar = ViewGroup.GetChildAt(0) as Toolbar;
 
                 HandleParent(_navigationPage.Parent);
 
@@ -217,7 +219,7 @@ namespace XF.Material.Droid.Renderers
         {
             var statusBarColor = (Color)page.GetValue(MaterialNavigationPage.StatusBarColorProperty);
 
-            Forms.Material.PlatformConfiguration.ChangeStatusBarColor(statusBarColor.IsDefault ? Forms.Material.Color.PrimaryVariant : statusBarColor);
+            Maui.Material.PlatformConfiguration.ChangeStatusBarColor(statusBarColor.IsDefault() ? Maui.Material.Color.PrimaryVariant : statusBarColor);
         }
     }
 }

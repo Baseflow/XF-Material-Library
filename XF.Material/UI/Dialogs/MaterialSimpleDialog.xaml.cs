@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Xamarin.Essentials;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-using XF.Material.Forms.UI.Dialogs.Configurations;
-using XF.Material.Forms.UI.Dialogs.Internals;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls.Xaml;
+using XF.Material.Maui.UI.Dialogs.Configurations;
+using XF.Material.Maui.UI.Dialogs.Internals;
 
-namespace XF.Material.Forms.UI.Dialogs
+namespace XF.Material.Maui.UI.Dialogs
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MaterialSimpleDialog : BaseMaterialModalPage, IMaterialAwaitableDialog<int>
@@ -71,7 +70,7 @@ namespace XF.Material.Forms.UI.Dialogs
                 var actionModel = new ActionModel
                 {
                     Text = a,
-                    TextColor = preferredConfig?.TextColor ?? Color.FromHex("#DE000000"),
+                    TextColor = preferredConfig?.TextColor ?? Color.FromArgb("#DE000000"),
                     FontFamily = preferredConfig != null
                         ? preferredConfig.TextFontFamily
                         : Material.FontFamily.Body1

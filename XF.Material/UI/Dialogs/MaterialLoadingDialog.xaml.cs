@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
-using Xamarin.Essentials;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-using XF.Material.Forms.UI.Dialogs.Configurations;
 
-namespace XF.Material.Forms.UI.Dialogs
+using Microsoft.Maui;
+using Microsoft.Maui.Controls.Xaml;
+using XF.Material.Maui.UI.Dialogs.Configurations;
+
+namespace XF.Material.Maui.UI.Dialogs
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MaterialLoadingDialog : BaseMaterialModalPage
@@ -21,7 +21,7 @@ namespace XF.Material.Forms.UI.Dialogs
             InitializeComponent();
             Configure(configuration);
             Message.Text = message;
-            LoadingImage.Animation = lottieAnimation;
+            // TODO: LoadingImage.Source = ImageSource.FromFile(lottieAnimation);
         }
 
         public override bool Dismissable => false;
@@ -54,7 +54,7 @@ namespace XF.Material.Forms.UI.Dialogs
         {
             base.OnAppearing();
 
-            LoadingImage.PlayAnimation();
+            // LoadingImage.PlayAnimation();
 
             ChangeLayout();
         }
@@ -74,6 +74,7 @@ namespace XF.Material.Forms.UI.Dialogs
                     Container.WidthRequest = 560;
                     Container.HorizontalOptions = LayoutOptions.Center;
                     break;
+
                 case DisplayOrientation.Portrait when Device.Idiom == TargetIdiom.Phone:
                     Container.WidthRequest = -1;
                     Container.HorizontalOptions = LayoutOptions.FillAndExpand;
@@ -95,7 +96,7 @@ namespace XF.Material.Forms.UI.Dialogs
             Container.BackgroundColor = preferredConfig.BackgroundColor;
             Message.TextColor = preferredConfig.MessageTextColor;
             Message.FontFamily = preferredConfig.MessageFontFamily;
-            LoadingImage.TintColor = preferredConfig.TintColor;
+            // TODO: LoadingImage.TintColor = preferredConfig.TintColor;
             Container.Margin = preferredConfig.Margin == default ? Material.GetResource<Thickness>("Material.Dialog.Margin") : preferredConfig.Margin;
         }
     }

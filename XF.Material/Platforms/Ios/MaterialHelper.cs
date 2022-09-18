@@ -1,6 +1,7 @@
 ﻿using System;
 using CoreGraphics;
 using UIKit;
+using System.Runtime.InteropServices;
 
 namespace XF.Material.iOS
 {
@@ -11,9 +12,9 @@ namespace XF.Material.iOS
             alpha = Math.Min(1f, Math.Max(0f, alpha));
             color1.GetRGBA(out var r1, out var g1, out var b1, out var a1);
             color2.GetRGBA(out var r2, out var g2, out var b2, out var a2);
-            var r = (nfloat)Math.Min(r1 + r2, 1);
-            var g = (nfloat)Math.Min(g1 + g2, 1);
-            var b = (nfloat)Math.Min(b1 + b2, 1);
+            var r = (NFloat)Math.Min(r1 + r2, 1);
+            var g = (NFloat)Math.Min(g1 + g2, 1);
+            var b = (NFloat)Math.Min(b1 + b2, 1);
 
             return new UIColor(r, g, b, alpha);
         }
@@ -31,9 +32,9 @@ namespace XF.Material.iOS
             {
                 view.Layer.MasksToBounds = false;
                 view.Layer.ShadowColor = UIColor.Black.CGColor;
-                view.Layer.ShadowOffset = new CGSize(0, (nfloat)elevation);
+                view.Layer.ShadowOffset = new CGSize(0, (NFloat)elevation);
                 view.Layer.ShadowOpacity = 0.24f;
-                view.Layer.ShadowRadius = (nfloat)elevation;
+                view.Layer.ShadowRadius = (NFloat)elevation;
             }
             else
             {
@@ -93,7 +94,7 @@ namespace XF.Material.iOS
             color1.GetRGBA(out var r1, out var g1, out var b1, out var a1);
             color2.GetRGBA(out var r2, out var g2, out var b2, out var a2);
 
-            return new UIColor((nfloat)Math.Min((r1 + r2) / 2, 1), (nfloat)Math.Min((g1 + g2) / 2, 1), (nfloat)Math.Min((b1 + b2) / 2, 1), (nfloat)Math.Min((a1 + a2) / 2, 1));
+            return new UIColor((NFloat)Math.Min((r1 + r2) / 2, 1), (NFloat)Math.Min((g1 + g2) / 2, 1), (NFloat)Math.Min((b1 + b2) / 2, 1), (NFloat)Math.Min((a1 + a2) / 2, 1));
         }
     }
 }

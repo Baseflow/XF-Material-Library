@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace XF.Material.Forms.UI
+namespace XF.Material.Maui.UI
 {
     public class SelectedIndicesChangedEventArgs : EventArgs
     {

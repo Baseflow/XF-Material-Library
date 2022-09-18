@@ -4,9 +4,10 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using AndroidX.AppCompat.App;
-using Rg.Plugins.Popup;
-using Rg.Plugins.Popup.Services;
-using XF.Material.Forms.UI.Dialogs;
+using Microsoft.Maui.LifecycleEvents;
+using Mopups.Hosting;
+using Mopups.Services;
+using XF.Material.Maui.UI.Dialogs;
 
 namespace XF.Material.Droid
 {
@@ -28,12 +29,12 @@ namespace XF.Material.Droid
         internal static bool IsLollipop { get; private set; }
 
         /// <summary>
-        /// Handles the physical back button event to dismiss specific dialogs shown by <see cref="XF.Material.Forms.UI.Dialogs.MaterialDialog.Instance"/>.
+        /// Handles the physical back button event to dismiss specific dialogs shown by <see cref="XF.Material.Maui.UI.Dialogs.MaterialDialog.Instance"/>.
         /// </summary>
         /// <param name="backAction">The base <see cref="Activity.OnBackPressed"/> method.</param>
         public static void HandleBackButton(Action backAction)
         {
-            var popupStack = PopupNavigation.Instance.PopupStack;
+            var popupStack = MopupService.Instance.PopupStack;
             var dismissableDialog = popupStack.FirstOrDefault(p => p is BaseMaterialModalPage modalPage && modalPage.Dismissable) as BaseMaterialModalPage;
             var snackBar = popupStack.FirstOrDefault(p => p is BaseMaterialModalPage modalPage && !modalPage.Dismissable) as MaterialSnackbar;
 
@@ -53,7 +54,7 @@ namespace XF.Material.Droid
             }
             else
             {
-                Popup.SendBackPressed(backAction);
+                Mopups.Droid.Implementation.AndroidMopups.SendBackPressed(backAction);
             }
         }
 
@@ -69,7 +70,7 @@ namespace XF.Material.Droid
             IsJellyBean = Build.VERSION.SdkInt < BuildVersionCodes.Kitkat;
 
             AppCompatDelegate.CompatVectorFromResourcesEnabled = true;
-            Popup.Init(context);
+            // TODO: Init Popups has changed
         }
     }
 }

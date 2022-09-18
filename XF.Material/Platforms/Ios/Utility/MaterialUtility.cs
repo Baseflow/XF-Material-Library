@@ -1,9 +1,11 @@
 ﻿using Foundation;
 using UIKit;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.iOS;
-using XF.Material.Forms.Utilities;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls.Compatibility.Platform.iOS;
+using Microsoft.Maui.Controls.Compatibility;
+using XF.Material.Maui.Utilities;
 using XF.Material.iOS.Utility;
+using Microsoft.Maui.Platform;
 
 [assembly: Dependency(typeof(MaterialUtility))]
 namespace XF.Material.iOS.Utility
@@ -22,7 +24,7 @@ namespace XF.Material.iOS.Utility
             UIView statusBar = null;
             if (UIDevice.CurrentDevice.CheckSystemVersion(13, 0))
             {
-                var tag = (System.nint)38482458385;
+                var tag = (nint)38482458385;
                 statusBar = UIApplication.SharedApplication.KeyWindow?.ViewWithTag(tag);
                 if (statusBar == null)
                 {

@@ -1,11 +1,11 @@
 ﻿using System;
-using XF.Material.Forms.Models;
+using XF.Material.Maui.Models;
 
-namespace XF.Material.Forms.UI
+namespace XF.Material.Maui.UI
 {
     /// <inheritdoc />
     /// <summary>
-    /// Contains event data when <see cref="E:XF.Material.Forms.UI.MaterialMenuButton.MenuSelected" /> is invoked.
+    /// Contains event data when <see cref="E:XF.Material.Maui.UI.MaterialMenuButton.MenuSelected" /> is invoked.
     /// </summary>
     public class MenuSelectedEventArgs : EventArgs
     {
@@ -16,7 +16,7 @@ namespace XF.Material.Forms.UI
 
         /// <inheritdoc />
         /// <summary>
-        /// Initializes a new instance of <see cref="T:XF.Material.Forms.UI.MenuSelectedEventArgs" />.
+        /// Initializes a new instance of <see cref="T:XF.Material.Maui.UI.MenuSelectedEventArgs" />.
         /// </summary>
         /// <param name="result">The result of the selection.</param>
         public MenuSelectedEventArgs(MaterialMenuResult result)

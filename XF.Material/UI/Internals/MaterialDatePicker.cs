@@ -1,11 +1,11 @@
 ﻿using System;
-using Xamarin.Forms;
+using Microsoft.Maui;
 
-namespace XF.Material.Forms.UI.Internals
+namespace XF.Material.Maui.UI.Internals
 {
     /// <inheritdoc />
     /// <summary>
-    /// Used for rendering the <see cref="T:Xamarin.Forms.Entry" /> control in <see cref="T:XF.Material.Forms.UI.MaterialTextField" />.
+    /// Used for rendering the <see cref="T:Microsoft.Maui.Controls.Entry" /> control in <see cref="T:XF.Material.Maui.UI.MaterialTextField" />.
     /// </summary>
     public class MaterialDatePicker : DatePicker
     {
@@ -58,9 +58,9 @@ namespace XF.Material.Forms.UI.Internals
         {
             if (NullableDate.HasValue)
             {
-                if (_color.HasValue)
+                if (_color == null)
                 {
-                    TextColor = _color.Value;
+                    TextColor = _color;
                     _color = null;
                 }
 
@@ -69,7 +69,7 @@ namespace XF.Material.Forms.UI.Internals
             else
             {
                 _color = TextColor;
-                TextColor = Color.Transparent;
+                TextColor = Colors.Transparent;
             }
         }
 

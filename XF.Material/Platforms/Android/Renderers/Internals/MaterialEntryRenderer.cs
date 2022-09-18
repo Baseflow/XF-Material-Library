@@ -7,10 +7,12 @@ using Android.Views;
 using Android.Views.InputMethods;
 using Android.Widget;
 using AndroidX.Core.Content;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.Android;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android;
+using Microsoft.Maui.Controls.Platform;
 using XF.Material.Droid.Renderers.Internals;
-using XF.Material.Forms.UI.Internals;
+using XF.Material.Maui.UI.Internals;
 
 [assembly: ExportRenderer(typeof(MaterialEntry), typeof(MaterialEntryRenderer))]
 namespace XF.Material.Droid.Renderers.Internals
@@ -50,7 +52,7 @@ namespace XF.Material.Droid.Renderers.Internals
                 return;
             }
 
-            Control.Background = new ColorDrawable(Color.Transparent.ToAndroid());
+            Control.Background = new ColorDrawable(Colors.Transparent.ToAndroid());
             Control.SetPadding(0, 0, 0, 0);
             Control.SetIncludeFontPadding(false);
             Control.SetMinimumHeight((int)MaterialHelper.ConvertDpToPx(20));

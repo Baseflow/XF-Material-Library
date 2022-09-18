@@ -1,10 +1,12 @@
 ﻿using System.ComponentModel;
 using UIKit;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.iOS;
-using XF.Material.Forms.UI;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls.Compatibility.Platform.iOS;
+using Microsoft.Maui.Controls.Compatibility;
+using XF.Material.Maui.UI;
 using XF.Material.iOS.GestureRecognizers;
 using XF.Material.iOS.Renderers;
+using Microsoft.Maui.Controls.Platform;
 
 [assembly: ExportRenderer(typeof(MaterialCard), typeof(MaterialCardRenderer))]
 namespace XF.Material.iOS.Renderers
@@ -62,7 +64,7 @@ namespace XF.Material.iOS.Renderers
 
         private void SetupColors()
         {
-            _rippleColor = BackgroundColor.IsColorDark() ? Color.FromHex("#52FFFFFF").ToUIColor() : Color.FromHex("#52000000").ToUIColor();
+            _rippleColor = BackgroundColor.IsColorDark() ? Color.FromArgb("#52FFFFFF").ToUIColor() : Color.FromArgb("#52000000").ToUIColor();
         }
 
         private void SetIsClickable()

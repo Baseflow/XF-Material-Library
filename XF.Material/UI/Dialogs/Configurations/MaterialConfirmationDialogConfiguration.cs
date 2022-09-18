@@ -1,6 +1,6 @@
-﻿using Xamarin.Forms;
+﻿using Microsoft.Maui;
 
-namespace XF.Material.Forms.UI.Dialogs.Configurations
+namespace XF.Material.Maui.UI.Dialogs.Configurations
 {
     /// <summary>
     /// A class that provides properties specifically for styling confirmation dialogs.
@@ -25,6 +25,6 @@ namespace XF.Material.Forms.UI.Dialogs.Configurations
         /// <summary>
         /// Gets or sets the color of this selection control when unselected.
         /// </summary>
-        public Color ControlUnselectedColor { get; set; } = Color.FromHex("#84000000");
+        public Color ControlUnselectedColor { get; set; } = Color.FromArgb("#84000000");
     }
 }

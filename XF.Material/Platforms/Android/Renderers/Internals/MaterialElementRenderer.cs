@@ -1,9 +1,10 @@
 ﻿using Android.Content;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.Android;
+using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android;
+using Microsoft.Maui.Controls.Platform;
 using XF.Material.Droid.Renderers.Internals;
-using XF.Material.Forms.UI;
-using XF.Material.Forms.UI.Internals;
+using XF.Material.Maui.UI;
+using XF.Material.Maui.UI.Internals;
 
 [assembly: ExportRenderer(typeof(MaterialTextField), typeof(MaterialElementRenderer))]
 [assembly: ExportRenderer(typeof(MaterialSlider), typeof(MaterialElementRenderer))]

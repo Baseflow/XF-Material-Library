@@ -5,11 +5,17 @@ using CoreAnimation;
 using CoreGraphics;
 using Foundation;
 using UIKit;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.iOS;
-using XF.Material.Forms.UI;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls.Compatibility.Platform.iOS;
+using Microsoft.Maui.Controls.Compatibility;
+using XF.Material.Maui.UI;
 using XF.Material.iOS.Delegates;
 using XF.Material.iOS.Renderers;
+using Microsoft.Maui.Controls.Compatibility.Platform.iOS;
+using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Platform;
+using Microsoft.Maui.Platform;
+using System.Runtime.InteropServices;
 
 [assembly: ExportRenderer(typeof(MaterialButton), typeof(MaterialButtonRenderer))]
 
@@ -70,7 +76,7 @@ namespace XF.Material.iOS.Renderers
 
                 if (_materialButton != null)
                 {
-                    _withIcon = _materialButton.Image != null || _materialButton.ImageSource != null && !_materialButton.ImageSource.IsEmpty;
+                    _withIcon = _materialButton.ImageSource != null && !_materialButton.ImageSource.IsEmpty;
                 }
 
                 SetupColors();
@@ -111,7 +117,6 @@ namespace XF.Material.iOS.Renderers
                     break;
 
                 case nameof(MaterialButton.ImageSource):
-                case nameof(MaterialButton.Image):
                     UpdateButtonLayer();
                     SetupIcon();
                     break;
@@ -175,7 +180,7 @@ namespace XF.Material.iOS.Renderers
         {
             _animationLayer.BackgroundColor = _restingBackgroundColor.CGColor;
             _animationLayer.BorderColor = _borderColor.CGColor;
-            _animationLayer.BorderWidth = (nfloat)_materialButton.BorderWidth;
+            _animationLayer.BorderWidth = (NFloat)_materialButton.BorderWidth;
 
             if (elevated)
             {
@@ -186,7 +191,7 @@ namespace XF.Material.iOS.Renderers
         private void CreateOutlinedButtonLayer()
         {
             _animationLayer.BorderColor = _materialButton.BorderColor.ToCGColor();
-            _animationLayer.BorderWidth = (nfloat)_materialButton.BorderWidth;
+            _animationLayer.BorderWidth = (NFloat)_materialButton.BorderWidth;
         }
 
         private void CreateStateAnimations()
@@ -248,11 +253,11 @@ namespace XF.Material.iOS.Renderers
             if (_materialButton.ButtonType == MaterialButtonType.Elevated || _materialButton.ButtonType == MaterialButtonType.Flat)
             {
                 _restingBackgroundColor = _materialButton.BackgroundColor.ToUIColor();
-                _disabledBackgroundColor = _materialButton.DisabledBackgroundColor.IsDefault ? _materialButton.BackgroundColor.ToUIColor().GetDisabledColor() : _materialButton.DisabledBackgroundColor.ToUIColor();
+                _disabledBackgroundColor = _materialButton.DisabledBackgroundColor.IsDefault() ? _materialButton.BackgroundColor.ToUIColor().GetDisabledColor() : _materialButton.DisabledBackgroundColor.ToUIColor();
 
-                if (_materialButton.PressedBackgroundColor.IsDefault)
+                if (_materialButton.PressedBackgroundColor.IsDefault())
                 {
-                    _rippleColor = _materialButton.BackgroundColor.ToUIColor().IsColorDark() ? Color.FromHex("#52FFFFFF").ToUIColor() : Color.FromHex("#52000000").ToUIColor();
+                    _rippleColor = _materialButton.BackgroundColor.ToUIColor().IsColorDark() ? Color.FromArgb("#52FFFFFF").ToUIColor() : Color.FromArgb("#52000000").ToUIColor();
                     _pressedBackgroundColor = _restingBackgroundColor.IsColorDark() ? _restingBackgroundColor.LightenColor() : _restingBackgroundColor.DarkenColor();
                 }
                 else
@@ -265,7 +270,7 @@ namespace XF.Material.iOS.Renderers
             {
                 _restingBackgroundColor = UIColor.Clear;
                 _disabledBackgroundColor = UIColor.Clear;
-                _rippleColor = _materialButton.PressedBackgroundColor.IsDefault ? Color.FromHex("#52000000").ToUIColor() : _materialButton.PressedBackgroundColor.ToUIColor();
+                _rippleColor = _materialButton.PressedBackgroundColor.IsDefault() ? Color.FromArgb("#52000000").ToUIColor() : _materialButton.PressedBackgroundColor.ToUIColor();
                 _pressedBackgroundColor = _rippleColor;
             }
 
@@ -290,7 +295,7 @@ namespace XF.Material.iOS.Renderers
                 //    if (imageSize.Width > 0 && imageSize.Height > 0)
                 //    {
                 //        var insets = Control.ImageEdgeInsets;
-                //        var margin = (nfloat)Element.ContentLayout.Spacing;
+                //        var margin = (NFloat)Element.ContentLayout.Spacing;
                 //        var deltaX = Control.CurrentAttributedTitle.Size.Width + Control.TitleEdgeInsets.Left + Control.TitleEdgeInsets.Right + margin;
                 //        Control.ImageEdgeInsets = new UIEdgeInsets(insets.Top, deltaX, insets.Bottom, -deltaX);
                 //    }
@@ -357,7 +362,7 @@ namespace XF.Material.iOS.Renderers
                     CreateTextButtonLayer();
                     break;
             }
-            
+
             _animationLayer.SetNeedsDisplay();
             SetNeedsDisplay();
         }

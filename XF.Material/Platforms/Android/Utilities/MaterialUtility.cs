@@ -1,9 +1,8 @@
 ﻿using Android.OS;
 using Android.Views;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.Android;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android;
 using XF.Material.Droid.Utilities;
-using XF.Material.Forms.Utilities;
+using XF.Material.Maui.Utilities;
 
 [assembly: Dependency(typeof(MaterialUtility))]
 namespace XF.Material.Droid.Utilities
@@ -16,10 +15,10 @@ namespace XF.Material.Droid.Utilities
     {
         public void ChangeStatusBarColor(Color color)
         {
-            var activity = (FormsAppCompatActivity)Material.Context;
+            var activity = (MauiAppCompatActivity)Material.Context;
 
             var isColorDark = color.ToAndroid().IsColorDark();
-            activity.SetStatusBarColor(color.ToAndroid());
+            // TODO: activity.SetStatusBarColor(color.ToAndroid());
 
             if (Build.VERSION.SdkInt < BuildVersionCodes.M)
             {

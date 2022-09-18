@@ -1,7 +1,7 @@
 ﻿using System.Windows.Input;
-using Xamarin.Forms;
+using Microsoft.Maui;
 
-namespace XF.Material.Forms.UI.Dialogs.Internals
+namespace XF.Material.Maui.UI.Dialogs.Internals
 {
     /// <summary>
     /// Used as the ItemSource type of MaterialSimpleDialog's list.

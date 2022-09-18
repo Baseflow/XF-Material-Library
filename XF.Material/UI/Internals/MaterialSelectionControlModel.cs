@@ -1,8 +1,8 @@
 ﻿using System;
-using Xamarin.Forms;
-using XF.Material.Forms.Utilities;
+using Microsoft.Maui;
+using XF.Material.Maui.Utilities;
 
-namespace XF.Material.Forms.UI.Internals
+namespace XF.Material.Maui.UI.Internals
 {
     internal class MaterialSelectionControlModel : PropertyChangeAware
     {

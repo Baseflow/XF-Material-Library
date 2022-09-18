@@ -3,13 +3,12 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Rg.Plugins.Popup.Animations;
-using Rg.Plugins.Popup.Pages;
-using Rg.Plugins.Popup.Services;
-using Xamarin.Essentials;
-using Xamarin.Forms;
+using Mopups.Animations;
+using Mopups.Pages;
+using Mopups.Services;
+using Microsoft.Maui;
 
-namespace XF.Material.Forms.UI.Dialogs
+namespace XF.Material.Maui.UI.Dialogs
 {
     /// <summary>
     /// Base class of Material modal dialogs.
@@ -28,8 +27,8 @@ namespace XF.Material.Forms.UI.Dialogs
                 EasingIn = Easing.SinOut,
                 EasingOut = Easing.Linear,
                 HasBackgroundAnimation = true,
-                PositionIn = Rg.Plugins.Popup.Enums.MoveAnimationOptions.Center,
-                PositionOut = Rg.Plugins.Popup.Enums.MoveAnimationOptions.Center,
+                PositionIn = Mopups.Enums.MoveAnimationOptions.Center,
+                PositionOut = Mopups.Enums.MoveAnimationOptions.Center,
                 ScaleIn = 0.9,
                 ScaleOut = 1
             };
@@ -54,7 +53,7 @@ namespace XF.Material.Forms.UI.Dialogs
         {
             try
             {
-                await PopupNavigation.Instance.RemovePageAsync(this, true);
+                await MopupService.Instance.RemovePageAsync(this, true);
             }
             catch (Exception e)
             {
@@ -144,7 +143,7 @@ namespace XF.Material.Forms.UI.Dialogs
         {
             if (CanShowPopup())
             {
-                await PopupNavigation.Instance.PushAsync(this, true);
+                await MopupService.Instance.PushAsync(this, true);
             }
             else
             {
@@ -154,7 +153,7 @@ namespace XF.Material.Forms.UI.Dialogs
 
         private bool CanShowPopup()
         {
-            return !PopupNavigation
+            return !MopupService
                 .Instance
                 .PopupStack
                 .ToList()

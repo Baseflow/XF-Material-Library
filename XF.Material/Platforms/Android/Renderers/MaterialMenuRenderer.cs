@@ -1,9 +1,11 @@
 ﻿using System.Linq;
 using Android.Content;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.Android;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Handlers.Compatibility;
+using Microsoft.Maui.Controls.Platform;
 using XF.Material.Droid.Renderers;
-using XF.Material.Forms.UI;
+using XF.Material.Maui.UI;
 
 [assembly: ExportRenderer(typeof(MaterialMenuButton), typeof(MaterialMenuRenderer))]
 namespace XF.Material.Droid.Renderers
@@ -26,7 +28,7 @@ namespace XF.Material.Droid.Renderers
         {
             var displayDensity = Context.Resources.DisplayMetrics.Density;
             var position = new int[2];
-            ViewGroup.GetChildAt(0).GetLocationInWindow(position);
+            // TODO: ViewGroup.GetChildAt(0).GetLocationInWindow(position);
             Element.OnViewTouch(position.ElementAtOrDefault(0) / displayDensity, position.ElementAtOrDefault(1) / displayDensity);
         }
     }

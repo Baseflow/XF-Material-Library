@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace XF.Material.Forms.UI.Dialogs
+namespace XF.Material.Maui.UI.Dialogs
 {
     public interface IMaterialModalPage : IDisposable
     {

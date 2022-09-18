@@ -1,8 +1,11 @@
 ﻿using UIKit;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.iOS;
-using XF.Material.Forms.UI;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls.Compatibility.Platform.iOS;
+using Microsoft.Maui.Controls.Compatibility;
+using XF.Material.Maui.UI;
 using XF.Material.iOS.Renderers;
+using Microsoft.Maui.Controls.Platform;
+using Platform = Microsoft.Maui.Controls.Compatibility.Platform.iOS.Platform;
 
 [assembly: ExportRenderer(typeof(MaterialMenuButton), typeof(MaterialMenuRenderer))]
 namespace XF.Material.iOS.Renderers

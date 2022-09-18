@@ -1,9 +1,12 @@
 ﻿using UIKit;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.iOS;
-using XF.Material.Forms.UI;
-using XF.Material.Forms.UI.Internals;
+using Microsoft.Maui;
+using XF.Material.Maui.UI;
+using XF.Material.Maui.UI.Internals;
 using XF.Material.iOS.Renderers.Internals;
+using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.iOS;
+using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Platform;
 
 [assembly: ExportRenderer(typeof(MaterialTextField), typeof(MaterialElementRenderer))]
 [assembly: ExportRenderer(typeof(MaterialSlider), typeof(MaterialElementRenderer))]

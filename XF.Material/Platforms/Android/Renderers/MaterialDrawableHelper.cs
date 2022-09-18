@@ -6,10 +6,10 @@ using Android.Graphics;
 using Android.Graphics.Drawables;
 using Android.Views;
 using AndroidX.AppCompat.Widget;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.Android;
-using XF.Material.Forms.UI;
-using static XF.Material.Forms.UI.MaterialButton;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android;
+using XF.Material.Maui.UI;
+using static XF.Material.Maui.UI.MaterialButton;
 using Color = Android.Graphics.Color;
 using R = Android.Resource;
 
@@ -232,8 +232,8 @@ namespace XF.Material.Droid.Renderers
 
             var borderColor = _button.BorderColor;
 
-            _enabledBorderColor = borderColor.IsDefault ? Color.Transparent : borderColor.ToAndroid();
-            _disabledBorderColor = borderColor.IsDefault ? Color.Transparent : _enabledBorderColor.GetDisabledColor();
+            _enabledBorderColor = borderColor.IsDefault() ? Colors.Transparent.ToAndroid() : borderColor.ToAndroid();
+            _disabledBorderColor = borderColor.IsDefault() ? Colors.Transparent.ToAndroid() : _enabledBorderColor.GetDisabledColor();
         }
 
         private void UpdateBorderWidth()
@@ -251,7 +251,7 @@ namespace XF.Material.Droid.Renderers
         {
             _normalColor = _button.BackgroundColor.ToAndroid();
 
-            UpdateDisabledColor(_button.DisabledBackgroundColor);
+            UpdateDisabledColor(_button.DisabledBackgroundColor.ToAndroid());
             UpdatePressedColor(_button.PressedBackgroundColor);
             UpdateBorderColor();
 
@@ -261,9 +261,9 @@ namespace XF.Material.Droid.Renderers
                 return;
             }
 
-            _normalColor = Color.Transparent;
-            _disabledColor = Color.Transparent;
-            _pressedColor = _button.PressedBackgroundColor.IsDefault ? Color.ParseColor("#52000000") : _button.PressedBackgroundColor.ToAndroid();
+            _normalColor = Colors.Transparent.ToAndroid();
+            _disabledColor = Colors.Transparent.ToAndroid();
+            _pressedColor = _button.PressedBackgroundColor.IsDefault() ? Color.ParseColor("#52000000") : _button.PressedBackgroundColor.ToAndroid();
         }
 
         private void UpdateCornerRadius()
@@ -271,9 +271,9 @@ namespace XF.Material.Droid.Renderers
             _cornerRadius = (int)MaterialHelper.ConvertDpToPx(_button.CornerRadius);
         }
 
-        private void UpdateDisabledColor(Xamarin.Forms.Color disabledColor)
+        private void UpdateDisabledColor(Microsoft.Maui.Graphics.Color disabledColor)
         {
-            _disabledColor = disabledColor.IsDefault ? _normalColor.GetDisabledColor() : disabledColor.ToAndroid();
+            _disabledColor = disabledColor.IsDefault() ? _normalColor.GetDisabledColor() : disabledColor.ToAndroid();
         }
 
         private void UpdateElevation()
@@ -316,7 +316,6 @@ namespace XF.Material.Droid.Renderers
             bb.PlayTogether(objAnimTransZPressed, objAnimElevationPressed);
             bb.SetTarget(_aView);
 
-
             stateListAnimator.AddState(new[] { R.Attribute.StatePressed }, bb);
             stateListAnimator.AddState(new[] { R.Attribute.StateFocused, R.Attribute.StateEnabled }, bb);
             stateListAnimator.AddState(new[] { R.Attribute.StateEnabled }, b);
@@ -333,9 +332,9 @@ namespace XF.Material.Droid.Renderers
             return stateListAnimator;
         }
 
-        private void UpdatePressedColor(Xamarin.Forms.Color pressedColor)
+        private void UpdatePressedColor(Microsoft.Maui.Graphics.Color pressedColor)
         {
-            if (pressedColor.IsDefault)
+            if (pressedColor.IsDefault())
             {
                 _pressedColor = _normalColor.IsColorDark() ? Color.ParseColor("#52FFFFFF") : Color.ParseColor("#52000000");
             }

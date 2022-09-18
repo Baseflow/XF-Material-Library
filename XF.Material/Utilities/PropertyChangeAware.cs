@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace XF.Material.Forms.Utilities
+namespace XF.Material.Maui.Utilities
 {
     /// <summary>
     /// An abstract class that implements the <see cref="INotifyPropertyChanged"/> interface.
@@ -11,7 +11,7 @@ namespace XF.Material.Forms.Utilities
     {
         /// <inheritdoc />
         /// <summary>
-        /// Raised when any properties on this instance have changed by using the <see cref="M:XF.Material.Forms.Utilities.PropertyChangeAware.Set``1(``0@,``0,System.String)" /> method.
+        /// Raised when any properties on this instance have changed by using the <see cref="M:XF.Material.Maui.Utilities.PropertyChangeAware.Set``1(``0@,``0,System.String)" /> method.
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 

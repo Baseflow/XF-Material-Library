@@ -1,10 +1,10 @@
-﻿using Xamarin.Forms;
+﻿using Microsoft.Maui;
 
-namespace XF.Material.Forms.UI.Internals
+namespace XF.Material.Maui.UI.Internals
 {
     /// <inheritdoc />
     /// <summary>
-    /// Used for rendering the <see cref="T:Xamarin.Forms.Entry" /> control in <see cref="T:XF.Material.Forms.UI.MaterialTextField" />.
+    /// Used for rendering the <see cref="T:Microsoft.Maui.Controls.Entry" /> control in <see cref="T:XF.Material.Maui.UI.MaterialTextField" />.
     /// </summary>
     public class MaterialEntry : Entry
     {

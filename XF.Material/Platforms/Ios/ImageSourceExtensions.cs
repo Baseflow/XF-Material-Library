@@ -1,5 +1,6 @@
-﻿using Xamarin.Forms;
-using Xamarin.Forms.Platform.iOS;
+﻿using Microsoft.Maui;
+using Microsoft.Maui.Controls.Compatibility.Platform.iOS;
+using Microsoft.Maui.Controls.Compatibility;
 
 namespace XF.Material.iOS
 {

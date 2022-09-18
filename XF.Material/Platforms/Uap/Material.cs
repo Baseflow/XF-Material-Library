@@ -1,4 +1,4 @@
-﻿using Rg.Plugins.Popup;
+﻿using Mopups.Hosting;
 
 namespace XF.Material.Uwp
 {
@@ -9,7 +9,7 @@ namespace XF.Material.Uwp
         /// </summary>
         public static void Init()
         {
-            Popup.Init();
+            // TODO: Init Popups has changed
         }
     }
 }

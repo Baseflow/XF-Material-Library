@@ -6,15 +6,14 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Xamarin.Essentials;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-using XF.Material.Forms.Resources;
-using XF.Material.Forms.UI.Dialogs;
-using XF.Material.Forms.UI.Internals;
-using Keyboard = Xamarin.Forms.Keyboard;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls.Xaml;
+using XF.Material.Maui.Resources;
+using XF.Material.Maui.UI.Dialogs;
+using XF.Material.Maui.UI.Internals;
+using Keyboard = Microsoft.Maui.Keyboard;
 
-namespace XF.Material.Forms.UI
+namespace XF.Material.Maui.UI
 {
     /// <inheritdoc />
     /// <summary>
@@ -25,7 +24,7 @@ namespace XF.Material.Forms.UI
     {
         public static readonly BindableProperty AlwaysShowUnderlineProperty = BindableProperty.Create(nameof(AlwaysShowUnderline), typeof(bool), typeof(MaterialTextField), false);
 
-        public static readonly BindableProperty CardBackgroundColorProperty = BindableProperty.Create(nameof(CardBackgroundColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#DCDCDC"));
+        public static readonly BindableProperty CardBackgroundColorProperty = BindableProperty.Create(nameof(CardBackgroundColor), typeof(Color), typeof(MaterialTextField), Color.FromArgb("#DCDCDC"));
 
         public static readonly BindableProperty ChoiceSelectedCommandProperty = BindableProperty.Create(nameof(ChoiceSelectedCommand), typeof(ICommand), typeof(MaterialTextField));
 
@@ -68,7 +67,7 @@ namespace XF.Material.Forms.UI
 
         public static readonly BindableProperty ErrorTextProperty = BindableProperty.Create(nameof(ErrorText), typeof(string), typeof(MaterialTextField));
 
-        public static readonly BindableProperty FloatingPlaceholderColorProperty = BindableProperty.Create(nameof(FloatingPlaceholderColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#99000000"));
+        public static readonly BindableProperty FloatingPlaceholderColorProperty = BindableProperty.Create(nameof(FloatingPlaceholderColor), typeof(Color), typeof(MaterialTextField), Color.FromArgb("#99000000"));
 
         public static readonly BindableProperty FloatingPlaceholderEnabledProperty = BindableProperty.Create(nameof(FloatingPlaceholderEnabled), typeof(bool), typeof(MaterialTextField), true);
 
@@ -78,7 +77,7 @@ namespace XF.Material.Forms.UI
 
         public static readonly BindableProperty HasErrorProperty = BindableProperty.Create(nameof(HasError), typeof(bool), typeof(MaterialTextField), false);
 
-        public static readonly BindableProperty HelperTextColorProperty = BindableProperty.Create(nameof(HelperTextColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#99000000"));
+        public static readonly BindableProperty HelperTextColorProperty = BindableProperty.Create(nameof(HelperTextColor), typeof(Color), typeof(MaterialTextField), Color.FromArgb("#99000000"));
 
         public static readonly BindableProperty HelperTextFontFamilyProperty = BindableProperty.Create(nameof(HelperTextFontFamily), typeof(string), typeof(MaterialTextField));
 
@@ -100,13 +99,13 @@ namespace XF.Material.Forms.UI
 
         public static readonly BindableProperty LeadingIconProperty = BindableProperty.Create(nameof(LeadingIcon), typeof(ImageSource), typeof(MaterialTextField));
 
-        public static readonly BindableProperty LeadingIconTintColorProperty = BindableProperty.Create(nameof(LeadingIconTintColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#99000000"));
+        public static readonly BindableProperty LeadingIconTintColorProperty = BindableProperty.Create(nameof(LeadingIconTintColor), typeof(Color), typeof(MaterialTextField), Color.FromArgb("#99000000"));
 
         public static readonly BindableProperty ErrorIconProperty = BindableProperty.Create(nameof(ErrorIcon), typeof(string), typeof(MaterialTextField), "xf_error");
 
         public static readonly BindableProperty MaxLengthProperty = BindableProperty.Create(nameof(MaxLength), typeof(int), typeof(MaterialTextField), 0);
 
-        public static readonly BindableProperty PlaceholderColorProperty = BindableProperty.Create(nameof(PlaceholderColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#99000000"));
+        public static readonly BindableProperty PlaceholderColorProperty = BindableProperty.Create(nameof(PlaceholderColor), typeof(Color), typeof(MaterialTextField), Color.FromArgb("#99000000"));
 
         public static readonly BindableProperty PlaceholderFontFamilyProperty = BindableProperty.Create(nameof(PlaceholderFontFamily), typeof(string), typeof(MaterialTextField));
 
@@ -122,7 +121,7 @@ namespace XF.Material.Forms.UI
 
         public static readonly BindableProperty TextChangeCommandProperty = BindableProperty.Create(nameof(TextChangeCommand), typeof(Command<string>), typeof(MaterialTextField));
 
-        public static readonly BindableProperty TextColorProperty = BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#D0000000"));
+        public static readonly BindableProperty TextColorProperty = BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(MaterialTextField), Color.FromArgb("#D0000000"));
 
         public static readonly BindableProperty TextFontFamilyProperty = BindableProperty.Create(nameof(TextFontFamily), typeof(string), typeof(MaterialTextField));
 
@@ -132,7 +131,7 @@ namespace XF.Material.Forms.UI
 
         public static readonly BindableProperty TintColorProperty = BindableProperty.Create(nameof(TintColor), typeof(Color), typeof(MaterialTextField), Material.Color.Secondary);
 
-        public static readonly BindableProperty UnderlineColorProperty = BindableProperty.Create(nameof(UnderlineColor), typeof(Color), typeof(MaterialTextField), Color.FromHex("#99000000"));
+        public static readonly BindableProperty UnderlineColorProperty = BindableProperty.Create(nameof(UnderlineColor), typeof(Color), typeof(MaterialTextField), Color.FromArgb("#99000000"));
 
         public static readonly BindableProperty PlaceholderLineBreakModeProperty = BindableProperty.Create(nameof(PlaceholderLineBreakMode), typeof(LineBreakMode), typeof(MaterialTextField), LineBreakMode.WordWrap);
 
@@ -491,8 +490,6 @@ namespace XF.Material.Forms.UI
         //    set => this.SetValue(ChoicesBindingNameProperty, value);
         //}
 
-
-
         /// <summary>
         /// Gets or sets the input text of this text field.
         /// </summary>
@@ -775,7 +772,6 @@ namespace XF.Material.Forms.UI
 
                 Device.BeginInvokeOnMainThread(() =>
                 {
-
                     if (FloatingPlaceholderEnabled)
                     {
                         placeholder.TranslationY = placeholderEndY;
@@ -832,8 +828,8 @@ namespace XF.Material.Forms.UI
             const int animDuration = 250;
             placeholder.TextColor = (FloatingPlaceholderEnabled && entry.IsFocused) || (FloatingPlaceholderEnabled && !string.IsNullOrEmpty(Text)) ? ErrorColor : PlaceholderColor;
             counter.TextColor = ErrorColor;
-            underline.Color = ShouldAnimateUnderline ? ErrorColor : Color.Transparent;
-            persistentUnderline.Color = AlwaysShowUnderline ? ErrorColor : Color.Transparent;
+            underline.Color = ShouldAnimateUnderline ? ErrorColor : Colors.Transparent;
+            persistentUnderline.Color = AlwaysShowUnderline ? ErrorColor : Colors.Transparent;
             trailingIcon.IsVisible = true;
             trailingIcon.Source = ErrorIcon;
             trailingIcon.TintColor = ErrorColor;
@@ -1066,11 +1062,11 @@ namespace XF.Material.Forms.UI
 
         private void OnBackgroundColorChanged()
         {
-            if (base.BackgroundColor != Color.Transparent)
+            if (base.BackgroundColor != Colors.Transparent)
             {
-                if (base.BackgroundColor != Color.Default)
+                if (base.BackgroundColor != null)
                     CardBackgroundColor = base.BackgroundColor;
-                base.BackgroundColor = Color.Transparent;
+                base.BackgroundColor = Colors.Transparent;
             }
         }
 
@@ -1179,7 +1175,7 @@ namespace XF.Material.Forms.UI
                     break;
 
                 //Only when plain type of keyboard we need consider the keyboard flags
-                //Same as Xamarin.Forms.Entry control
+                //Same as Microsoft.Maui.Entry control
                 case MaterialTextFieldInputType.Plain:
                     var flags = KeyboardFlags.None;
                     if (IsTextAllCaps)

@@ -1,6 +1,6 @@
-﻿using Xamarin.Forms;
+﻿using Microsoft.Maui;
 
-namespace XF.Material.Forms.UI.Dialogs.Configurations
+namespace XF.Material.Maui.UI.Dialogs.Configurations
 {
     /// <summary>
     /// Base class that provides properties for styling alert dialogs, loading dialogs, simple dialogs, and snackbars.
@@ -15,6 +15,6 @@ namespace XF.Material.Forms.UI.Dialogs.Configurations
         /// <summary>
         /// Gets or sets the message text color of the dialog.
         /// </summary>
-        public virtual Color MessageTextColor { get; set; } = Color.FromHex("#99000000");
+        public virtual Color MessageTextColor { get; set; } = Color.FromArgb("#99000000");
     }
 }

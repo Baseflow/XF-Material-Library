@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using XF.Material.Forms.UI.Dialogs;
-using XF.Material.Forms.UI.Dialogs.Configurations;
+using XF.Material.Maui.UI.Dialogs;
+using XF.Material.Maui.UI.Dialogs.Configurations;
 
-namespace XF.Material.Forms.Dialogs
+namespace XF.Material.Maui.Dialogs
 {
     /// <summary>
     /// Static class for showing dialogs and snackbar.

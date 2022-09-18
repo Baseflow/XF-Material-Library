@@ -1,6 +1,6 @@
-﻿using XF.Material.Forms.UI.Internals;
+﻿using XF.Material.Maui.UI.Internals;
 
-namespace XF.Material.Forms.UI
+namespace XF.Material.Maui.UI
 {
     public class MaterialRadioButton : BaseMaterialSelectionControl
     {

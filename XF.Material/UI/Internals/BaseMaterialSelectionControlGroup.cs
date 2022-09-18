@@ -2,10 +2,10 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using Xamarin.Forms;
-using XF.Material.Forms.Resources;
+using Microsoft.Maui;
+using XF.Material.Maui.Resources;
 
-namespace XF.Material.Forms.UI.Internals
+namespace XF.Material.Maui.UI.Internals
 {
     /// <summary>
     /// Base class of selection control groups. Used by <see cref="MaterialRadioButtonGroup"/> and <see cref="MaterialCheckboxGroup"/>.
@@ -40,12 +40,12 @@ namespace XF.Material.Forms.UI.Internals
         /// <summary>
         /// Backing field for the bindable property <see cref="TextColor"/>.
         /// </summary>
-        public static readonly BindableProperty TextColorProperty = BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(BaseMaterialSelectionControlGroup), Color.FromHex("#DE000000"));
+        public static readonly BindableProperty TextColorProperty = BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(BaseMaterialSelectionControlGroup), Color.FromArgb("#DE000000"));
 
         /// <summary>
         /// Backing field for the bindable property <see cref="UnselectedColor"/>.
         /// </summary>
-        public static readonly BindableProperty UnselectedColorProperty = BindableProperty.Create(nameof(UnselectedColor), typeof(Color), typeof(BaseMaterialSelectionControlGroup), Color.FromHex("#84000000"));
+        public static readonly BindableProperty UnselectedColorProperty = BindableProperty.Create(nameof(UnselectedColor), typeof(Color), typeof(BaseMaterialSelectionControlGroup), Color.FromArgb("#84000000"));
 
         /// <summary>
         /// Backing field for the bindable property <see cref="VerticalSpacing"/>.

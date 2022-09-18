@@ -2,17 +2,19 @@
 using System.Linq;
 using Android.Content;
 using Android.Content.Res;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.Android;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android.AppCompat;
+using Microsoft.Maui.Controls.Platform;
 using XF.Material.Droid.Renderers;
-using XF.Material.Forms.UI;
-using Button = Xamarin.Forms.Button;
+using XF.Material.Maui.UI;
 
 [assembly: ExportRenderer(typeof(MaterialButton), typeof(MaterialButtonRenderer))]
 
 namespace XF.Material.Droid.Renderers
 {
-    public sealed class MaterialButtonRenderer : Xamarin.Forms.Platform.Android.AppCompat.ButtonRenderer
+    public sealed class MaterialButtonRenderer : ButtonRenderer
     {
         private MaterialDrawableHelper _helper;
         private MaterialButton _materialButton;
@@ -27,7 +29,7 @@ namespace XF.Material.Droid.Renderers
             {
                 _helper.Clean();
             }
-            
+
             base.Dispose(disposing);
         }
 
@@ -92,7 +94,7 @@ namespace XF.Material.Droid.Renderers
                 _materialButton.TextColor.ToAndroid(),
                 _materialButton.TextColor.ToAndroid(),
                 _materialButton.TextColor.ToAndroid(),
-                _materialButton.TextColor.MultiplyAlpha(0.38).ToAndroid()
+                _materialButton.TextColor.MultiplyAlpha((float)0.38).ToAndroid()
              };
 
             Control.SetTextColor(new ColorStateList(states, colors));

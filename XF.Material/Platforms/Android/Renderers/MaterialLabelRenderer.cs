@@ -1,10 +1,12 @@
 ﻿using System.ComponentModel;
 using Android.Content;
 using Android.Widget;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.Android;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android;
+using Microsoft.Maui.Controls.Platform;
 using XF.Material.Droid.Renderers;
-using XF.Material.Forms.UI;
+using XF.Material.Maui.UI;
 
 [assembly: ExportRenderer(typeof(MaterialLabel), typeof(MaterialLabelRenderer))]
 

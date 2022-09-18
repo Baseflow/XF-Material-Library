@@ -1,7 +1,7 @@
 ﻿using System;
-using Xamarin.Forms;
+using Microsoft.Maui;
 
-namespace XF.Material.Forms.UI.Internals
+namespace XF.Material.Maui.UI.Internals
 {
     /// <inheritdoc />
     /// <summary>
@@ -21,7 +21,7 @@ namespace XF.Material.Forms.UI.Internals
 
     /// <inheritdoc />
     /// <summary>
-    /// Used in <see cref="E:XF.Material.Forms.UI.Internals.MaterialBoxView.Tapped" /> as an event argument.
+    /// Used in <see cref="E:XF.Material.Maui.UI.Internals.MaterialBoxView.Tapped" /> as an event argument.
     /// </summary>
     internal class TappedEventArgs : EventArgs
     {

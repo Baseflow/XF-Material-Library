@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Xamarin.Forms;
-using XF.Material.Forms.UI.Dialogs.Configurations;
+using Microsoft.Maui;
+using XF.Material.Maui.UI.Dialogs.Configurations;
 
-namespace XF.Material.Forms.UI.Dialogs
+namespace XF.Material.Maui.UI.Dialogs
 {
     /// <summary>
     /// Interface that defines the methods for showing dialogs and snackbars.

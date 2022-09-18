@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<internal:BaseMaterialSelectionControlGroup x:Class="XF.Material.Forms.UI.MaterialCheckboxGroup"
-                                            xmlns="http://xamarin.com/schemas/2014/forms"
+<internal:BaseMaterialSelectionControlGroup x:Class="XF.Material.Maui.UI.MaterialCheckboxGroup"
+                                            xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                                             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                                            xmlns:internal="clr-namespace:XF.Material.Forms.UI.Internals"
-                                            xmlns:local="clr-namespace:XF.Material.Forms.UI"
+                                            xmlns:internal="clr-namespace:XF.Material.Maui.UI.Internals"
+                                            xmlns:local="clr-namespace:XF.Material.Maui.UI"
                                             x:Name="root">
     <ContentView.Content>
         <StackLayout x:Name="selectionList"

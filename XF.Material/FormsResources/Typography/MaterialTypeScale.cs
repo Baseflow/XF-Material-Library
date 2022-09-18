@@ -1,4 +1,4 @@
-﻿namespace XF.Material.Forms.Resources.Typography
+﻿namespace XF.Material.Maui.Resources.Typography
 {
     /// <summary>
     /// Enumeration for the type scale used in <see cref="Effects.MaterialTypeScaleEffect"/>

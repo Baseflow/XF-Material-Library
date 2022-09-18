@@ -1,6 +1,6 @@
-﻿using Xamarin.Forms;
+﻿using Microsoft.Maui;
 
-namespace XF.Material.Forms.UI.Dialogs.Configurations
+namespace XF.Material.Maui.UI.Dialogs.Configurations
 {
     /// <summary>
     /// Base class configuration of all modal dialogs.
@@ -10,7 +10,7 @@ namespace XF.Material.Forms.UI.Dialogs.Configurations
         /// <summary>
         /// Gets or sets the background color of the dialog.
         /// </summary>
-        public virtual Color BackgroundColor { get; set; } = Color.White;
+        public virtual Color BackgroundColor { get; set; } = Colors.White;
 
         /// <summary>
         /// Gets or sets the corner radius of the dialog.
@@ -20,7 +20,7 @@ namespace XF.Material.Forms.UI.Dialogs.Configurations
         /// <summary>
         /// Gets or sets the scrim color of the dialog.
         /// </summary>
-        public virtual Color ScrimColor { get; set; } = Color.FromHex("#51000000");
+        public virtual Color ScrimColor { get; set; } = Color.FromArgb("#51000000");
 
         /// <summary>
         /// Gets or sets the tint color of the dialog.

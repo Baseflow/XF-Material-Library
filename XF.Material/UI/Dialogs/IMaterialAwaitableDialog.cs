@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace XF.Material.Forms.UI.Dialogs
+namespace XF.Material.Maui.UI.Dialogs
 {
     /// <summary>
     /// Interface that provides a <see cref="TaskCompletionSource{TResult}"/> property for dialogs awaiting user input.

@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="XF.Material.Forms.UI.Internals.BaseMaterialInputView">
-  <ContentView.Content>
-      <StackLayout>
-          <Label Text="Hello Xamarin.Forms!" />
-      </StackLayout>
-  </ContentView.Content>
+             x:Class="XF.Material.Maui.UI.Internals.BaseMaterialInputView">
+    <ContentView.Content>
+        <StackLayout>
+            <Label Text="Hello Maui!" />
+        </StackLayout>
+    </ContentView.Content>
 </ContentView>

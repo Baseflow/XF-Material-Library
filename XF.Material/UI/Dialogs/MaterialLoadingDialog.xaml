@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<local:BaseMaterialModalPage x:Class="XF.Material.Forms.UI.Dialogs.MaterialLoadingDialog"
-                             xmlns="http://xamarin.com/schemas/2014/forms"
+<local:BaseMaterialModalPage x:Class="XF.Material.Maui.UI.Dialogs.MaterialLoadingDialog"
+                             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                             xmlns:local="clr-namespace:XF.Material.Forms.UI.Dialogs"
-                             xmlns:material="clr-namespace:XF.Material.Forms.UI"
+                             xmlns:local="clr-namespace:XF.Material.Maui.UI.Dialogs"
+                             xmlns:material="clr-namespace:XF.Material.Maui.UI"
                              BackgroundColor="#51000000"
                              CloseWhenBackgroundIsClicked="False">
     <ContentPage.Content>
@@ -26,12 +26,14 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
+                <!-- TODO:
                 <material:MaterialCircularLoadingView x:Name="LoadingImage"
                                                       Grid.Column="0"
                                                       HeightRequest="56"
                                                       RepeatMode="Infinite"
                                                       VerticalOptions="Center"
                                                       WidthRequest="56" />
+                -->
                 <material:MaterialLabel x:Name="Message"
                                         Grid.Column="1"
                                         Text="Lorem ipsum dolor sit amet."

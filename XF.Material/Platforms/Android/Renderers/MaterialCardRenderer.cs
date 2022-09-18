@@ -3,17 +3,19 @@ using Android.Content;
 using Android.Graphics.Drawables;
 using Android.Util;
 using Android.Views;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.Android;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android.AppCompat;
+using Microsoft.Maui.Controls.Platform;
 using XF.Material.Droid.Renderers;
-using XF.Material.Forms.UI;
+using XF.Material.Maui.UI;
 using static Android.Views.View;
 
 [assembly: ExportRenderer(typeof(MaterialCard), typeof(MaterialCardRenderer))]
-
 namespace XF.Material.Droid.Renderers
 {
-    public class MaterialCardRenderer : Xamarin.Forms.Platform.Android.AppCompat.FrameRenderer, IOnTouchListener
+    public class MaterialCardRenderer : FrameRenderer, IOnTouchListener
     {
         private MaterialCard _materialCard;
 
@@ -95,7 +97,7 @@ namespace XF.Material.Droid.Renderers
 
         private void UpdateStrokeColor()
         {
-            var borderColor = _materialCard.BorderColor.IsDefault ? _materialCard.BackgroundColor : _materialCard.BorderColor;
+            var borderColor = _materialCard.BorderColor.IsDefault() ? _materialCard.BackgroundColor : _materialCard.BorderColor;
             var drawable = (GradientDrawable)Control.Background;
             drawable.SetStroke((int)MaterialHelper.ConvertDpToPx(1), borderColor.ToAndroid());
         }

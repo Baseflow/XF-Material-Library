@@ -1,21 +1,28 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras">
   <PropertyGroup Condition=" '$(TargetsToBuild)' == 'All' ">
-    <TargetFrameworks>netstandard2.0;xamarin.ios10;xamarin.mac20;xamarin.tvos10;xamarin.watchos10;monoandroid10.0;tizen40;netcoreapp3.1;net472</TargetFrameworks>
-    <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">uap10.0.18362;$(TargetFrameworks)</TargetFrameworks>
+    <TargetFrameworks>net6.0-android;net6.0-ios</TargetFrameworks>
+
+    <UseMaui>true</UseMaui>
+    <SingleProject>true</SingleProject>
+
+    <OutputType>Library</OutputType>
+
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(TargetsToBuild)' != 'All' ">
-    <TargetFrameworks Condition=" '$(TargetsToBuild)' == 'Android' ">netstandard2.0;monoandroid10.0;</TargetFrameworks>
-    <TargetFrameworks Condition=" '$(TargetsToBuild)' == 'Uap' ">netstandard2.0;uap10.0.18362</TargetFrameworks>
-    <TargetFrameworks Condition=" '$(TargetsToBuild)' == 'iOS' ">netstandard2.0;xamarin.ios10</TargetFrameworks>
-    <TargetFrameworks Condition=" '$(TargetsToBuild)' == 'Apple' ">netstandard2.0;xamarin.ios10;xamarin.mac20;xamarin.tvos10</TargetFrameworks>
+    <TargetFrameworks Condition=" '$(TargetsToBuild)' == 'Android' ">net6.0-android;</TargetFrameworks>
+    <TargetFrameworks Condition=" '$(TargetsToBuild)' == 'Uap' ">net6.0-windows10.0.19041.0</TargetFrameworks>
+    <TargetFrameworks Condition=" '$(TargetsToBuild)' == 'iOS' ">net6.0-ios</TargetFrameworks>
+    <TargetFrameworks Condition=" '$(TargetsToBuild)' == 'Apple' ">net6.0-ios</TargetFrameworks>
   </PropertyGroup>
   
   <PropertyGroup>
     <AssemblyName>XF.Material</AssemblyName>
     <RootNamespace>XF.Material</RootNamespace>
     <PackageId>XF.Material</PackageId>
-    <Description>A Xamarin.Forms library for Xamarin.Android and Xamarin.iOS to implement Google's Material Design.</Description>
+    <Description>A Maui library for Maui.Android and Maui.iOS to implement Google's Material Design.</Description>
     <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
   </PropertyGroup>
 
@@ -32,54 +39,52 @@
     <None Include="readme.txt" pack="true" PackagePath="." />
   </ItemGroup>
 
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) ">
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('net6.0')) ">
     <None Remove="Platforms\Netstandard\**\*.cs" />
     <Compile Include="Platforms\Netstandard\**\*.cs" />
   </ItemGroup>
 
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('net4')) And '$(OS)' == 'Windows_NT' ">
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('net6.0')) And '$(OS)' == 'Windows_NT' ">
     <None Remove="Platforms\Net\**\*.cs" />
     <None Remove="Platforms\Wpf\**\*.cs" />
     <Compile Include="Platforms\Net\**\*.cs" />
     <Compile Include="Platforms\Wpf\**\*.cs" />
-    <PackageReference Include="Xamarin.Forms.Platform.WPF" Version="5.0.0.2012" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)'!='netstandard2.0'">
+  <ItemGroup Condition="'$(TargetFramework)'!='net6.0'">
     <None Remove="Platforms\Shared\**\*.cs" />
     <Compile Include="Platforms\Shared\**\*.cs" />
   </ItemGroup>
 
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('uap')) ">
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('net6.0-windows')) ">
     <Compile Include="Platforms\Windows\**\*.cs" />
     <Compile Include="Platforms\Uap\**\*.cs" />
     <Page Include="Platforms\Uap\**\*.xaml" SubType="Designer" Generator="MSBuild:Compile" />
     <None Update="**\*.xaml.cs" DependentUpon="%(Filename)" />
     <Compile Update="**\*.xaml.cs" DependentUpon="%(Filename)" />
-    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls" Version="7.1.2" />
   </ItemGroup>
 
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('xamarin.ios')) ">
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('net6.0-ios')) ">
     <None Remove="Platforms\Apple\**\*.cs" />
     <None Remove="Platforms\Ios\**\*.cs" />
-    <None Remove="Platforms\Xamarin\**\*.cs" />
+    <None Remove="Platforms\Maui\**\*.cs" />
     <None Remove="Resources\*.png" />
     <None Remove="Resources\*.json" />
     <Compile Include="Platforms\Apple\**\*.cs" />
     <Compile Include="Platforms\Ios\**\*.cs" />
-    <Compile Include="Platforms\Xamarin\**\*.cs" />
+    <Compile Include="Platforms\Maui\**\*.cs" />
     <BundleResource Include="Resources\*.png" />
     <BundleResource Include="Resources\*.json" />
     <None Include="Info.plist" />
   </ItemGroup>
-
   <ItemGroup Condition=" $(TargetFramework.StartsWith('xamarin.mac')) ">
     <None Remove="Platforms\Apple\**\*.cs" />
     <None Remove="Platforms\Mac\**\*.cs" />
-    <None Remove="Platforms\Xamarin\**\*.cs" />
+    <None Remove="Platforms\Maui\**\*.cs" />
     <Compile Include="Platforms\Apple\**\*.cs" />
     <Compile Include="Platforms\Mac\**\*.cs" />
-    <Compile Include="Platforms\Xamarin\**\*.cs" />
+    <Compile Include="Platforms\Maui\**\*.cs" />
     <BundleResource Include="Resources\*.png" />
     <BundleResource Include="Resources\*.json" />
   </ItemGroup>
@@ -87,10 +92,10 @@
   <ItemGroup Condition=" $(TargetFramework.StartsWith('xamarin.tvos')) ">
     <None Remove="Platforms\Apple\**\*.cs" />
     <None Remove="Platforms\Tvos\**\*.cs" />
-    <None Remove="Platforms\Xamarin\**\*.cs" />
+    <None Remove="Platforms\Maui\**\*.cs" />
     <Compile Include="Platforms\Apple\**\*.cs" />
     <Compile Include="Platforms\Tvos\**\*.cs" />
-    <Compile Include="Platforms\Xamarin\**\*.cs" />
+    <Compile Include="Platforms\Maui\**\*.cs" />
     <BundleResource Include="Resources\*.png" />
     <BundleResource Include="Resources\*.json" />
   </ItemGroup>
@@ -98,28 +103,28 @@
   <ItemGroup Condition=" $(TargetFramework.StartsWith('xamarin.watchos')) ">
     <None Remove="Platforms\Apple\**\*.cs" />
     <None Remove="Platforms\Watchos\**\*.cs" />
-    <None Remove="Platforms\Xamarin\**\*.cs" />
+    <None Remove="Platforms\Maui\**\*.cs" />
     <Compile Include="Platforms\Apple\**\*.cs" />
     <Compile Include="Platforms\Watchos\**\*.cs" />
-    <Compile Include="Platforms\Xamarin\**\*.cs" />
+    <Compile Include="Platforms\Maui\**\*.cs" />
     <BundleResource Include="Resources\*.png" />
     <BundleResource Include="Resources\*.json" />
   </ItemGroup>
 
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('monoandroid')) ">
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('net6.0-android')) ">
     <None Remove="Platforms\Android\**\*.cs" />
-    <None Remove="Platforms\Xamarin\**\*.cs" />
+    <None Remove="Platforms\Maui\**\*.cs" />
     <Compile Include="Platforms\Android\**\*.cs" />
-    <Compile Include="Platforms\Xamarin\**\*.cs" />
+    <Compile Include="Platforms\Maui\**\*.cs" />
     <AndroidResource Include="Resources\**\*.xml" SubType="Designer" Generator="MSBuild:UpdateAndroidResources" />
     <AndroidResource Include="Resources\raw\*.json" Generator="MSBuild:UpdateAndroidResources" />
   </ItemGroup>
 
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('tizen')) ">
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('net6.0-tizen')) ">
     <None Remove="Platforms\Tizen\**\*.cs" />
-    <None Remove="Platforms\Xamarin\**\*.cs" />
+    <None Remove="Platforms\Maui\**\*.cs" />
     <Compile Include="Platforms\Tizen\**\*.cs" />
-    <Compile Include="Platforms\Xamarin\**\*.cs" />
+    <Compile Include="Platforms\Maui\**\*.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -127,10 +132,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Rg.Plugins.Popup" Version="2.1.0" />
-    <PackageReference Include="Xamarin.Essentials" Version="1.7.1" />
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
-    <PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie" Version="4.1.0" />
+    <PackageReference Include="Mopups" Version="1.0.2" />
   </ItemGroup>
-  
+
 </Project>

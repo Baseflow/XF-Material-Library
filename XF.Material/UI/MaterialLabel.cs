@@ -1,8 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
-using Xamarin.Forms;
-using XF.Material.Forms.Resources.Typography;
+using Microsoft.Maui;
+using XF.Material.Maui.Resources.Typography;
 
-namespace XF.Material.Forms.UI
+namespace XF.Material.Maui.UI
 {
     public class MaterialLabel : Label
     {

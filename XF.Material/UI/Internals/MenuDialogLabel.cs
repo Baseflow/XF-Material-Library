@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Input;
-using Xamarin.Forms;
-using XF.Material.Forms.UI.Dialogs;
+using Microsoft.Maui;
+using XF.Material.Maui.UI.Dialogs;
 
-namespace XF.Material.Forms.UI.Internals
+namespace XF.Material.Maui.UI.Internals
 {
     internal class MenuDialogLabel : MaterialLabel
     {

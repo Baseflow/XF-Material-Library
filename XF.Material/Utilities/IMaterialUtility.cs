@@ -1,6 +1,6 @@
-﻿using Xamarin.Forms;
+﻿using Microsoft.Maui;
 
-namespace XF.Material.Forms.Utilities
+namespace XF.Material.Maui.Utilities
 {
     /// <summary>
     /// Interface which provides methods that can be used to change platform-specific configurations.

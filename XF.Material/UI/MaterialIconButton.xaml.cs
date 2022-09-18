@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-using XF.Material.Forms.Resources;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls.Xaml;
+using XF.Material.Maui.Resources;
 
-namespace XF.Material.Forms.UI
+namespace XF.Material.Maui.UI
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MaterialIconButton : ContentView, IMaterialButtonControl, IMaterialTintableControl
     {
         public static new readonly BindableProperty BackgroundColorProperty = BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(MaterialButton), Material.Color.Secondary);
 
-        public static readonly BindableProperty BorderColorProperty = BindableProperty.Create(nameof(BorderColor), typeof(Color), typeof(MaterialIconButton), Color.Default);
+        public static readonly BindableProperty BorderColorProperty = BindableProperty.Create(nameof(BorderColor), typeof(Color), typeof(MaterialIconButton), null);
 
         public static readonly BindableProperty BorderWidthProperty = BindableProperty.Create(nameof(BorderWidth), typeof(double), typeof(MaterialIconButton), 0.0);
 

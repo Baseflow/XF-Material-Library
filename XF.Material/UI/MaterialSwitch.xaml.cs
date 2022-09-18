@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls.Xaml;
 
-namespace XF.Material.Forms.UI
+namespace XF.Material.Maui.UI
 {
     public class ActivatedEventArgs : ToggledEventArgs
     {
@@ -16,13 +16,13 @@ namespace XF.Material.Forms.UI
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MaterialSwitch : ContentView
     {
-        public static readonly BindableProperty ActiveTrackColorProperty = BindableProperty.Create(nameof(ActiveTrackColor), typeof(Color), typeof(MaterialSwitch), Material.Color.Secondary.MultiplyAlpha(0.54));
+        public static readonly BindableProperty ActiveTrackColorProperty = BindableProperty.Create(nameof(ActiveTrackColor), typeof(Color), typeof(MaterialSwitch), Material.Color.Secondary.MultiplyAlpha((float)0.54));
 
         public static readonly BindableProperty ActiveThumbColorProperty = BindableProperty.Create(nameof(ActiveThumbColor), typeof(Color), typeof(MaterialSwitch), Material.Color.Secondary);
 
-        public static readonly BindableProperty InactiveTrackColorProperty = BindableProperty.Create(nameof(InactiveTrackColor), typeof(Color), typeof(MaterialSwitch), Color.LightGray);
+        public static readonly BindableProperty InactiveTrackColorProperty = BindableProperty.Create(nameof(InactiveTrackColor), typeof(Color), typeof(MaterialSwitch), Colors.LightGray);
 
-        public static readonly BindableProperty InactiveThumColorProperty = BindableProperty.Create(nameof(InactiveThumbColor), typeof(Color), typeof(MaterialSwitch), Color.FromHex("#FFFFFF"));
+        public static readonly BindableProperty InactiveThumColorProperty = BindableProperty.Create(nameof(InactiveThumbColor), typeof(Color), typeof(MaterialSwitch), Color.FromArgb("#FFFFFF"));
 
         public static readonly BindableProperty IsActivatedProperty = BindableProperty.Create(nameof(IsActivated), typeof(bool), typeof(MaterialSwitch), false, BindingMode.TwoWay);
 

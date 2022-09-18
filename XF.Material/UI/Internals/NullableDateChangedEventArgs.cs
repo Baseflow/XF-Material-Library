@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace XF.Material.Forms.UI.Internals
+namespace XF.Material.Maui.UI.Internals
 {
     public class NullableDateChangedEventArgs : EventArgs
     {

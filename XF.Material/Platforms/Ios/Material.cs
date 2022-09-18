@@ -1,4 +1,4 @@
-﻿using Rg.Plugins.Popup;
+﻿using Mopups.Hosting;
 
 namespace XF.Material.iOS
 {
@@ -9,7 +9,7 @@ namespace XF.Material.iOS
         /// </summary>
         public static void Init()
         {
-            Popup.Init();
+            // TODO: Init Popups has changed
         }
     }
 }

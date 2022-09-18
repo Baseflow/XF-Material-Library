@@ -3,9 +3,8 @@ using System.ComponentModel;
 using Microsoft.Toolkit.Uwp.UI.Controls;
 using Windows.UI;
 using Windows.UI.Xaml.Media;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.UWP;
-using XF.Material.Forms.UI;
+using Microsoft.Maui;
+using XF.Material.Maui.UI;
 using XF.Material.UWP.Renderers;
 using Rectangle = Windows.UI.Xaml.Shapes.Rectangle;
 

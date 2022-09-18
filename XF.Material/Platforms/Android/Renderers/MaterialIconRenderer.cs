@@ -2,10 +2,12 @@
 using Android.Content;
 using Android.Graphics.Drawables;
 using AndroidX.Core.Graphics.Drawable;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.Android;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android;
+using Microsoft.Maui.Controls.Platform;
 using XF.Material.Droid.Renderers;
-using XF.Material.Forms.UI;
+using XF.Material.Maui.UI;
 
 [assembly: ExportRenderer(typeof(MaterialIcon), typeof(MaterialIconRenderer))]
 namespace XF.Material.Droid.Renderers
@@ -59,7 +61,7 @@ namespace XF.Material.Droid.Renderers
 
         private void ChangeTintColor(Drawable drawable)
         {
-            if (_materialIcon.TintColor.IsDefault || drawable == null)
+            if (_materialIcon.TintColor.IsDefault() || drawable == null)
             {
                 return;
             }

@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Xamarin.Essentials;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-using XF.Material.Forms.Models;
-using XF.Material.Forms.UI.Dialogs.Configurations;
-using XF.Material.Forms.UI.Dialogs.Internals;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls.Xaml;
+using XF.Material.Maui.Models;
+using XF.Material.Maui.UI.Dialogs.Configurations;
+using XF.Material.Maui.UI.Dialogs.Internals;
 
-namespace XF.Material.Forms.UI.Dialogs
+namespace XF.Material.Maui.UI.Dialogs
 {
     internal struct MaterialMenuDimension
     {
@@ -170,7 +169,6 @@ namespace XF.Material.Forms.UI.Dialogs
 
             SetList(actionModels);
         }
-
 
         private void LabelSizeChanged(Dictionary<string, object> param)
         {

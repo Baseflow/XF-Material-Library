@@ -1,10 +1,12 @@
 ﻿using System.ComponentModel;
 using System.Drawing;
 using UIKit;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.iOS;
-using XF.Material.Forms.UI.Internals;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls.Compatibility.Platform.iOS;
+using Microsoft.Maui.Controls.Compatibility;
+using XF.Material.Maui.UI.Internals;
 using XF.Material.iOS.Renderers.Internals;
+using Microsoft.Maui.Controls.Platform;
 
 [assembly: ExportRenderer(typeof(MaterialEntry), typeof(MaterialEntryRenderer))]
 namespace XF.Material.iOS.Renderers.Internals

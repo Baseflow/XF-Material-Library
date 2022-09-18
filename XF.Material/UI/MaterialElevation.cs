@@ -1,8 +1,9 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Globalization;
-using Xamarin.Forms;
+using Microsoft.Maui;
 
-namespace XF.Material.Forms.UI
+namespace XF.Material.Maui.UI
 {
     [TypeConverter(typeof(MaterialElevationTypeConverter))]
     public struct MaterialElevation
@@ -22,10 +23,11 @@ namespace XF.Material.Forms.UI
         public static implicit operator MaterialElevation(double uniformElevation) => new MaterialElevation(uniformElevation);
     }
 
-    [Xamarin.Forms.Xaml.TypeConversion(typeof(MaterialElevation))]
+    // TODO: changed to TypeConversion
+    [TypeConverter(typeof(MaterialElevation))]
     public class MaterialElevationTypeConverter : TypeConverter
     {
-        public override object ConvertFromInvariantString(string value)
+        public static object ConvertFromInvariantString(string value)
         {
             if (value == null)
             {

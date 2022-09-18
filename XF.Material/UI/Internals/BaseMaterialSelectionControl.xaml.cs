@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-using XF.Material.Forms.Resources;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls.Xaml;
+using XF.Material.Maui.Resources;
 
-namespace XF.Material.Forms.UI.Internals
+namespace XF.Material.Maui.UI.Internals
 {
     /// <summary>
     /// Internal base class of selection controls such as <see cref="MaterialCheckbox"/> and <see cref="MaterialRadioButton"/>.
@@ -46,7 +46,7 @@ namespace XF.Material.Forms.UI.Internals
         /// <summary>
         /// Backing field for the bindable property <see cref="TextColor"/>.
         /// </summary>
-        public static readonly BindableProperty TextColorProperty = BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(BaseMaterialSelectionControl), Color.FromHex("#DE000000"));
+        public static readonly BindableProperty TextColorProperty = BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(BaseMaterialSelectionControl), Color.FromArgb("#DE000000"));
 
         /// <summary>
         /// Backing field for the bindable property <see cref="Text"/>.
@@ -56,7 +56,7 @@ namespace XF.Material.Forms.UI.Internals
         /// <summary>
         /// Backing field for the bindable property <see cref="UnselectedColor"/>.
         /// </summary>
-        public static readonly BindableProperty UnselectedColorProperty = BindableProperty.Create(nameof(UnselectedColor), typeof(Color), typeof(BaseMaterialSelectionControl), Color.FromHex("#84000000"));
+        public static readonly BindableProperty UnselectedColorProperty = BindableProperty.Create(nameof(UnselectedColor), typeof(Color), typeof(BaseMaterialSelectionControl), Color.FromArgb("#84000000"));
 
         /// <summary>
         /// Backing field for the bindable property <see cref="VerticalSpacing"/>.

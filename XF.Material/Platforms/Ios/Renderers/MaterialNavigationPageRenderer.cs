@@ -4,10 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using ObjCRuntime;
 using UIKit;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.iOS;
-using XF.Material.Forms.UI;
+using Microsoft.Maui;
+using XF.Material.Maui.UI;
 using XF.Material.iOS.Renderers;
+using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.iOS;
+using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Platform;
 
 [assembly: ExportRenderer(typeof(MaterialNavigationPage), typeof(MaterialNavigationPageRenderer))]
 
@@ -160,7 +163,7 @@ namespace XF.Material.iOS.Renderers
         {
             var statusBarColor = (Color)page.GetValue(MaterialNavigationPage.StatusBarColorProperty);
 
-            Forms.Material.PlatformConfiguration.ChangeStatusBarColor(statusBarColor.IsDefault ? Forms.Material.Color.PrimaryVariant : statusBarColor);
+            Maui.Material.PlatformConfiguration.ChangeStatusBarColor(statusBarColor.IsDefault() ? Maui.Material.Color.PrimaryVariant : statusBarColor);
         }
 
         private class NavigationControllerDelegate : UINavigationControllerDelegate

@@ -1,10 +1,12 @@
 ﻿using System.ComponentModel;
 using System.Threading.Tasks;
 using UIKit;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.iOS;
-using XF.Material.Forms.UI;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls.Compatibility.Platform.iOS;
+using Microsoft.Maui.Controls.Compatibility;
+using XF.Material.Maui.UI;
 using XF.Material.iOS.Renderers;
+using Microsoft.Maui.Controls.Platform;
 
 [assembly: ExportRenderer(typeof(MaterialIcon), typeof(MaterialIconRenderer))]
 namespace XF.Material.iOS.Renderers
@@ -41,7 +43,7 @@ namespace XF.Material.iOS.Renderers
             if (control == null || element == null)
                 return;
 
-            if (element.TintColor.IsDefault)
+            if (element.TintColor.IsDefault())
                 control.TintColor = null;
             else
                 control.TintColor = element.TintColor.ToUIColor();

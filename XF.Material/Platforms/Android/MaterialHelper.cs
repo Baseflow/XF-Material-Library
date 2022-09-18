@@ -7,7 +7,9 @@ using AndroidX.Core.Content;
 using AndroidX.Core.Graphics;
 using AndroidX.Core.Graphics.Drawable;
 using AndroidX.Core.View;
-using Xamarin.Forms.Platform.Android;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android;
+using Microsoft.Maui.Platform;
+using Color = Android.Graphics.Color;
 
 namespace XF.Material.Droid
 {
@@ -96,7 +98,7 @@ namespace XF.Material.Droid
                 activeColor,
                 activeColor,
                 activeColor,
-                activeColor.ToColor().MultiplyAlpha(0.38).ToAndroid()
+                activeColor.ToColor().MultiplyAlpha((float)0.38).ToAndroid()
              };
 
             return new ColorStateList(states, colors);

@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Xamarin.Essentials;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-using XF.Material.Forms.UI.Dialogs.Configurations;
 
-namespace XF.Material.Forms.UI.Dialogs
+using Microsoft.Maui;
+using Microsoft.Maui.Controls.Xaml;
+using XF.Material.Maui.UI.Dialogs.Configurations;
+
+namespace XF.Material.Maui.UI.Dialogs
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MaterialConfirmationDialog : BaseMaterialModalPage, IMaterialAwaitableDialog<object>

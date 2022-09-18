@@ -1,7 +1,7 @@
-﻿using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+﻿using Microsoft.Maui;
+using Microsoft.Maui.Controls.Xaml;
 
-namespace XF.Material.Forms.Resources
+namespace XF.Material.Maui.Resources
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MaterialSizes : ResourceDictionary

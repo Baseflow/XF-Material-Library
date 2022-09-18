@@ -1,4 +1,4 @@
-﻿namespace XF.Material.Forms.UI.Dialogs.Configurations
+﻿namespace XF.Material.Maui.UI.Dialogs.Configurations
 {
     /// <inheritdoc />
     /// <summary>

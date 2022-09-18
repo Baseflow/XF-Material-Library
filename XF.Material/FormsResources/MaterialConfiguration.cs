@@ -1,7 +1,7 @@
-﻿using Xamarin.Forms;
-using XF.Material.Forms.Resources.Typography;
+﻿using Microsoft.Maui;
+using XF.Material.Maui.Resources.Typography;
 
-namespace XF.Material.Forms.Resources
+namespace XF.Material.Maui.Resources
 {
     /// <inheritdoc />
     /// <summary>

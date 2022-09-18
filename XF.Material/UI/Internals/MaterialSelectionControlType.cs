@@ -1,4 +1,4 @@
-﻿namespace XF.Material.Forms.UI.Internals
+﻿namespace XF.Material.Maui.UI.Internals
 {
     internal enum MaterialSelectionControlType
     {

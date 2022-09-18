@@ -3,10 +3,13 @@ using System.ComponentModel;
 using CoreGraphics;
 using Foundation;
 using UIKit;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.iOS;
-using XF.Material.Forms.UI;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls.Compatibility.Platform.iOS;
+using Microsoft.Maui.Controls.Compatibility;
+using XF.Material.Maui.UI;
 using XF.Material.iOS.Renderers;
+using Microsoft.Maui.Controls.Platform;
+using System.Runtime.InteropServices;
 
 [assembly: ExportRenderer(typeof(MaterialLabel), typeof(MaterialLabelRenderer))]
 
@@ -34,7 +37,7 @@ namespace XF.Material.iOS.Renderers
                 return;
             }
 
-            var textSize = new CGSize(Control.Frame.Size.Width, nfloat.MaxValue);
+            var textSize = new CGSize(Control.Frame.Size.Width, NFloat.MaxValue);
             var rHeight = Control.SizeThatFits(textSize).Height;
             var charSize = Control.Font.LineHeight;
             var lines = Convert.ToInt32(rHeight / charSize);
@@ -54,22 +57,27 @@ namespace XF.Material.iOS.Renderers
             var lbm = Element.LineBreakMode;
             switch (lbm)
             {
-                case Xamarin.Forms.LineBreakMode.NoWrap:
+                case Microsoft.Maui.LineBreakMode.NoWrap:
                     Control.LineBreakMode = UIKit.UILineBreakMode.Clip;
                     break;
-                case Xamarin.Forms.LineBreakMode.WordWrap:
+
+                case Microsoft.Maui.LineBreakMode.WordWrap:
                     Control.LineBreakMode = UIKit.UILineBreakMode.WordWrap;
                     break;
-                case Xamarin.Forms.LineBreakMode.CharacterWrap:
+
+                case Microsoft.Maui.LineBreakMode.CharacterWrap:
                     Control.LineBreakMode = UIKit.UILineBreakMode.CharacterWrap;
                     break;
-                case Xamarin.Forms.LineBreakMode.HeadTruncation:
+
+                case Microsoft.Maui.LineBreakMode.HeadTruncation:
                     Control.LineBreakMode = UIKit.UILineBreakMode.HeadTruncation;
                     break;
-                case Xamarin.Forms.LineBreakMode.TailTruncation:
+
+                case Microsoft.Maui.LineBreakMode.TailTruncation:
                     Control.LineBreakMode = UIKit.UILineBreakMode.TailTruncation;
                     break;
-                case Xamarin.Forms.LineBreakMode.MiddleTruncation:
+
+                case Microsoft.Maui.LineBreakMode.MiddleTruncation:
                     Control.LineBreakMode = UIKit.UILineBreakMode.MiddleTruncation;
                     break;
                 default:

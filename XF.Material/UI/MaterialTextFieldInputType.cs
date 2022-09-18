@@ -1,4 +1,4 @@
-﻿namespace XF.Material.Forms.UI
+﻿namespace XF.Material.Maui.UI
 {
     /// <summary>
     /// Enumeration used in determining the type of keyboard input to use for <see cref="MaterialTextField"/>

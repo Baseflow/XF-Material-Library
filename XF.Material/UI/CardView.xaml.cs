@@ -1,8 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls.Xaml;
 
-namespace XF.Material.Forms.UI
+namespace XF.Material.Maui.UI
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     [ContentProperty(nameof(MainContent))]

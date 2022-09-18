@@ -1,6 +1,6 @@
-﻿using Xamarin.Forms;
+﻿using Microsoft.Maui;
 
-namespace XF.Material.Forms.UI.Dialogs.Configurations
+namespace XF.Material.Maui.UI.Dialogs.Configurations
 {
     /// <summary>
     /// A class that provides properties specifically for styling alert dialogs.
@@ -10,7 +10,7 @@ namespace XF.Material.Forms.UI.Dialogs.Configurations
         /// <summary>
         /// Gets or sets the title text color of the alert dialog.
         /// </summary>
-        public Color TitleTextColor { get; set; } = Color.FromHex("#DE000000");
+        public Color TitleTextColor { get; set; } = Color.FromArgb("#DE000000");
 
         /// <summary>
         /// Gets or sets the title font family of the alert dialog.

@@ -1,9 +1,10 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Globalization;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls.Xaml;
 
-namespace XF.Material.Forms.UI
+namespace XF.Material.Maui.UI
 {
     [TypeConverter(typeof(MaterialHorizontalThicknessTypeConverter))]
     public struct MaterialHorizontalThickness
@@ -27,10 +28,10 @@ namespace XF.Material.Forms.UI
         public static implicit operator MaterialHorizontalThickness(double uniformSize) => new MaterialHorizontalThickness(uniformSize);
     }
 
-    [TypeConversion(typeof(MaterialHorizontalThickness))]
+    [TypeConverter(typeof(MaterialHorizontalThickness))]
     public class MaterialHorizontalThicknessTypeConverter : TypeConverter
     {
-        public override object ConvertFromInvariantString(string value)
+        public static object ConvertFromInvariantString(string value)
         {
             if (value == null)
             {
@@ -51,6 +52,7 @@ namespace XF.Material.Forms.UI
                             return new MaterialHorizontalThickness(uE);
                         }
                         break;
+
                     case 2:
                         if (int.TryParse(elevations[0], NumberStyles.Number, CultureInfo.InvariantCulture, out var rE)
                             && int.TryParse(elevations[1], NumberStyles.Number, CultureInfo.InvariantCulture, out var pE))
@@ -58,6 +60,7 @@ namespace XF.Material.Forms.UI
                             return new MaterialHorizontalThickness(rE, pE);
                         }
                         break;
+
                     default:
                         throw new InvalidOperationException($"Cannot convert {value} to {typeof(MaterialHorizontalThickness)}");
                 }

@@ -1,9 +1,11 @@
 ﻿using Android.Content;
 using Android.Views;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.Android;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android;
+using Microsoft.Maui.Controls.Platform;
 using XF.Material.Droid.Renderers.Internals;
-using XF.Material.Forms.UI.Internals;
+using XF.Material.Maui.UI.Internals;
 using static Android.Views.View;
 
 [assembly: ExportRenderer(typeof(MaterialBoxView), typeof(MaterialBoxViewRenderer))]
@@ -37,8 +39,9 @@ namespace XF.Material.Droid.Renderers.Internals
             }
 
             _boxView = Element as MaterialBoxView;
-            ViewGroup.SetOnTouchListener(null);
-            ViewGroup.SetOnTouchListener(this);
+            // TODO: ViewGroup
+            // ViewGroup.SetOnTouchListener(null);
+            // ViewGroup.SetOnTouchListener(this);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace XF.Material.Forms.UI
+﻿namespace XF.Material.Maui.UI
 {
     /// <summary>
     /// Enumeration of the types of <see cref="MaterialButton"/>.
