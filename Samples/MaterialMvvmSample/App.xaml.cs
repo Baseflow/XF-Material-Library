@@ -1,7 +1,5 @@
 ﻿using MaterialMvvmSample.Utilities;
 using MaterialMvvmSample.Views;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace MaterialMvvmSample
@@ -10,9 +8,9 @@ namespace MaterialMvvmSample
     {
         public App(INavigationService navigationService)
         {
-            XF.Material.Forms.Material.Init(this);
+            XF.Material.Maui.Material.Init(this);
             InitializeComponent();
-            XF.Material.Forms.Material.Use("Material.Style");
+            XF.Material.Maui.Material.Use("Material.Style");
 
             navigationService.SetRootView(ViewNames.LandingView);
         }

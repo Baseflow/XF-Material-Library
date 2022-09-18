@@ -1,7 +1,5 @@
 ﻿using System;
 using MaterialMvvmSample.ViewModels;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace MaterialMvvmSample.Views
 {

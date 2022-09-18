@@ -1,38 +1,40 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Application x:Class="MaterialMvvmSample.App"
-             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:mtrl="clr-namespace:XF.Material.Forms.Resources;assembly=XF.Material"
-             xmlns:mtrltypo="clr-namespace:XF.Material.Forms.Resources.Typography;assembly=XF.Material"
-             xmlns:ui="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material">
+             xmlns:mtrl="clr-namespace:XF.Material.Maui.Resources;assembly=XF.Material"
+             xmlns:mtrltypo="clr-namespace:XF.Material.Maui.Resources.Typography;assembly=XF.Material"
+             xmlns:ui="clr-namespace:XF.Material.Maui.UI;assembly=XF.Material">
     <Application.Resources>
 
         <!-- Breaks hot reload -->
-        <OnPlatform x:Key="FontFamily.Exo2Regular"
-                    x:TypeArguments="x:String"
-                    Android="Fonts/Exo2-Regular.ttf#Exo2-Regular"
-                    iOS="Exo2-Regular" />
-        <OnPlatform x:Key="FontFamily.Exo2Bold"
-                    x:TypeArguments="x:String"
-                    Android="Fonts/Exo2-Bold.ttf#Exo2-Bold"
-                    iOS="Exo2-Bold" />
-        <OnPlatform x:Key="FontFamily.Exo2Medium"
-                    x:TypeArguments="x:String"
-                    Android="Fonts/Exo2-Medium.ttf#Exo2-Medium"
-                    iOS="Exo2-Medium" />
+        <OnPlatform x:Key="FontFamily.Exo2Regular" x:TypeArguments="x:String">
+            <On Platform="iOS" Value="Exo2-Regular" />
+            <On Platform="Android" Value="Fonts/Exo2-Regular.ttf#Exo2-Regular" />
+        </OnPlatform>
+        <OnPlatform x:Key="FontFamily.Exo2Bold" x:TypeArguments="x:String">
+            <On Platform="iOS" Value="Exo2-Bold" />
+            <On Platform="Android" Value="Fonts/Exo2-Regular.ttf#Exo2-Bold" />
+        </OnPlatform>
+        <OnPlatform x:Key="FontFamily.Exo2Medium" x:TypeArguments="x:String">
+            <On Platform="iOS" Value="Exo2-Medium" />
+            <On Platform="Android" Value="Fonts/Exo2-Bold.ttf#Exo2-Medium" />
+        </OnPlatform>
 
-        <OnPlatform x:Key="FontFamily.RobotoRegular"
-                    x:TypeArguments="x:String"
-                    Android="Fonts/Roboto-Regular.ttf#Roboto-Regular"
-                    iOS="Roboto-Regular" />
-        <OnPlatform x:Key="FontFamily.RobotoBold"
-                    x:TypeArguments="x:String"
-                    Android="Fonts/Roboto-Bold.ttf#Roboto-Bold"
-                    iOS="Roboto-Bold" />
-        <OnPlatform x:Key="FontFamily.RobotoMedium"
-                    x:TypeArguments="x:String"
-                    Android="Fonts/Roboto-Medium.ttf#Roboto-Medium"
-                    iOS="Roboto-Medium" />
+        <OnPlatform x:Key="FontFamily.RobotoRegular" x:TypeArguments="x:String">
+            <On Platform="iOS" Value="Roboto-Regular" />
+            <On Platform="Android" Value="Fonts/Roboto-Regular.ttf#Roboto-Regular" />
+        </OnPlatform>
+        
+        <OnPlatform x:Key="FontFamily.RobotoBold" x:TypeArguments="x:String">
+            <On Platform="iOS" Value="Roboto-Bold" />
+            <On Platform="Android" Value="Fonts/Roboto-Bold.ttf#Roboto-Bold" />
+        </OnPlatform>
+        
+        <OnPlatform x:Key="FontFamily.RobotoMedium" x:TypeArguments="x:String">
+            <On Platform="iOS" Value="Roboto-Medium" />
+            <On Platform="Android" Value="Fonts/Roboto-Medium.ttf#Roboto-Medium" />
+        </OnPlatform>
 
         <mtrltypo:MaterialFontConfiguration x:Key="Material.Font"
                                             Body1="{StaticResource FontFamily.RobotoRegular}"

@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using MaterialMvvmSample.ViewModels;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-using XF.Material.Forms.UI.Dialogs;
+using XF.Material.Maui.UI.Dialogs;
 
 namespace MaterialMvvmSample.Views
 {

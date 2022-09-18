@@ -1,8 +1,7 @@
 ﻿using System;
 using MaterialMvvmSample.ViewModels;
-using Xamarin.Forms;
-using XF.Material.Forms.UI;
-using XF.Material.Forms.UI.Dialogs;
+using XF.Material.Maui.UI;
+using XF.Material.Maui.UI.Dialogs;
 
 namespace MaterialMvvmSample.Views
 {

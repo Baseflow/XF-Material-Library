@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using XF.Material.Forms.UI.Dialogs;
+using XF.Material.Maui.UI.Dialogs;
 
 namespace MaterialMvvmSample.Utilities.Dialogs
 {

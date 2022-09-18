@@ -2,14 +2,10 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using MaterialMvvmSample.Utilities.Dialogs;
 using MaterialMvvmSample.Views;
-using Xamarin.Forms;
-using Xamarin.Forms.Internals;
-using XF.Material.Forms.Models;
+using XF.Material.Maui.Models;
 
 namespace MaterialMvvmSample.ViewModels
 {
@@ -42,7 +38,7 @@ namespace MaterialMvvmSample.ViewModels
             SelectedFilters = new List<int>();
         }
 
-        public Color PrimaryColor => Color.Red;
+        public Color PrimaryColor => Colors.Red;
 
         private string _selectedChoice;
         public string SelectedChoice
@@ -142,7 +138,10 @@ namespace MaterialMvvmSample.ViewModels
                         }
                         else if (!string.IsNullOrEmpty(result))
                         {
-                            Models.Where(m => m.IsNew).ForEach(m => m.IsNew = false);
+                            foreach (var m in Models.Where(m => m.IsNew))
+                            {
+                                m.IsNew = false;
+                            };
 
                             var model = new TestModel
                             {

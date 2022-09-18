@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Input;
-using Xamarin.Forms;
-using XF.Material.Forms.UI.Dialogs;
+using XF.Material.Maui.UI.Dialogs;
 
 namespace MaterialMvvmSample.ViewModels
 {

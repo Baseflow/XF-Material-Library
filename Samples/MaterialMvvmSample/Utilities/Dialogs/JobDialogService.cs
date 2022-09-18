@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Xamarin.Forms;
-using XF.Material.Forms.UI.Dialogs;
+using XF.Material.Maui.UI.Dialogs;
 
 namespace MaterialMvvmSample.Utilities.Dialogs
 {
@@ -12,14 +11,14 @@ namespace MaterialMvvmSample.Utilities.Dialogs
                    .InputAsync(title: "Add a new job",
                     message: "Enter the job title:",
                     inputPlaceholder: "Job Title",
-                    confirmingText: "Add", configuration: new XF.Material.Forms.UI.Dialogs.Configurations.MaterialInputDialogConfiguration
+                    confirmingText: "Add", configuration: new XF.Material.Maui.UI.Dialogs.Configurations.MaterialInputDialogConfiguration
                     {
-                        BackgroundColor = Color.FromHex("#2c3e50"),
-                        InputTextColor = Color.White,
-                        TintColor = Color.White,
-                        TitleTextColor = Color.White,
-                        MessageTextColor = Color.White,
-                        InputPlaceholderColor = Color.White.MultiplyAlpha(0.6)
+                        BackgroundColor = Color.FromArgb("#2c3e50"),
+                        InputTextColor = Colors.White,
+                        TintColor = Colors.White,
+                        TitleTextColor = Colors.White,
+                        MessageTextColor = Colors.White,
+                        InputPlaceholderColor = Colors.White.MultiplyAlpha((float)0.6)
                     });
         }
 

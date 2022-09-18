@@ -1,4 +1,4 @@
-﻿using XF.Material.Forms.Models;
+﻿using XF.Material.Maui.Models;
 
 namespace MaterialMvvmSample.ViewModels
 {

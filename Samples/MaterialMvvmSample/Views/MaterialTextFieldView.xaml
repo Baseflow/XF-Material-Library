@@ -1,10 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage
-    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+    xmlns:material="clr-namespace:XF.Material.Maui.UI;assembly=XF.Material"
     xmlns:viewModels="clr-namespace:MaterialMvvmSample.ViewModels;assembly=MaterialMvvmSample"
-    xmlns:xamForms="clr-namespace:XamSvg.XamForms;assembly=XamSvg.XamForms"
     x:Class="MaterialMvvmSample.Views.MaterialTextFieldView"
     x:DataType="viewModels:MaterialTextFieldViewModel">
     
@@ -44,12 +43,15 @@
                                         HelperText="Your birthday"
                                         Date="2020/08/28"
                                         Format="yyyy/MM/dd">
+                <!--
+                TODO: MaterialDateField.LeadingIcon
                 <material:MaterialDateField.LeadingIcon>
                     <xamForms:SvgImageSource Svg="res:images.slideshow-black-18dp" Height="200" />
                 </material:MaterialDateField.LeadingIcon>
                 <material:MaterialDateField.DropDrownArrowIcon>
                     <xamForms:SvgImageSource Svg="res:images.slideshow-black-18dp" Height="200" />
                 </material:MaterialDateField.DropDrownArrowIcon>
+                -->
             </material:MaterialDateField>
             <material:MaterialDateField Placeholder="Error"
                                         ErrorText="some error"

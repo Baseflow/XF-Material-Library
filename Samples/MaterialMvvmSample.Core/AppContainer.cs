@@ -1,11 +1,10 @@
-using Autofac;
+﻿using Autofac;
 using Autofac.Extras.CommonServiceLocator;
 using CommonServiceLocator;
 using MaterialMvvmSample.Utilities;
 using MaterialMvvmSample.Utilities.Dialogs;
 using MaterialMvvmSample.ViewModels;
 using MaterialMvvmSample.Views;
-using Xamarin.Forms;
 
 namespace MaterialMvvmSample.Core
 {
@@ -56,7 +55,7 @@ namespace MaterialMvvmSample.Core
             containerBuilder.RegisterType<MaterialCardViewModel>().InstancePerDependency();
             containerBuilder.RegisterType<MaterialButtonViewModel>().InstancePerDependency();
             containerBuilder.RegisterType<MaterialPickerViewModel>().InstancePerDependency();
-
+       
         }
     }
 }

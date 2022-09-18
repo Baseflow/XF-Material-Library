@@ -1,6 +1,5 @@
 ﻿using System.Windows.Input;
 using MaterialMvvmSample.Views;
-using Xamarin.Forms;
 
 namespace MaterialMvvmSample.ViewModels
 {

@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using MaterialMvvmSample.Controls;
-using Xamarin.Forms;
 
 namespace MaterialMvvmSample.Utilities
 {

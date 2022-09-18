@@ -1,5 +1,4 @@
 ﻿using CommonServiceLocator;
-using Xamarin.Forms;
 
 namespace MaterialMvvmSample.Utilities
 {

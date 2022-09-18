@@ -1,10 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage
-    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="MaterialMvvmSample.Views.MaterialButtonView"
-    xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
-    xmlns:xamForms="clr-namespace:XamSvg.XamForms;assembly=XamSvg.XamForms">
+    xmlns:material="clr-namespace:XF.Material.Maui.UI;assembly=XF.Material">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style TargetType="material:MaterialButton" x:Key="TestStyle" CanCascade="True">
@@ -49,9 +48,12 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Button Text="Left" BackgroundColor="Yellow" ContentLayout="Left,30" HorizontalOptions="Start">
+                <!--
+                TODO: Button.ImageSource
                 <Button.ImageSource>
                     <xamForms:SvgImageSource Svg="images.slideshow-black-18dp.svg" Height="45" ColorMapping="000000=0000FF" />
                 </Button.ImageSource>
+                -->
             </Button>
             <Button Text="Mid" Grid.Column="1" BackgroundColor="Yellow" />
             <Button Text="Right" Grid.Column="2"  BackgroundColor="Yellow" HorizontalOptions="End" />
@@ -59,16 +61,22 @@
 
         <Label Text="With icons:"/>
         <material:MaterialButton Text="Left svg icon" ContentLayout="Left,10" HorizontalOptions="Start">
+            <!--
+            TODO: Button.ImageSource
             <Button.ImageSource>
                 <xamForms:SvgImageSource Svg="images.slideshow-black-18dp.svg" Height="45" ColorMapping="000000=FFFFFF" />
             </Button.ImageSource>
+            -->
         </material:MaterialButton>
         <material:MaterialButton Text="Left normal icon" ImageSource="ic_overflow" HorizontalOptions="Start" />
 
         <material:MaterialButton Text="Right SVG icon" ContentLayout="Right,40" HorizontalOptions="Start">
+            <!--
+            TODO: Button.ImageSource
             <Button.ImageSource>
                 <xamForms:SvgImageSource Svg="images.slideshow-black-18dp" Height="45" ColorMapping="000000=FFFFFF" />
             </Button.ImageSource>
+            -->
         </material:MaterialButton>
         <material:MaterialButton Text="Right normal icon" ImageSource="ic_overflow" ContentLayout="Right" HorizontalOptions="Start" />
     </StackLayout>
