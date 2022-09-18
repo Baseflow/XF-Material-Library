@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage
-    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:MaterialMvvmSample.Views"
-    xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+    xmlns:material="clr-namespace:XF.Material.Maui.UI;assembly=XF.Material"
     x:Class="MaterialMvvmSample.Views.MaterialTextFieldView">
     <ContentPage.Content>
         <StackLayout Orientation="Vertical">
@@ -17,9 +17,10 @@
                                         IsTextAllCaps="True"
                                         IsAutoCapitalizationEnabled="true" />
 
-                <material:MaterialTextField Placeholder="With Icon"
-                                            LeadingIcon="Icon"
-                                            LeadingIconTintColor="HotPink"/>
+            <material:MaterialTextField Placeholder="With Icon"
+                                        LeadingIcon="Icon"
+                                        LeadingIconTintColor="HotPink"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
+    

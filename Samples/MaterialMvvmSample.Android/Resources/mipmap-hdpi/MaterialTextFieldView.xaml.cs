@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using MaterialMvvmSample.ViewModels;
-using Xamarin.Forms;
 
 namespace MaterialMvvmSample.Views
 {
@@ -11,7 +10,6 @@ namespace MaterialMvvmSample.Views
         {
             InitializeComponent();
             BindingContext = new MaterialDialogsViewModel();
-
         }
     }
 }
