@@ -251,7 +251,7 @@ namespace XF.Material.Droid.Renderers
         {
             _normalColor = _button.BackgroundColor.ToAndroid();
 
-            UpdateDisabledColor(_button.DisabledBackgroundColor.ToAndroid());
+            UpdateDisabledColor(_button.DisabledBackgroundColor);
             UpdatePressedColor(_button.PressedBackgroundColor);
             UpdateBorderColor();
 
