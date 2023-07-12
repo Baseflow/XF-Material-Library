@@ -214,7 +214,6 @@ namespace XF.Material.Forms.UI
 
         private void AnimateDragger()
         {
-            var percentage = Value / (MaxValue - MinValue);
             Dragger.TranslationX = percentage * Placeholder.Width;
             Indicator.WidthRequest = Dragger.TranslationX;
         }
